@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); 
+    you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at 
+   
+       http://www.apache.org/licenses/LICENSE-2.0
+       
+ -->
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="repositorysystem" name="Repository System" schema="schema/repositorysystem.exsd"/>
+
+ <extension
+       point="org.eclipse.ui.preferencePages">
+    <page
+          class="org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.ui.PreferencePage"
+          id="org.ebayopensource.turmeric.eclipse.ui.preferences"
+          name="%PrefPage.SOAPlugin.Name"/>
+ </extension>
+ <extension
+       point="org.eclipse.core.runtime.preferences">
+    <initializer class="org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceInitializer"/>
+ </extension>
+ 
+</plugin>

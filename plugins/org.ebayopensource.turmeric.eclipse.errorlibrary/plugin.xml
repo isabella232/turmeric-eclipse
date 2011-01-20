@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); 
+    you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at 
+   
+       http://www.apache.org/licenses/LICENSE-2.0
+       
+ -->
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="soaErrorLibProvider" name="Turmeric Error Library Provider" schema="schema/soaErrorLibProvider.exsd"/>
+    <extension-point id="soaErrorLibModelProvider" name="Turmeric Error Library Model  Provider" schema="schema/soaErrorLibViewModelProvider.exsd"/>
+   <extension
+         point="org.eclipse.ui.newWizards">
+         <wizard
+                  category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
+                  class="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorLibraryWizard"
+                  icon="icons/script_obj.gif"
+                  id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorLibrary"
+                  name="%Wizard.ErrorLibrary.Shortcut.Name"
+                  preferredPerspectives="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
+                  project="true">
+               <description>
+                  %Wizard.ErrorLibrary.Shortcut.Description
+               </description>
+      </wizard>
+      <wizard
+                  category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
+                  class="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorDomainWizard"
+                  icon="icons/script_obj.gif"
+                  id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorDomainWizard"
+                  name="%Wizard.ErrorDomain.Shortcut.Name"
+                  preferredPerspectives="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
+                  >
+               <description>
+                  %Wizard.ErrorDomain.Shortcut.Description
+               </description>
+      </wizard>
+		<wizard
+                  category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
+                  class="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorWizard"
+                  icon="icons/script_obj.gif"
+                  id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorWizard"
+                  name="%Wizard.Error.Shortcut.Name"
+                  preferredPerspectives="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
+                  >
+               <description>
+                  %Wizard.Error.Shortcut.Description
+               </description>
+      </wizard>
+   </extension>
+   
+   
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="org.ebayopensource.turmeric.eclipse.ui.soaPerspective">    
+        <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorLibrary"/>
+        <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorDomainWizard"/>
+        <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorWizard"/>
+      </perspectiveExtension>
+   </extension>
+ <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.ebayopensource.turmeric.eclipse.ui.category"
+            class="org.ebayopensource.turmeric.eclipse.errorlibrary.views.ErrorRegistryView"
+            icon="icons/script_obj.gif"
+            id="org.ebayopensource.turmeric.eclipse.errorlibrary.errorRegistryView"
+            name="%View.ErrorRegistry.Name">
+      </view>
+   </extension>  
+   <extension
+         point="org.eclipse.ui.popupMenus">       
+      <viewerContribution
+            targetID="#CompilationUnitEditorContext"
+            id="org.ebayopensource.turmeric.eclipse.errorlibrary.actions">
+          <menu
+               id="soaMenu"
+               label="%Menu.Group.SOA.Label">
+          	  <separator name="error"/>
+         </menu>
+         <action
+               label="%Menu.ImportError.Label"
+               class="org.ebayopensource.turmeric.eclipse.errorlibrary.actions.ImportErrorAction"
+               menubarPath="soaMenu/error"
+               id="org.ebayopensource.turmeric.eclipse.errorlibrary.actions.ImportErrorActionId">
+         </action>
+       </viewerContribution>
+   </extension>
+   <extension
+         point="org.ebayopensource.turmeric.eclipse.resources.soaProjectResolver">
+      <soaProjectResolver
+            projectNature="org.ebayopensource.turmeric.eclipse.errorlibrary.ErrorLibraryProjectNature"
+            projectResolverClass="org.ebayopensource.turmeric.eclipse.errorlibrary.resources.model.SOAErrorLibraryProjectResolver">
+      </soaProjectResolver>
+   </extension>
+   <extension
+          point="org.eclipse.search.searchPages">
+       <page
+             canSearchEnclosingProjects="false"
+             class="org.ebayopensource.turmeric.eclipse.errorlibrary.search.SOAErrorLibrarySearchPage"
+             enabled="true"
+             icon="icons/soa_search.gif"
+             id="org.ebayopensource.turmeric.eclipse.errorlibrary.search_page"
+             label="%Dialog.SOAErrorLibSearch.Title"
+             showScopeSection="false"
+             sizeHint="500,200">
+       </page>
+    </extension>
+  </plugin>

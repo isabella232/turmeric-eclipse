@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Codegen Tools
+Bundle-SymbolicName: org.ebayopensource.turmeric.codegen
+Bundle-Version: 1.0.1.qualifier
+Bundle-Vendor: eBay Inc.
+Export-Package: com.sun.java.xml.ns.jaxb,
+ org.ebayopensource.turmeric.common.config,
+ org.ebayopensource.turmeric.runtime.codegen.common,
+ org.ebayopensource.turmeric.tools.codegen,
+ org.ebayopensource.turmeric.tools.codegen.builders,
+ org.ebayopensource.turmeric.tools.codegen.exception,
+ org.ebayopensource.turmeric.tools.codegen.external,
+ org.ebayopensource.turmeric.tools.codegen.external.wsdl.parser,
+ org.ebayopensource.turmeric.tools.codegen.external.wsdl.parser.schema,
+ org.ebayopensource.turmeric.tools.codegen.external.wsdl.parser.util,
+ org.ebayopensource.turmeric.tools.codegen.handler,
+ org.ebayopensource.turmeric.tools.codegen.schema,
+ org.ebayopensource.turmeric.tools.codegen.util,
+ org.ebayopensource.turmeric.tools.codegen.validator,
+ org.ebayopensource.turmeric.tools.errorlibrary,
+ org.ebayopensource.turmeric.tools.errorlibrary.builders,
+ org.ebayopensource.turmeric.tools.errorlibrary.codegen,
+ org.ebayopensource.turmeric.tools.errorlibrary.exception,
+ org.ebayopensource.turmeric.tools.errorlibrary.util,
+ org.ebayopensource.turmeric.tools.library,
+ org.ebayopensource.turmeric.tools.library.builders,
+ org.ebayopensource.turmeric.tools.library.codegen,
+ org.ebayopensource.turmeric.tools.library.exception,
+ org.ebayopensource.turmeric.tools.library.utils,
+ org.ebayopensource.turmeric.tools.monitoring.report
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Eclipse-BuddyPolicy: registered, global
+

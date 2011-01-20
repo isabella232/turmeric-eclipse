@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test for Turmeric Config Plugin
+Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.config.imp.test;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Turmeric Tools
+Fragment-Host: org.ebayopensource.turmeric.eclipse.config;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.junit;bundle-version="4.4.0"

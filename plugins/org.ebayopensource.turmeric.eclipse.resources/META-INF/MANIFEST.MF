@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %pluginProvider
+Bundle-Name: %pluginName
+Bundle-ActivationPolicy: lazy
+Bundle-Localization: plugin
+Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.resources;singleton:=true
+Require-Bundle: org.eclipse.core.runtime,
+ org.ebayopensource.turmeric.eclipse.soatools;bundle-version="1.0.0";visibility:=reexport,
+ org.ebayopensource.turmeric.eclipse.logging,
+ org.ebayopensource.turmeric.eclipse.utils,
+ org.eclipse.core.resources,
+ org.eclipse.jdt,
+ org.eclipse.jdt.core,
+ org.ebayopensource.turmeric.eclipse.exception,
+ org.jdom;bundle-version="1.0.0"
+Bundle-Activator: org.ebayopensource.turmeric.eclipse.resources.Activator
+Export-Package: org.ebayopensource.turmeric.eclipse.resources,
+ org.ebayopensource.turmeric.eclipse.resources.config.model,
+ org.ebayopensource.turmeric.eclipse.resources.constants,
+ org.ebayopensource.turmeric.eclipse.resources.model,
+ org.ebayopensource.turmeric.eclipse.resources.ui.model,
+ org.ebayopensource.turmeric.eclipse.resources.util
+Bundle-Version: 1.0.0.qualifier
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.apache.xerces.parsers;version="2.8.0"
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OrganizationErrorBlocks xmlns="http://www.ebayopensource.org/turmeric/common/config" defaultBlockSize="1000" organization="Turmeric">
+    <ReservedErrorBlockList>
+        <ReservedErrorBlock end="100000" start="70001"/>
+    </ReservedErrorBlockList>
+    <UsedErrorBlockList>
+        <UsedErrorBlock last="13002" end="20000" start="1" domain="TurmericRuntime"/>
+        <UsedErrorBlock last="20001" end="30000" start="20001" domain="TurmericPolicy"/>
+        <UsedErrorBlock last="30001" end="40000" start="30001" domain="TurmericSecurity"/>
+        <UsedErrorBlock last="40001" end="50000" start="40001" domain="TurmericRateLimiter"/>
+        <UsedErrorBlock last="50001" end="60000" start="50001" domain="TurmericMonitoring"/>
+        <UsedErrorBlock last="60001" end="70000" start="60001" domain="TurmericRepository"/>
+    </UsedErrorBlockList>
+</OrganizationErrorBlocks>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<service enable-namespace-folding="false" name="BlogsCSAPIInterfaceServiceV1" xmlns="http://www.ebayopensource.org/turmeric/common/config">
+    <package-map>
+        <package xml-namespace="urn:ebayopensource:apis:eBLBaseComponents" name="ebayopensource.apis.eblbasecomponents.csapiinterfaceservice"/>
+        <package xml-namespace="urn:ebayopensource:apis:eBLBaseComponents" name="ebayopensource.apis.eblbasecomponents"/>
+        <package xml-namespace="http://www.ebayopensource.org/turmeric/common/v1/types" name="org.ebayopensource.turmeric.common.v1.types"/>
+    </package-map>
+    <operation-list>
+        <operation name="CSUpdateMACActivityAddAttachments">
+            <request-message>
+                <java-type-name>ebayopensource.apis.eblbasecomponents.CSUpdateMACActivityAddAttachmentsRequestType</java-type-name>
+                <xml-type-name>CSUpdateMACActivityAddAttachmentsRequestType</xml-type-name>
+                <xml-element-name>{urn:ebayopensource:apis:eBLBaseComponents}CSUpdateMACActivityAddAttachmentsRequest</xml-element-name>
+                <has-attachment>true</has-attachment>
+            </request-message>
+            <response-message>
+                <java-type-name>ebayopensource.apis.eblbasecomponents.CSUpdateMACActivityAddAttachmentsResponseType</java-type-name>
+                <xml-type-name>CSUpdateMACActivityAddAttachmentsResponseType</xml-type-name>
+                <xml-element-name>{urn:ebayopensource:apis:eBLBaseComponents}CSUpdateMACActivityAddAttachmentsResponse</xml-element-name>
+                <has-attachment>false</has-attachment>
+            </response-message>
+            <error-message>
+                <java-type-name>org.ebayopensource.turmeric.common.v1.types.ErrorMessage</java-type-name>
+                <xml-type-name>ErrorMessage</xml-type-name>
+                <xml-element-name>{http://www.ebayopensource.org/turmeric/common/v1/types}errorMessage</xml-element-name>
+            </error-message>
+            <request-header>
+                <java-type-name>ebayopensource.apis.eblbasecomponents.CustomSecurityHeaderType</java-type-name>
+                <xml-type-name>CustomSecurityHeaderType</xml-type-name>
+                <xml-element-name>{urn:ebayopensource:apis:eBLBaseComponents}RequesterCredentials</xml-element-name>
+            </request-header>
+            <response-header>
+                <java-type-name>ebayopensource.apis.eblbasecomponents.CustomSecurityHeaderType</java-type-name>
+                <xml-type-name>CustomSecurityHeaderType</xml-type-name>
+                <xml-element-name>{urn:ebayopensource:apis:eBLBaseComponents}RequesterCredentials</xml-element-name>
+            </response-header>
+        </operation>
+    </operation-list>
+    <java-type-list>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.AbstractRequestType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.AbstractResponseType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.AckCodeType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.ActionPriorityCodeType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.BotBlockRequestType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.BotBlockResponseType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.CSUpdateMACActivityAddAttachmentsRequestType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.CSUpdateMACActivityAddAttachmentsResponseType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.CSUserIdType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.CustomSecurityHeaderType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.DetailLevelCodeType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.DuplicateInvocationDetailsType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.ErrorClassificationCodeType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.ErrorHandlingCodeType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.ErrorParameterType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.ErrorType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.InvocationStatusType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.MACAttachementFileType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.MachineTagTypeArrayType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.MachineTagTypeCodeType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.SeverityCodeType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.UserIdPasswordType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.WarningLevelCodeType</java-type-name>
+        <java-type-name>ebayopensource.apis.eblbasecomponents.XMLRequesterCredentialsType</java-type-name>
+    </java-type-list>
+</service>

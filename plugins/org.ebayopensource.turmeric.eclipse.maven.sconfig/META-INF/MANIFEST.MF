@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Turmeric Standard Maven Configuration
+Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.maven.sconfig;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.ebayopensource.turmeric.eclipse.maven.sconfig.Activator
+Bundle-Vendor: eBay Inc.
+Require-Bundle: org.eclipse.core.runtime,
+ org.maven.ide.eclipse;bundle-version="0.10.0",
+ org.ebayopensource.turmeric.eclipse.resources;bundle-version="1.0.0",
+ org.ebayopensource.turmeric.eclipse.repositorysystem;bundle-version="1.0.0",
+ org.eclipse.core.resources;bundle-version="3.5.0",
+ org.ebayopensource.turmeric.eclipse.mavenapi;bundle-version="1.0.0",
+ org.maven.ide.eclipse.maven_embedder;bundle-version="0.10.2",
+ org.ebayopensource.turmeric.eclipse.utils;bundle-version="1.0.0",
+ org.eclipse.jdt.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

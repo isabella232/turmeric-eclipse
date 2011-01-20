@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.ebayopensource.org/turmeric/blogs/v1/services" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Calculator" targetNamespace="http://www.ebayopensource.org/turmeric/blogs/v1/services">
+  <types>
+    <xsd:schema xmlns="http://www.ebayopensource.org/turmeric/blogs/v1/services" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.ebayopensource.org/turmeric/blogs/v1/services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:element name="Inparams">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="value1" type="xsd:int"/>
+						<xsd:element name="value2" type="xsd:int"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Response">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="return" type="xsd:int"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+  </types>
+  <message name="Inparams">
+    <part element="tns:Inparams" name="Inparams">
+    </part>
+  </message>
+  <message name="Response">
+    <part element="tns:Response" name="Response">
+    </part>
+  </message>
+  <portType name="Calc">
+    <operation name="add">
+      <input message="tns:Inparams" name="inparams">
+    </input>
+      <output message="tns:Response" name="Response">
+    </output>
+    </operation>
+  </portType>
+  <binding name="CalculatorSoapBinding" type="tns:Calc">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="add">
+      <soap:operation soapAction="add" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="CalcService">
+    <port binding="tns:CalculatorSoapBinding" name="NewCalc">
+      <soap:address location="http://localhost:8085/CalcService"/>
+    </port>
+  </service>
+</definitions>

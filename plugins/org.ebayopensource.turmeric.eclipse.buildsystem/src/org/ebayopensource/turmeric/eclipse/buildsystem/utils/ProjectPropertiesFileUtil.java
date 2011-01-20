@@ -1,0 +1,317 @@
+/*******************************************************************************
+ * Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *******************************************************************************/
+package org.ebayopensource.turmeric.eclipse.buildsystem.utils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Properties;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAConfigurationRegistry;
+import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.osgi.framework.Version;
+
+
+/**
+ * The SOA plugin specific project properties files are created here. Includes
+ * interface project properties file, consumer properties file and
+ * implementation properties file. Some of these files might be empty for now,
+ * But we still maintain this for future purposes. These properties file has
+ * information that plugin needs to call codegen or identify the project
+ * details. Most of the information here are not used by codegen directly.
+ * 
+ * @author smathew
+ * 
+ * 
+ */
+public class ProjectPropertiesFileUtil {
+
+	/**
+	 * Creates the interface project properties file. The name of the file is
+	 * "service_intf_project.properties". This file has information like source
+	 * type of the project, package to name space mapping etc.
+	 * 
+	 * @param soaIntfProject
+	 * @return
+	 * @throws IOException
+	 * @throws CoreException
+	 */
+	public static IFile createPropsFile(SOAIntfProject soaIntfProject, 
+			IProgressMonitor monitor)
+			throws IOException, CoreException {
+		IFile file = soaIntfProject.getEclipseMetadata().getProject().getFile(
+				SOAProjectConstants.PROPS_FILE_SERVICE_INTERFACE);
+		OutputStream output = null;
+
+		try {
+			output = new ByteArrayOutputStream();
+			final Properties properties = new Properties();
+			final SOAIntfMetadata metadata = soaIntfProject.getMetadata();
+			addServiceMetadataProperties(properties, metadata);
+			if (SOAProjectConstants.InterfaceSourceType.WSDL.equals(metadata
+					.getSourceType())
+					|| SOAProjectConstants.InterfaceWsdlSourceType.EXISTIING
+							.equals(metadata.getWsdlSourceType())) {
+				properties.setProperty(
+						SOAProjectConstants.PROPS_INTF_SOURCE_TYPE,
+						SOAProjectConstants.PROPS_INTF_SOURCE_TYPE_WSDL);
+				if (metadata.getNamespaceToPackageMappings().isEmpty() == false) {
+					final Collection<String> data = new ArrayList<String>();
+					for (final String namespace : metadata
+							.getNamespaceToPackageMappings().keySet()) {
+						final String pakcage = metadata
+								.getNamespaceToPackageMappings().get(namespace);
+						data.add(namespace + SOAProjectConstants.DELIMITER_PIPE
+								+ pakcage);
+					}
+					final String ns2pkg = StringUtils.join(data,
+							SOAProjectConstants.DELIMITER_COMMA);
+					properties.setProperty(
+							SOAProjectConstants.PROPS_KEY_NAMESPACE_TO_PACKAGE,
+							ns2pkg);
+				}
+			} else {
+				properties.setProperty(
+						SOAProjectConstants.PROPS_INTF_SOURCE_TYPE,
+						SOAProjectConstants.PROPS_INTF_SOURCE_TYPE_JAVA);
+			}
+			if (!metadata.getTypeFolding()
+					&& StringUtils.isNotBlank(metadata.getTypeNamespace())) {
+				properties.setProperty(
+						SOAProjectConstants.PROPS_KEY_TYPE_NAMESPACE, metadata
+								.getTypeNamespace());
+			}
+			if (StringUtils.isNotBlank(metadata.getServiceDomainName())) {
+				properties.setProperty(SOAProjectConstants.PROPS_SERVICE_DOMAIN_NAME, 
+						metadata.getServiceDomainName());
+			}
+			
+			if (StringUtils.isNotBlank(metadata.getServiceNamespacePart())) {
+				properties.setProperty(SOAProjectConstants.PROPS_SERVICE_NAMESPACE_PART, 
+						metadata.getServiceNamespacePart());
+			}
+			
+			properties.setProperty(SOAProjectConstants.PROPS_KEY_TYPE_FOLDING,
+					Boolean.toString(metadata.getTypeFolding()));
+			
+			ISOAConfigurationRegistry configReg = 
+				GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+				.getConfigurationRegistry();
+			if (configReg != null && StringUtils.isNotBlank(configReg.getEnvironmentMapperImpl())) {
+				properties.setProperty(SOAProjectConstants.PROPS_ENV_MAPPER, 
+						configReg.getEnvironmentMapperImpl());
+			}
+			
+			properties.setProperty(SOAProjectConstants.PROPS_KEY_SIPP_VERSION, 
+					SOAProjectConstants.PROPS_DEFAULT_SIPP_VERSION);
+			
+			//short package name for shared consumer
+			final String intfPkgName = StringUtils.substringBeforeLast(
+					metadata.getServiceInterface(), SOAProjectConstants.DELIMITER_DOT);
+			properties.setProperty(SOAProjectConstants.PROPS_KEY_SHORT_PATH_FOR_SHARED_CONSUMER, 
+					intfPkgName + SOAProjectConstants.DELIMITER_DOT + SOAProjectConstants.GEN);
+			
+			properties.store(output, SOAProjectConstants.PROPS_COMMENTS);
+			
+			WorkspaceUtil.writeToFile(output.toString(), file, monitor);
+		} finally {
+			IOUtils.closeQuietly(output);
+		}
+		return file;
+	}
+	
+	/**
+	 * 
+	 * adding service metadata properties
+	 * @param props
+	 * @param intfProject
+	 */
+	private static void addServiceMetadataProperties(final Properties props, 
+			final SOAIntfMetadata metadata) {
+		props.setProperty(SOAProjectConstants.PROP_KEY_SERVICE_INTERFACE_CLASS_NAME, 
+				metadata.getServiceInterface());
+		props.setProperty(SOAProjectConstants.PROP_KEY_SERVICE_LAYER, 
+				metadata.getServiceLayer());
+		if (metadata.getOriginalWSDLUrl() != null) {
+			props.setProperty(SOAProjectConstants.PROP_KEY_ORIGINAL_WSDL_URI, 
+					metadata.getOriginalWSDLUrl().toString());
+		}
+		props.setProperty(SOAProjectConstants.PROP_KEY_SERVICE_VERSION, 
+				metadata.getServiceVersion());
+		props.setProperty(SOAProjectConstants.PROP_KEY_ADMIN_NAME, 
+				metadata.getServiceName());
+	}
+
+	/**
+	 * Creates the implementation project properties file. The name of the file
+	 * is "service_impl_project.properties". This file has information about the
+	 * base consumer source directory if there is one.
+	 * 
+	 * @param soaImplProject
+	 * @return
+	 * @throws IOException
+	 * @throws CoreException
+	 */
+	public static IFile createPropsFile(SOAImplProject soaImplProject)
+			throws IOException, CoreException {
+		IFile file = soaImplProject.getEclipseMetadata().getProject().getFile(
+				SOAProjectConstants.PROPS_FILE_SERVICE_IMPL);
+		OutputStream output = null;
+
+		try {
+			output = new ByteArrayOutputStream();
+			Properties properties = new Properties();
+			final String baseConsumerSrcDir = soaImplProject.getMetadata()
+					.getBaseConsumerSrcDir() != null ? soaImplProject
+					.getMetadata().getBaseConsumerSrcDir()
+					: SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR_DEFAULT;
+			properties.setProperty(
+					SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR,
+					baseConsumerSrcDir);
+			properties.setProperty(SOAProjectConstants.PROPS_KEY_SIMP_VERSION, 
+					SOAProjectConstants.PROPS_DEFAULT_SIMP_VERSION);
+			properties.store(output, SOAProjectConstants.PROPS_COMMENTS);
+			WorkspaceUtil.writeToFile(output.toString(), file, null);
+		} finally {
+			IOUtils.closeQuietly(output);
+		}
+		return file;
+	}
+
+	/**
+	 * Creates the consumer project properties file. The name of the file is
+	 * "service_consumer_project.properties". This file has information about
+	 * the base consumer source directory if there is one.
+	 * 
+	 * @param soaConsumerProject
+	 * @return
+	 * @throws IOException
+	 * @throws CoreException
+	 */
+	public static IFile createPropsFile(SOAConsumerProject soaConsumerProject, 
+			IProgressMonitor monitor)
+			throws Exception {
+		IFile file = soaConsumerProject.getEclipseMetadata().getProject()
+				.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_CONSUMER);
+		OutputStream output = null;
+		try {
+			final SOAConsumerMetadata metadata = soaConsumerProject.getMetadata();
+			output = new ByteArrayOutputStream();
+			Properties properties = new Properties();
+			properties.setProperty(SOAProjectConstants.PROPS_KEY_CLIENT_NAME, metadata.getClientName());
+			String consumerID = metadata.getConsumerId() != null ? metadata.getConsumerId() : "";
+			properties.setProperty(SOAProjectConstants.PROPS_KEY_CONSUMER_ID, consumerID);
+			properties.setProperty(
+					SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR,
+					metadata.getBaseConsumerSrcDir());
+			ISOAConfigurationRegistry configReg = 
+				GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+				.getConfigurationRegistry();
+			if (configReg != null && StringUtils.isNotBlank(configReg.getEnvironmentMapperImpl())) {
+				properties.setProperty(SOAProjectConstants.PROPS_ENV_MAPPER, 
+						configReg.getEnvironmentMapperImpl());
+			}
+			properties.setProperty(SOAProjectConstants.PROPS_KEY_SCPP_VERSION, 
+					SOAProjectConstants.PROPS_DEFAULT_SCPP_VERSION);
+			
+			final Collection<String> services = new ArrayList<String>();
+			final ISOAAssetRegistry assetRegistry = GlobalRepositorySystem.instanceOf()
+			.getActiveRepositorySystem().getAssetRegistry();
+			
+			for (String serviceName : metadata.getServiceNames()) {
+				final String assetLocation = assetRegistry.getAssetLocation(serviceName);
+				if (StringUtils.isNotBlank(assetLocation)) {
+					final Version version = SOAIntfUtil.getServiceMetadataVersion(serviceName, assetLocation);
+					if (version.compareTo(SOAProjectConstants.DEFAULT_PROPERTY_VERSION) >= 0) {
+						//the project is post 2.4
+						services.add(serviceName);
+					}
+				} else {
+					SOALogger.getLogger().warning(
+							"Could not find the service in the underlying system, so generate the base cosumer:", 
+							serviceName);
+					//services.add(serviceName);
+				}
+			}
+			properties.setProperty(SOAProjectConstants.PROPS_NOT_GENERATE_BASE_CONSUMER, 
+					StringUtils.join(services, SOAProjectConstants.DELIMITER_COMMA));
+			
+			properties.store(output, SOAProjectConstants.PROPS_COMMENTS);
+			WorkspaceUtil.writeToFile(output.toString(), file, monitor);
+		} finally {
+			IOUtils.closeQuietly(output);
+		}
+		return file;
+	}
+	
+	public static IFile createPropsFileForImplProjects(IProject implProject, 
+			String clientName, String consumerId, IProgressMonitor monitor)
+			throws IOException, CoreException {
+		return createPropsFileForImplProjects(implProject, clientName, consumerId, null, 
+				 monitor);
+	}
+	
+	public static IFile createPropsFileForImplProjects(IProject implProject, 
+			String clientName, String consumerId, String baseconsumerDir, 
+			IProgressMonitor monitor)
+	throws IOException, CoreException {
+		IFile file = SOAConsumerUtil.getConsumerPropertiesFile(implProject);
+
+		Properties properties = new Properties();
+		if (file.isAccessible() == true) {
+			properties = SOAConsumerUtil.loadConsumerProperties(implProject);
+		}
+		properties.setProperty(SOAProjectConstants.PROPS_KEY_CLIENT_NAME, clientName);
+		String consumerID = consumerId != null ? consumerId : "";
+		properties.setProperty(SOAProjectConstants.PROPS_KEY_CONSUMER_ID, consumerID);
+		if (baseconsumerDir != null) {
+			properties.setProperty(
+					SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR,
+					baseconsumerDir);
+		}
+
+		properties.setProperty(SOAProjectConstants.PROPS_KEY_SCPP_VERSION, 
+				SOAProjectConstants.PROPS_DEFAULT_SCPP_VERSION);
+		if (properties.containsKey(SOAProjectConstants.PROPS_ENV_MAPPER) == false) {
+			ISOAConfigurationRegistry configReg = 
+				GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+				.getConfigurationRegistry();
+			if (configReg != null && StringUtils.isNotBlank(configReg.getEnvironmentMapperImpl())) {
+				properties.setProperty(SOAProjectConstants.PROPS_ENV_MAPPER, 
+						configReg.getEnvironmentMapperImpl());
+			}
+		}
+
+		SOAConsumerUtil.savePropsFileForConsumer(implProject, properties, monitor);
+
+		return file;
+	}
+	
+	
+
+}

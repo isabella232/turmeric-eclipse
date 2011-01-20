@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); 
+    you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at 
+   
+       http://www.apache.org/licenses/LICENSE-2.0
+       
+ -->
+<wsdl:definitions name="${serviceName}"
+	targetNamespace="${targetNamespace}"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:tns="${targetNamespace}"
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			attributeFormDefault="unqualified" elementFormDefault="qualified"
+			targetNamespace="${targetNamespace}"
+			xmlns:tns="${targetNamespace}">
+			
+		</xs:schema>
+	</wsdl:types>
+	
+
+	<wsdl:portType name="${serviceName}Port">	
+	</wsdl:portType>
+	
+	<wsdl:binding name="${serviceName}HttpBinding"
+		type="tns:${serviceName}Port">
+		<http:binding verb="POST" />
+	</wsdl:binding>
+	<wsdl:binding name="${serviceName}SOAPBinding"
+		type="tns:${serviceName}Port">
+		<soap:binding
+			style="document" transport="http://schemas.xmlsoap.org/soap/http" />	
+	</wsdl:binding>
+	<wsdl:service name="${serviceName}">
+		<wsdl:documentation>
+			<version>${majorVersion}.${minorVersion}.${microVersion}</version>
+		</wsdl:documentation>
+		<wsdl:port name="${serviceName}Http"
+			binding="tns:${serviceName}HttpBinding">
+			<http:address
+				location="http://www.ebayopensource.org/turmeric/${serviceName}" />
+		</wsdl:port>
+		<wsdl:port name="${serviceName}SOAP"
+			binding="tns:${serviceName}SOAPBinding">
+			<soap:address
+				location="http://www.ebayopensource.org/turmeric/${serviceName}" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); 
+    you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at 
+   
+       http://www.apache.org/licenses/LICENSE-2.0
+       
+ -->
+<?eclipse version="3.2"?>
+<plugin>
+  <!-- UI COntributions-->
+  <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
+            class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.NewTypeLibraryWizard"
+            finalPerspective="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
+            icon="icons/script_obj.gif"
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.NewTypeLibraryWizard"
+            name="%Wizard.TypeLibrary.Name"
+            preferredPerspectives="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
+            project="true">
+         <description>
+            %Wizard.TypeLibrary.Description
+         </description>
+      </wizard>
+      <wizard
+            category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
+            class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.TypeSelectionWizard"
+            finalPerspective="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
+            icon="icons/script_obj.gif"
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.TypeSelectionWizard"
+            name="%Wizard.SchemaType.Name"
+            preferredPerspectives="org.ebayopensource.turmeric.eclipse.ui.soaPerspective">
+         <description>
+            %Wizard.SchemaType.Description
+         </description>
+      </wizard>
+  </extension>
+  
+  <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="org.ebayopensource.turmeric.eclipse.ui.soaPerspective">    
+         <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.NewTypeLibraryWizard"/>
+         <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.TypeSelectionWizard"/>     	 
+      </perspectiveExtension>
+   </extension>
+      
+  <!-- builders and natures-->
+  <extension
+         id="TypeLibraryProjectBuilder"
+         name="Type Library Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder hasNature="true">
+         <run class="org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectBuilder"/>
+      </builder>
+  </extension>
+    
+  <extension
+         id="TypeLibraryProjectNature"
+         name="SOA Service Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run class="org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature"/>
+      </runtime>
+      <builder id="org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryProjectBuilder"/>
+   </extension>
+   
+   <!-- popup menus--> 
+   <extension
+      point="org.eclipse.ui.popupMenus">
+      
+      <!-- package popup menus-->
+      <objectContribution
+          adaptable="true"
+          id="org.ebayopensource.turmeric.eclipse.typelibrary.typeLibProject"
+          objectClass="org.eclipse.core.resources.IResource">         	
+       	<menu
+           	id="typeMenu"
+           	label="%Menu.Group.SchemaType.Label">
+       		<separator name="type"/>          	
+       	</menu>    
+       	      	                                   
+        <action
+                class="org.ebayopensource.turmeric.eclipse.typelibrary.actions.SyncUpDependencyAction"
+                enablesFor="1"
+                helpContextId="%helpIdSOATutorial"
+                id="org.ebayopensource.turmeric.eclipse.typelibrary.syncDep"
+                label="%Menu.SynchronizeDependencies.Label"
+                menubarPath="typeMenu/type">
+         <enablement>
+        	<or>            	
+        	<and>
+			 <objectState
+	              name="projectNature" value="%SOA.ProjectNatureID.TypeLibrary" />	        
+               <objectClass
+                     name="org.eclipse.core.resources.IProject">
+               </objectClass>
+	        </and>
+	        <and>
+			 <objectState
+	              name="projectNature" value="%SOA.ProjectNatureID.Interface" />	        
+               <objectClass
+                     name="org.eclipse.core.resources.IProject">
+               </objectClass>
+	        </and>
+	        </or>
+	     </enablement>        
+		</action>
+                            
+        <action
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.actions.DeleteTypeAction"
+               enablesFor="1"
+               helpContextId="%helpIdSOATutorial"
+               id="org.ebayopensource.turmeric.eclipse.typelibrary.deleteType"
+               label="%Menu.DeleteType.Label"
+               menubarPath="typeMenu/type">
+          <enablement>
+               <and>
+               <objectState
+	              name="projectNature" value="%SOA.ProjectNatureID.TypeLibrary" />
+               <objectState
+                     name="extension"
+                     value="xsd">
+               </objectState>
+               <objectClass
+                     name="org.eclipse.core.resources.IFile">
+               </objectClass>
+               </and>
+          </enablement>
+         </action>
+      </objectContribution>
+      
+      <!-- wsdl popup menus-->
+      <viewerContribution
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.wsdlmenucontrib_source"
+            targetID="org.eclipse.wst.wsdl.wsdlsource.source.EditorContext">
+         <menu
+               id="typeMenu"
+               label="%Menu.Group.SchemaType.Label">
+            <separator name="type"/>
+         </menu>
+         <action
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary"
+               helpContextId="org.eclipse.ui.AddTask_action_context"
+               id="org.ebayopensource.turmeric.eclipse.typelibrary.importType_WSDL_Source"
+               label="%Menu.AddInlineType.Label"
+               menubarPath="typeMenu/type"
+               tooltip="Inlines the selected schema in this wsdl"/>
+         <action
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.RemoveType"
+               helpContextId="org.eclipse.ui.AddTask_action_context"
+               id="org.ebayopensource.turmeric.eclipse.typelibrary.removeType_WSDL_Source"
+               label="%Menu.RemoveInlinedType.Label"
+               menubarPath="typeMenu/type"
+               tooltip="Removes inlined type from this WSDL"/>
+         <action
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.UpdateTypeVersion"
+               helpContextId="org.eclipse.ui.AddTask_action_context"
+               id="org.ebayopensource.turmeric.eclipse.typelibrary.updateTypeVersion_WSDL_Source"
+               label="%Menu.UpdateInlinedType.Label"
+               menubarPath="typeMenu/type"
+               tooltip="Find out if there is a newer version of the inlined types"/>
+      </viewerContribution>
+      
+      <viewerContribution
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.wsdlmenucontrib_design"
+            targetID="org.eclipse.wst.wsdl.ui.popup.graph">
+         <menu
+               id="typeMenu"
+               label="%Menu.Group.SchemaType.Label">
+            <separator name="type"/>
+         </menu>
+         <action
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary"
+               helpContextId="org.eclipse.ui.AddTask_action_context"
+               id="org.ebayopensource.turmeric.eclipse.typelibrary.importType_WSDL_Design"
+               label="%Menu.AddInlineType.Label"
+               menubarPath="typeMenu/type"
+               tooltip="Inlines the selected schema in this wsdl"/>
+         <action
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.RemoveType"
+               helpContextId="org.eclipse.ui.AddTask_action_context"
+               id="org.ebayopensource.turmeric.eclipse.typelibrary.removeType_WSDL_Design"
+               label="%Menu.RemoveInlinedType.Label"
+               menubarPath="typeMenu/type"
+               tooltip="Removes inlined type from this WSDL"/>
+         <action
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.UpdateTypeVersion"
+               helpContextId="org.eclipse.ui.AddTask_action_context"
+               id="org.ebayopensource.turmeric.eclipse.typelibrary.updateTypeVersion_WSDL_Design"
+               label="%Menu.UpdateInlinedType.Label"
+               menubarPath="typeMenu/type"
+               tooltip="Find out if there is a newer version of the inlined types"/>
+         <action
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.actions.ImportTypesAction"
+               helpContextId="%helpIdSOATutorial"
+               icon="icons/export.gif"
+               id="org.ebayopensource.turmeric.eclipse.typelibrary.importtypesfromwsdl"
+               label="%Menu.ExportTypesToATypeLibrary.Label"
+               menubarPath="typeMenu/type">
+         </action>
+      </viewerContribution>
+      
+      <!-- xsd popup menus-->
+      
+      <viewerContribution
+			targetID="org.eclipse.wst.xsd.core.xsdsource.source.EditorContext"
+		 	id="org.ebayopensource.turmeric.eclipse.typelibrary.xsdmenucontrib_source">
+         <menu
+           id="typeMenu"
+           label="%Menu.Group.SchemaType.Label">
+         <separator name="type"/>
+         </menu>
+         
+	      <action
+         		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary"
+         		helpContextId="org.eclipse.ui.AddTask_action_context"
+         		id="org.ebayopensource.turmeric.eclipse.typelibrary.importType_Source"
+         		label="%Menu.IncludeImportType.Label"
+         		menubarPath="typeMenu/type"
+         		tooltip="Import Type From Type Library">
+		 </action>	
+		
+		 <action
+         		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.RemoveType"
+         		helpContextId="org.eclipse.ui.AddTask_action_context"
+         		id="org.ebayopensource.turmeric.eclipse.typelibrary.removeType_Source"
+         		label="%Menu.RemoveType.Label"
+         		menubarPath="typeMenu/type"
+         		tooltip="Remove Type">
+		  </action>
+		 
+		  <action
+        		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.IncrementVersionCommand"
+         		helpContextId="org.eclipse.ui.AddTask_action_context"
+        		id="org.ebayopensource.turmeric.eclipse.typelibrary.incrementVersion_Source"
+         		label="%Menu.IncrementVersion.Label"
+        		menubarPath="typeMenu/type"
+         		tooltip="Increments the version">
+		  </action>		
+		  
+		</viewerContribution>
+		
+ 		<viewerContribution
+			targetID="org.eclipse.wst.xsd.ui.popup.graph"
+		 	id="org.ebayopensource.turmeric.eclipse.typelibrary.xsdmenucontrib_design">
+         <menu
+           id="typeMenu"
+           label="%Menu.Group.SchemaType.Label">
+         <separator name="type"/>
+         </menu>
+         
+	      <action
+         		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary"
+         		helpContextId="org.eclipse.ui.AddTask_action_context"
+         		id="org.ebayopensource.turmeric.eclipse.typelibrary.importType_Design"
+         		label="%Menu.IncludeImportType.Label"
+         		menubarPath="typeMenu/type"
+         		tooltip="Import Type From Type Library">
+		 </action>	
+		
+		 <action
+         		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.RemoveType"
+         		helpContextId="org.eclipse.ui.AddTask_action_context"
+         		id="org.ebayopensource.turmeric.eclipse.typelibrary.removeType_Design"
+         		label="%Menu.RemoveType.Label"
+         		menubarPath="typeMenu/type"
+         		tooltip="Remove Type">
+		  </action>
+		 
+		  <action
+        		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.IncrementVersionCommand"
+         		helpContextId="org.eclipse.ui.AddTask_action_context"
+        		id="org.ebayopensource.turmeric.eclipse.typelibrary.incrementVersion_Design"
+         		label="%Menu.IncrementVersion.Label"
+        		menubarPath="typeMenu/type"
+         		tooltip="Increments the version">
+		  </action>		
+		  
+		</viewerContribution>
+   <objectContribution
+         adaptable="true"
+         id="org.ebayopensource.turmeric.eclipse.services.ui.actions.soaTypeLibrary"
+         objectClass="org.eclipse.core.resources.IProject">
+      <menu
+            id="soaMenu"
+            label="%Menu.Group.SOA.Label">
+         <separator
+               name="typelibrary">
+         </separator>
+      </menu>
+      <action
+            class="org.ebayopensource.turmeric.eclipse.typelibrary.actions.ConfigureLibrary"
+            enablesFor="1"
+            helpContextId="%helpIdSOATutorial"
+            id="org.ebayopensource.turmeric.eclipse.services.ui.actions.LibraryConfig"
+            label="%PropPage.SOAProject.Name"
+            menubarPath="soaMenu/typelibrary">
+      </action>
+      <visibility>
+        <objectState
+              name="nature"
+              value="org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryProjectNature">
+        </objectState> 
+      </visibility>
+   </objectContribution>
+   <objectContribution
+         adaptable="true"
+         id="org.ebayopensource.turmeric.eclipse.typelibrary.tlprojectimport"
+         objectClass="org.eclipse.core.resources.IProject">
+      <menu
+            id="typeMenu"
+            label="%Menu.Group.SchemaType.Label">
+         <separator
+               name="type">
+         </separator>
+      </menu>
+      <action
+            class="org.ebayopensource.turmeric.eclipse.typelibrary.actions.ImportTypesAction"
+            enablesFor="1"
+            helpContextId="%helpIdSOATutorial"
+            icon="icons/import.gif"
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.importtypestotl"
+            label="%Menu.ImportTypesToTypeLibrary.Label"
+            menubarPath="typeMenu/type">
+      </action>
+      <visibility>
+         <and>
+            <objectClass
+                  name="org.eclipse.core.resources.IProject">
+            </objectClass>
+            <objectState
+                  name="projectNature"
+                  value="org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryProjectNature">
+            </objectState>
+         </and>
+      </visibility>
+   </objectContribution>
+   <objectContribution
+         adaptable="true"
+         id="org.ebayopensource.turmeric.eclipse.typelibrary.importfromwsdl"
+         objectClass="org.eclipse.core.resources.IFile">
+      <menu
+            id="typeMenu"
+            label="%Menu.Group.SchemaType.Label">
+         <separator
+               name="type">
+         </separator>
+      </menu>
+      <action
+            class="org.ebayopensource.turmeric.eclipse.typelibrary.actions.ImportTypesAction"
+            enablesFor="1"
+            helpContextId="%helpIdSOATutorial"
+            icon="icons/export.gif"
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.importtypesfromwsdl"
+            label="%Menu.ExportTypesToATypeLibrary.Label"
+            menubarPath="typeMenu/type">
+      </action>
+		<action
+            class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.UpdateTypeVersion"
+            helpContextId="org.eclipse.ui.AddTask_action_context"
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.updateTypeVersion_WSDL_Design"
+            label="%Menu.UpdateInlinedType.Label"
+            menubarPath="typeMenu/type"
+            tooltip="Find out if there is a newer version of the inlined types">
+      </action>
+      <action
+            class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary"
+            helpContextId="org.eclipse.ui.AddTask_action_context"
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.importType_WSDL_Design"
+            label="%Menu.AddInlineType.Label"
+            menubarPath="typeMenu/type"
+            tooltip="Inlines the selected schema in this wsdl">
+      </action>
+      <action
+            class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.RemoveType"
+            helpContextId="org.eclipse.ui.AddTask_action_context"
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.removeType_WSDL_Source"
+            label="%Menu.RemoveInlinedType.Label"
+            menubarPath="typeMenu/type"
+            tooltip="Removes inlined type from this WSDL">
+      </action>
+      <visibility>
+         <or>
+            <and>
+               <objectClass
+                     name="org.eclipse.core.resources.IResource">
+               </objectClass>
+               <objectState
+                     name="extension"
+                     value="xsd">
+               </objectState>
+            </and>
+            <and>
+               <objectClass
+                     name="org.eclipse.core.resources.IResource">
+               </objectClass>
+               <objectState
+                     name="extension"
+                     value="wsdl">
+               </objectState>
+            </and>
+         </or>
+      </visibility>
+   </objectContribution>
+
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.ebayopensource.turmeric.eclipse.ui.category"
+            class="org.ebayopensource.turmeric.eclipse.typelibrary.registry.RegistryView"
+            icon="icons/script_obj.gif"
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.registryView"
+            name="%View.TypeExplorer.Name">
+      </view>
+   </extension>  
+   
+   <extension id="typeLibResolver" name="Type Library Resolver" point="org.eclipse.wst.common.uriresolver.resolverExtensions">
+ 		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeLibResolver" priority="high" stage="physical">
+  			<projectNature value="org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryProjectNature" /> 
+  		</resolverExtension>
+  		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeLibResolver" priority="high" stage="prenormalization">
+  			<projectNature value="org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryProjectNature" /> 
+  		</resolverExtension>
+   </extension>
+   <extension
+         point="org.ebayopensource.turmeric.eclipse.resources.soaProjectResolver">
+      <soaProjectResolver
+            projectNature="%SOA.ProjectNatureID.TypeLibrary"
+            projectResolverClass="org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProjectResolver">
+      </soaProjectResolver>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.properties.TypeLibraryProjPropertyPage"
+            id="org.ebayopensource.turmeric.eclipse.services.ui.properties.typelibraryProjectPropertyPage"
+            name="%PropPage.SOAProject.Name">
+         <enabledWhen>
+            <adapt
+                  type="org.eclipse.core.resources.IProject">
+               <test
+                     property="org.eclipse.core.resources.projectNature"
+                     value="%SOA.ProjectNatureID.TypeLibrary">
+               </test>
+            </adapt>
+         </enabledWhen>
+      </page>
+   </extension>
+
+</plugin>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+ <extension
+       point="org.eclipse.ui.perspectives">
+    <perspective
+          class="org.ebayopensource.turmeric.eclipse.ui.SOAPerspectiveFactory"
+          icon="icons/server.gif"
+          id="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
+          name="%Perspective.SOADevelopment">
+       <description>
+          %Perspective.SOADevelopment.Description
+       </description>
+    </perspective>
+ </extension>
+ 
+  <extension
+          point="org.eclipse.ui.decorators">
+       <decorator
+             adaptable="true"
+             icon="icons/soa_project.gif"
+             id="org.ebayopensource.turmeric.eclipse.ui.projects.decorator"
+             label="%ProjectNature.Decorator.SOA.Label"
+             lightweight="true"
+             location="BOTTOM_RIGHT"
+             state="true">
+          <enablement>
+             <and>
+                <objectClass name="org.eclipse.core.resources.IProject"/>
+                <or>
+                    <objectState
+                      name="nature"
+                      value="%SOA.ProjectNatureID.Interface"/>
+                    <objectState
+                      name="nature"
+                      value="%SOA.ProjectNatureID.Implementation"/>
+                    <objectState
+                      name="nature"
+                      value="%SOA.ProjectNatureID.Consumer"/>
+                    <objectState
+                      name="nature"
+                      value="%SOA.ProjectNatureID.TypeLibrary"/>
+                    <objectState
+                      name="nature"
+                      value="%SOA.ProjectNatureID.ErrorLibrary"/>
+                </or>
+             </and>
+          </enablement>
+       </decorator>
+    </extension>
+  <extension
+        point="org.eclipse.ui.newWizards">
+     <category
+           id="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
+           name="%Wizard.New.Category">
+     </category>
+  </extension>
+  
+  <extension
+          point="org.eclipse.ui.cheatsheets.cheatSheetContent">
+       <category
+             id="org.ebayopensource.turmeric.eclipse.services.category.cheatsheet"
+             name="%CheatSheet.Category.Name">
+       </category>
+       <cheatsheet
+             category="org.ebayopensource.turmeric.eclipse.services.category.cheatsheet"
+             composite="false"
+             contentFile="cheatsheetcontent.xml"
+             id="org.ebayopensource.turmeric.eclipse.services.cheatsheet"
+             name="%CheatSheet.Name">
+       </cheatsheet>
+    </extension>
+</plugin>

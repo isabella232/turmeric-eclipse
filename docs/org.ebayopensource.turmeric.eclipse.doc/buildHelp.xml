@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); 
+    you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at 
+   
+       http://www.apache.org/licenses/LICENSE-2.0
+       
+ -->
+<project name="org.eclipse.egit.doc" basedir="." default="all">
+	<!-- Based on work from the eclipse eGit project.
+   David Carver - Confluence generation for org.ebayopensource.
+ -->
+	<description>
+		Generate Eclipse help content for the Turmeric SOA user guide
+	</description>
+
+	<path id="wikitext.tasks.classpath">
+		<fileset dir="${basedir}/lib" includes="*.jar" />
+	</path>
+	<taskdef name="confluence-to-eclipse-help" classname="org.ebayopensource.mylyn.wikitext.confluence.core.tasks.WikiToDocTask" classpathref="wikitext.tasks.classpath"/>
+
+	<property name="turmeric.help.doc.url.base" value="http://ph-0148.eva.ebay.com/wiki" />
+    <property name="userid" value="replaceme"/>
+    <property name="password" value="replaceme"/>
+
+	<target name="all" description="Generate Eclipse help content for the Turmeric Plugin documentation">
+		<delete failonerror="false">
+			<fileset dir="${basedir}/help" />
+		</delete>
+		<mkdir dir="help" />
+		<mkdir dir="help/images" />
+
+
+		<confluence-to-eclipse-help userid="${userid}" password="${password}" wikiBaseUrl="${turmeric.help.doc.url.base}" validate="false" prependImagePrefix="images" dest="${basedir}/help" title="Turmeric Eclipse Plugin Tools" generateUnifiedToc="true">
+			<space name="TURMERICDOC" pageName="Turmeric User Guide" title="Turmeric User Guide" generateToc="true" generatecontexthelp="true" helpDir="help" />
+		</confluence-to-eclipse-help>
+
+	</target>
+</project>

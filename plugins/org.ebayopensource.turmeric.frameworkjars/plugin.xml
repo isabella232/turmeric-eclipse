@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); 
+    you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at 
+   
+       http://www.apache.org/licenses/LICENSE-2.0
+       
+ -->
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.ebayopensource.turmeric.frameworkjars.commands.category"
+            name="Turmeric">
+      </category>
+      <command
+            categoryId="org.ebayopensource.turmeric.frameworkjars.commands.category"
+            id="org.ebayopensource.turmeric.frameworkjars.commands.sampleCommand"
+            name="Get Turmeric Framework Jars">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.ebayopensource.turmeric.frameworkjars.handlers.GetTurmericFrameworkJars"
+            commandId="org.ebayopensource.turmeric.frameworkjars.commands.sampleCommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="org.ebayopensource.turmeric.frameworkjars.commands.sampleCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+6">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="org.ebayopensource.turmeric.frameworkjars.menus.sampleMenu"
+               label="Turmeric"
+               mnemonic="T">
+            <command
+                  commandId="org.ebayopensource.turmeric.frameworkjars.commands.sampleCommand"
+                  id="org.ebayopensource.turmeric.frameworkjars.menus.sampleCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="org.ebayopensource.turmeric.frameworkjars.toolbars.sampleToolbar">
+            <command
+                  commandId="org.ebayopensource.turmeric.frameworkjars.commands.sampleCommand"
+                  icon="icons/sample.gif"
+                  id="org.ebayopensource.turmeric.frameworkjars.toolbars.sampleCommand"
+                  tooltip="Say hello world">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+
+</plugin>

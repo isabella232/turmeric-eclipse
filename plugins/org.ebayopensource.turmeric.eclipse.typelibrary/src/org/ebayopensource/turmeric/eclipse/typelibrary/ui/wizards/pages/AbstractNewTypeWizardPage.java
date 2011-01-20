@@ -1,0 +1,454 @@
+/*******************************************************************************
+ * Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *******************************************************************************/
+/**
+ * 
+ */
+package org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages;
+
+import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.namespace.QName;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
+import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
+import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;
+import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
+import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
+import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateModel;
+import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateUtils;
+import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage;
+import org.ebayopensource.turmeric.eclipse.ui.components.ProjectSelectionListLabelProvider;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
+import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
+import org.ebayopensource.turmeric.tools.library.TypeLibraryConstants;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
+
+/**
+ * @author yayu
+ */
+public abstract class AbstractNewTypeWizardPage extends
+		AbstractSOAResourceWizardPage {
+	private Text namespaceText;
+	private CCombo templateCombo;
+	private Text typeLibraryNameText;
+	private Button typeLibNameBrowseBtn;
+	private String typeLibName;
+	private Text parentTypeText;
+	private static final SOALogger logger = SOALogger.getLogger();
+
+	protected Composite container;
+	protected Text docText;
+	protected CCombo baseTypeComp;
+	private String currentTemplate;
+
+	/**
+	 * @param pageName
+	 * @param title
+	 * @param description
+	 */
+	public AbstractNewTypeWizardPage(String pageName, String title,
+			String description, String typeLibName) {
+		this(pageName, title, description);
+		this.typeLibName = typeLibName;
+	}
+
+	public AbstractNewTypeWizardPage(String pageName, String title,
+			String description) {
+		super(pageName, title, description);
+	}
+
+	@Override
+	public String getDefaultResourceName() {
+		return SOATypeLibraryConstants.DEFAULT_TYPE_NAME;
+	}
+
+	protected CCombo createTemplateCombo(Composite container) {
+		final Map<String, URL> templateTypes = getTemplateTypes();
+		templateCombo = super.createCCombo(container, "&Template:", false,
+				templateTypes.keySet().toArray(new String[0]), 
+				"the template of the new schema type");
+		templateCombo.addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					loadDocumentationFromTemplate();
+				} catch (Exception exp) {
+					logger.error(exp);
+					UIUtil.showErrorDialog(exp);
+				}
+			}
+		});
+		return templateCombo;
+	}
+
+	protected void loadDocumentationFromTemplate() throws Exception {
+		if (docText != null && templateCombo != null) {
+			final String templateFileName = templateCombo.getText();
+			if (StringUtils.equals(currentTemplate, templateFileName) == false) {
+				currentTemplate = templateFileName;
+				final Map<String, URL> templateTypes = getTemplateTypes();
+				if (StringUtils.isNotBlank(templateFileName)) {
+					final URL file = templateTypes.get(templateFileName);
+					if (file != null) {
+						InputStream input = null;
+						try {
+							input = file.openStream();
+							final TemplateModel model = TemplateUtils
+									.processTemplateModel(input);
+							docText.setText(model.getDocumentation());
+						} finally {
+							IOUtils.closeQuietly(input);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public void createControl(Composite parent, boolean validateNow) {
+		try {
+			container = super.createParentControl(parent, 4);
+			Text typeNameText = super.createResourceNameControl(container,
+					"Type &Name:", modifyListener, true, 
+					"the name of the schema type");
+			typeNameText.setFocus();
+			super.createResourceVersionControl(container, "&Version:",
+					modifyListener, "the version of the new schema type");
+			createTemplateCombo(container);
+			addNamespace(container);
+			addTypeLibraryName(container);
+			setControl(container);
+			if (validateNow)
+				dialogChanged();
+		} catch (Exception e) {
+			SOALogger.getLogger().error(e);
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void createControl(Composite parent) {
+		createControl(parent, true);
+	}
+
+	protected Text addTypeLibraryName(Composite parentComposite) {
+		new Label(parentComposite, SWT.LEFT).setText("&Type Library:");
+		typeLibraryNameText = new Text(parentComposite, SWT.BORDER);
+		GridData gData = new GridData(GridData.FILL_HORIZONTAL);
+		gData.horizontalSpan = 2;
+		typeLibraryNameText.setLayoutData(gData);
+		typeLibraryNameText.addModifyListener(modifyListener);
+		typeLibraryNameText.setEditable(false);
+		typeLibraryNameText.setText(typeLibName);
+		UIUtil.decorateControl(this, typeLibraryNameText, 
+				"the name of the target type library project for the new schema type");
+
+		// Browse Button
+		typeLibNameBrowseBtn = new Button(parentComposite, SWT.PUSH);
+		typeLibNameBrowseBtn.setAlignment(SWT.LEFT);
+		typeLibNameBrowseBtn.setLayoutData(new GridData(SWT.FILL, SWT.FILL,
+				false, false, 1, 1));
+		typeLibNameBrowseBtn.setText("&Select...");
+		typeLibNameBrowseBtn.setSelection(false);
+		final SelectionListener typeLibNameBrowseListener = new SelectionListener() {
+			public void widgetDefaultSelected(final SelectionEvent e) {
+				widgetSelected(e);
+			}
+
+			public void widgetSelected(final SelectionEvent e) {
+				ElementListSelectionDialog selectionDialog = new ElementListSelectionDialog(
+						getShell(), new ProjectSelectionListLabelProvider()) {
+
+					@Override
+					protected Control createDialogArea(Composite parent) {
+						final Control control = super.createDialogArea(parent);
+						UIUtil
+								.getHelpSystem()
+								.setHelp(
+										control,
+										GlobalRepositorySystem
+												.instanceOf()
+												.getActiveRepositorySystem()
+												.getHelpProvider()
+												.getHelpContextID(
+														ISOAHelpProvider.DIALOG_SELECT_TYPE_LIBRARY));
+						return control;
+					}
+				};
+				selectionDialog.setTitle("Select the Type Library Project");
+				try {
+					final List<IProject> projects = WorkspaceUtil
+					.getProjectsByNature(
+							TypeLibraryProjectNature.getTypeLibraryNatureId());
+					if (typeLibraryNameText != null && StringUtils.isNotBlank(typeLibraryNameText.getText())
+							&& WorkspaceUtil.getProject(
+							typeLibraryNameText.getText()).isAccessible()) {
+						projects.remove(WorkspaceUtil.getProject(typeLibraryNameText.getText()));
+					}
+					selectionDialog.setElements(
+							projects.toArray(new IProject[0]));
+					
+				} catch (CoreException e1) {
+					SOALogger.getLogger().error(e1);
+					return;
+				}
+				selectionDialog.setBlockOnOpen(true);
+				selectionDialog.setMultipleSelection(false);
+				if (selectionDialog.open() == Window.OK) {
+					if (selectionDialog.getResult() != null
+							&& selectionDialog.getResult().length > 0) {
+						String projectName = ((IProject) selectionDialog
+								.getResult()[0]).getName();
+						typeLibraryNameText.setText(projectName);
+						dialogChanged();
+					}
+				}
+
+			}
+		};
+		typeLibNameBrowseBtn.addSelectionListener(typeLibNameBrowseListener);
+		return typeLibraryNameText;
+	}
+
+	@Override
+	protected boolean dialogChanged() {
+		boolean result = super.dialogChanged();
+		if (result == false) {
+			return result;
+		}
+		// The listener attached to the user selected type library triggers this
+		// method.
+		// Set the library namespace derived from the user selected type library
+		if (typeLibraryNameText != null
+				&& !"".equals(typeLibraryNameText.getText()))
+			setNamespaceField(typeLibraryNameText.getText());
+		if (StringUtils.isBlank(templateCombo.getText())) {
+			updateStatus(this.templateCombo, 
+					"Template Type cannot be empty. Check if templates are present in config plugin");
+			return false;
+		}
+		final String fileName = getResourceName();
+		IStatus validationModel = ResourcesPlugin.getWorkspace().validateName(
+				fileName, IResource.FILE);
+		if (checkValidationResult(getResourceNameText(), validationModel) == false)
+			return false;
+
+		// Taking it out because Code gen guys fixed it recently.
+		// if (StringUtils.contains(fileName, "_")) {
+		// updateStatus("Schema Type cannot have an underscore in it, due to
+		// JAXB restricitons");
+		// return false;
+		// }
+
+		try {
+			if (StringUtils.isEmpty(typeLibraryNameText.getText())) {
+				updateStatus(typeLibraryNameText, "Select a type library.");
+				return false;
+			}
+			// if (docText != null) {
+			// if (StringUtils.isEmpty(docText.getText())) {
+			// updateStatus("Documentation/Description cannot be empty");
+			// return false;
+			// }
+			// }
+			IProject project = WorkspaceUtil.getProject(typeLibraryNameText
+					.getText());
+			if (project.getFile(
+					TypeLibraryUtil.getXsdFileLocation(fileName, project))
+					.exists()
+					|| SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getType(
+							new QName(
+									TypeLibraryUtil
+											.getNameSpace(typeLibraryNameText
+													.getText()), fileName)) != null) {
+				updateStatus(super.getResourceNameText(), 
+						"Type with the same name already exists in the specified namespace.");
+				return false;
+			}
+			for (final IResource resource : TypeLibraryBuilderUtils
+					.getTypeLibProjectReadableResources(WorkspaceUtil
+							.getProject(typeLibraryNameText.getText()))) {
+				if (WorkspaceUtil.isResourceReadable(resource) == false) {
+					updateStatus(super.getResourceNameText(), 
+							resource.getName()
+							+ " does not exist or is not accessible.");
+					return false;
+				}
+			}
+			for (final IResource resource : TypeLibraryBuilderUtils
+					.getTypeLibProjectWritableResources(WorkspaceUtil
+							.getProject(typeLibraryNameText.getText()))) {
+				if (WorkspaceUtil.isResourceModifiable(resource) == false) {
+					updateStatus(super.getResourceNameText(), 
+							resource.getName()
+							+ " does not exist or is not modifiable.");
+					return false;
+				}
+			}
+			if (SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getTypeLibrary(
+					typeLibraryNameText.getText()) == null) {
+				updateStatus("The Type registry seems to be out of sync. Please open the GlobalRegistry view, Window-->Show View-->SOA Plugin-->Global Registry and click the refresh button and try again.");
+				return false;
+			}
+		} catch (Exception exception) {
+			SOALogger.getLogger().warning("Validation Failure!", exception);
+			// Validation failure is Okay :).
+		}
+
+		return result;
+	}
+
+	public String getNamespaceValue() {
+		return getTextValue(namespaceText);
+	}
+
+	private void setNamespaceField(String typeLibName) {
+		TypeLibraryType typeLibraryType = null;
+		try {
+			typeLibraryType = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
+					.getTypeLibrary(typeLibName);
+		} catch (Exception e) {
+			logger.error(e);
+			UIUtil.showErrorDialog(e);
+		}
+		if (typeLibraryType != null)
+			namespaceText.setText(typeLibraryType.getLibraryNamespace());
+	}
+
+	public String getTypeLibraryName() {
+		return getTextValue(typeLibraryNameText);
+	}
+
+	public String getParentType() {
+		return getTextValue(parentTypeText);
+	}
+
+	protected abstract Map<String, URL> getTemplateTypes();
+
+	public String getNameValue() {
+		return getResourceName();
+	}
+
+	public String getVersionValue() {
+		return getResourceVersion();
+	}
+
+	public String getTemplateValue() {
+		return getTextValue(this.templateCombo);
+	}
+
+	@Override
+	public String getHelpContextID() {
+		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+				.getHelpProvider().getHelpContextID(
+						ISOAHelpProvider.PAGE_CREATE_SCHEMA_TYPE);
+	}
+
+	public Text addNamespace(Composite composite) {
+		return namespaceText = createLabelTextField(composite, "&Namespace:",
+				TypeLibraryConstants.TYPE_INFORMATION_NAMESPACE,
+				modifyListener, true, false, "the namespace of the new schema type");
+	}
+
+	protected void createTypeCombo(Composite parent, String typeLabel) {
+		baseTypeComp = createCCombo(parent, typeLabel, false,
+				SOATypeLibraryConstants.SCHEMA_DATA_TYPES, 
+				"select an existing type for the new schema type to be based on");
+		baseTypeComp.select(0);
+		baseTypeComp.setBackground(UIUtil.display().getSystemColor(
+				SWT.COLOR_WHITE));
+	}
+
+	protected void createDocumentationText(Composite parent) throws Exception {
+		docText = createLabelTextField(parent, "&Documentation:",
+				SOAProjectConstants.EMPTY_STRING, modifyListener, true, true,
+				SWT.BORDER | SWT.MULTI | SWT.WRAP, 
+				"the description of the new schema type");
+		docText
+				.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2,
+						2));
+		if (templateCombo != null && templateCombo.getItemCount() > 0) {
+			loadDocumentationFromTemplate();
+		}
+	}
+
+	public String getDocText() {
+		return StringUtils.replace(docText.getText(), docText
+				.getLineDelimiter(), "");
+	}
+
+	public Object getRawBaseType() {
+		return getTextValue(this.baseTypeComp);
+	}
+
+	/*
+	 * public Object getBaseTypeValue() { return
+	 * getTextValue(this.baseTypeComp); }
+	 */
+
+	protected Map<String, File> truncateXSDExtension(
+			Map<String, File> templateTypeValues) {
+		if (templateTypeValues == null)
+			return null;
+		final Map<String, File> truncatedTemplateTypeValues = new LinkedHashMap<String, File>();
+		for (String fileName : templateTypeValues.keySet()) {
+			if (StringUtils.isNotBlank(fileName)) {
+				final File file = templateTypeValues.get(fileName);
+			if (fileName.endsWith(SOATypeLibraryConstants.DOT_XSD)) {
+				fileName = fileName.replace(SOATypeLibraryConstants.DOT_XSD,
+						SOAProjectConstants.EMPTY_STRING);
+			}
+			truncatedTemplateTypeValues.put(fileName, file);
+			}
+		}
+		return truncatedTemplateTypeValues;
+	}
+
+	protected Map<String, URL> getTemplateTypeNames(
+			SOAXSDTemplateSubType subType) {
+		final List<SOAConfigTemplate> templateTypes = TypeLibraryUtil
+				.getFiles(subType);
+		final Map<String, URL> templateTypeNames = new LinkedHashMap<String, URL>();
+		for (SOAConfigTemplate template : templateTypes)
+			templateTypeNames.put(template.getName(), template.getUrl());
+		return templateTypeNames;
+	}
+}

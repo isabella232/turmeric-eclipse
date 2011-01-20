@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); 
+    you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at 
+   
+       http://www.apache.org/licenses/LICENSE-2.0
+       
+ -->
+<?eclipse version="3.0"?>
+<plugin>
+	<extension-point id="soaProjectResolver" name="Turmeric Project Resolver" schema="schema/soaProjectResolver.exsd"/>
+    <extension
+          id="soaproblem"
+          name="Turmeric Problem"
+          point="org.eclipse.core.resources.markers">
+       <persistent value="true"/>
+       <super
+             type="org.eclipse.core.resources.problemmarker">
+       </super>
+    </extension>
+    <extension
+          id="wsdlproblem"
+          name="WSDL Problem"
+          point="org.eclipse.core.resources.markers">
+       <persistent
+             value="true">
+       </persistent>
+       <super
+             type="org.eclipse.core.resources.problemmarker">
+       </super>
+    </extension>
+</plugin>

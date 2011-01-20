@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); 
+    you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at 
+   
+       http://www.apache.org/licenses/LICENSE-2.0
+       
+ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>org.ebayopensource.turmeric.tools.eclipse</groupId>
+   <artifactId>org.ebayopensource.turmeric.eclipse.config.test</artifactId>
+   <packaging>eclipse-test-plugin</packaging>
+   <version>1.0.0-SNAPSHOT</version>
+   <name>Turmeric: Config Tests</name>
+
+   <parent>
+      <groupId>org.ebayopensource.turmeric.tools.eclipse</groupId>
+      <artifactId>org.ebayopensource.turmeric.eclipse-plugin-parent</artifactId>
+      <version>1.0.1.0-SNAPSHOT</version>
+      <relativePath>../../pom.xml</relativePath>
+   </parent>
+
+   <profiles>
+      <profile>
+         <id>coverage</id>
+         <activation>
+            <property>
+               <name>coverage</name>
+            </property>
+         </activation>
+         <properties>
+            <emma.session.out.file>${project.build.directory}/emma/${project.artifactId}.es</emma.session.out.file>
+            <emma.instrument.bundles>org.ebayopensource.turmeric.eclipse.config</emma.instrument.bundles>
+         </properties>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.sonatype.tycho</groupId>
+                  <artifactId>maven-osgi-source-plugin</artifactId>
+                  <version>${tycho-version}</version>
+                  <executions>
+                     <execution>
+                        <id>plugin-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                           <goal>plugin-source</goal>
+                        </goals>
+                        <configuration>
+                           <useDefaultManifestFile>true</useDefaultManifestFile>
+                        </configuration>
+                     </execution>
+                  </executions>
+               </plugin>
+
+               <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>build-helper-maven-plugin</artifactId>
+                  <version>1.5</version>
+                  <executions>
+                     <execution>
+                        <id>attach-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                           <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                           <artifacts>
+                              <artifact>
+                                 <file>${emma.session.out.file}</file>
+                                 <type>es</type>
+                              </artifact>
+                           </artifacts>
+                        </configuration>
+                     </execution>
+                  </executions>
+               </plugin>
+               <plugin>
+                  <groupId>org.sonatype.tycho</groupId>
+                  <artifactId>maven-osgi-test-plugin</artifactId>
+                  <version>${tycho-version}</version>
+                  <configuration>
+                     <useUIHarness>true</useUIHarness>
+                     <argLine>-Xms512m -Xmx1024m -XX:MaxPermSize=256M</argLine>
+                     <systemProperties
+                        combine.children="append">
+                        <emma.session.out.file>${emma.session.out.file}</emma.session.out.file>
+                        <emma.filter>${emma.filter}</emma.filter>
+                        <eclemma.instrument.bundles>${emma.instrument.bundles}</eclemma.instrument.bundles>
+                     </systemProperties>
+                     <frameworkExtensions>
+                        <frameworkExtension>
+                           <groupId>org.ebayopensource.turmeric.tools.eclipse</groupId>
+                           <artifactId>org.eclemma.runtime.equinox</artifactId>
+                           <version>1.1.0-SNAPSHOT</version>
+                        </frameworkExtension>
+                     </frameworkExtensions>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+   </profiles>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.sonatype.tycho</groupId>
+            <artifactId>maven-osgi-source-plugin</artifactId>
+            <version>${tycho-version}</version>
+            <executions>
+               <execution>
+                  <id>plugin-source</id>
+                  <phase>generate-sources</phase>
+                  <goals>
+                     <goal>plugin-source</goal>
+                  </goals>
+                  <configuration>
+                     <useDefaultManifestFile>true</useDefaultManifestFile>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.sonatype.tycho</groupId>
+            <artifactId>maven-osgi-test-plugin</artifactId>
+            <version>${tycho-version}</version>
+            <configuration>
+               <useUIHarness>true</useUIHarness>
+               <argLine>-Xms256m -Xmx512m -XX:MaxPermSize=256M</argLine>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+</project>

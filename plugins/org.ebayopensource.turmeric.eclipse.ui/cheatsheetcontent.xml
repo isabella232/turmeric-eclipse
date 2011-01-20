@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Turmeric Development Tutorial">
+	<intro
+		href="http://ebayopensource.org/wiki/display/TURMERICDOC/Turmeric+Plug-in">
+		<description>
+			This tutorial guides you through the steps of Turmeric application
+			creation using Turmeric plugin. You will create a Turmeric service, a type
+			library, a comsumer and a error library.
+			<br />
+			<br />
+			If you need help at any step, click the (?) to the right. Let&apos;s
+			get started!
+		</description>
+	</intro>
+
+	<item
+		href="http://ebayopensource.org/wiki/display/TURMERICDOC/Turmeric+Development+Perspective"
+		title="Open Turmeric Development Perspective">
+		<command
+			serialization="org.eclipse.ui.perspectives.showPerspective(org.eclipse.ui.perspectives.showPerspective.perspectiveId=org.ebayopensource.turmeric.eclipse.ui.soaPerspective)"
+			required="false" translate="">
+		</command>
+		<description>
+			If you&apos;re not already in the Turmeric development perspective, in the main menu select <b>Window</b> &gt; <b>Open Perspective</b> &gt; <b>Turmeric Development</b> or click on the &quot;Click to Perform&quot; link below.
+		</description>
+	</item>
+	<item
+       href="http://ebayopensource.org/wiki/display/TURMERICDOC/SOA+TypeLibrary+Tutorial"
+       skip="false"
+       title="Create Type Library">
+		<description>
+			If your service needs a type library, you may need to create a type library project and add types to a type library.
+		</description>
+  <subitem
+        label="To bring up Type Library creation wizard, you can right click on package explorer, select New-&gt; Type Library or click the link on the right."
+        skip="true">
+        <command serialization="org.eclipse.ui.newWizard(newWizardId=org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.NewTypeLibraryWizard)" required="false" translate="">
+        </command>
+  </subitem>
+  <subitem
+        label="To bring up Type creation wizard, you can right click on package explorer, select New -&gt; Schema Type (Type Library) or click the link on the right."
+        skip="true">
+        <command serialization="org.eclipse.ui.newWizard(newWizardId=org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.TypeSelectionWizard)" required="false" translate="">
+        </command>
+  </subitem>
+	</item>
+	<item
+       href="http://ebayopensource.org/wiki/display/TURMERICDOC/Create+SOA+Service"
+       title="Create Service">
+		<description>
+			Turmeric plugin provides a Service Creation wizard. To bing up this wizard, you can right click on package explorer, select New-&gt; Service (from WSDL) or click on the link below. <br/><br/>
+This wizard will help you to create a Turmeric Service. Click (?) on the right for more details.
+		</description>
+		<command serialization="org.eclipse.ui.newWizard(newWizardId=org.ebayopensource.turmeric.eclipse.services.ui.wizards.NewServiceFromWSDL)" required="false" translate="">
+        </command>
+	</item>
+ <item
+       href="http://ebayopensource.org/wiki/display/TURMERICDOC/Create+SOA+Consumer"
+       title="Create Consumer">
+    <description>
+       Turmeric plugin provides a Consumer creation wizard. To bing up this wizard, you can right click on package explorer, select New-&gt; Consumer or click on the link below. <br/><br/>
+This wizard will help you to create a Turmeric Service Consumer. Click (?) on the right for more details.
+    </description>
+    <command serialization="org.eclipse.ui.newWizard(newWizardId=org.ebayopensource.turmeric.eclipse.services.ui.wizards.NewConsumerFromJava)" required="false" translate="">
+    </command>
+ </item>
+ <item
+       href="http://ebayopensource.org/wiki/display/TURMERICDOC/Turmeric+Error+Library+Tutorial"
+       title="Create Error Library">
+    <description>
+       Turmeric plugin provides a Error Library creation wizard. To bing up this wizard, you can right click on package explorer, select New-&gt; Error (Error Library) or click on the link below. <br/><br/>
+This wizard will help you to create a Turmeric Service Consumer. Click (?) on the right for more details.
+    </description>
+    <command serialization="org.eclipse.ui.newWizard(newWizardId=org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorLibrary)" required="false" translate="">
+    </command>
+ </item>
+</cheatsheet>

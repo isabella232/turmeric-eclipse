@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<client-config-list xmlns="http://www.ebayopensource.org/turmeric/common/config">
+    <client-config>
+        <service-interface-class-name>ebayopensource.apis.eblbasecomponents.csapiinterfaceservice.BlogsCSAPIInterfaceServiceV1</service-interface-class-name>
+        <service-location>http://localhost:8080/ws/websvc/CSAPI</service-location>
+        <client-instance-config>
+            <invocation-options>
+                <preferred-transport name="HTTP11"/>
+                <request-data-binding>XML</request-data-binding>
+                <response-data-binding>XML</response-data-binding>
+                <consumer-id>consumer_Id</consumer-id>
+            </invocation-options>
+        </client-instance-config>
+    </client-config>
+</client-config-list>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target name="eBay SOA Target Definition">
+<locations>
+<location includeAllPlatforms="false" includeMode="planner" type="InstallableUnit">
+<unit id="org.jdom" version="1.0.0.v201005080400"/>
+<unit id="org.jdom.source" version="1.0.0.v201005080400"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20100519200754/repository"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" type="InstallableUnit">
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.6.1.v20100914-1218"/>
+<unit id="org.eclipse.emf.validation.sdk.feature.group" version="1.4.0.v20100428-2315-67J-96SGR35WNqZRZfmQnghI6uFA"/>
+<unit id="org.eclipse.gef.sdk.feature.group" version="3.6.1.v20100908-1100-7G7R2A5WNcBQPZgXAHiSXMXYaKPI"/>
+<unit id="org.eclipse.zest.sdk.feature.group" version="1.2.0.v20100519-2050-67908COKMFAKPYIEUdUVWhXYN8VN"/>
+<unit id="org.eclipse.xsd.sdk.feature.group" version="2.6.0.v20100914-1218"/>
+<repository location="http://download.eclipse.org/releases/helios"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" type="InstallableUnit">
+<unit id="org.eclipse.platform.ide" version="3.6.1.M20100909-0800"/>
+<unit id="org.eclipse.sdk.ide" version="3.6.1.M20100909-0800"/>
+<repository location="http://download.eclipse.org/eclipse/updates/3.6"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" type="InstallableUnit">
+<unit id="org.eclipse.jst.enterprise_ui.feature.feature.group" version="3.2.0.v201005241530-7b7GHTYFSK2W9kPaFClvz0O_NQmN"/>
+<unit id="org.eclipse.wst.web_ui.feature.feature.group" version="3.2.0.v201005241510-7O7CFb3EMf84nP-FHuc10NTz--M3"/>
+<unit id="org.eclipse.wst.jsdt.feature.feature.group" version="1.2.0.v201005270528-7C78FGDF9JgLWLMBWz-Ose6"/>
+<unit id="org.eclipse.jst.server_ui.feature.feature.group" version="3.2.0.v201005241530-7A5FEh9xFc7RCGLRBAIOJC43A"/>
+<unit id="org.eclipse.jst.web_ui.feature.feature.group" version="3.2.0.v201005250611-7F77FJJC25Skdw1pheuO_q6p-Idh"/>
+<repository location="http://download.eclipse.org/webtools/repository/helios"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" type="InstallableUnit">
+<unit id="org.maven.ide.eclipse.feature.feature.group" version="0.12.0.20101115-1102"/>
+<repository location="http://m2eclipse.sonatype.org/sites/m2e"/>
+</location>
+</locations>
+</target>

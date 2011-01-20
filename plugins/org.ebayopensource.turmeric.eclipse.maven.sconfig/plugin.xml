@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.maven.ide.eclipse.projectConfigurators">
+      <configurator
+            class="org.ebayopensource.turmeric.eclipse.maven.sconfig.TurmerStandardProjectConfigurator"
+            generic="true"
+            id="org.ebayopensource.turmeric.eclipse.maven.sconfig.configurator"
+            name="Turmeric Maven Standard Configuration"
+            priority="100">
+      </configurator>
+   </extension>
+
+</plugin>

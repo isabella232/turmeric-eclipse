@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %pluginProvider
+Bundle-Name: %pluginName
+Bundle-ActivationPolicy: lazy
+Bundle-Localization: plugin
+Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.exception
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.core.resources
+Bundle-Activator: org.ebayopensource.turmeric.eclipse.exception.Activator
+Export-Package: org.ebayopensource.turmeric.eclipse.exception,
+ org.ebayopensource.turmeric.eclipse.exception.core,
+ org.ebayopensource.turmeric.eclipse.exception.messages,
+ org.ebayopensource.turmeric.eclipse.exception.resources,
+ org.ebayopensource.turmeric.eclipse.exception.resources.projects,
+ org.ebayopensource.turmeric.eclipse.exception.ui,
+ org.ebayopensource.turmeric.eclipse.exception.validation
+Bundle-Version: 1.0.0.qualifier
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+

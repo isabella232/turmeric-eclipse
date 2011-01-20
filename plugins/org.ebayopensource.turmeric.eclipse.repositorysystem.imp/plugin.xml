@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); 
+    you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at 
+   
+       http://www.apache.org/licenses/LICENSE-2.0
+       
+ -->
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.ebayopensource.turmeric.eclipse.repositorysystem.repositorysystem">
+      <RepositorySystems
+            RepositorySystem="org.ebayopensource.turmeric.repositorysystem.imp.impl.TurmericRepositorySystem">
+      </RepositorySystems>
+   </extension>
+	 <extension
+	       point="org.ebayopensource.turmeric.eclipse.logging.loggingSystem">
+	    <SOALoggingSystem
+	          loggingSystemIDProvider="org.ebayopensource.turmeric.repositorysystem.imp.utils.TurmericLoggingSystemProvider">
+	    </SOALoggingSystem>
+	 </extension>
+  <extension
+        point="org.ebayopensource.turmeric.eclipse.resources.soaProjectResolver">
+     <soaProjectResolver
+           projectNature="%SOA.ProjectNatureID.Interface"
+           projectResolverClass="org.ebayopensource.turmeric.eclipse.resources.model.DefaultInterfaceProjectResolver">
+     </soaProjectResolver>
+     <soaProjectResolver
+           projectNature="%SOA.ProjectNatureID.Implementation"
+           projectResolverClass="org.ebayopensource.turmeric.repositorysystem.imp.impl.TurmericImplProjectResolver">
+     </soaProjectResolver>
+     <soaProjectResolver
+           projectNature="%SOA.ProjectNatureID.Consumer"
+           projectResolverClass="org.ebayopensource.turmeric.eclipse.resources.model.DefaultConsumerProjectResolver">
+     </soaProjectResolver>
+  </extension>
+  <extension
+        point="org.eclipse.ui.popupMenus">
+     <objectContribution
+           adaptable="true"
+           id="org.ebayopensource.turmeric.eclipse.services.ui.actions.convertJavaProject"
+           objectClass="org.eclipse.core.resources.IProject">
+        <menu
+              id="soaMenu"
+              label="%Menu.Group.SOA.Label">
+           <separator
+                 name="consumer">
+           </separator>
+        </menu>
+        <action
+              class="org.ebayopensource.turmeric.eclipse.services.ui.actions.ConsumeNewService"
+              enablesFor="1"
+              helpContextId="%helpIdSOATutorial"
+              id="org.ebayopensource.turmeric.eclipse.services.ui.actions.ConsumeNewService"
+              label="%Menu.ConsumeNewServices.Label"
+              menubarPath="soaMenu/consumer">
+        </action>
+        <visibility>
+           <and>
+              <not>
+                 <objectState
+                       name="nature"
+                       value="%SOA.ProjectNatureID.Interface">
+                 </objectState>
+              </not>
+              <not>
+                 <objectState
+                       name="nature"
+                       value="%SOA.ProjectNatureID.TypeLibrary">
+                 </objectState>
+              </not>
+              <not>
+                 <objectState
+                       name="nature"
+                       value="%SOA.ProjectNatureID.Implementation">
+                 </objectState>
+              </not>
+              <not>
+                 <objectState
+                       name="nature"
+                       value="%SOA.ProjectNatureID.Consumer">
+                 </objectState>
+              </not>
+              <not>
+                 <objectState
+                       name="nature"
+                       value="%SOA.ProjectNatureID.ErrorLibrary">
+                 </objectState>
+              </not>
+              <objectState
+                    name="nature"
+                    value="org.eclipse.jdt.core.javanature">
+              </objectState>
+           </and>
+        </visibility>
+     </objectContribution>
+  </extension>
+</plugin>
