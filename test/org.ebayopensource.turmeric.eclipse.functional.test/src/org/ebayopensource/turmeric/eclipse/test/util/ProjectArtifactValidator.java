@@ -215,11 +215,11 @@ public class ProjectArtifactValidator implements IResourceVisitor {
 
 					if ("java".equals(rsrcPath.getFileExtension())) {
 						
-						if(rsrcPath.lastSegment().contains("TypeDefsBuilder")){
-						//failing in linux box.	
-						return true;
-							
-						}
+//						if(rsrcPath.lastSegment().contains("TypeDefsBuilder")){
+//						//failing in linux box.	
+//						return true;
+//							
+//						}
 						
 						System.out.println("java file : "
 								+ rsrcPath.toOSString());
