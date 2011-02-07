@@ -73,7 +73,7 @@ public class ImportExportTypesTest extends AbstractTestCase {
 				TLUtil.createTypeLibrary(TypeLibSetUp.TYPELIBRARY_NAME1, "1.0.0", "COMMON",TypeLibSetUp.TYPELIB_LOCATION));
 	}
 	@Test
-	@Ignore("failing due to 756")
+	
 	public void testImportTypeFromXSD() throws Exception {
 		String type = "EmployeeType";
 		
@@ -107,7 +107,6 @@ public class ImportExportTypesTest extends AbstractTestCase {
 	}
 	
 	@Test
-	@Ignore("777")
 	public void testImportTypeFromWSDL() throws Exception {
 		System.out.println("** testImportTypeFromXSD **");		 
 		List<ImportTypeModel> types = new ArrayList<ImportTypeModel>();
