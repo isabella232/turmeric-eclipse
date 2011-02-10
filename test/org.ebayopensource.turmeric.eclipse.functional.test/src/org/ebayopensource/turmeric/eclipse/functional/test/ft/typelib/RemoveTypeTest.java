@@ -45,7 +45,7 @@ public class RemoveTypeTest extends AbstractTestCase {
 	 * @throws java.lang.Exception
 	 */
 	@Before
-	//@Ignore
+	@Ignore
 	public  void setUp() throws Exception {
 	
 		
@@ -125,7 +125,7 @@ public class RemoveTypeTest extends AbstractTestCase {
 	 * Remove Type - AlertType from jar
 	 */
 	@Test
-    //@Ignore
+    @Ignore
 	public void testRemoveTypeAction1() throws Exception {
 		System.out.println("-----------------------Test Name: testRemoveTypeAction1()---------------------");
 		Assert.assertTrue("Remove Action in ImportType.xsd fails", TLUtil
@@ -145,7 +145,7 @@ public class RemoveTypeTest extends AbstractTestCase {
 	 * Remove Type - ZipType from other TL (SOA21TestTL2)
 	 */
 	@Test
-	//@Ignore
+	@Ignore
 	public void testRemoveTypeAction2() throws Exception {
 		System.out.println("-----------------------Test Name: testRemoveTypeAction2()-----------------------");
 		Assert.assertTrue("Remove Action in ImportType.xsd fails", TLUtil
@@ -165,7 +165,7 @@ public class RemoveTypeTest extends AbstractTestCase {
 	 * Remove Type - CustomerType from same TL (SOA21TestTL1)
 	 */
 	@Test
-	//@Ignore
+	@Ignore
 	public void testRemoveTypeAction3() throws Exception {
 		System.out.println("-----------------------Test Name: testRemoveTypeAction1()-----------------------");
 		Assert.assertTrue("Remove Action in ImportType.xsd fails", TLUtil
