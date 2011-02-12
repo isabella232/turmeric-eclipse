@@ -45,14 +45,14 @@ public class BlogsServiceV1TypeDefsBuilder
         complexTypes.add(new FlatSchemaComplexTypeImpl(new QName(NS1, "BaseRequest")));
         // Type #3 (GetVersionRequest)
         complexTypes.add(new FlatSchemaComplexTypeImpl(new QName(NS2, "GetVersionRequest")));
-        // Type #4 (ErrorParameter)
-        complexTypes.add(new FlatSchemaComplexTypeImpl(new QName(NS1, "ErrorParameter")));
-        // Type #5 (ErrorData)
+        // Type #4 (ErrorData)
         complexTypes.add(new FlatSchemaComplexTypeImpl(new QName(NS1, "ErrorData")));
-        // Type #6 (CommonErrorData)
+        // Type #5 (CommonErrorData)
         complexTypes.add(new FlatSchemaComplexTypeImpl(new QName(NS1, "CommonErrorData")));
-        // Type #7 (ExtensionType)
+        // Type #6 (ExtensionType)
         complexTypes.add(new FlatSchemaComplexTypeImpl(new QName(NS1, "ExtensionType")));
+        // Type #7 (ErrorParameter)
+        complexTypes.add(new FlatSchemaComplexTypeImpl(new QName(NS1, "ErrorParameter")));
         // Type #8 (ErrorMessage)
         complexTypes.add(new FlatSchemaComplexTypeImpl(new QName(NS1, "ErrorMessage")));
     }
@@ -66,7 +66,7 @@ public class BlogsServiceV1TypeDefsBuilder
         currType.addComplexElement(new QName(NS1, "errorMessage"), complexTypes.get(8), 1);
         currType.addSimpleElement(new QName(NS1, "version"), 1);
         currType.addSimpleElement(new QName(NS1, "timestamp"), 1);
-        currType.addComplexElement(new QName(NS1, "extension"), complexTypes.get(7), -1);
+        currType.addComplexElement(new QName(NS1, "extension"), complexTypes.get(6), -1);
          
         // Type #1 (GetVersionResponse)
         currType = complexTypes.get(1);
@@ -74,22 +74,29 @@ public class BlogsServiceV1TypeDefsBuilder
         currType.addComplexElement(new QName(NS1, "errorMessage"), complexTypes.get(8), 1);
         currType.addSimpleElement(new QName(NS1, "version"), 1);
         currType.addSimpleElement(new QName(NS1, "timestamp"), 1);
-        currType.addComplexElement(new QName(NS1, "extension"), complexTypes.get(7), -1);
+        currType.addComplexElement(new QName(NS1, "extension"), complexTypes.get(6), -1);
         currType.addSimpleElement(new QName(NS2, "version"), 1);
          
         // Type #2 (BaseRequest)
         currType = complexTypes.get(2);
-        currType.addComplexElement(new QName(NS1, "extension"), complexTypes.get(7), -1);
+        currType.addComplexElement(new QName(NS1, "extension"), complexTypes.get(6), -1);
          
         // Type #3 (GetVersionRequest)
         currType = complexTypes.get(3);
-        currType.addComplexElement(new QName(NS1, "extension"), complexTypes.get(7), -1);
+        currType.addComplexElement(new QName(NS1, "extension"), complexTypes.get(6), -1);
          
-        // Type #4 (ErrorParameter)
+        // Type #4 (ErrorData)
         currType = complexTypes.get(4);
-        currType.addAttribute(new QName(NS1, "name"));
+        currType.addSimpleElement(new QName(NS1, "errorId"), 1);
+        currType.addSimpleElement(new QName(NS1, "domain"), 1);
+        currType.addSimpleElement(new QName(NS1, "subdomain"), 1);
+        currType.addSimpleElement(new QName(NS1, "severity"), 1);
+        currType.addSimpleElement(new QName(NS1, "category"), 1);
+        currType.addSimpleElement(new QName(NS1, "message"), 1);
+        currType.addSimpleElement(new QName(NS1, "exceptionId"), 1);
+        currType.addComplexElement(new QName(NS1, "parameter"), complexTypes.get(7), -1);
          
-        // Type #5 (ErrorData)
+        // Type #5 (CommonErrorData)
         currType = complexTypes.get(5);
         currType.addSimpleElement(new QName(NS1, "errorId"), 1);
         currType.addSimpleElement(new QName(NS1, "domain"), 1);
@@ -98,39 +105,32 @@ public class BlogsServiceV1TypeDefsBuilder
         currType.addSimpleElement(new QName(NS1, "category"), 1);
         currType.addSimpleElement(new QName(NS1, "message"), 1);
         currType.addSimpleElement(new QName(NS1, "exceptionId"), 1);
-        currType.addComplexElement(new QName(NS1, "parameter"), complexTypes.get(4), -1);
-         
-        // Type #6 (CommonErrorData)
-        currType = complexTypes.get(6);
-        currType.addSimpleElement(new QName(NS1, "errorId"), 1);
-        currType.addSimpleElement(new QName(NS1, "domain"), 1);
-        currType.addSimpleElement(new QName(NS1, "subdomain"), 1);
-        currType.addSimpleElement(new QName(NS1, "severity"), 1);
-        currType.addSimpleElement(new QName(NS1, "category"), 1);
-        currType.addSimpleElement(new QName(NS1, "message"), 1);
-        currType.addSimpleElement(new QName(NS1, "exceptionId"), 1);
-        currType.addComplexElement(new QName(NS1, "parameter"), complexTypes.get(4), -1);
+        currType.addComplexElement(new QName(NS1, "parameter"), complexTypes.get(7), -1);
         currType.addSimpleElement(new QName(NS1, "errorName"), 1);
         currType.addSimpleElement(new QName(NS1, "cause"), 1);
         currType.addSimpleElement(new QName(NS1, "resolution"), 1);
         currType.addSimpleElement(new QName(NS1, "errorGroups"), 1);
         currType.addSimpleElement(new QName(NS1, "organization"), 1);
          
-        // Type #7 (ExtensionType)
-        currType = complexTypes.get(7);
+        // Type #6 (ExtensionType)
+        currType = complexTypes.get(6);
         currType.addSimpleElement(new QName(NS1, "id"), 1);
         currType.addSimpleElement(new QName(NS1, "version"), 1);
         currType.addSimpleElement(new QName(NS1, "contentType"), 1);
         currType.addSimpleElement(new QName(NS1, "value"), 1);
          
+        // Type #7 (ErrorParameter)
+        currType = complexTypes.get(7);
+        currType.addAttribute(new QName(NS1, "name"));
+         
         // Type #8 (ErrorMessage)
         currType = complexTypes.get(8);
-        currType.addComplexElement(new QName(NS1, "error"), complexTypes.get(6), -1);
+        currType.addComplexElement(new QName(NS1, "error"), complexTypes.get(5), -1);
     }
 
     private void addRootElements0(ArrayList<FlatSchemaComplexTypeImpl> complexTypes, HashMap<QName, FlatSchemaElementDeclImpl> rootElements) {
-        rootElements.put(new QName(NS2, "getVersionRequest"), FlatSchemaElementDeclImpl.createRootComplexElement(new QName(NS2, "getVersionRequest"), complexTypes.get(3)));
         rootElements.put(new QName(NS2, "getVersionResponse"), FlatSchemaElementDeclImpl.createRootComplexElement(new QName(NS2, "getVersionResponse"), complexTypes.get(1)));
+        rootElements.put(new QName(NS2, "getVersionRequest"), FlatSchemaElementDeclImpl.createRootComplexElement(new QName(NS2, "getVersionRequest"), complexTypes.get(3)));
     }
 
 }

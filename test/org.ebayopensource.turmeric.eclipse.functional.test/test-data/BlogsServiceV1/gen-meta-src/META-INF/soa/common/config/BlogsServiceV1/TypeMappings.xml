@@ -2,8 +2,8 @@
 <service enable-namespace-folding="true" name="BlogsServiceV1" xmlns="http://www.ebayopensource.org/turmeric/common/config">
     <package-map>
         <package xml-namespace="http://www.ebayopensource.org/turmeric/blogs/v1/services" name="org.ebayopensource.turmeric.blogs.v1.services.service"/>
-        <package xml-namespace="http://www.ebayopensource.org/turmeric/blogs/v1/services" name="org.ebayopensource.turmeric.blogs.v1.services"/>
         <package xml-namespace="http://www.ebayopensource.org/turmeric/blogs/v1/services" name="org.ebayopensource.turmeric.common.v1.types"/>
+        <package xml-namespace="http://www.ebayopensource.org/turmeric/blogs/v1/services" name="org.ebayopensource.turmeric.blogs.v1.services"/>
     </package-map>
     <operation-list>
         <operation name="getVersion">

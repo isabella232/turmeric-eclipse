@@ -29,6 +29,12 @@ public class BlogsCSAPIInterfaceServiceV1Proxy
         super(service);
     }
 
+    public List<Response<?>> poll(boolean block, boolean partial)
+        throws InterruptedException
+    {
+        return m_service.poll(block, partial);
+    }
+
     public Future<?> cSUpdateMACActivityAddAttachmentsAsync(CSUpdateMACActivityAddAttachmentsRequestType param0, AsyncHandler<CSUpdateMACActivityAddAttachmentsResponseType> param1) {
         Dispatch dispatch = m_service.createDispatch("CSUpdateMACActivityAddAttachments");
         Future<?> result = dispatch.invokeAsync(param0, param1);
@@ -39,12 +45,6 @@ public class BlogsCSAPIInterfaceServiceV1Proxy
         Dispatch dispatch = m_service.createDispatch("CSUpdateMACActivityAddAttachments");
         Response<CSUpdateMACActivityAddAttachmentsResponseType> result = dispatch.invokeAsync(param0);
         return result;
-    }
-
-    public List<Response<?>> poll(boolean block, boolean partial)
-        throws InterruptedException
-    {
-        return m_service.poll(block, partial);
     }
 
     public CSUpdateMACActivityAddAttachmentsResponseType cSUpdateMACActivityAddAttachments(CSUpdateMACActivityAddAttachmentsRequestType param0) {

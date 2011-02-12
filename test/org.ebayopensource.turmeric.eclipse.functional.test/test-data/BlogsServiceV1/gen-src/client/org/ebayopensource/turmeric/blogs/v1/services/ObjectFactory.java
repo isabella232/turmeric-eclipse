@@ -24,8 +24,8 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _GetVersionRequest_QNAME = new QName("http://www.ebayopensource.org/turmeric/blogs/v1/services", "getVersionRequest");
     private final static QName _GetVersionResponse_QNAME = new QName("http://www.ebayopensource.org/turmeric/blogs/v1/services", "getVersionResponse");
+    private final static QName _GetVersionRequest_QNAME = new QName("http://www.ebayopensource.org/turmeric/blogs/v1/services", "getVersionRequest");
     private final static QName _GetVersionResponseVersion_QNAME = new QName("http://www.ebayopensource.org/turmeric/blogs/v1/services", "version");
 
     /**
@@ -33,14 +33,6 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link GetVersionResponse }
-     * 
-     */
-    public GetVersionResponse createGetVersionResponse() {
-        return new GetVersionResponse();
     }
 
     /**
@@ -52,12 +44,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetVersionRequest }{@code >}}
+     * Create an instance of {@link GetVersionResponse }
      * 
      */
-    @XmlElementDecl(namespace = "http://www.ebayopensource.org/turmeric/blogs/v1/services", name = "getVersionRequest")
-    public JAXBElement<GetVersionRequest> createGetVersionRequest(GetVersionRequest value) {
-        return new JAXBElement<GetVersionRequest>(_GetVersionRequest_QNAME, GetVersionRequest.class, null, value);
+    public GetVersionResponse createGetVersionResponse() {
+        return new GetVersionResponse();
     }
 
     /**
@@ -67,6 +58,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.ebayopensource.org/turmeric/blogs/v1/services", name = "getVersionResponse")
     public JAXBElement<GetVersionResponse> createGetVersionResponse(GetVersionResponse value) {
         return new JAXBElement<GetVersionResponse>(_GetVersionResponse_QNAME, GetVersionResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetVersionRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.ebayopensource.org/turmeric/blogs/v1/services", name = "getVersionRequest")
+    public JAXBElement<GetVersionRequest> createGetVersionRequest(GetVersionRequest value) {
+        return new JAXBElement<GetVersionRequest>(_GetVersionRequest_QNAME, GetVersionRequest.class, null, value);
     }
 
     /**

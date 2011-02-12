@@ -29,6 +29,12 @@ public class BlogsServiceV1Proxy
         super(service);
     }
 
+    public List<Response<?>> poll(boolean block, boolean partial)
+        throws InterruptedException
+    {
+        return m_service.poll(block, partial);
+    }
+
     public Future<?> getVersionAsync(GetVersionRequest param0, AsyncHandler<GetVersionResponse> param1) {
         Dispatch dispatch = m_service.createDispatch("getVersion");
         Future<?> result = dispatch.invokeAsync(param0, param1);
@@ -39,12 +45,6 @@ public class BlogsServiceV1Proxy
         Dispatch dispatch = m_service.createDispatch("getVersion");
         Response<GetVersionResponse> result = dispatch.invokeAsync(param0);
         return result;
-    }
-
-    public List<Response<?>> poll(boolean block, boolean partial)
-        throws InterruptedException
-    {
-        return m_service.poll(block, partial);
     }
 
     public GetVersionResponse getVersion(GetVersionRequest param0) {

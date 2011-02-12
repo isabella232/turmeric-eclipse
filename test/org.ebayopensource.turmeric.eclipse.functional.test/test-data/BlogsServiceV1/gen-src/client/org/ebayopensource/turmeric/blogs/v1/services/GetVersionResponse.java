@@ -51,8 +51,8 @@ public class GetVersionResponse
      * <p>
      * You are getting this "catch-all" property because of the following reason: 
      * The field name "Version" is used by two different parts of a schema. See: 
-     * line 26 of file:/C:/ebox_ws/junit-workspace/BlogsServiceV1/gen-meta-src/META-INF/soa/services/wsdl/xsd0.xsd
-     * line 106 of file:/C:/ebox_ws/junit-workspace/BlogsServiceV1/gen-meta-src/META-INF/soa/services/wsdl/xsd1.xsd
+     * line 26 of file:/D:/opt/turmeric/workspace/junit-workspace/BlogsServiceV1/gen-meta-src/META-INF/soa/services/wsdl/xsd0.xsd
+     * line 106 of file:/D:/opt/turmeric/workspace/junit-workspace/BlogsServiceV1/gen-meta-src/META-INF/soa/services/wsdl/xsd1.xsd
      * <p>
      * To get rid of this property, apply a property customization to one 
      * of both of the following declarations to change their names: 

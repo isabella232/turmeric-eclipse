@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions targetNamespace="urn:ebayopensource:apis:eBLBaseComponents" xmlns="urn:ebayopensource:apis:eBLBaseComponents" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="urn:ebayopensource:apis:eBLBaseComponents" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/">
+<wsdl:definitions targetNamespace="urn:ebayopensource:apis:eBLBaseComponents" xmlns="urn:ebayopensource:apis:eBLBaseComponents" xmlns:ns="urn:ebayopensource:apis:eBLBaseComponents" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/">
   <wsdl:types>
     <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:ebayopensource:apis:eBLBaseComponents" xmlns="urn:ebayopensource:apis:eBLBaseComponents" xmlns:ns="urn:ebayopensource:apis:eBLBaseComponents" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xs="http://www.w3.org/2001/XMLSchema">
             <xs:element name="RequesterCredentials" type="ns:CustomSecurityHeaderType"/>
@@ -2025,16 +2025,16 @@ communicated to the client.
 	</xs:complexType>
         </xs:schema>
   </wsdl:types>
-  <wsdl:message name="CSUpdateMACActivityAddAttachmentsRequest">
-    <wsdl:part name="CSUpdateMACActivityAddAttachmentsRequest" element="CSUpdateMACActivityAddAttachmentsRequest">
+  <wsdl:message name="RequesterCredentials">
+    <wsdl:part name="RequesterCredentials" element="RequesterCredentials">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="CSUpdateMACActivityAddAttachmentsResponse">
     <wsdl:part name="CSUpdateMACActivityAddAttachmentsResponse" element="CSUpdateMACActivityAddAttachmentsResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="RequesterCredentials">
-    <wsdl:part name="RequesterCredentials" element="RequesterCredentials">
+  <wsdl:message name="CSUpdateMACActivityAddAttachmentsRequest">
+    <wsdl:part name="CSUpdateMACActivityAddAttachmentsRequest" element="CSUpdateMACActivityAddAttachmentsRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="CSAPIInterface">

@@ -38,6 +38,7 @@ import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.repositorysystem.imp.impl.TurmericRepositorySystem;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -91,6 +92,7 @@ public class ServiceFromBlankWsdlTest extends AbstractTestCase {
 	public static boolean createServiceFromBlankWsdl(String adminNameService,String publicService) throws Exception {
 
 		try {
+			Thread.sleep(5000);
 			final ServiceFromTemplateWsdlParamModel model = new ServiceFromTemplateWsdlParamModel();
 			final File templateFile = new File(
 					WsdlUtilTest
@@ -170,6 +172,10 @@ public class ServiceFromBlankWsdlTest extends AbstractTestCase {
 			assumeNoException(ex);
 		}
 		SimpleTestUtil.setAutoBuilding(true);
+		WorkspaceUtil.getProject(adminName).refreshLocal(IResource.DEPTH_INFINITE, null);
+		WorkspaceUtil.getProject(adminName).build(IncrementalProjectBuilder.FULL_BUILD, null);
+		WorkspaceUtil.getProject(adminName + "Impl").refreshLocal(IResource.DEPTH_INFINITE, null);
+		WorkspaceUtil.getProject(adminName + "Impl").build(IncrementalProjectBuilder.FULL_BUILD, null);
 		assertTrue("Service creation failed ", b);
 
 		// validate artifacts

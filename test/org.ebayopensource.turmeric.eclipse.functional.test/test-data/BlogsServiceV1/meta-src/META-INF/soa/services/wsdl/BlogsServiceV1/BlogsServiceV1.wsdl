@@ -13,7 +13,6 @@
 	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
 	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
 	xmlns:tns="http://www.ebayopensource.org/turmeric/blogs/v1/services"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Service"
 	targetNamespace="http://www.ebayopensource.org/turmeric/blogs/v1/services">
@@ -394,7 +393,7 @@
 		</wsdl:port>
 		<wsdl:port binding="tns:ServiceSOAPBinding"
 			name="ServiceSOAP">
-			<soap12:address
+			<soap:address
 				location="http://www.ebayopensource.org/turmeric/Service" />
 		</wsdl:port>
 	</wsdl:service>

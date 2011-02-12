@@ -24,15 +24,87 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _CSUpdateMACActivityAddAttachmentsRequest_QNAME = new QName("urn:ebayopensource:apis:eBLBaseComponents", "CSUpdateMACActivityAddAttachmentsRequest");
-    private final static QName _CSUpdateMACActivityAddAttachmentsResponse_QNAME = new QName("urn:ebayopensource:apis:eBLBaseComponents", "CSUpdateMACActivityAddAttachmentsResponse");
     private final static QName _RequesterCredentials_QNAME = new QName("urn:ebayopensource:apis:eBLBaseComponents", "RequesterCredentials");
+    private final static QName _CSUpdateMACActivityAddAttachmentsResponse_QNAME = new QName("urn:ebayopensource:apis:eBLBaseComponents", "CSUpdateMACActivityAddAttachmentsResponse");
+    private final static QName _CSUpdateMACActivityAddAttachmentsRequest_QNAME = new QName("urn:ebayopensource:apis:eBLBaseComponents", "CSUpdateMACActivityAddAttachmentsRequest");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ebayopensource.apis.eblbasecomponents
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link CustomSecurityHeaderType }
+     * 
+     */
+    public CustomSecurityHeaderType createCustomSecurityHeaderType() {
+        return new CustomSecurityHeaderType();
+    }
+
+    /**
+     * Create an instance of {@link MachineTagTypeArrayType }
+     * 
+     */
+    public MachineTagTypeArrayType createMachineTagTypeArrayType() {
+        return new MachineTagTypeArrayType();
+    }
+
+    /**
+     * Create an instance of {@link DuplicateInvocationDetailsType }
+     * 
+     */
+    public DuplicateInvocationDetailsType createDuplicateInvocationDetailsType() {
+        return new DuplicateInvocationDetailsType();
+    }
+
+    /**
+     * Create an instance of {@link BotBlockRequestType }
+     * 
+     */
+    public BotBlockRequestType createBotBlockRequestType() {
+        return new BotBlockRequestType();
+    }
+
+    /**
+     * Create an instance of {@link CSUpdateMACActivityAddAttachmentsResponseType }
+     * 
+     */
+    public CSUpdateMACActivityAddAttachmentsResponseType createCSUpdateMACActivityAddAttachmentsResponseType() {
+        return new CSUpdateMACActivityAddAttachmentsResponseType();
+    }
+
+    /**
+     * Create an instance of {@link BotBlockResponseType }
+     * 
+     */
+    public BotBlockResponseType createBotBlockResponseType() {
+        return new BotBlockResponseType();
+    }
+
+    /**
+     * Create an instance of {@link MACAttachementFileType }
+     * 
+     */
+    public MACAttachementFileType createMACAttachementFileType() {
+        return new MACAttachementFileType();
+    }
+
+    /**
+     * Create an instance of {@link ErrorParameterType }
+     * 
+     */
+    public ErrorParameterType createErrorParameterType() {
+        return new ErrorParameterType();
+    }
+
+    /**
+     * Create an instance of {@link CSUserIdType }
+     * 
+     */
+    public CSUserIdType createCSUserIdType() {
+        return new CSUserIdType();
     }
 
     /**
@@ -60,38 +132,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CSUserIdType }
-     * 
-     */
-    public CSUserIdType createCSUserIdType() {
-        return new CSUserIdType();
-    }
-
-    /**
-     * Create an instance of {@link CSUpdateMACActivityAddAttachmentsResponseType }
-     * 
-     */
-    public CSUpdateMACActivityAddAttachmentsResponseType createCSUpdateMACActivityAddAttachmentsResponseType() {
-        return new CSUpdateMACActivityAddAttachmentsResponseType();
-    }
-
-    /**
-     * Create an instance of {@link BotBlockRequestType }
-     * 
-     */
-    public BotBlockRequestType createBotBlockRequestType() {
-        return new BotBlockRequestType();
-    }
-
-    /**
-     * Create an instance of {@link MACAttachementFileType }
-     * 
-     */
-    public MACAttachementFileType createMACAttachementFileType() {
-        return new MACAttachementFileType();
-    }
-
-    /**
      * Create an instance of {@link UserIdPasswordType }
      * 
      */
@@ -100,52 +140,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link MachineTagTypeArrayType }
+     * Create an instance of {@link JAXBElement }{@code <}{@link CustomSecurityHeaderType }{@code >}}
      * 
      */
-    public MachineTagTypeArrayType createMachineTagTypeArrayType() {
-        return new MachineTagTypeArrayType();
-    }
-
-    /**
-     * Create an instance of {@link ErrorParameterType }
-     * 
-     */
-    public ErrorParameterType createErrorParameterType() {
-        return new ErrorParameterType();
-    }
-
-    /**
-     * Create an instance of {@link CustomSecurityHeaderType }
-     * 
-     */
-    public CustomSecurityHeaderType createCustomSecurityHeaderType() {
-        return new CustomSecurityHeaderType();
-    }
-
-    /**
-     * Create an instance of {@link DuplicateInvocationDetailsType }
-     * 
-     */
-    public DuplicateInvocationDetailsType createDuplicateInvocationDetailsType() {
-        return new DuplicateInvocationDetailsType();
-    }
-
-    /**
-     * Create an instance of {@link BotBlockResponseType }
-     * 
-     */
-    public BotBlockResponseType createBotBlockResponseType() {
-        return new BotBlockResponseType();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CSUpdateMACActivityAddAttachmentsRequestType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "urn:ebayopensource:apis:eBLBaseComponents", name = "CSUpdateMACActivityAddAttachmentsRequest")
-    public JAXBElement<CSUpdateMACActivityAddAttachmentsRequestType> createCSUpdateMACActivityAddAttachmentsRequest(CSUpdateMACActivityAddAttachmentsRequestType value) {
-        return new JAXBElement<CSUpdateMACActivityAddAttachmentsRequestType>(_CSUpdateMACActivityAddAttachmentsRequest_QNAME, CSUpdateMACActivityAddAttachmentsRequestType.class, null, value);
+    @XmlElementDecl(namespace = "urn:ebayopensource:apis:eBLBaseComponents", name = "RequesterCredentials")
+    public JAXBElement<CustomSecurityHeaderType> createRequesterCredentials(CustomSecurityHeaderType value) {
+        return new JAXBElement<CustomSecurityHeaderType>(_RequesterCredentials_QNAME, CustomSecurityHeaderType.class, null, value);
     }
 
     /**
@@ -158,12 +158,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CustomSecurityHeaderType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CSUpdateMACActivityAddAttachmentsRequestType }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "urn:ebayopensource:apis:eBLBaseComponents", name = "RequesterCredentials")
-    public JAXBElement<CustomSecurityHeaderType> createRequesterCredentials(CustomSecurityHeaderType value) {
-        return new JAXBElement<CustomSecurityHeaderType>(_RequesterCredentials_QNAME, CustomSecurityHeaderType.class, null, value);
+    @XmlElementDecl(namespace = "urn:ebayopensource:apis:eBLBaseComponents", name = "CSUpdateMACActivityAddAttachmentsRequest")
+    public JAXBElement<CSUpdateMACActivityAddAttachmentsRequestType> createCSUpdateMACActivityAddAttachmentsRequest(CSUpdateMACActivityAddAttachmentsRequestType value) {
+        return new JAXBElement<CSUpdateMACActivityAddAttachmentsRequestType>(_CSUpdateMACActivityAddAttachmentsRequest_QNAME, CSUpdateMACActivityAddAttachmentsRequestType.class, null, value);
     }
 
 }

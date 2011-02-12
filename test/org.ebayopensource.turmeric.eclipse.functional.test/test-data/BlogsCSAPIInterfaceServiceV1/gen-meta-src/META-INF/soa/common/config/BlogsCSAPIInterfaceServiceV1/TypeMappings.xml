@@ -2,8 +2,8 @@
 <service enable-namespace-folding="false" name="BlogsCSAPIInterfaceServiceV1" xmlns="http://www.ebayopensource.org/turmeric/common/config">
     <package-map>
         <package xml-namespace="urn:ebayopensource:apis:eBLBaseComponents" name="ebayopensource.apis.eblbasecomponents.csapiinterfaceservice"/>
-        <package xml-namespace="urn:ebayopensource:apis:eBLBaseComponents" name="ebayopensource.apis.eblbasecomponents"/>
         <package xml-namespace="http://www.ebayopensource.org/turmeric/common/v1/types" name="org.ebayopensource.turmeric.common.v1.types"/>
+        <package xml-namespace="urn:ebayopensource:apis:eBLBaseComponents" name="ebayopensource.apis.eblbasecomponents"/>
     </package-map>
     <operation-list>
         <operation name="CSUpdateMACActivityAddAttachments">
