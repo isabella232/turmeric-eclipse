@@ -76,6 +76,8 @@ public class WSDLValidator extends AbstractSOAValidator {
 		if (wsdl instanceof IFile) {
 			wsdlResource = (IFile)wsdl;
 		}
+		
+		//
 
 		if (wsdlUrl != null) {
 			final MultiStatus mStatus = (MultiStatus)

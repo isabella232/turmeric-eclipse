@@ -12,6 +12,8 @@
 package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -150,7 +152,16 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 			ISOAValidator validator = activeRepositorySystem.getWSDLValidator();
 			IStatus validationModel = null;
 			try {
-				validationModel = validator.validate(new Path(getWSDLURL()));
+				String wsdlurltext = getWSDLURL();
+				Object wsdl = null;
+				if (wsdlurltext.startsWith("http:") || wsdlurltext.startsWith("https")) {
+					try {
+						wsdl = new URL(wsdlurltext);
+					} catch (MalformedURLException e) {
+						wsdl = new Path(wsdlurltext);
+					}
+				}
+				validationModel = validator.validate(wsdl);
 			} catch (ValidationInterruptedException e) {
 				processException(e);
 			}

@@ -7,7 +7,6 @@
 	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/jaxrpc.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.8.jar"/>
-	<classpathentry kind="lib" path="lib/log4j.properties"/>
 	<classpathentry kind="lib" path="lib/org.eclipse.mylyn.wikitext.confluence.core_1.4.0.I20100805-0500-e3x.jar"/>
 	<classpathentry kind="lib" path="lib/org.eclipse.mylyn.wikitext.core_1.4.0.I20100805-0500-e3x.jar"/>
 	<classpathentry kind="lib" path="lib/saaj.jar"/>
