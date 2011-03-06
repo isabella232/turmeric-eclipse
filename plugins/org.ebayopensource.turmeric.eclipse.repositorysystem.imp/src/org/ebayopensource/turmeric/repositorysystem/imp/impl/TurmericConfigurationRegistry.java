@@ -25,11 +25,15 @@ import org.ebayopensource.turmeric.repositorysystem.imp.utils.TurmericConstants;
  *
  */
 public class TurmericConfigurationRegistry implements ISOAConfigurationRegistry {
+	/**
+	 * 
+	 */
 	SOAServiceConfiguration serviceConfiguration = null;
 	private String organizationName;
 
 	/**
 	 * 
+	 * @param organizationName The organization name.
 	 */
 	public TurmericConfigurationRegistry(String organizationName) {
 		super();
@@ -44,45 +48,72 @@ public class TurmericConfigurationRegistry implements ISOAConfigurationRegistry 
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getOrganizationName() {
 		return organizationName;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getBaseServiceRequestType() {
 		return serviceConfiguration == null ? null : serviceConfiguration
 				.getBaseRequestTypeName();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getBaseServiceResponseType() {
 		return serviceConfiguration == null ? null : serviceConfiguration
 				.getBaseResponseTypeName();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getBaseServiceRequestNameSpace() {
 		return serviceConfiguration == null ? null : serviceConfiguration
 				.getBaseRequestTypeNameSpace();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getBaseServiceResponseNameSpace() {
 		return serviceConfiguration == null ? null : serviceConfiguration
 				.getBaseResponseTypeNameSpace();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getTypesInWsdl() {
 		return serviceConfiguration == null ? null : serviceConfiguration
 				.getTypesInWSDL();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getClientConfigGroup() {
 		return serviceConfiguration == null ? null : serviceConfiguration
 				.getClientConfigGroup();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getServiceConfigGroup() {
 		return serviceConfiguration == null ? null : serviceConfiguration
 				.getServiceConfigGroup();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getEnvironmentMapperImpl() {
 		return serviceConfiguration.getEnvMapperImpl();
 	}

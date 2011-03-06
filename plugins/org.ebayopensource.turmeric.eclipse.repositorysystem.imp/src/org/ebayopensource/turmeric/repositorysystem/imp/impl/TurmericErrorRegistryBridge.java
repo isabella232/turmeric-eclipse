@@ -40,14 +40,18 @@ public class TurmericErrorRegistryBridge implements IErrorRegistryBridge {
 		super();
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.IErrorRegistryBridge#getErrorLibs()
 	 */
 	public Set<AssetInfo> getErrorLibs() throws Exception {
 		return MavenCoreUtils.getAllErrorLibraries();
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.IErrorRegistryBridge#getErrorLibraryViewRoot(org.eclipse.core.resources.IProject, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public File getErrorLibraryViewRoot(IProject project,
@@ -56,7 +60,9 @@ public class TurmericErrorRegistryBridge implements IErrorRegistryBridge {
 				SOAMavenConstants.FOLDER_SRC_MAIN_RESOURCES).getLocation().toFile();
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.IErrorRegistryBridge#createPlatformSpecificArtifacts(org.eclipse.core.resources.IProject, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public void createPlatformSpecificArtifacts(IProject project,

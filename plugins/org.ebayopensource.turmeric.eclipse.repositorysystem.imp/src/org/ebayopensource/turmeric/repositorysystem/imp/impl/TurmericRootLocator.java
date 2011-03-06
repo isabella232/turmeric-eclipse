@@ -21,8 +21,7 @@ import org.eclipse.core.runtime.IPath;
  *
  */
 public class TurmericRootLocator implements ISOARootLocator {
-	public static final ISOARootLocator INSTANCE 
-	= new TurmericRootLocator();
+	public static final ISOARootLocator INSTANCE = new TurmericRootLocator();
 
 	/**
 	 * 
@@ -31,12 +30,15 @@ public class TurmericRootLocator implements ISOARootLocator {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IPath getRoot() {
 		return WorkspaceUtil.getWorkspaceRoot().getLocation();
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARootLocator#shouldOverrideProjectRootDirectory()
 	 */
@@ -44,6 +46,9 @@ public class TurmericRootLocator implements ISOARootLocator {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getDefaultProjectLocation() {
 		if(getRoot()==null)
 			return "";

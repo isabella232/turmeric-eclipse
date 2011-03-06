@@ -74,7 +74,14 @@ import freemarker.template.TemplateException;
  */
 public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 	private static final SOALogger logger = SOALogger.getLogger();
+	/**
+	 * Specifies that the endcoding should be UTF8.
+	 */
 	public static final String ENCODING_UTF8 = "UTF-8";
+	
+	/**
+	 * The source folder exclusion pattern.  This is specified as a regular expression. **.java.
+	 */
 	public static final String SRC_FOLDER_EXCLUDE_PATTERN = "**.java";
 	private static final List<String> EMPTY_STRING_LIST = ListUtil.list(new String[0]);
 
@@ -85,7 +92,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 		super();
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#getRepositoryPath(org.eclipse.core.runtime.IPath)
 	 */
 
@@ -94,7 +103,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#initializeProject(org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject, org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public void initializeProject(SOAIntfProject intfProject,
@@ -120,7 +131,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
         mavenizeAndCleanUp( intfProject.getProject(), request, monitor);
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#initializeProject(org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public void initializeProject(SOAIntfProject intfProject,
@@ -128,7 +141,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 		initializeProject(intfProject, (SOAImplProject)null, monitor);
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#initializeProject(org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public void initializeProject(SOAImplProject implProject,
@@ -155,7 +170,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
         mavenizeAndCleanUp( implProject.getProject(), request, monitor );
 	}
 
-	/* (non-Javadoc)
+	/** 
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#initializeProject(org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject, java.lang.String, boolean, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public void initializeProject(SOAConsumerProject consumerProject,
@@ -184,7 +201,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
         mavenizeAndCleanUp( consumerProject.getProject(), request, monitor );
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#initializeTypeLibProject(org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject, java.lang.String, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public void initializeTypeLibProject(SOABaseProject typeLibProject,
@@ -200,7 +219,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
         mavenizeAndCleanUp( typeLibProject.getProject(), request, monitor );
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#initializeErrorLibProject(org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject, java.lang.String, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public void initializeErrorLibProject(SOABaseProject errorLibProject,
@@ -223,7 +244,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
         TurmericUtil.configureErrorLibraryProject(errorLibProject, monitor);
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#updateProject(org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public boolean updateProject(ISOAProject soaProject,
@@ -231,7 +254,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 		return updateProject(soaProject, false, monitor);
 	}
 	
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#updateProject(org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject, boolean)
 	 */
 	public boolean updateProject(ISOAProject soaProject, boolean updateClasspath, IProgressMonitor monitor)
@@ -246,7 +271,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#addDependency(java.lang.String, java.lang.String, java.lang.String, boolean, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public boolean addDependency(String projectName,
@@ -291,7 +318,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 		return libs;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#addDependencies(java.lang.String, java.util.List, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public boolean addDependencies(String projectName,
@@ -301,7 +330,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 				convertDependencies(dependentLibraries), true, monitor);
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#removeDependencies(java.lang.String, java.util.List, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public boolean removeDependencies(String projectName,
@@ -311,7 +342,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 				convertDependencies(dependentLibraries), false, monitor);
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#addTypeLibraryDependency(java.lang.String, java.lang.String, java.lang.String, boolean, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public boolean addTypeLibraryDependency(String projectName,
@@ -337,7 +370,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#addProjectLinkedResources(org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject)
 	 */
 	public void addProjectLinkedResources(SOABaseProject project) {
@@ -345,7 +380,9 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.impl.AbstractSOAProjectConfigurer#serviceVersionChanged(java.lang.String, java.lang.String)
 	 */
 	protected void serviceVersionChanged(String serviceName,
@@ -492,6 +529,10 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public void addBuildSystemClasspathContainer(IJavaProject javaProject,
 			IProgressMonitor monitor) throws CoreException {
 		boolean found = false;
@@ -515,8 +556,11 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 
 	}
 
-	/* Remove the builder that was just added we don't need it.
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * Remove the builder that was just added we don't need it.
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#configureProjectNature(org.eclipse.core.resources.IProject, org.eclipse.core.resources.IProjectNature)
 	 */
 	public boolean configureProjectNature(IProject project,

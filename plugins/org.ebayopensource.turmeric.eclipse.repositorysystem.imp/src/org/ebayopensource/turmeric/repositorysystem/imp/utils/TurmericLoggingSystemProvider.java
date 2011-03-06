@@ -28,33 +28,45 @@ public class TurmericLoggingSystemProvider implements
 		super();
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.logging.system.ISOALoggingSystemProvider#getSystemID()
 	 */
 	public String getSystemID() {
 		return TurmericConstants.TURMERIC_ID;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.logging.system.ISOALoggingSystemProvider#initLoggingSystem()
 	 */
 	public void initLoggingSystem() {
 		
 	}
 	
+	/**
+	 * 
+	 * @param logger
+	 */
 	public static void initLogHanlder(Logger logger) {
 		
 	}
 	
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.logging.system.ISOALoggingSystemProvider#newLoggerCreated(java.util.logging.Logger)
 	 */
 	public void newLoggerCreated(Logger logger) {
 
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.logging.system.ISOALoggingSystemProvider#shouldLogRawMessage(java.util.logging.LogRecord)
 	 */
 	public boolean shouldLogRawMessage(LogRecord record) {

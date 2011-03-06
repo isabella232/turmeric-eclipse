@@ -60,7 +60,9 @@ public class TurmericAssetRegistry implements ISOAAssetRegistry {
 		super();
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry#getAllLibraries()
 	 */
 	public Set<? extends AssetInfo> getAllAvailableServices() throws Exception {
@@ -72,32 +74,44 @@ public class TurmericAssetRegistry implements ISOAAssetRegistry {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry#getAllLibraries()
 	 */
 	public Set<AssetInfo> getAllLibraries() throws Exception {
 		return new HashSet<AssetInfo>();
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry#getDependencies(java.lang.String)
 	 */
 	public List<AssetInfo> getDependencies(String projectName) throws Exception {
 		return MavenCoreUtils.getDependencies(projectName);
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry#getProjectInfo(java.lang.String)
 	 */
 	public ProjectInfo getProjectInfo(String projectName) throws Exception {
 		return MavenCoreUtils.getProjectInfo(projectName);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public IAssetInfo getAsset(IProject project) throws Exception {
 		return MavenCoreUtils.getProjectInfo(project);
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry#getSOAProject(org.eclipse.core.resources.IProject)
 	 */
 	public ISOAProject getSOAProject(IProject project) throws Exception {
@@ -166,16 +180,28 @@ public class TurmericAssetRegistry implements ISOAAssetRegistry {
 		return soaProject;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public IFile getProjectConfigurationFile(IProject project) {
 		if (project == null || project.isAccessible() == false)
 			return null;
 		return project.getFile(SOAMavenConstants.MAVEN_PROJECT_CONFIG_FILE);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public String getAssetLocation(String projectName) throws Exception {
 		return MavenCoreUtils.getAssetLocation(projectName);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public String getAssetLocation(AssetInfo library) throws Exception {
 		if (library instanceof MavenAssetInfo) {
 			final MavenAssetInfo assetInfo = (MavenAssetInfo)library;
@@ -187,6 +213,10 @@ public class TurmericAssetRegistry implements ISOAAssetRegistry {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public AssetInfo getAssetFromProjectDependency(IProject project,
 			String libraryName) throws Exception {
 		for (AssetInfo info : MavenCoreUtils.getDependencies(project.getName())) {

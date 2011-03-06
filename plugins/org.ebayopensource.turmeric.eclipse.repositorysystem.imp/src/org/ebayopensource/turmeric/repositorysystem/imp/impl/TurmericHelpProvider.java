@@ -18,6 +18,9 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvide
  *
  */
 public class TurmericHelpProvider implements ISOAHelpProvider {
+	/**
+	 * A static instance ofthe TurmericeHelpProvider.
+	 */
 	static final TurmericHelpProvider INSTANCE = new TurmericHelpProvider();
 
 	/**
@@ -27,7 +30,9 @@ public class TurmericHelpProvider implements ISOAHelpProvider {
 		super();
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider#getHelpContextID(int)
 	 */
 	public String getHelpContextID(int helpID) {

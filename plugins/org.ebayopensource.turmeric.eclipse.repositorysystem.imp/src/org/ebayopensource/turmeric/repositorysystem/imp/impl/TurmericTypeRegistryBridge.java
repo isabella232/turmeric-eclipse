@@ -33,16 +33,25 @@ public class TurmericTypeRegistryBridge extends AbstractMavenTypeRegistryBridge 
 	public TurmericTypeRegistryBridge() {
 		super();
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getTypeDependencyWsdlTypeName() {
 		return TurmericConstants.TYPE_NAME_CONST_FOR_ALL_WSDL;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<Bundle> getPluginBundles() {
 		return ListUtil.arrayList(
 				Activator.getDefault().getBundle());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public SOATypeRegistry getSOATypeRegistry() {
 		return SOAGlobalRegistryFactory.getSOATypeRegistryInstance();
 	}

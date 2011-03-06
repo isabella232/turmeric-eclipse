@@ -30,7 +30,9 @@ public class TurmericProjectHealthChecker implements IProjectHealthChecker {
 		super();
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.IProjectHealthChecker#checkProjectHealth(org.eclipse.core.resources.IProject)
 	 */
 	public IStatus checkProjectHealth(IProject project) throws Exception {
@@ -49,10 +51,18 @@ public class TurmericProjectHealthChecker implements IProjectHealthChecker {
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public String getWarningMessageConsumeProjectStructureOld() {
 		return "";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public String getWarningMessageIntfProjectStructureOld() {
 		return "";
 	}

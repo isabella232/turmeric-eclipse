@@ -14,16 +14,23 @@ import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
 
+/**
+ * 
+ * 
+ *
+ */
 public class Activator extends Plugin {
 
-	// The plug-in ID
+	/**
+	 *  The plug-in ID.
+	 */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.repositorysystem.imp";
 
-	// The shared instance
 	private static Activator plugin;
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.eclipse.core.runtime.Plugins#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {
@@ -35,8 +42,9 @@ public class Activator extends Plugin {
         SOALogger.getLogger().info(buf);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
@@ -45,7 +53,7 @@ public class Activator extends Plugin {
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 *
 	 * @return the shared instance
 	 */

@@ -29,8 +29,7 @@ import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiExc
  *
  */
 public final class TurmericPluginConfigLoader {
-	private static final Map<String, Model> projectPlugins 
-	= new ConcurrentHashMap<String,Model>();
+	private static final Map<String, Model> projectPlugins = new ConcurrentHashMap<String,Model>();
 	
 	
 	public static final String PROPS_KEY_PLUGINS = ".pom.xml";
@@ -61,9 +60,6 @@ public final class TurmericPluginConfigLoader {
 		return projectPlugins.get(key);
 	}
 
-	/**
-	 * 
-	 */
 	private TurmericPluginConfigLoader() {
 		super();
 	}

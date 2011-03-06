@@ -77,51 +77,42 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 		super();
 	}
 
-	/*
-	 * (non-Javadoc)
+
+	/**
+	 * {@inheritDoc}
 	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getSOARootLocator()
 	 */
 	public ISOARootLocator getSOARootLocator() {
 		return TurmericRootLocator.INSTANCE;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getDisplayName()
 	 */
 	public String getDisplayName() {
 		return TurmericConstants.TURMERIC_DISPLAY_NAME;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getId()
 	 */
 	public String getId() {
 		return TurmericConstants.TURMERIC_ID;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getClasspathContainerID()
 	 */
 	public String getClasspathContainerID() {
 		return SOAMavenConstants.MAVEN_CLASSPATH_CONTAINER_ID;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getProjectConfigurer()
 	 */
 	public ISOAProjectConfigurer getProjectConfigurer() {
 		if (projectConfigurer == null)
@@ -129,11 +120,9 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 		return projectConfigurer;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getAssetRegistry()
 	 */
 	public ISOAAssetRegistry getAssetRegistry() {
 		if (this.assetRegistry == null)
@@ -141,11 +130,8 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 		return assetRegistry;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getCodegenTranformer()
+	/**
+	 * {@inheritDoc}
 	 */
 	public ISOACodegenTransformer getCodegenTranformer() {
 		if (this.codegenTransformer == null)
@@ -153,21 +139,16 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 		return codegenTransformer;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getLibraryDependencyDialog()
 	 */
 	public ISOALibraryDependencyDialog getLibraryDependencyDialog() {
 		return new MavenLibraryDependencyDialog();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getTypeRegistryBridge()
+	/**
+	 * {@inheritDoc}
 	 */
 	public ITypeRegistryBridge getTypeRegistryBridge() {
 		if (this.typeRegistryBridge == null)
@@ -175,21 +156,17 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 		return typeRegistryBridge;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getHelpProvider()
 	 */
 	public ISOAHelpProvider getHelpProvider() {
 		return TurmericHelpProvider.INSTANCE;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getConfigurationRegistry()
 	 */
 	public ISOAConfigurationRegistry getConfigurationRegistry() {
 		final String orgId = getActiveOrganizationProvider().getName();
@@ -201,11 +178,8 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 		return configRegistry;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getErorRegistryBridge()
+	/**
+	 * {@inheritDoc}
 	 */
 	public IErrorRegistryBridge getErorRegistryBridge() {
 		if (errorRegistryBridge == null)
@@ -213,75 +187,91 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 		return errorRegistryBridge;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getOrganizationProviders()
+	/**
+	 * {@inheritDoc}
 	 */
 	public List<ISOAOrganizationProvider> getOrganizationProviders() {
 		return ListUtil.list(TurmericOrganizationProvider.INSTANCE);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem#getActiveOrganizationProvider()
+	/**
+	 * {@inheritDoc}
 	 */
 	public ISOAOrganizationProvider getActiveOrganizationProvider() {
 		return TurmericOrganizationProvider.INSTANCE;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem
-	 * #trackingUsage(org.ebayopensource.turmeric.eclipse.repositorysystem
-	 * .core.TrackingEvent)
+	 * <p>Currently this doesn't track any events.</p>
 	 */
 	public void trackingUsage(TrackingEvent event) {
 		// we don't track anything for now
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public ISOAValidator getTargetDirectoryValidator() {
 		if (targetDirValidator == null)
 			targetDirValidator = new TurmericTargetDirectoryValidator();
 		return targetDirValidator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ISOAValidator getServiceValidator() {
 		if (serviceValidator == null)
 			serviceValidator = new TurmericServiceValidator();
 		return serviceValidator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public ISOAValidator getProjectWorkspaceValidator() {
 		if (projectWorkspaceValidator == null)
 			projectWorkspaceValidator = new ProjectWorkspaceValidator();
 		return projectWorkspaceValidator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public ISOAValidator getProjectFileSystemValidator() {
 		if (projectFileSystemValidator == null)
 			projectFileSystemValidator = new ProjectFileSystemValidator();
 		return projectFileSystemValidator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public ISOAValidator getWSDLValidator() {
 		if (wsdlValidator == null)
 			wsdlValidator = new WSDLValidator();
 		return wsdlValidator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ISOAPreValidator getPreValidator() {
 		if (preValidator == null)
 			preValidator = new TurmericPreValidator();
 		return preValidator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ISOAValidator getPostValidator() {
 		if (postValidator == null)
 			postValidator = new AbstractSOAValidator() {
@@ -289,26 +279,31 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 		return postValidator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public AbstractSOAClassPathContainer getClassPathContainer(IPath path,
 			IJavaProject javaProject) {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Object getAdapter(Class arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getProjectNatureId(SupportedProjectType projectType) {
 		return TurmericConstants.PROJECT_NATUREIDS_MAP.get(projectType);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem
-	 * #isValidTurmericProject(org.eclipse.core.resources.IProject)
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean isValidTurmericProject(IProject project)
 			throws CoreException {
@@ -317,8 +312,8 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 						new String[0]));
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
 	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
 	 * ISOARepositorySystem#getProjectType(org.eclipse.core.resources.IProject)
@@ -344,18 +339,17 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.ebayopensource.turmeric.eclipse.repositorysystem.core.
-	 * ISOARepositorySystem
-	 * #getTurmericProjectNatureId(org.eclipse.core.resources.IProject)
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getTurmericProjectNatureId(IProject project)
 			throws CoreException {
 		return getProjectNatureId(getProjectType(project));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ISOACodegenProvider getSOACodegenProvider() {
 		if (codegenProvider == null) {
 			codegenProvider = new TurmericCodegenProvider();
@@ -363,7 +357,9 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 		return codegenProvider;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem#getProjectHealthChecker()
 	 */
 	public IProjectHealthChecker getProjectHealthChecker() {

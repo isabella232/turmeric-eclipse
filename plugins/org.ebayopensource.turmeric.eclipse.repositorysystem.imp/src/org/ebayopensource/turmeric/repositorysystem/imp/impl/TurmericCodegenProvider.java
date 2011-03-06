@@ -17,10 +17,19 @@ import org.ebayopensource.turmeric.eclipse.utils.classloader.SOAPluginClassLoade
 import org.ebayopensource.turmeric.tools.codegen.ServiceGenerator;
 import org.osgi.framework.Bundle;
 
+/**
+ * 
+ * @author smatthew
+ *
+ */
 public class TurmericCodegenProvider implements ISOACodegenProvider {
 
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public boolean generateCode(String[] parameters) {
 		ClassLoader classLoaderBasic = Thread.currentThread()
 				.getContextClassLoader();
@@ -44,10 +53,18 @@ public class TurmericCodegenProvider implements ISOACodegenProvider {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public String getGenFolderForImpl() {
 		return SOAProjectConstants.FOLDER_GEN_SRC_SERVICE;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public String getGenFolderForIntf() {
 		return SOAProjectConstants.FOLDER_GEN_SRC_CLIENT;
 	}

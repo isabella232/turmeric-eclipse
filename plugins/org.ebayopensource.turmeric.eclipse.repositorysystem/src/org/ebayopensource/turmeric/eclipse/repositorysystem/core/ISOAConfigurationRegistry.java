@@ -16,7 +16,7 @@ package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 public interface ISOAConfigurationRegistry {
 	
 	/**
-	 * The name of the organization this configuration represents
+	 * The name of the organization this configuration represents.
 	 * @return
 	 */
 	public String getOrganizationName();
@@ -38,21 +38,21 @@ public interface ISOAConfigurationRegistry {
 	public String getBaseServiceResponseType();
 
 	/**
-	 * Returns the name space of the base request type
+	 * Returns the name space of the base request type.
 	 * 
 	 * @return
 	 */
 	public String getBaseServiceRequestNameSpace();
 
 	/**
-	 * Returns the name space of the base response type
+	 * Returns the name space of the base response type.
 	 * 
 	 * @return
 	 */
 	public String getBaseServiceResponseNameSpace();
 
 	/**
-	 * Returns the list of types to be included in the template wsdl
+	 * Returns the list of types to be included in the template wsdl.
 	 * 
 	 * @return
 	 */
