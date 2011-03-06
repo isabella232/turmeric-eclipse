@@ -35,6 +35,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
  */
 public class BuildSystemConfigurer {
 
+	/**
+	 * Configure the interface project with both Java support and Turmeric support.
+	 * @param intfProject SOAIntfProject
+	 * @param monitor IProgressMonitor
+	 * @throws CoreException 
+	 * @throws IOException 
+	 */
 	public static void configure(SOAIntfProject intfProject,
 			IProgressMonitor monitor) throws CoreException, IOException {
 		// add java support
@@ -48,6 +55,13 @@ public class BuildSystemConfigurer {
 				.getActiveRepositorySystem().getProjectNatureId(SupportedProjectType.INTERFACE), monitor);
 	}
 
+	/**
+	 * Configure the implementation project with Java and Turmeric support.
+	 * 
+	 * @param implProject SOAImplProject
+	 * @param monitor IProgressMonitor 
+	 * @throws Exception 
+	 */
 	public static void configure(SOAImplProject implProject,
 			IProgressMonitor monitor) throws Exception {
 		// add java support
@@ -60,6 +74,14 @@ public class BuildSystemConfigurer {
 				.getActiveRepositorySystem().getProjectNatureId(SupportedProjectType.IMPL), monitor);
 	}
 
+	/**
+	 * Configure a consumer project for both Java and Turmeric support.
+	 * 
+	 * @param consumerProject SOAConsumerProject 
+	 * @param monitor IProgressMonitor
+	 * @throws CoreException 
+	 * @throws IOException 
+	 */
 	public static void configure(SOAConsumerProject consumerProject,
 			IProgressMonitor monitor) throws CoreException, IOException {
 		// add java support

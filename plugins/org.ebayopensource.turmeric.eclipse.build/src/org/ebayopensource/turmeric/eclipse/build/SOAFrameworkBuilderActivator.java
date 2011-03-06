@@ -15,27 +15,29 @@ import org.osgi.framework.BundleContext;
 
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the plug-in life cycle.
  * 
  * @author smathew
  * 
  */
 public class SOAFrameworkBuilderActivator extends Plugin {
 
-	// The plug-in ID
+	/**
+	 *  The plug-in ID.
+	 */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.build";
 
 	// The shared instance
 	private static SOAFrameworkBuilderActivator plugin;
 
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public SOAFrameworkBuilderActivator() {
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
@@ -48,8 +50,8 @@ public class SOAFrameworkBuilderActivator extends Plugin {
 		SOALogger.getLogger().info(buf);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
@@ -59,7 +61,7 @@ public class SOAFrameworkBuilderActivator extends Plugin {
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 * 
 	 * @return the shared instance
 	 */

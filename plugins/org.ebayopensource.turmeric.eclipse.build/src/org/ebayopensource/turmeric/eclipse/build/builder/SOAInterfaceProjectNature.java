@@ -23,6 +23,9 @@ import org.eclipse.core.resources.IProjectNature;
  * @author smathew
  */
 public class SOAInterfaceProjectNature extends AbstractSOANature {
+	/**
+	 * The Nature ID for the SOAInterfaceProjectNature.
+	 */
 	public static final String NATURE_ID = SOAFrameworkBuilderActivator.PLUGIN_ID
 			+ ".SOAInterfaceProjectNature";
 

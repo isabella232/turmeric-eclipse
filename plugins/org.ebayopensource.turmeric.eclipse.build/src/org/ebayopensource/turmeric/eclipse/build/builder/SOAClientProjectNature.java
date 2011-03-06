@@ -25,6 +25,9 @@ import org.eclipse.core.runtime.CoreException;
  * @author smathew
  */
 public class SOAClientProjectNature extends AbstractSOANature {
+	/**
+	 * The Nature ID for the SOAClientProjectNature.
+	 */
 	public static final String NATURE_ID = SOAFrameworkBuilderActivator.PLUGIN_ID
 			+ ".SOAClientProjectNature";
 

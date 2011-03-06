@@ -15,24 +15,27 @@ import org.osgi.framework.BundleContext;
 
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the plug-in life cycle.
  */
 public class BuildSystemActivator extends Plugin {
 
-	// The plug-in ID
+	/**
+	 * The plug-in ID.
+	 */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.buildsystem";
 
 	// The shared instance
 	private static BuildSystemActivator plugin;
 	
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public BuildSystemActivator() {
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.eclipse.core.runtime.Plugins#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {
@@ -44,8 +47,9 @@ public class BuildSystemActivator extends Plugin {
         SOALogger.getLogger().info(buf);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
@@ -54,9 +58,9 @@ public class BuildSystemActivator extends Plugin {
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 *
-	 * @return the shared instance
+	 * @return the shared instance.
 	 */
 	public static BuildSystemActivator getDefault() {
 		return plugin;

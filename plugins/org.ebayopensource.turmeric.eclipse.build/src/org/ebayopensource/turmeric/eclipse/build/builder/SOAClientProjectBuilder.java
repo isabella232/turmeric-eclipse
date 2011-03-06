@@ -54,11 +54,16 @@ import org.eclipse.core.runtime.IStatus;
  * @author smathew
  */
 public class SOAClientProjectBuilder extends AbstractSOAProjectBuilder {
+	/**
+	 * The Build Id for the SOAClientProjectBuilder.
+	 */
 	public static final String BUILDER_ID = SOAFrameworkBuilderActivator.PLUGIN_ID
 			+ ".SOAClientProjectBuilder";
 	private static final SOALogger logger = SOALogger.getLogger();
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.build.builder.AbstractSOAProjectBuilder#shouldBuild(org.eclipse.core.resources.IResourceDelta, org.eclipse.core.resources.IProject)
 	 */
 	@Override
@@ -156,7 +161,9 @@ public class SOAClientProjectBuilder extends AbstractSOAProjectBuilder {
 		return shouldGenerate;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.build.builder.AbstractSOAProjectBuilder#doBuild(int, java.util.Map, org.eclipse.core.resources.IProject, org.eclipse.core.resources.IResourceDelta, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
@@ -189,7 +196,9 @@ public class SOAClientProjectBuilder extends AbstractSOAProjectBuilder {
 				.getProjectNatureId(SupportedProjectType.CONSUMER));
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.build.builder.AbstractSOAProjectBuilder#doClean(org.eclipse.core.resources.IProject, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override

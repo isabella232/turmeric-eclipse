@@ -39,6 +39,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
  */
 public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 
+	/**
+	 * The Builder ID for the SOAInterfaceProjectBuilder.
+	 */
 	public static final String BUILDER_ID = SOAFrameworkBuilderActivator.PLUGIN_ID
 			+ ".SOAInterfaceProjectBuilder";
 

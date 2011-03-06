@@ -29,7 +29,14 @@ import org.eclipse.jdt.core.IJavaProject;
  * 
  */
 public class SOAClassPathContainer implements IClasspathContainer {
+	/**
+	 * The list of class path entries to be added for the SOA Project.
+	 */
 	IClasspathEntry entries[];
+	
+	/**
+	 * The project or container path.
+	 */
 	IPath containerPath;
 
 	/**
@@ -52,7 +59,7 @@ public class SOAClassPathContainer implements IClasspathContainer {
 	 * This is the same as the above constructor except for the fact that this
 	 * one honors the existing parameter class path values.
 	 * 
-	 * @param containerPath-
+	 * @param containerPath
 	 *            container's path representation
 	 * @param project -
 	 *            the project on which this container to be stitched
@@ -76,12 +83,15 @@ public class SOAClassPathContainer implements IClasspathContainer {
 		this.containerPath = containerPath;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IClasspathEntry[] getClasspathEntries() {
 		return entries;
 	}
 
-	/*
-	 * The string shown in the eclipse classpath UI.
+	/**
+	 * {@inheritDoc}
 	 * 
 	 * @see org.eclipse.jdt.core.IClasspathContainer#getDescription()
 	 */
@@ -89,10 +99,11 @@ public class SOAClassPathContainer implements IClasspathContainer {
 		return "SOA Library Dependencies";
 	}
 
-	/*
+	/**
 	 * This kind is required so that the Run configuration can fetch our class
 	 * path. Most other kinds are ignored by the run configuration.
-	 * (non-Javadoc)
+	 * 
+	 * {@inheritDoc}
 	 * 
 	 * @see org.eclipse.jdt.core.IClasspathContainer#getKind()
 	 */
@@ -100,6 +111,9 @@ public class SOAClassPathContainer implements IClasspathContainer {
 		return IClasspathContainer.K_APPLICATION;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IPath getPath() {
 		return containerPath;
 	}
@@ -141,6 +155,9 @@ public class SOAClassPathContainer implements IClasspathContainer {
 	 * 
 	 */
 	class ClassPathComparator implements Comparator<IClasspathEntry> {
+		/**
+		 * {@inheritDoc}
+		 */
 		public int compare(IClasspathEntry o1, IClasspathEntry o2) {
 			if (o1 != null && o2 != null) {
 				if (o1.getEntryKind() == IClasspathEntry.CPE_PROJECT) {
