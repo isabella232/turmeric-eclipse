@@ -160,6 +160,8 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 					} catch (MalformedURLException e) {
 						wsdl = new Path(wsdlurltext);
 					}
+				} else {
+					wsdl = wsdlurltext;
 				}
 				validationModel = validator.validate(wsdl);
 			} catch (ValidationInterruptedException e) {

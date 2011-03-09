@@ -40,6 +40,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
@@ -48,7 +50,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 
@@ -106,6 +110,7 @@ AbstractSOAResourceWizardPage {
 				domainClassifierList.addModifyListener(domainClassifierModifyListener);
 				serviceDomainList.addModifyListener(domainListModifyListener);
 				serviceDomainList.select(0);
+				serviceDomainList.removeModifyListener(domainListModifyListener);
 			}
 		} catch (Exception e) {
 			logger.warning(e);
@@ -251,7 +256,25 @@ AbstractSOAResourceWizardPage {
 				dialogChanged();
 			}
 		};
-		serviceDomainList.addModifyListener(domainListModifyListener);
+		//serviceDomainList.addModifyListener(domainListModifyListener);
+		serviceDomainList.addListener(SWT.DefaultSelection, new Listener() {
+			public void handleEvent(Event e) {
+				domainListModifyListener.modifyText(new ModifyEvent(e));
+			}
+		});
+		serviceDomainList.addFocusListener(new FocusAdapter() {
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				Event event = new Event();
+				event.display = e.display;
+				event.widget = e.widget;
+				event.time = e.time;
+				event.data = e.data;
+				domainListModifyListener.modifyText(new ModifyEvent(event));
+			}
+			
+		});
 		serviceDomainList.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		domainClassifierList = new CCombo(composite, 
