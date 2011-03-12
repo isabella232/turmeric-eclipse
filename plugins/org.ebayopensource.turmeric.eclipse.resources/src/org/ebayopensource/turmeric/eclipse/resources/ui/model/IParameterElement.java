@@ -9,9 +9,22 @@
 package org.ebayopensource.turmeric.eclipse.resources.ui.model;
 
 
+/**
+ * 
+ * 
+ *
+ */
 public  interface IParameterElement {
+	/**
+	 * 
+	 * @return the parameter name
+	 */
 	public String getName();
 
+	/**
+	 * 
+	 * @param name the parameter name
+	 */
 	public void setName(String name);
 
 	/**
@@ -26,11 +39,30 @@ public  interface IParameterElement {
 	 */
 	public void setDatatype(Object datatype);
 
+	/**
+	 * 
+	 * @return minimum occurrence
+	 */
 	public int getMinOccurs();
 
+	/**
+	 * 
+	 * @param minOccurs maximum occurrence
+	 * @throws IllegalArgumentException 
+	 */
 	public void setMinOccurs(int minOccurs) throws IllegalArgumentException;
 
+	/**
+	 * 
+	 * @return maximum occurrence
+	 */
 	public int getMaxOccurs();
+	
+	/**
+	 * 
+	 * @param maxOccurs minimum occurrence
+	 * @throws IllegalArgumentException 
+	 */
 
 	public void setMaxOccurs(int maxOccurs) throws IllegalArgumentException;
 }

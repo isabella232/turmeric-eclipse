@@ -31,62 +31,124 @@ public class ConsumerFromJavaParamModel {
 		super();
 	}
 
+	/**
+	 * 
+	 * @return the parent directory
+	 */
 	public String getParentDirectory() {
 		return parentDirectory;
 	}
 
+	/**
+	 * 
+	 * @param parentDirectory parent directory
+	 */
 	public void setParentDirectory(String parentDirectory) {
 		this.parentDirectory = parentDirectory;
 	}
 
+	/**
+	 * 
+	 * @return the consumer id
+	 */
 	public String getConsumerId() {
 		return consumerId;
 	}
 
+	/**
+	 * 
+	 * @param consumerId the consumer id
+	 */
 	public void setConsumerId(String consumerId) {
 		this.consumerId = consumerId;
 	}
 
+	/**
+	 * 
+	 * @return the base consumer source directory
+	 */
 	public String getBaseConsumerSrcDir() {
 		return baseConsumerSrcDir;
 	}
 
+	/**
+	 * 
+	 * @param baseConsumerSrcDir the base consumer source directory
+	 */
 	public void setBaseConsumerSrcDir(String baseConsumerSrcDir) {
 		this.baseConsumerSrcDir = baseConsumerSrcDir;
 	}
+	
+	/**
+	 * 
+	 * @return the service name
+	 */
 
 	public List<String> getServiceNames() {
 		return serviceNames;
 	}
 
+	/**
+	 * 
+	 * @return the client name
+	 */
 	public String getClientName() {
 		return clientName;
 	}
 
+	/**
+	 * 
+	 * @param clientName the client name
+	 */
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}
 
+	/**
+	 * 
+	 * @return the deployment environments
+	 */
 	public List<String> getEnvironments() {
 		return environments;
 	}
 	
+	/**
+	 * 
+	 * @param environment a deployment environment
+	 * @return whether the enviroment was added successfully
+	 */
 	public boolean addEnvironment(String environment) {
 		return environments.add(environment);
 	}
 
+	/**
+	 * 
+	 * @param environments a List of deployment environments
+	 */
 	public void setEnvironments(List<String> environments) {
 		this.environments = environments;
 	}
 
+	/**
+	 * 
+	 * @param serviceNames a List of service names
+	 */
 	public void setServiceNames(List<String> serviceNames) {
 		this.serviceNames = serviceNames;
 	}
 
+	/**
+	 * 
+	 * @return whether the project is being converted or not.
+	 */
 	public boolean isConvertingJavaProject() {
 		return convertingJavaProject;
 	}
 
+	/**
+	 * 
+	 * @param convertingJavaProject sets the status of the conversion
+	 */
 	public void setConvertingJavaProject(boolean convertingJavaProject) {
 		this.convertingJavaProject = convertingJavaProject;
 	}

@@ -62,9 +62,10 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	 * @param serviceInterface
 	 * @param serviceLayer
 	 * @param wsdlURL
+	 * @param paramModel 
 	 * @return This has been made a static factory to enable object pooling and
 	 *         controlled creation.
-	 * @throws WSDLException
+	 * @throws WSDLException 
 	 */
 	public static SOAIntfMetadata create(ServiceFromWsdlParamModel paramModel)
 			throws WSDLException {
@@ -95,7 +96,7 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	 * classes which reads the configuration files and finally creates the SOA
 	 * specific domain data also.
 	 * 
-	 * @param intfSource
+	 * @param intfSource the interface source
 	 * @return This method would be called from builder because it does not have
 	 *         the user parameters in hand. This would be a step by step
 	 *         creation process
@@ -107,17 +108,11 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 		return metadata;
 	}
 
-	/*public static SOAIntfMetadata create(final String serviceName,
-			final String serviceVersion, final String serviceLayer) {
-		final SOAIntfMetadata metadata = new SOAIntfMetadata();
-		metadata.setServiceName(serviceName);
-		metadata.setServiceVersion(serviceVersion);
-		metadata.setServiceLayer(serviceLayer);
-		return metadata;
-	}*/
-
 	/**
-	 * Called from Consumer
+	 * Called from Consumer.
+	 * 
+	 * @param paramModel the Consumer from Java Parameter Model.
+	 * @return creates a Map with servicen anem and SOAIntfMetadata
 	 */
 	public static Map<String, SOAIntfMetadata> create(
 			ConsumerFromJavaParamModel paramModel) {
@@ -130,148 +125,288 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 		return metadatas;
 	}
 
+	
 	private SOAIntfMetadata() {
 
 	}
 
+	/**
+	 * 
+	 * @return the meta data version
+	 */
 	public String getMetadataVersion() {
 		return metadataVersion;
 	}
 
+	/**
+	 * 
+	 * @param metadataVersion the meta data version in major.minor format.
+	 */
 	public void setMetadataVersion(String metadataVersion) {
 		if (StringUtils.isNotBlank(metadataVersion))
 			this.metadataVersion = metadataVersion;
 	}
 
+	/**
+	 * 
+	 * @return the public service name
+	 */
 	public String getPublicServiceName() {
 		return publicServiceName;
 	}
 
+	/**
+	 * 
+	 * @param publicServiceName the public service name
+	 */
 	public void setPublicServiceName(String publicServiceName) {
 		this.publicServiceName = publicServiceName;
 	}
 
+	/**
+	 * 
+	 * @return the service domain name
+	 */
 	public String getServiceDomainName() {
 		return serviceDomainName;
 	}
 
+	/**
+	 * 
+	 * @param serviceDomainName the service domain name
+	 */
 	public void setServiceDomainName(String serviceDomainName) {
 		this.serviceDomainName = serviceDomainName;
 	}
 
+	/**
+	 * 
+	 * @return the type namespace
+	 */
 	public String getTypeNamespace() {
 		return typeNamespace;
 	}
 
+	/**
+	 * 
+	 * @param typeNamespace the type namespace
+	 */
 	public void setTypeNamespace(String typeNamespace) {
 		this.typeNamespace = typeNamespace;
 	}
 
+	/**
+	 * 
+	 * @return Is type folding enabled?
+	 */
 	public boolean getTypeFolding() {
 		return typeFolding;
 	}
 
+	/**
+	 * 
+	 * @param typeFolding Should type folding be enabled.
+	 */
 	public void setTypeFolding(boolean typeFolding) {
 		this.typeFolding = typeFolding;
 	}
 
+	/**
+	 * 
+	 * @return implementation project name
+	 */
 	public String getImlementationProjectName() {
 		return imlementationProjectName;
 	}
 
+	/**
+	 * 
+	 * @param imlementationProjectName implementation project name
+	 */
 	public void setImlementationProjectName(String imlementationProjectName) {
 		this.imlementationProjectName = imlementationProjectName;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getMetadataFileName() {
 		return SOAProjectConstants.PROPS_FILE_SERVICE_INTERFACE;
 	}
 
+	/**
+	 * 
+	 * @return the service name
+	 */
 	public String getServiceName() {
 		return serviceName;
 	}
 
+	/**
+	 * 
+	 * @param serviceName the service name
+	 */
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
 
+	/**
+	 * 
+	 * @return the service namespace part
+	 */
 	public String getServiceNamespacePart() {
 		return serviceNamespacePart;
 	}
 
+	/**
+	 * 
+	 * @param serviceNamespacePart the service namespace part
+	 */
 	public void setServiceNamespacePart(String serviceNamespacePart) {
 		this.serviceNamespacePart = serviceNamespacePart;
 	}
 
+	/**
+	 * 
+	 * @return the service version
+	 */
 	public String getServiceVersion() {
 		return serviceVersion;
 	}
 
+	/**
+	 * 
+	 * @param serviceVersion the service version
+	 */
 	public void setServiceVersion(String serviceVersion) {
 		this.serviceVersion = serviceVersion;
 	}
 
+	/**
+	 * 
+	 * @return the service interface
+	 */
 	public String getServiceInterface() {
 		return serviceInterface;
 	}
 
+	/**
+	 * 
+	 * @param serviceInterface the service interface
+	 */
 	public void setServiceInterface(String serviceInterface) {
 		this.serviceInterface = serviceInterface;
 	}
 
+	/**
+	 * 
+	 * @return the service layer
+	 */
 	public String getServiceLayer() {
 		return serviceLayer;
 	}
 
+	/**
+	 * 
+	 * @param serviceLayer the service layer
+	 */
 	public void setServiceLayer(String serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}
 
+	/**
+	 * 
+	 * @return the interface source type
+	 */
 	public SOAProjectConstants.InterfaceSourceType getSourceType() {
 		return sourceType;
 	}
 
+	/**
+	 * 
+	 * @param sourceType the source type
+	 */
 	public void setSourceType(SOAProjectConstants.InterfaceSourceType sourceType) {
 		this.sourceType = sourceType;
 	}
 
+	/**
+	 * 
+	 * @return service location
+	 */
 	public String getServiceLocation() {
 		return serviceLocation;
 	}
 
+	/**
+	 * 
+	 * @param serviceLocation the service location
+	 */
 	public void setServiceLocation(String serviceLocation) {
 		this.serviceLocation = serviceLocation;
 	}
 
+	/**
+	 * 
+	 * @return the location of the original WSDL
+	 */
 	public URL getOriginalWSDLUrl() {
 		return originalWSDLUrl;
 	}
 
+	/**
+	 * 
+	 * @param originalWSDLUrl the location of the original wsdl.
+	 */
 	public void setOriginalWSDLUrl(URL originalWSDLUrl) {
 		this.originalWSDLUrl = originalWSDLUrl;
 	}
 
+	/**
+	 * 
+	 * @return the wsdl source type
+	 */
 	public SOAProjectConstants.InterfaceWsdlSourceType getWsdlSourceType() {
 		return wsdlSourceType;
 	}
 
+	/**
+	 * 
+	 * @param wsdlSourceType the wsdl source type
+	 */
 	public void setWsdlSourceType(
 			SOAProjectConstants.InterfaceWsdlSourceType wsdlSourceType) {
 		this.wsdlSourceType = wsdlSourceType;
 	}
 
+	/**
+	 * 
+	 * @return the target namespace
+	 */
 	public String getTargetNamespace() {
 		return targetNamespace;
 	}
 
+	/**
+	 * 
+	 * @param targetNamespace the target namespace
+	 */
 	public void setTargetNamespace(String targetNamespace) {
 		this.targetNamespace = targetNamespace;
 	}
 
+	/**
+	 * 
+	 * @return A map of namespaces to package mappings
+	 */
 	public Map<String, String> getNamespaceToPackageMappings() {
 		return namespaceToPackageMappings;
 	}
 
+	/**
+	 * 
+	 * @param namespaceToPackageMappings a Map of namespaces to package mappings
+	 */
 	public void setNamespaceToPackageMappings(
 			Map<String, String> namespaceToPackageMappings) {
 		this.namespaceToPackageMappings = namespaceToPackageMappings;

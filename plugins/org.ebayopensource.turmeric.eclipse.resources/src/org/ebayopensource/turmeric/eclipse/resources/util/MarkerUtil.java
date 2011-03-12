@@ -32,9 +32,15 @@ import org.eclipse.core.runtime.MultiStatus;
  * 
  */
 public final class MarkerUtil {
+	/**
+	 * SOA Problem Marker ID.
+	 */
 	public static final String SOA_PROBLEM_MARKER_ID = Activator.PLUGIN_ID
 	+ ".soaproblem";
 
+	/**
+	 * WSDL Problem Marker ID.
+	 */
 	public static final String WSDL_PROBLEM_MARKER_ID = Activator.PLUGIN_ID
 	+ ".wsdlproblem";
 
@@ -45,6 +51,13 @@ public final class MarkerUtil {
 		super();
 	}
 
+	/**
+	 * Finds the SOA Error Markers given an IResource.
+	 * 
+	 * @param resource the resource to check
+	 * @return An array of IMarkers that were found.  May be null or empty if nothing is found.
+	 * @throws CoreException 
+	 */
 	public static IMarker[] findSOAErrorMarkers(IResource resource)
 	throws CoreException {
 		final List<IMarker> result = new ArrayList<IMarker>();
@@ -57,17 +70,36 @@ public final class MarkerUtil {
 		return result.toArray(new IMarker[0]);
 	}
 
+	/**
+	 * Finds the SOA Problem Markers given a resource.
+	 * @param resource the resource to search
+	 * @return an array of IMarker entries. May be null or empty if noting is found.
+	 * @throws CoreException 
+	 */
 	public static IMarker[] findSOAProblemMarkers(IResource resource)
 	throws CoreException {
 		return resource.findMarkers(SOA_PROBLEM_MARKER_ID, true,
 				IResource.DEPTH_INFINITE);
 	}
 
+	/**
+	 * Finds markers given a resource and type.
+	 * 
+	 * @param resource the resource 
+	 * @param type the type of markert to find
+	 * @return An array of IMarkers that where found. May be empty or null if no markers found.
+	 * @throws CoreException 
+	 */
 	public static IMarker[] findMarkers(IResource resource, String type)
 	throws CoreException {
 		return resource.findMarkers(type, true, IResource.DEPTH_INFINITE);
 	}
 
+	/**
+	 * 
+	 * @param resource the resource
+	 * @throws CoreException 
+	 */
 	public static void cleanSOAProblemMarkers(IResource resource)
 	throws CoreException {
 		cleanMarkers(resource, SOA_PROBLEM_MARKER_ID);

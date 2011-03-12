@@ -33,31 +33,59 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 		super();
 	}
 	
+	/**
+	 * 
+	 * @return the project name
+	 */
 	public String getProjectName() {
 		return projectName;
 	}
 
+	/**
+	 * 
+	 * @param projectName the project name
+	 */
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
 
+	/**
+	 * 
+	 * @return a List of eclispe natures
+	 */
 	public List<String> getEclipseNatures() {
 		return eclipseNatures;
 	}
 	
+	/**
+	 * 
+	 * @param eclipseNature a eclipse nature name
+	 * @return whether the nature was added successfully.
+	 */
 	public boolean addEclipseNature(String eclipseNature) {
 		return eclipseNatures.add(eclipseNature);
 	}
 	
+	/**
+	 * 
+	 * @param linkedResource a UIModelProjectLinkedResource
+	 * @return whether the linked resource was added successfully.
+	 */
 	public boolean addProjectLinkedResource(UIModelProjectLinkedResource linkedResource) {
 		return linkedResources.add(linkedResource);
 	}
 
+	/**
+	 * 
+	 * @return a List of UIModelProjectLinkedResource.
+	 */
 	public List<UIModelProjectLinkedResource> getLinkedResources() {
 		return linkedResources;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.resources.ui.model.ISOAServiceParamModel#validate()
 	 */
 	public boolean validate() {
@@ -72,14 +100,32 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 		return buf.toString();
 	}
 	
+	/**
+	 * 
+	 * 
+	 *
+	 */
 	public static class UIModelProjectLinkedResource {
+		/**
+		 * a type resource. 
+		 */
 		public static final int LINK_TYPE_RESOURCE = 1;
+		
+		/**
+		 * a type folder.
+		 */
 		public static final int LINK_TYPE_FOLDER = 2;
 		
 		private String name;
 		private int type = LINK_TYPE_RESOURCE;
 		private String location;
 		
+		/**
+		 * 
+		 * @param name resource name
+		 * @param type type
+		 * @param location location
+		 */
 		public UIModelProjectLinkedResource(String name, int type, String location) {
 			super();
 			this.name = name;
@@ -87,30 +133,59 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 			this.location = location;
 		}
 		
+		/**
+		 * 
+		 * @param name resource name
+		 * @param location location
+		 */
 		public UIModelProjectLinkedResource(String name, String location) {
 			this(name, LINK_TYPE_RESOURCE, location);
 		}
 
+		/**
+		 * 
+		 * @return resource name
+		 */
 		public String getName() {
 			return name;
 		}
 
+		/**
+		 * 
+		 * @param name resource name
+		 */
 		public void setName(String name) {
 			this.name = name;
 		}
 
+		/**
+		 * 
+		 * @return resource type
+		 */
 		public int getType() {
 			return type;
 		}
 
+		/**
+		 * 
+		 * @param type linked resource type
+		 */
 		public void setType(int type) {
 			this.type = type;
 		}
 
+		/**
+		 * 
+		 * @return the location
+		 */
 		public String getLocation() {
 			return location;
 		}
 
+		/**
+		 * 
+		 * @param location location
+		 */
 		public void setLocation(String location) {
 			this.location = location;
 		}

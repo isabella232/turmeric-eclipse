@@ -10,6 +10,7 @@ package org.ebayopensource.turmeric.eclipse.maven.core.preferences;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.TreeSet;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
@@ -109,7 +110,7 @@ IWorkbenchPreferencePage {
 				}
 			};
 			addField(overwriteEditor);
-			final Collection<String> versions = new ArrayList<String>();
+			final Collection<String> versions = new TreeSet<String>();
 			if (metadata != null) {
 				for (Artifact artifact: MavenCoreUtils.mavenEclipseAPI()
 						.findArtifactByNameAndGroup(metadata.getArtifactId(), metadata.getGroupId())) {

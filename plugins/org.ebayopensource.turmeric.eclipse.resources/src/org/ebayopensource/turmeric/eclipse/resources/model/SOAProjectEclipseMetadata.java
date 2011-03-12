@@ -26,10 +26,23 @@ public class SOAProjectEclipseMetadata {
 	
 	private IProject project;
 
+	/**
+	 * Creates an instance of a SOAProjectEclipseMetaData.
+	 * @param name the project name
+	 * @param workSpace the workspace location
+	 * @return an instance of a SOAProjectEclipseMetaData
+	 */
 	public static SOAProjectEclipseMetadata create(String name, String workSpace) {
 		return create(name, new Path(workSpace));
 	}
 	
+	
+	/**
+	 * Creates an instance of the SOAProjectEclipseMetadata.
+	 * @param name the project name
+	 * @param workSpace the workspace location
+	 * @return an instance of a SOAProjectEclipseMetadata
+	 */
 	public static SOAProjectEclipseMetadata create(String name, IPath workSpace) {
 		SOAProjectEclipseMetadata metadata = new SOAProjectEclipseMetadata();
 		metadata.setProjectName(name);
@@ -40,22 +53,42 @@ public class SOAProjectEclipseMetadata {
 	private SOAProjectEclipseMetadata() {
 	}
 
+	/**
+	 * 
+	 * @return the project name
+	 */
 	public String getProjectName() {
 		return projName;
 	}
 
+	/**
+	 * 
+	 * @param name the project name
+	 */
 	public void setProjectName(String name) {
 		this.projName = name;
 	}
 
+	/**
+	 * 
+	 * @return the workspace location as an IPath
+	 */
 	public IPath getWorkspaceLocation() {
 		return workspaceLocation;
 	}
 
+	/**
+	 * 
+	 * @param projectLocation a project location
+	 */
 	public void setWorkspaceLocation(IPath projectLocation) {
 		this.workspaceLocation = projectLocation;
 	}
 
+	/**
+	 * 
+	 * @return an IProject
+	 */
 	public IProject getProject() {
 		if (project == null)
 			this.project = WorkspaceUtil.getProject(projName);

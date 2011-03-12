@@ -30,6 +30,9 @@ import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstan
  */
 public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 
+	/**
+	 * The version prefix. "v."
+	 */
 	public static final String VERSION_PREFIX = " v.";
 	private final String name;
 	private final String version;
@@ -38,20 +41,46 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	// can be project or library. Enum avoided.
 	private String type;
 
+	/**
+	 * 
+	 * @param name 
+	 * @param type 
+	 */
 	public AssetInfo(final String name, final String type) {
 		this(name, "", "", type);
 	}
 
+	/**
+	 * 
+	 * @param name 
+	 * @param version 
+	 * @param dir 
+	 */
 	public AssetInfo(final String name, final String version, final String dir) {
 		this(name, version, dir, null);
 	}
 
+	/**
+	 * 
+	 * @param name 
+	 * @param version 
+	 * @param dir 
+	 * @param type 
+	 */
 	public AssetInfo(final String name, final String version, final String dir,
 			final String type) {
 		this(name, version, dir, SOAProjectConstants.ServiceLayer.UNKNOWN
 				.name(), type);
 	}
 
+	/**
+	 * 
+	 * @param name 
+	 * @param version 
+	 * @param dir 
+	 * @param serviceLayer 
+	 * @param type 
+	 */
 	public AssetInfo(String name, String version, String dir,
 			String serviceLayer, String type) {
 		super();
@@ -61,6 +90,13 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 		this.type = StringUtils.defaultString(type).trim();
 	}
 	
+	/**
+	 * 
+	 * @param name 
+	 * @param version 
+	 * @param type 
+	 * @return returns an instance of an Asset with version and type.
+	 */
 	public static AssetInfo createAssetInfoWithVersion(String name, String version, String type) {
 		return new AssetInfo(name, version, "", type);
 	}
@@ -96,28 +132,48 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @return the directory as a string
+	 */
 	public String getDir() {
 		return dir;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getVersion() {
 		return version;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getDescription() {
 		if (TYPE_LIBRARY.equals(getType()))
 			return getName() + VERSION_PREFIX + getVersion();
 		return getName();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String toString() {
 		return getName();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public int compareTo(final AssetInfo info) {
 		if (ObjectUtils.equals(info, this))
 			return 0;
@@ -132,27 +188,47 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 		return 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getType() {
 		return type;
 	}
-
+	
+	/**
+	 * 
+	 * @param type The name of the type.
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	/**
+	 * 
+	 * @return A List of String objects that contain the jar names
+	 */
 	public List<String> getJarNames() {
 		return jarNames;
 	}
 
+	/**
+	 * 
+	 * @param jarNames A List of String objects with jarnames
+	 */
 	public void setJarNames(List<String> jarNames) {
 		this.jarNames = jarNames;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getUniqueID() {
 		return this.name;
 	}
 	
 	/**
+	 * {@inheritDoc}
+	 * 
 	 * @return The short description of the AssetInfo instance.
 	 */
 	public String getShortDescription() {
@@ -160,10 +236,15 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	}
 
 	/**
-	 * @return Returns a URL based on the dir and jarnames, Will check for null
+	 * Returns a URL based on the dir and jarnames, Will check for null
 	 *         but no check on file existance if the validateFiles boolean is
 	 *         false. If its true then the non existing invalid files will be
 	 *         filtered out from returned list
+	 *         
+	 * @param validateFiles Whether files should be validated if they exist or can be read before
+	 *                      adding them to the file set.
+	 *                      
+	 * @return A Set of File objects.
 	 */
 	public Set<File> getFiles(boolean validateFiles) {
 		String dirName = getDir();
