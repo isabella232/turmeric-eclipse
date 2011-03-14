@@ -63,6 +63,7 @@
       <module>features/org.ebayopensource.turmeric.eclipse.core.sdk.feature</module>
       <module>features/org.ebayopensource.turmeric.eclipse.core.feature</module>
       <module>features/org.ebayopensource.turmeric.eclipse.utils.feature</module>
+      <module>features/org.ebayopensource.turmeric.eclipse.maven.feature</module>
       <module>releng/org.ebayopensource.turmeric.eclipse.updatesite</module>
 
       <!-- Test Related Plugins -->
