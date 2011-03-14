@@ -16,9 +16,15 @@ import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-
+/**
+ * 
+ * @since 1.0
+ *
+ */
 public class Activator extends AbstractUIPlugin {
-	// The plug-in ID
+	/**
+	 *  The plug-in ID.
+	 */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.maven.core";
 
 	// The shared instance
@@ -26,8 +32,15 @@ public class Activator extends AbstractUIPlugin {
 	
 	private static SOALogger logger = SOALogger.getLogger();
 	
+	/**
+	 * 
+	 */
 	protected PropertyResourceBundle pluginProperties;
 
+	/**
+	 * 
+	 * @return the configuratin properties
+	 */
     public PropertyResourceBundle getConfigProperties(){
     	if (pluginProperties == null){
     		try {
@@ -39,10 +52,7 @@ public class Activator extends AbstractUIPlugin {
     	return pluginProperties;
     }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-	 */
+    @Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
@@ -53,17 +63,14 @@ public class Activator extends AbstractUIPlugin {
         logger.info(buf);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-	 */
+    @Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
 	}
 	
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 *
 	 * @return the shared instance
 	 */
