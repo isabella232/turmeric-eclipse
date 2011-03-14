@@ -58,16 +58,19 @@ import org.maven.ide.eclipse.repository.IRepositoryRegistry;
 public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	// ---------------------------------------------------------------------
 	/**
-	 * read & parse the POM file from an IProject
+	 * {@inheritDoc}
 	 */
 	public Model parsePom(final IProject project)
 			throws MavenEclipseApiException {
 		return parsePom(getPomFile(project));
 	}
 
-	// ---------------------------------------------------------------------
 	/**
-	 * read & parse the POM file from an IFile
+	 * Returns a model of the pom.
+	 * 
+	 * @param file the pom file to read
+	 * @return the Maven Model
+	 * @throws MavenEclipseApiException 
 	 */
 	public Model parsePom(final IFile file) throws MavenEclipseApiException {
 		try {
@@ -77,6 +80,9 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Model parsePom(final InputStream ins)
 			throws MavenEclipseApiException {
 		try {
@@ -88,6 +94,9 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void writePom(final IFile file, final Model model)
 			throws MavenEclipseApiException {
 		final IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
@@ -113,6 +122,9 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void writePom(final OutputStream output, final Model model)
 	throws MavenEclipseApiException {
 		try {
@@ -124,9 +136,10 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 		}
 	}
 
-	// ---------------------------------------------------------------------
 	/**
-	 * return local repository
+	 * return local repository.
+	 * @return the local Repository Artifact
+	 * @throws MavenEclipseApiException 
 	 */
 	public ArtifactRepository localRepository() throws MavenEclipseApiException {
 		try {
@@ -136,6 +149,9 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Artifact resolveArtifact(final Artifact artifact)
 			throws MavenEclipseApiException {
 		if (artifact == null || artifact.isResolved())
@@ -156,17 +172,35 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	 */
 	private volatile MavenImpl embedder = null;
 
+	/**
+	 * The maven implementation that is being used.
+	 * 
+	 * @return the maven implementation
+	 * @throws MavenEclipseApiException 
+	 */
 	protected MavenImpl _getEmbedder() throws MavenEclipseApiException {
 		if (embedder == null)
 			embedder = MavenApiHelper.getMavenEmbedder();
 		return embedder;
 	}
 
-	// -------------------------------------------------------------------------------------
+
+	/**
+	 * The maven index manager.
+	 * @return see above
+	 * @throws MavenEclipseApiException 
+	 */
 	protected IndexManager _getIndexManager() throws MavenEclipseApiException {
 		return MavenApiHelper.getMavenIndexManager();
 	}
 
+	/**
+	 * Create an artifact given the metadata.  This populates it into the repository.
+	 * 
+	 * @param metadata the artifact metadata to use.
+	 * @return the created artifact.
+	 * @throws MavenEclipseApiException 
+	 */
 	public Artifact createArtifact(final ArtifactMetadata metadata)
 			throws MavenEclipseApiException {
 		RepositorySystem res = MavenApiHelper.getRepositorySystem();
@@ -181,7 +215,12 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 				metadata.getClassifier());
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * A collection of artifacts.
+	 * @param mdColl the artifact metadata collection.
+	 * @return see above
+	 * @throws MavenEclipseApiException 
+	 */
 	protected Collection<Artifact> _toArtifactCollection(
 			final Collection<ArtifactMetadata> mdColl)
 			throws MavenEclipseApiException {
@@ -193,7 +232,11 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 		return artifacts;
 	}
 
-	// -------------------------------------------------------------------------------------
+	/**
+	 * 
+	 * @param findings a Map of String and IndexedArtifact
+	 * @return a collection ofArtifactMetaData that was found.
+	 */
 	protected Collection<ArtifactMetadata> _returnFindings(
 			final Map<String, IndexedArtifact> findings) {
 		final List<ArtifactMetadata> list = new ArrayList<ArtifactMetadata>();
@@ -216,17 +259,20 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 						packaging = new Path(file.fname).getFileExtension();
 					}
 				}
-				// final String packaging = isNotBlank( indexed.packaging ) &&
-				// !StringUtils.equalsIgnoreCase( indexed.packaging, "null" ) ?
-				// indexed.packaging : isNotBlank( file.fname ) &&
-				// !StringUtils.equalsIgnoreCase( file.fname, "null" ) ? new
-				// Path( file.fname ).getFileExtension() : "jar";
+				
 				list.add(artifactMetadata(file, packaging));
 			}
 		}
 		return list;
 	}
 
+	/**
+	 * 
+	 * @param indexManager the IndexManager
+	 * @param groupRegEx a regular expression for filtering the group.
+	 * @return a collection of ArtifactMetaData that was found.
+	 * @throws MavenEclipseApiException 
+	 */
 	protected Collection<ArtifactMetadata> _findGroup(
 			final IndexManager indexManager, final String groupRegEx)
 			throws MavenEclipseApiException {
@@ -239,7 +285,13 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 		}
 	}
 
-	// -------------------------------------------------------------------------------------
+	/**
+	 * 
+	 * @param indexManager the IndexManager
+	 * @param query a query string to the repository
+	 * @return a collectin of ArtifactMetadata for items matching the query parameters
+	 * @throws MavenEclipseApiException 
+	 */
 	protected Collection<ArtifactMetadata> _findArtifact(
 			final IndexManager indexManager, final String query)
 			throws MavenEclipseApiException {
@@ -252,12 +304,12 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 		}
 	}
 
-	// ---------------------------------------------------------------------
-	// ---------------------------------------------------------------------
+	/**
+	 * Update the maven repository indexes.
+	 * 
+	 * @throws MavenEclipseApiException 
+	 */
 	public void refreshAllIndices() throws MavenEclipseApiException {
-		// MavenApiHelper.getMavenEmbedderManager().invalidateMavenSettings();
-		// for( final Object index : _getIndexManager().getIndexes().keySet() )
-		// _getIndexManager().scheduleIndexUpdate( "" + index, true, 0L );
 		for (IRepository repo : MavenPlugin.getDefault()
 				.getRepositoryRegistry()
 				.getRepositories(IRepositoryRegistry.SCOPE_UNKNOWN)) {

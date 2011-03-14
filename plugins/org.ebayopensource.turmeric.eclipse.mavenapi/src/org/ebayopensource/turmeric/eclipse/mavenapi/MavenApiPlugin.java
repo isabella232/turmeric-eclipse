@@ -10,18 +10,19 @@ package org.ebayopensource.turmeric.eclipse.mavenapi;
 
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseApi;
 import org.ebayopensource.turmeric.eclipse.mavenapi.intf.IMavenEclipseApi;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the plug-in life cycle.
  * 
  * @author <a href="oleg@codehaus.org">Oleg Gusakov</a>
- * 
  */
-public class MavenApiPlugin extends AbstractUIPlugin {
+public class MavenApiPlugin extends Plugin {
 
-	// The plug-in ID
+	/**
+	 *  The plug-in ID.
+	 */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.maveneclipseapi";
 
 	// The shared instance
@@ -31,18 +32,11 @@ public class MavenApiPlugin extends AbstractUIPlugin {
 	private MavenEclipseApi mavenEclipseApi;
 
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public MavenApiPlugin() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
-	 * )
-	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -51,13 +45,6 @@ public class MavenApiPlugin extends AbstractUIPlugin {
 		mavenEclipseApi = new MavenEclipseApi();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
-	 * )
-	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
@@ -65,7 +52,7 @@ public class MavenApiPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 * 
 	 * @return the shared instance
 	 */
@@ -74,7 +61,7 @@ public class MavenApiPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the shared API instance
+	 * Returns the shared API instance.
 	 * 
 	 * @return the shared instance
 	 */

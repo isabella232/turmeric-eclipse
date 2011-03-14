@@ -23,5 +23,5 @@
    	<artifactId>org.ebayopensource.turmeric.maven.feature</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>eclipse-feature</packaging>
-	<name>Turmeric: Core Feature</name>
+	<name>Turmeric: Maven Common Feature</name>
 </project>
