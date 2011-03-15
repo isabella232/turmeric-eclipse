@@ -55,7 +55,7 @@ public class SOAClientConfigUtil {
 	private static final String SOAP11_VERSION = "1.1";
 	private static final String SOAP12_VERSION = "1.2";
 	private static final String CLASS_NAME = "class-name";
-	private static final String CLASS_NAME_VALUE = "org.ebayopensource.turmeric.sif.impl.protocolprocessor.soap.ClientSOAPProtocolProcessor"; //FIXME use the new turmeric name
+	private static final String CLASS_NAME_VALUE = "org.ebayopensource.turmeric.runtime.sif.impl.protocolprocessor.soap.ClientSOAPProtocolProcessor";
 
 	public static SOAClientConfig parseClientConfig(IFile iFile)
 			throws IOException, JDOMException {
