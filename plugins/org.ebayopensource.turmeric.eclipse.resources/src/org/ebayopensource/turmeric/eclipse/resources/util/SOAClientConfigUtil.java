@@ -49,7 +49,7 @@ public class SOAClientConfigUtil {
 	private static final String URL_PATTERN = "URL-pattern";
 	private static final String TRANSPORT_HEADER = "transport-header";
 	private static final String CONSUMER_ID = "consumer-id";
-	private static final String TRANSPORT_HEADER_NAME = "X-EBAY-SOA-MESSAGE-PROTOCOL";
+	private static final String TRANSPORT_HEADER_NAME = "X-TURMERIC-MESSAGE-PROTOCOL";
 	private static final String SOAP12 = "SOAP12";
 	private static final String SOAP11 = "SOAP11";
 	private static final String SOAP11_VERSION = "1.1";
