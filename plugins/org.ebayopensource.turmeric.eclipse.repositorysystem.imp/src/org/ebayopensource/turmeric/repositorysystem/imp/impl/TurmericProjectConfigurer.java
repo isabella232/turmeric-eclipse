@@ -426,6 +426,8 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 			if (build.getPlugins() != null) {
 				for (Plugin plugin: build.getPlugins()) {
 					final String pluginVersion = plugin.getVersion();
+					//we might change the Plugin object, so we should do a clone first.
+					Plugin newPlugin = plugin.clone();
 					if (StringUtils.isNotBlank(pluginVersion) 
 							&& pluginVersion.equals(TurmericConstants.TAG_AUTOUPDATE_VERSION)
 							&& StringUtils.isNotBlank(plugin.getGroupId())
@@ -434,12 +436,12 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 						Artifact pluginArtifact = MavenCoreUtils.getLatestArtifact(plugin.getGroupId(), 
 								plugin.getArtifactId());
 						if (pluginArtifact != null && !pluginArtifact.getVersion().contains("-T40")) {
-							plugin.setVersion(pluginArtifact.getVersion());
+							newPlugin.setVersion(pluginArtifact.getVersion());
 						} else {
-							plugin.setVersion(TurmericConstants.TURMERIC_DEVELOPMENT_VERSION);
+							newPlugin.setVersion(TurmericConstants.TURMERIC_DEVELOPMENT_VERSION);
 						}
 					}
-					request.getBuildPlugins().add(plugin);
+					request.getBuildPlugins().add(newPlugin);
 				}
 			}
 		}
