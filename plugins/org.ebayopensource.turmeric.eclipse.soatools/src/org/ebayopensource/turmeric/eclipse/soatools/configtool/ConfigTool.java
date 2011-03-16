@@ -17,19 +17,19 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.ClientConfig;
+import org.ebayopensource.turmeric.common.config.ClientConfigList;
+import org.ebayopensource.turmeric.common.config.ClientGroupConfig;
+import org.ebayopensource.turmeric.common.config.ServiceConfig;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.tools.codegen.CodeGenInfoFinder;
 import org.ebayopensource.turmeric.tools.codegen.ConfigHelper;
 import org.ebayopensource.turmeric.tools.codegen.exception.BadInputValueException;
 import org.ebayopensource.turmeric.tools.codegen.exception.CodeGenFailedException;
 import org.ebayopensource.turmeric.tools.codegen.external.WSDLUtil;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-
-import org.ebayopensource.turmeric.common.config.ClientConfig;
-import org.ebayopensource.turmeric.common.config.ClientConfigList;
-import org.ebayopensource.turmeric.common.config.ClientGroupConfig;
-import org.ebayopensource.turmeric.common.config.ServiceConfig;
 
 public class ConfigTool {
 	private static SOALogger s_logger = null;
@@ -76,7 +76,7 @@ public class ConfigTool {
 	}
 	
 	public static void saveServerConfig(final ISOAServiceConfig serviceConfig, 
-			final URL fileLocation) throws Exception {
+			final IFile fileLocation) throws Exception {
 		final ClassLoader loader = Thread.currentThread()
 		.getContextClassLoader();
 		InputStream input = null;
@@ -85,17 +85,18 @@ public class ConfigTool {
 			Thread.currentThread().setContextClassLoader(
 					ConfigTool.class.getClassLoader());
 			if (fileLocation != null) {
-				input = fileLocation.openStream();
-				final ServiceConfig svcConfig = ConfigHelper.parseServiceConfig(input);
-				IOUtils.closeQuietly(input);
-				input = null;
+				input = fileLocation.getLocationURI().toURL().openStream();
+				ServiceConfigXmlHelper svcConfigXMLHelper = new ServiceConfigXmlHelper();
+				svcConfigXMLHelper.setServiceImplementationName(input,
+						serviceConfig.getServiceImplClassName(), fileLocation);
 				//we are no longer modifying the current version, and the version would be maintained 
 				//in the service_metadata.properties
 				//svcConfig.setCurrentVersion(serviceConfig.getCurrentVersion());
-				svcConfig.setServiceImplClassName(serviceConfig.getServiceImplClassName());
-				final String configXml = ConfigHelper.serviceConfigToXml(svcConfig);
-				out = new FileOutputStream(fileLocation.getFile());
-				IOUtils.write(configXml, out);
+				// svcConfig.setServiceImplClassName(serviceConfig.getServiceImplClassName());
+				// final String configXml =
+				// ConfigHelper.serviceConfigToXml(svcConfig);
+				// out = new FileOutputStream(fileLocation.getFile());
+				// IOUtils.write(configXml, out);
 			}
 			
 		} finally {
@@ -193,7 +194,7 @@ public class ConfigTool {
 		try {
 			Thread.currentThread().setContextClassLoader(
 					ConfigTool.class.getClassLoader());
-			ServiceConfig config = ConfigHelper.parseServiceConfig(input);
+			ServiceConfig config = new ServiceConfigXmlHelper().parseServiceConfig(input);
 			serviceConfig.setFullyQualifiedServiceName(config.getServiceName());
 			if (StringUtils.isNotBlank(config.getServiceName())) {
 				String[] names = parseFullyQualifiedServiceName(config.getServiceName());
@@ -257,6 +258,13 @@ public class ConfigTool {
 	
 	public static String getDefaultPackageNameFromNamespace(final String namespace) {
 		return WSDLUtil.getPackageFromNamespace(namespace);
+	}
+	
+	public static String getTypePackageNameFromNamespace(final String namespace, 
+			final String serviceName) {
+		final String defaultPkgName = getDefaultPackageNameFromNamespace(namespace);
+		return new StringBuilder(defaultPkgName).append(".")
+		.append(StringUtils.lowerCase(serviceName)).toString();
 	}
 	
 	public static interface ISOAClientConfig {

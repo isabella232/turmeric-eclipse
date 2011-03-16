@@ -88,8 +88,11 @@ Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.soatools
 Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
  org.ebayopensource.turmeric.eclipse.logging;visibility:=reexport,
- org.apache.xerces;bundle-version="2.9.0";visibility:=reexport
+ org.apache.xerces;bundle-version="2.9.0";visibility:=reexport,
+ org.ebayopensource.turmeric.eclipse.utils;bundle-version="1.0.0",
+ org.jdom;bundle-version="1.0.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.soatools.Activator
 Export-Package: 
  org.apache.xbean.classloader,

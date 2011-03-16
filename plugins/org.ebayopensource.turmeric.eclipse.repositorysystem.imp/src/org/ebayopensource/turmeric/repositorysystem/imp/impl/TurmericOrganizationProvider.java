@@ -332,5 +332,9 @@ public class TurmericOrganizationProvider implements IMavenOrganizationProvider 
 		}
 		return null;
 	}
+	
+	public String getSOAPProtocolProcessorClassName() {
+		return TurmericConstants.PROTOCOL_PROCESSOR_CLASS_NAME_VALUE;
+	}
 
 }

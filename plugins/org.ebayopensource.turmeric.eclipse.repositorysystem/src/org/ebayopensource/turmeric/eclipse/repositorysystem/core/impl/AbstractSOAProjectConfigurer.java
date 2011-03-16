@@ -87,7 +87,7 @@ public abstract class AbstractSOAProjectConfigurer implements
 					final IFile svcConfigFile = imProject.getServiceConfigFile();
 					imProject.getMetadata().setImplVersion(newServiceVersion);
 					ConfigTool.saveServerConfig(imProject.getMetadata(),
-							svcConfigFile.getLocationURI().toURL());
+							svcConfigFile);
 					svcConfigFile.refreshLocal(IResource.DEPTH_ZERO, monitor);
 					ProgressUtil.progressOneStep(monitor, 10);
 				}
@@ -123,7 +123,7 @@ public abstract class AbstractSOAProjectConfigurer implements
 	throws Exception {
 		final IFile svcConfigFile = implProject.getServiceConfigFile();
 		ConfigTool.saveServerConfig(implProject.getMetadata(),
-				svcConfigFile.getLocationURI().toURL());
+				svcConfigFile);
 		svcConfigFile.refreshLocal(IResource.DEPTH_ZERO, monitor);
 		ProgressUtil.progressOneStep(monitor);
 		return true;

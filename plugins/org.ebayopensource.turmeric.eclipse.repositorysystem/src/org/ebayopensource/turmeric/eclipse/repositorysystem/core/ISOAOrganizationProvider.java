@@ -138,5 +138,12 @@ public interface ISOAOrganizationProvider {
 	 */
 	public IStatus preValidateChangeServiceVersion(String oldVersion,
 			String newVersion, String serviceName) throws Exception;
+	
+	/**
+	 * The protocol processor class name for ClientConfig.xml
+	 * 
+	 * @return protocol processor class name
+	 */
+	public String getSOAPProtocolProcessorClassName();
 
 }

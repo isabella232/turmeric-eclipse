@@ -90,6 +90,8 @@ public final class TurmericConstants {
 	private static final String JAXB_XJC = "com.sun.xml.bind:jaxb-xjc:jar:2.1.2";
 	//private static final String[] LIB_JAXB2 = {//"com.sun.xml.bind:jaxb1-impl:2.1.13",};
 	
+	public static final String PROTOCOL_PROCESSOR_CLASS_NAME_VALUE = "org.ebayopensource.turmeric.runtime.sif.impl.protocolprocessor.soap.ClientSOAPProtocolProcessor";
+	
 	// Nature IDs
     public static final String NATURE_ID_SOA_INTF_PROJECT = "org.ebayopensource.turmeric.eclipse.build.SOAInterfaceProjectNature";
     public static final String NATURE_ID_SOA_CONSUMER_PROJECT = "org.ebayopensource.turmeric.eclipse.build.SOAClientProjectNature";

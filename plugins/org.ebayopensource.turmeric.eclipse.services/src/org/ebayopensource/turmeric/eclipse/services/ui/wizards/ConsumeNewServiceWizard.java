@@ -505,13 +505,18 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 																	.getProperty(
 																			SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR)),
 													monitor);
-
+									
 									for (SOAClientConfig clientConfig : result
 											.getClientConfigs()) {
+										String protocalProcessorClassName = GlobalRepositorySystem
+										.instanceOf()
+										.getActiveRepositorySystem()
+										.getActiveOrganizationProvider()
+										.getSOAPProtocolProcessorClassName();
 										SOAClientConfigUtil
 												.save(clientConfig, result
 														.getOldClientConfigs()
-														.contains(clientConfig));
+														.contains(clientConfig), protocalProcessorClassName);
 									}
 
 								} catch (Exception e) {

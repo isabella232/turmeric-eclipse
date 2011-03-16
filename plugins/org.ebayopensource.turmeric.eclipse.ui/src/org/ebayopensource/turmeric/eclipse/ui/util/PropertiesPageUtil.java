@@ -250,7 +250,11 @@ public final class PropertiesPageUtil {
 					config.setRequestDataBinding(newRequestDataBinding);
 					config.setResponseDataBinding(newResponseDataBinding);
 					ProgressUtil.progressOneStep(monitor);
-					SOAClientConfigUtil.save(config);
+					String protocalProcessorClassName = GlobalRepositorySystem
+					.instanceOf().getActiveRepositorySystem()
+					.getActiveOrganizationProvider()
+					.getSOAPProtocolProcessorClassName();
+					SOAClientConfigUtil.save(config, protocalProcessorClassName);
 					ProgressUtil.progressOneStep(monitor);
 					performProjectDependencyChanges(consumerProject,
 							envName, serviceName, implProjectName,

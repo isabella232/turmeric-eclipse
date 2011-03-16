@@ -285,8 +285,12 @@ public class ServicesUtil {
 					consProject,"production", serviceName);
 
 			config.setServiceBinding("LOCAL");
-
-			SOAClientConfigUtil.save(config);
+			String protocalProcessorClassName = GlobalRepositorySystem
+			.instanceOf()
+			.getActiveRepositorySystem()
+			.getActiveOrganizationProvider()
+			.getSOAPProtocolProcessorClassName();
+			SOAClientConfigUtil.save(config, protocalProcessorClassName);
 
 			// When adding the local binding u might need to add the project as
 			// dependency also..For that use the below code,
