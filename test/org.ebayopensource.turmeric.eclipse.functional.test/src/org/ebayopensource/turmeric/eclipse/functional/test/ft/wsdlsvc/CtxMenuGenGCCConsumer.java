@@ -17,11 +17,16 @@ import junit.framework.Assert;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ProjectUtil;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -36,6 +41,16 @@ public class CtxMenuGenGCCConsumer extends AbstractTestCase {
 			.getWsdlFilePath("CalcService.wsdl");
 	
 	String adminName = "BlogsCalcServiceV1";
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/wsdl.zip",dataDirectory +"/extractedData");
+		
+	}
 
 
 
@@ -85,5 +100,11 @@ public class CtxMenuGenGCCConsumer extends AbstractTestCase {
 					+ ex.getLocalizedMessage());
 			Assert.fail("Exception in testCtxMenuGCC: " + ex.getLocalizedMessage());
 		}
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 }

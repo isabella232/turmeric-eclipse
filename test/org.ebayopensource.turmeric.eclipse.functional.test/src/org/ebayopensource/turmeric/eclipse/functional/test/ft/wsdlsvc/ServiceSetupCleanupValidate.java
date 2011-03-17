@@ -211,7 +211,7 @@ public class ServiceSetupCleanupValidate {
 	public static String getWsdlFilePath(String wsdlFileName) {
 		String wsdlFilePath = null;
 		wsdlFilePath = WsdlUtilTest.getPluginOSPath(
-				SoaTestConstants.PLUGIN_ID, "test-data")
+				SoaTestConstants.PLUGIN_ID, "data/extractedData")
 				+ WorkspaceUtil.PATH_SEPERATOR + wsdlFileName;
 		return wsdlFilePath;
 	}

@@ -19,6 +19,7 @@ import org.apache.commons.io.FileUtils;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
@@ -28,12 +29,24 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
 
 public class TypesVersionTest extends AbstractTestCase {
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUpBefore(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/xsd.zip",dataDirectory +"/extractedData");
+		
+	}
 	
 	/**
 	 * @throws java.lang.Exception
@@ -66,7 +79,7 @@ public class TypesVersionTest extends AbstractTestCase {
 				TstConstants.TEMPLATE_TURMERIC_COMPLEX,
 				TstConstants.XSD_STRING);
 		String srcFile = WsdlUtilTest.getPluginOSPath(SoaTestConstants.PLUGIN_ID,
-				"test-data" + File.separator + "xsd");
+				"data/extractedData" + File.separator + "xsd");
 		String destFile = TypeLibSetUp.TYPELIB_LOCATION + File.separator
 				+ TypeLibSetUp.TYPELIBRARY_NAME1 + File.separator
 				+ "meta-src" + File.separator + "types" + File.separator
@@ -112,7 +125,7 @@ public class TypesVersionTest extends AbstractTestCase {
 
 		UIUtil.getActivePage().closeAllEditors(true);
 		String srcFile = WsdlUtilTest.getPluginOSPath(SoaTestConstants.PLUGIN_ID,
-				"test-data" + File.separator + "xsd");
+				"data/extractedData" + File.separator + "xsd");
 		String destFile = TypeLibSetUp.TYPELIB_LOCATION + File.separator
 				+ TypeLibSetUp.TYPELIBRARY_NAME1 + File.separator
 				+ "meta-src" + File.separator + "types" + File.separator
@@ -158,7 +171,7 @@ public class TypesVersionTest extends AbstractTestCase {
 				TstConstants.XSD_STRING);
 		UIUtil.getActivePage().closeAllEditors(true);
 		String srcFile = WsdlUtilTest.getPluginOSPath(SoaTestConstants.PLUGIN_ID,
-				"test-data" + File.separator + "xsd");
+				"data/extractedData" + File.separator + "xsd");
 		String destFile = TypeLibSetUp.TYPELIB_LOCATION + File.separator
 				+ TypeLibSetUp.TYPELIBRARY_NAME1 + File.separator
 				+ "meta-src" + File.separator + "types" + File.separator
@@ -208,6 +221,12 @@ public class TypesVersionTest extends AbstractTestCase {
 		
 		super.cleanupWorkspace();
 		Thread.sleep(15000);
+	}
+	
+	@AfterClass
+	public static void deInitAfter(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 
 }

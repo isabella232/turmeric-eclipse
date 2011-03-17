@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
@@ -33,6 +34,7 @@ import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectArtifactValidator;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.SimpleTestUtil;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
@@ -40,7 +42,9 @@ import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.repositorysystem.imp.impl.TurmericRepositorySystem;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -60,10 +64,21 @@ public class ServiceFromBlankWsdlTest extends AbstractTestCase {
 	static String adminName = null;
 	static final String namespacePart = "blogs";
 	static final String  domainClassifier ="Blogs";
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
 
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/BlankWsdlServiceConsumerTest.zip",dataDirectory +"/extractedData");
+		
+	}
+	
 	@Before
 	public  void setUpBeforeClass() throws Exception {
 	
@@ -196,5 +211,11 @@ public class ServiceFromBlankWsdlTest extends AbstractTestCase {
 		assertTrue(" --- Service artifacts validation failed " +failMessages.toString() , intfMatch
 				&& implMatch);
 		
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 }

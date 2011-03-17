@@ -37,6 +37,7 @@ import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstan
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.SimpleTestUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
@@ -49,7 +50,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -62,6 +65,16 @@ public class ServiceCreationFromExistingTypesTest1 extends
 	/*public static String WSDL_FILE = EBoxServiceSetupCleanupValidate
 			.getWsdlFilePath("TestSvc1V1.wsdl");*/
 	static DialogMonitor monitor;
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUpBefore(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/xsd.zip",dataDirectory +"/extractedData");
+		
+	}
 
 	/**
 	 * @throws java.lang.Exception
@@ -200,7 +213,7 @@ public class ServiceCreationFromExistingTypesTest1 extends
 			
 			ServiceFromBlankWsdlTest.createServiceFromBlankWsdl(eBoxServiceName,TypeLibSetUp.SVC_NAME1);
 			String srcFile1 = WsdlUtilTest.getPluginOSPath(SoaTestConstants.PLUGIN_ID,
-					"test-data" + File.separator + eBoxServiceName);
+					"data/extractedData" + File.separator + eBoxServiceName);
 			String srcFile2 = srcFile1;
 			// Copy the wsdl with new operation
 			srcFile1 = srcFile1 + File.separator + eBoxServiceName + ".wsdl";
@@ -257,7 +270,7 @@ public class ServiceCreationFromExistingTypesTest1 extends
 			// ServicesUtil.modifyClientPrjTransport(consProject,
 			// eBoxServiceName, SOAProjectConstants.Binding.LOCAL);
 			String srcFile11 = WsdlUtilTest.getPluginOSPath(SoaTestConstants.PLUGIN_ID,
-					"test-data" + File.separator + eBoxServiceName + File.separator
+					"data/extractedData" + File.separator + eBoxServiceName + File.separator
 							+ "TestConsumer.java");
 
 			String destFile11 = ServiceSetupCleanupValidate.getParentDir()
@@ -359,6 +372,12 @@ public class ServiceCreationFromExistingTypesTest1 extends
 		reader.close();
 		return sb.toString();
 
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 	
 }

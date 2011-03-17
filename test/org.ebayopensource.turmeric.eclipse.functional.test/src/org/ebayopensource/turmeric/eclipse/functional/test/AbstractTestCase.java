@@ -8,6 +8,10 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.functional.test;
 
+import static org.junit.Assume.assumeTrue;
+
+import java.io.File;
+
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.internal.resources.ResourceException;
@@ -20,7 +24,6 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.junit.After;
 import org.junit.Before;
-import static org.junit.Assume.*;
 
 
 public abstract class AbstractTestCase {
@@ -61,6 +64,25 @@ public abstract class AbstractTestCase {
 		}
 		root.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
 	}
+	
+	protected static void ensureClean(String dir){
+		 
+		 File testDir = new File(dir);
+		 if(testDir.isDirectory()){
+			 
+			File [] fileList = testDir.listFiles();
+			for(File file:fileList){
+				
+				if(file.isDirectory()){
+					ensureClean(file.getAbsolutePath());
+					file.delete();
+				}
+				file.delete();
+			}
+			 
+		 }
+		 
+	 }
 
 	protected  void closeEditors() {
 		IWorkbenchPage page = UIUtil.getActivePage();

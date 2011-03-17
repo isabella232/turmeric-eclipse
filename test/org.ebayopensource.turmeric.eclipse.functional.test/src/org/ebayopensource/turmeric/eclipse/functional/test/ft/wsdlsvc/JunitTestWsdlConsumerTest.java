@@ -17,17 +17,22 @@ import static org.junit.Assume.assumeNoException;
 import java.io.File;
 
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectArtifactValidator;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.SimpleTestUtil;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.repositorysystem.imp.impl.TurmericRepositorySystem;
 import org.eclipse.core.resources.IProject;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -38,6 +43,8 @@ import org.junit.Test;
  */
 public class JunitTestWsdlConsumerTest extends AbstractTestCase {
 
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
 	public static String PARENT_DIR = org.eclipse.core.runtime.Platform
 			.getLocation().toOSString();
 	public static String WSDL_FILE = ServiceSetupCleanupValidate
@@ -46,6 +53,13 @@ public class JunitTestWsdlConsumerTest extends AbstractTestCase {
 	static String adminName = null;
 	static IProject consProject = null;
 
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/JunitTestWsdlConsumerTest.zip",dataDirectory +"/extractedData");
+		
+	}	
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -105,6 +119,12 @@ public class JunitTestWsdlConsumerTest extends AbstractTestCase {
 		assertTrue(" --- Service artifacts validation failed " + failMessages.toString(), intfMatch
 				&& consumerMatch);
 		
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 
 }

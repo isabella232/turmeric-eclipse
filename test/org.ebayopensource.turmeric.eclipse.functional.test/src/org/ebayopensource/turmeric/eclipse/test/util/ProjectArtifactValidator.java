@@ -72,7 +72,7 @@ public class ProjectArtifactValidator implements IResourceVisitor {
 
 	public void setGoldCopyRootDir(String subDir) {
 		goldCopyDir = WsdlUtilTest.getPluginOSPath(SoaTestConstants.PLUGIN_ID,
-				"test-data/" + subDir);
+				"data/extractedData/" + subDir);
 		System.out.println(" --- gold Copy Dir : " + goldCopyDir.toString());
 
 		ISOARepositorySystem repositorySystem = GlobalRepositorySystem

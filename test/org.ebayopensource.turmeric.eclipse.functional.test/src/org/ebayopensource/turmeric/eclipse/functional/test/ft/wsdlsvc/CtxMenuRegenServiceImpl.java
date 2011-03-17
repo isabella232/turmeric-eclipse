@@ -22,12 +22,17 @@ import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -41,6 +46,16 @@ public class CtxMenuRegenServiceImpl extends AbstractTestCase {
 	final ActionUtil ctxMenuAction = new ActionUtil();
 
 	static final String SERVICE_NAME = "CalcServiceV1";
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/wsdl.zip",dataDirectory +"/extractedData");
+		
+	}
 
 	/**
 	 * @throws java.lang.Exception
@@ -120,6 +135,12 @@ public class CtxMenuRegenServiceImpl extends AbstractTestCase {
 			Assert.fail("Exception in testCtxMenuServiceImpl: "
 					+ ex.getLocalizedMessage());
 		}
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 	
 }

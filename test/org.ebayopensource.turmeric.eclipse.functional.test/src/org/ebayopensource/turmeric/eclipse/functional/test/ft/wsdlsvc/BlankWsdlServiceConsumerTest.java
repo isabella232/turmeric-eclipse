@@ -18,6 +18,7 @@ import static org.junit.Assert.*;
 import static org.junit.Assume.*;
 
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
@@ -26,13 +27,17 @@ import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectArtifactValidator;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.SimpleTestUtil;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.repositorysystem.imp.impl.TurmericRepositorySystem;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -42,16 +47,28 @@ import org.junit.Test;
  */
 public class BlankWsdlServiceConsumerTest extends AbstractTestCase {
 
+	
 	public static String PARENT_DIR = org.eclipse.core.runtime.Platform
 			.getLocation().toOSString();
 	static String adminName = null;
 	static String publicServiceName = null;
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
 
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/BlankWsdlServiceConsumerTest.zip",dataDirectory +"/extractedData");
+		
+	}
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUpBeforeClass() throws Exception {
+		
 
 		SimpleTestUtil.setAutoBuilding(false);
 
@@ -161,5 +178,11 @@ public class BlankWsdlServiceConsumerTest extends AbstractTestCase {
 
 		
 
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 }

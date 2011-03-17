@@ -17,11 +17,16 @@ import org.apache.commons.io.FileUtils;
 import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assume.*;
@@ -33,6 +38,16 @@ public class ImportTypeTest extends AbstractTestCase {
 	static DialogMonitor monitor;
 	SOAGlobalRegistryAdapter registryAdapter;
 	SOATypeRegistry typeRegistry;
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUpBefore(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/xsd.zip",dataDirectory +"/extractedData");
+		
+	}
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -237,4 +252,12 @@ public class ImportTypeTest extends AbstractTestCase {
 				+ "TypeDependencies.xml does not contain type "
 				+ "dependency on ZipType", fileContents.contains("ZipType"));
 	}
+	
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
+	}
+
 }

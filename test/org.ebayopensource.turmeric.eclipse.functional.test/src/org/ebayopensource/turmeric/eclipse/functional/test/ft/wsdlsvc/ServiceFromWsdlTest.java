@@ -19,6 +19,7 @@ import javax.wsdl.Definition;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
@@ -29,7 +30,9 @@ import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectArtifactValidator;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.SimpleTestUtil;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil;
@@ -37,7 +40,9 @@ import org.ebayopensource.turmeric.repositorysystem.imp.impl.TurmericOrganizatio
 import org.ebayopensource.turmeric.repositorysystem.imp.impl.TurmericRepositorySystem;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assume.*;
@@ -51,6 +56,8 @@ import static org.junit.Assert.*;
 
 public class ServiceFromWsdlTest extends AbstractTestCase {
 
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
 	public static String PARENT_DIR = ServiceSetupCleanupValidate
 			.getParentDir();
 	public static String WSDL_FILE = ServiceSetupCleanupValidate
@@ -59,13 +66,21 @@ public class ServiceFromWsdlTest extends AbstractTestCase {
 	static String adminName = null;
 	public final String namespacePart = "blogs";
 
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/JunitTestWsdlConsumerTest.zip",dataDirectory +"/extractedData");
+		
+	}	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public  void setUpBeforeClass() throws Exception {
 	
-		
+		//ZipExtractor zip = new ZipExtractor();
+		//zip.extract(dataDirectory+"/test-data.zip",dataDirectory);
 		SimpleTestUtil.setAutoBuilding(false);
 
 		ISOARepositorySystem repositorySystem = new TurmericRepositorySystem();
@@ -187,6 +202,12 @@ public class ServiceFromWsdlTest extends AbstractTestCase {
 		assertTrue(" --- Service artifacts validation failed " +failMessages.toString(), intfMatch
 				&& implMatch);
 		ProjectArtifactValidator.getErroredFileMessage().setLength(0);
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 
 }

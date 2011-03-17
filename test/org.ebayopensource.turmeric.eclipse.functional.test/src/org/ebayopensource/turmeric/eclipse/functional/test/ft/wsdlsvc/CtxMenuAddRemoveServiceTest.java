@@ -14,13 +14,18 @@ import java.io.File;
 import junit.framework.Assert;
 
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.ConsumeNewServiceWizard;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ConsumeNewServiceWizardPage;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -37,6 +42,16 @@ public class CtxMenuAddRemoveServiceTest extends AbstractTestCase {
 	static String WSDL_FILE = ServiceSetupCleanupValidate
 	.getWsdlFilePath("CalcService.wsdl");
 	final String namespacePart = "blogs";
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/wsdl.zip",dataDirectory +"/extractedData");
+		
+	}
 
 	@Test
 	public void testCtxMenuAddRemoveService1() throws Exception {
@@ -110,5 +125,11 @@ public class CtxMenuAddRemoveServiceTest extends AbstractTestCase {
 			Assert.fail("Exception in testCtxMenuAddRemoveService2: "
 					+ ex.getLocalizedMessage());
 		}
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 }

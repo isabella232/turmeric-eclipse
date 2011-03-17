@@ -19,9 +19,12 @@ import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAda
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -34,6 +37,15 @@ import static org.junit.Assume.*;
 public class CreateTypeTest extends AbstractTestCase {
 	SOAGlobalRegistryAdapter registryAdapter = null;
 
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/xsd.zip",dataDirectory +"/extractedData");
+		
+	}
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -143,7 +155,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	@Test
 	public void testCreateEnumType() throws IOException {
 		String srcFile = WsdlUtilTest.getPluginOSPath(
-				SoaTestConstants.PLUGIN_ID, "test-data" + File.separator
+				SoaTestConstants.PLUGIN_ID, "data/extractedData" + File.separator
 						+ "xsd");
 		String destFile = TypeLibSetUp.TYPELIB_LOCATION + File.separator
 				+ TypeLibSetUp.TYPELIBRARY_NAME1 + File.separator + "meta-src"
@@ -184,7 +196,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	@Test
 	public void createComplexType3() throws IOException {
 		String srcFile = WsdlUtilTest.getPluginOSPath(
-				SoaTestConstants.PLUGIN_ID, "test-data" + File.separator
+				SoaTestConstants.PLUGIN_ID, "data/extractedData" + File.separator
 						+ "xsd");
 		String destFile = TypeLibSetUp.TYPELIB_LOCATION + File.separator
 				+ TypeLibSetUp.TYPELIBRARY_NAME1 + File.separator + "meta-src"
@@ -254,6 +266,12 @@ public class CreateTypeTest extends AbstractTestCase {
 						SOAXSDTemplateSubType.COMPLEX,
 						TstConstants.TEMPLATE_TURMERIC_COMPLEX,
 						TstConstants.XSD_STRING));
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 
 }

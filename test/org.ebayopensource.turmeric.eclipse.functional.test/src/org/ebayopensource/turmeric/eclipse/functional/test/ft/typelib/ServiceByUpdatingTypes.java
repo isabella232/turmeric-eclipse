@@ -24,6 +24,7 @@ import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFro
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceSetupCleanupValidate;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ProjectUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
@@ -43,7 +44,9 @@ import org.eclipse.ui.ide.IDE;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDTypeDefinition;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -56,6 +59,16 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 	private static final String SVC_NAME_ADMIN = TypeLibSetUp.SVC_NAME2;
 
 	static DialogMonitor monitor;
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUpBefore(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/xsd.zip",dataDirectory +"/extractedData");
+		
+	}
 	
 	/**
 	 * @throws java.lang.Exception
@@ -115,7 +128,7 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 	@Test
 	public void testUpdateVersion() throws Exception {
 		String srcFile = WsdlUtilTest.getPluginOSPath(SoaTestConstants.PLUGIN_ID,
-				"test-data" + File.separator + "xsd");
+				"data/extractedData" + File.separator + "xsd");
 		String destFile = TypeLibSetUp.TYPELIB_LOCATION + File.separator
 				+ TypeLibSetUp.TYPELIBRARY_NAME1 + File.separator
 				+ "meta-src" + File.separator + "types" + File.separator
@@ -237,6 +250,13 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 
 		Assert.assertTrue("pom.xml doesnot contain library dependency "
 				+ typeLibName, fileContents.contains(typeLibName));
+	}
+	
+
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 	
 }

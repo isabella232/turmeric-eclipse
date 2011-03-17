@@ -16,14 +16,21 @@ import java.io.File;
 import junit.framework.Assert;
 
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.ui.util.PropertiesPageUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 //import org.eclipse.core.runtime.IProgressMonitor;
+
+
 
 
 /**
@@ -33,6 +40,15 @@ public class ConfigServiceTests extends AbstractTestCase {
 
 	static String WSDL_FILE = ServiceSetupCleanupValidate
 	.getWsdlFilePath("CSUpdateMACActivityAddAttachments.wsdl");
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/wsdl.zip",dataDirectory +"/extractedData");
+		
+	}
 
 	@Test
 //	@Ignore
@@ -64,6 +80,12 @@ public class ConfigServiceTests extends AbstractTestCase {
 
 		}
 
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 
 }

@@ -31,6 +31,9 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorParamModel
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrDomain;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAError;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
@@ -38,7 +41,9 @@ import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -54,7 +59,15 @@ public class DeleteError extends AbstractTestCase {
 	public  final String ERROR_NAME = "TestError";
 	public  final String ERROR_RESOLUTION = "Test Resolution";
 	public  final String ERROR_SUBDOMAIN = "Buying";
-	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/ErrorLibraryTestData.zip",dataDirectory +"/extractedData");
+		
+	}
 	
 	
 	@Before
@@ -138,5 +151,11 @@ public class DeleteError extends AbstractTestCase {
 		
 	}
 	
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
+	}
 
 }

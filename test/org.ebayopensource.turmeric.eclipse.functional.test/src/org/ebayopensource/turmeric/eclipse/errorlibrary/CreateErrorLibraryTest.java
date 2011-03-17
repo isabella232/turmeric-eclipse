@@ -14,9 +14,14 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.ErrorLibrary
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.registry.TurmericErrorRegistry;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -24,6 +29,16 @@ import org.junit.Test;
 public class CreateErrorLibraryTest extends AbstractTestCase{
 	
 	ErrorLibraryParamModel model = null;
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/ErrorLibraryTestData.zip",dataDirectory +"/extractedData");
+		
+	}
 
 	@Before
 	public void init() {
@@ -61,6 +76,11 @@ public class CreateErrorLibraryTest extends AbstractTestCase{
 
 	}
 
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
+	}
 	
 
 }

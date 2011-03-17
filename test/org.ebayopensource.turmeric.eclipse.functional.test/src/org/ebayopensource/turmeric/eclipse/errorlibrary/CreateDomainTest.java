@@ -16,9 +16,14 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.registry.Turm
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.DomainParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -29,6 +34,15 @@ public class CreateDomainTest extends AbstractTestCase {
 	public static final String ERRORLIB_PROJECT_NAME = "TestErrorLibrary2";
 	public static final String ERRORDOMAIN_NAME = "TestDomain1";
 
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/ErrorLibraryTestData.zip",dataDirectory +"/extractedData");
+		
+	}	
 	@Before
 	public void init() throws Exception {
 
@@ -76,6 +90,12 @@ public class CreateDomainTest extends AbstractTestCase {
 			Assert.fail("Exception with message" + e.getMessage()
 					+ ", occured during " + "error library creation");
 		}
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 
 }

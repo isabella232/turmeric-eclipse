@@ -16,10 +16,13 @@ import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ImportTypeModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
@@ -27,7 +30,9 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.utils.XSDUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -42,11 +47,21 @@ public class ImportExportTypesTest extends AbstractTestCase {
 	 * 
 	 */
 	
-	String wsdlLocDir = WSDLUtil.getPluginOSPath("org.ebayopensource.turmeric.eclipse.functional.test","test-data");
+	String wsdlLocDir = WSDLUtil.getPluginOSPath("org.ebayopensource.turmeric.eclipse.functional.test","data/extractedData");
 	String sourceXSDFile = wsdlLocDir + "/xsd/EmployeeTypeImport.xsd";
 	String sourceWSDLFile = wsdlLocDir + "/JunitEndTestImport.wsdl";
 	protected static final SOALogger logger = SOALogger.getLogger();
 	static DialogMonitor monitor;
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUpBefore(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/xsd.zip",dataDirectory +"/extractedData");
+		
+	}
 	
 	@Before
 	public void setUp() throws Exception {
@@ -155,6 +170,12 @@ public class ImportExportTypesTest extends AbstractTestCase {
 			selectedTypeList.add(type.getTypeModel());
 		}
 		return selectedTypeList;
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 	
 }
