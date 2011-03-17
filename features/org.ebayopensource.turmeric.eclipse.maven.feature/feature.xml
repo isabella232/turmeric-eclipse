@@ -18,6 +18,10 @@ with Maven and M2Eclipse.
       [Enter License Description here.]
    </license>
 
+   <requires>
+      <import feature="org.maven.ide.eclipse.feature" version="0.12" match="compatible"/>
+   </requires>
+
    <plugin
          id="org.ebayopensource.turmeric.eclipse.maven.core"
          download-size="0"

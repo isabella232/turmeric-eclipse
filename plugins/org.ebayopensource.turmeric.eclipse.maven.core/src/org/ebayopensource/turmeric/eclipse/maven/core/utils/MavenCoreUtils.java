@@ -285,6 +285,12 @@ public class MavenCoreUtils {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param metadata
+	 * @return
+	 * @throws MavenEclipseApiException
+	 */
 	public static MavenProject getLibrary(final ArtifactMetadata metadata)
 			throws MavenEclipseApiException {
 		if (SOALogger.DEBUG)
