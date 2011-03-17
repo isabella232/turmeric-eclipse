@@ -19,11 +19,12 @@ import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
  */
 public interface IMavenArtifact extends IAssetInfo {
 	/**
-	 * @param groupId
+	 * @param groupId the maven group id
 	 */
 	public void setGroupID(String groupId);
+	
 	/**
-	 * @return
+	 * @return the maven group id
 	 */
 	public String getGroupID();
 }

@@ -23,21 +23,23 @@ public interface IMavenOrganizationProvider extends ISOAOrganizationProvider {
 	
 	/**
 	 * 
-	 * @param projectType
+	 * @param projectType the project type
 	 * @return the parent POM instance of null if no parent POM
 	 */
 	public ArtifactMetadata getParentPom(SupportedProjectType projectType);
 	
 	/**
-	 * Get the Maven group ID for the given project type
-	 * @param projectType
-	 * @return
+	 * Get the Maven group ID for the given project type.
+	 * 
+	 * @param projectType the supported project type
+	 * @return the project group id
 	 */
 	public String getProjectGroupId(SupportedProjectType projectType);
 	
 	/**
-	 * Get Maven group IDs for all supported project type
-	 * @return
+	 * Get Maven group IDs for all supported project type.
+	 * 
+	 * @return a list of maven group ids
 	 */
 	public List<String> getAllProjectTypeGroupIds();
 

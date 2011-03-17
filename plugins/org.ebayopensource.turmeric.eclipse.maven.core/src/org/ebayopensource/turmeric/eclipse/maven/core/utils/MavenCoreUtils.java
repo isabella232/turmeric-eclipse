@@ -87,10 +87,21 @@ public class MavenCoreUtils {
 			.getDefault().getMavenEclipseApi();
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * 
+	 * @return an instance of the MavenEclipseAPI.
+	 */
 	public static IMavenEclipseApi mavenEclipseAPI() {
 		return mavenEclipseAPI;
 	}
 
+	/**
+	 * 
+	 * @param project a soa base project
+	 * @param monitor an eclipse progress monitor
+	 * @return a configured SOABaseProject
+	 * @throws CoreException 
+	 */
 	public static SOABaseProject configureAsStandardMavenProject(
 			final SOABaseProject project, IProgressMonitor monitor)
 			throws CoreException {
@@ -118,6 +129,11 @@ public class MavenCoreUtils {
 		return project;
 	}
 
+	/**
+	 * 
+	 * @param mavenProject a maven project
+	 * @return a set of ArtifactKeys
+	 */
 	public static Set<ArtifactKey> getArtifactKeys(
 			final MavenProject mavenProject) {
 		if (mavenProject == null)
@@ -133,7 +149,7 @@ public class MavenCoreUtils {
 	/**
 	 * Retrieve the MavenOrganizationProvider.
 	 * 
-	 * @return
+	 * @return the Maven Organization provider instance
 	 */
 	public static IMavenOrganizationProvider getMavenOrgProviderInstance() {
 		ISOAOrganizationProvider provider = GlobalRepositorySystem.instanceOf()
@@ -148,9 +164,9 @@ public class MavenCoreUtils {
 	/**
 	 * we only check for the existence of interface projects.
 	 * 
-	 * @param serviceNames
-	 * @return
-	 * @throws Exception
+	 * @param serviceNames an Array of strings that contain service names
+	 * @return an boolean arry of results for the service names
+	 * @throws Exception 
 	 */
 	public static boolean[] serviceExists(final String... serviceNames)
 			throws Exception {
@@ -175,6 +191,12 @@ public class MavenCoreUtils {
 		return results;
 	}
 
+	/**
+	 * 
+	 * @param typeLibName type library names
+	 * @return true if the type library exists
+	 * @throws Exception 
+	 */
 	public static boolean isTypeLibraryExist(final String typeLibName)
 			throws Exception {
 		if (SOALogger.DEBUG)
@@ -195,6 +217,12 @@ public class MavenCoreUtils {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param libs a list of libraries 
+	 * @return a set of ArtifactMetadata for the libraries
+	 * @throws MavenEclipseApiException 
+	 */
 	public static Set<ArtifactMetadata> artifactMetadata(
 			final Collection<String> libs) throws MavenEclipseApiException {
 		if (SOALogger.DEBUG)
@@ -220,7 +248,7 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * @param artifact
+	 * @param artifact artifact meta data
 	 * @return The full library name in Maven format
 	 */
 	public static String libraryName(final ArtifactMetadata artifact) {
@@ -229,6 +257,11 @@ public class MavenCoreUtils {
 				artifact.getVersion());
 	}
 
+	/**
+	 * 
+	 * @param artifact the artifact name
+	 * @return the libary name
+	 */
 	public static String libraryName(final Artifact artifact) {
 		return MavenCoreUtils.translateLibraryName(artifact.getGroupId(),
 				artifact.getArtifactId(), artifact.getType(),
@@ -236,7 +269,7 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * @param project
+	 * @param project the maven project
 	 * @return The full library name for the given Maven project
 	 */
 	public static String libraryName(final MavenProject project) {

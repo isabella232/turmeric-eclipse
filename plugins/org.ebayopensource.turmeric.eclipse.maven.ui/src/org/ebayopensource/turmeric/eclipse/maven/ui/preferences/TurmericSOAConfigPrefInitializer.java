@@ -18,9 +18,19 @@ import org.eclipse.jface.preference.IPreferenceStore;
  */
 public class TurmericSOAConfigPrefInitializer extends
 		AbstractPreferenceInitializer {
-	
+	/**
+	 * 
+	 */
 	public static final String PREF_KEY_OVERWRITE_PREFERRED_VERSOIN = "overwrite_turmeric_preferred_version";
+	
+	/**
+	 * 
+	 */
 	public static final String PREF_KEY_MINIMUM_REQUIRED_VERSOIN = "min_turmeric_required_version";
+	
+	/**
+	 * 
+	 */
 	public static final String PREF_KEY_TURMERIC_PREFERRED_VERSOIN = "turmeric_preferred_version";
 
 	/**
@@ -30,9 +40,6 @@ public class TurmericSOAConfigPrefInitializer extends
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences()
-	 */
 	@Override
 	public void initializeDefaultPreferences() {
 		final IPreferenceStore store = getPreferenceStore();
@@ -42,10 +49,18 @@ public class TurmericSOAConfigPrefInitializer extends
 				"");
 	}
 	
+	/**
+	 * 
+	 * @return the preference store
+	 */
 	public static IPreferenceStore getPreferenceStore() {
 		return Activator.getDefault().getPreferenceStore();
 	}
 	
+	/**
+	 * 
+	 * @return the preferred runtime version to use
+	 */
 	public static String getPreferredVersion() {
 		if (getPreferenceStore().getBoolean(PREF_KEY_OVERWRITE_PREFERRED_VERSOIN) == true) {
 			return getPreferenceStore().getString(PREF_KEY_TURMERIC_PREFERRED_VERSOIN);

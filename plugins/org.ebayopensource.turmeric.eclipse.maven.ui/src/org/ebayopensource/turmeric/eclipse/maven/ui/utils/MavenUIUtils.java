@@ -24,19 +24,25 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Shell;
 
+/**
+ * 
+ * 
+ * @since 1.0
+ */
 public class MavenUIUtils {
 	
 	private static final SOALogger logger = SOALogger.getLogger();	
 
 	/**
-	 * @param project
-	 * @param dependentName
-	 * @param type
-	 * @param addRemove
-	 *            add = true, remove = false
-	 * @return
-	 * @throws CoreException
-	 * @throws MavenEclipseApiException
+	 * Adds a dependency to a project.
+	 * 
+	 * @param project the eclipse project
+	 * @param dependentLibraries dependency libraries to add
+	 * @param addRemove  add = true, remove = false
+	 * @param monitor an eclipse progress monitor
+	 * @return returns true or false if the operation succeeded.
+	 * @throws CoreException 
+	 * @throws MavenEclipseApiException 
 	 */
 	public static boolean addDependency(final IProject project,
 			Map<String, String> dependentLibraries, final boolean addRemove,

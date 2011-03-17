@@ -56,17 +56,11 @@ IWorkbenchPreferencePage {
 		this.setPreferenceStore(TurmericSOAConfigPrefInitializer.getPreferenceStore());
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
-	 */
 	@Override
 	public void init(IWorkbench workbench) {
 		this.workbench = workbench;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#createFieldEditors()
-	 */
 	@Override
 	protected void createFieldEditors() {
 		final IPreferenceStore prefStore = TurmericSOAConfigPrefInitializer.getPreferenceStore();

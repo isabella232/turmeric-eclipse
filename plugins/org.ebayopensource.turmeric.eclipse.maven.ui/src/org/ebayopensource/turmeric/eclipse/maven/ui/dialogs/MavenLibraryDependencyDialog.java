@@ -42,8 +42,8 @@ public class MavenLibraryDependencyDialog implements
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOALibraryDependencyDialog#open(org.eclipse.swt.widgets.Shell, org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject, java.util.Set, java.util.Set)
+	/**
+	 * {@inheritDoc}
 	 */
 	public Collection<AssetInfo> open(Shell shell, ISOAProject soaProject,
 			Set<? extends AssetInfo> availableLibs,
