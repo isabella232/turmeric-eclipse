@@ -33,6 +33,7 @@ import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.SOAMavenConstants;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.SOAMavenConstants.ProjectType;
+import org.ebayopensource.turmeric.eclipse.maven.ui.utils.MavenUIUtils;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
 import org.ebayopensource.turmeric.eclipse.mavenapi.intf.IMavenEclipseApi;
 import org.ebayopensource.turmeric.eclipse.mavenapi.request.ProjectMavenizationRequest;
@@ -291,7 +292,7 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 		boolean result = false;
 		final IProject project = WorkspaceUtil.getProject(projectName);
 		if (project != null && project.isAccessible()) {
-			result = MavenCoreUtils.addDependency(project, dependentLibraries, addRemove, monitor);
+			result = MavenUIUtils.addDependency(project, dependentLibraries, addRemove, monitor);
 			if (result == true && addRemove) {
 				for (String libName : dependentLibraries.keySet()) {
 					MavenCoreUtils.updateMavenClasspathContainer(project, 

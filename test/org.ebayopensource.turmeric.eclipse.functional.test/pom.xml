@@ -137,6 +137,11 @@
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.maven.ui</artifactId>
+                     <version>0.0.0</version>
+                  </dependency>
+                  <dependency>
+                     <type>eclipse-plugin</type>
                      <artifactId>org.ebayopensource.turmeric.eclipse.maven.sconfig</artifactId>
                      <version>0.0.0</version>
                   </dependency>

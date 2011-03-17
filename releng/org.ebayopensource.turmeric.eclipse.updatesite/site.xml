@@ -9,5 +9,8 @@
    <feature url="features/org.ebayopensource.turmeric.eclipse.core.sdk.feature_1.0.0.qualifier.jar" id="org.ebayopensource.turmeric.eclipse.core.sdk.feature" version="1.0.0.qualifier">
       <category name="Turmeric Core"/>
    </feature>
+   <feature url="features/org.ebayopensource.turmeric.eclipse.maven.feature_1.0.0.qualifier.jar" id="org.ebayopensource.turmeric.eclipse.maven.feature" version="1.0.0.qualifier">
+      <category name="Turmeric Core"/>
+   </feature>
    <category-def name="Turmeric Core" label="Turmeric Core"/>
 </site>

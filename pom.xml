@@ -55,6 +55,7 @@
       <module>plugins/org.ebayopensource.turmeric.eclipse.config.imp</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.repositorysystem.imp</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.maven.core</module>
+      <module>plugins/org.ebayopensource.turmeric.eclipse.maven.ui</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.mavenapi</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.maven.sconfig</module>
       <module>docs/org.ebayopensource.turmeric.eclipse.doc</module>

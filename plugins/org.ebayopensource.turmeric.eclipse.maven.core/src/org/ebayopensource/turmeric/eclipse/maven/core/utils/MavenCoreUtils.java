@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.jar.JarEntry;
@@ -37,7 +36,6 @@ import org.ebayopensource.turmeric.eclipse.maven.core.model.MavenProjectInfo;
 import org.ebayopensource.turmeric.eclipse.maven.core.repositorysystem.IMavenOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.mavenapi.MavenApiPlugin;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
-import org.ebayopensource.turmeric.eclipse.mavenapi.impl.EclipseArtifactMetadata;
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenApiHelper;
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseUtil;
 import org.ebayopensource.turmeric.eclipse.mavenapi.intf.IMavenEclipseApi;
@@ -62,7 +60,6 @@ import org.ebayopensource.turmeric.eclipse.utils.collections.SetUtil;
 import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
-import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -77,10 +74,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.swt.widgets.Shell;
 import org.maven.ide.eclipse.embedder.ArtifactKey;
 import org.maven.ide.eclipse.embedder.ArtifactRef;
-import org.maven.ide.eclipse.internal.project.EclipseMavenMetadataCache;
 import org.maven.ide.eclipse.project.IMavenProjectFacade;
 
 /**
@@ -1251,118 +1246,6 @@ public class MavenCoreUtils {
 		return false;
 	}
 
-	/**
-	 * @param project
-	 * @param dependentName
-	 * @param type
-	 * @param addRemove
-	 *            add = true, remove = false
-	 * @return
-	 * @throws CoreException
-	 * @throws MavenEclipseApiException
-	 */
-	public static boolean addDependency(final IProject project,
-			Map<String, String> dependentLibraries, final boolean addRemove,
-			IProgressMonitor monitor) throws CoreException,
-			MavenEclipseApiException {
-		ArtifactMetadata metadata = null;
-		final IFile pomFile = MavenEclipseUtil.getPomFile(project);
-		pomFile.refreshLocal(IResource.DEPTH_ZERO, monitor);
-		final Model pom = MavenEclipseUtil.readPOM(project);
-		if (pom == null)
-			return false;
-
-		for (String dependentName : dependentLibraries.keySet()) {
-			final String type = dependentLibraries.get(dependentName);
-			if (StringUtils.equals(type, AssetInfo.TYPE_SERVICE_LIBRARY)) {
-				// service dependency
-				String groupId = getMavenOrgProviderInstance()
-						.getProjectGroupId(SupportedProjectType.INTERFACE);
-				final String libVersion = MavenCoreUtils.getLibraryVersion(
-						groupId, dependentName,
-						SOAProjectConstants.DEFAULT_SERVICE_VERSION);
-				final String fullLibName = MavenCoreUtils.translateLibraryName(
-						groupId, dependentName, libVersion);
-				metadata = getLibraryIdentifier(fullLibName);
-			} else if (StringUtils.equals(type, AssetInfo.TYPE_PROJECT)) {
-				final IProject dependentProject = WorkspaceUtil
-						.getProject(dependentName);
-				if (dependentProject != null && dependentProject.isAccessible()) {
-					final Model dependentPom = MavenEclipseUtil
-							.readPOM(dependentProject);
-					if (dependentPom == null)
-						return false;
-					metadata = MavenEclipseUtil.artifactMetadata(dependentPom);
-				} else if (dependentName
-						.contains(SOAProjectConstants.DELIMITER_SEMICOLON)) {
-					// it is Maven fully qualified identifier
-					logger.warning(
-							"library name to add is a fully qualified identifier->",
-							dependentName);
-					metadata = MavenEclipseUtil.artifactMetadata(dependentName);
-				}
-			} else if (StringUtils.equals(type, AssetInfo.TYPE_LIBRARY)) {
-				metadata = getLibraryIdentifier(dependentName);
-				if (metadata == null
-						&& WorkspaceUtil.getProject(dependentName)
-								.isAccessible()) {
-					// could not find the lib, but exist as a project in the
-					// workspace
-					MavenProject mProj = getMavenProject(WorkspaceUtil
-							.getProject(dependentName));
-					if (mProj != null) {
-						metadata = MavenEclipseUtil
-								.convertToArtifactMetadata(mProj.getModel());
-					}
-				}
-			} else {
-				metadata = getLibraryIdentifier(dependentName);
-			}
-
-			if (metadata == null) {
-				if (addRemove == true) {
-					// we only report failed adding operation
-					final String errMsg = StringUtil.toString(
-							"Failed to add dependency->", dependentName,
-							" to project->", project);
-					logger.warning(errMsg);
-					UIUtil.showErrorDialogInNewThread((Shell) null,
-							"Error Occured", errMsg);
-				}
-
-				return false;
-			}
-			Dependency dependency = null;
-			if (addRemove) {
-				// adding a new dependency
-				dependency = MavenEclipseUtil.dependency(metadata);
-				if (dependency == null || dependency.getGroupId() == null)
-					return false;
-				if (findDependency(dependency.getGroupId(),
-						dependency.getArtifactId(), pom) != null) {
-					logger.warning("Dependency has already been added skipping it->"
-							+ dependency);
-					return false;
-				}
-				pom.addDependency(dependency);
-			} else {
-				// removing an existing dependency
-				dependency = findDependency(metadata.getGroupId(),
-						metadata.getArtifactId(), pom);
-				if (dependency == null)
-					return false;
-				pom.removeDependency(dependency);
-			}
-
-			if (StringUtils.equals(type, AssetInfo.TYPE_SERVICE_LIBRARY)) {
-				modifyRequiredServices(pom, dependentName, addRemove);
-			}
-		}
-
-		mavenEclipseAPI().writePom(pomFile, pom);
-		pomFile.refreshLocal(IResource.DEPTH_ZERO, monitor);
-		return true;
-	}
 
 	/**
 	 * @param pom

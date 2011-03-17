@@ -9,7 +9,7 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.maven.core.repositorysystem;
+package org.ebayopensource.turmeric.eclipse.maven.ui.dialogs;
 
 import java.util.Collection;
 import java.util.HashSet;

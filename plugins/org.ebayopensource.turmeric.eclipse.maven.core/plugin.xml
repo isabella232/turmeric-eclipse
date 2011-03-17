@@ -19,20 +19,5 @@
             name="Turmeric Maven Project Configurator">
       </configurator>
    </extension>
-   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            category="org.ebayopensource.turmeric.eclipse.ui.preferences"
-            class="org.ebayopensource.turmeric.eclipse.maven.core.preferences.TurmericSOAConfigPrefPage"
-            id="org.ebayopensource.turmeric.eclipse.maven.core.page1"
-            name="%TurmericSOAConfigPrefPage.Title">
-      </page>
-   </extension>
-   <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer
-            class="org.ebayopensource.turmeric.eclipse.maven.core.preferences.TurmericSOAConfigPrefInitializer">
-      </initializer>
-   </extension>
 
 </plugin>

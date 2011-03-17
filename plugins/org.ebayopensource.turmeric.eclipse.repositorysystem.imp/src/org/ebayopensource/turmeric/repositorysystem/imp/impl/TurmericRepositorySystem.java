@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.codegen.utils.SOACodegenTransformer;
 import org.ebayopensource.turmeric.eclipse.core.buildsystem.AbstractSOAClassPathContainer;
-import org.ebayopensource.turmeric.eclipse.maven.core.repositorysystem.MavenLibraryDependencyDialog;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.SOAMavenConstants;
+import org.ebayopensource.turmeric.eclipse.maven.ui.dialogs.MavenLibraryDependencyDialog;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.IErrorRegistryBridge;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.IProjectHealthChecker;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry;

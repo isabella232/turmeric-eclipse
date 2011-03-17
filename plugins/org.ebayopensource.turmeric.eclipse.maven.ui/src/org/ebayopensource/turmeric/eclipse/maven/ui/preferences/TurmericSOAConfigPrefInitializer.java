@@ -6,9 +6,9 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.maven.core.preferences;
+package org.ebayopensource.turmeric.eclipse.maven.ui.preferences;
 
-import org.ebayopensource.turmeric.eclipse.maven.core.Activator;
+import org.ebayopensource.turmeric.eclipse.maven.ui.Activator;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 

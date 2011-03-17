@@ -13,7 +13,7 @@ import java.util.PropertyResourceBundle;
 
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -21,7 +21,7 @@ import org.osgi.framework.BundleContext;
  * @since 1.0
  *
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator extends Plugin {
 	/**
 	 *  The plug-in ID.
 	 */
