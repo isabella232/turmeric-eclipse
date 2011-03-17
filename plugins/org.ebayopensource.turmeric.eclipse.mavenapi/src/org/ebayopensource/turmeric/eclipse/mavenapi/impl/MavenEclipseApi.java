@@ -237,7 +237,9 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 		}
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * {@inheritDoc}
+	 */
 	public IProject mavenizeProject(final ProjectMavenizationRequest req,
 			IProgressMonitor monitor) throws MavenEclipseApiException {
 		Model model = generateModel(req, monitor);
@@ -245,7 +247,9 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 		return req.getEclipseProject();
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * {@inheritDoc}
+	 */
 	public Artifact resolveArtifact(final ArtifactMetadata metadata)
 			throws MavenEclipseApiException {
 		if (metadata == null)
@@ -254,24 +258,33 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 				MavenApiHelper.getRepositorySystem(), metadata);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * {@inheritDoc}
+	 */
 	public Collection<Artifact> findGroup(final String groupRegEx)
 			throws MavenEclipseApiException {
 		return _toArtifactCollection(_findGroup(_getIndexManager(), groupRegEx));
 	}
 
-	// -------------------------------------------------------------------------------------
+	/**
+	 * {@inheritDoc}
+	 */
 	public Collection<Artifact> findArtifact(final String query)
 			throws MavenEclipseApiException {
 		return _toArtifactCollection(_findArtifact(_getIndexManager(), query));
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<Artifact> resolveArtifactAsClasspath(
 			final ArtifactMetadata metadata) throws MavenEclipseApiException {
 		return super.resolveArtifactAsClasspath(_getEmbedder(), metadata);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public MavenProject resolveArtifactAsProject(final Artifact artifact)
 			throws MavenEclipseApiException {
 		if (artifact == null)
@@ -302,9 +315,9 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	/**
 	 * according to name,to search artifact. It supports wildcard.
 	 * 
-	 * @param name
-	 * @return
-	 * @throws MavenEclipseApiException
+	 * @param name the name, may include wild cards.
+	 * @return a Collection of Artifacts that matched the query.
+	 * @throws MavenEclipseApiException 
 	 */
 	public Collection<Artifact> findArtifactByName(String name)
 			throws MavenEclipseApiException {
@@ -312,13 +325,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	}
 
 	/**
-	 * according to artifact name and group ,to search artifact. It supports
-	 * wildcard.
-	 * 
-	 * @param name
-	 * @param group
-	 * @return
-	 * @throws MavenEclipseApiException
+	 * {@inheritDoc}
 	 */
 	public Collection<Artifact> findArtifactByNameAndGroup(String name,
 			String group) throws MavenEclipseApiException {
@@ -329,11 +336,11 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	 * according to artifact name,group and repository url ,to search artifact.
 	 * It supports wildcard.
 	 * 
-	 * @param name
-	 * @param group
-	 * @param repositoryUrl
-	 * @return
-	 * @throws MavenEclipseApiException
+	 * @param name the artifact name, can include wildcards
+	 * @param group the group id, can include wildcards
+	 * @param repositoryUrl a repository url location
+	 * @return a collection of artifacts that matched the query
+	 * @throws MavenEclipseApiException 
 	 */
 	public Collection<Artifact> findArtifactByNameAndGroupAndRepositoryUrl(
 			String name, String group, String repositoryUrl)
@@ -357,8 +364,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 				bq.add(new WildcardQuery(new Term(ArtifactInfo.GROUP_ID, "*")),
 						Occur.MUST);
 			}
-			// bq.add( new TermQuery(new Term(ArtifactInfo.PACKAGING, "jar")),
-			// Occur.MUST );
+			
 			RepositoryInfo repository = new RepositoryInfo(null, repositoryUrl,
 					IRepositoryRegistry.SCOPE_UNKNOWN, null);
 			final Map<String, IndexedArtifact> results = ((NexusIndexManager) _getIndexManager())
@@ -370,6 +376,9 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 		return _toArtifactCollection(ams);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IProject mavenizeProject(AbstractProjectMavenizationRequest req,
 			IProgressMonitor monitor) throws MavenEclipseApiException {
 		if (req instanceof ProjectMavenizationRequest) {

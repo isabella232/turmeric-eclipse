@@ -34,12 +34,22 @@ import org.maven.ide.eclipse.index.IndexedArtifactFile;
 
 /**
  * 
- * @author James Ervin</a>
+ * @author James Ervin
  * 
  */
 public final class MavenEclipseUtil {
+	/**
+	 * Artifact meta data.
+	 */
 	static final String ARTIFACT_METADATA_SEPARATOR = ":";
 
+	/**
+	 * Check to see if the project has a maven nature.
+	 * 
+	 * @param project an eclipse project
+	 * @return true if the project is a maven project, false otherwise
+	 * @throws CoreException 
+	 */
 	public static boolean hasMavenNature(final IProject project)
 			throws CoreException {
 		if (project == null || !project.isAccessible())
@@ -47,6 +57,11 @@ public final class MavenEclipseUtil {
 		return project.hasNature(IMavenConstants.NATURE_ID);
 	}
 
+	/**
+	 * 
+	 * @return a List of projects that are Maven Projects
+	 * @throws CoreException 
+	 */
 	public static List<IProject> getAllMavenProjectsInWorkspace()
 			throws CoreException {
 		final List<IProject> projects = ListUtil.list();
