@@ -7,7 +7,7 @@
             category="org.ebayopensource.turmeric.eclipse.ui.preferences"
             class="org.ebayopensource.turmeric.eclipse.maven.ui.preferences.TurmericSOAConfigPrefPage"
             id="org.ebayopensource.turmeric.eclipse.maven.core.page1"
-            name="%TurmericSOAConfigPrefPage.Title">
+            name="Turmeric SOA Configurations">
       </page>
    </extension>
    <extension

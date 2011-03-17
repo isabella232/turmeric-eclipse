@@ -5,8 +5,9 @@
       version="1.0.0.qualifier"
       provider-name="eBay, Inc">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description url="http://www.ebayopensource.org/index.php/Turmeric/HomePage">
+      Provides common API used by turmeric bundles that depend on working
+with Maven and M2Eclipse.
    </description>
 
    <copyright url="http://www.example.com/copyright">

@@ -21,3 +21,4 @@ Export-Package: org.ebayopensource.turmeric.eclipse.maven.ui,
  org.ebayopensource.turmeric.eclipse.maven.ui.dialogs,
  org.ebayopensource.turmeric.eclipse.maven.ui.preferences,
  org.ebayopensource.turmeric.eclipse.maven.ui.utils
+Bundle-Vendor: eBay, Inc.
