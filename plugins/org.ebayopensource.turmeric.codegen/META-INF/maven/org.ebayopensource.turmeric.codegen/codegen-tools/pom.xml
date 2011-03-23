@@ -16,7 +16,6 @@
 		<version>1.0.1.0-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
-	<groupId>org.ebayopensource.turmeric.codegen</groupId>
 	<artifactId>codegen-tools</artifactId>
 	<name>Turmeric Codegen :: Tools</name>
 	<properties>

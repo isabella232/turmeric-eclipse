@@ -19,7 +19,6 @@
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
-   <groupId>org.ebayopensource.turmeric</groupId>
    <artifactId>org.ebayopensource.turmeric.codegen</artifactId>
    <version>1.0.1.0-SNAPSHOT</version>
    <packaging>eclipse-plugin</packaging>
