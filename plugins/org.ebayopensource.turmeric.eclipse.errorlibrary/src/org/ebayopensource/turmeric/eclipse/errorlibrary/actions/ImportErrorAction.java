@@ -11,7 +11,6 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.actions;
 import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
-import org.ebayopensource.turmeric.eclipse.core.command.BaseEditorActionDelegate;
 import org.ebayopensource.turmeric.eclipse.core.exception.SOAExceptionHandler;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.components.ErrorSelector;
@@ -23,6 +22,7 @@ import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAOpera
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.ui.actions.BaseEditorActionDelegate;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.runtime.CoreException;

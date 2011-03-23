@@ -11,9 +11,9 @@
  */
 package org.ebayopensource.turmeric.eclipse.typelibrary.core.wst;
 
-import org.ebayopensource.turmeric.eclipse.core.command.BaseEditorActionDelegate;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.typelibrary.actions.ActionUtil;
+import org.ebayopensource.turmeric.eclipse.ui.actions.BaseEditorActionDelegate;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.utils.ValidateUtil;
 import org.eclipse.core.resources.IFile;

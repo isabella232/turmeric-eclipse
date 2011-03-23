@@ -14,7 +14,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.core,
  org.ebayopensource.turmeric.eclipse.resources,
  org.ebayopensource.turmeric.eclipse.exception;bundle-version="1.0.0",
- org.ebayopensource.turmeric.eclipse.registry;bundle-version="1.0.0"
+ org.ebayopensource.turmeric.eclipse.registry;bundle-version="1.0.0",
+ org.apache.commons.lang;bundle-version="2.4.0",
+ org.apache.commons.io;bundle-version="1.4.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator
 Export-Package: org.ebayopensource.turmeric.eclipse.repositorysystem,
  org.ebayopensource.turmeric.eclipse.repositorysystem.core,

@@ -10,7 +10,9 @@ Require-Bundle: org.eclipse.ui,
  org.ebayopensource.turmeric.eclipse.exception,
  org.ebayopensource.turmeric.eclipse.core,
  org.ebayopensource.turmeric.eclipse.utils;bundle-version="1.0.0",
- org.ebayopensource.turmeric.eclipse.logging;bundle-version="1.0.0"
+ org.ebayopensource.turmeric.eclipse.logging;bundle-version="1.0.0",
+ org.apache.commons.lang;bundle-version="2.4.0",
+ org.apache.commons.io;bundle-version="1.4.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.config.ConfigActivator
 Export-Package: org.ebayopensource.turmeric.eclipse.config.core,
  org.ebayopensource.turmeric.eclipse.config.exception,

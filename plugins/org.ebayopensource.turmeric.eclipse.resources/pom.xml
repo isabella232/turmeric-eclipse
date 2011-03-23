@@ -22,7 +22,7 @@
    <artifactId>org.ebayopensource.turmeric.eclipse.resources</artifactId>
    <version>1.0.0-SNAPSHOT</version>
    <packaging>eclipse-plugin</packaging>
-   <name>Turmeric: Eclipse</name>
+   <name>Turmeric: Eclipse Resources</name>
 
    <build>
       <sourceDirectory>src</sourceDirectory>

@@ -10,7 +10,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.wsdl.validation,
  org.eclipse.core.resources,
  org.ebayopensource.turmeric.eclipse.logging,
- org.ebayopensource.turmeric.eclipse.exception
+ org.ebayopensource.turmeric.eclipse.exception,
+ org.apache.commons.lang;bundle-version="2.4.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.validator.Activator
 Export-Package: org.ebayopensource.turmeric.eclipse.validator,
  org.ebayopensource.turmeric.eclipse.validator.core,

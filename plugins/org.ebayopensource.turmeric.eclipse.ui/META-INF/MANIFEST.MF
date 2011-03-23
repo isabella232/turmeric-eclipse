@@ -25,12 +25,15 @@ Require-Bundle: org.eclipse.ui,
  org.ebayopensource.turmeric.eclipse.registry;bundle-version="1.0.0",
  org.ebayopensource.turmeric.eclipse.exception,
  org.jdom;bundle-version="1.0.0",
- org.eclipse.ui.cheatsheets
+ org.eclipse.ui.cheatsheets,
+ org.apache.commons.lang;bundle-version="2.4.0",
+ org.apache.commons.io;bundle-version="1.4.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.ui.UIActivator
 Export-Package: org.ebayopensource.turmeric.eclipse.ui,
  org.ebayopensource.turmeric.eclipse.ui.actions,
  org.ebayopensource.turmeric.eclipse.ui.components,
  org.ebayopensource.turmeric.eclipse.ui.dialogs,
+ org.ebayopensource.turmeric.eclipse.ui.resources,
  org.ebayopensource.turmeric.eclipse.ui.util,
  org.ebayopensource.turmeric.eclipse.ui.wizards.pages
 Bundle-Version: 1.0.0.qualifier

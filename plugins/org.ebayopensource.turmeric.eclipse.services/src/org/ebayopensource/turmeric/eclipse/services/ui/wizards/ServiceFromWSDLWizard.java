@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
-import org.ebayopensource.turmeric.eclipse.core.command.SOAStatusReportingRunnable;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAServiceCreationFailedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
@@ -41,9 +40,9 @@ import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFrom
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLAddBindingWizardPage;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLAddOperationWizardPage;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLPage;
-import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.processors.WSDLTemplateProcessor;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
+import org.ebayopensource.turmeric.eclipse.ui.actions.SOAStatusReportingRunnable;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
@@ -175,10 +174,6 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 				tempModel.setTemplateFile(serviceFromNewWSDL.getTemplateFile());
 				uiModel.setTargetNamespace(serviceFromNewWSDL
 						.getTargetNamespace());
-				uiModel.getNamespaceToPacakgeMappings().put(
-						uiModel.getTargetNamespace(), ConfigTool
-						.getTypePackageNameFromNamespace(uiModel.getTargetNamespace(), 
-								uiModel.getPublicServiceName()));
 				uiModel
 						.setWSDLSourceType(SOAProjectConstants.InterfaceWsdlSourceType.NEW);
 				tempModel.setOperations(addOperationPage.getOperations());
@@ -258,9 +253,8 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 						wsdlURL = wsdlTemplateProcessor.getWSDLFileURL(monitor);
 					}
 					IStatus validationStatuses = ActionUtil
-							.validateServiceWSDL(null, wsdlURL, provider
-									.supportAssertionServiceIntegration(),
-									false, monitor);
+					.validateServiceWSDL(null, wsdlURL,
+							provider.supportAssertionServiceIntegration(), false, monitor);
 					if (validationStatuses != null) {
 						if (validationStatuses.isMultiStatus() == true) {
 							Collections.addAll(statuses, validationStatuses

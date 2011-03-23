@@ -31,7 +31,9 @@ Require-Bundle: org.eclipse.ui;bundle-version="3.5.2",
  org.ebayopensource.turmeric.eclipse.exception,
  org.ebayopensource.turmeric.eclipse.utils;bundle-version="1.0.0",
  org.ebayopensource.turmeric.eclipse.registry;bundle-version="1.0.0",
- org.ebayopensource.turmeric.eclipse.maven.ui;bundle-version="1.0.0"
+ org.ebayopensource.turmeric.eclipse.maven.ui;bundle-version="1.0.0",
+ org.apache.commons.lang;bundle-version="2.4.0",
+ org.apache.commons.io;bundle-version="1.4.0"
 Export-Package: org.ebayopensource.turmeric.repositorysystem.imp,
  org.ebayopensource.turmeric.repositorysystem.imp.impl,
  org.ebayopensource.turmeric.repositorysystem.imp.resources,
