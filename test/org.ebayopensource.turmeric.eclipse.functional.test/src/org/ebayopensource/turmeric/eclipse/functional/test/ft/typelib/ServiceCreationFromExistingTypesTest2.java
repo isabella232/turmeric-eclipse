@@ -72,7 +72,36 @@ public class ServiceCreationFromExistingTypesTest2 extends
 		TypeLibSetUp.setupSvc(eBoxServiceName);
 
 		try {
-			
+			/*
+			 * final ServiceFromTemplateWsdlParamModel model = new
+			 * ServiceFromTemplateWsdlParamModel(); final String servicePkg =
+			 * "com.ebayopensource.turmeric.services"; model
+			 * .setTargetNamespace(SOAServiceConstants
+			 * .DEFAULT_SERVICE_NAMESPACE);
+			 * model.setServiceName(EBoxTypeLibSetUp.SVC_NAME2); model
+			 * .setServiceInterface(servicePkg + "." + model.getServiceName());
+			 * model.setWorkspaceRootDirectory(EBoxTypeLibSetUp.SVC_LOCATION);
+			 * model.setServiceImpl("com.ebayopensource.turmeric.services." +
+			 * EBoxTypeLibSetUp.SVC_NAME2 + "Impl");
+			 * model.setServiceVersion("1.0.0");
+			 * model.setImplName(EBoxTypeLibSetUp.SVC_NAME2 + "Impl"); model
+			 * .setWSDLSourceType
+			 * (SOAProjectConstants.InterfaceWsdlSourceType.NEW);
+			 * SimpleTestUtil.setAutoBuilding(true);
+			 * ServiceCreator.createServiceFromBlankWSDL(model, ProgressUtil
+			 * .getDefaultMonitor(null));
+			 * 
+			 * WorkspaceUtil.getProject(EBoxTypeLibSetUp.SVC_NAME2).build(
+			 * IncrementalProjectBuilder.FULL_BUILD,
+			 * ProgressUtil.getDefaultMonitor(null));
+			 * 
+			 * WorkspaceUtil.getProject(EBoxTypeLibSetUp.SVC_NAME2 + "Impl")
+			 * .build(IncrementalProjectBuilder.FULL_BUILD,
+			 * ProgressUtil.getDefaultMonitor(null));
+			 */
+	
+			//TypeLibSetUp.setup();
+
 			Assert.assertTrue(TypeLibSetUp.TYPELIBRARY_NAME2
 					+ " -- TypeLibrary Creation failed", TLUtil
 					.createTypeLibrary(TypeLibSetUp.TYPELIBRARY_NAME2,

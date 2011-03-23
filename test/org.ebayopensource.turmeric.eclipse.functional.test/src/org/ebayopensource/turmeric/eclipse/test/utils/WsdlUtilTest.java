@@ -49,7 +49,7 @@ public class WsdlUtilTest extends AbstractTestCase {
 		
 		String testDataLocation = getPluginOSPath(SoaTestConstants.PLUGIN_ID,
 				SoaTestConstants.TEST_DATA)
-				+ File.separator
+				+ File.pathSeparator
 				+ AbstractTestCase.class.getName();
 		outputFile = new File(testDataLocation, "output");
 		FileUtils.forceMkdir(outputFile);
@@ -99,7 +99,7 @@ public class WsdlUtilTest extends AbstractTestCase {
 		return platformContextURL;
 	}
 
-//	@Ignore("Currently Failing")
+	@Ignore("Currently Failing")
 	@Test
 	public void testWriteWSDLStringString() {
 

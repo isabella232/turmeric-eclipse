@@ -8,8 +8,8 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc;
 
-
-import java.io.File;
+//import java.util.LinkedHashSet;
+//import java.util.Set;
 
 import junit.framework.Assert;
 
@@ -39,10 +39,6 @@ import org.junit.Test;
  */
 public class CtxMenuAddRemoveServiceTest extends AbstractTestCase {
 	
-	static String WSDL_FILE = ServiceSetupCleanupValidate
-	.getWsdlFilePath("CalcService.wsdl");
-	final String namespacePart = "blogs";
-	
 	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
 			SoaTestConstants.PLUGIN_ID,"data");
 	@BeforeClass
@@ -55,23 +51,26 @@ public class CtxMenuAddRemoveServiceTest extends AbstractTestCase {
 
 	@Test
 	public void testCtxMenuAddRemoveService1() throws Exception {
-		
-		Boolean b = ConsumerFromIntfTest.createServiceFromWsdl(new File(WSDL_FILE).toURI().toURL(),namespacePart);
 		ConsumeNewServiceWizard addRemoveSvcWizard = new ConsumeNewServiceWizard();
 
 		ServiceFromWsdlParamModel model = new ServiceFromWsdlParamModel();
 		String PARENT_DIR = ServiceSetupCleanupValidate.getParentDir();
 
-		model.setServiceName("BlogsCalcServiceV1");
+		model.setServiceName("BlogsServiceV1");
 		model.setWorkspaceRootDirectory(PARENT_DIR);
 
-		final String projectName = model.getServiceName();
+		final String projectName = model.getServiceName() + "Impl";
 		final IProject project = WorkspaceUtil.getProject(projectName);
 
 		ConsumeNewServiceWizardPage addRemoveSvcWizardPage = new ConsumeNewServiceWizardPage(
 				project);
 		AssetInfo service1 = new AssetInfo("Svc1", IAssetInfo.TYPE_PROJECT);
-		addRemoveSvcWizardPage.getAddedServices().add(service1); 
+		addRemoveSvcWizardPage.getAddedServices().add(service1); // we can
+																	// access
+																	// addedServices
+																	// map like
+																	// this...without
+																	// set APIs
 		try {
 			boolean addSvc = addRemoveSvcWizard.performFinish();
 			Assert.assertTrue(

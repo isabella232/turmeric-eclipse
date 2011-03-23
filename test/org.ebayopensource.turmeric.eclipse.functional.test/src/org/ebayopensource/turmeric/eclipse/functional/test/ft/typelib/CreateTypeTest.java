@@ -11,6 +11,9 @@
  */
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.typelib;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -27,8 +30,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.junit.Assume.*;
 
 /**
  * @author vyaramala
@@ -95,6 +96,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void testCreateSimpleStringType() throws IOException {
 
 		assertTrue("Simple Type Creation failed", TLUtil.createType(
@@ -105,6 +107,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void testCreateStringType() throws IOException {
 
 		assertTrue("Simple Type Creation failed", TLUtil.createType(
@@ -115,6 +118,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void testCreateSimpleIntType() throws IOException {
 
 		assertTrue("Simple Type Creation failed", TLUtil.createType(
@@ -125,6 +129,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void testCreateSimpleBooleanType() throws IOException {
 
 		assertTrue("Simple Type Creation failed", TLUtil.createType(
@@ -135,6 +140,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void testCreateSimpleDateType() throws IOException {
 		assertTrue("Simple Type Creation failed", TLUtil.createType(
 				"CustomerDOBType", TypeLibSetUp.TYPELIBRARY_NAME1,
@@ -144,6 +150,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void testCreateSimpleDateTimeType() throws IOException {
 
 		assertTrue("Simple Type Creation failed", TLUtil.createType(
@@ -153,6 +160,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void testCreateEnumType() throws IOException {
 		String srcFile = WsdlUtilTest.getPluginOSPath(
 				SoaTestConstants.PLUGIN_ID, "data/extractedData" + File.separator
@@ -172,6 +180,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void testCreateTempTypeForImport() {
 		assertTrue("Type to be used for Import action failed",
 				TLUtil.createType("ImportType", TypeLibSetUp.TYPELIBRARY_NAME1,
@@ -182,6 +191,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void testCreateTypeForTL2() {
 		assertTrue("Type to be used for Import action failed",
 				TLUtil.createType("ZipType", TypeLibSetUp.TYPELIBRARY_NAME2,
@@ -194,6 +204,7 @@ public class CreateTypeTest extends AbstractTestCase {
 
 	// @Ignore("currently failing")
 	@Test
+	@Ignore
 	public void createComplexType3() throws IOException {
 		String srcFile = WsdlUtilTest.getPluginOSPath(
 				SoaTestConstants.PLUGIN_ID, "data/extractedData" + File.separator
@@ -217,6 +228,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	 * Create Duplicate Type - within same TL
 	 */
 	@Test
+	@Ignore
 	public void testCreateDuplicateType1() throws Exception {
 		registryAdapter.invalidateRegistry();
 		registryAdapter.getGlobalRegistry();
@@ -234,6 +246,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	 * Create Duplicate Type - within TL in ws
 	 */
 	@Test
+	@Ignore
 	public void testCreateDuplicateType2() throws Exception {
 
 		registryAdapter.invalidateRegistry();
@@ -253,6 +266,7 @@ public class CreateTypeTest extends AbstractTestCase {
 	 * Create Duplicate Type - in jar
 	 */
 	@Test
+	@Ignore
 	public void testCreateDuplicateType3() throws Exception {
 		registryAdapter.invalidateRegistry();
 		registryAdapter.getGlobalRegistry();

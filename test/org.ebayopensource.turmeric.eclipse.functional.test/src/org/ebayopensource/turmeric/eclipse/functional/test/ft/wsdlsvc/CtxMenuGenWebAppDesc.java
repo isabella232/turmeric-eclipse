@@ -107,7 +107,7 @@ public class CtxMenuGenWebAppDesc extends AbstractTestCase {
 
 			final Class<?> templateLoadingClass;
 			final Map<String, String> templates = new ConcurrentHashMap<String, String>(1);
-			if (PreferenceConstants.PREF_DEFAULT_REPOSITORY_SYSTEM
+			if (PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM
 					.equals(GlobalRepositorySystem.instanceOf()
 							.getActiveRepositorySystem().getId())) {
 				// we should generate the Geronimo specific deployment file in

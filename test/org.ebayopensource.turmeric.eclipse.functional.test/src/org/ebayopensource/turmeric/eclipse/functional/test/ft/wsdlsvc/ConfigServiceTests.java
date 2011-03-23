@@ -11,8 +11,6 @@
  */
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc;
 
-import java.io.File;
-
 import junit.framework.Assert;
 
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
@@ -38,8 +36,7 @@ import org.junit.Test;
  */
 public class ConfigServiceTests extends AbstractTestCase {
 
-	static String WSDL_FILE = ServiceSetupCleanupValidate
-	.getWsdlFilePath("CSUpdateMACActivityAddAttachments.wsdl");
+	// final PropertiesPageUtil configSvcProps = new PropertiesPageUtil();
 	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
 			SoaTestConstants.PLUGIN_ID,"data");
 	@BeforeClass
@@ -51,25 +48,23 @@ public class ConfigServiceTests extends AbstractTestCase {
 	}
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void testConfigSvcProps() throws Exception {
 		final ServiceFromWsdlParamModel model = new ServiceFromWsdlParamModel();
 		String PARENT_DIR = ServiceSetupCleanupValidate.getParentDir();
 
-		model.setServiceName("CSAPIInterfaceServiceV1");
+		model.setServiceName("BlogsServiceV1");
 		model.setWorkspaceRootDirectory(PARENT_DIR);
-		AttachmentWsdlConsumerTest test = new AttachmentWsdlConsumerTest();
-		test.createConsumerFromWsdl(new File(WSDL_FILE).toURI().toURL());
 
-		final String projectName = model.getServiceName() + "Consumer";
+		final String projectName = model.getServiceName() + "Client67";
 		final IProject project = WorkspaceUtil.getProject(projectName);
 	
 		String envName = "production";
 		String[] requiredServices = null;
 		try {
 			PropertiesPageUtil.modifyServiceDependencies(project, envName,
-					model.getServiceName()+" Impl",
-					model.getServiceName() + "Consumer",
+					model.getServiceName(),
+					model.getServiceName() + "Client67",
 					"http://localhost/ws/spf", "LOCAL", "SOAP12", "NV", "NV",
 					requiredServices, ProgressUtil.getDefaultMonitor(null));
 	

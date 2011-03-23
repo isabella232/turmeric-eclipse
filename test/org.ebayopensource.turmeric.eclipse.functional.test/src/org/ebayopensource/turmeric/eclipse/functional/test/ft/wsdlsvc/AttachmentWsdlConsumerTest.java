@@ -39,6 +39,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -82,6 +83,8 @@ public class AttachmentWsdlConsumerTest extends AbstractTestCase {
 		publicServiceName = ServiceSetupCleanupValidate
 				.getServiceName(WSDL_FILE);
 
+		// if(ServiceName.contains("APIInterfaceService")) ServiceName =
+		// ServiceName.replace("APIInterfaceService", "");
 		adminName = ServicesUtil.getAdminName(publicServiceName);
 
 		System.out.println("--- WSDL file : " + WSDL_FILE);
@@ -98,7 +101,11 @@ public class AttachmentWsdlConsumerTest extends AbstractTestCase {
 	public void createConsumerFromWsdl(URL wsdlURL) throws Exception {
 
 		String publicService = ServicesUtil.getServiceName(wsdlURL.toString());
+		// String domainClassifier = SoaTestConstants.DOMAIN_CLASSIFIER;
 		String serviceName = ServicesUtil.getAdminName(publicService);
+		// if(serviceName.contains("APIInterfaceService")) serviceName =
+		// serviceName.replace("APIInterfaceService", "");
+		// String nsPart = domainClassifier.toLowerCase().trim();
 		String targetNS = ServicesUtil.getTargetNamespaceFromWsdl(wsdlURL
 				.toString());
 		String serviceInterface = ServicesUtil.getInterfacePackage(
@@ -166,6 +173,7 @@ public class AttachmentWsdlConsumerTest extends AbstractTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void testAttachmentServiceConsumerCreate() throws Exception {
 
 		try {

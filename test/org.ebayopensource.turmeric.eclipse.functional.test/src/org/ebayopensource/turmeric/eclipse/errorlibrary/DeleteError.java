@@ -63,10 +63,10 @@ public class DeleteError extends AbstractTestCase {
 			SoaTestConstants.PLUGIN_ID,"data");
 	@BeforeClass
 	public static void setUp(){
-		
+	
 		ZipExtractor zip = new ZipExtractor();
 		zip.extract(dataDirectory+"/ErrorLibraryTestData.zip",dataDirectory +"/extractedData");
-		
+	
 	}
 	
 	

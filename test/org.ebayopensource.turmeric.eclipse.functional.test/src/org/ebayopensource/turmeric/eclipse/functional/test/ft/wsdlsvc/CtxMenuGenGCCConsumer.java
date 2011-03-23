@@ -52,7 +52,7 @@ public class CtxMenuGenGCCConsumer extends AbstractTestCase {
 		
 	}
 
-
+	// static IProject project = null;
 
 	
 	@Test

@@ -77,6 +77,7 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 	public  void setUp() throws Exception {
 		
 		
+		// EBoxFunctionalTestHelper.ensureM2EcipseBeingInited();
 		monitor = new DialogMonitor();
 		monitor.startMonitoring();
 		createService();
@@ -97,7 +98,7 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 	}
 
 	public static void createService() throws Exception {
-		System.out.println(" ---Service name : " + SVC_NAME);
+		System.out.println(" --- eBox Service name : " + SVC_NAME);
 		TypeLibSetUp.setup();
 		ServiceSetupCleanupValidate.cleanup(SVC_NAME);
 
@@ -157,7 +158,7 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 		validatePOM(TypeLibSetUp.TYPELIBRARY_NAME1);
 	}
 
-
+	//@Ignore()
 	@Test
 	public void testWsdl() throws IOException, CoreException {
 		UpdateTypeVersion update = new UpdateTypeVersion();
@@ -165,7 +166,12 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 			// Update the wsdl
 			IProject project = ProjectUtil.getProject(SVC_NAME_ADMIN);
 			IFile wsdlFile = SOAServiceUtil.getWsdlFile(SVC_NAME_ADMIN);
-		
+			/*
+			 * IFile wsdlFile = project
+			 * .getFile("\\meta-src\\META-INF\\soa\\services\\wsdl\\" +
+			 * EBoxTypeLibSetUp.SVC_NAME2 + "\\" + EBoxTypeLibSetUp.SVC_NAME2 +
+			 * ".wsdl");
+			 */
 			IDE.openEditor(UIUtil.getActiveWorkBenchWindow().getActivePage(),
 					wsdlFile);
 
@@ -235,7 +241,12 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 				sb.contains("EmployerType"));
 		Assert.assertTrue("WSDL file is not inlined with updated type - age",
 				sb.contains("age"));
-	
+		// Assert.assertTrue(
+		// "WSDL file is not inlined with updated type - designation",
+		// sb.contains("designation"));
+
+		// Assert.assertTrue("WSDL file is not inlined with updated type - name",
+		// sb.contains("name"));
 
 	}
 

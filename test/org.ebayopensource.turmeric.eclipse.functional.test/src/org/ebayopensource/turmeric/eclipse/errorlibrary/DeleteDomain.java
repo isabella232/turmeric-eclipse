@@ -167,7 +167,7 @@ public class DeleteDomain extends AbstractTestCase {
 		
 		
 	}
-	
+		
 	@AfterClass
 	public static void deInit(){
 		

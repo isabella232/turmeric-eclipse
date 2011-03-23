@@ -78,7 +78,7 @@ public class CreateErrorLibraryTest extends AbstractTestCase{
 
 	@AfterClass
 	public static void deInit(){
-		
+	
 		ensureClean(dataDirectory +"/extractedData");
 	}
 	
