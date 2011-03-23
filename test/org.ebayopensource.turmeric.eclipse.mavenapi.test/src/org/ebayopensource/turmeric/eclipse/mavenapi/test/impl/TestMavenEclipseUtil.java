@@ -337,6 +337,15 @@ public class TestMavenEclipseUtil {
 	}
 
 	/**
+	 * Test method for {@link org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseUtil#artifactMetadata(org.maven.ide.eclipse.index.IndexedArtifactFile, java.lang.String)}.
+	 */
+	@Ignore
+	@Test
+	public void testArtifactMetadataIndexedArtifactFileString() {
+		fail("Not yet implemented");
+	}
+
+	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseUtil#dependency(org.apache.maven.repository.metadata.ArtifactMetadata)}.
 	 */
 	@Test

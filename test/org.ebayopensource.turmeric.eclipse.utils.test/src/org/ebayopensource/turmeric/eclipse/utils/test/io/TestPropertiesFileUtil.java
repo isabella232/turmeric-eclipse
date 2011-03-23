@@ -63,6 +63,15 @@ public class TestPropertiesFileUtil {
 	}
 
 	/**
+	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil#writeToFile(java.util.Properties, org.eclipse.core.resources.IFile, java.lang.String)}.
+	 */
+	@Ignore
+	@Test
+	public void testWriteToFile() {
+		fail("Not yet implemented");
+	}
+
+	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil#getPropertyValueByKey(java.io.InputStream, java.lang.String)}.
 	 * @throws IOException 
 	 */
@@ -124,6 +133,24 @@ public class TestPropertiesFileUtil {
 			IOUtils.closeQuietly(input);
 			tempFile.delete();
 		}
+	}
+
+	/**
+	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil#updatePropertyByKey(java.io.InputStream, java.io.OutputStream, java.lang.String, java.lang.String)}.
+	 */
+	@Ignore
+	@Test
+	public void testUpdatePropertyByKey() {
+		fail("Not yet implemented");
+	}
+
+	/**
+	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil#addProperty(java.io.InputStream, java.io.OutputStream, java.util.Map)}.
+	 */
+	@Ignore
+	@Test
+	public void testAddProperty() {
+		fail("Not yet implemented");
 	}
 
 }

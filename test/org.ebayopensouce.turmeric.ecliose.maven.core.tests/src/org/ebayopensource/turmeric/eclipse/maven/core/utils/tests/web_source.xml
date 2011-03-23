@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>Servlet3</servlet-name>
+    <display-name>Servlet3</display-name>
+    <description>Servlet3</description>
+    <servlet-class>com.ebay.soaframework.spf.pipeline.SPFServlet</servlet-class>
+    <init-param>
+      <param-name>SOA_SERVICE_NAME</param-name>
+      <param-value>Servlet3</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Servlet3</servlet-name>
+    <url-pattern>/_soa_/services/Ad Commerce/Servlet3/v1/*</url-pattern>
+  </servlet-mapping>
+</web-app>
+

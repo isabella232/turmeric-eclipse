@@ -44,6 +44,33 @@ public class TestEclipseMessageUtils {
 	}
 
 	/**
+	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils#createSOAResourceErrorStatus(org.eclipse.core.resources.IResource, java.lang.String, java.lang.Throwable)}.
+	 */
+	@Ignore
+	@Test
+	public void testCreateSOAResourceErrorStatus() {
+		
+	}
+
+	/**
+	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils#createSOAResourceWarnStatus(org.eclipse.core.resources.IResource, java.lang.String, java.lang.Throwable)}.
+	 */
+	@Ignore
+	@Test
+	public void testCreateSOAResourceWarnStatus() {
+		fail("Not yet implemented");
+	}
+
+	/**
+	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils#createResourceErrorStatus(org.eclipse.core.runtime.IPath, java.lang.String, java.lang.Throwable)}.
+	 */
+	@Ignore
+	@Test
+	public void testCreateResrouceErrorStatus() {
+		fail("Not yet implemented");
+	}
+
+	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils#createEmptyOKMultiStatus(java.lang.String)}.
 	 */
 	@Test

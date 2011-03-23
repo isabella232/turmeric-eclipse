@@ -16,11 +16,9 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
-import org.ebayopensource.turmeric.eclipse.typelibrary.actions.DeleteTypeAction;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeCreator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibraryCreator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary;
@@ -45,13 +43,14 @@ import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDSchemaDirective;
 import org.eclipse.xsd.XSDTypeDefinition;
+
+import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /*
  * Utilities to be used by TypeLibrary Functional Tests
@@ -611,13 +610,9 @@ public class TLUtil {
 					.getAllTypeLibImports(parentXSDSchema);
 
 			if (removeType.contentEquals("TYPELIB")) {
-				IStatus status = new RemoveType().modifyXSD(selectedTypes, parentXSDSchema,
+				new RemoveType().modifyXSD(selectedTypes, parentXSDSchema,
 						importedTypesMap, typeLibProject, xsdFile);
-				if (status.isOK())
-					editorPart.doSave(ProgressUtil.getDefaultMonitor(null));
-				else {
-					UIUtil.showErrorDialog(null, "Error", status);
-				}
+				editorPart.doSave(ProgressUtil.getDefaultMonitor(null));
 
 			} else {
 				// Import from wsdl
@@ -642,7 +637,7 @@ public class TLUtil {
 				+ File.separator + "types" + File.separator + projectName
 				+ File.separator + typeName);
 		System.out.println("Type Name --- " + xsdFile.getFullPath().toString());
-		DeleteTypeAction.executeTypeDeletionTask(xsdFile);
+
 		if (typeName.contains(".")) {
 			int index = typeName.indexOf(".");
 			typeName = typeName.substring(0, index);
@@ -651,23 +646,18 @@ public class TLUtil {
 		LibraryType libraryType = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
 				.getType(new QName(typeNS, typeName));
 		ProgressUtil.progressOneStep(ProgressUtil.getDefaultMonitor(null));
-//		SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().removeTypeFromRegistry(
-//				libraryType);
-//		
-//		
-//		
-//		//To debug
-//		SOATypeRegistry registry = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry();
-//		//End of debug
+		SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().removeTypeFromRegistry(
+				libraryType);
 		ProgressUtil.progressOneStep(ProgressUtil.getDefaultMonitor(null));
 		// file.delete(true, ProgressUtil
 		// .getDefaultMonitor(null));
-		
+
+		// new DeleteTypeAction().callCodegen(typeLibProject, xsdFile,
+		// ProgressUtil.getDefaultMonitor(null));
 		ProgressUtil.progressOneStep(ProgressUtil.getDefaultMonitor(null));
 		WorkspaceUtil.refresh(ProgressUtil.getDefaultMonitor(null),
 				typeLibProject);
 		SOAGlobalRegistryAdapter.getInstance().populateRegistry(typeLibProject.getName());
-		
 		ProgressUtil.progressOneStep(ProgressUtil.getDefaultMonitor(null));
 
 	}
