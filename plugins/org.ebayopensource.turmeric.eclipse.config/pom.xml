@@ -14,13 +14,13 @@
 
 	<parent>
 		<groupId>org.ebayopensource.turmeric.tools.eclipse</groupId>
-		<artifactId>org.ebayopensource.turmeric.tools.eclipse-plugin-parent</artifactId>
+		<artifactId>org.ebayopensource.turmeric.eclipse-plugin-parent</artifactId>
 		<version>1.0.1.0-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
    <groupId>org.ebayopensource.turmeric</groupId>
-   <artifactId>org.ebayopensource.turmeric.tools.eclipse.config</artifactId>
+   <artifactId>org.ebayopensource.turmeric.eclipse.config</artifactId>
    <version>1.0.0-SNAPSHOT</version>
    <packaging>eclipse-plugin</packaging>
    <name>Turmeric: Config</name>

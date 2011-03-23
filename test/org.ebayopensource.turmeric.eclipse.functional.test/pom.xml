@@ -7,14 +7,14 @@
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.ebayopensource.turmeric.tools.eclipse</groupId>
-   <artifactId>org.ebayopensource.turmeric.tools.eclipse.functional.test</artifactId>
+   <artifactId>org.ebayopensource.turmeric.eclipse.functional.test</artifactId>
    <packaging>eclipse-test-plugin</packaging>
    <version>1.0.0-SNAPSHOT</version>
    <name>Turmeric: Functional Tests</name>
 
    <parent>
       <groupId>org.ebayopensource.turmeric.tools.eclipse</groupId>
-      <artifactId>org.ebayopensource.turmeric.tools.eclipse-plugin-parent</artifactId>
+      <artifactId>org.ebayopensource.turmeric.eclipse-plugin-parent</artifactId>
       <version>1.0.1.0-SNAPSHOT</version>
       <relativePath>../../pom.xml</relativePath>
    </parent>
@@ -77,132 +77,132 @@
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.build</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.build</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.buildsystem</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.buildsystem</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.codegen</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.codegen</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.config</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.config</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.config.imp</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.config.imp</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.core</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.core</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.errorlibrary</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.errorlibrary</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.errorlibrary.properties</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.errorlibrary.properties</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.exception</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.exception</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.logging</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.logging</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.maven.core</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.maven.core</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.maven.ui</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.maven.ui</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.maven.sconfig</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.maven.sconfig</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.mavenapi</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.mavenapi</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.registry</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.registry</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.repositorysystem</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.repositorysystem</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.repositorysystem.imp</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.repositorysystem.imp</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.resources</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.resources</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.services</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.services</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.soatools</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.soatools</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.template.wsdl</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.template.wsdl</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.typelibrary</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.typelibrary</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.ui</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.ui</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.utils</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.utils</artifactId>
                      <version>0.0.0</version>
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.tools.eclipse.validator</artifactId>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.validator</artifactId>
                      <version>0.0.0</version>
                   </dependency>
 
