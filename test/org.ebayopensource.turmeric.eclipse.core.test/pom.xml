@@ -12,17 +12,17 @@
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.ebayopensource.turmeric</groupId>
-   <artifactId>org.ebayopensource.turmeric.eclipse.core.test</artifactId>
+   <artifactId>org.ebayopensource.turmeric.tools.eclipse.core.test</artifactId>
    <packaging>eclipse-test-plugin</packaging>
    <version>1.0.0-SNAPSHOT</version>
    <name>Turmeric: Core Tests</name>
 
-   <parent>
-      <groupId>org.ebayopensource.turmeric</groupId>
-      <artifactId>org.ebayopensource.turmeric-plugin-parent</artifactId>
-      <version>1.0.1.0-SNAPSHOT</version>
-      <relativePath>../../pom.xml</relativePath>
-   </parent>
+	<parent>
+		<groupId>org.ebayopensource.turmeric.tools.eclipse</groupId>
+		<artifactId>org.ebayopensource.turmeric.tools.eclipse-plugin-parent</artifactId>
+		<version>1.0.1.0-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
 
    <profiles>
       <profile>
@@ -34,7 +34,7 @@
          </activation>
          <properties>
             <emma.session.out.file>${project.build.directory}/emma/${project.artifactId}.es</emma.session.out.file>
-            <emma.instrument.bundles>org.ebayopensource.turmeric.eclipse.core</emma.instrument.bundles>
+            <emma.instrument.bundles>org.ebayopensource.turmeric.tools.eclipse.core</emma.instrument.bundles>
          </properties>
          <build>
             <plugins>
