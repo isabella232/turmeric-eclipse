@@ -163,6 +163,18 @@ public class SOAImplUtil {
 		return implProject.getFile(serviceName + SOAProjectConstants.WAR_EXT);
 	}
 	
+	public static IFile getServiceImplPropertiesFile(IProject implProject){
+		return implProject.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_IMPL);
+	}
+	
+	public static IFile getServiceImplWebXMLFile(IProject implProject){
+		return implProject.getFile(SOAProjectConstants.FOLDER_GEN_WEB_CONTENT
+				+ SOAProjectConstants.DELIMITER_URL_SLASH
+				+ SOAProjectConstants.FOLDER_WEB_INF
+				+ SOAProjectConstants.DELIMITER_URL_SLASH
+				+ SOAProjectConstants.FILE_WEB_XML);
+	}
+	
 	/*public static String getImplNameFromServiceName(String serviceName){
 		return serviceName+SOAProjectConstants.IMPL_PROJECT_SUFFIX;
 	}*/

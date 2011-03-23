@@ -9,7 +9,6 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.core.wst;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.common.config.LibraryType;
@@ -19,20 +18,20 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.actions.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
-import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.utils.ValidateUtil;
-import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDSchemaDirective;
@@ -50,80 +49,108 @@ public class RemoveType extends AbastractTypeLibraryAtion {
 	}
 
 	public void run(IAction action) {
-		try {
-			if (WTPTypeLibUtil.validateEditorForContextMenus(editorPart)) {
-				Object adaptedObject = TypeLibraryUtil
-						.getAdapterClassFromWTPEditors(editorPart);
-				if (super.doValidation() == false) {
-					return;
-				}
-				if (editorPart.getEditorInput() instanceof IFileEditorInput) {
-					final IFile editorFile = ((IFileEditorInput) editorPart
-							.getEditorInput()).getFile();
-					final IProject project = editorFile.getProject();
-					final IStatus status = ActionUtil
-							.validateTypeDependencyAndProjectConfigFile(project);
+		
+		UIJob removeType = new UIJob("Remove Type...") {
 
-					final String messages = ValidateUtil
-							.getFormattedStatusMessagesForAction(status);
-					if (messages != null) {
-						UIUtil.showErrorDialog(UIUtil.getActiveShell(),
-								"Error", messages, (Throwable) null);
-						return;
-					}
-				}
+			@Override
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+				monitor.beginTask("Inline Type...", ProgressUtil.PROGRESS_STEP * 5);
+				try {
+					if (WTPTypeLibUtil
+							.validateEditorForContextMenus(editorPart)) {
+						Object adaptedObject = TypeLibraryUtil
+								.getAdapterClassFromWTPEditors(editorPart);
+						if (doValidation() == false) {
+							return Status.OK_STATUS;
+						}
+						ProgressUtil.progressOneStep(monitor);
+						if (editorPart.getEditorInput() instanceof IFileEditorInput) {
+							final IFile editorFile = ((IFileEditorInput) editorPart
+									.getEditorInput()).getFile();
+							final IProject project = editorFile.getProject();
+							final IStatus status = ActionUtil
+									.validateTypeDependencyAndProjectConfigFile(project);
 
-				if (adaptedObject instanceof XSDSchema) {
-					XSDSchema parentXSDSchema = (XSDSchema) adaptedObject;
-					if (parentXSDSchema != null) {
-						Map<LibraryType, XSDSchemaDirective> importedTypesMap = WTPTypeLibUtil
-								.getAllTypeLibImports(parentXSDSchema);
-						TypeSelector typeSelector = new TypeSelector(UIUtil
-								.getActiveShell(), "Select Type",
-								importedTypesMap.keySet().toArray(
-										new LibraryType[0]),
-								getSelectedProject().getName());
-						typeSelector.setMultipleSelection(true);
-						if (typeSelector.open() == Window.OK) {
-							IStatus status = modifyXSD(typeSelector.getSelectedTypes(),
-									parentXSDSchema, importedTypesMap,
-									getSelectedProject(), getSelectedFile());
-							if (status.isOK()) {
-								MessageDialog
-								.openInformation(
-										UIUtil.getActiveShell(),
-										"The operation was performed successfully.",
-								"Successfully removed the selected type");
-							} else {
-								UIUtil.showErrorDialog(null, "Error", status);
+							final String messages = ValidateUtil
+									.getFormattedStatusMessagesForAction(status);
+							if (messages != null) {
+								UIUtil.showErrorDialog(UIUtil.getActiveShell(),
+										"Error", messages, (Throwable) null);
+								return Status.OK_STATUS;
 							}
 						}
-					}
-				} else if (adaptedObject instanceof Definition) {
-					Definition definition = (Definition) adaptedObject;
-					Map<LibraryType, XSDTypeDefinition> importedTypesMap = WTPTypeLibUtil
-							.getTypeLibraryTypes(definition);
-					TypeSelector typeSelector = new TypeSelector(UIUtil
-							.getActiveShell(), "Select Type", importedTypesMap
-							.keySet().toArray(new LibraryType[0]),
-							getSelectedProject().getName());
+						ProgressUtil.progressOneStep(monitor);
 
-					if (typeSelector.open() == Window.OK) {
-						modifyWSDL(typeSelector.getSelectedTypes(), definition,
-								importedTypesMap, getSelectedProject());
-						MessageDialog.openInformation(UIUtil.getActiveShell(),
-								"The operation was performed successfully.",
-								"Successfully removed the selected type");
+						if (adaptedObject instanceof XSDSchema) {
+							XSDSchema parentXSDSchema = (XSDSchema) adaptedObject;
+							if (parentXSDSchema != null) {
+								Map<LibraryType, XSDSchemaDirective> importedTypesMap = WTPTypeLibUtil
+										.getAllTypeLibImports(parentXSDSchema);
+								TypeSelector typeSelector = new TypeSelector(
+										UIUtil.getActiveShell(), "Select Type",
+										importedTypesMap.keySet().toArray(
+												new LibraryType[0]),
+										getSelectedProject().getName());
+								ProgressUtil.progressOneStep(monitor);
+								typeSelector.setMultipleSelection(true);
+								if (typeSelector.open() == Window.OK) {
+									IStatus status = modifyXSD(typeSelector
+											.getSelectedTypes(),
+											parentXSDSchema, importedTypesMap,
+											getSelectedProject(),
+											getSelectedFile());
+									if (status.isOK()) {
+										MessageDialog
+												.openInformation(
+														UIUtil.getActiveShell(),
+														"The operation was performed successfully.",
+														"Successfully removed the selected type");
+									} else {
+										UIUtil.showErrorDialog(null, "Error",
+												status);
+									}
+								}
+								ProgressUtil.progressOneStep(monitor);
+							}
+						} else if (adaptedObject instanceof Definition) {
+							ProgressUtil.progressOneStep(monitor);
+							Definition definition = (Definition) adaptedObject;
+							Map<LibraryType, XSDTypeDefinition> importedTypesMap = WTPTypeLibUtil
+									.getTypeLibraryTypes(definition);
+							TypeSelector typeSelector = new TypeSelector(UIUtil
+									.getActiveShell(), "Select Type",
+									importedTypesMap.keySet().toArray(
+											new LibraryType[0]),
+									getSelectedProject().getName());
+							ProgressUtil.progressOneStep(monitor);
+							if (typeSelector.open() == Window.OK) {
+								modifyWSDL(typeSelector.getSelectedTypes(),
+										definition, importedTypesMap,
+										getSelectedProject());
+								MessageDialog
+										.openInformation(
+												UIUtil.getActiveShell(),
+												"The operation was performed successfully.",
+												"Successfully removed the selected type");
+							}
+							ProgressUtil.progressOneStep(monitor);
+						} else {
+							ImportTypeFromTypeLibrary
+									.showCommonErrorDialog(null);
+							ProgressUtil.progressOneStep(monitor);
+						}
 					}
-				} else {
-					ImportTypeFromTypeLibrary.showCommonErrorDialog(null);
+
+				} catch (Exception e) {
+					SOALogger.getLogger().error(e);
+					ImportTypeFromTypeLibrary.showCommonErrorDialog(e);
+				} finally{
+					monitor.done();
 				}
+				return Status.OK_STATUS;
 			}
-
-		} catch (Exception e) {
-			SOALogger.getLogger().error(e);
-			ImportTypeFromTypeLibrary.showCommonErrorDialog(e);
-		}
+		};
+		removeType.schedule();
 	}
 
 	public void modifyWSDL(ArrayList<LibraryType> selectedTypes,
@@ -146,17 +173,22 @@ public class RemoveType extends AbastractTypeLibraryAtion {
 			XSDSchema parentXSDSchema,
 			Map<LibraryType, XSDSchemaDirective> importedTypesMap,
 			IProject project, IFile parentXSDfFile) throws Exception {
-		SOAGlobalRegistryAdapter registryAdaptor = SOAGlobalRegistryAdapter.getInstance();
-		SOATypeRegistry typeRegistry = registryAdaptor.getGlobalRegistry();
-		LibraryType libraryType = typeRegistry.getType(TypeLibraryUtil.toQName(parentXSDfFile));
-		final List<LibraryType> parentTypes = typeRegistry.getDependentParentTypeFiles(libraryType);
+		// bug fix for http://quickbugstage.arch.ebay.com/show_bug.cgi?id=18205
+		// SOAGlobalRegistryAdapter registryAdaptor =
+		// SOAGlobalRegistryAdapter.getInstance();
+		// SOATypeRegistry typeRegistry = registryAdaptor.getGlobalRegistry();
+		// LibraryType libraryType =
+		// typeRegistry.getType(TypeLibraryUtil.toQName(parentXSDfFile));
+		// final List<LibraryType> parentTypes =
+		// typeRegistry.getDependentParentTypeFiles(libraryType);
 		
 		for (LibraryType selectedType : selectedTypes) {
-			if (parentTypes.contains(selectedType)) {
-				return EclipseMessageUtils.createErrorStatus(
-						"The selected type " + selectedType.getName() 
-						+ " is currently the parent type of the " + parentXSDfFile.getName() + ", and thus can not be removed.");
-			}
+			// if (parentTypes.contains(selectedType)) {
+			// return EclipseMessageUtils.createErrorStatus(
+			// "The selected type " + selectedType.getName()
+			// + " is currently the parent type of the " +
+			// parentXSDfFile.getName() + ", and thus can not be removed.");
+			// }
 			performDeleteTasksForXSDEditor(parentXSDSchema, selectedType,
 					importedTypesMap);
 		}

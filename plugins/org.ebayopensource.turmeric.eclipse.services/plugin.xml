@@ -175,6 +175,14 @@
                   label="%Menu.ValidateServiceWSDL.Label"
                   menubarPath="soaMenu/goverance">
 			</action>
+   <action
+         class="org.ebayopensource.turmeric.eclipse.services.ui.actions.ChangeServiceVersion"
+         enablesFor="1"
+         helpContextId="%helpIdSOATutorial"
+         id="org.ebayopensource.turmeric.eclipse.services.ui.actions.ChangeServiceVersion"
+         label="%Menu.ChangeServiceVersion.Label"
+         menubarPath="soaMenu/intf">
+   </action>
             <visibility>
                <objectState
                      name="nature"
@@ -199,7 +207,7 @@
                   id="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateWebAppDescriptor"
                   label="%Menu.GenerateWebAppDescriptor.Label"
                   menubarPath="soaMenu/impl"/>
-         
+         	<!--
             <action
                   class="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateServiceImplSkeleton"
                   enablesFor="1"
@@ -207,7 +215,8 @@
                   id="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateImplSkeleton"
                   label="%Menu.GenerateServiceImplSkeleton.Label"
                   menubarPath="soaMenu/impl"/>
-                  
+			-->
+			
             <action
                   class="org.ebayopensource.turmeric.eclipse.services.ui.actions.ReGenerateServiceImplClass"
                   enablesFor="1"
@@ -313,6 +322,33 @@
                   tooltip="%Menu.ValidateServiceWSDL.Tooltip">
 		</action>
       </viewerContribution>
+      <objectContribution
+            adaptable="false"
+            id="org.ebayopensource.turmeric.eclipse.services.wsdlmenucontrib_file"
+            objectClass="org.eclipse.core.resources.IFile">
+         <menu
+               id="soaMenu"
+               label="%Menu.Group.SOA.Label">
+            <separator
+                  name="type">
+            </separator>
+         </menu>
+         <action
+               class="org.ebayopensource.turmeric.eclipse.services.ui.actions.ValidateServiceWSDL"
+               enablesFor="1"
+               helpContextId="%helpIdSOATutorial"
+               id="org.ebayopensource.turmeric.eclipse.services.ui.actions.ValidateServiceWSDL"
+               label="%Menu.ValidateServiceWSDL.Label"
+               menubarPath="soaMenu/type"
+               tooltip="%Menu.ValidateServiceWSDL.Tooltip">
+            <enablement>
+               <objectState
+                     name="extension"
+                     value="wsdl">
+               </objectState>
+            </enablement>
+         </action>
+      </objectContribution>
     </extension>
     
     <!-- Service Explorer View and Related Navigator Components-->

@@ -29,7 +29,7 @@ import freemarker.template.TemplateException;
 
 /**
  * @author yayu
- *
+ * 
  */
 public final class FreeMarkerUtil {
 
@@ -39,52 +39,64 @@ public final class FreeMarkerUtil {
 	private FreeMarkerUtil() {
 		super();
 	}
-	
-	public static void generate(
-			final Map<String, ?> data, final Object templateParentFolder, 
-			final String templateName, final OutputStream out) 
-	throws IOException, TemplateException {
-		Writer writer = null;
+
+	public static void generate(final Map<String, ?> data,
+			final Object templateParentFolder, final String templateName,
+			final OutputStream out) throws IOException, TemplateException {
+		try {
+			Writer writer = new OutputStreamWriter(out);
+			generate(data, templateParentFolder, templateName, writer);
+			out.flush();
+		} finally {
+			IOUtils.closeQuietly(out);
+		}
+	}
+
+	public static void generate(final Map<String, ?> data,
+			final Object templateParentFolder, final String templateName,
+			final Writer writer) throws IOException, TemplateException {
+
 		final Configuration cfg = new Configuration();
 		final TemplateLoader tempLoader = cfg.getTemplateLoader();
 		try {
-			
+
 			// Specify the data source where the template files come from.
 			// Here I set a file directory for it:
 			if (templateParentFolder instanceof File) {
-				cfg.setDirectoryForTemplateLoading((File)templateParentFolder);
+				cfg.setDirectoryForTemplateLoading((File) templateParentFolder);
 			} else if (templateParentFolder instanceof Class<?>) {
-				cfg.setClassForTemplateLoading((Class<?>)templateParentFolder, "");
+				cfg.setClassForTemplateLoading((Class<?>) templateParentFolder,
+						"");
 			} else if (templateParentFolder instanceof URL) {
-				final URL url = (URL)templateParentFolder;
-				
+				final URL url = (URL) templateParentFolder;
+
 				cfg.setTemplateLoader(new URLTemplateLoader() {
 
 					@Override
 					protected URL getURL(String arg0) {
 						return url;
 					}
-					
+
 				});
 			} else {
-				throw new IllegalArgumentException("Illegal Argument for template loading->" + templateParentFolder);
+				throw new IllegalArgumentException(
+						"Illegal Argument for template loading->"
+								+ templateParentFolder);
 			}
-			
-			// Specify how templates will see the data-model. This is an advanced topic...
+
+			// Specify how templates will see the data-model. This is an
+			// advanced topic...
 			// but just use this:
-			cfg.setObjectWrapper(new DefaultObjectWrapper());  
+			cfg.setObjectWrapper(new DefaultObjectWrapper());
 
 			freemarker.template.Template temp = cfg.getTemplate(templateName);
 
-			writer = new OutputStreamWriter(out);
 			temp.process(data, writer);
-			out.flush();
 		} finally {
-			IOUtils.closeQuietly(out);
 			IOUtils.closeQuietly(writer);
 			cfg.setTemplateLoader(tempLoader);
 		}
-		
+
 	}
 
 }

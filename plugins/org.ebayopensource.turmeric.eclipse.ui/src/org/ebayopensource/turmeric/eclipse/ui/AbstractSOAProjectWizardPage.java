@@ -284,7 +284,7 @@ AbstractSOAResourceWizardPage {
 					.getSystemColor(SWT.COLOR_LIST_BACKGROUND));
 		domainClassifierList.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		UIUtil.decorateControl(this, domainClassifierList, 
-				"the namespace part of the selected function domain");
+				"the namespace part of the selected functional domain");
 		domainClassifierModifyListener = new ModifyListener() {
 
 			public void modifyText(ModifyEvent e) {

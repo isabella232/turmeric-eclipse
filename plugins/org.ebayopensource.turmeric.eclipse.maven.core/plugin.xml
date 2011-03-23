@@ -20,4 +20,33 @@
       </configurator>
    </extension>
 
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.ebayopensource.turmeric.eclipse.maven.core.actions.AddImplProjectToWebProject"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="org.ebayopensource.turmeric.eclipse.maven.core.ui.actions.AddImplProjectToWebProject"
+               enablesFor="1"
+               helpContextId="%helpIdSOATutorial"
+               id="com.ebay.tools.soa.ebox.ui.actions.AddImplProjectToWebProject"
+               label="%Menu.AddImplToWebProject.Label"
+               menubarPath="soaMenu/impl">
+         </action>
+         <visibility>
+            <objectState
+                  name="nature"
+                  value="%SOA.ProjectNatureID.Implementation">
+            </objectState>
+         </visibility>
+         <menu
+               id="soaMenu"
+               label="%Menu.Group.SOA.Label">
+            <separator
+                  name="impl">
+            </separator>
+         </menu>
+      </objectContribution>
+   </extension>
 </plugin>

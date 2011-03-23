@@ -23,7 +23,8 @@ Require-Bundle: org.eclipse.ui,
  org.ebayopensource.turmeric.eclipse.core,
  org.eclipse.search,
  org.ebayopensource.turmeric.eclipse.utils;bundle-version="1.0.0",
- org.ebayopensource.turmeric.eclipse.logging;bundle-version="1.0.0"
+ org.ebayopensource.turmeric.eclipse.logging;bundle-version="1.0.0",
+ org.ebayopensource.turmeric.eclipse.validator;bundle-version="1.0.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.errorlibrary.ErrorLibraryActivator
 Export-Package: org.ebayopensource.turmeric.eclipse.errorlibrary,
  org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem,

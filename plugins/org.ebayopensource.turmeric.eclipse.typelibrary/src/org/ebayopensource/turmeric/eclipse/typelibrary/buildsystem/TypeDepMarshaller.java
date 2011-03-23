@@ -14,13 +14,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.common.config.ReferredType;
+import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;
+import org.ebayopensource.turmeric.common.config.TypeDependencyType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ITypeRegistryBridge;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProject;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -29,12 +36,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.common.config.ReferredType;
-import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;
-import org.ebayopensource.turmeric.common.config.TypeDependencyType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 
 /**
  * Marshaller and Unmarshaller for type dependency xml. Additionally this
@@ -99,9 +100,12 @@ public class TypeDepMarshaller {
 						+ WorkspaceUtil.PATH_SEPERATOR
 						+ SOATypeLibraryConstants.FILE_TYPE_DEP_XML, monitor);
 		WorkspaceUtil.refresh(file);
-		//ObjectFactory objFactory = new ObjectFactory();
-		TypeLibraryDependencyType typeLibraryDependencyType = new TypeLibraryDependencyType(); //objFactory
-				//.createTypeLibraryDependencyType();
+		
+		ITypeRegistryBridge birdge = GlobalRepositorySystem.instanceOf()
+				.getActiveRepositorySystem().getTypeRegistryBridge();
+		TypeLibraryDependencyType typeLibraryDependencyType = birdge
+				.createTypeLibraryDependencyTypeInstance();
+
 		typeLibraryDependencyType.setLibraryName(libraryName);
 		typeLibraryDependencyType.setVersion(version);
 		marshallIt(typeLibraryDependencyType, file);
@@ -253,7 +257,7 @@ public class TypeDepMarshaller {
 		WorkspaceUtil.refresh(file);
 		InputStream inputStream = file.getContents();
 		try {
-			return JAXB.unmarshal(inputStream, TypeLibraryDependencyType.class);
+			return unmarshallIt(inputStream);
 		} finally {
 			IOUtils.closeQuietly(inputStream);
 		}
@@ -272,11 +276,12 @@ public class TypeDepMarshaller {
 	public static TypeLibraryDependencyType unmarshallIt(InputStream inputStream)
 			throws JAXBException, CoreException {
 		try {
-			return JAXB.unmarshal(inputStream, TypeLibraryDependencyType.class);
+			ITypeRegistryBridge birdge = GlobalRepositorySystem.instanceOf()
+					.getActiveRepositorySystem().getTypeRegistryBridge();
+			return birdge.unmarshalTypeLibraryDependencyType(inputStream);
 		} finally {
 			IOUtils.closeQuietly(inputStream);
 		}
-
 	}
 
 	/**
@@ -291,7 +296,10 @@ public class TypeDepMarshaller {
 	public static void marshallIt(
 			TypeLibraryDependencyType typeLibraryDependencyType, IFile file)
 			throws JAXBException, CoreException {
-		JAXB.marshal(typeLibraryDependencyType, file.getLocation().toFile());
+
+		ITypeRegistryBridge birdge = GlobalRepositorySystem.instanceOf()
+				.getActiveRepositorySystem().getTypeRegistryBridge();
+		birdge.marshalTypeLibraryDependencyType(typeLibraryDependencyType,  file.getLocation().toFile());
 		WorkspaceUtil.refresh(file);
 	}
 
@@ -311,8 +319,13 @@ public class TypeDepMarshaller {
 		SOATypeRegistry typeRegistry = registryAdapter.getGlobalRegistry();
 		for (ReferredTypeLibraryType referredTypeLibraryType : typeDependencyType
 				.getReferredTypeLibrary()) {
-			String nameSpace = typeRegistry.getTypeLibrary(referredTypeLibraryType.getName())
-					.getLibraryNamespace();
+			TypeLibraryType typeLib = typeRegistry.getTypeLibrary(referredTypeLibraryType.getName());
+			if (typeLib == null) {
+				throw new RuntimeException("Could not find the referred type library '"
+						+ referredTypeLibraryType.getName() 
+						+ "' fromt the types registry. Please do a refresh in the Types Explorer view.");
+			}
+			String nameSpace = typeLib.getLibraryNamespace();
 			for (ReferredType referredType : referredTypeLibraryType
 					.getReferredType()) {
 				allReferredTypes.add(new QName(nameSpace, referredType
@@ -472,9 +485,8 @@ public class TypeDepMarshaller {
 
 	private static void addTypeEntry(LibraryType libraryType,
 			TypeLibraryDependencyType typeLibraryDependencyType) {
-		//ObjectFactory objFactory = new ObjectFactory();
-		TypeDependencyType typeDependencyType = new TypeDependencyType();//objFactory
-				//.createTypeDependencyType();
+		TypeDependencyType typeDependencyType = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+		.getTypeRegistryBridge().createTypeDependencyTypeInstance();
 		typeDependencyType.setName(libraryType.getName());
 		typeDependencyType.setVersion(libraryType.getVersion());
 		typeLibraryDependencyType.getType().add(typeDependencyType);
@@ -482,9 +494,8 @@ public class TypeDepMarshaller {
 
 	private static void addReferredTypeLibrary(LibraryType addedType,
 			TypeDependencyType typeDependencyType) {
-		//ObjectFactory objFactory = new ObjectFactory();
-		ReferredTypeLibraryType referredTypeLibraryType = new ReferredTypeLibraryType(); //objFactory
-				//.createReferredTypeLibraryType();
+		ReferredTypeLibraryType referredTypeLibraryType = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+		.getTypeRegistryBridge().createReferredTypeLibraryTypeInstance();
 		referredTypeLibraryType.setName(addedType.getLibraryInfo()
 				.getLibraryName());
 		referredTypeLibraryType.setVersion(addedType.getLibraryInfo()
@@ -506,14 +517,15 @@ public class TypeDepMarshaller {
 	private static void addReferredTypeUnderTypeLibrary(LibraryType addedType,
 			ReferredTypeLibraryType referredTypeLibraryType,
 			Set<ReferredType> oldReferredTypes) {
-		//ObjectFactory objFactory = new ObjectFactory();
-		ReferredType refType = new ReferredType();//objFactory.createReferredType();
+		ReferredType refType = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+		.getTypeRegistryBridge().createReferredTypeInstance();
 		refType.setName(addedType.getName());
 		String version = addedType.getVersion();
 		// TODO:QName is not honored here
 		for (ReferredType referredType : oldReferredTypes) {
 			if (StringUtils.equals(addedType.getName(), referredType.getName())) {
 				version = referredType.getVersion();
+				break;
 			}
 		}
 		refType.setVersion(version);

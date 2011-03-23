@@ -39,8 +39,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.ebayopensource.turmeric.eclipse.exception;bundle-version="1.0.0",
  org.jdom;bundle-version="1.0.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.buildsystem.BuildSystemActivator
-Export-Package: org.ebayopensource.turmeric.eclipse.buildsystem.containers,
- org.ebayopensource.turmeric.eclipse.buildsystem.core,
+Export-Package: org.ebayopensource.turmeric.eclipse.buildsystem.core,
  org.ebayopensource.turmeric.eclipse.buildsystem.eclipse,
  org.ebayopensource.turmeric.eclipse.buildsystem.services,
  org.ebayopensource.turmeric.eclipse.buildsystem.utils

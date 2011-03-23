@@ -22,8 +22,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/soajars/soatools/commons-codec-1.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/soajars/soatools/commons-fileupload-1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/soajars/soatools/commons-httpclient-3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/soajars/soatools/commons-io-1.3.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/soajars/soatools/commons-io-1.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/soajars/soatools/commons-logging-1.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/soajars/soatools/dom4j-1.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/soajars/soatools/FastInfoset-1.2.1.jar"/>

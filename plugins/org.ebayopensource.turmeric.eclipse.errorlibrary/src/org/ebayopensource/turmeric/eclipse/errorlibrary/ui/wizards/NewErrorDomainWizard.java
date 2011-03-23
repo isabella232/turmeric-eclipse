@@ -134,7 +134,9 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 				ErrorLibraryProviderFactory.getPreferredProvider()
 						.getErrorDomainCreator().preCreation(model);
 				getContainer().run(false, true, operation);
-				changePerspective();
+				// http://www.nbweekly.com/Print/Page/844,62.shtml
+				// No change if just resource created inside a project
+				// changePerspective();
 			} catch (Exception e) {
 				logger.error(e);
 				UIUtil.showErrorDialog(SOAMessages.CREATE_DOMAIN_ERR, e);

@@ -364,14 +364,14 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 			}
 			else if (opNames.contains(opName) == true) {
 				updateStatus(operationViewer.getControl(), 
-						"Duplicate operatoin name: " + opName);
+						"Duplicate operation name: " + opName);
 				return false;
 			}
 			
 			final IStatus status = JDTUtil.validateMethodName(opName);
 			if (status.isOK() == false) {
 				updateStatus(operationViewer.getControl(), 
-						"'" + opName + "' is not a valid operatoin name");
+						"'" + opName + "' is not a valid operation name");
 				return false;
 			}
 			opNames.add(opName);

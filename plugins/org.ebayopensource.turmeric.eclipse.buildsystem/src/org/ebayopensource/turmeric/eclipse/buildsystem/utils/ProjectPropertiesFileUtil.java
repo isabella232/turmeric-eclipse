@@ -195,6 +195,9 @@ public class ProjectPropertiesFileUtil {
 					baseConsumerSrcDir);
 			properties.setProperty(SOAProjectConstants.PROPS_KEY_SIMP_VERSION, 
 					SOAProjectConstants.PROPS_DEFAULT_SIMP_VERSION);
+			properties.setProperty(SOAProjectConstants.PROPS_KEY_USE_EXTERNAL_SERVICE_FACTORY, 
+					Boolean.FALSE.toString());
+			
 			properties.store(output, SOAProjectConstants.PROPS_COMMENTS);
 			WorkspaceUtil.writeToFile(output.toString(), file, null);
 		} finally {

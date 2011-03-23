@@ -15,8 +15,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.GlobalProjectHealthChecker;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.services.resources.SOAMessages;
@@ -101,13 +101,14 @@ public class SubmitNewConsumer implements IObjectActionDelegate {
 	protected IStatus preValidate(IStructuredSelection selection) throws CoreException {
 		if (selection == null)
 			return EclipseMessageUtils.createErrorStatus(SOAMessages.ERR_EMPTY_SELECTION);
-		
-		final IProject project = 
-			ActionUtil.preValidateAction(selection.getFirstElement(), logger);
+
+		final IProject project = org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil
+				.preValidateAction(selection.getFirstElement(), logger);
 		if (project == null) {
-			return EclipseMessageUtils.createErrorStatus(SOAMessages.ERR_INVALID_PROJECT);
+			return EclipseMessageUtils
+					.createErrorStatus(SOAMessages.ERR_INVALID_PROJECT);
 		}
-		
+
 		if (TurmericServiceUtils.isSOAConsumerProject(project) == false) {
 			return EclipseMessageUtils.createErrorStatus("The selected project is not a SOA consumer project->" + project);
 		}

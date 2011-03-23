@@ -108,21 +108,30 @@ public class UIUtil {
 
 	public static String fileDialog(final String title, File sourceFile,
 			final String... filterExtensions) {
+		boolean isFile = sourceFile.isFile();
+		boolean exist = sourceFile.exists();
+		String fileName = "";
+		if(isFile == true && exist == true){
+			fileName = sourceFile.getName();
+		}
+		return fileDialog(title, fileName, sourceFile, filterExtensions);
+	}
+	
+	public static String fileDialog(final String title, String filterName,
+			File sourceFile, final String... filterExtensions) {
 		final FileDialog dialog = new FileDialog(getActiveShell(), SWT.OPEN);
 		boolean isFile = sourceFile.isFile();
 		boolean exist = sourceFile.exists();
 		String filePath = "";
-		String fileName = "";
-		if(isFile == true && exist == true){
+		if (isFile == true && exist == true) {
 			filePath = sourceFile.getParent();
-			fileName = sourceFile.getName();
-		}else if(isFile == false){
+		} else if (isFile == false) {
 			filePath = sourceFile.getPath();
 		}
 		dialog.setText(title);
 		dialog.setFilterExtensions(filterExtensions);
 		dialog.setFilterPath(filePath);
-		dialog.setFilterNames(new String[] { fileName });
+		dialog.setFilterNames(new String[] { filterName });
 		return dialog.open();
 	}
 
@@ -441,10 +450,13 @@ public class UIUtil {
 			msg.write(message);
 			msg.write("\n\n"); //$NON-NLS-1$
 		}
-		if (exceptionMessage == null || exceptionMessage.length() == 0)
-			msg.write("See error log for more details.");
-		else
+		if (exceptionMessage == null || exceptionMessage.length() == 0){
+			// bug http://quickbugstage.arch.ebay.com/show_bug.cgi?id=16775
+			// in fact there is no more details 
+			// msg.write("See error log for more details.");
+		} else{
 			msg.write(exceptionMessage);
+		}
 		MessageDialog.openError(shell, title, msg.toString());
 	}
 

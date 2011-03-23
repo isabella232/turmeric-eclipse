@@ -509,10 +509,10 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 									for (SOAClientConfig clientConfig : result
 											.getClientConfigs()) {
 										String protocalProcessorClassName = GlobalRepositorySystem
-										.instanceOf()
-										.getActiveRepositorySystem()
-										.getActiveOrganizationProvider()
-										.getSOAPProtocolProcessorClassName();
+												.instanceOf()
+												.getActiveRepositorySystem()
+												.getActiveOrganizationProvider()
+												.getSOAPProtocolProcessorClassName();
 										SOAClientConfigUtil
 												.save(clientConfig, result
 														.getOldClientConfigs()

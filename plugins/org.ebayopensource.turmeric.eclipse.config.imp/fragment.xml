@@ -53,6 +53,12 @@
             type="XSD"
             xsdSubType="COMPLEX_COMPLEXCONTENT">
       </Template>
+      <Template
+            name="webxml_Template"
+            organization="turmeric"
+            relativePath="templates\xml\turmeric\turmeric_webxml_template.xml"
+            type="XML">
+      </Template>
    </extension>
    
 

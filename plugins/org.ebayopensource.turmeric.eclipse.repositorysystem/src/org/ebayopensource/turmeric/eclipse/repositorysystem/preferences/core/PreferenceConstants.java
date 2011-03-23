@@ -26,10 +26,12 @@ public class PreferenceConstants {
 	
 	public static final String PREF_ORGANIZATION = "organization";
 
-	public static final String PREF_DEFAULT_REPOSITORY_SYSTEM = "Turmeric";
+	public static final String _PREF_DEFAULT_REPOSITORY_SYSTEM = "Turmeric";
 	
 	public static final String PREF_DEFAULT_ORGANIZATION = 
-		"Turmeric";
+		"Others";
+	public static final String PREF_DEFAULT_ORGANIZATION_DISPLAY_NAME = 
+		"Default";
 	// there will be new preference field for this which accepts
 	// a new service file
 	public static final String PREF_SERVICE_LAYERS = "serviceLayers";

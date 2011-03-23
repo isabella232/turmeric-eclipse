@@ -79,7 +79,7 @@ public class TurmericErrorLibraryProjectBuilder extends AbstractSOAProjectBuilde
 		CodegenInvoker codegenInvoker = CodegenInvoker.init(project);
 		final String projectLocation = project.getLocation().toString();
 		GenTypeErrorLibAll codeGenModel = new GenTypeErrorLibAll(
-				projectLocation, projectLocation + "/gen-src");
+				projectLocation, projectLocation);
 		codeGenModel.setErrorLibraryName(project.getName());
 		final Collection<String> domains = new LinkedHashSet<String>();
 		if (delta == null || kind == FULL_BUILD || kind == CLEAN_BUILD) {

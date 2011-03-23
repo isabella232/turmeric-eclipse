@@ -18,7 +18,7 @@ import org.eclipse.osgi.util.NLS;
  */
 public class Messages extends NLS {
 
-	private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.repositorysystem.imp.resources.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.eclipse.repositorysystem.turmeric.resources.messages"; //$NON-NLS-1$
 	
 	public static String ERROR_SERVICE_ALREADY_EXIST;
 	

@@ -28,6 +28,7 @@ import org.ebayopensource.turmeric.eclipse.mavenapi.internal.util.EclipseUtil;
 import org.ebayopensource.turmeric.eclipse.mavenapi.internal.util.ThrowableUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.maven.ide.eclipse.core.IMavenConstants;
 import org.maven.ide.eclipse.index.IndexedArtifactFile;
@@ -75,7 +76,11 @@ public final class MavenEclipseUtil {
 	}
 
 	public static Model readPOM(final IProject project) throws CoreException {
-		return getMavenModelManager().readMavenModel(getPomFile(project));
+		IFile file = getPomFile(project);
+		file.refreshLocal(IResource.DEPTH_ZERO, null);
+		if (file.isAccessible() == false)
+			return null;
+		return getMavenModelManager().readMavenModel(file);
 	}
 
 	public static Map<ArtifactMetadata, IProject> getAllProjectArtifactsInWorkspace() {

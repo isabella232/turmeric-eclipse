@@ -11,9 +11,12 @@ package org.ebayopensource.turmeric.eclipse.maven.core.repositorysystem;
 
 import java.util.List;
 
+import org.apache.maven.model.Model;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * @author yayu
@@ -42,5 +45,16 @@ public interface IMavenOrganizationProvider extends ISOAOrganizationProvider {
 	 * @return a list of maven group ids
 	 */
 	public List<String> getAllProjectTypeGroupIds();
+	
+	/**
+	 * post action after adding the list of impl projects to the target web project.
+	 * @param serviceImplProjects
+	 * @param webProject
+	 * @param monitor
+	 * @throws Exception
+	 */
+	public void postAddingServiceToWebProjects(
+			List<IProject> serviceImplProjects, IProject webProject,
+			Model webProjectPom, IProgressMonitor monitor) throws Exception;
 
 }

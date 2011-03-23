@@ -53,10 +53,6 @@ public class ArtifactValidator implements IArtifactValidator, IArtifactValidator
 	 */
 	public IStatus validateArtifact(byte[] artifactContents, String artifactType, IProgressMonitor progressMonitor)
 			throws ArtifactValidationException {
-		if (isAssertionServiceEnabled() == false) {
-			return SOAMessageUtils.createStatus(IStatus.OK, Activator.PLUGIN_ID, IStatus.INFO, "Artifact Validation not Enabled - skipped", null, -1); 
-		}
-		
 		if (Activator.DEBUG)
 			Activator.getDefault().logArgumentMessage(Messages.METHOD_START, "validateArtifact");
 		

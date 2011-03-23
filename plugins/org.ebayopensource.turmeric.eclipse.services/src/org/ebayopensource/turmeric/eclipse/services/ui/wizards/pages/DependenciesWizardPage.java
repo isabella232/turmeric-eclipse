@@ -45,7 +45,7 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 		super("newSOAServiceProjectDependenciesWizardPage");
 		setTitle(projectType + " Dependencies");
 		setDescription("This wizard page adds project and library dependencies to the new "
-				+ projectType + "Project.");
+				+ projectType + " Project.");
 	}
 
 	public void createControl(final Composite parent) {

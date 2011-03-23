@@ -533,10 +533,10 @@ public class SOAProjectConstants {
      * 
      */
     public static final String FILE_PROJECT_XML = "project.xml";
-    
-    /**
-     * 
-     */
+    public static final String FILE_CLASSPATH = ".classpath";
+    public static final String FILE_PROJECT = ".project";
+
+
     public static final String FILE_TYPE_MAPPINGS = "TypeMappings.xml";
     
     /**
@@ -721,11 +721,8 @@ public class SOAProjectConstants {
      * 
      */
     public static final String PROPS_KEY_SIMP_VERSION = "simp_version";
-    
-    
-    /**
-     *  The version of service_intf_project.properties file
-     */
+    public static final String PROPS_KEY_USE_EXTERNAL_SERVICE_FACTORY = "useExternalServiceFactory";
+    // The version of service_intf_project.properties file
     public static final String PROPS_KEY_SIPP_VERSION = "sipp_version";
     
     /**
@@ -822,12 +819,6 @@ public class SOAProjectConstants {
      * 
      */
     public static final String BUILD = "build";
-
-    /**
-     * The ID for the SOA library classpath container
-     */
-    public static final String SOA_CLASSPATH_CONTAINER_ID = "org.ebayopensource.turmeric.eclipse.build.classpath.SOALibrary";
-    
 
     /**
      * 

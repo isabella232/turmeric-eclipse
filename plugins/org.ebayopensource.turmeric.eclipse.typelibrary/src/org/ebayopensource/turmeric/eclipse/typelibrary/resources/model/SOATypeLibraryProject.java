@@ -35,14 +35,13 @@ public class SOATypeLibraryProject extends SOABaseProject {
 	@Override
 	public List<String> getSourceSubFolders() {
 		List<String> subFolders = new ArrayList<String>();
-		String metasrcMetaInfFolder = SOATypeLibraryConstants.FOLDER_META_SRC_META_INF
-		+ WorkspaceUtil.PATH_SEPERATOR + getTypeLibraryMetadata().getName();
-		subFolders.add(metasrcMetaInfFolder);
-		
-		String typesFolder = SOATypeLibraryConstants.FOLDER_META_SRC_TYPES
-		+ WorkspaceUtil.PATH_SEPERATOR
-		+ getTypeLibraryMetadata().getName(); 
-		subFolders.add(typesFolder);
+		subFolders.add(SOATypeLibraryConstants.FOLDER_META_SRC_META_INF
+				+ WorkspaceUtil.PATH_SEPERATOR
+				+ getTypeLibraryMetadata().getName());
+		subFolders.add(SOATypeLibraryConstants.FOLDER_META_SRC_TYPES
+				+ WorkspaceUtil.PATH_SEPERATOR
+				+ getTypeLibraryMetadata().getName());
+		//subFolders.add(SOATypeLibraryConstants.FOLDER_META_SRC_TYPES);
 		return subFolders;
 	}
 

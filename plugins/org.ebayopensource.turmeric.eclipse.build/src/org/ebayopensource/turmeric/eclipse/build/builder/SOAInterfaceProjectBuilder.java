@@ -8,11 +8,13 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.build.builder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.build.SOAFrameworkBuilderActivator;
-import org.ebayopensource.turmeric.eclipse.build.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.buildsystem.eclipse.AbstractSOAProjectBuilder;
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuilderUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ModelTransformer;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
@@ -22,12 +24,14 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 
 
 /**
@@ -67,12 +71,23 @@ public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 		if (kind == CLEAN_BUILD || kind == FULL_BUILD) {
 			try {
 				TypeLibSynhcronizer.syncronizeWsdlandDepXml(project);
-				TypeLibSynhcronizer
-				.synchronizeTypeDepandProjectDep(project, monitor);
+				TypeLibSynhcronizer.synchronizeTypeDepandProjectDep(project,
+						monitor);
 			} catch (Exception e) {
 				SOAExceptionHandler.silentHandleException(e);
 				// Silently ignore. This is just an attempt
 			}
+		}
+
+		// validate service WSDL when WSDL file is modified.
+		try {
+			IFile wsdlFile = SOAServiceUtil.getWsdlFile(project, project
+					.getName());
+			List<IStatus> wtpStatus = new ArrayList<IStatus>();
+			ActionUtil.validateUsingWTP(wsdlFile, wsdlFile.getLocationURI()
+					.toURL(), wtpStatus, true, monitor);
+		} catch (Exception e) {
+			SOAExceptionHandler.silentHandleException(e);
 		}
 		final IFile oldMetadataFile = SOAIntfUtil.getOldMetadataFile(project, project.getName());
 		final IFile newMetadataFile = SOAIntfUtil.getNewMetadataFile(project, project.getName());

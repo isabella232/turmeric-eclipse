@@ -55,6 +55,7 @@ Export-Package: org.ebayopensource.turmeric.eclipse.buildsystem.core,
  org.ebayopensource.turmeric.eclipse.typelibrary.resources.model,
  org.ebayopensource.turmeric.eclipse.typelibrary.template,
  org.ebayopensource.turmeric.eclipse.typelibrary.ui.model,
+ org.ebayopensource.turmeric.eclipse.typelibrary.ui.properties,
  org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages,
  org.ebayopensource.turmeric.eclipse.typelibrary.utils
 Bundle-Version: 1.0.0.qualifier

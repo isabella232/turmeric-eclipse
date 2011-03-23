@@ -443,7 +443,7 @@ public final class SOAConsumerUtil {
 				//TODO this is a dirty fix, but we could not get the service name at this point
 				final String serviceName = StringUtils.removeEnd(project.getName(), 
 						SOAProjectConstants.IMPL_PROJECT_SUFFIX);
-				return serviceName + SOAProjectConstants.SERVICE_CLIENT_SUFFIX;
+				return serviceName + SOAProjectConstants.CLIENT_PROJECT_SUFFIX;
 			}
 		}
 		return project.getName();

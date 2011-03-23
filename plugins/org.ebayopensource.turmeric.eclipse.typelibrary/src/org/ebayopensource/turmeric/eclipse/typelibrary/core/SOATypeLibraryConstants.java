@@ -101,9 +101,6 @@ public class SOATypeLibraryConstants {
 
 	public static final String ATTR_TYPE_INFO_LIBNAME = "libraryName";
 	
-	public static final String MAVEN_RESOURCE_FOLDER = "src/main/resources";
-	public static final String MAVEN_TYPES_FOLDER = MAVEN_RESOURCE_FOLDER + "/types";
-	
 	//public static final String MARKETPLACE_NAME_SPACE_SUFFIX="/types";
 
 }

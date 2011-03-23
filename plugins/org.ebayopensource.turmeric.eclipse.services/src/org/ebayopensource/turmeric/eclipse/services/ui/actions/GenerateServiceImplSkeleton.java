@@ -39,7 +39,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 /**
  * @author smathew
- * 
+ * @deprecated
  */
 public class GenerateServiceImplSkeleton implements IObjectActionDelegate {
 	private IStructuredSelection selection;

@@ -17,12 +17,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
-import org.ebayopensource.turmeric.eclipse.registry.intf.IRegistryProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
@@ -37,7 +34,6 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.services.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool;
-import org.ebayopensource.turmeric.eclipse.ui.util.PropertiesPageUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
@@ -258,17 +254,62 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 			if (soaProject instanceof SOAIntfProject) {
 				final SOAIntfMetadata intfMetadata = ((SOAIntfProject) soaProject)
 						.getMetadata();
-				String oldVersion = intfMetadata.getServiceVersion();
+				final String oldVersion = intfMetadata.getServiceVersion();
 				String oldServiceLayer = intfMetadata.getServiceLayer();
-				if (oldVersion.equals(serviceVersion.getText())
-
-
-
-						&& oldServiceLayer.equals(serviceLayer.getText())) {
+				final String newVersion = serviceVersion.getText();
+				String newLayer = serviceLayer.getText();
+				if (StringUtils.equalsIgnoreCase(oldVersion, newVersion) == true
+						&& StringUtils.equalsIgnoreCase(oldServiceLayer,
+								newLayer) == true) {
 					return true;
 				}
+				logger.info("Modify service " + soaProject.getProjectName()
+						+ ": new version is " + newVersion + ". New layer is: "
+						+ newLayer);
 				intfMetadata.setServiceVersion(serviceVersion.getText());
 				intfMetadata.setServiceLayer(serviceLayer.getText());
+				
+				final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
+
+					@Override
+					protected void execute(IProgressMonitor monitor)
+							throws CoreException, InvocationTargetException,
+							InterruptedException {
+						monitor.beginTask("Updating project->"
+								+ soaProject.getProjectName(),
+								ProgressUtil.PROGRESS_STEP * 10);
+						try {
+							if (StringUtils.equals(oldVersion,newVersion) == true) {
+								//only service layer changed
+								SOAIntfUtil.saveMetadataProps((SOAIntfProject) soaProject, monitor);
+							} else {
+								// change local metadata (wsdl, properties), sync AR version.
+								org.ebayopensource.turmeric.eclipse.repositorysystem.utils.ActionUtil
+								.updateInterfaceProjectVersion(
+										(SOAIntfProject) soaProject,
+										oldVersion, newVersion, false, monitor);
+							}
+						} catch (Exception e) {
+							logger.error(e);
+							throw new SOAResourceModifyFailedException(
+									"Failed to modify project properties for project->"
+											+ soaProject.getProjectName(), e);
+						} finally {
+							monitor.done();
+						}
+					}
+				};
+
+				try {
+					new ProgressMonitorDialog(getControl().getShell()).run(false,
+							true, operation);
+					return true;
+				} catch (Exception e) {
+					logger.error(e);
+					UIUtil.showErrorDialog(e);
+					return false;
+				}
+				
 			} else if (soaProject instanceof SOAImplProject) {
 				// skip the modification for impl
 				return true;
@@ -281,57 +322,9 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 			} else if (soaProject instanceof SOAConsumerProject) {
 				// we do not support changing properties for consumer
 				return true;
+			}else {
+				return false;
 			}
-			if (soaProject != null) {
-				final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
-
-					@Override
-					protected void execute(IProgressMonitor monitor)
-							throws CoreException, InvocationTargetException,
-							InterruptedException {
-						monitor.beginTask("Modifying project properties->"
-								+ soaProject.getProjectName(),
-								ProgressUtil.PROGRESS_STEP * 10);
-						try {
-							PropertiesPageUtil.modifyProjectProperties(
-									soaProject, monitor);
-
-						} catch (Exception e) {
-							logger.error(e);
-							throw new SOAResourceModifyFailedException(
-									"Failed to modify project dependencies for project->"
-											+ soaProject.getProjectName(), e);
-						} finally {
-							monitor.done();
-						}
-
-						if (GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
-								.getActiveOrganizationProvider().supportAssetRepositoryIntegration() == true
-								&& ExtensionPointFactory.getSOARegistryProvider() != null) {
-							SOAIntfMetadata intfMetadata = ((SOAIntfProject) soaProject)
-							.getMetadata();
-							Version newVer = new Version(intfMetadata.getServiceVersion());
-							Version oldVer = new Version(oldVersion);
-							try {
-								ActionUtil.submitVersionToAssetRepository(newVer, oldVer, soaProject.getProjectName(), monitor);
-							} catch (Exception e) {
-								logger.error(e);
-							}
-						}
-					}
-				};
-
-				try {
-					new ProgressMonitorDialog(getControl().getShell()).run(
-							false, true, operation);
-
-				} catch (Exception e) {
-					logger.error(e);
-					UIUtil.showErrorDialog(e);
-					return false;
-				}
-			}
-			return true;
 		} catch (Exception e) {
 			logger.error(e);
 			UIUtil.showErrorDialog(

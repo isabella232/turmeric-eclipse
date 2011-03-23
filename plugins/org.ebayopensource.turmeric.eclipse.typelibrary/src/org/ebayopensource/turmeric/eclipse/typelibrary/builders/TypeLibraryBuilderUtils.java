@@ -275,6 +275,10 @@ public class TypeLibraryBuilderUtils {
 				.getSoaPluginClassLoader();
 		ArrayList<IProject> typeLibProjects = WorkspaceUtil
 				.getProjectsByNature(TypeLibraryProjectNature.getTypeLibraryNatureId());
+		soaPluginClassLoader.setPluginBundles(
+				(GlobalRepositorySystem
+						.instanceOf().getActiveRepositorySystem()
+						.getTypeRegistryBridge().getPluginBundles()));
 		// Output location of each project
 		ArrayList<URL> outPutUrls = new ArrayList<URL>();
 		ArrayList<URL> metasrcmetainfUrls = new ArrayList<URL>();

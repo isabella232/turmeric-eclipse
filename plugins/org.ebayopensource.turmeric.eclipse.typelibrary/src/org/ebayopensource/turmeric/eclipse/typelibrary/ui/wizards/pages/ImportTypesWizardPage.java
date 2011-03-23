@@ -298,8 +298,8 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 	private void browseSourceFile() {
 		File sourceFile = new File(sourceFileTxt.getText());
-		String fileName = UIUtil.fileDialog("Select Source File", sourceFile,
-				"*.xsd;*.wsdl");
+		String fileName = UIUtil.fileDialog("Select Source File", "WSDL or XSD file", sourceFile,
+				"*.xsd; *.wsdl");
 		if (fileName != null) {
 			File newSourceFile = new File(fileName);
 			sourceFileTxt.setText(fileName);
@@ -840,7 +840,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 					if (depModel.isSelected() == false) {
 						depModel.setError(true);
 						depValidation.append(type.getName() + " depends on "
-								+ depModel.getName());
+								+ depModel.getName() + ". ");
 					}
 				}
 			}
@@ -855,7 +855,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 			}
 
 			if (depValidation.length() > 0) {
-				String error = "Type Dependency validation failed :"
+				String error = "Type Dependency validation failed: "
 						+ depValidation;
 				return error;
 			}

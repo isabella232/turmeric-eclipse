@@ -69,7 +69,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 
@@ -148,7 +147,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 				controlDecoration.setImage(fieldDecoration.getImage());
 			}
 			addTargetNamespace(container, null, false);
-			createServiceClient(container);
+			createServiceClient(container, false);
 			createConsumerIDText(container);
 			createBaseConsumerSource(container);
 			addServicePackage(container);
@@ -157,6 +156,20 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			addWSDLPackageToNamespace(container);
 			addTypeFolding(container);
 			super.setTypeFolding(false);
+			
+			
+			adminText.addModifyListener(new ModifyListener(){
+
+				@Override
+				public void modifyText(ModifyEvent e) {
+					if (serviceClientText.getEditable() == false) {
+						serviceClientText
+								.setText(ConsumerFromExistingWSDLWizardPage.this
+										.getDefaultValue(serviceClientText));
+					}
+				}
+				
+			});
 		} catch (Exception e) {
 			logger.error(e);
 			UIUtil.showErrorDialog(e);
@@ -347,22 +360,41 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		return envrionmentList;
 	}
 
-	protected Composite createServiceClient(final Composite parent) {
-		return createServiceClient(parent, true);
+	protected Text createServiceClient(final Composite parent,
+			final boolean editable) {
+		final ModifyListener nsModifyListener = new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				dialogChanged();
+			}
+		};
+		serviceClientText = super.createLabelTextField(parent, "&Client Name:",
+				"", nsModifyListener, false, editable,
+				"the client name of consumer");
+
+		Button overrideSvcClient = createOverrideButton(parent,
+				serviceClientText, null);
+		overrideSvcClient.setSelection(editable);
+
+		return serviceClientText;
+	}
+	
+	public String getDefaultValue(Text text) {
+		if (text == serviceClientText) {
+			String adminName = getAdminName();
+			if (StringUtils.isEmpty(adminName) == true) {
+				return "";
+			} else {
+				return adminName + SOAProjectConstants.CLIENT_PROJECT_SUFFIX;
+			}
+		}
+		return super.getDefaultValue(text);
 	}
 
-	protected Composite createServiceClient(final Composite parent,
-			final boolean editable) {
-		new Label(parent, SWT.LEFT).setText("&Client Name:");
-		serviceClientText = new Text(parent, SWT.BORDER);
-		serviceClientText.setEditable(editable);
-		serviceClientText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER,
-				true, false, 2, 1));
-		serviceClientText.addModifyListener(modifyListener);
-		createEmptyLabel(parent, 1);
-		UIUtil.decorateControl(this, serviceClientText,
-				"the client name of the consumer");
-		return parent;
+	protected boolean dialogChanged(boolean wsdlChanged) {
+		if (super.dialogChanged(wsdlChanged) == false && isPageComplete() == false){
+			return false;
+		}
+		return dialogChanged();
 	}
 
 	@Override
@@ -382,10 +414,23 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		}
 		
 		
-		if (super.dialogChanged() == false && isPageComplete() == false)
+		if (super.dialogChanged(false) == false && isPageComplete() == false){
 			return false;
-		
+		}
 
+		// Client name is consumer project name and admin name is the service
+		// interface project name. They should not be the same.
+		if (this.serviceClientText != null && adminNameText != null) {
+			String clientName = serviceClientText.getText();
+			String adminName = adminNameText.getText();
+			if (StringUtils.equalsIgnoreCase(clientName, adminName) == true) {
+				updateStatus(
+						"Admin Name and Client Name should not be the same.",
+						serviceClientText, adminNameText);
+				return false;
+			}
+		}
+		
 		if (this.serviceClientText != null) {
 			if (StringUtils.isBlank(getClientName())) {
 				updateStatus(this.serviceClientText,

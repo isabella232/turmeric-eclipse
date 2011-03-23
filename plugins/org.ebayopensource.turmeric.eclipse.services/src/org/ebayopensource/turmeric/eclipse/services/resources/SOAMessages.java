@@ -18,6 +18,7 @@ import org.eclipse.osgi.util.NLS;
  */
 public class SOAMessages extends NLS {
 private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.eclipse.services.resources.messages"; //$NON-NLS-1$
+
 	
 	static {
 		// initialize resource bundle
@@ -73,4 +74,32 @@ private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.eclipse.s
 	public static String ISSUES_DIALOG_FIX_IN_DETAILS_PAGE;
 	public static String ISSUES_DIALOG_OK_OR_CONTINUE;
 	public static String ISSUES_DIALOG_COPY_TO_CLIPBOARD;
+	
+	// Change Service Version dialog
+	public static String CHANGE_SERVICE_VERSION_DIALOG_TITLE;
+	public static String CHANGE_SERVICE_VERSION_DIALOG_MESSAGE;
+	
+	
+	public static String CHANGE_MAINTENANCE_VERSION_LABEL;
+	public static String CHANGE_MAINTENANCE_VERSION_DECORATION;
+
+	public static String CHANGE_MINOR_VERSION_LABEL;
+	public static String CHANGE_MINOR_VERSION_DECORATION;
+
+
+	public static String CHANGE_MAJOR_VERSION_LABEL;
+	public static String CHANGE_MAJOR_VERSION_DECORATION;
+
+	public static String EXISTING_SERVICE_VERSION;
+	public static String NEW_SERVICE_VERSION;
+	
+	public static String NEW_MAJOR_SERVICE_VERSION_NOTIFICATION;
+	
+	public static String NEW_VERSION_SMALLER_ERROR_MESSAGE;
+	public static String SHOULD_ONLY_CHANGE_MAINTENANCE_VERSION_ERROR_MESSAGE;
+	public static String SHOULD_ONLY_CHANGE_MAINTENANCE_VERSION_OR_MINIOR_VERSION_ERROR_MESSAGE;
+
+	public static String USE_EXTERNAL_SERVICE_FACTORY_IS_TRUE_TITLE;
+	public static String USE_EXTERNAL_SERVICE_FACTORY_IS_TRUE_MSG;
+	
 }

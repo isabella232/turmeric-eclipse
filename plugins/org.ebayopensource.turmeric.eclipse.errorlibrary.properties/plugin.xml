@@ -75,7 +75,7 @@
      	   category="org.ebayopensource.turmeric.eclipse.ui.preferences"
            class="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences.ErrorIdServicePreferencePage"
            id="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences.ErrorIdServicePreferencePage"
-           name="%Prefernce.Page.ErrorIDService.Title">
+           name="ErrorIdService Preferences">
      </page>
   </extension>
   <extension

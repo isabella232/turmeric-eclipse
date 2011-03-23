@@ -10,6 +10,7 @@
  -->
 <wsdl:definitions name="${serviceName}"
 	targetNamespace="${targetNamespace}"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
@@ -37,7 +38,8 @@
 	</wsdl:binding>
 	<wsdl:binding name="${serviceName}SOAPBinding"
 		type="tns:${serviceName}Port">
-		<soap:binding
+		<soap12:binding
+			xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
 			style="document" transport="http://schemas.xmlsoap.org/soap/http" />	
 	</wsdl:binding>
 	<wsdl:service name="${serviceName}">
@@ -51,7 +53,8 @@
 		</wsdl:port>
 		<wsdl:port name="${serviceName}SOAP"
 			binding="tns:${serviceName}SOAPBinding">
-			<soap:address
+			<soap12:address
+				xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
 				location="http://www.ebayopensource.org/turmeric/${serviceName}" />
 		</wsdl:port>
 	</wsdl:service>

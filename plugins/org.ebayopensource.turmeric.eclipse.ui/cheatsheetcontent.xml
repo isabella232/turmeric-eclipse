@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cheatsheet title="Turmeric Development Tutorial">
 	<intro
-		href="http://ebayopensource.org/wiki/display/TURMERICDOC/Turmeric+Plug-in">
+		href="http://ebayopensource.org/wiki/display/SOADOC/Turmeric+Plug-in">
 		<description>
 			This tutorial guides you through the steps of Turmeric application
 			creation using Turmeric plugin. You will create a Turmeric service, a type
@@ -14,7 +14,7 @@
 	</intro>
 
 	<item
-		href="http://ebayopensource.org/wiki/display/TURMERICDOC/Turmeric+Development+Perspective"
+		href="http://ebayopensource.org/wiki/display/SOADOC/Turmeric+Development+Perspective"
 		title="Open Turmeric Development Perspective">
 		<command
 			serialization="org.eclipse.ui.perspectives.showPerspective(org.eclipse.ui.perspectives.showPerspective.perspectiveId=org.ebayopensource.turmeric.eclipse.ui.soaPerspective)"
@@ -25,7 +25,7 @@
 		</description>
 	</item>
 	<item
-       href="http://ebayopensource.org/wiki/display/TURMERICDOC/SOA+TypeLibrary+Tutorial"
+       href="http://ebayopensource.org/wiki/display/SOADOC/SOA+TypeLibrary+Tutorial"
        skip="false"
        title="Create Type Library">
 		<description>
@@ -45,7 +45,7 @@
   </subitem>
 	</item>
 	<item
-       href="http://ebayopensource.org/wiki/display/TURMERICDOC/Create+SOA+Service"
+       href="http://ebayopensource.org/wiki/display/SOADOC/Create+SOA+Service"
        title="Create Service">
 		<description>
 			Turmeric plugin provides a Service Creation wizard. To bing up this wizard, you can right click on package explorer, select New-&gt; Service (from WSDL) or click on the link below. <br/><br/>
@@ -55,7 +55,7 @@ This wizard will help you to create a Turmeric Service. Click (?) on the right f
         </command>
 	</item>
  <item
-       href="http://ebayopensource.org/wiki/display/TURMERICDOC/Create+SOA+Consumer"
+       href="http://ebayopensource.org/wiki/display/SOADOC/Create+SOA+Consumer"
        title="Create Consumer">
     <description>
        Turmeric plugin provides a Consumer creation wizard. To bing up this wizard, you can right click on package explorer, select New-&gt; Consumer or click on the link below. <br/><br/>
@@ -65,7 +65,7 @@ This wizard will help you to create a Turmeric Service Consumer. Click (?) on th
     </command>
  </item>
  <item
-       href="http://ebayopensource.org/wiki/display/TURMERICDOC/Turmeric+Error+Library+Tutorial"
+       href="http://ebayopensource.org/wiki/display/SOADOC/SOA+Error+Library+Tutorial"
        title="Create Error Library">
     <description>
        Turmeric plugin provides a Error Library creation wizard. To bing up this wizard, you can right click on package explorer, select New-&gt; Error (Error Library) or click on the link below. <br/><br/>

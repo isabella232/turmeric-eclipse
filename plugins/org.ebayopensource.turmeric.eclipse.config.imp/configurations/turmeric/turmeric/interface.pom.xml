@@ -19,14 +19,6 @@
 	<properties>
 		<projectType>interface</projectType>
 	</properties>
-   <dependencies>
-      <dependency> 
-         <groupId>org.ebayopensource.turmeric</groupId> 
-         <artifactId>slf4j-to-jul</artifactId> 
-         <version>1.2-SNAPSHOT</version> 
-         <scope>test</scope> 
-       </dependency>    
-   </dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
@@ -93,5 +85,4 @@
 			</plugin>
 		</plugins>
 	</build>
-   
 </project>

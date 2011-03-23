@@ -135,4 +135,12 @@ public abstract class AbstractSOAProjectConfigurer implements
 		ProgressUtil.progressOneStep(monitor);
 		return true;
 	}
+
+	@Override
+	public void postServiceVersionUpdated(SOAIntfProject soaIntfProject,
+			String oldVersion, String newVersion, boolean slience,
+			IProgressMonitor monitor) throws Exception {
+		// do nothing by default. V3 need to do a build service.
+	}
+
 }

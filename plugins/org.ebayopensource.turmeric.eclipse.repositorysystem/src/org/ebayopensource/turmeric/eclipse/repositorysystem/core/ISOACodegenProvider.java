@@ -8,12 +8,39 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 
+/**
+ * Now we have two codegen systems: Opensource codgen and eBay codegen. It is
+ * needed to provide organization level codegen
+ * 
+ * @author mzang
+ * 
+ */
 public interface ISOACodegenProvider {
 
-	public boolean generateCode(String[] parameters);
+	/**
+	 * Call codegen of specified system.
+	 * 
+	 * @param parameters
+	 *            coegen parameters
+	 * @return true if success
+	 * @throws Exception
+	 */
+	public boolean generateCode(String[] parameters) throws Exception;
 
+	/**
+	 * codegen folder. It is different for different codegen system. Opensource
+	 * codegen starts with src.
+	 * 
+	 * @return
+	 */
 	public String getGenFolderForIntf();
 
+	/**
+	 * codegen folder. It is different for different codegen system. Opensource
+	 * codegen starts with src.
+	 * 
+	 * @return
+	 */
 	public String getGenFolderForImpl();
 
 }

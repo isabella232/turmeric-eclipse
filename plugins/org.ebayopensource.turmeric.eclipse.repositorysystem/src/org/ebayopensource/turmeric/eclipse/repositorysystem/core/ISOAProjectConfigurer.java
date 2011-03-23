@@ -163,4 +163,26 @@ public interface ISOAProjectConfigurer {
 	 */
 	public void addBuildSystemClasspathContainer(IJavaProject javaProject,
 			IProgressMonitor monitor) throws CoreException;
+
+	/**
+	 * this is used to do something after project property version is changed: do a
+	 * v3 build if it is v3 mode. Notify users before doing it. Library Catalog
+	 * version need to be synchronized before doing a v3 build. It is
+	 * cancelable.
+	 * 
+	 * @param soaIntfProject
+	 *            the interface project that need to be updated
+	 * @param oldVersion
+	 *            service old version
+	 * @param newVersion
+	 *            service new version.
+	 * @param forceBuild
+	 *            just for the repos that need build after version change.
+	 * @param monitor
+	 *            the progress monitor
+	 */
+	public void postServiceVersionUpdated(SOAIntfProject soaIntfProject,
+			String oldVersion, String newVersion, boolean silence, IProgressMonitor monitor)
+			throws Exception;
+	
 }

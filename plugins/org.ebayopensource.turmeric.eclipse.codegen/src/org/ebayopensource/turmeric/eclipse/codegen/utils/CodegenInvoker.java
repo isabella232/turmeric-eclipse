@@ -119,15 +119,11 @@ public class CodegenInvoker {
 		return true;
 	}
 
-	private static void printParams(String[] args) {
-		for (String str : args) {
-			System.out.println(str);
+
+	private static void callCodegen(String[] parameters) throws Exception {
+		if(SOALogger.DEBUG){
+			logger.debug((Object[])parameters);
 		}
-	}
-
-	private static void callCodegen(String[] parameters) {
-		printParams(parameters);
-
 		GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 				.getSOACodegenProvider().generateCode(parameters);
 

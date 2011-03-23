@@ -24,12 +24,14 @@ import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstan
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;
+import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.utils.ValidateUtil;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.AbstractBaseAccessValidator;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -72,6 +74,11 @@ public class ReGenerateServiceImplClass implements IObjectActionDelegate {
 			if (selection == null)
 				return;
 
+			final IProject project = ActionUtil.preValidateAction(selection
+					.getFirstElement(), logger);
+			if (project == null)
+				return;
+			
 			if (!UIUtil
 					.openChoiceDialog(
 							"Overwriting file",
@@ -79,10 +86,7 @@ public class ReGenerateServiceImplClass implements IObjectActionDelegate {
 							IStatus.WARNING)) {
 				return;
 			}
-			final IProject project = ActionUtil.preValidateAction(selection
-					.getFirstElement(), logger);
-			if (project == null)
-				return;
+			
 
 			final IStatus status = new AbstractBaseAccessValidator() {
 
@@ -174,6 +178,30 @@ public class ReGenerateServiceImplClass implements IObjectActionDelegate {
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;
+
+		if (this.selection.size() > 1) {
+			return;
+		}
+
+		action.setEnabled(true);
+		final IProject project = ActionUtil.preValidateAction(this.selection
+				.getFirstElement(), logger);
+		if (project != null) {
+			IFile svcImplProperties = SOAImplUtil
+					.getServiceImplPropertiesFile(project);
+			if (svcImplProperties.isAccessible() == true) {
+				try {
+					String useExternalFac = PropertiesFileUtil
+							.getPropertyValueByKey(
+									svcImplProperties.getContents(),
+									SOAProjectConstants.PROPS_KEY_USE_EXTERNAL_SERVICE_FACTORY);
+					action.setEnabled(Boolean.valueOf(useExternalFac) == false);
+
+				} catch (Exception e) {
+					logger.warning(e);
+				}
+			}
+		}
 	}
 
 }

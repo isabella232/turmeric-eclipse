@@ -52,5 +52,15 @@ public interface IErrorRegistryBridge {
 	 */
 	public void createPlatformSpecificArtifacts(IProject project, IProgressMonitor monitor) 
 	throws CoreException, AbstractSOAException, IOException;
+	
+	/**
+	 * @param storeLocation
+	 * @param organization
+	 * @param domain
+	 * @return a new Error ID for the given options
+	 * @throws Exception
+	 */
+	public long nextErrorId(String storeLocation, String organization, 
+			String domain) throws Exception;
 
 }

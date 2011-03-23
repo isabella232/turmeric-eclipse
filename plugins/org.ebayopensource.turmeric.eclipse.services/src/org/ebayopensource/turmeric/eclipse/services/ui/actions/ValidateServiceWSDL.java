@@ -154,7 +154,7 @@ public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorAction
 					return;
 				}
 			}
-			
+
 			final IWorkbench wb = UIUtil.getWorkbench();
 			final IProgressService ps = wb.getProgressService();
 			ps.run(false, false, new IRunnableWithProgress() {
@@ -165,18 +165,19 @@ public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorAction
 						monitor.beginTask("Validating service WSDL",
 								ProgressUtil.PROGRESS_STEP * 20);
 						regStatus = ActionUtil.validateServiceWSDL(wsdlFile,
-								wsdlFile.getLocationURI().toURL(), GlobalRepositorySystem.instanceOf()
-								.getActiveRepositorySystem().getActiveOrganizationProvider()
-								.supportAssertionServiceIntegration(),
-								monitor);
+								wsdlFile.getLocationURI().toURL(),
+								GlobalRepositorySystem.instanceOf()
+										.getActiveRepositorySystem()
+										.getActiveOrganizationProvider()
+										.supportAssertionServiceIntegration(),
+								false, monitor);
 					} catch (Exception e) {
 						throw new InvocationTargetException(e);
 					} finally {
 						monitor.done();
 					}
-					
 				}
-				
+
 			});
 			
 			if (regStatus != null && regStatus.isOK() == false) {

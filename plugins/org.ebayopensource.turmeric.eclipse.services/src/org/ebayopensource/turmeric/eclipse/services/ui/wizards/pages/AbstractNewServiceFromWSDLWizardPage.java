@@ -318,7 +318,7 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 						//we do not need the default namespace to be displayed
 						if (getOrganizationProvider().shouldShowInNamespaceToPackageViewer(namespace)) {
 							final String defaultPkgName = ConfigTool
-							.getDefaultPackageNameFromNamespace(namespace);
+							.getTypePackageNameFromNamespace(namespace, WSDLUtil.getServiceNameFromWSDL(wsdl));
 							result.add(new NamespaceToPackageModel(namespace,
 									defaultPkgName));
 						}

@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAInvocationException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
@@ -250,7 +251,8 @@ public class SOAGlobalRegistryAdapter {
 		ClassLoader current = Thread.currentThread().getContextClassLoader();
 		try{
 			Thread.currentThread().setContextClassLoader(typeLibclassLoader);
-			TypeDependencyParser.getInstance().processTypeDepXMLFile(typeLibraryName);
+			GlobalRepositorySystem.instanceOf().getActiveRepositorySystem().getTypeRegistryBridge()
+			.processTypeDepXMLFile(typeLibraryName);
 		}finally{
 			Thread.currentThread().setContextClassLoader(current);
 		}
@@ -282,6 +284,18 @@ public class SOAGlobalRegistryAdapter {
 		typeLibclassLoader = new SOAPluginClassLoader("SOATools", urlsSet
 				.toArray(new URL[0]));
 
+	}
+	
+	public void addTypeToRegistry(LibraryType libraryType) throws Exception {
+		populateClassLoader();
+		ClassLoader current = Thread.currentThread().getContextClassLoader();
+		try{
+			Thread.currentThread().setContextClassLoader(typeLibclassLoader);
+			GlobalRepositorySystem.instanceOf().getActiveRepositorySystem().getTypeRegistryBridge()
+			.getSOATypeRegistry().addTypeToRegistry(libraryType);
+		}finally{
+			Thread.currentThread().setContextClassLoader(current);
+		}
 	}
 
 }

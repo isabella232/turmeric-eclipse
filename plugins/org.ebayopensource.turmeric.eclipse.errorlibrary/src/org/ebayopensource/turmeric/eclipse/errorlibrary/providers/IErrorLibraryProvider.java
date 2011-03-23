@@ -74,6 +74,4 @@ public interface IErrorLibraryProvider {
 	 */
 	public String getImportErrorSource(IProject project, ISOAError error) 
 	throws SOAOperationNotAvailableException, CoreException;
-	
-	public String getErrorLibraryCentralLocation();
 }

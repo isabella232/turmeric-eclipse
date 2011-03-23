@@ -25,6 +25,7 @@ public interface ISOAPreValidator extends ISOAValidator {
 	public static final String CONSUMER_FROM_WSDL = "consumer_from_wsdl";
 	public static final String OTHERS = "others";
 	public static final String TYPE_LIBRARY = "type_library";
+	public static final String ERROR_LIBRARY = "error_library";
 
 	/**
 	 * Pre-validation for project creation.

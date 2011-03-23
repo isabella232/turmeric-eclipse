@@ -12,7 +12,6 @@ import org.ebayopensource.turmeric.eclipse.core.buildsystem.AbstractSOANature;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
-import org.eclipse.core.runtime.CoreException;
 
 
 /**
@@ -40,14 +39,6 @@ public class TypeLibraryProjectNature extends AbstractSOANature {
 	@Override
 	public String getBuilderName() {
 		return TypeLibraryProjectBuilder.BUILDER_ID;
-	}
-	
-	@Override
-	public void configure() throws CoreException {
-		if (GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
-				.getProjectConfigurer().configureProjectNature(getProject(), this)) {
-			super.configure();
-		}
 	}
 
 }

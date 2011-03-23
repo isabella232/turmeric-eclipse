@@ -20,6 +20,9 @@ import java.util.TreeSet;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.common.config.TypeDependencyType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
@@ -41,19 +44,18 @@ import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.ITextOperationTarget;
 import org.eclipse.jface.window.Window;
+import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDSchema;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.common.config.TypeDependencyType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 
 /**
  * Represents the import functionality of SOA type library. Contributes the
@@ -84,86 +86,125 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 	 * )
 	 */
 	public void run(IAction action) {
-		if (WTPTypeLibUtil.validateEditorForContextMenus(editorPart) == false) {
-			return;
-		}
 
-		try {
-			if (super.doValidation() == false) {
-				return;
-			}
-			SOAGlobalRegistryAdapter registryAdapter = SOAGlobalRegistryAdapter.getInstance();
-			SOATypeRegistry typeRegistry = registryAdapter.getGlobalRegistry();
-			
-			TypeSelector typeSelector = new TypeSelector(UIUtil
-					.getActiveShell(), SOAMessages.SEL_TYPE,
-					typeRegistry.getAllTypes()
-							.toArray(new LibraryType[0]), getSelectedFile()
-							.getProject().getName(), TypeLibraryUtil
-							.getXsdTypeNameFromFileName(getSelectedFile()
-									.getName()));
-			typeSelector.setMultipleSelection(true);
-			if (typeSelector.open() != Window.OK) {
-				return;
-			}
-			ArrayList<LibraryType> selectedTypes = typeSelector
-					.getSelectedTypes();
-			// // selectedTypes.addAll(c)
-			// for (LibraryType selectedObject : typeSelector
-			// .getSelectedTypes()) {
-			// selectedTypes.add((LibraryType) selectedObject);
-			// }
-			if (selectedTypes.isEmpty() == true) {
-				return;
-			}
-			Object adaptedObject = TypeLibraryUtil
-					.getAdapterClassFromWTPEditors(editorPart);
+		UIJob inlineType = new UIJob("Inline Type...") {
 
-			LibraryType[] selectedtypeArr = selectedTypes
-					.toArray(new LibraryType[0]);
-			if (adaptedObject == null
-					|| validateSelectedTypeForImport(selectedtypeArr,
-							getSelectedFile()) == false
-					|| validateDuplicateImports(selectedtypeArr,
-							getSelectedFile(), adaptedObject) == false) {
-				return;
-			}
-			if (adaptedObject instanceof XSDSchema) {
-				if (ActionUtil.validateEditor(editorPart, adaptedObject)) {
-					performImportTasksForXSDEditor((XSDSchema) adaptedObject,
-							selectedtypeArr, getSelectedFile());
-					ITextOperationTarget formatter = TypeLibraryUtil
-							.getFormatter(editorPart);
-					if (formatter != null) {
-						// should not use StructuredTextViewer.FORMAT_DOCUMENT,
-						// it will set Definition.getTypes() to null
-						formatter.doOperation(StructuredTextViewer.FORMAT);
-					}
+			@Override
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+				
+				monitor.beginTask("Inline Type...", ProgressUtil.PROGRESS_STEP * 10);
+
+				if (WTPTypeLibUtil.validateEditorForContextMenus(editorPart) == false) {
+					return Status.OK_STATUS;
 				}
-			} else if (adaptedObject instanceof Definition) {
-				if (ActionUtil.validateEditor(editorPart, adaptedObject)) {
-					// This could be done on the WSDL Editor
-					performInlineOperationsForWSDLEditor(
-							(Definition) adaptedObject, selectedtypeArr,
-							getSelectedFile());
+				
+				ProgressUtil.progressOneStep(monitor);
 
-					ITextOperationTarget formatter = TypeLibraryUtil
-							.getFormatter(editorPart);
-					if (formatter != null) {
-						// should not use StructuredTextViewer.FORMAT_DOCUMENT,
-						// it will set Definition.getTypes() to null
-						formatter.doOperation(StructuredTextViewer.FORMAT);
+				try {
+					if (doValidation() == false) {
+						return Status.OK_STATUS;
 					}
+					SOAGlobalRegistryAdapter registryAdapter = SOAGlobalRegistryAdapter
+							.getInstance();
+					SOATypeRegistry typeRegistry = registryAdapter
+							.getGlobalRegistry();
+
+					TypeSelector typeSelector = new TypeSelector(
+							UIUtil.getActiveShell(),
+							SOAMessages.SEL_TYPE,
+							typeRegistry.getAllTypes().toArray(
+									new LibraryType[0]),
+							getSelectedFile().getProject().getName(),
+							TypeLibraryUtil
+									.getXsdTypeNameFromFileName(getSelectedFile()
+											.getName()));
+					typeSelector.setMultipleSelection(true);
+					if (typeSelector.open() != Window.OK) {
+						return Status.OK_STATUS;
+					}
+					ProgressUtil.progressOneStep(monitor);
+					
+					ArrayList<LibraryType> selectedTypes = typeSelector
+							.getSelectedTypes();
+					// // selectedTypes.addAll(c)
+					// for (LibraryType selectedObject : typeSelector
+					// .getSelectedTypes()) {
+					// selectedTypes.add((LibraryType) selectedObject);
+					// }
+					if (selectedTypes.isEmpty() == true) {
+						return Status.OK_STATUS;
+					}
+					Object adaptedObject = TypeLibraryUtil
+							.getAdapterClassFromWTPEditors(editorPart);
+
+					LibraryType[] selectedtypeArr = selectedTypes
+							.toArray(new LibraryType[0]);
+					if (adaptedObject == null
+							|| validateSelectedTypeForImport(selectedtypeArr,
+									getSelectedFile()) == false
+							|| validateDuplicateImports(selectedtypeArr,
+									getSelectedFile(), adaptedObject) == false) {
+						return Status.OK_STATUS;
+					}
+					
+					ProgressUtil.progressOneStep(monitor);
+					
+					if (adaptedObject instanceof XSDSchema) {
+						if (ActionUtil
+								.validateEditor(editorPart, adaptedObject)) {
+							performImportTasksForXSDEditor(
+									(XSDSchema) adaptedObject, selectedtypeArr,
+									getSelectedFile());
+							ITextOperationTarget formatter = TypeLibraryUtil
+									.getFormatter(editorPart);
+							ProgressUtil.progressOneStep(monitor);
+							if (formatter != null) {
+								// should not use
+								// StructuredTextViewer.FORMAT_DOCUMENT,
+								// it will set Definition.getTypes() to null
+								formatter
+										.doOperation(StructuredTextViewer.FORMAT);
+								ProgressUtil.progressOneStep(monitor);
+							}
+						}
+					} else if (adaptedObject instanceof Definition) {
+						if (ActionUtil
+								.validateEditor(editorPart, adaptedObject)) {
+							ProgressUtil.progressOneStep(monitor);
+							// This could be done on the WSDL Editor
+							performInlineOperationsForWSDLEditor(
+									(Definition) adaptedObject,
+									selectedtypeArr, getSelectedFile());
+
+							ProgressUtil.progressOneStep(monitor);
+							
+							ITextOperationTarget formatter = TypeLibraryUtil
+									.getFormatter(editorPart);
+							if (formatter != null) {
+								// should not use
+								// StructuredTextViewer.FORMAT_DOCUMENT,
+								// it will set Definition.getTypes() to null
+								formatter
+										.doOperation(StructuredTextViewer.FORMAT);
+							}
+							ProgressUtil.progressOneStep(monitor);
+						}
+					} else {
+						showCommonErrorDialog(null);
+					}
+
+				} catch (Exception e) {
+					logger.error(e);
+					UIUtil.showErrorDialog(e);
+				} finally{
+					monitor.done();
 				}
-			} else {
-				showCommonErrorDialog(null);
+
+				return Status.OK_STATUS;
 			}
 
-		} catch (Exception e) {
-			logger.error(e);
-			UIUtil.showErrorDialog(e);
-		}
-
+		};
+		inlineType.schedule();
 	}
 
 	// private static void printTypeCount(Definition def) {

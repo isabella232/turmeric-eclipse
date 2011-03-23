@@ -9,12 +9,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources;bundle-version="3.5.0",
  org.ebayopensource.turmeric.eclipse.maven.core;bundle-version="1.0.0",
  org.ebayopensource.turmeric.eclipse.mavenapi;bundle-version="1.0.0",
- org.maven.ide.eclipse.maven_embedder;bundle-version="0.12.1",
+ org.maven.ide.eclipse.maven_embedder;bundle-version="0.10.0",
  org.ebayopensource.turmeric.eclipse.utils;bundle-version="1.0.0",
  org.apache.commons.lang;bundle-version="2.4.0",
  org.ebayopensource.turmeric.eclipse.resources;bundle-version="1.0.0",
  org.ebayopensource.turmeric.eclipse.repositorysystem;bundle-version="1.0.0",
- org.maven.ide.eclipse;bundle-version="0.12.1"
+ org.maven.ide.eclipse;bundle-version="0.10.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.ebayopensource.turmeric.eclipse.maven.ui,

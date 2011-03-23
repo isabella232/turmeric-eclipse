@@ -143,7 +143,7 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 	}
 
 	protected void changePerspective() {
-		UIJob fNotifierJob = new UIJob("Change to Turmeric SOA Development Perspective") {
+		UIJob fNotifierJob = new UIJob("Change to Turmeric Development Perspective") {
 			public IStatus runInUIThread(IProgressMonitor monitor) {
 				BasicNewProjectResourceWizard.updatePerspective(fConfig);
 				return Status.OK_STATUS;

@@ -17,6 +17,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.GlobalProjectHealthChecker;
 import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.utils.ValidateUtil;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.AbstractBaseAccessValidator;
@@ -37,6 +38,10 @@ import org.eclipse.ui.IWorkbenchPart;
 public class ConfigureService implements IObjectActionDelegate {
 	private IStructuredSelection selection;
 	private static final SOALogger logger = SOALogger.getLogger();
+	
+	protected String getPropertyPageID(SupportedProjectType projectType){
+		return SOAProjectConstants.PROP_PAGE_ID_SOA_PROJ;
+	}
 
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
@@ -88,7 +93,8 @@ public class ConfigureService implements IObjectActionDelegate {
 			.trackingUsage(new TrackingEvent(
 					getClass().getName(), 
 					TrackingEvent.TRACKING_ACTION));
-			UIUtil.openPropertyPage(project, SOAProjectConstants.PROP_PAGE_ID_SOA_PROJ);
+			UIUtil.openPropertyPage(project, getPropertyPageID(
+					GlobalRepositorySystem.instanceOf().getActiveRepositorySystem().getProjectType(project)));
 		} catch (Exception e) {
 			logger.error(e);
 			UIUtil.showErrorDialog(e);

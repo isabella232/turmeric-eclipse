@@ -8,10 +8,18 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.common.config.ReferredType;
+import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;
+import org.ebayopensource.turmeric.common.config.TypeDependencyType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
@@ -80,5 +88,24 @@ public interface ITypeRegistryBridge {
 	 * @return
 	 */
 	public SOATypeRegistry getSOATypeRegistry();
+	
+	public void processTypeDepXMLFile(String libraryName) throws Exception;
+	
+	
+	public TypeLibraryDependencyType createTypeLibraryDependencyTypeInstance();
+	
+	public LibraryType createLibraryTypeInstance();
+	
+	public TypeDependencyType createTypeDependencyTypeInstance();
+	
+	public ReferredType createReferredTypeInstance();
+	
+	public ReferredTypeLibraryType createReferredTypeLibraryTypeInstance();
+	
+	public TypeLibraryDependencyType unmarshalTypeLibraryDependencyType(InputStream inputStream);
+	
+	public TypeLibraryType unmarshalTypeInformationType(InputStream inputStream);
+	
+	public void marshalTypeLibraryDependencyType(TypeLibraryDependencyType type, File xmlFile);
 
 }

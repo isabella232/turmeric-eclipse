@@ -68,7 +68,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 
@@ -101,7 +100,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			final IStructuredSelection selection) throws Exception {
 		super(
 				"ConsumeServiceFromWSDLWizardPage",
-				"Consumer Service From Existing WSDL Wizard",
+				"Consume Service From Existing WSDL Wizard",
 				"This wizard creates a new SOA Interface Service Consumer from a pre-existing WSDL document and add it to selected consumer.");
 		IProject project = (IProject) selection.getFirstElement();
 		soaPrj = GlobalRepositorySystem.instanceOf()
@@ -117,7 +116,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			consumerIDStr = "";
 			clientNameStr = StringUtils.substringBefore(project.getName(),
 					SOAProjectConstants.IMPL_PROJECT_SUFFIX)
-					+ SOAProjectConstants.SERVICE_CLIENT_SUFFIX;
+					+ SOAProjectConstants.CLIENT_PROJECT_SUFFIX;
 			environments
 					.add(SOAProjectConstants.DEFAULT_CLIENT_CONFIG_ENVIRONMENT);
 			baseConsumerSource = metadata.getBaseConsumerSrcDir();
@@ -204,7 +203,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			}
 
 			// consumer related.
-			createServiceClient(container).setEditable(clientPropEditable);
+			createServiceClient(container, clientPropEditable);
 			createConsumerIDText(container).setEditable(clientPropEditable);
 			Text baseConsumerSourceTxt = createBaseConsumerSource(container);
 			baseConsumerSourceTxt.setEditable(clientPropEditable);
@@ -215,6 +214,21 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 
 			addTypeFolding(container);
 			super.setTypeFolding(false);
+			
+			if (clientPropEditable == true) {
+				adminText.addModifyListener(new ModifyListener() {
+
+					@Override
+					public void modifyText(ModifyEvent e) {
+						if (serviceClientText.getEditable() == false) {
+							serviceClientText
+									.setText(getDefaultValue(serviceClientText));
+						}
+					}
+
+				});
+			}
+			
 		} catch (Exception e) {
 			logger.error(e);
 			UIUtil.showErrorDialog(e);
@@ -346,95 +360,48 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		final Button addBtn = new Button(btnComposite, SWT.PUSH);
 		addBtn.setText("Add...");
 		addBtn.setEnabled(false);
-		// addBtn.addSelectionListener(new SelectionAdapter() {
-		// @Override
-		// public void widgetSelected(SelectionEvent e) {
-		// final IInputValidator validator = new IInputValidator() {
-		//
-		// public String isValid(String newText) {
-		// if (StringUtils.isBlank(newText)) {
-		// return "Error: Environment name must not be empty";
-		// }
-		// if (environments.contains(newText)) {
-		// return "Error: Environment name already exist->" + newText;
-		// }
-		// final InputObject inputObject = new InputObject(newText,
-		// RegExConstants.PROJECT_NAME_EXP,
-		// ErrorMessage.CLIENT_NAME_ERRORMSG);
-		//
-		// try {
-		// IStatus validationModel = NameValidator.getInstance().validate(
-		// inputObject);
-		// if (validationModel != null
-		// && validationModel.getSeverity() == IStatus.ERROR) {
-		// return ValidateUtil
-		// .getBasicFormattedUIErrorMessage(validationModel);
-		// }
-		// } catch (ValidationInterruptedException e) {
-		// processException(e);
-		// }
-		// return null;
-		// }
-		//					
-		// };
-		// InputDialog dialog = new InputDialog(UIUtil.getActiveShell(),
-		// "New Environment",
-		// "Please enter the new environment name", "", validator);
-		// if (dialog.open() == Window.OK) {
-		// environments.add(dialog.getValue());
-		// envrionmentList.refresh();
-		// dialogChanged();
-		// }
-		// }
-		// });
-
+		
 		final Button removeBtn = new Button(btnComposite, SWT.PUSH);
 		removeBtn.setText("Remove");
 		removeBtn.setEnabled(false);
-		// removeBtn.addSelectionListener(new SelectionAdapter() {
-		//
-		// @Override
-		// public void widgetSelected(SelectionEvent e) {
-		// Object obj = ((IStructuredSelection)envrionmentList.getSelection())
-		// .getFirstElement();
-		// environments.remove(obj);
-		// envrionmentList.refresh();
-		// dialogChanged();
-		// }
-		// });
 
-		// envrionmentList.addSelectionChangedListener(new
-		// ISelectionChangedListener() {
-		//
-		// public void selectionChanged(SelectionChangedEvent event) {
-		// removeBtn.setEnabled(envrionmentList.getSelection()
-		// .isEmpty() == false);
-		// }
-		// }
-		// );
-		//		
 		UIUtil.setEqualWidthHintForButtons(addBtn, removeBtn);
+		envrionmentList.getControl().setEnabled(false);
 		return envrionmentList;
 	}
 
-	protected Text createServiceClient(final Composite parent) {
-		return createServiceClient(parent, true);
-	}
-
 	protected Text createServiceClient(final Composite parent,
-			final boolean editable) {
-		new Label(parent, SWT.LEFT).setText("&Client Name:");
-		serviceClientText = new Text(parent, SWT.BORDER);
-		serviceClientText.setEditable(editable);
-		serviceClientText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER,
-				true, false, 2, 1));
-		serviceClientText.addModifyListener(modifyListener);
-		createEmptyLabel(parent, 1);
-		UIUtil.decorateControl(this, serviceClientText,
-				"the client name of the consumer");
-		serviceClientText.setEditable(false);
+			final boolean clientPropEditable) {
+		final ModifyListener nsModifyListener = new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				dialogChanged();
+			}
+		};
+		serviceClientText = super.createLabelTextField(parent, "&Client Name:",
+				"", nsModifyListener, clientPropEditable == false, false,
+				"the client name of consumer");
+
+		if (clientPropEditable == true) {
+			Button overrideSvcClient = createOverrideButton(parent,
+					serviceClientText, null);
+			overrideSvcClient.setSelection(false);
+		}
 		serviceClientText.setText(clientNameStr);
 		return serviceClientText;
+	}
+	
+	public String getDefaultValue(Text text) {
+		if (text == serviceClientText) {
+			if (clientPropEditable == false) {
+				return clientNameStr;
+			} else if (StringUtils.isEmpty(getAdminName()) == false) {
+				return getAdminName()
+						+ SOAProjectConstants.CLIENT_PROJECT_SUFFIX;
+			} else if (StringUtils.isEmpty(getAdminName()) == true) {
+				return "";
+			}
+		}
+		return super.getDefaultValue(text);
 	}
 
 	@Override

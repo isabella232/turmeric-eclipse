@@ -235,7 +235,7 @@ public class DeleteTypeAction implements IObjectActionDelegate {
 
 	}
 
-	public static void callCodegen(IProject project, IFile file, IProgressMonitor monitor) throws Exception {
+	private static void callCodegen(IProject project, IFile file, IProgressMonitor monitor) throws Exception {
 		GenTypeDeleteType genTypeDeleteType = new GenTypeDeleteType();
 		genTypeDeleteType.setProjectRoot(project.getLocation().toString());
 		genTypeDeleteType.setLibraryName(project.getName());

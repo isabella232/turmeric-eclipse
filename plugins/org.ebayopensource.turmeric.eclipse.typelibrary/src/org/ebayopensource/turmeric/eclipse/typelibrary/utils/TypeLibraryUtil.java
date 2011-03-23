@@ -26,7 +26,6 @@ import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import javax.xml.bind.JAXB;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,6 +33,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
@@ -65,6 +67,7 @@ import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.XMLUtil;
+import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.ebayopensource.turmeric.tools.library.TypeLibraryConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -87,10 +90,6 @@ import org.eclipse.xsd.XSDTypeDefinition;
 import org.eclipse.xsd.util.XSDParser;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 
 /**
  * @author smathew
@@ -184,11 +183,6 @@ public class TypeLibraryUtil {
                         + WorkspaceUtil.PATH_SEPERATOR + typeName
                         + SOATypeLibraryConstants.EXT_XSD;
 
-            } else if (isMavenStandardProject(project)) {
-            	String value = SOATypeLibraryConstants.MAVEN_TYPES_FOLDER 
-    	        + WorkspaceUtil.PATH_SEPERATOR + typeName
-    	        + SOATypeLibraryConstants.EXT_XSD;
-            	retValue = value;
             } else {
                 retValue = SOATypeLibraryConstants.FOLDER_META_SRC_TYPES
                         + WorkspaceUtil.PATH_SEPERATOR + typeName
@@ -304,8 +298,14 @@ public class TypeLibraryUtil {
     }
 
     public static LibraryType getLibraryType(String name, String version,
-            TypeLibraryType libInfo) {
-        LibraryType libraryType = new LibraryType(); //ObjectFactory().createLibraryType();
+            TypeLibraryType libInfo) throws Exception {
+    	SOATypeRegistry typeRegistry = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+    	.getTypeRegistryBridge().getSOATypeRegistry();
+    	LibraryType libType = typeRegistry.getType(name, libInfo.getLibraryName());
+    	if (libType != null) {
+    		return libType;
+    	}
+        LibraryType libraryType = new LibraryType();
         libraryType.setName(name);
         libraryType.setVersion(version);
         libraryType.setLibraryInfo(libInfo);
@@ -389,8 +389,8 @@ public class TypeLibraryUtil {
     }
 
     public static LibraryType createLibraryType(String typeName) {
-        //ObjectFactory objFactory = new ObjectFactory();
-        LibraryType libraryType = new LibraryType(); //objFactory.createLibraryType();
+        LibraryType libraryType = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+        .getTypeRegistryBridge().createLibraryTypeInstance();
         libraryType.setName(typeName);
         libraryType.setVersion("1.0.0");
         return libraryType;
@@ -407,8 +407,8 @@ public class TypeLibraryUtil {
 
     public static TypeLibraryType getTypeLibraryType(IProject project)
             throws CoreException {
-        return JAXB.unmarshal(getTypeInformationFile(project).getContents(),
-                TypeLibraryType.class);
+        return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem().getTypeRegistryBridge()
+        .unmarshalTypeInformationType(getTypeInformationFile(project).getContents());
 
     }
 
@@ -798,12 +798,6 @@ public class TypeLibraryUtil {
         };
         return comparator;
     }
-    
-	public static boolean isMavenStandardProject(IProject project) {
-		return project.getFolder(
-				SOATypeLibraryConstants.MAVEN_TYPES_FOLDER)
-				.exists();
-	}
 
     /**
      * Old type library project (in workspace) has the dir structure
@@ -1018,7 +1012,7 @@ public class TypeLibraryUtil {
 					}
 				} catch (Exception e) {
 					SOALogger.getLogger().error(e);
-					UIUtil.showErrorDialog(e);
+					UIUtil.showErrorDialog("Error Occurs","Error Occurs during type creation", e);
 					return;
 				}
 				resolvedModel.add(importModel);

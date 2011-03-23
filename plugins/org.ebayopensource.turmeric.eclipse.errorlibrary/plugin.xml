@@ -15,37 +15,38 @@
    <extension
          point="org.eclipse.ui.newWizards">
          <wizard
-                  category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
-                  class="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorLibraryWizard"
-                  icon="icons/script_obj.gif"
-                  id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorLibrary"
-                  name="%Wizard.ErrorLibrary.Shortcut.Name"
-                  preferredPerspectives="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
-                  project="true">
+               category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
+               class="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorLibraryWizard"
+               finalPerspective="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
+               icon="icons/script_obj.gif"
+               id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorLibrary"
+               name="%Wizard.ErrorLibrary.Shortcut.Name"
+               preferredPerspectives="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
+               project="true">
                <description>
                   %Wizard.ErrorLibrary.Shortcut.Description
                </description>
       </wizard>
       <wizard
-                  category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
-                  class="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorDomainWizard"
-                  icon="icons/script_obj.gif"
-                  id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorDomainWizard"
-                  name="%Wizard.ErrorDomain.Shortcut.Name"
-                  preferredPerspectives="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
-                  >
+            category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
+            class="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorDomainWizard"
+            finalPerspective="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
+            icon="icons/script_obj.gif"
+            id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorDomainWizard"
+            name="%Wizard.ErrorDomain.Shortcut.Name"
+            preferredPerspectives="org.ebayopensource.turmeric.eclipse.ui.soaPerspective">
                <description>
                   %Wizard.ErrorDomain.Shortcut.Description
                </description>
       </wizard>
 		<wizard
-                  category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
-                  class="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorWizard"
-                  icon="icons/script_obj.gif"
-                  id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorWizard"
-                  name="%Wizard.Error.Shortcut.Name"
-                  preferredPerspectives="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
-                  >
+        category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
+        class="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorWizard"
+        finalPerspective="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
+        icon="icons/script_obj.gif"
+        id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorWizard"
+        name="%Wizard.Error.Shortcut.Name"
+        preferredPerspectives="org.ebayopensource.turmeric.eclipse.ui.soaPerspective">
                <description>
                   %Wizard.Error.Shortcut.Description
                </description>

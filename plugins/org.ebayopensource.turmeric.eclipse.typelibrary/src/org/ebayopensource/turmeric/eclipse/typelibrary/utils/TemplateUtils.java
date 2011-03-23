@@ -364,8 +364,7 @@ public class TemplateUtils {
 			LibraryType libraryType = TypeLibraryUtil.getLibraryType(typeName,
 					version, typeLibInfo);
 
-			SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().addTypeToRegistry(
-					libraryType);
+			SOAGlobalRegistryAdapter.getInstance().addTypeToRegistry(libraryType);
 			IProject project = WorkspaceUtil.getProject(typeLibraryName);
 			TypeLibSynhcronizer.syncronizeXSDandDepXml(typeDefinition
 					.getSchema(), project, TypeLibraryUtil.toQName(libraryType));

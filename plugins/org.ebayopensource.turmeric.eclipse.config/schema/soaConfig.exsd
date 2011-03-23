@@ -85,6 +85,8 @@
                   </enumeration>
                   <enumeration value="XSD">
                   </enumeration>
+                  <enumeration value="XML">
+                  </enumeration>
                </restriction>
             </simpleType>
          </attribute>

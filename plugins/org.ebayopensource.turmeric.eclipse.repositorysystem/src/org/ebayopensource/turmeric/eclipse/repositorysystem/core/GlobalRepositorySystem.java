@@ -50,7 +50,7 @@ public class GlobalRepositorySystem {
 		IExtensionPoint extensionPoint = registry
 				.getExtensionPoint(RepositorySystemActivator.PLUGIN_ID
 						+ ".repositorysystem");
-		String systemID = PreferenceConstants.PREF_DEFAULT_REPOSITORY_SYSTEM;
+		String systemID = PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM;
 		if (extensionPoint != null) {
 			IExtension[] extensions = extensionPoint.getExtensions();
 			boolean foundV3 = false;
@@ -62,7 +62,7 @@ public class GlobalRepositorySystem {
 						repositorySystem = (ISOARepositorySystem) element
 								.createExecutableExtension("RepositorySystem");
 						availableRepositorySystems.add(repositorySystem);
-						if (PreferenceConstants.PREF_DEFAULT_REPOSITORY_SYSTEM.equals(repositorySystem.getId())) {
+						if (PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM.equals(repositorySystem.getId())) {
 							foundV3 = true;
 						}
 					} catch (CoreException e) {

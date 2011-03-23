@@ -13,7 +13,7 @@
 	<extension-point id="soaProjectResolver" name="Turmeric Project Resolver" schema="schema/soaProjectResolver.exsd"/>
     <extension
           id="soaproblem"
-          name="Turmeric Problem"
+          name="Turmeric SOA Problem"
           point="org.eclipse.core.resources.markers">
        <persistent value="true"/>
        <super

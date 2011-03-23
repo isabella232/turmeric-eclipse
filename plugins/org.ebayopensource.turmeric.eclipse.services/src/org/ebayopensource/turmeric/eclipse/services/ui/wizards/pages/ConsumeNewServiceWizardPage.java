@@ -38,6 +38,7 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.Enviro
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.ui.components.AbstractSOAServiceListViewer;
 import org.ebayopensource.turmeric.eclipse.utils.collections.SetUtil;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.ErrorMessage;
 import org.ebayopensource.turmeric.eclipse.validator.core.InputObject;
@@ -111,9 +112,12 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 				
 				final Text clientNameText = createClientNameText(composite, clientName);
 				if (TurmericServiceUtils.isSOAImplProject(project) 
-						&& TurmericServiceUtils.isSOAConsumerProject(project) == false) {
+						&& TurmericServiceUtils.isSOAConsumerProject(project) == false
+						&& StringUtils.isEmpty(clientName)) {
 					clientNameText.setText(StringUtils.substringBefore(project.getName(), 
-							SOAProjectConstants.IMPL_PROJECT_SUFFIX) + SOAProjectConstants.SERVICE_CLIENT_SUFFIX);
+							SOAProjectConstants.IMPL_PROJECT_SUFFIX) + SOAProjectConstants.CLIENT_PROJECT_SUFFIX);
+				} else {
+					clientNameText.setText(clientName);
 				}
 				createConsumerIDText(composite, consumerId);
 				createServiceList(composite);
@@ -310,6 +314,19 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 					return false;
 				}
 				
+				if (StringUtils.isNotBlank(clientName)) {
+					if (clientName.equalsIgnoreCase(project.getName())) {
+						updateStatus(this.clientName, "Client name should not be same as the implementation project name");
+						return false;
+					}
+					IProject clientProject = WorkspaceUtil.getProject(clientName);
+					if(clientProject.exists() && TurmericServiceUtils.isSOAConsumerProject(clientProject)) {
+						updateStatus(this.clientName, 
+								"Client name should not be same as the name of an existing consumer project->" + clientName);
+						return false;
+					}
+				}
+				
 				try {
 					final InputObject inputObject = new InputObject(clientName,
 							RegExConstants.PROJECT_NAME_EXP,
@@ -330,6 +347,8 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 					if (checkValidationResult(this.clientName, 
 							validationModel) == false)
 						return false;
+					
+					
 				} catch (ValidationInterruptedException e) {
 					processException(e);
 				}
