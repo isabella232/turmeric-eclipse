@@ -8,8 +8,6 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.utils.test.io;
 
-import static org.junit.Assert.fail;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +22,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.io.IOUtils;
 import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -60,15 +57,6 @@ public class TestPropertiesFileUtil {
 		System.out.println(props2);
 		Assert.assertFalse(PropertiesFileUtil.isEqual(props1, props2));
 		
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil#writeToFile(java.util.Properties, org.eclipse.core.resources.IFile, java.lang.String)}.
-	 */
-	@Ignore
-	@Test
-	public void testWriteToFile() {
-		fail("Not yet implemented");
 	}
 
 	/**
@@ -133,24 +121,6 @@ public class TestPropertiesFileUtil {
 			IOUtils.closeQuietly(input);
 			tempFile.delete();
 		}
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil#updatePropertyByKey(java.io.InputStream, java.io.OutputStream, java.lang.String, java.lang.String)}.
-	 */
-	@Ignore
-	@Test
-	public void testUpdatePropertyByKey() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil#addProperty(java.io.InputStream, java.io.OutputStream, java.util.Map)}.
-	 */
-	@Ignore
-	@Test
-	public void testAddProperty() {
-		fail("Not yet implemented");
 	}
 
 }

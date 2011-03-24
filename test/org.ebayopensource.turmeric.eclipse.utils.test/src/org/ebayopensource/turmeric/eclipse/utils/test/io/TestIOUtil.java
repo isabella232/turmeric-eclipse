@@ -12,7 +12,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +21,6 @@ import java.net.URL;
 import java.net.URLDecoder;
 
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
-import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -74,38 +72,11 @@ public class TestIOUtil {
 	}
 
 	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.io.IOUtil#writeTo(java.lang.String, org.eclipse.core.resources.IFile, org.eclipse.core.runtime.IProgressMonitor)}.
-	 */
-	@Ignore
-	@Test
-	public void testWriteTo() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.io.IOUtil#loadProperties(java.util.jar.JarFile, java.lang.String)}.
-	 */
-	@Ignore
-	@Test
-	public void testLoadProperties() {
-		fail("Not yet implemented");
-	}
-
-	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.io.IOUtil#getTempDirectory()}.
 	 */
 	@Test
 	public void testGetTempDirectory() {
 		assertEquals(new File(System.getProperty("java.io.tmpdir")), IOUtil.getTempDirectory());
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.io.IOUtil#getNonLockingURL(java.net.URL, java.lang.String)}.
-	 */
-	@Ignore
-	@Test
-	public void testGetNonLockingURL() {
-		fail("Not yet implemented");
 	}
 
 	/**

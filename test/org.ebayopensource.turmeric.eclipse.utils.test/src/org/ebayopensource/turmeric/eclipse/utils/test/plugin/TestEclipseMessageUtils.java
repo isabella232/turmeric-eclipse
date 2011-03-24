@@ -8,8 +8,6 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.utils.test.plugin;
 
-import static org.junit.Assert.fail;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,7 +17,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -41,33 +38,6 @@ public class TestEclipseMessageUtils {
 		Assert.assertNotNull(status);
 		Assert.assertFalse(status.isOK());
 		Assert.assertSame(e, status.getException());
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils#createSOAResourceErrorStatus(org.eclipse.core.resources.IResource, java.lang.String, java.lang.Throwable)}.
-	 */
-	@Ignore
-	@Test
-	public void testCreateSOAResourceErrorStatus() {
-		
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils#createSOAResourceWarnStatus(org.eclipse.core.resources.IResource, java.lang.String, java.lang.Throwable)}.
-	 */
-	@Ignore
-	@Test
-	public void testCreateSOAResourceWarnStatus() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils#createResourceErrorStatus(org.eclipse.core.runtime.IPath, java.lang.String, java.lang.Throwable)}.
-	 */
-	@Ignore
-	@Test
-	public void testCreateResrouceErrorStatus() {
-		fail("Not yet implemented");
 	}
 
 	/**

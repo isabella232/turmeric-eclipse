@@ -8,8 +8,6 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.utils.test.wsdl;
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -114,15 +112,6 @@ public class TestWSDLUtil {
 	}
 
 	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil#readWSDLFromJarFile(java.io.File, java.lang.String)}.
-	 */
-	@Ignore
-	@Test
-	public void testReadWSDLFromJarFile() {
-		fail("Not yet implemented");
-	}
-
-	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil#readWSDL(java.lang.String, java.io.InputStream)}.
 	 * @throws WSDLException 
 	 */
@@ -138,24 +127,6 @@ public class TestWSDLUtil {
 		} finally {
 			IOUtils.closeQuietly(input);
 		}
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil#writeWSDL(java.lang.String, java.lang.String)}.
-	 */
-	@Ignore
-	@Test
-	public void testWriteWSDLStringString() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil#writeWSDL(javax.wsdl.Definition, java.lang.String)}.
-	 */
-	@Ignore
-	@Test
-	public void testWriteWSDLDefinitionString() {
-		fail("Not yet implemented");
 	}
 
 	/**
@@ -196,15 +167,6 @@ public class TestWSDLUtil {
 		} finally {
 			IOUtils.closeQuietly(input);
 		}
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil#getTargetNamespace(java.lang.String)}.
-	 */
-	@Ignore
-	@Test
-	public void testGetTargetNamespaceString() {
-		fail("Not yet implemented");
 	}
 
 	/**

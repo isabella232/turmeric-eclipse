@@ -147,7 +147,6 @@ public class TestMavenEclipseApi {
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseApi#resolveArtifactAsClasspath(org.apache.maven.repository.metadata.ArtifactMetadata)}.
 	 * @throws MavenEclipseApiException 
 	 */
-	@Ignore
 	@Test
 	public void testResolveArtifactAsClasspathArtifactMetadata() throws MavenEclipseApiException {
 		ArtifactMetadata metadata = new EclipseArtifactMetadata("junit", "junit", "4.4");

@@ -8,8 +8,6 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.mavenapi.test.impl;
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -44,7 +42,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.JavaCore;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -334,15 +331,6 @@ public class TestMavenEclipseUtil {
 		Assert.assertEquals(model.getPackaging(), metadata.getType());
 		
 		Assert.assertNull(MavenEclipseUtil.artifactMetadata((Model)null));
-	}
-
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseUtil#artifactMetadata(org.maven.ide.eclipse.index.IndexedArtifactFile, java.lang.String)}.
-	 */
-	@Ignore
-	@Test
-	public void testArtifactMetadataIndexedArtifactFileString() {
-		fail("Not yet implemented");
 	}
 
 	/**
