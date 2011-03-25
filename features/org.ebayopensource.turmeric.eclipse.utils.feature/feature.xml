@@ -220,13 +220,6 @@ reason of your accepting any such warranty or additional liability.
          version="0.0.0"/>
 
    <plugin
-         id="org.ebayopensource.turmeric.eclipse.doc"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.ebayopensource.turmeric.eclipse.config.imp"
          download-size="0"
          install-size="0"
@@ -243,13 +236,6 @@ reason of your accepting any such warranty or additional liability.
 
    <plugin
          id="org.ebayopensource.turmeric.eclipse.repositorysystem.imp"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.ebayopensource.turmeric.eclipse.maven.sconfig"
          download-size="0"
          install-size="0"
          version="0.0.0"
