@@ -25,6 +25,7 @@ import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.ui.actions.BaseEditorActionDelegate;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
+import org.ebayopensource.turmeric.eclipse.utils.ui.exception.ExceptionHandler;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -111,11 +112,11 @@ public class ImportErrorAction extends BaseEditorActionDelegate {
 			}
 
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
-			SOAExceptionHandler.handleException(e);
+			ExceptionHandler.handleException(e);
 		} catch (SOAOperationNotAvailableException e) {
-			SOAExceptionHandler.handleException(e);
+			ExceptionHandler.handleException(e);
 		} catch (CoreException e) {
-			SOAExceptionHandler.handleException(e);
+			ExceptionHandler.handleException(e);
 		}
 	}
 

@@ -8,11 +8,8 @@ Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.utils
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.jface,
  org.eclipse.core.resources,
- org.eclipse.ui,
- org.eclipse.ui.ide,
- org.eclipse.team.core,
+  org.eclipse.team.core,
  org.eclipse.jdt.core,
  org.eclipse.jdt.launching,
  org.apache.ant,
@@ -53,7 +50,6 @@ Export-Package: freemarker,
  org.ebayopensource.turmeric.eclipse.utils.io,
  org.ebayopensource.turmeric.eclipse.utils.lang,
  org.ebayopensource.turmeric.eclipse.utils.plugin,
- org.ebayopensource.turmeric.eclipse.utils.ui,
  org.ebayopensource.turmeric.eclipse.utils.wsdl,
  org.ebayopensource.turmeric.eclipse.utils.xml
 Bundle-Version: 1.0.0.qualifier

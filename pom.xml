@@ -49,6 +49,7 @@
       <module>plugins/org.ebayopensource.turmeric.eclipse.core</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.build</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.utils</module>
+      <module>plugins/org.ebayopensource.turmeric.eclipse.utils.ui</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.exception</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.services</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.template.wsdl</module>

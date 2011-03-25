@@ -20,7 +20,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.ebayopensource.turmeric.eclipse.exception.ui.SOAPartNotFoundException;
-import org.ebayopensource.turmeric.eclipse.utils.UtilsActivator;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -269,7 +268,7 @@ public class UIUtil {
 			}
 
 			MultiStatus multiStatus = new MultiStatus(
-					UtilsActivator.PLUGIN_ID, 1, StringUtils
+					Activator.PLUGIN_ID, 1, StringUtils
 							.defaultString(reason), null);
 			status = multiStatus;
 			String stackTrace = ExceptionUtils.getStackTrace(exception);
@@ -279,7 +278,7 @@ public class UIUtil {
 			try {
 				while ((line = br.readLine()) != null) {
 					multiStatus.merge(new Status(IStatus.ERROR,
-							UtilsActivator.PLUGIN_ID, 1, line, null));
+							Activator.PLUGIN_ID, 1, line, null));
 				}
 			} catch (IOException ioex) {
 				ioex.printStackTrace();
@@ -332,7 +331,7 @@ public class UIUtil {
 					}
 
 					MultiStatus multiStatus = new MultiStatus(
-							UtilsActivator.PLUGIN_ID, 1, StringUtils
+							Activator.PLUGIN_ID, 1, StringUtils
 									.defaultString(reason), null);
 					status = multiStatus;
 					String stackTrace = ExceptionUtils.getStackTrace(exception);
@@ -342,7 +341,7 @@ public class UIUtil {
 					try {
 						while ((line = br.readLine()) != null) {
 							multiStatus.merge(new Status(IStatus.ERROR,
-									UtilsActivator.PLUGIN_ID, 1, line, null));
+									Activator.PLUGIN_ID, 1, line, null));
 						}
 					} catch (IOException ioex) {
 						ioex.printStackTrace();
