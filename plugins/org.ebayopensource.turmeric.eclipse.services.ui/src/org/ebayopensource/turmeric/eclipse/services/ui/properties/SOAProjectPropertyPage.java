@@ -32,7 +32,7 @@ import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject.SOAProjectSourceDirectory;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
-import org.ebayopensource.turmeric.eclipse.services.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;

@@ -15,10 +15,8 @@ import java.io.IOException;
 import java.util.PropertyResourceBundle;
 
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
 
@@ -26,10 +24,9 @@ import org.osgi.framework.BundleContext;
  * @author yayu
  *
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator extends Plugin {
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.services";
-	public static final String ICON_PATH = "icons/";
 
 	// The shared instance
 	private static Activator plugin;
@@ -87,7 +84,4 @@ public class Activator extends AbstractUIPlugin {
 		return plugin;
 	}
 
-	public static Image getImageFromRegistry(String path) {
-		return UIActivator.getImageFromRegistry(getDefault(), ICON_PATH, path);
-	}
 }

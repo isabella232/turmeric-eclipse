@@ -32,7 +32,7 @@ import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplat
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.services.buildsystem.ServiceCreator;
-import org.ebayopensource.turmeric.eclipse.services.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ChooseWSDLSourcePage;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.DependenciesWizardPage;

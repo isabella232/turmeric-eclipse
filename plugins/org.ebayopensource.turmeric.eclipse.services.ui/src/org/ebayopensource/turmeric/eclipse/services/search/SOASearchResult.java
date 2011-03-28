@@ -11,7 +11,7 @@
  */
 package org.ebayopensource.turmeric.eclipse.services.search;
 
-import org.ebayopensource.turmeric.eclipse.services.Activator;
+import org.ebayopensource.turmeric.eclipse.services.ui.Activator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.search.ui.ISearchQuery;

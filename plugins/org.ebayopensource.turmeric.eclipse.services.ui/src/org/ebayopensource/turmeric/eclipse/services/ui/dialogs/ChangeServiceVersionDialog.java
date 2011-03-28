@@ -14,7 +14,7 @@ import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModify
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
-import org.ebayopensource.turmeric.eclipse.services.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.ServiceFromWSDLWizard;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;

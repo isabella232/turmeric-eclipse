@@ -21,7 +21,7 @@ import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.registry.intf.IValidationStatus;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
-import org.ebayopensource.turmeric.eclipse.services.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.utils.ValidateUtil;

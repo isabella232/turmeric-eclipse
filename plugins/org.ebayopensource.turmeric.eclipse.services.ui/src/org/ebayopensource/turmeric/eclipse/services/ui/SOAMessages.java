@@ -6,7 +6,7 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.services.resources;
+package org.ebayopensource.turmeric.eclipse.services.ui;
 
 import org.eclipse.osgi.util.NLS;
 
@@ -17,7 +17,7 @@ import org.eclipse.osgi.util.NLS;
  * 
  */
 public class SOAMessages extends NLS {
-private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.eclipse.services.resources.messages"; //$NON-NLS-1$
+private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.eclipse.services.ui.messages"; //$NON-NLS-1$
 
 	
 	static {

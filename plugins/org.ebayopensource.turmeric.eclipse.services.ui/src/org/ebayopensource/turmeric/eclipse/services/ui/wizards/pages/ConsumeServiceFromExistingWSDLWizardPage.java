@@ -37,7 +37,7 @@ import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
-import org.ebayopensource.turmeric.eclipse.services.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
