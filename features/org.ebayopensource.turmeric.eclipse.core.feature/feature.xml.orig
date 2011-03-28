@@ -274,6 +274,7 @@ reason of your accepting any such warranty or additional liability.
          unpack="false"/>
 
    <plugin
+<<<<<<< HEAD
          id="org.ebayopensource.turmeric.eclipse.build"
          download-size="0"
          install-size="0"
@@ -281,6 +282,8 @@ reason of your accepting any such warranty or additional liability.
          unpack="false"/>
 
    <plugin
+=======
+>>>>>>> turmeric-1362
          id="org.ebayopensource.turmeric.eclipse.config"
          download-size="0"
          install-size="0"

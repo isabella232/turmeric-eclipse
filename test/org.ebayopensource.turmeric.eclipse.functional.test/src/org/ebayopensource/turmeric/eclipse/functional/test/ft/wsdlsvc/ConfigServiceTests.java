@@ -13,12 +13,12 @@ package org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc;
 
 import junit.framework.Assert;
 
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.PropertiesUtil;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
-import org.ebayopensource.turmeric.eclipse.ui.util.PropertiesPageUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
@@ -62,7 +62,7 @@ public class ConfigServiceTests extends AbstractTestCase {
 		String envName = "production";
 		String[] requiredServices = null;
 		try {
-			PropertiesPageUtil.modifyServiceDependencies(project, envName,
+			PropertiesUtil.modifyServiceDependencies(project, envName,
 					model.getServiceName(),
 					model.getServiceName() + "Client67",
 					"http://localhost/ws/spf", "LOCAL", "SOAP12", "NV", "NV",

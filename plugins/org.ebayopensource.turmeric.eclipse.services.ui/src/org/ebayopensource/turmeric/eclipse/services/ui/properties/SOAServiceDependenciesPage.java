@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.PropertiesUtil;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
@@ -27,7 +28,6 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.EnvironmentItem;
 import org.ebayopensource.turmeric.eclipse.ui.components.SOAConsumerServicesViewer;
 import org.ebayopensource.turmeric.eclipse.ui.components.SimpleComboBoxEditor;
-import org.ebayopensource.turmeric.eclipse.ui.util.PropertiesPageUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IProject;
@@ -434,7 +434,7 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 					.getAssetRegistry().getProjectInfo(serviceName);
 			final String implProjectName = intfProjectInfo
 					.getImplementationProjectName();
-			IStatus status = PropertiesPageUtil.validate(serviceName,
+			IStatus status = PropertiesUtil.validate(serviceName,
 					implProjectName, newServiceLocation, newServiceBinding);
 
 			if (status == Status.OK_STATUS) {
@@ -450,7 +450,7 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 										+ serviceName,
 								ProgressUtil.PROGRESS_STEP * 15);
 						try {
-							PropertiesPageUtil.modifyServiceDependencies(
+							PropertiesUtil.modifyServiceDependencies(
 									project, clientEnv.getEnvironment(),
 									serviceName, implProjectName,
 									newServiceLocation, newServiceBinding,

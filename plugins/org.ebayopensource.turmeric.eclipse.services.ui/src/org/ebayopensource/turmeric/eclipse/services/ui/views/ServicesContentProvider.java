@@ -8,10 +8,10 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.services.ui.views;
 
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.PropertiesUtil;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
-import org.ebayopensource.turmeric.eclipse.ui.util.PropertiesPageUtil;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
@@ -31,7 +31,7 @@ public class ServicesContentProvider implements ITreeContentProvider {
 			obj[0] = new ServicesViewLayerModel(projectInfo.getServiceLayer());
 			try {
 				obj[1] = new ServicesViewInterfaceModel(
-						PropertiesPageUtil.getInterfaceClassNameForService(projectInfo.getName()));
+						PropertiesUtil.getInterfaceClassNameForService(projectInfo.getName()));
 			} catch (Exception e) {
 				SOALogger.getLogger().error(e);
 			}

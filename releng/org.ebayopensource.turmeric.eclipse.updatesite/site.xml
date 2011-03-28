@@ -15,6 +15,9 @@
    <feature url="features/org.ebayopensource.turmeric.eclipse.mavenstd.feature_1.0.0.qualifier.jar" id="org.ebayopensource.turmeric.eclipse.mavenstd.feature" version="1.0.0.qualifier">
       <category name="turmeric_maven_integration"/>
    </feature>
+   <feature url="features/org.ebayopensource.turmeric.eclipse.legacy.feature_1.0.0.qualifier.jar" id="org.ebayopensource.turmeric.eclipse.legacy.feature" version="1.0.0.qualifier">
+      <category name="turmeric_legacy"/>
+   </feature>
    <category-def name="turmeric_core" label="Turmeric Core">
       <description>
          Turmeric Core contains the ui and core components for the turmeric eclipse plugin.  This includes extension points for adopters wishing to extend the turmeric eclipse plugins for additional functionality.
@@ -23,6 +26,11 @@
    <category-def name="turmeric_maven_integration" label="Turmeric Maven Integration">
       <description>
          Provides integration for Maven and m2Eclipse.
+      </description>
+   </category-def>
+   <category-def name="turmeric_legacy" label="Turmeric Legacy Feature">
+      <description>
+         This feature includes functionality for working with projects in the legacy format.  These projects use source folders in the format of src, gen-src, gen-meta-src, gen-web-content, etc.   Install this feature to use Turmeric with these projects.
       </description>
    </category-def>
 </site>
