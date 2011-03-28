@@ -45,7 +45,6 @@ import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
-import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -547,9 +546,9 @@ public class ActionUtil {
 						"Exception occures while Running Assertion Service Validation: "
 								+ e.getMessage(), IStatus.WARNING);
 				statuses.add(status);
-				UIUtil.showErrorDialog(
-						SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED_TITLE,
-						SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED, e);
+//				UIUtil.showErrorDialog(
+//						SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED_TITLE,
+//						SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED, e);
 
 			}
 		} else {
