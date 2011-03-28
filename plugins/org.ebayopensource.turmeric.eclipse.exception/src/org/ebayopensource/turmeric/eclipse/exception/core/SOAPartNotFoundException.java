@@ -6,7 +6,7 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.exception.ui;
+package org.ebayopensource.turmeric.eclipse.exception.core;
 
 import org.ebayopensource.turmeric.eclipse.exception.AbstractSOAException;
 import org.ebayopensource.turmeric.eclipse.exception.messages.SOAMessages;

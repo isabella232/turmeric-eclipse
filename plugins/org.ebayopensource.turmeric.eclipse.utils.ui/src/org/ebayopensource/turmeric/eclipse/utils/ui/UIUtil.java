@@ -19,7 +19,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.ebayopensource.turmeric.eclipse.exception.ui.SOAPartNotFoundException;
+import org.ebayopensource.turmeric.eclipse.exception.core.SOAPartNotFoundException;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;

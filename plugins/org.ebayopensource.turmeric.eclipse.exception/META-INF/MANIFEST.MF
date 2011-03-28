@@ -11,7 +11,6 @@ Export-Package: org.ebayopensource.turmeric.eclipse.exception,
  org.ebayopensource.turmeric.eclipse.exception.messages,
  org.ebayopensource.turmeric.eclipse.exception.resources,
  org.ebayopensource.turmeric.eclipse.exception.resources.projects,
- org.ebayopensource.turmeric.eclipse.exception.ui,
  org.ebayopensource.turmeric.eclipse.exception.validation
 Bundle-Version: 1.0.0.qualifier
 Bundle-ManifestVersion: 2
