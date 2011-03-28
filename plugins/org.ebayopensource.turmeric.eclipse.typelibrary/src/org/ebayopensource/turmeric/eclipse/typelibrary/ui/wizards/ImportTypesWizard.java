@@ -12,10 +12,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ImportTypeModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ImportTypesWizardPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.NewTypeLibraryWizardPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IProject;
@@ -106,20 +106,21 @@ public class ImportTypesWizard extends AbstractTypeLibraryWizard {
 		}
 		final String tlProjectName = tlProjectNameTemp;
 		final String tlNamespace = tlNamespaceTemp;
-		final List<ImportTypeModel> types = typeSelectPage
+		final List<TypeModel> types = typeSelectPage
 				.getSelectedTypeImportModels();
-		for (ImportTypeModel model : types) {
-			model.getTypeModel().setNamespace(tlNamespace);
+		for (TypeModel model : types) {
+			model.setNamespace(tlNamespace);
+			model.setTypeLibName(tlProjectName);
 		}
 		final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 			@Override
 			protected void execute(IProgressMonitor monitor) {
 
 				monitor.beginTask("Creating type ", ProgressUtil.PROGRESS_STEP
-						* (types.size() * 10 + 70));
+						* (types.size() * 3 + 10));
 
-				TypeLibraryUtil.importTypesToTypeLibrary(types, tlProjectName,
-						monitor);
+				TypeLibraryUtil.importTypesToTypeLibrarySAXP(types,
+						tlProjectName, monitor);
 
 				monitor.done();
 			}

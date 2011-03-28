@@ -24,8 +24,8 @@ import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
@@ -48,9 +48,9 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 	private CCombo categoryCombo;
 	private Text namespaceText;
 	private Button overrideNamespaceBtn;
-	private List<TypeParamModel> types;
+	private List<TypeModel> types;
 
-	public void setImportedTypes(List<TypeParamModel> types) {
+	public void setImportedTypes(List<TypeModel> types) {
 		this.types = types;
 		this.dialogChanged();
 	}
@@ -197,7 +197,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 			return true;
 		}
 		StringBuffer dupNames = new StringBuffer();
-		for (TypeParamModel type : types) {
+		for (TypeModel type : types) {
 
 			boolean hasType = true;
 			try {
