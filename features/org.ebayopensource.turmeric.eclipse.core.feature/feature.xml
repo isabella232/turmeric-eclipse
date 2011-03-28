@@ -302,13 +302,6 @@ reason of your accepting any such warranty or additional liability.
          unpack="false"/>
 
    <plugin
-         id="org.ebayopensource.turmeric.eclipse.validator"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.ebayopensource.turmeric.eclipse.build"
          download-size="0"
          install-size="0"

@@ -9,11 +9,16 @@ Require-Bundle: org.eclipse.core.runtime,
  org.ebayopensource.turmeric.eclipse.exception,
  org.ebayopensource.turmeric.eclipse.utils,
  org.eclipse.core.resources,
- org.ebayopensource.turmeric.eclipse.logging
+ org.ebayopensource.turmeric.eclipse.logging,
+ org.apache.commons.lang;bundle-version="2.4.0",
+ org.eclipse.wst.wsdl.validation;bundle-version="1.1.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.core.Activator
 Export-Package: org.ebayopensource.turmeric.eclipse.core,
  org.ebayopensource.turmeric.eclipse.core.buildsystem,
- org.ebayopensource.turmeric.eclipse.core.exception
+ org.ebayopensource.turmeric.eclipse.core.exception,
+ org.ebayopensource.turmeric.eclipse.validator.core,
+ org.ebayopensource.turmeric.eclipse.validator.utils,
+ org.ebayopensource.turmeric.eclipse.validator.utils.common
 Bundle-Version: 1.0.0.qualifier
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
