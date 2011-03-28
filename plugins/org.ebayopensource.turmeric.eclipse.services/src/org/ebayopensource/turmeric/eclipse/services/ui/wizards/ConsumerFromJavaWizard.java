@@ -26,6 +26,7 @@ import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ConsumerFro
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLPage;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
+import org.ebayopensource.turmeric.eclipse.utils.ui.ProjectUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.ISOAPreValidator;
 import org.eclipse.core.runtime.CoreException;
@@ -77,7 +78,7 @@ public class ConsumerFromJavaWizard extends SOABaseWizard {
 		try {
 			if (SOALogger.DEBUG)
 				logger.entering();
-			if (!SOAIntfUtil.isProjectGoodForConsumption(newConsumerPage
+			if (!ProjectUtils.isProjectGoodForConsumption(newConsumerPage
 					.getServiceList().toArray(new String[0]))) {
 				return false;
 

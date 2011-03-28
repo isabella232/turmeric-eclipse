@@ -44,6 +44,7 @@ import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.S
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAClientConfigUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
+import org.ebayopensource.turmeric.eclipse.utils.ui.ProjectUtils;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.EnvironmentItem;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.ModifyConsumerIDResult;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ConsumeNewServiceWizardPage;
@@ -140,7 +141,7 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 				for (AssetInfo asset : addedServices) {
 					addedServiceList.add(asset.getName());
 				}
-				if (SOAIntfUtil.isProjectGoodForConsumption(addedServiceList
+				if (ProjectUtils.isProjectGoodForConsumption(addedServiceList
 						.toArray(new String[0])) == false) {
 					return false;
 				}
