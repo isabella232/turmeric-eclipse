@@ -6,7 +6,6 @@ Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.codegen
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.ui,
  org.eclipse.jdt.core,
  org.eclipse.core.resources,
  org.ebayopensource.turmeric.eclipse.resources,

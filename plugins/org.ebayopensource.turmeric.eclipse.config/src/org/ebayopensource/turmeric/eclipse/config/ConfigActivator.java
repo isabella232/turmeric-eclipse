@@ -10,7 +10,7 @@ package org.ebayopensource.turmeric.eclipse.config;
 
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
 
@@ -18,7 +18,7 @@ import org.osgi.framework.BundleContext;
  * The activator class controls the plug-in life cycle
  * @author smathew
  */
-public class ConfigActivator extends AbstractUIPlugin {
+public class ConfigActivator extends Plugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.config";
