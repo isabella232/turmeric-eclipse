@@ -19,14 +19,14 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage;
+import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.runtime.IStatus;
@@ -99,7 +99,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 
 	protected List<String> getAllCategories() {
 		List<String> strList = new ArrayList<String>();
-		for (final String category : TypeLibraryUtil.getCategories())
+		for (final String category : UIActivator.getCategories())
 			strList.add(category);
 		return strList;
 	}

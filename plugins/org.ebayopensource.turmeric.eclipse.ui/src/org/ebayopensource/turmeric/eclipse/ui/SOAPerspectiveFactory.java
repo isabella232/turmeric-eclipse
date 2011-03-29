@@ -50,10 +50,10 @@ public final class SOAPerspectiveFactory extends JavaPerspectiveFactory{
 			}
 		}
 		
-		layout.addView(VIEWID_SERVICES_EXPLORER, IPageLayout.TOP, 
-				(float)0.5, IPageLayout.ID_OUTLINE);
-		IPlaceholderFolderLayout topFolder = layout.getFolderForView(VIEWID_SERVICES_EXPLORER);
-		((IFolderLayout)topFolder).addView(VIEWID_ERROR);
+//		layout.addView(VIEWID_SERVICES_EXPLORER, IPageLayout.TOP, 
+//				(float)0.5, IPageLayout.ID_OUTLINE);
+//		IPlaceholderFolderLayout topFolder = layout.getFolderForView(VIEWID_SERVICES_EXPLORER);
+//		((IFolderLayout)topFolder).addView(VIEWID_ERROR);
 		
 		IPlaceholderFolderLayout folderLayout = layout.getFolderForView(IPageLayout.ID_OUTLINE);
 		if (folderLayout instanceof IFolderLayout) {

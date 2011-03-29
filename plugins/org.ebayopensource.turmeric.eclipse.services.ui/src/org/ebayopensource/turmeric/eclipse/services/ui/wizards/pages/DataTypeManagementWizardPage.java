@@ -13,11 +13,11 @@ package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 
 import java.util.List;
 
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.IParameterElement;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel.ParameterElement;
-import org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeSelector;
+import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Composite;

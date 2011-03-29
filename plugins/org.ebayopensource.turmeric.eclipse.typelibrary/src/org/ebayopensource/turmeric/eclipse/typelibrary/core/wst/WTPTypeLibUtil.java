@@ -22,13 +22,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.exception.core.SOABadParameterException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeDepMarshaller;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;

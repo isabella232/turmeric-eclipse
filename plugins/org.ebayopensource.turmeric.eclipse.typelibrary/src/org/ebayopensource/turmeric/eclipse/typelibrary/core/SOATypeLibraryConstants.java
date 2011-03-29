@@ -56,7 +56,7 @@ public class SOATypeLibraryConstants {
 
 	public static final String STAGING_PROJECT_NAME = "typelibstagingarea";
 
-	public static final String EBAY_XSD_FILE_PROTOCOL = "typelib";
+	public static final String TURMERIC_XSD_FILE_PROTOCOL = "typelib";
 
 	public static final String PROTOCOL_DELIMITER_START = "://";
 
@@ -77,12 +77,6 @@ public class SOATypeLibraryConstants {
 	public static final String TEMPLATE_TYPE_REPLACE_STRING = "string";
 	public static final String TEMPLATE_DOC_REPLACE_STRING = "Type Documentation";
 
-	/*public static final String SIMPLE_TYPES_FOLDER = "simple";
-	public static final String ENUM_TYPES_FOLDER = "enum";
-	public static final String COMPLEX_TYPES_FOLDER = "complex";
-	public static final String COMPLEXSC_TYPES_FOLDER = "complex_simplecontent";
-	public static final String COMPLEXCC_TYPES_FOLDER = "complex_complexcontent";*/
-
 	public static final String SIMPLE_TYPE_NAME = "Simple Type";
 	public static final String COMPLEX_TYPE_NAME = "Complex Type";
 	public static final String ENUM_TYPE_NAME = "Enum Type";
@@ -100,7 +94,5 @@ public class SOATypeLibraryConstants {
 	public static final String ATTR_NMSPC = "namespace";
 
 	public static final String ATTR_TYPE_INFO_LIBNAME = "libraryName";
-	
-	//public static final String MARKETPLACE_NAME_SPACE_SUFFIX="/types";
 
 }

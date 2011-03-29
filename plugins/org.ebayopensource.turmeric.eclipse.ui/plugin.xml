@@ -71,4 +71,17 @@
              name="%CheatSheet.Name">
        </cheatsheet>
     </extension>
+    
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.ebayopensource.turmeric.eclipse.ui.category"
+            class="org.ebayopensource.turmeric.eclipse.ui.views.registry.RegistryView"
+            icon="icons/script_obj.gif"
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.registryView"
+            name="%View.TypeExplorer.Name">
+      </view>
+   </extension>  
+   
+       
 </plugin>

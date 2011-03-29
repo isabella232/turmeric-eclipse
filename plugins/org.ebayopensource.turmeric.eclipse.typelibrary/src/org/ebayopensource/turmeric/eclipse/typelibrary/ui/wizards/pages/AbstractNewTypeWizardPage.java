@@ -22,7 +22,6 @@ import javax.xml.namespace.QName;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
@@ -37,6 +36,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateUtils;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage;
 import org.ebayopensource.turmeric.eclipse.ui.components.ProjectSelectionListLabelProvider;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.tools.library.TypeLibraryConstants;

@@ -19,7 +19,6 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
@@ -35,6 +34,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeMod
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.ui.components.ProjectSelectionListLabelProvider;
 import org.ebayopensource.turmeric.eclipse.ui.dialogs.DetailMessageDialog;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.InputObject;

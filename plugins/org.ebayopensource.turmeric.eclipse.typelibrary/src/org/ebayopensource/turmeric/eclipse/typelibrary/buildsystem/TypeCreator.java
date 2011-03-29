@@ -18,7 +18,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryType;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
@@ -33,6 +32,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage.ElementTableModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.XSDTypeParser;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;

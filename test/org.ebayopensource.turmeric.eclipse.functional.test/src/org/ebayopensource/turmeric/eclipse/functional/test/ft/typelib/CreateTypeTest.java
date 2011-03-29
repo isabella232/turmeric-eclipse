@@ -18,13 +18,13 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;

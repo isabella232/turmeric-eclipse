@@ -12,10 +12,10 @@ import java.net.URL;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeSelector;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;

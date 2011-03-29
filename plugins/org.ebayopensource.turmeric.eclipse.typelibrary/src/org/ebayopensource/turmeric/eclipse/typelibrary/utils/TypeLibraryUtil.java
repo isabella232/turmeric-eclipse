@@ -37,7 +37,6 @@ import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryType;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
 import org.ebayopensource.turmeric.eclipse.config.exception.SOAConfigAreaCorruptedException;
@@ -65,6 +64,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeLibraryParam
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -229,7 +229,7 @@ public class TypeLibraryUtil {
 	public static String getProtocolString(LibraryType type) {
 		String retValue = null;
 		if (type != null)
-			retValue = SOATypeLibraryConstants.EBAY_XSD_FILE_PROTOCOL
+			retValue = SOATypeLibraryConstants.TURMERIC_XSD_FILE_PROTOCOL
 					+ SOATypeLibraryConstants.PROTOCOL_DELIMITER_START
 					+ type.getLibraryInfo().getLibraryName()
 					+ SOATypeLibraryConstants.PROTOCOL_DELIMITER
@@ -351,10 +351,12 @@ public class TypeLibraryUtil {
 		String retValue = null;
 		if (!StringUtils.isEmpty(typeLibString)
 				&& typeLibString
-						.startsWith(SOATypeLibraryConstants.EBAY_XSD_FILE_PROTOCOL)) {
+						.startsWith(SOATypeLibraryConstants.TURMERIC_XSD_FILE_PROTOCOL)) {
+			
 			// removing type lib start string
 			retValue = StringUtils.substringAfterLast(typeLibString,
 					SOATypeLibraryConstants.PROTOCOL_DELIMITER);
+			
 			// removing xsd extn end string
 			retValue = StringUtils.substringBeforeLast(retValue,
 					SOATypeLibraryConstants.EXT_XSD);
@@ -367,7 +369,7 @@ public class TypeLibraryUtil {
 		String retValue = null;
 		if (!StringUtils.isEmpty(typeLibString)
 				&& typeLibString
-						.startsWith(SOATypeLibraryConstants.EBAY_XSD_FILE_PROTOCOL)) {
+						.startsWith(SOATypeLibraryConstants.TURMERIC_XSD_FILE_PROTOCOL)) {
 			if (isNewStylePrototocol(typeLibString)) {
 				retValue = StringUtils.substringBetween(typeLibString,
 						SOATypeLibraryConstants.PROTOCOL_DELIMITER,
@@ -736,28 +738,6 @@ public class TypeLibraryUtil {
 		return null;
 	}
 
-	/**
-	 * @return
-	 * 
-	 *         Parses the global config categories the format is CATEGORIES =
-	 *         {COMMON, DOMAIN, SERVICE}
-	 */
-	public static List<String> getCategories() {
-		List<String> categories = new ArrayList<String>();
-		String categoryStr = "";
-		try {
-			categoryStr = SOAGlobalConfigAccessor.getCategoriesForTypeLib();
-
-		} catch (IOException e) {
-			SOALogger.getLogger().error(e);
-		}
-		if (!StringUtils.isEmpty(categoryStr)) {
-			categories = Arrays.asList(StringUtils.split(StringUtils
-					.substringBetween(categoryStr, "{", "}"), ","));
-		}
-		return categories;
-	}
-
 	public static LibraryType toLibraryType(QName qname) throws Exception {
 		return SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
 				.getType(qname);
@@ -786,21 +766,6 @@ public class TypeLibraryUtil {
 		return new QName(typeLibraryNameSpace, typeName);
 	}
 
-	public static ViewerComparator getLibraryComparator() {
-		final ViewerComparator comparator = new ViewerComparator() {
-			@Override
-			public int compare(Viewer viewer, Object e1, Object e2) {
-				if (e1 instanceof LibraryType && e2 instanceof LibraryType) {
-					return ((LibraryType) e1).getName().compareTo(
-							((LibraryType) e2).getName());
-				}
-				return String.CASE_INSENSITIVE_ORDER.compare(e1.toString(), e2
-						.toString());
-			}
-
-		};
-		return comparator;
-	}
 
 	/**
 	 * Old type library project (in workspace) has the dir structure

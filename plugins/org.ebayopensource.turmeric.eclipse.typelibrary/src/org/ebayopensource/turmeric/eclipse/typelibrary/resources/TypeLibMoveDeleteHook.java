@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryDeltaVisitor;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.collections.CollectionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.tools.library.SOAGlobalRegistryFactory;

@@ -24,7 +24,24 @@ public class SOAMessages extends NLS {
 	public static String OVERRIDE;
 
 	public static String OPTIONS;
+
+	public static String SEARCH;
+
+	public static String TYPE_LIB;
+
+	public static String TYPE_LIB_WKS;
 	
+	public static String TYPES;
+	
+	public static String TYPES_WKS;
+	
+	public static String SEARCH_TIP;
+	
+	public static String TREE_TIP;
+	
+	public static String TYPE_LIB_ERR;
+	
+	public static String ERROR;
 
 	static {
 		// initialize resource bundle

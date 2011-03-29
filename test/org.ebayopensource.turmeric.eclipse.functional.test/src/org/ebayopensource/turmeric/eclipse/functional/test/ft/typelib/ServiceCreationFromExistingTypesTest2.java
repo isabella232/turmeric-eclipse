@@ -15,7 +15,6 @@ import javax.xml.namespace.QName;
 
 import junit.framework.Assert;
 
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFromBlankWsdlTest;
@@ -23,6 +22,7 @@ import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.SimpleTestUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;

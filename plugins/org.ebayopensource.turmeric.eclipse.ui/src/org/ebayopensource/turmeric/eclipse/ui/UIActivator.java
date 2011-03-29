@@ -9,11 +9,23 @@
 package org.ebayopensource.turmeric.eclipse.ui;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.PropertyResourceBundle;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
+import org.ebayopensource.turmeric.eclipse.core.Activator;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -146,4 +158,60 @@ public class UIActivator extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(final String path) {
 		return getImageDescriptor(PLUGIN_ID, path);
 	}
+	
+	/**
+	 * @return
+	 * 
+	 *         Parses the global config categories the format is CATEGORIES =
+	 *         {COMMON, DOMAIN, SERVICE}
+	 */
+	public static List<String> getCategories() {
+		List<String> categories = new ArrayList<String>();
+		String categoryStr = "";
+		try {
+			categoryStr = SOAGlobalConfigAccessor.getCategoriesForTypeLib();
+
+		} catch (IOException e) {
+			SOALogger.getLogger().error(e);
+		}
+		if (!StringUtils.isEmpty(categoryStr)) {
+			categories = Arrays.asList(StringUtils.split(StringUtils
+					.substringBetween(categoryStr, "{", "}"), ","));
+		}
+		return categories;
+	}	
+	
+	public static URL getXSD(String libraryName, String typeName)
+			throws Exception {
+		String jarLocation = GlobalRepositorySystem.instanceOf()
+				.getActiveRepositorySystem().getAssetRegistry()
+				.getAssetLocation(libraryName);
+		if (!StringUtils.isEmpty(jarLocation)
+				&& jarLocation.endsWith("jar")) {
+			String xsdName = Activator.getXsdFileNameFromTypeName(typeName);
+			URL jarURL = IOUtil.toURL(jarLocation);
+			String jarEntryPath = "";
+			if (Activator.isNewTypLibrary(jarURL, libraryName)) {
+				jarEntryPath = Activator.TYPES_LOCATION_IN_JAR
+						+ WorkspaceUtil.PATH_SEPERATOR + libraryName
+						+ WorkspaceUtil.PATH_SEPERATOR + xsdName;
+			} else {
+				jarEntryPath = Activator.TYPES_LOCATION_IN_JAR
+						+ WorkspaceUtil.PATH_SEPERATOR + xsdName;
+			}
+			return IOUtil.getNonLockingURL(jarURL, jarEntryPath);
+		} else {
+			IProject project = WorkspaceUtil.getProject(libraryName);
+			if (project.isAccessible()) {
+				IFile file = project.getFile(Activator.getXsdFileLocation(typeName, project));
+				return file.getLocation().toFile().toURI().toURL();
+			}
+			return null;
+		}
+	}
+	
+	public static URL getXSD(LibraryType libType) throws Exception {
+		return getXSD(libType.getLibraryInfo().getLibraryName(),
+				libType.getName());
+	}	
 }

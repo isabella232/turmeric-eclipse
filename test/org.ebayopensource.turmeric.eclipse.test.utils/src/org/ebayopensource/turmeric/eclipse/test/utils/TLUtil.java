@@ -16,7 +16,6 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeCreator;
@@ -34,6 +33,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexT
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage.ElementTableModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.EnumTypeWizardDetailsPage.EnumTableModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;

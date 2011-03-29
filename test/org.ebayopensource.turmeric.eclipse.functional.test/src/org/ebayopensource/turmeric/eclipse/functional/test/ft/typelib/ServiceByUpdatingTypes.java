@@ -16,7 +16,6 @@ import java.util.Map;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
@@ -32,6 +31,7 @@ import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.UpdateTypeVersion;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.WTPTypeLibUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;

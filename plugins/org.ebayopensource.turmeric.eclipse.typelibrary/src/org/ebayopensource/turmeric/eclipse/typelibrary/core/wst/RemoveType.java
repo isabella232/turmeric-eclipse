@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.actions.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
-import org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeSelector;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;

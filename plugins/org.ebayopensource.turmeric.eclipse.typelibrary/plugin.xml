@@ -422,17 +422,6 @@
 
    </extension>
    
-   <extension
-         point="org.eclipse.ui.views">
-      <view
-            category="org.ebayopensource.turmeric.eclipse.ui.category"
-            class="org.ebayopensource.turmeric.eclipse.typelibrary.registry.RegistryView"
-            icon="icons/script_obj.gif"
-            id="org.ebayopensource.turmeric.eclipse.typelibrary.registryView"
-            name="%View.TypeExplorer.Name">
-      </view>
-   </extension>  
-   
    <extension id="typeLibResolver" name="Type Library Resolver" point="org.eclipse.wst.common.uriresolver.resolverExtensions">
  		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeLibResolver" priority="high" stage="physical">
   			<projectNature value="%SOA.ProjectNatureID.TypeLibrary" /> 
@@ -441,6 +430,7 @@
   			<projectNature value="%SOA.ProjectNatureID.TypeLibrary" /> 
   		</resolverExtension>
    </extension>
+   
    <extension
          point="org.ebayopensource.turmeric.eclipse.resources.soaProjectResolver">
       <soaProjectResolver

@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOATypeCreationFailedException;
@@ -42,6 +41,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.TypeSele
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage.ElementTableModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
