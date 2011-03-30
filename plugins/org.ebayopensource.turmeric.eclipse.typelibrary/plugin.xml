@@ -423,10 +423,10 @@
    </extension>
    
    <extension id="typeLibResolver" name="Type Library Resolver" point="org.eclipse.wst.common.uriresolver.resolverExtensions">
- 		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeLibResolver" priority="high" stage="physical">
+ 		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.resolvers.TypeLibResolver" priority="high" stage="physical">
   			<projectNature value="%SOA.ProjectNatureID.TypeLibrary" /> 
   		</resolverExtension>
-  		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeLibResolver" priority="high" stage="prenormalization">
+  		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.resolvers.TypeLibResolver" priority="high" stage="prenormalization">
   			<projectNature value="%SOA.ProjectNatureID.TypeLibrary" /> 
   		</resolverExtension>
    </extension>
