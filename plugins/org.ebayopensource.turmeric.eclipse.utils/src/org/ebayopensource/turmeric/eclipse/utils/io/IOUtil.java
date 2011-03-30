@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.jar.JarEntry;
@@ -80,6 +81,11 @@ public class IOUtil {
 	 */
 	public static boolean readableDir(File dir) {
 		return null != dir && dir.isDirectory() && dir.canRead();
+	}
+	
+	public static String joinAll(final String... parts) {		
+		final String dirStr = StringUtils.join(Arrays.asList(parts), File.separator);
+		return dirStr;
 	}
 
 	private IOUtil() {
