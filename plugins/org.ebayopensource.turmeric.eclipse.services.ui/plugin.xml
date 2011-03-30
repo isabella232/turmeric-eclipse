@@ -52,6 +52,12 @@
          <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.services.ui.wizards.NewConsumerFromJava"/>
          <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.services.ui.wizards.NewConsumerFromWSDL"/>
          <viewShortcut id="org.ebayopensource.turmeric.eclipse.services.ui.views.ServicesExplorerView"/>
+         <view
+               id="org.ebayopensource.turmeric.eclipse.services.ui.views.ServicesExplorerView"
+               minimized="false"
+               relative="org.eclipse.ui.views.ContentOutline"
+               relationship="top">
+         </view>
       </perspectiveExtension>
       <perspectiveExtension targetID="org.eclipse.jdt.ui.JavaPerspective">
         <perspectiveShortcut id="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"/>

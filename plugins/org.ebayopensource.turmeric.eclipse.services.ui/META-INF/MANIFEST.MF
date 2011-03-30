@@ -5,6 +5,7 @@ Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.services.ui;singleton:=
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.services.ui.Activator
 Bundle-Vendor: eBay, Inc.
+Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.ebayopensource.turmeric.eclipse.repositorysystem;bundle-version="1.0.0",

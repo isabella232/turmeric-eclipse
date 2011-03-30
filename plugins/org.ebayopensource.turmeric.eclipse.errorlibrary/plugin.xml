@@ -12,6 +12,16 @@
 <plugin>
    <extension-point id="soaErrorLibProvider" name="Turmeric Error Library Provider" schema="schema/soaErrorLibProvider.exsd"/>
     <extension-point id="soaErrorLibModelProvider" name="Turmeric Error Library Model  Provider" schema="schema/soaErrorLibViewModelProvider.exsd"/>
+ <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.ebayopensource.turmeric.eclipse.ui.category"
+            class="org.ebayopensource.turmeric.eclipse.errorlibrary.views.ErrorRegistryView"
+            icon="icons/script_obj.gif"
+            id="org.ebayopensource.turmeric.eclipse.errorlibrary.errorRegistryView"
+            name="%View.ErrorRegistry.Name">
+      </view>
+   </extension>
    <extension
          point="org.eclipse.ui.newWizards">
          <wizard
@@ -51,26 +61,6 @@
                   %Wizard.Error.Shortcut.Description
                </description>
       </wizard>
-   </extension>
-   
-   
-   <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension targetID="org.ebayopensource.turmeric.eclipse.ui.soaPerspective">    
-        <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorLibrary"/>
-        <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorDomainWizard"/>
-        <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorWizard"/>
-      </perspectiveExtension>
-   </extension>
- <extension
-         point="org.eclipse.ui.views">
-      <view
-            category="org.ebayopensource.turmeric.eclipse.ui.category"
-            class="org.ebayopensource.turmeric.eclipse.errorlibrary.views.ErrorRegistryView"
-            icon="icons/script_obj.gif"
-            id="org.ebayopensource.turmeric.eclipse.errorlibrary.errorRegistryView"
-            name="%View.ErrorRegistry.Name">
-      </view>
    </extension>  
    <extension
          point="org.eclipse.ui.popupMenus">       
@@ -110,4 +100,21 @@
              sizeHint="500,200">
        </page>
     </extension>
+   
+   
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="org.ebayopensource.turmeric.eclipse.ui.soaPerspective">    
+        <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorLibrary"/>
+        <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorDomainWizard"/>
+        <newWizardShortcut id="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorWizard"/>
+        <view
+              id="org.ebayopensource.turmeric.eclipse.errorlibrary.errorRegistryView"
+              minimized="false"
+              relationship="bottom"
+              relative="org.eclipse.jdt.ui.PackageExplorer"
+              visible="true">
+        </view>
+      </perspectiveExtension>
+   </extension>
   </plugin>

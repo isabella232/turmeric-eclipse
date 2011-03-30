@@ -23,10 +23,8 @@ import org.eclipse.ui.internal.PageLayout;
  */
 @SuppressWarnings("restriction")
 public final class SOAPerspectiveFactory extends JavaPerspectiveFactory{
-	public static final String VIEWID_SERVICES_EXPLORER = "org.ebayopensource.turmeric.eclipse.services.ui.views.ServicesExplorerView";
 	public static final String VIEWID_GLOBAL_TYPE_REGISTRY = "org.ebayopensource.turmeric.eclipse.typelibrary.registryView";
 	public static final String VIEWID_PROPERTY = "org.eclipse.ui.views.PropertySheet";
-	public static final String VIEWID_ERROR = "org.ebayopensource.turmeric.eclipse.errorlibrary.errorRegistryView";
 	
 	/**
 	 * 
@@ -49,18 +47,6 @@ public final class SOAPerspectiveFactory extends JavaPerspectiveFactory{
 				bottomLayout.addView(VIEWID_PROPERTY);
 			}
 		}
-		
-//		layout.addView(VIEWID_SERVICES_EXPLORER, IPageLayout.TOP, 
-//				(float)0.5, IPageLayout.ID_OUTLINE);
-//		IPlaceholderFolderLayout topFolder = layout.getFolderForView(VIEWID_SERVICES_EXPLORER);
-//		((IFolderLayout)topFolder).addView(VIEWID_ERROR);
-		
-		IPlaceholderFolderLayout folderLayout = layout.getFolderForView(IPageLayout.ID_OUTLINE);
-		if (folderLayout instanceof IFolderLayout) {
-			//((IFolderLayout)folderLayout).addView("org.maven.ide.eclipse.views.MavenRepositoryView");
-			
-		}
-		
 	}
 
 }

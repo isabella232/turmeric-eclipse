@@ -12,17 +12,20 @@ import org.ebayopensource.turmeric.eclipse.buildsystem.utils.PropertiesUtil;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-
 
 /**
  * @author smathew
  * 
- * The content provider for services explorer view
+ *         The content provider for services explorer view
  * @see ITreeContentProvider
  */
 public class ServicesContentProvider implements ITreeContentProvider {
+	Object[] services = null;
 
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof ProjectInfo) {
@@ -31,7 +34,9 @@ public class ServicesContentProvider implements ITreeContentProvider {
 			obj[0] = new ServicesViewLayerModel(projectInfo.getServiceLayer());
 			try {
 				obj[1] = new ServicesViewInterfaceModel(
-						PropertiesUtil.getInterfaceClassNameForService(projectInfo.getName()));
+						PropertiesUtil
+								.getInterfaceClassNameForService(projectInfo
+										.getName()));
 			} catch (Exception e) {
 				SOALogger.getLogger().error(e);
 			}
@@ -52,14 +57,14 @@ public class ServicesContentProvider implements ITreeContentProvider {
 
 	public Object[] getElements(Object inputElement) {
 		try {
-			return GlobalRepositorySystem.instanceOf()
+			services = GlobalRepositorySystem.instanceOf()
 					.getActiveRepositorySystem().getAssetRegistry()
 					.getAllAvailableServices().toArray();
 		} catch (Exception e) {
-			//TODO: Add log here instead of sysout. Against ebay standards
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return services;
 	}
 
 	public void dispose() {
