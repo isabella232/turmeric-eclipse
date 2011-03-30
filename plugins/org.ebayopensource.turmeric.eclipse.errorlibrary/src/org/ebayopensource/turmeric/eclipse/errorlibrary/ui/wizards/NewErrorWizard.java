@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.ErrorTypeCreator;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ErrorLibraryProviderFactory;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryProvider;
@@ -28,7 +29,6 @@ import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterr
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;

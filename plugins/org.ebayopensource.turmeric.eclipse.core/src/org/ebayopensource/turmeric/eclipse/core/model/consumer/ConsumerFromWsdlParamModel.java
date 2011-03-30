@@ -9,10 +9,12 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.resources.ui.model;
+package org.ebayopensource.turmeric.eclipse.core.model.consumer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 
 /**
  * @author yayu

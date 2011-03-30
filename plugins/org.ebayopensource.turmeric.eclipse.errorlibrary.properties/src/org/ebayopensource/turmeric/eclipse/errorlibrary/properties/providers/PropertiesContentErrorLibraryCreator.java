@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.model.PropertiesSOAErrorLibrary;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.registry.TurmericErrorRegistry;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.utils.TurmericErrorLibraryUtils;
@@ -24,7 +25,6 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryC
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAErrorLibraryCreationFailedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;

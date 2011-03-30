@@ -23,13 +23,13 @@ import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromWsdlParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.processors.WSDLTemplateProcessor;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
+import org.ebayopensource.turmeric.eclipse.core.model.consumer.ConsumerFromWsdlParamModel;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 

@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;

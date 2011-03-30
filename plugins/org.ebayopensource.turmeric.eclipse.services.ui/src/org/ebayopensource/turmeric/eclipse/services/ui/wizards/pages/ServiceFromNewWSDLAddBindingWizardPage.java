@@ -18,13 +18,13 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel.Binding;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel.TemplateWSDLModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.TemplateBinding;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.TemplateBinding;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel.Binding;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel.TemplateWSDLModel;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.eclipse.ui.components.TableButtonPanelViewer;

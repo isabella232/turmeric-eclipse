@@ -26,6 +26,7 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFromBlankWsdlTest;
@@ -33,7 +34,6 @@ import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFro
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceSetupCleanupValidate;
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseApi;
 import org.ebayopensource.turmeric.eclipse.mavenapi.intf.IMavenEclipseApi;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;

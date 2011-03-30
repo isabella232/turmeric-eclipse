@@ -14,6 +14,7 @@ package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;

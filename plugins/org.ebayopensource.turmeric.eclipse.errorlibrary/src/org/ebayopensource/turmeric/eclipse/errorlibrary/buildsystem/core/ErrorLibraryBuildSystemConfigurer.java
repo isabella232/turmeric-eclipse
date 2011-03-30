@@ -15,9 +15,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.model.SOAErrorLibraryProject;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject.SOAProjectSourceDirectory;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;

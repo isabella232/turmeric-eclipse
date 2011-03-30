@@ -9,10 +9,11 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.resources.ui.model;
+package org.ebayopensource.turmeric.eclipse.core.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * @author yayu
@@ -86,7 +87,7 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.resources.ui.model.ISOAServiceParamModel#validate()
+	 * @see org.ebayopensource.turmeric.eclipse.core.model.ISOAServiceParamModel#validate()
 	 */
 	public boolean validate() {
 		return true;

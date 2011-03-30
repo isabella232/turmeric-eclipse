@@ -15,13 +15,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ErrorLibraryProviderFactory;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryCreator;
 import org.ebayopensource.turmeric.eclipse.exception.AbstractSOAException;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.SOAMavenConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.IErrorRegistryBridge;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.tools.errorlibrary.ErrorIdGenerator;
 import org.ebayopensource.turmeric.tools.errorlibrary.ErrorIdGeneratorFactory;

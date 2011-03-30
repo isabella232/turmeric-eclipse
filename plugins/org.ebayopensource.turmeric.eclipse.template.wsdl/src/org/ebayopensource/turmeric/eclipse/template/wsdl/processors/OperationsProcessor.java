@@ -9,8 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.template.wsdl.processors;
 
 import org.ebayopensource.turmeric.eclipse.core.ICommand;
+import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.IParameterElement;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.util.ServiceTemplateUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
@@ -52,7 +52,7 @@ public class OperationsProcessor implements ICommand {
 				PortType portType = ServiceTemplateUtil
 						.getDefaultPort(definition);
 				ProgressUtil.progressOneStep(monitor);
-				for (org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel.Operation operationModel : processorModel
+				for (org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel.Operation operationModel : processorModel
 						.getInputParamModel().getOperations()) {
 					if (ServiceTemplateUtil.operationExists(portType,
 							operationModel.getName()) == false) {

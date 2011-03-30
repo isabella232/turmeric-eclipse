@@ -25,12 +25,12 @@ import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeServiceFromWSDLI
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeTypeMappings;
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeWebXml;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodeGenUtil;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAConfigurationRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;

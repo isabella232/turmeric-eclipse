@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.IParameterElement;
+import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage;

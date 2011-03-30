@@ -6,7 +6,7 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.resources.ui.model;
+package org.ebayopensource.turmeric.eclipse.core.model.services;
 
 import java.net.URL;
 import java.util.HashSet;
@@ -14,7 +14,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 
 
 /**

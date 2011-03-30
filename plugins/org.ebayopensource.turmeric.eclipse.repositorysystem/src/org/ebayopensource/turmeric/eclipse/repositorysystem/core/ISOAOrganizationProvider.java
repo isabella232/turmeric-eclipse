@@ -13,8 +13,8 @@ package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 
 import java.util.List;
 
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SOAFrameworkLibrary;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SOAFrameworkLibrary;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 

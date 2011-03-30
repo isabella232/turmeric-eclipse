@@ -9,7 +9,7 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.resources.ui.model;
+package org.ebayopensource.turmeric.eclipse.core.model.services;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,8 +19,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.TemplateBinding;
+import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.TemplateBinding;
+import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
 
 
 /**

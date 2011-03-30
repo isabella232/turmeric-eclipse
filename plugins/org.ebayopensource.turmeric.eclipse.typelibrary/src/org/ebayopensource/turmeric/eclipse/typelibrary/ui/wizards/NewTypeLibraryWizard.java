@@ -22,6 +22,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibraryCr
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.NewTypeLibraryWizardPage;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.AbstractTypeLibraryWizard;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.runtime.CoreException;

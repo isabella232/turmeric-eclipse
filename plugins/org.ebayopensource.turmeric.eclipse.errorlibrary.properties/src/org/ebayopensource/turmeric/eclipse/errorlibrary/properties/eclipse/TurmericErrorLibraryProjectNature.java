@@ -9,9 +9,9 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.eclipse;
 
 import org.ebayopensource.turmeric.eclipse.core.buildsystem.AbstractSOANature;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.Activator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 
 
 /**

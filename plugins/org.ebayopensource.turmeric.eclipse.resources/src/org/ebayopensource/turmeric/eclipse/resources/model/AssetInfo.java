@@ -16,7 +16,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 
 
 /**

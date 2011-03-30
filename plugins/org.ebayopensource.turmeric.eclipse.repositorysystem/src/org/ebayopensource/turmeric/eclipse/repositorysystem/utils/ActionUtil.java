@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
@@ -19,7 +20,6 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.resources.SOAMessages;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;

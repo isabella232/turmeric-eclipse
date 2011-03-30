@@ -24,10 +24,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
@@ -271,24 +271,11 @@ public abstract class AbstractNewTypeWizardPage extends
 		if (checkValidationResult(getResourceNameText(), validationModel) == false)
 			return false;
 
-		// Taking it out because Code gen guys fixed it recently.
-		// if (StringUtils.contains(fileName, "_")) {
-		// updateStatus("Schema Type cannot have an underscore in it, due to
-		// JAXB restricitons");
-		// return false;
-		// }
-
 		try {
 			if (StringUtils.isEmpty(typeLibraryNameText.getText())) {
 				updateStatus(typeLibraryNameText, "Select a type library.");
 				return false;
 			}
-			// if (docText != null) {
-			// if (StringUtils.isEmpty(docText.getText())) {
-			// updateStatus("Documentation/Description cannot be empty");
-			// return false;
-			// }
-			// }
 			IProject project = WorkspaceUtil.getProject(typeLibraryNameText
 					.getText());
 			if (project.getFile(
@@ -418,11 +405,6 @@ public abstract class AbstractNewTypeWizardPage extends
 	public Object getRawBaseType() {
 		return getTextValue(this.baseTypeComp);
 	}
-
-	/*
-	 * public Object getBaseTypeValue() { return
-	 * getTextValue(this.baseTypeComp); }
-	 */
 
 	protected Map<String, File> truncateXSDExtension(
 			Map<String, File> templateTypeValues) {

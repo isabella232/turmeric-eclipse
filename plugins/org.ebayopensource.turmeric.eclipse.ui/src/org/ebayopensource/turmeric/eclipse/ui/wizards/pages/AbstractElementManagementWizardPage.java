@@ -18,11 +18,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.IParameterElement;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.ui.components.SOAComboDialogCellEditor;
 import org.ebayopensource.turmeric.eclipse.ui.components.TableButtonPanelViewer;

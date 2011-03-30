@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;

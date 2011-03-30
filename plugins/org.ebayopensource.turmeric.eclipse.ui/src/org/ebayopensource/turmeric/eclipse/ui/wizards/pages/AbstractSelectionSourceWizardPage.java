@@ -9,7 +9,7 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
+package org.ebayopensource.turmeric.eclipse.ui.wizards.pages;
 
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
@@ -37,8 +37,8 @@ public abstract class AbstractSelectionSourceWizardPage extends SOABasePage {
 		setDescription(description);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		final Composite container = new Composite(parent, SWT.NONE);
@@ -74,7 +74,9 @@ public abstract class AbstractSelectionSourceWizardPage extends SOABasePage {
 		return secondChoice.getSelection();
 	}
 
-	@Override
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getDefaultValue(Text text) {
 		return "";
 	}

@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
 
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;

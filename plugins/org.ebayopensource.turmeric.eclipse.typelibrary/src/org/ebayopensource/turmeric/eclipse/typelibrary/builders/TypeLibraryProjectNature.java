@@ -9,8 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.builders;
 
 import org.ebayopensource.turmeric.eclipse.core.buildsystem.AbstractSOANature;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
 
 

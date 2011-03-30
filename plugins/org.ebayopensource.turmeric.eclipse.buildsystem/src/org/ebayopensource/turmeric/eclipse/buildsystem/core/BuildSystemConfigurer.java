@@ -12,9 +12,9 @@ import java.io.IOException;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;

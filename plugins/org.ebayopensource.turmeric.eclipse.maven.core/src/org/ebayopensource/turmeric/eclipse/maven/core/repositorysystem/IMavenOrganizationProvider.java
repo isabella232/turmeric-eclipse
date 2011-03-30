@@ -13,8 +13,8 @@ import java.util.List;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 

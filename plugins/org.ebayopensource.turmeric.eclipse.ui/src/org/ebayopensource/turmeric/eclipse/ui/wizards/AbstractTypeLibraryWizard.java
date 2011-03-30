@@ -9,15 +9,15 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards;
+package org.ebayopensource.turmeric.eclipse.ui.wizards;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
-import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
+import org.ebayopensource.turmeric.eclipse.ui.UIConstants;
 import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.validator.core.ISOAPreValidator;
@@ -36,6 +36,7 @@ public abstract class AbstractTypeLibraryWizard extends AbstractSOADomainWizard 
 
 	protected static final SOALogger logger = SOALogger.getLogger();
 	protected String typeLibName = "";
+	
 
 	/**
 	 * 
@@ -68,7 +69,7 @@ public abstract class AbstractTypeLibraryWizard extends AbstractSOADomainWizard 
 				if (selection.getFirstElement() instanceof IJavaElement) {
 					IProject project = ((IJavaElement) selection
 							.getFirstElement()).getJavaProject().getProject();
-					if (project.hasNature(TypeLibraryProjectNature.getTypeLibraryNatureId())) {
+					if (project.hasNature(UIConstants.TYPELIB_NATURE_ID)) {
 						typeLibName = project.getName();
 					}
 				}

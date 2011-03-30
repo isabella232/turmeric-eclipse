@@ -6,17 +6,21 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.resources.ui.model;
+package org.ebayopensource.turmeric.eclipse.core.model;
 
 
 /**
  * @author smathew
- *
- * The base class which holds the common elements.
- * this class would be always evolving until the refactoring is over.
- * Toby, we should try to intimate each other while changing this.
+ * 
+ * The model interface. Right now we mandate that it should have a type. Later
+ * this might be enhanced
  */
-public abstract class BaseServiceParamModel implements ISOAServiceParamModel {
-	
-	
+public interface ISOAServiceParamModel {
+
+	/**
+	 * @return validates if this model object is well formed
+	 * 
+	 */
+	public boolean validate();
+
 }

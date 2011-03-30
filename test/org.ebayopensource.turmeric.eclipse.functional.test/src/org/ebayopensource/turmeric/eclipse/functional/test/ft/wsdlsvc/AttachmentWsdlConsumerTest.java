@@ -20,10 +20,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ebayopensource.turmeric.eclipse.core.model.consumer.ConsumerFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.services.buildsystem.ServiceCreator;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectArtifactValidator;

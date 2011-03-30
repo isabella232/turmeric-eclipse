@@ -6,7 +6,7 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.resources.constants;
+package org.ebayopensource.turmeric.eclipse.core.resources.constants;
 
 
 /**

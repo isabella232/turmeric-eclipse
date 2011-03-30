@@ -14,9 +14,9 @@ package org.ebayopensource.turmeric.eclipse.resources.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.model.consumer.ConsumerFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 
 

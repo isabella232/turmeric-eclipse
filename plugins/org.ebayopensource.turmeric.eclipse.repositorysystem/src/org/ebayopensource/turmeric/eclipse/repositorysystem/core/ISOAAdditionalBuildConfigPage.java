@@ -10,7 +10,7 @@ package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 
 import org.eclipse.jface.wizard.IWizardPage;
 
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ISOAServiceParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.ISOAServiceParamModel;
 
 /**
  * Build System should implement this page if it needs to perform any additional

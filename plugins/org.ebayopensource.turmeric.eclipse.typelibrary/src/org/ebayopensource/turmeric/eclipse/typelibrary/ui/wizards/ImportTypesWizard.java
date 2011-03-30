@@ -16,6 +16,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ImportTy
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.NewTypeLibraryWizardPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.AbstractTypeLibraryWizard;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IProject;

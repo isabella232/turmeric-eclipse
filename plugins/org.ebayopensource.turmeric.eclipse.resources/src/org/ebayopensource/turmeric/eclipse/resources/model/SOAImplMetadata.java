@@ -8,10 +8,10 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.resources.model;
 
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.InterfaceSourceType;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool.ISOAServiceConfig;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.InterfaceSourceType;
 
 
 /**

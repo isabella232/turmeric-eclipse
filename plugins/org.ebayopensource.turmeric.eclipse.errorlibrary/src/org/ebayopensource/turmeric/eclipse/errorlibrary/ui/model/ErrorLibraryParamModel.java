@@ -11,8 +11,8 @@
  */
 package org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model;
 
+import org.ebayopensource.turmeric.eclipse.core.model.AbstractSOAProjetParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.AbstractSOAProjetParamModel;
 
 
 /**

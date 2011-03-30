@@ -13,11 +13,11 @@ package org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc;
 
 import junit.framework.Assert;
 
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.ConsumeNewServiceWizard;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ConsumeNewServiceWizardPage;
 import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;

@@ -14,7 +14,7 @@ package org.ebayopensource.turmeric.eclipse.resources.model;
 import java.io.IOException;
 import java.util.Map;
 
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool.ISOAClientConfig;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;

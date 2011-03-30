@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.eclipse.core.resources.IFile;

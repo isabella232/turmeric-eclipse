@@ -9,7 +9,7 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
+package org.ebayopensource.turmeric.eclipse.ui.wizards.pages;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -25,12 +25,12 @@ import javax.wsdl.Service;
 import javax.wsdl.WSDLException;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
-import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool;
 import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;

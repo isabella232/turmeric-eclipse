@@ -9,15 +9,15 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
+package org.ebayopensource.turmeric.eclipse.ui.wizards.pages;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceReader;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
@@ -40,7 +40,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-
 /**
  * @author yayu
  * 
@@ -59,8 +58,6 @@ public abstract class AbstractNewServiceWizardPage extends
 	protected Button overrideServicePackageButton;
 	protected Button overrideServiceImplementationButton;
 	private CCombo serviceLayer;
-	
-	//private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
 	 * @param pageName
@@ -75,19 +72,19 @@ public abstract class AbstractNewServiceWizardPage extends
 	}
 
 	public String getDefaultServiceImplName(final String packageName) {
-		
-		return SOAServiceUtil.generateServiceImplPackageName(getPublicServiceName(), getAdminName(), packageName);
+
+		return SOAServiceUtil.generateServiceImplPackageName(
+				getPublicServiceName(), getAdminName(), packageName);
 	}
-	
+
 	protected String getDefaultIMplPackageNamePrefix() {
 		return "";
 	}
-	
 
 	public String getDefaultServicePackageName() {
 		return generateServicePackageName(getDefaultServicePackageNamePrefix());
 	}
-	
+
 	protected String getDefaultServicePackageNamePrefix() {
 		return "";
 	}
@@ -95,13 +92,16 @@ public abstract class AbstractNewServiceWizardPage extends
 	public String getDefaultServicePackageName(final String packageName) {
 		return generateServicePackageName(packageName);
 	}
-	
+
 	public String generateServicePackageName(final String packageName) {
-		return SOAServiceUtil.generateServicePackageName(getPublicServiceName(), packageName);
+		return SOAServiceUtil.generateServicePackageName(
+				getPublicServiceName(), packageName);
 	}
-	
+
 	/**
-	 * subclass could choose to turn off the validation for service existence checking.
+	 * subclass could choose to turn off the validation for service existence
+	 * checking.
+	 * 
 	 * @return true if requires service validation.
 	 */
 	protected boolean supportServiceValidation() {
@@ -121,7 +121,7 @@ public abstract class AbstractNewServiceWizardPage extends
 			if (getResourceNameText().getEditable()) {
 				final IStatus validServiceNameStatus = JDTUtil
 						.validateIdentifier(getResourceName());
-				if (checkValidationResult(getResourceNameText(), 
+				if (checkValidationResult(getResourceNameText(),
 						validServiceNameStatus) == false)
 					return false;
 			}
@@ -135,15 +135,15 @@ public abstract class AbstractNewServiceWizardPage extends
 				} catch (ValidationInterruptedException e) {
 					processException(e);
 				}
-				if (checkValidationResult(getResourceNameText(), 
+				if (checkValidationResult(getResourceNameText(),
 						validationModel) == false)
 					return false;
 			}
 		}
 
 		if (this.servicePackageText != null) {
-			if(StringUtils.isBlank(getServicePackage()) == true){
-				updateStatus("Please specify interface package name.", 
+			if (StringUtils.isBlank(getServicePackage()) == true) {
+				updateStatus("Please specify interface package name.",
 						this.servicePackageText);
 				return false;
 			}
@@ -154,12 +154,15 @@ public abstract class AbstractNewServiceWizardPage extends
 				return false;
 
 			String intfClassName = getServicePackage().replace('.', '/');
-			IPath path = new Path(getWorkspaceRoot()).append(getAdminName()).append(
-					SOAProjectConstants.FOLDER_GEN_SRC_CLIENT)
-			.append(intfClassName).append(getAdminName() + SOAProjectConstants.JAVA_EXT);
+			IPath path = new Path(getWorkspaceRoot()).append(getAdminName())
+					.append(SOAProjectConstants.FOLDER_GEN_SRC_CLIENT)
+					.append(intfClassName)
+					.append(getAdminName() + SOAProjectConstants.JAVA_EXT);
 			if (path.toString().length() > 230) {
-				updateStatus("The calculated interface class path is too long, please make appropriate changes for a shorter path.", 
-						this.adminNameText, getWorkspaceRootText(), this.servicePackageText);
+				updateStatus(
+						"The calculated interface class path is too long, please make appropriate changes for a shorter path.",
+						this.adminNameText, getWorkspaceRootText(),
+						this.servicePackageText);
 				return false;
 			}
 		}
@@ -172,21 +175,21 @@ public abstract class AbstractNewServiceWizardPage extends
 		}
 
 		if (this.serviceImplementationText != null) {
-			if(StringUtils.isBlank(getServiceImpl()) == true){
-				updateStatus("Please specify impl class name.", 
+			if (StringUtils.isBlank(getServiceImpl()) == true) {
+				updateStatus("Please specify impl class name.",
 						this.serviceImplementationText);
 				return false;
 			}
 			final IStatus validImplNameStatus = JDTUtil
 					.validateJavaTypeName(getServiceImpl());
-			if (checkValidationResult(this.serviceImplementationText, 
+			if (checkValidationResult(this.serviceImplementationText,
 					validImplNameStatus) == false)
 				return false;
 		}
 
 		if (getBaseConsumerSrcControl() != null) {
 			if (StringUtils.isBlank(getBaseConsumerSrcDir())) {
-				updateStatus(getBaseConsumerSrcControl(), 
+				updateStatus(getBaseConsumerSrcControl(),
 						"BaseConsumer Source Dir cannot be empty.");
 				return false;
 			}
@@ -197,8 +200,7 @@ public abstract class AbstractNewServiceWizardPage extends
 			} catch (ValidationInterruptedException e) {
 				processException(e);
 			}
-			if (checkValidationResult(getBaseConsumerSrcControl(), 
-					valModel) == false)
+			if (checkValidationResult(getBaseConsumerSrcControl(), valModel) == false)
 				return false;
 
 			final IPath baseConsumerSrcPath = new Path(getBaseConsumerSrcDir());
@@ -206,16 +208,16 @@ public abstract class AbstractNewServiceWizardPage extends
 				final IPath srcPath = new Path(srcDir);
 				if (srcPath.isPrefixOf(baseConsumerSrcPath)
 						&& !ObjectUtils.equals(srcPath, baseConsumerSrcPath)) {
-					updateStatus(getBaseConsumerSrcControl(), "BaseConsumer Source Dir: "
-							+ baseConsumerSrcPath + " is a subdirectory of "
-							+ srcPath);
+					updateStatus(getBaseConsumerSrcControl(),
+							"BaseConsumer Source Dir: " + baseConsumerSrcPath
+									+ " is a subdirectory of " + srcPath);
 					return false;
 				}
 				if (baseConsumerSrcPath.isPrefixOf(srcPath)
 						&& !ObjectUtils.equals(srcPath, baseConsumerSrcPath)) {
-					updateStatus(getBaseConsumerSrcControl(), "BaseConsumer Source Dir: "
-							+ baseConsumerSrcPath + " is a subdirectory of "
-							+ srcPath);
+					updateStatus(getBaseConsumerSrcControl(),
+							"BaseConsumer Source Dir: " + baseConsumerSrcPath
+									+ " is a subdirectory of " + srcPath);
 					return false;
 				}
 			}
@@ -223,13 +225,14 @@ public abstract class AbstractNewServiceWizardPage extends
 
 		return true;
 	}
-	
+
 	protected Control getBaseConsumerSrcControl() {
 		return this.baseConsumerSrcText;
 	}
 
 	/**
 	 * this field is disabled by default
+	 * 
 	 * @param parent
 	 * @return
 	 */
@@ -251,28 +254,28 @@ public abstract class AbstractNewServiceWizardPage extends
 						|| overrideServiceImplementationButton.getSelection() == true) {
 					return;
 				}
-				
+
 				serviceImplementationText.setText(getDefaultServiceImplName());
 
 			}
 		};
 		if (editable == false) {
-			adminNameText = super.createResourceNameControl(composite, labelText,
-					adminNameListener, editable, false, tooltip);
-			overrideAdminNameButton = super.createOverrideButton(composite, adminNameText, null);
+			adminNameText = super.createResourceNameControl(composite,
+					labelText, adminNameListener, editable, false, tooltip);
+			overrideAdminNameButton = super.createOverrideButton(composite,
+					adminNameText, null);
 		} else {
-			adminNameText = super.createResourceNameControl(composite, labelText, 
-					adminNameListener, true, tooltip);
+			adminNameText = super.createResourceNameControl(composite,
+					labelText, adminNameListener, true, tooltip);
 		}
-		
+
 		adminNameText.addModifyListener(modifyListener);
 		return adminNameText;
 	}
 
 	protected Text addTypeNamespace(final Composite composite) {
 		typeNamespaceText = super.createLabelTextField(composite,
-				"Common Type &NS:",
-				getDefaultTypeNamespace(), modifyListener, 
+				"Common Type &NS:", getDefaultTypeNamespace(), modifyListener,
 				false, false, "common type namespace");
 		overrideTypeNSButton = super.createOverrideButton(composite,
 				typeNamespaceText, null);
@@ -282,11 +285,10 @@ public abstract class AbstractNewServiceWizardPage extends
 	protected Button addTypeFolding(final Composite composite) {
 		typeFoldingButton = createButton(
 				composite,
-				"Enable namespace folding. (Check this option only if the WSDL is designed to have a single namespace)", 
+				"Enable namespace folding. (Check this option only if the WSDL is designed to have a single namespace)",
 				"check to enable namespace folding if the WSDL is designed to have a single namespace");
-		// typeFoldingButton = createBu(composite, "Common Type &NS:",
-		// getDefaultTypeNamespace(), modifyListener);
-		typeFoldingButton.setSelection(true);//we are making type folding to be checked by default
+		typeFoldingButton.setSelection(true);// we are making type folding to be
+												// checked by default
 		typeFoldingButton.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
@@ -305,68 +307,35 @@ public abstract class AbstractNewServiceWizardPage extends
 	protected Text addServicePackage(final Composite composite) {
 		servicePackageText = createLabelTextField(composite,
 				"Interface &Package:", getDefaultServicePackageName(),
-				modifyListener, false, false, "the package name of the interface class");
+				modifyListener, false, false,
+				"the package name of the interface class");
 		overrideServicePackageButton = createOverrideButton(composite,
 				servicePackageText, null);
 
-		/*if (getResourceNameText() != null) {
-			getResourceNameText().addModifyListener(new ModifyListener() {
-				public void modifyText(final ModifyEvent e) {
-					if (overrideServicePackageButton.getSelection() == false) {
-						String pkgName = getDefaultServicePackageName();
-						if (pkgName != null && pkgName.startsWith(".") == false) {
-							servicePackageText
-							.setText(pkgName);
-						}
-					}
-					final ControlDecoration dec = 
-						getErrorDecorations().get(servicePackageText);
-					if ((servicePackageText.isEnabled()
-							&& servicePackageText.getEditable()
-							&& servicePackageText.isFocusControl())
-							|| (dec != null && StringUtils.isNotBlank(dec.getDescriptionText())))
-						dialogChanged();
-				}
-			});
-		}*/
 		return servicePackageText;
 	}
 
 	protected void addServiceImpl(final Composite composite) {
 		serviceImplementationText = createLabelTextField(composite,
 				"Impl &Class:", getDefaultServiceImplName(), modifyListener,
-				false, false, "the fully qualified class name of the service implementation class");
+				false, false,
+				"the fully qualified class name of the service implementation class");
 		overrideServiceImplementationButton = createOverrideButton(composite,
 				serviceImplementationText, null);
-
-		/*if (getResourceNameText() != null) {
-			getResourceNameText().addModifyListener(new ModifyListener() {
-				public void modifyText(final ModifyEvent e) {
-					if (!overrideServiceImplementationButton.getSelection())
-						serviceImplementationText
-								.setText(getDefaultServiceImplName());
-					final ControlDecoration dec = 
-						getErrorDecorations().get(serviceImplementationText);
-					if ((serviceImplementationText.isEnabled()
-							&& serviceImplementationText.getEditable()
-							&& serviceImplementationText.isFocusControl())
-							|| (dec != null && StringUtils.isNotBlank(dec.getDescriptionText())))
-						dialogChanged();
-				}
-			});
-		}*/
 	}
 
 	protected Text createBaseConsumerSource(final Composite parent) {
 		baseConsumerSrcText = super.createLabelTextField(parent,
 				"BaseCons&umer Source Dir:", SOAProjectConstants.FOLDER_SRC,
-				modifyListener, "the source directory of the base consumer class");
+				modifyListener,
+				"the source directory of the base consumer class");
 		return baseConsumerSrcText;
 	}
 
 	protected Text addServiceVersion(final Composite composite) {
 		return super.createResourceVersionControl(composite,
-				"Service &Version:", modifyListener, "the version of the service");
+				"Service &Version:", modifyListener,
+				"the version of the service");
 	}
 
 	protected CCombo addServiceLayer(final Composite composite) {
@@ -380,13 +349,11 @@ public abstract class AbstractNewServiceWizardPage extends
 				false, 3, 1));
 		for (final String layer : PreferenceReader.getServiceLayer())
 			serviceLayer.add(layer.toString());
-		UIUtil.decorateControl(this, serviceLayer, 
+		UIUtil.decorateControl(this, serviceLayer,
 				"Select a service layer for the new service");
 		serviceLayer.select(2);
 		return serviceLayer;
 	}
-	
-	
 
 	public String getServicePackage() {
 		if (overrideServicePackageButton != null)
@@ -418,8 +385,8 @@ public abstract class AbstractNewServiceWizardPage extends
 	public String getAdminName() {
 		return getTextValue(getResourceNameText());
 	}
-	
-	public String getPublicServiceName(){
+
+	public String getPublicServiceName() {
 		return "";
 	}
 
@@ -506,7 +473,7 @@ public abstract class AbstractNewServiceWizardPage extends
 			return getDefaultServiceImplName();
 		else if (text == this.typeNamespaceText)
 			return getDefaultTypeNamespace();
-		else 
+		else
 			return super.getDefaultValue(text);
 	}
 }

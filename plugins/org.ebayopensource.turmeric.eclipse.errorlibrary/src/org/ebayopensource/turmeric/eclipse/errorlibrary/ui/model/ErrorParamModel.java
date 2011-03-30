@@ -12,10 +12,10 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.core.SOAErrorIdGeneratorAdapter;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.SOAErrorLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;

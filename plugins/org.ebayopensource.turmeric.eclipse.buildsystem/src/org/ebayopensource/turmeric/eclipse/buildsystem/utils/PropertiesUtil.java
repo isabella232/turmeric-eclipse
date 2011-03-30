@@ -17,14 +17,14 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.Binding;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SOAFrameworkLibrary;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.Binding;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SOAFrameworkLibrary;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;

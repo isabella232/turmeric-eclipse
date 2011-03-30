@@ -10,6 +10,7 @@ package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractSelectionSourceWizardPage;
 
 /**
  * @author smathew

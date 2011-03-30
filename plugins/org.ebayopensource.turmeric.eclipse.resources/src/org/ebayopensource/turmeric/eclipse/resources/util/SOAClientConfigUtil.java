@@ -13,8 +13,8 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.MessageProtocol;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAFileNotWritableException;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.MessageProtocol;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.JDOMUtil;

@@ -11,7 +11,7 @@
  */
 package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 
 /**
  * @author yayu

@@ -11,6 +11,8 @@
  */
 package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractSelectionSourceWizardPage;
+
 /**
  * @author yayu
  * @deprecated Creating service from existing Java interface is no longer supported.

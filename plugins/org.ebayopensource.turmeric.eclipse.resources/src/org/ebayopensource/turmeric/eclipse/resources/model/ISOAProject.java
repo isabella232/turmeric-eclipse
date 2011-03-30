@@ -11,7 +11,7 @@ package org.ebayopensource.turmeric.eclipse.resources.model;
 import java.util.List;
 import java.util.Set;
 
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 

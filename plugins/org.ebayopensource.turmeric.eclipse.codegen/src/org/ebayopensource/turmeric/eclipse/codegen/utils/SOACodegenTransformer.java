@@ -17,11 +17,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.codegen.model.ConsumerCodeGenModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOACodegenTransformer;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;

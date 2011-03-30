@@ -42,6 +42,8 @@ public class SOAMessages extends NLS {
 	public static String TYPE_LIB_ERR;
 	
 	public static String ERROR;
+	
+	public static String NMSPACE_ERR;
 
 	static {
 		// initialize resource bundle

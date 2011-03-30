@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.template.wsdl.processors;
 
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.wst.wsdl.Definition;
 

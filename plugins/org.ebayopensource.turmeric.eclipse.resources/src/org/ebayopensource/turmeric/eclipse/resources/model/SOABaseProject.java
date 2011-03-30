@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;

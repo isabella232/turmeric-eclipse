@@ -43,11 +43,11 @@ import org.ebayopensource.turmeric.eclipse.config.exception.SOAConfigAreaCorrupt
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOATypeCreationFailedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeCreator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeDepMarshaller;

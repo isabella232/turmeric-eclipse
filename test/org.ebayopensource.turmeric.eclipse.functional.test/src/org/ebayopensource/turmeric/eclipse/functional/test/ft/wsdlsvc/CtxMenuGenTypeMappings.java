@@ -16,9 +16,9 @@ import java.io.File;
 import junit.framework.Assert;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;

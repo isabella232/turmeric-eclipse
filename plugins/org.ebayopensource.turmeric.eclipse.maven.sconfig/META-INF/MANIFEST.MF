@@ -13,6 +13,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.ebayopensource.turmeric.eclipse.mavenapi;bundle-version="1.0.0",
  org.maven.ide.eclipse.maven_embedder;bundle-version="0.10.2",
  org.ebayopensource.turmeric.eclipse.utils;bundle-version="1.0.0",
- org.eclipse.jdt.core
+ org.eclipse.jdt.core,
+ org.ebayopensource.turmeric.eclipse.core;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

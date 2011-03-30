@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.InterfaceSourceType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.IProjectHealthChecker;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.InterfaceSourceType;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
