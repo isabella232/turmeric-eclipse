@@ -6,36 +6,33 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages;
+package org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib;
 
 import java.net.URL;
 import java.util.Map;
 
-import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewTypeWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.swt.widgets.Composite;
 
 
 /**
- * General Page for complex type wizard
+ * General Page for simple type wizard
  * @author ramurthy
  *
  */
-public class ComplexTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
-
-	public ComplexTypeWizardGeneralPage(String typeLibName) {
-		super("complexTypeWizardGeneralPage", "Create Complex Type", "Create a new complex type", typeLibName);
-	}
+public class SimpleTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 	
-	public ComplexTypeWizardGeneralPage(String typeLibName, String wizardPageName, String title, String description) {
-		super(typeLibName, wizardPageName, title, description);
+	public SimpleTypeWizardGeneralPage(String typeLibName) {
+		super("simpleTypeWizardGeneralPage", "Create Simple Type", "Create a new simple type", typeLibName);		
 	}
 	
 	public void createControl(Composite parent) {
 		try {
 			super.createControl(parent, false);
-			//createTypeCombo(container, "&Extension Type:");	
+			createTypeCombo(container, "&Restriction Type:");
 			createDocumentationText(container);
 			dialogChanged();
 		} catch (Exception e) {
@@ -44,15 +41,7 @@ public class ComplexTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 		}
 	}
 	
-	protected void addComponents() {
-		
-	}
-	
-	protected String getBaseType() {
-		return "&Extension Type:";
-	}
-	
 	protected Map<String, URL> getTemplateTypes() {
-		return getTemplateTypeNames(SOAXSDTemplateSubType.COMPLEX);
+		return getTemplateTypeNames(SOAXSDTemplateSubType.SIMPLE);
 	}
 }

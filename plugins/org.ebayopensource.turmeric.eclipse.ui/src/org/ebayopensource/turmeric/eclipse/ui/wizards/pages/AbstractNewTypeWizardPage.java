@@ -9,9 +9,10 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages;
+package org.ebayopensource.turmeric.eclipse.ui.wizards.pages;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.LinkedHashMap;
@@ -23,18 +24,17 @@ import javax.xml.namespace.QName;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
-import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.model.TemplateModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
-import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;
-import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateUtils;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage;
+import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
+import org.ebayopensource.turmeric.eclipse.ui.UIConstants;
 import org.ebayopensource.turmeric.eclipse.ui.components.ProjectSelectionListLabelProvider;
 import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -58,8 +58,13 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.eclipse.wst.xsd.ui.internal.common.util.XSDCommonUIUtils;
+import org.eclipse.xsd.XSDAnnotation;
+import org.eclipse.xsd.XSDSchema;
+import org.eclipse.xsd.XSDTypeDefinition;
 
 import org.ebayopensource.turmeric.common.config.TypeLibraryType;
+import org.w3c.dom.Element;
 
 /**
  * @author yayu
@@ -132,8 +137,7 @@ public abstract class AbstractNewTypeWizardPage extends
 						InputStream input = null;
 						try {
 							input = file.openStream();
-							final TemplateModel model = TemplateUtils
-									.processTemplateModel(input);
+							final TemplateModel model = processTemplateModel(input);
 							docText.setText(model.getDocumentation());
 						} finally {
 							IOUtils.closeQuietly(input);
@@ -143,6 +147,31 @@ public abstract class AbstractNewTypeWizardPage extends
 			}
 		}
 	}
+	
+	private TemplateModel processTemplateModel(InputStream inputStream)
+			throws CoreException, IOException {
+		TemplateModel templateModel = new TemplateModel();
+		XSDSchema schema = TurmericCoreActivator.parseSchema(inputStream);
+		if (schema.getTypeDefinitions() != null
+				&& schema.getTypeDefinitions().size() > 0
+				&& schema.getTypeDefinitions().get(0) != null
+				&& schema.getTypeDefinitions().get(0) instanceof XSDTypeDefinition) {
+			XSDAnnotation xsdAnnotation = XSDCommonUIUtils
+					.getInputXSDAnnotation((XSDTypeDefinition) schema
+							.getTypeDefinitions().get(0), false);
+			if (xsdAnnotation != null) {
+				List documentationList = xsdAnnotation.getUserInformation();
+				if (documentationList.size() > 0) {
+					Element documentationElement = (Element) documentationList
+							.get(0);
+					templateModel.setDocumentation(documentationElement
+							.getTextContent());
+				}
+			}
+		}
+		return templateModel;
+
+	}	
 
 	public void createControl(Composite parent, boolean validateNow) {
 		try {
@@ -217,7 +246,7 @@ public abstract class AbstractNewTypeWizardPage extends
 				try {
 					final List<IProject> projects = WorkspaceUtil
 					.getProjectsByNature(
-							TypeLibraryProjectNature.getTypeLibraryNatureId());
+							UIConstants.TYPELIB_NATURE_ID);
 					if (typeLibraryNameText != null && StringUtils.isNotBlank(typeLibraryNameText.getText())
 							&& WorkspaceUtil.getProject(
 							typeLibraryNameText.getText()).isAccessible()) {
@@ -279,19 +308,18 @@ public abstract class AbstractNewTypeWizardPage extends
 			IProject project = WorkspaceUtil.getProject(typeLibraryNameText
 					.getText());
 			if (project.getFile(
-					TypeLibraryUtil.getXsdFileLocation(fileName, project))
+					TurmericCoreActivator.getXsdFileLocation(fileName, project))
 					.exists()
 					|| SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getType(
 							new QName(
-									TypeLibraryUtil
+									UIActivator
 											.getNameSpace(typeLibraryNameText
 													.getText()), fileName)) != null) {
 				updateStatus(super.getResourceNameText(), 
 						"Type with the same name already exists in the specified namespace.");
 				return false;
 			}
-			for (final IResource resource : TypeLibraryBuilderUtils
-					.getTypeLibProjectReadableResources(WorkspaceUtil
+			for (final IResource resource : TurmericCoreActivator.getTypeLibProjectReadableResources(WorkspaceUtil
 							.getProject(typeLibraryNameText.getText()))) {
 				if (WorkspaceUtil.isResourceReadable(resource) == false) {
 					updateStatus(super.getResourceNameText(), 
@@ -300,8 +328,7 @@ public abstract class AbstractNewTypeWizardPage extends
 					return false;
 				}
 			}
-			for (final IResource resource : TypeLibraryBuilderUtils
-					.getTypeLibProjectWritableResources(WorkspaceUtil
+			for (final IResource resource : TurmericCoreActivator.getTypeLibProjectWritableResources(WorkspaceUtil
 							.getProject(typeLibraryNameText.getText()))) {
 				if (WorkspaceUtil.isResourceModifiable(resource) == false) {
 					updateStatus(super.getResourceNameText(), 
@@ -426,7 +453,7 @@ public abstract class AbstractNewTypeWizardPage extends
 
 	protected Map<String, URL> getTemplateTypeNames(
 			SOAXSDTemplateSubType subType) {
-		final List<SOAConfigTemplate> templateTypes = TypeLibraryUtil
+		final List<SOAConfigTemplate> templateTypes = UIActivator
 				.getFiles(subType);
 		final Map<String, URL> templateTypeNames = new LinkedHashMap<String, URL>();
 		for (SOAConfigTemplate template : templateTypes)

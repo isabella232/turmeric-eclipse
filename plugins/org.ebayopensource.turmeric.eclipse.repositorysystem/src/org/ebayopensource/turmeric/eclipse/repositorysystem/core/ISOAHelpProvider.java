@@ -11,6 +11,8 @@
  */
 package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
+
 /**
  * @author yayu
  *
@@ -55,7 +57,7 @@ public interface ISOAHelpProvider {
 	public static final int HELPID_CONSUME_SERVICE_FROM_WSDL = 109;
 
 	
-	public static final String HELPID_PREFIX = org.ebayopensource.turmeric.eclipse.core.Activator.PLUGIN_ID_PREFIX + ".help";
+	public static final String HELPID_PREFIX = TurmericCoreActivator.PLUGIN_ID_PREFIX + ".help";
 	public static final String HELPID_SOAHELP = HELPID_PREFIX + "." + "soahelp";
 	
 	/**

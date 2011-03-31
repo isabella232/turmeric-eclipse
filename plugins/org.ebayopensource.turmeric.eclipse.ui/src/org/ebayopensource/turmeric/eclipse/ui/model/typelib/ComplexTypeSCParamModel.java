@@ -6,9 +6,10 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.typelibrary.ui.model;
+package org.ebayopensource.turmeric.eclipse.ui.model.typelib;
 
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardAttribPage;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardAttribPage;
 
 /**
  * UI Model for Complex Type with Simple Content creation

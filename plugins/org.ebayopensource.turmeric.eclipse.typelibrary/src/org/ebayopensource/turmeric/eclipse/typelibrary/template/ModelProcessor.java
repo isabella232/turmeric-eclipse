@@ -13,8 +13,8 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.ebayopensource.turmeric.eclipse.core.ICommand;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.eclipse.core.runtime.IProgressMonitor;

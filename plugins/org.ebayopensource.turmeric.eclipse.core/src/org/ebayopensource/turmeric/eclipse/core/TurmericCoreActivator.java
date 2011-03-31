@@ -13,14 +13,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.PropertyResourceBundle;
 import java.util.jar.JarFile;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
@@ -33,7 +38,7 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends Plugin {
+public class TurmericCoreActivator extends Plugin {
 
 	private static final String EXT_XSD = ".xsd";
 	// The plug-in ID
@@ -41,7 +46,7 @@ public class Activator extends Plugin {
 	public static final String PLUGIN_ID = PLUGIN_ID_PREFIX + ".core";
 
 	// The shared instance
-	private static Activator plugin;
+	private static TurmericCoreActivator plugin;
 	
 	public final static String MY_PROPERTIES = "plugin.properties";
 	private static BundleContext context = null;
@@ -65,7 +70,7 @@ public class Activator extends Plugin {
 	/**
 	 * The constructor
 	 */
-	public Activator() {
+	public TurmericCoreActivator() {
 	}
 
 	/**
@@ -92,7 +97,7 @@ public class Activator extends Plugin {
 	 * 
 	 * @return the shared instance
 	 */
-	public static Activator getDefault() {
+	public static TurmericCoreActivator getDefault() {
 		return plugin;
 	}
 
@@ -156,13 +161,8 @@ public class Activator extends Plugin {
 	 * page.
 	 */
 	public static final String TYPES_LOCATION_IN_JAR = "types";
-	private static final String FOLDER_GEN_SRC = "gen-src";
-	private static final String FOLDER_GEN_META_SRC = "gen-meta-src";
-	private static final String FOLDER_GEN_META_SRC_META_INF = "gen-meta-src/META-INF";
-	private static final String FOLDER_META_SRC = "meta-src";
 	private static final String FOLDER_META_SRC_META_INF = "meta-src/META-INF";
 	private static final String FOLDER_META_SRC_TYPES = "meta-src/types";
-	private static final String INFO_DEP_XML_PATH_IN_JAR = "META-INF/";
 
 	/**
 	 * Old type library jar(NOT in workspace) has the dir structure \types\<xsd>
@@ -200,5 +200,54 @@ public class Activator extends Plugin {
 		FormatProcessorXML formatProcessor = new FormatProcessorXML();
 		return formatProcessor.formatContent(contents);
 	}
+	
+	/**
+	 * Adding the TypeLibProtocal to the name for the xsd entry.
+	 * 
+	 * @param typeName
+	 * @return
+	 */
+	public static IFile getDependencyFile(IProject project) {
+		return project.getFile(FOLDER_META_SRC_META_INF
+				+ WorkspaceUtil.PATH_SEPERATOR + project.getName()
+				+ WorkspaceUtil.PATH_SEPERATOR
+				+ SOATypeLibraryConstants.FILE_TYPE_DEP_XML);
+	}
+	
+	/**
+	 * Mainly used to validate a type library project. These are the minimum
+	 * files that should be writable for the SOA plugin and codegen to modify.
+	 * The returned list of files could be modified either by codegen or soa
+	 * plugin. For now its just the type dependency file.
+	 * 
+	 * @param project
+	 * @return list of resources that are supposed tobe writable in a valid type
+	 *         library project.
+	 * @throws Exception
+	 */
+	public static List<IResource> getTypeLibProjectWritableResources(
+			final IProject project) throws Exception {
+		final List<IResource> resources = new ArrayList<IResource>();
+		resources.add(TurmericCoreActivator.getDependencyFile(project));
+		return resources;
+	}
+	
+	/**
+	 * Mainly used to validate a type library project. These are the minimum
+	 * files that should be readable for the SOA plugin and codegen to work. For
+	 * now its just the type dependency file.
+	 * 
+	 * @param project
+	 * @return list of resources that are supposed to exist in a valid type
+	 *         library project.
+	 * @throws Exception
+	 */
+	public static List<IResource> getTypeLibProjectReadableResources(
+			final IProject project) throws Exception {
+		final List<IResource> resources = new ArrayList<IResource>();
+		resources.add(getDependencyFile(project));
+		return resources;
+	}
+	
 
 }

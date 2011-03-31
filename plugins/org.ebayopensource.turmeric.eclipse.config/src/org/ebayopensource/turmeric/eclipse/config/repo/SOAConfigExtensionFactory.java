@@ -20,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.config.ConfigActivator;
 import org.ebayopensource.turmeric.eclipse.config.exception.SOAConfigAreaCorruptedException;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -187,10 +188,6 @@ public final class SOAConfigExtensionFactory {
 	
 	
 	
-	public static enum SOAXSDTemplateSubType {
-		SIMPLE, COMPLEX, ENUM, COMPLEX_COMPLEXCONTENT, COMPLEX_SIMPLECONTENT
-	}
-
 	public static class SOAConfigTemplate {
 		private String name;
 		private String organization;

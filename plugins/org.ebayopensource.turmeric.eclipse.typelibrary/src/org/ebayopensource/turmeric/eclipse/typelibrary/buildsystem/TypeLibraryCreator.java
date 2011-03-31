@@ -14,6 +14,7 @@ import java.util.Set;
 import org.ebayopensource.turmeric.eclipse.buildsystem.core.TypeLibraryBuildSystemConfigurer;
 import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
@@ -21,7 +22,6 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuild
 import org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.GenTypeCreateTypeLibrary;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryMetadata;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProject;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;

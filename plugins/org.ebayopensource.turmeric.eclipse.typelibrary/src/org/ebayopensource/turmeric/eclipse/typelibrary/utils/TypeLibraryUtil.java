@@ -42,9 +42,14 @@ import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
 import org.ebayopensource.turmeric.eclipse.config.exception.SOAConfigAreaCorruptedException;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
-import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.ImportTypeModel;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeLibraryParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOATypeCreationFailedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
@@ -52,19 +57,16 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProje
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeCreator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeDepMarshaller;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.WTPCopyUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.exception.ImportTypeException;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProject;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProjectResolver;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeCCParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ImportTypeModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeLibraryParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
+import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
+import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeCCParamModel;
+import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardElementPage;
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -108,7 +110,7 @@ public class TypeLibraryUtil {
 	 * @return
 	 */
 	public static Map<SOAXSDTemplateSubType, String> getTemplateCategoryMap() {
-		Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> templateCategoryFiles = getTemplateCategoryFiles();
+		Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> templateCategoryFiles = UIActivator.getTemplateCategoryFiles();
 		Map<SOAXSDTemplateSubType, String> templateCategoryMap = new LinkedHashMap<SOAXSDTemplateSubType, String>();
 		for (SOAXSDTemplateSubType subType : templateCategoryFiles.keySet()) {
 			if (subType.equals(SOAXSDTemplateSubType.SIMPLE))
@@ -134,35 +136,6 @@ public class TypeLibraryUtil {
 		return templateCategoryMap;
 	}
 
-	/**
-	 * Get all template Category files
-	 * 
-	 * @return
-	 */
-	public static Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> getTemplateCategoryFiles() {
-		try {
-			final String organization = GlobalRepositorySystem.instanceOf()
-					.getActiveRepositorySystem()
-					.getActiveOrganizationProvider().getName();
-			return SOAConfigExtensionFactory.getXSDTemplates(organization);
-		} catch (SOAConfigAreaCorruptedException e) {
-			UIUtil.showErrorDialog(e);
-		}
-		return null;
-	}
-
-	/**
-	 * Get files inside a template category
-	 * 
-	 * @return
-	 */
-	public static List<SOAConfigTemplate> getFiles(SOAXSDTemplateSubType subType) {
-		Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> templates = getTemplateCategoryFiles();
-		if (templates != null) {
-			return templates.get(subType);
-		}
-		return null;
-	}
 
 	/**
 	 * @param typeName
@@ -237,18 +210,7 @@ public class TypeLibraryUtil {
 		return retValue;
 	}
 
-	/**
-	 * Adding the TypeLibProtocal to the name for the xsd entry.
-	 * 
-	 * @param typeName
-	 * @return
-	 */
-	public static IFile getDependencyFile(IProject project) {
-		return project.getFile(SOATypeLibraryConstants.FOLDER_META_SRC_META_INF
-				+ WorkspaceUtil.PATH_SEPERATOR + project.getName()
-				+ WorkspaceUtil.PATH_SEPERATOR
-				+ SOATypeLibraryConstants.FILE_TYPE_DEP_XML);
-	}
+
 
 	/**
 	 * Adding the TypeLibProtocal to the name for the xsd entry.
@@ -727,7 +689,7 @@ public class TypeLibraryUtil {
 	 */
 	public static InputStream getTemplateStream(SOAXSDTemplateSubType category,
 			String type) throws IOException {
-		List<SOAConfigTemplate> templateCategoryFiles = getTemplateCategoryFiles()
+		List<SOAConfigTemplate> templateCategoryFiles = UIActivator.getTemplateCategoryFiles()
 				.get(category);
 		for (SOAConfigTemplate categoryFile : templateCategoryFiles) {
 			if (categoryFile.getName().equals(type)) {
@@ -847,7 +809,7 @@ public class TypeLibraryUtil {
 			ProgressUtil.progressOneStep(monitor);
 
 			// update version number in dependency file
-			IFile file = getDependencyFile(typelibProject.getProject());
+			IFile file = TurmericCoreActivator.getDependencyFile(typelibProject.getProject());
 			TypeLibraryDependencyType typeLibraryDependencyType = TypeDepMarshaller
 					.unmarshallIt(file);
 
@@ -915,43 +877,9 @@ public class TypeLibraryUtil {
 			ProgressUtil.progressOneStep(monitor);
 
 			monitor.subTask(" -> Generating code...");
-			// TypeCreator.callCodegen(project, typeLibName, typeName);
 			TypeLibraryUtil
 					.refreshTypeDependencyInSOATypeRegistry(tlProjectName);
 			
-			// TypeCreator.createType(model, monitor);
-			// // invoke this when a type is created, for dependency
-			// // need
-			// BuildSystemUtil.updateSOAClasspathContainer(WorkspaceUtil
-			// .getProject(tlProjectName));
-			//
-			// monitor.subTask(" -> Calling code gen for type generation: "
-			// + model.getTypeName());
-			// ProgressUtil.progressOneStep(monitor);
-			//
-			// final IProject project = WorkspaceUtil.getProject(model
-			// .getTypeLibraryName());
-			// final String typeLibName = model.getTypeLibraryName();
-			// final String typeName = model.getTypeName();
-			// final String version = model.getVersion();
-			//
-			// try {
-			// ProgressUtil.progressOneStep(monitor);
-			// WorkspaceUtil.refresh(project);
-			// ProgressUtil.progressOneStep(monitor);
-			// String xsdFileName = TypeLibraryUtil.getXsdFileLocation(
-			// typeName, project);
-			// ProgressUtil.progressOneStep(monitor);
-			// TypeCreator.postProcessTypeCreation(typeName, version,
-			// typeLibName, project.getFile(xsdFileName), false,
-			// false);
-			// TypeLibraryUtil
-			// .refreshTypeDependencyInSOATypeRegistry(tlProjectName);
-			// } catch (Exception e) {
-			// SOALogger.getLogger().error(e);
-			// throw new SOATypeCreationFailedException(
-			// "Failed to import schema type", e);
-			// }
 		} catch (Exception e) {
 			SOALogger.getLogger().error(e);
 			UIUtil.showErrorDialog("Error Occurs",

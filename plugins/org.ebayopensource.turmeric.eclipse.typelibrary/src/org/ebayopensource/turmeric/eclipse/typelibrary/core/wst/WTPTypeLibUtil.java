@@ -22,10 +22,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.exception.core.SOABadParameterException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeDepMarshaller;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
@@ -201,7 +202,7 @@ public class WTPTypeLibUtil {
 			Map<LibraryType, XSDTypeDefinition> allSchemas, IProject project)
 			throws Exception {
 		Map<LibraryType, XSDTypeDefinition> newSchemas = new ConcurrentHashMap<LibraryType, XSDTypeDefinition>();
-		IFile typeDepFile = TypeLibraryUtil.getDependencyFile(project);
+		IFile typeDepFile = TurmericCoreActivator.getDependencyFile(project);
 		if (typeDepFile.exists() == false) {
 			return newSchemas;
 		}

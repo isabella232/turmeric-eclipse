@@ -23,6 +23,7 @@ import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.common.config.TypeDependencyType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.core.compare.LibraryTypeComparator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
@@ -32,6 +33,7 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.actions.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeDepMarshaller;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
+import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
@@ -445,7 +447,7 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 					.getTypeNameFromXSDSchemaLocation(((XSDSchema) schema)
 							.getSchemaLocation());
 		}
-		IFile typeDepFile = TypeLibraryUtil.getDependencyFile(selectedFile
+		IFile typeDepFile = TurmericCoreActivator.getDependencyFile(selectedFile
 				.getProject());
 		if (typeDepFile.exists() == false) {
 			return;

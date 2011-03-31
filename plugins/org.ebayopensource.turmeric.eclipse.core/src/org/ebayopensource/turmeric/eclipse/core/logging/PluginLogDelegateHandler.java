@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.core.Activator;
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.core.logging.system.ISOALoggingSystemProvider;
 import org.ebayopensource.turmeric.eclipse.core.logging.system.SOALoggingSystemExtensionRegistry;
 import org.eclipse.core.runtime.ILog;
@@ -123,11 +123,11 @@ extends Handler
             final String message, 
             final Throwable throwable )
     {
-    	if( Activator.getDefault() == null )
+    	if( TurmericCoreActivator.getDefault() == null )
     		//the Activator has not been initialized yet
     		return;
     	if (systemLogger == null)
-    		systemLogger = Activator.getDefault().getLog();
+    		systemLogger = TurmericCoreActivator.getDefault().getLog();
     	systemLogger.log( new Status( severity, loggerName, 0, StringUtils.defaultString( message ), throwable ) );
     }
     

@@ -13,17 +13,24 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.PropertyResourceBundle;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
-import org.ebayopensource.turmeric.eclipse.core.Activator;
+import org.ebayopensource.turmeric.eclipse.config.exception.SOAConfigAreaCorruptedException;
+import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory;
+import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
+import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -187,23 +194,23 @@ public class UIActivator extends AbstractUIPlugin {
 				.getActiveRepositorySystem().getAssetRegistry()
 				.getAssetLocation(libraryName);
 		if (!StringUtils.isEmpty(jarLocation)
-				&& jarLocation.endsWith("jar")) {
-			String xsdName = Activator.getXsdFileNameFromTypeName(typeName);
+ 	            && jarLocation.endsWith("jar")) {
+			String xsdName = TurmericCoreActivator.getXsdFileNameFromTypeName(typeName);
 			URL jarURL = IOUtil.toURL(jarLocation);
 			String jarEntryPath = "";
-			if (Activator.isNewTypLibrary(jarURL, libraryName)) {
-				jarEntryPath = Activator.TYPES_LOCATION_IN_JAR
+			if (TurmericCoreActivator.isNewTypLibrary(jarURL, libraryName)) {
+				jarEntryPath = TurmericCoreActivator.TYPES_LOCATION_IN_JAR
 						+ WorkspaceUtil.PATH_SEPERATOR + libraryName
 						+ WorkspaceUtil.PATH_SEPERATOR + xsdName;
 			} else {
-				jarEntryPath = Activator.TYPES_LOCATION_IN_JAR
+				jarEntryPath = TurmericCoreActivator.TYPES_LOCATION_IN_JAR
 						+ WorkspaceUtil.PATH_SEPERATOR + xsdName;
 			}
 			return IOUtil.getNonLockingURL(jarURL, jarEntryPath);
 		} else {
 			IProject project = WorkspaceUtil.getProject(libraryName);
 			if (project.isAccessible()) {
-				IFile file = project.getFile(Activator.getXsdFileLocation(typeName, project));
+				IFile file = project.getFile(TurmericCoreActivator.getXsdFileLocation(typeName, project));
 				return file.getLocation().toFile().toURI().toURL();
 			}
 			return null;
@@ -213,5 +220,42 @@ public class UIActivator extends AbstractUIPlugin {
 	public static URL getXSD(LibraryType libType) throws Exception {
 		return getXSD(libType.getLibraryInfo().getLibraryName(),
 				libType.getName());
-	}	
+	}
+	
+	public static String getNameSpace(String projectName) throws Exception {
+		return SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
+				.getTypeLibrary(projectName).getLibraryNamespace();
+	}
+	
+	/**
+	 * Get all template Category files
+	 * 
+	 * @return
+	 */
+	public static Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> getTemplateCategoryFiles() {
+		try {
+			final String organization = GlobalRepositorySystem.instanceOf()
+					.getActiveRepositorySystem()
+					.getActiveOrganizationProvider().getName();
+			return SOAConfigExtensionFactory.getXSDTemplates(organization);
+		} catch (SOAConfigAreaCorruptedException e) {
+			UIUtil.showErrorDialog(e);
+		}
+		return null;
+	}
+
+	/**
+	 * Get files inside a template category
+	 * 
+	 * @return
+	 */
+	public static List<SOAConfigTemplate> getFiles(SOAXSDTemplateSubType subType) {
+		Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> templates = getTemplateCategoryFiles();
+		if (templates != null) {
+			return templates.get(subType);
+		}
+		return null;
+	}
+	
+
 }

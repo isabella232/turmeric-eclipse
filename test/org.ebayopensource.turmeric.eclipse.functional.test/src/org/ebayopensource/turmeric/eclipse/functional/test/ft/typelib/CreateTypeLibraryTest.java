@@ -11,7 +11,7 @@
  */
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.typelib;
 
-import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
 import org.junit.Before;

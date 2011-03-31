@@ -25,6 +25,7 @@ import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;
 import org.ebayopensource.turmeric.common.config.TypeDependencyType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
@@ -79,7 +80,7 @@ public class TypeLibSynhcronizer {
 			IProgressMonitor monitor)
 			throws Exception {
 		monitor = ProgressUtil.getDefaultMonitor(monitor);
-		IFile typeDepFile = TypeLibraryUtil.getDependencyFile(project);
+		IFile typeDepFile = TurmericCoreActivator.getDependencyFile(project);
 		Set<String> allXmlDepLibs = null;
 		ProgressUtil.progressOneStep(monitor, 10);
 		if (typeDepFile.exists()) {
@@ -173,7 +174,7 @@ public class TypeLibSynhcronizer {
 	 */
 	public static void syncronizeXSDandDepXml(XSDSchema schema,
 			IProject project, QName type) throws Exception {
-		IFile typeDepFile = TypeLibraryUtil.getDependencyFile(project);
+		IFile typeDepFile = TurmericCoreActivator.getDependencyFile(project);
 		if (!typeDepFile.exists()) {
 			TypeDepMarshaller.createDefaultDepXml(project,
 					new NullProgressMonitor());
@@ -259,7 +260,7 @@ public class TypeLibSynhcronizer {
 			List<IFile> xsdFiles)
 			throws CoreException, Exception {
 		// there could be some deleted XSDs also
-		IFile typeDepFile = TypeLibraryUtil.getDependencyFile(project);
+		IFile typeDepFile = TurmericCoreActivator.getDependencyFile(project);
 		List<IFile> allXSDFiles = xsdFiles != null ? xsdFiles : 
 			TypeLibraryUtil.getAllXsdFiles(project, true);
 		List<String> allXSDStr = new ArrayList<String>();
@@ -316,7 +317,7 @@ public class TypeLibSynhcronizer {
 		Map<LibraryType, XSDTypeDefinition> wsdlImportedSchemas = WTPTypeLibUtil
 				.getTypeLibraryTypes(definition);
 
-		IFile typeDepFile = TypeLibraryUtil.getDependencyFile(project);
+		IFile typeDepFile = TurmericCoreActivator.getDependencyFile(project);
 		if (!typeDepFile.exists()) {
 			TypeDepMarshaller.createDefaultDepXml(project,
 					new NullProgressMonitor());
@@ -440,7 +441,7 @@ public class TypeLibSynhcronizer {
 	public static void updateVersionEntryTypeDep(String typeName,
 			Collection<LibraryType> selectedTypes, IProject project)
 			throws Exception {
-		IFile typeDepFile = TypeLibraryUtil.getDependencyFile(project);
+		IFile typeDepFile = TurmericCoreActivator.getDependencyFile(project);
 		TypeLibraryDependencyType typeLibraryDependencyType = TypeDepMarshaller
 				.unmarshallIt(typeDepFile);
 		TypeDependencyType typeDependencyType = TypeDepMarshaller.getTypeEntry(

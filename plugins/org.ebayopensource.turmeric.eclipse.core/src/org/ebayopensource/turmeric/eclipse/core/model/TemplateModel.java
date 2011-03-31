@@ -6,7 +6,7 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.typelibrary.utils;
+package org.ebayopensource.turmeric.eclipse.core.model;
 
 import org.apache.commons.lang.StringUtils;
 

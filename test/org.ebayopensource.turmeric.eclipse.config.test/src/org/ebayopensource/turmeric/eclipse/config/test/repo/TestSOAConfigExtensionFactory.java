@@ -18,9 +18,9 @@ import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
-import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.config.test.core.ConfigTestConstants;
 import org.ebayopensource.turmeric.eclipse.config.test.core.TestSOAGlobalConfigAccessor;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.junit.Assert;
 import org.junit.Test;
 

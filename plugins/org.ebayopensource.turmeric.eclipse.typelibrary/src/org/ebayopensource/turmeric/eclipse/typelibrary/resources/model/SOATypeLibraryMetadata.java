@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.typelibrary.resources.model;
 
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeLibraryParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeLibraryParamModel;
 
 /**
  * @author smathew

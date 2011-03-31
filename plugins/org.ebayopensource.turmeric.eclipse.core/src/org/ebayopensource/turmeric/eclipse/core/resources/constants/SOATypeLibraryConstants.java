@@ -6,9 +6,8 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.typelibrary.core;
+package org.ebayopensource.turmeric.eclipse.core.resources.constants;
 
-import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 
 /**
  * Type Library related constants goes here. Most of them are used in UI and

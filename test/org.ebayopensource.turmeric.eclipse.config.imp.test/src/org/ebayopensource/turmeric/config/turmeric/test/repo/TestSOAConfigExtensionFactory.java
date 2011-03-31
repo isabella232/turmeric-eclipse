@@ -18,7 +18,7 @@ import org.ebayopensource.turmeric.config.turmeric.test.core.TestSOADomainAccess
 import org.ebayopensource.turmeric.config.turmeric.test.core.TestSOAGlobalConfigAccessor;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
-import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 
 import static org.junit.Assert.*;
 import org.junit.Test;

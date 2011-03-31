@@ -6,14 +6,15 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages;
+package org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib;
 
 import java.net.URL;
 import java.util.Map;
 
-import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewTypeWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;

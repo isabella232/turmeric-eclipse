@@ -15,11 +15,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOATypeLibraryCreationFailedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibraryCreator;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.NewTypeLibraryWizardPage;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.AbstractTypeLibraryWizard;

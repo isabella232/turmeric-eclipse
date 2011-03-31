@@ -6,32 +6,34 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages;
+package org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib;
 
 import java.net.URL;
 import java.util.Map;
 
-import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.swt.widgets.Composite;
 
 
 /**
- * General Page for simple type wizard
+ * General Page for complex type with simple content wizard
  * @author ramurthy
  *
  */
-public class SimpleTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
-	
-	public SimpleTypeWizardGeneralPage(String typeLibName) {
-		super("simpleTypeWizardGeneralPage", "Create Simple Type", "Create a new simple type", typeLibName);		
+
+public class ComplexTypeSCWizardGeneralPage extends ComplexTypeWizardGeneralPage {
+
+	public ComplexTypeSCWizardGeneralPage(String typeLibName) {
+		super("complexTypeSCWizardGeneralPage", "Create Complex Type (Simple Content)", "Create a new complex type with simple content", typeLibName);	
 	}
 	
+	@Override
 	public void createControl(Composite parent) {
 		try {
 			super.createControl(parent, false);
-			createTypeCombo(container, "&Restriction Type:");
+			createTypeCombo(container, "&Extension Type:");	
 			createDocumentationText(container);
 			dialogChanged();
 		} catch (Exception e) {
@@ -41,6 +43,6 @@ public class SimpleTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 	}
 	
 	protected Map<String, URL> getTemplateTypes() {
-		return getTemplateTypeNames(SOAXSDTemplateSubType.SIMPLE);
+		return getTemplateTypeNames(SOAXSDTemplateSubType.COMPLEX_SIMPLECONTENT);
 	}
 }

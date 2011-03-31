@@ -1,7 +1,7 @@
 package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.eclipse.core.Activator;
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.XMLUtil;
@@ -22,13 +22,13 @@ class TypeViewerDCListener implements IDoubleClickListener {
 						.getFirstElement();
 				XSDSchema xsdSchema = null;
 				try {
-					xsdSchema = Activator.parseSchema(UIActivator
+					xsdSchema = TurmericCoreActivator.parseSchema(UIActivator
 							.getXSD(selectedLibraryType));
 					XSDTypeDefinition typeDef = (XSDTypeDefinition) xsdSchema
 							.getTypeDefinitions().get(0);
 
 					MessageDialog.openInformation(UIUtil.getActiveShell(),
-							"Content of the selected xsd", Activator.formatContents(XMLUtil
+							"Content of the selected xsd", TurmericCoreActivator.formatContents(XMLUtil
 											.convertXMLToString(typeDef
 													.getElement())));
 				} catch (Exception e) {

@@ -6,16 +6,17 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.typelibrary.ui.model;
+package org.ebayopensource.turmeric.eclipse.ui.model.typelib;
 
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel;
 
 /**
- * UI Model for Complex Type with Complex Content creation
+ * UI Model for Simple Type creation. Currently it derives all parameters from 
+ * TypeParamModel. In future, additional parameters may be added here.
  * @author ramurthy
  *
  */
 
-public class ComplexTypeCCParamModel extends ComplexTypeParamModel {
+public class SimpleTypeParamModel extends TypeParamModel {
 
-	
 }

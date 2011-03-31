@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.typelibrary.template;
 
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel;
 import org.eclipse.xsd.XSDSchema;
 
 

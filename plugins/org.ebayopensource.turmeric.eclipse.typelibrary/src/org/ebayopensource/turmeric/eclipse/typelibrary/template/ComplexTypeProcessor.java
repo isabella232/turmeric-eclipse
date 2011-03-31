@@ -9,11 +9,11 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.template;
 
 import org.ebayopensource.turmeric.eclipse.core.ICommand;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateUtils;
+import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeParamModel;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardElementPage;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.xsd.XSDComplexTypeDefinition;

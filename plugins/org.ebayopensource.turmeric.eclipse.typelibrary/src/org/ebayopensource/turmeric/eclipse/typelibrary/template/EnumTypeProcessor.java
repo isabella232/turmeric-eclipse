@@ -10,11 +10,11 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.template;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.ICommand;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.EnumTypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.EnumTypeWizardDetailsPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateUtils;
+import org.ebayopensource.turmeric.eclipse.ui.model.typelib.EnumTypeParamModel;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.EnumTypeWizardDetailsPage;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.xsd.XSDEnumerationFacet;

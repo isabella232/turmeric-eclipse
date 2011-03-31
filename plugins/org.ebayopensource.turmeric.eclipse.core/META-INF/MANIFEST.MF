@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.sse.core,
  org.apache.commons.io;bundle-version="1.4.0",
  org.apache.log4j;bundle-version="1.2.15"
-Bundle-Activator: org.ebayopensource.turmeric.eclipse.core.Activator
+Bundle-Activator: org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator
 Export-Package: org.ebayopensource.turmeric.eclipse.core,
  org.ebayopensource.turmeric.eclipse.core.buildsystem,
  org.ebayopensource.turmeric.eclipse.core.compare,
@@ -27,6 +27,7 @@ Export-Package: org.ebayopensource.turmeric.eclipse.core,
  org.ebayopensource.turmeric.eclipse.core.model,
  org.ebayopensource.turmeric.eclipse.core.model.consumer,
  org.ebayopensource.turmeric.eclipse.core.model.services,
+ org.ebayopensource.turmeric.eclipse.core.model.typelibrary,
  org.ebayopensource.turmeric.eclipse.core.resources,
  org.ebayopensource.turmeric.eclipse.core.resources.constants,
  org.ebayopensource.turmeric.eclipse.validator.core,

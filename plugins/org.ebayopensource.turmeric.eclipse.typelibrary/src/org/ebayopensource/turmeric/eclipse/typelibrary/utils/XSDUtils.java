@@ -27,24 +27,26 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
-import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.ImportTypeModel;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.typelibrary.exception.ImportTypeException;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.CommonTypeProp;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeCCParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeSCParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.EnumTypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ImportTypeModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.SimpleTypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardAttribPage;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.EnumTypeWizardDetailsPage.EnumTableModel;
+import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
+import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeCCParamModel;
+import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeParamModel;
+import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeSCParamModel;
+import org.ebayopensource.turmeric.eclipse.ui.model.typelib.EnumTypeParamModel;
+import org.ebayopensource.turmeric.eclipse.ui.model.typelib.SimpleTypeParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardAttribPage;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardElementPage;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.EnumTypeWizardDetailsPage.EnumTableModel;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xsd.XSDAnnotation;
@@ -490,7 +492,7 @@ public final class XSDUtils {
 
 	private String getTemplateFile(SOAXSDTemplateSubType typeEnu)
 			throws ImportTypeException {
-		List<SOAConfigTemplate> templateFiles = TypeLibraryUtil
+		List<SOAConfigTemplate> templateFiles = UIActivator
 				.getFiles(typeEnu);
 		if (templateFiles.size() < 1) {
 			throw new ImportTypeException(

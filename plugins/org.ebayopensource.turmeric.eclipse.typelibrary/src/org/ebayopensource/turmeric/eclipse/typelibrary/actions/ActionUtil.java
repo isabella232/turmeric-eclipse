@@ -12,11 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
@@ -122,7 +123,7 @@ public class ActionUtil {
 			final IProject project, boolean needProjectConfigFile) {
 		final List<IResource> resources = new ArrayList<IResource>(2);
 		try {
-			final IResource typeDepFile = TypeLibraryUtil
+			final IResource typeDepFile = TurmericCoreActivator
 					.getDependencyFile(project);
 			resources.add(typeDepFile);
 			if (needProjectConfigFile == true) {
@@ -161,7 +162,7 @@ public class ActionUtil {
 			final IFile... additionalWritableFiles) 
 	throws ValidationInterruptedException {
 		Assert.isTrue(Display.getCurrent() != null, "Invalid thread access");
-		final IFile depFile = TypeLibraryUtil.getDependencyFile(project);
+		final IFile depFile = TurmericCoreActivator.getDependencyFile(project);
 		if (depFile.exists() == false) {
 			//the TypeDependencies.xml file might be missing for old services
 			return EclipseMessageUtils.createErrorStatus("The TypeDependencies.xml file is missing at ["

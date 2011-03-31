@@ -15,12 +15,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
+import org.ebayopensource.turmeric.eclipse.core.model.TemplateModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.AddImportCommand;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeSCParamModel;
+import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeParamModel;
+import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeSCParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -373,31 +375,6 @@ public class TemplateUtils {
 		} catch (Exception e) {
 			throw new CommandFailedException(e);
 		}
-	}
-
-	public static TemplateModel processTemplateModel(InputStream inputStream)
-			throws CoreException, IOException {
-		TemplateModel templateModel = new TemplateModel();
-		XSDSchema schema = TypeLibraryUtil.parseSchema(inputStream);
-		if (schema.getTypeDefinitions() != null
-				&& schema.getTypeDefinitions().size() > 0
-				&& schema.getTypeDefinitions().get(0) != null
-				&& schema.getTypeDefinitions().get(0) instanceof XSDTypeDefinition) {
-			XSDAnnotation xsdAnnotation = XSDCommonUIUtils
-					.getInputXSDAnnotation((XSDTypeDefinition) schema
-							.getTypeDefinitions().get(0), false);
-			if (xsdAnnotation != null) {
-				List documentationList = xsdAnnotation.getUserInformation();
-				if (documentationList.size() > 0) {
-					Element documentationElement = (Element) documentationList
-							.get(0);
-					templateModel.setDocumentation(documentationElement
-							.getTextContent());
-				}
-			}
-		}
-		return templateModel;
-
 	}
 
 }

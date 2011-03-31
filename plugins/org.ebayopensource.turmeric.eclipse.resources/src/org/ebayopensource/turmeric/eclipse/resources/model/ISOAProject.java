@@ -29,6 +29,8 @@ public interface ISOAProject {
 	public String getProjectName();
 
 	/**
+	 * {@inheritDoc}
+	 * 
 	 * @return the Eclipse IProject instance of the project
 	 */
 	public IProject getProject();

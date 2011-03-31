@@ -6,9 +6,9 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.typelibrary.ui.model;
+package org.ebayopensource.turmeric.eclipse.ui.model.typelib;
 
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.EnumTypeWizardDetailsPage;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.EnumTypeWizardDetailsPage;
 
 /**
  * UI Model for Enum Type creation
