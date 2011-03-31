@@ -55,6 +55,7 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -177,6 +178,13 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		updateStatus(null);
 		return true;
 	}
+	
+	protected void addServiceImplTypeComboBox(final Composite parent) {
+		final CCombo combo = super.createCCombo(parent, "Service Implementation Type",
+				false,new String[]{"Service Impl", "Service Impl Factory"}, "the implementation type of the new service");
+		combo.select(0);
+	}
+
 
 	protected Text addWSDL(final Composite composite) {
 		final Label label = new Label(composite, SWT.NULL);

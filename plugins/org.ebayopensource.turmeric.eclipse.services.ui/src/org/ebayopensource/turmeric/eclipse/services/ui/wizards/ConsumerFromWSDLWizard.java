@@ -172,6 +172,6 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 	}
 
 	public int getMinimumHeight() {
-		return super.getMinimumHeight() + 150;
+		return super.getMinimumHeight() + 200;
 	}
 }

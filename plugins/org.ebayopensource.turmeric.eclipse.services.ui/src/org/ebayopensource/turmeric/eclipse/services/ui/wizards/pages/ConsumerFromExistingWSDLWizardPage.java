@@ -118,46 +118,50 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	public void createControl(Composite parent) {
 		try {
 			final Composite container = super.createParentControl(parent, 4);
-
 			Text wsdlText = addWSDL(container);
-			wsdlText.setFocus();
+			
 			addWorkspaceRootChooser(container);
-			addServiceDomainList(container, true);
-			if (serviceDomainList != null && domainClassifierList != null) {
-				this.serviceDomainList.select(-1);
-				this.serviceDomainList.clearSelection();
-				this.domainClassifierList.select(-1);
-				this.domainClassifierList.clearSelection();
-			}
-			addServiceVersion(container);
 			addServiceName(container, false);
-			this.adminText = addAdminName(container, false);
-			{
-				if (this.resourceNameControlDecoration != null) {
-					// we do not want to show both WARNING and INFORMATION icons
-					resourceNameControlDecoration.hide();
-				}
-				ControlDecoration controlDecoration = new ControlDecoration(
-						adminText, SWT.LEFT | SWT.TOP);
-				controlDecoration.setShowOnlyOnFocus(false);
-				controlDecoration
-						.setDescriptionText(SOAMessages.WARNING_ADMIN_NAME_MANUAL_OVERRIDE);
-				FieldDecoration fieldDecoration = FieldDecorationRegistry
-						.getDefault().getFieldDecoration(
-								FieldDecorationRegistry.DEC_WARNING);
-				controlDecoration.setImage(fieldDecoration.getImage());
-			}
-			addTargetNamespace(container, null, false);
 			createServiceClient(container, false);
 			createConsumerIDText(container);
-			createBaseConsumerSource(container);
-			addServicePackage(container);
-			addServiceLayer(container);
-			createEnvironmentList(container);
-			addWSDLPackageToNamespace(container);
-			addTypeFolding(container);
-			super.setTypeFolding(false);
 			
+			{
+				//advanced section
+				Composite advancedPanel = super.createAdvancedSettingsPanel(container);
+				addServiceDomainList(advancedPanel, true);
+				if (serviceDomainList != null && domainClassifierList != null) {
+					this.serviceDomainList.select(-1);
+					this.serviceDomainList.clearSelection();
+					this.domainClassifierList.select(-1);
+					this.domainClassifierList.clearSelection();
+				}
+				addServiceVersion(advancedPanel);
+				addTargetNamespace(advancedPanel, null, false);
+				this.adminText = addAdminName(advancedPanel, false);
+				{
+					if (this.resourceNameControlDecoration != null) {
+						// we do not want to show both WARNING and INFORMATION icons
+						resourceNameControlDecoration.hide();
+					}
+					ControlDecoration controlDecoration = new ControlDecoration(
+							adminText, SWT.LEFT | SWT.TOP);
+					controlDecoration.setShowOnlyOnFocus(false);
+					controlDecoration
+							.setDescriptionText(SOAMessages.WARNING_ADMIN_NAME_MANUAL_OVERRIDE);
+					FieldDecoration fieldDecoration = FieldDecorationRegistry
+							.getDefault().getFieldDecoration(
+									FieldDecorationRegistry.DEC_WARNING);
+					controlDecoration.setImage(fieldDecoration.getImage());
+				}
+				
+				createBaseConsumerSource(advancedPanel);
+				addServicePackage(advancedPanel);
+				addServiceLayer(advancedPanel);
+				createEnvironmentList(advancedPanel);
+				addWSDLPackageToNamespace(advancedPanel);
+				addTypeFolding(advancedPanel);
+				super.setTypeFolding(false);
+			}
 			
 			adminText.addModifyListener(new ModifyListener(){
 
@@ -171,6 +175,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 				}
 				
 			});
+			wsdlText.setFocus();
 		} catch (Exception e) {
 			logger.error(e);
 			UIUtil.showErrorDialog(e);
