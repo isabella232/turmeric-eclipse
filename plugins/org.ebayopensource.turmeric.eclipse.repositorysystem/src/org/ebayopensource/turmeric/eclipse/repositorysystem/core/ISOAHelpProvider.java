@@ -33,6 +33,7 @@ public interface ISOAHelpProvider {
 	public static final int PAGE_PROBLEM = 13;
 	public static final int PAGE_CONSUME_NEW_SERVICE = 14;
 	public static final int PAGE_ADD_REMOVE_REQUIRED_SERVICES = 15;
+	public static final int PAGE_ADDITIONAL_CONFIG = 16;
 	
 	//Wizard Pages - Type Library
 	public static final int PAGE_CREATE_TYPE_LIBRARY = 200;
