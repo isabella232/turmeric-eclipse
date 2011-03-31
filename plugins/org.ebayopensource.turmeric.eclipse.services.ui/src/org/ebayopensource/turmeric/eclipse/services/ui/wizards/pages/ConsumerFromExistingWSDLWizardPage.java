@@ -21,9 +21,9 @@ import javax.wsdl.Definition;
 import javax.wsdl.Service;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
 import org.ebayopensource.turmeric.eclipse.registry.intf.IClientRegistryProvider;
 import org.ebayopensource.turmeric.eclipse.registry.models.ClientAssetModel;

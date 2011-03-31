@@ -26,7 +26,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.config.core.SOADomainAccessor;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
 import org.ebayopensource.turmeric.eclipse.registry.models.NameValuePair;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;

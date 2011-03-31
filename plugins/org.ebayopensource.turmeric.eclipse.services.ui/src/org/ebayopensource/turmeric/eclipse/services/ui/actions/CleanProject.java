@@ -12,8 +12,8 @@
 package org.ebayopensource.turmeric.eclipse.services.ui.actions;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAActionExecutionFailedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;

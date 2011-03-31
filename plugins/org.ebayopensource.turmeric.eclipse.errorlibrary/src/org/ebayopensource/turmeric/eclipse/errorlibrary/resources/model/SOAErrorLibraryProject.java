@@ -14,11 +14,11 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.resources.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ErrorLibraryProviderFactory;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAGetErrorLibraryProviderFailedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.AbstractSOAMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject;

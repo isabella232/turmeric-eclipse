@@ -14,7 +14,7 @@ package org.ebayopensource.turmeric.eclipse.services.search;
 import java.util.Collections;
 import java.util.List;
 
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
 import org.ebayopensource.turmeric.eclipse.registry.models.SimpleAssetModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceReader;

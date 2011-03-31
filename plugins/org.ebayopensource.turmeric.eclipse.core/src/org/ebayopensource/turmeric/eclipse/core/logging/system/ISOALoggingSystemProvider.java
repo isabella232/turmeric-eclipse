@@ -9,7 +9,7 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.logging.system;
+package org.ebayopensource.turmeric.eclipse.core.logging.system;
 
 import java.beans.PropertyChangeEvent;
 import java.util.logging.LogRecord;

@@ -9,7 +9,7 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.actions;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.TypeSelectionWizard;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.utils.ValidateUtil;

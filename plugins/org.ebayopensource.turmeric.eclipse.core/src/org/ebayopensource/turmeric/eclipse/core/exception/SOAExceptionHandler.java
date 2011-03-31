@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.core.exception;
 
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 
 
 /**

@@ -12,7 +12,7 @@ import java.beans.PropertyChangeEvent;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-import org.ebayopensource.turmeric.eclipse.logging.system.ISOALoggingSystemProvider;
+import org.ebayopensource.turmeric.eclipse.core.logging.system.ISOALoggingSystemProvider;
 
 
 /**
@@ -32,7 +32,7 @@ public class TurmericLoggingSystemProvider implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.logging.system.ISOALoggingSystemProvider#getSystemID()
+	 * @see org.ebayopensource.turmeric.eclipse.core.logging.system.ISOALoggingSystemProvider#getSystemID()
 	 */
 	public String getSystemID() {
 		return TurmericConstants.TURMERIC_ID;
@@ -41,7 +41,7 @@ public class TurmericLoggingSystemProvider implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.logging.system.ISOALoggingSystemProvider#initLoggingSystem()
+	 * @see org.ebayopensource.turmeric.eclipse.core.logging.system.ISOALoggingSystemProvider#initLoggingSystem()
 	 */
 	public void initLoggingSystem() {
 		
@@ -59,7 +59,7 @@ public class TurmericLoggingSystemProvider implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.logging.system.ISOALoggingSystemProvider#newLoggerCreated(java.util.logging.Logger)
+	 * @see org.ebayopensource.turmeric.eclipse.core.logging.system.ISOALoggingSystemProvider#newLoggerCreated(java.util.logging.Logger)
 	 */
 	public void newLoggerCreated(Logger logger) {
 
@@ -68,7 +68,7 @@ public class TurmericLoggingSystemProvider implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.logging.system.ISOALoggingSystemProvider#shouldLogRawMessage(java.util.logging.LogRecord)
+	 * @see org.ebayopensource.turmeric.eclipse.core.logging.system.ISOALoggingSystemProvider#shouldLogRawMessage(java.util.logging.LogRecord)
 	 */
 	public boolean shouldLogRawMessage(LogRecord record) {
 		return false;

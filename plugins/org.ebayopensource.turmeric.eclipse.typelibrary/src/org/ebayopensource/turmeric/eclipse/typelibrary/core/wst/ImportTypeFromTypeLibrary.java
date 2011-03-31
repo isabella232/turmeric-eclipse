@@ -24,7 +24,7 @@ import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.common.config.TypeDependencyType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 import org.ebayopensource.turmeric.eclipse.core.compare.LibraryTypeComparator;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;

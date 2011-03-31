@@ -8,8 +8,8 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ErrorLibraryActivator;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.swt.custom.BusyIndicator;

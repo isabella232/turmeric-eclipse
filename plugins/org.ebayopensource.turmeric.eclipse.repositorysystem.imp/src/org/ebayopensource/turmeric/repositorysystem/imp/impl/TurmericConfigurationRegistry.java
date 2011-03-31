@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
 import org.ebayopensource.turmeric.eclipse.config.core.SOAServiceConfiguration;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAConfigurationRegistry;
 import org.ebayopensource.turmeric.repositorysystem.imp.utils.TurmericConstants;
 

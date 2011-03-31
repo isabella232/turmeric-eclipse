@@ -26,6 +26,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xbean.classloader.JarFileClassLoader;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.model.PropertiesSOAError;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.model.PropertiesSOAErrorDomain;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.model.PropertiesSOAErrorLibrary;
@@ -36,7 +37,6 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.vo.SOAErrorVO
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrLibrary;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAError;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;

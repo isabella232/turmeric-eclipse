@@ -9,12 +9,11 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.logging.system;
+package org.ebayopensource.turmeric.eclipse.core.logging.system;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.ebayopensource.turmeric.eclipse.logging.Activator;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
@@ -25,7 +24,7 @@ import org.eclipse.core.runtime.Platform;
  *
  */
 public final class SOALoggingSystemExtensionRegistry {
-	public static final String LOGGING_SYSTEM_ID_PROVIDER_EXTENSION_POINT_ID = Activator.PLUGIN_ID + ".loggingSystem";
+	public static final String LOGGING_SYSTEM_ID_PROVIDER_EXTENSION_POINT_ID = "org.ebayopensource.turmeric.eclipse.loggingSystem";
 	public static final String ELEM_SOA_LOGGING_SYSTEM = "SOALoggingSystem";
 	public static final String ATTR_LOGGING_SYSTEM_ID_PROVIDER = "loggingSystemIDProvider";
 	private static SOALoggingSystemExtensionRegistry instance;

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceReader;

@@ -15,8 +15,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAConsumerCreationFailedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;

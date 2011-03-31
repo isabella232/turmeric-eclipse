@@ -14,7 +14,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.GenTypeDeleteType;

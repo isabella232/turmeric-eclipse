@@ -19,9 +19,9 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;

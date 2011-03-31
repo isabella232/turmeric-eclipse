@@ -18,7 +18,7 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.maven.core.repositorysystem.IMavenOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.SOAMavenConstants;

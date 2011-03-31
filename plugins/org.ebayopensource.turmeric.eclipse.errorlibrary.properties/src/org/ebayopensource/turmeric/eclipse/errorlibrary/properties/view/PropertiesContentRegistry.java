@@ -11,10 +11,10 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.view;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.registry.TurmericErrorRegistry;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrLibrary;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrRegistry;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 
 

@@ -23,7 +23,7 @@
       [Enter Copyright Description here.]
    </copyright>
 
-  <license url="http://www.example.com/license">
+   <license url="http://www.example.com/license">
       Apache License
 Version 2.0, January 2004
 http://www.apache.org/licenses/
@@ -200,7 +200,6 @@ incurred by, or claims asserted against, such Contributor by
 reason of your accepting any such warranty or additional liability.
    </license>
 
-
    <plugin
          id="org.ebayopensource.turmeric.eclipse.codegen.source"
          download-size="0"
@@ -217,13 +216,6 @@ reason of your accepting any such warranty or additional liability.
 
    <plugin
          id="org.ebayopensource.turmeric.eclipse.buildsystem.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.ebayopensource.turmeric.eclipse.logging.source"
          download-size="0"
          install-size="0"
          version="0.0.0"

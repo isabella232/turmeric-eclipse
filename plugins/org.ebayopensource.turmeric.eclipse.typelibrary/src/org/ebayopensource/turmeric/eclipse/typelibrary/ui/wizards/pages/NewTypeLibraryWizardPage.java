@@ -19,7 +19,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;

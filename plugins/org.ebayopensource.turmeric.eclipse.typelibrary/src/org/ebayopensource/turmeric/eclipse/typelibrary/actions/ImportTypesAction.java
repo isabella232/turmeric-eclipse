@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.typelibrary.actions;
 
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.ImportTypesWizard;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IFile;

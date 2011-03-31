@@ -14,8 +14,8 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOATypeLibraryCreationFailedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibraryCreator;

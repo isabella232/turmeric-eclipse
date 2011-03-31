@@ -9,7 +9,7 @@
 package org.ebayopensource.turmeric.eclipse.services.ui.views;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.PropertiesUtil;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.eclipse.core.runtime.IProgressMonitor;

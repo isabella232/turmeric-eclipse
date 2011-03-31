@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.repositorysystem;
 
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;

@@ -11,7 +11,7 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.actions;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeViewer;

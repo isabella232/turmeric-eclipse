@@ -6,7 +6,7 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.logging;
+package org.ebayopensource.turmeric.eclipse.core.logging;
 
 import java.text.MessageFormat;
 import java.util.Date;
@@ -16,8 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.logging.system.ISOALoggingSystemProvider;
-import org.ebayopensource.turmeric.eclipse.logging.system.SOALoggingSystemExtensionRegistry;
+import org.ebayopensource.turmeric.eclipse.core.Activator;
+import org.ebayopensource.turmeric.eclipse.core.logging.system.ISOALoggingSystemProvider;
+import org.ebayopensource.turmeric.eclipse.core.logging.system.SOALoggingSystemExtensionRegistry;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;

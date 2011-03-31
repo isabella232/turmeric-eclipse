@@ -15,9 +15,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.ebayopensource.turmeric.eclipse.core.ICommand;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.FreeMarkerUtil;
 import org.eclipse.core.runtime.IProgressMonitor;

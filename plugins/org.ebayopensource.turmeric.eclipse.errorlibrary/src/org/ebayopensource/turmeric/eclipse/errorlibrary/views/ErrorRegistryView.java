@@ -9,11 +9,11 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ErrorLibraryProviderFactory;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorRegistryViewProvider;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.ErrLibComparator;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.ui.SOAPerspectiveFactory;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.jface.action.IToolBarManager;

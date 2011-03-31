@@ -16,11 +16,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAServiceCreationFailedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
 import org.ebayopensource.turmeric.eclipse.registry.intf.IArtifactValidator;
 import org.ebayopensource.turmeric.eclipse.registry.intf.IRegistryProvider;

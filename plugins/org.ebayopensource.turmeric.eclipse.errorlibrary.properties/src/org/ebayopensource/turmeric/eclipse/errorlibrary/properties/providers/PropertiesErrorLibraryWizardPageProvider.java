@@ -14,11 +14,11 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.eclipse.TurmericErrorLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.wizards.pages.NewPropertiesContentErrorLibraryWizardPage;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ISOAErrorLibraryWizardPageProvider;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryParamModel;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;

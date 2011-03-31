@@ -9,8 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.actions;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;

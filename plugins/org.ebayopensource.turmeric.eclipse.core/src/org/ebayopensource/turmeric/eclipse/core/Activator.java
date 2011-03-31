@@ -13,18 +13,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.PropertyResourceBundle;
 import java.util.jar.JarFile;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.wst.xml.core.internal.provisional.format.FormatProcessorXML;
 import org.eclipse.xsd.XSDSchema;
@@ -43,6 +42,25 @@ public class Activator extends Plugin {
 
 	// The shared instance
 	private static Activator plugin;
+	
+	public final static String MY_PROPERTIES = "plugin.properties";
+	private static BundleContext context = null;
+	private static SOALogger soaLogger = SOALogger.getLogger();
+
+    protected PropertyResourceBundle pluginProperties;
+
+    public PropertyResourceBundle getPluginProperties(){
+    	if (pluginProperties == null){
+    		try {
+    			pluginProperties = new PropertyResourceBundle(
+    					FileLocator.openStream(getBundle() == null ? context.getBundle() : getBundle(),
+    							new Path(MY_PROPERTIES),false));
+    		} catch (IOException e) {
+    			soaLogger.error(e);
+    		}
+    	}
+    	return pluginProperties;
+    }	
 
 	/**
 	 * The constructor
@@ -50,12 +68,10 @@ public class Activator extends Plugin {
 	public Activator() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.core.runtime.Plugins#start(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
@@ -65,19 +81,14 @@ public class Activator extends Plugin {
 		SOALogger.getLogger().info(buf);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
-	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 * 
 	 * @return the shared instance
 	 */

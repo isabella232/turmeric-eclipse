@@ -17,7 +17,7 @@
       </RepositorySystems>
    </extension>
 	 <extension
-	       point="org.ebayopensource.turmeric.eclipse.logging.loggingSystem">
+	       point="org.ebayopensource.turmeric.eclipse.core.loggingSystem">
 	    <SOALoggingSystem
 	          loggingSystemIDProvider="org.ebayopensource.turmeric.repositorysystem.imp.utils.TurmericLoggingSystemProvider">
 	    </SOALoggingSystem>

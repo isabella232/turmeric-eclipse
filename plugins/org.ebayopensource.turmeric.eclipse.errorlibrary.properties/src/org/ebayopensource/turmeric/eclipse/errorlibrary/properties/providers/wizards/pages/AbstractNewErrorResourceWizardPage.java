@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.eclipse.TurmericErrorLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.resources.SOAMessages;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage;

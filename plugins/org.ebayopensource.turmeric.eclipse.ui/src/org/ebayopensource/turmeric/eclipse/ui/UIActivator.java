@@ -19,7 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
 import org.ebayopensource.turmeric.eclipse.core.Activator;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;

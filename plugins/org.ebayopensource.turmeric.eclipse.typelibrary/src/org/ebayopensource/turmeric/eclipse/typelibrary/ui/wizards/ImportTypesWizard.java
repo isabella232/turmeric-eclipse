@@ -11,7 +11,7 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ImportTypesWizardPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.NewTypeLibraryWizardPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;

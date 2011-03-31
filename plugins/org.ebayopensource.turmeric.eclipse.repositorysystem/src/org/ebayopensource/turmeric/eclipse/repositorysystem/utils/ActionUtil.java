@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
 import org.ebayopensource.turmeric.eclipse.registry.exception.ProviderException;
 import org.ebayopensource.turmeric.eclipse.registry.intf.IClientRegistryProvider;

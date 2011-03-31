@@ -11,7 +11,7 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.core.wst;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.actions.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;

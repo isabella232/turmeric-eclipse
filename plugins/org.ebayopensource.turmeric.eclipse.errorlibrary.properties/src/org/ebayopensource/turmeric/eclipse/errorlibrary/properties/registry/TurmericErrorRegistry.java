@@ -14,12 +14,12 @@ import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.utils.TurmericErrorLibraryUtils;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrDomain;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrLibrary;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAError;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAInvocationException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;

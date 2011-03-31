@@ -6,7 +6,7 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.logging;
+package org.ebayopensource.turmeric.eclipse.core.logging;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -22,8 +22,8 @@ import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.ebayopensource.turmeric.eclipse.logging.system.ISOALoggingSystemProvider;
-import org.ebayopensource.turmeric.eclipse.logging.system.SOALoggingSystemExtensionRegistry;
+import org.ebayopensource.turmeric.eclipse.core.logging.system.ISOALoggingSystemProvider;
+import org.ebayopensource.turmeric.eclipse.core.logging.system.SOALoggingSystemExtensionRegistry;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.eclipse.core.runtime.Platform;
 

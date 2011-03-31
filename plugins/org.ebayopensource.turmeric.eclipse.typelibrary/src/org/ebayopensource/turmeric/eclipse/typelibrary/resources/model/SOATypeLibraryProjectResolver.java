@@ -16,8 +16,8 @@ import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProjectResolver;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeLibraryParamModel;

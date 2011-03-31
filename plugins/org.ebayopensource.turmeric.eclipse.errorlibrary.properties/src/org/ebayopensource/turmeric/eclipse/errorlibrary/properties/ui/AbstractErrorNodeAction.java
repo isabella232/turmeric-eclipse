@@ -8,9 +8,9 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrUIComp;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.runtime.IStatus;

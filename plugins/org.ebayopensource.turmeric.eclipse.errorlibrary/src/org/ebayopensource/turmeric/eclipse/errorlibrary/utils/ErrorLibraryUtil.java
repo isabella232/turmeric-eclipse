@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ErrorLibraryProviderFactory;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryProvider;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrDomain;
@@ -25,7 +26,6 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAError;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAFileNotWritableException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAGetErrorLibraryProviderFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAOperationNotAvailableException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;

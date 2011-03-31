@@ -11,8 +11,8 @@ package org.ebayopensource.turmeric.eclipse.ui;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;

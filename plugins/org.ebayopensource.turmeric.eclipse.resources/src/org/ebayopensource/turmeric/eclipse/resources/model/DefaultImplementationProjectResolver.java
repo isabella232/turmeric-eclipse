@@ -9,7 +9,7 @@
 package org.ebayopensource.turmeric.eclipse.resources.model;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;

@@ -14,8 +14,8 @@ package org.ebayopensource.turmeric.eclipse.ui.components;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.EnvironmentItem;
 import org.eclipse.core.runtime.Assert;

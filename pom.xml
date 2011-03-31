@@ -44,7 +44,6 @@
       <module>plugins/org.ebayopensource.turmeric.eclipse.codegen</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.soatools</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.resources</module>
-      <module>plugins/org.ebayopensource.turmeric.eclipse.logging</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.core</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.build</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.utils</module>

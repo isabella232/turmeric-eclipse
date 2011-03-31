@@ -21,7 +21,6 @@ import org.ebayopensource.turmeric.common.config.ClientConfig;
 import org.ebayopensource.turmeric.common.config.ClientConfigList;
 import org.ebayopensource.turmeric.common.config.ClientGroupConfig;
 import org.ebayopensource.turmeric.common.config.ServiceConfig;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.tools.codegen.CodeGenInfoFinder;
 import org.ebayopensource.turmeric.tools.codegen.ConfigHelper;
 import org.ebayopensource.turmeric.tools.codegen.exception.BadInputValueException;
@@ -32,14 +31,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
 public class ConfigTool {
-	private static SOALogger s_logger = null;
-
-	public static SOALogger getLogger() {
-		if (s_logger == null) {
-			s_logger = SOALogger.getLogger();
-		}
-		return s_logger;
-	}
 	
 	public static void modifyServiceConfigNamespace(final String newNamespace, 
 			final URL fileLocation) throws Exception {
@@ -89,14 +80,6 @@ public class ConfigTool {
 				ServiceConfigXmlHelper svcConfigXMLHelper = new ServiceConfigXmlHelper();
 				svcConfigXMLHelper.setServiceImplementationName(input,
 						serviceConfig.getServiceImplClassName(), fileLocation);
-				//we are no longer modifying the current version, and the version would be maintained 
-				//in the service_metadata.properties
-				//svcConfig.setCurrentVersion(serviceConfig.getCurrentVersion());
-				// svcConfig.setServiceImplClassName(serviceConfig.getServiceImplClassName());
-				// final String configXml =
-				// ConfigHelper.serviceConfigToXml(svcConfig);
-				// out = new FileOutputStream(fileLocation.getFile());
-				// IOUtils.write(configXml, out);
 			}
 			
 		} finally {

@@ -12,7 +12,7 @@ import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuilderUtil;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.GlobalProjectHealthChecker;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;

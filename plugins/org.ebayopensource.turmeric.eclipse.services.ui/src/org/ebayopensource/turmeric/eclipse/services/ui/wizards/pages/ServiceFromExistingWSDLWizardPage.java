@@ -16,8 +16,8 @@ import javax.wsdl.Definition;
 import javax.wsdl.WSDLException;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;

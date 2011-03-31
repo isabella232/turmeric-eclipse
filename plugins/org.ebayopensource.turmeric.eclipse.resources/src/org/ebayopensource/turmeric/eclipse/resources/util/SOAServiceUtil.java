@@ -17,10 +17,10 @@ import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.ServiceLayer;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProjectResolver;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;

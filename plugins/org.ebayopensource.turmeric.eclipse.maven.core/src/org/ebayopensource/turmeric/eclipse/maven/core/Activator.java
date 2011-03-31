@@ -11,7 +11,7 @@ package org.ebayopensource.turmeric.eclipse.maven.core;
 import java.io.IOException;
 import java.util.PropertyResourceBundle;
 
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;

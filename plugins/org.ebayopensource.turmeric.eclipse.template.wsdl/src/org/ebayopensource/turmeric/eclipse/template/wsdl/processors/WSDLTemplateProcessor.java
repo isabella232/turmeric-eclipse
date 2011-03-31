@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.core.ICommand;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;

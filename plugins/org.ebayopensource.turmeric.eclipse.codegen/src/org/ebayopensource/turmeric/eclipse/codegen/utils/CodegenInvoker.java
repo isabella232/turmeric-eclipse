@@ -16,7 +16,7 @@ import org.apache.commons.lang.NullArgumentException;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.codegen.model.IMultiCodeGenModel;
 import org.ebayopensource.turmeric.eclipse.codegen.model.IMultiCodeGenModel.IMultiCodeGenModelIterator;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.ebayopensource.turmeric.eclipse.utils.classloader.SOAPluginClassLoader;

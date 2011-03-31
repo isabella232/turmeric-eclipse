@@ -10,8 +10,8 @@ package org.ebayopensource.turmeric.repositorysystem.imp.impl;
 
 import java.util.ArrayList;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOACodegenProvider;
 import org.ebayopensource.turmeric.eclipse.utils.classloader.SOAPluginClassLoader;
 import org.ebayopensource.turmeric.tools.codegen.ServiceGenerator;

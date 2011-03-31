@@ -25,6 +25,7 @@ import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreat
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemCodeGen;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ProjectPropertiesFileUtil;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
@@ -32,7 +33,6 @@ import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAConsu
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOACreateNewEnvironmentFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOARemoveConsumedServiceFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOARemoveEnvironmentFailedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;

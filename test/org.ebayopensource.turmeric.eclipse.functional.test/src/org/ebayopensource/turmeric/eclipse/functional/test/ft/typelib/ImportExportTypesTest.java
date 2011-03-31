@@ -15,9 +15,9 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;

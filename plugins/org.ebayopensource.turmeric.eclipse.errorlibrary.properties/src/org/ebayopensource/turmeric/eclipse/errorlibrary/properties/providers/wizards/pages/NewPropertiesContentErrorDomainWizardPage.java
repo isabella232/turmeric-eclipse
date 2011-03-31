@@ -15,11 +15,11 @@ import java.text.MessageFormat;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.PropertiesSOAConstants;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.registry.TurmericErrorRegistry;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.resources.SOAMessages;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.custom.CCombo;

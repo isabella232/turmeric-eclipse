@@ -17,8 +17,8 @@ import org.ebayopensource.turmeric.eclipse.buildsystem.eclipse.AbstractSOAProjec
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuilderUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ModelTransformer;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;

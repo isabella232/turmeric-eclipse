@@ -10,9 +10,9 @@ package org.ebayopensource.turmeric.eclipse.services.ui.dialogs;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.ServiceFromWSDLWizard;

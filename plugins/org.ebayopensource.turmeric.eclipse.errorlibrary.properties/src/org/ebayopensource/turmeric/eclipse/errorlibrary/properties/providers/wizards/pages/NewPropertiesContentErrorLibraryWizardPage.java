@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.PropertiesSOAConstants;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.resources.SOAMessages;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;

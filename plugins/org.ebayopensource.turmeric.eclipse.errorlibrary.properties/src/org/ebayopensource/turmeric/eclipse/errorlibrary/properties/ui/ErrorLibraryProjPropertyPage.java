@@ -9,7 +9,7 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IProject;

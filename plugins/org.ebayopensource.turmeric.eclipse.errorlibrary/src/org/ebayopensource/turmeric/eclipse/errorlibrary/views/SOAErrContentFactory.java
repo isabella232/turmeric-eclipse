@@ -12,10 +12,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ErrorLibraryActivator;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAGetErrorLibraryProviderFailedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.eclipse.core.runtime.IConfigurationElement;

@@ -9,7 +9,7 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.TypeLibMoveDeleteHook;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.eclipse.core.resources.IResourceChangeEvent;
