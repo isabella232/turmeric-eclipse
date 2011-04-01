@@ -11,6 +11,10 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.swt.custom.BusyIndicator;
@@ -18,7 +22,7 @@ import org.eclipse.swt.custom.BusyIndicator;
 
 /**
  * @author smathew
- * 
+ * @deprecated Use the new RegistryRefreshHandler
  */
 public class RefreshRegistryAction extends Action{
 	private StructuredViewer typeLibraryViewer;
@@ -38,8 +42,10 @@ public class RefreshRegistryAction extends Action{
 
 	public void run() {
 		if (typeLibraryViewer != null) {
-			final Runnable runnable = new Runnable() {
-				public void run() {
+			Job job = new Job("Refresh SOA Typelib Registry") {
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					monitor.beginTask("Invalidating registry", 10);
 					SOAGlobalRegistryAdapter.getInstance().invalidateRegistry();
 					try {
 						final Object input = SOAGlobalRegistryAdapter.getInstance()
@@ -50,12 +56,14 @@ public class RefreshRegistryAction extends Action{
 						}
 					} catch (Exception e) {
 						SOALogger.getLogger().error(e);
-						throw new RuntimeException(e);
+						return Status.CANCEL_STATUS;
 					}
+					typeLibraryViewer.refresh();
+					return Status.OK_STATUS;
 				}
 			};
-			BusyIndicator.showWhile(null, runnable);
-			typeLibraryViewer.refresh();
+			job.setUser(true);
+			job.schedule();
 		}
 	}
 }

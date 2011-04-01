@@ -14,6 +14,7 @@ import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryA
 import org.ebayopensource.turmeric.eclipse.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -48,9 +49,10 @@ import org.eclipse.ui.part.ViewPart;
  * 
  */
 public class RegistryView extends ViewPart {
+	public static final String VIEW_ID = "org.ebayopensource.turmeric.eclipse.typelibrary.registryView"; 
 	private static final SOALogger logger = SOALogger.getLogger();
 	private TreeViewer typeLibraryViewer;
-	private TableViewer typeViewer;
+	private TypeViewer typeViewer;
 	private Text typeNameText;
 	private TypeLibrarySelectionChangedListener typeLibrarySelectionChangedListener;
 	private TypeSelectionListener typeSelectionListener;
@@ -74,7 +76,7 @@ public class RegistryView extends ViewPart {
 			logger.error(e);
 			throw new RuntimeException(e);
 		}
-		createToolbar();
+		//createToolbar();
 	}
 
 	/*
@@ -208,20 +210,8 @@ public class RegistryView extends ViewPart {
 			}
 		}
 	}
-
-	/**
-	 * Creates the toolbar.
-	 */
-	private void createToolbar() {
-		IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
-		RefreshRegistryAction refreshAction = new RefreshRegistryAction(
-				typeLibraryViewer);
-		refreshAction.setTypeViewer(typeViewer);
-		mgr.add(refreshAction);
-		mgr.add(new SortRegistryAction(typeViewer, getLibraryComparator()));
-	}
 	
-	protected ViewerComparator getLibraryComparator() {
+	public ViewerComparator getLibraryComparator() {
 		final ViewerComparator comparator = new ViewerComparator() {
 			@Override
 			public int compare(Viewer viewer, Object e1, Object e2) {
@@ -237,5 +227,11 @@ public class RegistryView extends ViewPart {
 		return comparator;
 	}
 	
-
+	public TreeViewer getTypeLibraryViewer() {
+		return typeLibraryViewer;
+	}
+	
+	public TypeViewer getTypeViewer() {
+		return typeViewer;
+	}
 }

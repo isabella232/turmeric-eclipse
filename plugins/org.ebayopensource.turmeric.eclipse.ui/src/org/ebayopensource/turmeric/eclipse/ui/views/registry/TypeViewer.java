@@ -64,11 +64,6 @@ public class TypeViewer extends TableViewer {
 		addDoubleClickListener(new TypeViewerDCListener());
 		addFilter(new TypeFilterHonLibrary(null));
 		createColumns();
-		// int ops = DND.DROP_COPY | DND.DROP_MOVE;
-		// Transfer[] transfers = new Transfer[] { TextTransfer.getInstance() };
-		// addDragSupport(ops, transfers, new
-		// TypeViewerDragListenerListener(this));
-		//createAction();
 	}
 
 	private void createColumns() {

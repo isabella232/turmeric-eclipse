@@ -455,5 +455,12 @@
          </enabledWhen>
       </page>
    </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.ebayopensource.turmeric.eclipse.typelibrary.handlers.AddImportHandler"
+            commandId="org.ebayopensource.turmeric.eclipse.ui.registry.importtype">
+      </handler>
+   </extension>
 
 </plugin>

@@ -32,6 +32,7 @@ import org.ebayopensource.turmeric.common.config.LibraryType;
  * The Add Import Action for the type viewer. This action appears in the Types
  * Registry View
  * 
+ * @deprecated Use AddImportHandler and the commands/handler framework instead.
  */
 public class AddImportAction extends Action {
 	private static final SOALogger logger = SOALogger.getLogger();

@@ -81,7 +81,81 @@
             id="org.ebayopensource.turmeric.eclipse.typelibrary.registryView"
             name="%View.TypeExplorer.Name">
       </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.ebayopensource.turmeric.eclipse.ui.registry.refresh"
+            name="%Registry.View.Refresh">
+      </command>
+      <command
+            id="org.ebayopensource.turmeric.eclipse.ui.registry.sort"
+            name="%Registry.View.Sort">
+      </command>
+      <command
+            id="org.ebayopensource.turmeric.eclipse.ui.registry.sort"
+            name="%Registry.View.Import">
+      </command>
+      <command
+            id="org.ebayopensource.turmeric.eclipse.ui.registry.importtype"
+            name="%Registry.View.Import">
+      </command>
+      
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.ebayopensource.turmeric.eclipse.typelibrary.registryView">
+            <command
+                  commandId="org.ebayopensource.turmeric.eclipse.ui.registry.refresh"
+                  icon="icons/refresh.gif"
+                  style="push"
+                  tooltip="%Registry.View.Refresh">
+                  
+            </command>
+            <separator
+                  name="org.ebayopensource.turmeric.eclipse.registry.toolbar.ui.separator1"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.ebayopensource.turmeric.eclipse.ui.registry.sort"
+                  icon="icons/sort.gif"
+                  style="push"
+                  tooltip="%Registry.View.Sort">
+            </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.ebayopensource.turmeric.eclipse.typelibrary.registryView">
+         <command
+               commandId="org.ebayopensource.turmeric.eclipse.ui.registry.importtype"
+               label="%Registry.View.ImportType"
+               style="push"
+               tooltip="%Registry.View.ImporType.Tip">
+         </command>
+         <separator
+               name="org.ebayopensource.turmeric.eclipse.ui.registry.menu.separator1"
+               visible="true">
+         </separator>
+         <command
+              commandId="org.ebayopensource.turmeric.eclipse.ui.registry.refresh"
+              label="%Registry.View.Refresh"
+              style="push"
+              mnemonic="R">
+         </command>     
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="org.ebayopensource.turmeric.eclipse.ui.registry.refresh" 
+            class="org.ebayopensource.turmeric.eclipse.ui.handlers.RegistryRefreshHandler">
+      </handler>
+      <handler
+            commandId="org.ebayopensource.turmeric.eclipse.ui.registry.sort"
+            class="org.ebayopensource.turmeric.eclipse.ui.handlers.SortRegistryHandler">
+      </handler>
    </extension>  
-   
-       
+          
 </plugin>
