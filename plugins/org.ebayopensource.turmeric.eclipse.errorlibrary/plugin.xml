@@ -87,19 +87,6 @@
             projectResolverClass="org.ebayopensource.turmeric.eclipse.errorlibrary.resources.model.SOAErrorLibraryProjectResolver">
       </soaProjectResolver>
    </extension>
-   <extension
-          point="org.eclipse.search.searchPages">
-       <page
-             canSearchEnclosingProjects="false"
-             class="org.ebayopensource.turmeric.eclipse.errorlibrary.search.SOAErrorLibrarySearchPage"
-             enabled="true"
-             icon="icons/soa_search.gif"
-             id="org.ebayopensource.turmeric.eclipse.errorlibrary.search_page"
-             label="%Dialog.SOAErrorLibSearch.Title"
-             showScopeSection="false"
-             sizeHint="500,200">
-       </page>
-    </extension>
    
    
    <extension
