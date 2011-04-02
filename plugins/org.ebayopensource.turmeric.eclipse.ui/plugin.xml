@@ -114,7 +114,9 @@
             id="org.ebayopensource.turmeric.eclipse.ui.registry.importtype"
             name="%Registry.View.Import">
       </command>
-      
+      <command id="org.ebayopensource.turmeric.eclipse.ui.jdt.importerror"
+               name="Import Error">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -159,6 +161,19 @@
               mnemonic="R">
          </command>     
       </menuContribution>
+<!--      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.jdt.ui.CompilationUnitEditor.EditorContext?after=additions">
+            <menu
+                  label="Turmeric SOA"
+                  id="org.ebayopensource.turmeric.eclipse.ui.jdt.turmericsoa">
+                  <command commandId="org.ebayopensource.turmeric.eclipse.ui.jdt.importerror"
+                       label="&amp;Import Turmeric SOA Error"
+                       style="push">
+                  </command>
+            </menu>
+      </menuContribution>
+-->
    </extension>
    <extension
          point="org.eclipse.ui.handlers">

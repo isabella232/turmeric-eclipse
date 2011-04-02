@@ -82,6 +82,8 @@ public class SOAGlobalRegistryAdapter {
 				if (soaTypeRegistry == null) {
 					// we should use a separate thread if this is not being
 					// called from a UI thread.
+					// TODO: Replace with Job API.
+					// http://www.vogella.de/articles/EclipseJobs/article.html
 
 					final IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
@@ -96,7 +98,7 @@ public class SOAGlobalRegistryAdapter {
 							
 							try {
 								init();
-								monitor.internalWorked(20);
+								monitor.worked(20);
 								Thread thread = Thread.currentThread();
 								ClassLoader loader = thread.getContextClassLoader();
 								thread.setContextClassLoader(SOAGlobalRegistryFactory.class.getClassLoader());
@@ -105,15 +107,15 @@ public class SOAGlobalRegistryAdapter {
 								.getTypeRegistryBridge().getSOATypeRegistry();
 								thread.setContextClassLoader(loader);
 
-								monitor.internalWorked(40);
+								monitor.worked(40);
 								typeLibclassLoader.setPluginBundles(
 										(GlobalRepositorySystem
 												.instanceOf().getActiveRepositorySystem()
 												.getTypeRegistryBridge().getPluginBundles()));
-								monitor.internalWorked(10);
+								monitor.worked(10);
 								Thread.currentThread().setContextClassLoader(
 										typeLibclassLoader);
-								monitor.internalWorked(10);
+								monitor.worked(10);
 								List<RegistryUpdateDetails> libraries = 
 									typeReg.populateRegistryWithTypeLibrariesDetailed(ListUtil.arrayList(
 										typeLibNamesForSOATools));
@@ -125,7 +127,7 @@ public class SOAGlobalRegistryAdapter {
 										}
 									}
 								}
-								monitor.internalWorked(10);
+								monitor.worked(10);
 								soaTypeRegistry = typeReg;
 							} catch (Exception e) {
 								throw new SOAInvocationException(e);
