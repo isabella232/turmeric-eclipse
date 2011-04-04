@@ -8,7 +8,9 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.services.ui.views;
 
+import org.ebayopensource.turmeric.eclipse.services.ui.Activator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
+import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.StructuredViewer;
@@ -48,7 +50,8 @@ public class RefreshServicesAction extends Action {
 
 	@Override
 	public ImageDescriptor getImageDescriptor() {
-		return TypeLibraryActivator.getImageFromRegistry("icons/refresh.gif");
+		
+		return UIActivator.getImageDescriptor("icons/refresh.gif");
 	}
 
 	@Override

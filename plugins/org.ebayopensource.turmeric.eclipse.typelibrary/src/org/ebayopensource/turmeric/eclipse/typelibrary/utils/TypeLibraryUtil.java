@@ -42,10 +42,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorSite;
-import org.eclipse.ui.part.MultiPageEditorPart;
-import org.eclipse.ui.part.MultiPageEditorSite;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.util.XSDParser;
@@ -319,54 +315,6 @@ public class TypeLibraryUtil {
 		return files;
 	}
 
-
-	/**
-	 * This is just for WTP WSDL and XSD editors. Dont get confused and use it
-	 * for generic pruposes.
-	 * 
-	 * @param editorPart
-	 * @return
-	 */
-	public static Object getAdapterClassFromWTPEditors(IEditorPart editorPart) {
-		Object retValue = null;
-		if (editorPart != null) {
-
-			IEditorSite editorSite = editorPart.getEditorSite();
-			if (editorSite != null && editorSite instanceof MultiPageEditorSite) {
-				MultiPageEditorSite multiPageEditorSite = (MultiPageEditorSite) editorSite;
-				MultiPageEditorPart multiPageEditorPart = multiPageEditorSite
-						.getMultiPageEditor();
-				if (multiPageEditorPart != null) {
-					Object adaptedObject = multiPageEditorPart
-							.getAdapter(Definition.class);
-					if (adaptedObject != null
-							&& adaptedObject instanceof Definition) {
-						retValue = adaptedObject;
-					} else {
-						adaptedObject = multiPageEditorPart
-								.getAdapter(XSDSchema.class);
-						if (adaptedObject != null
-								&& adaptedObject instanceof XSDSchema) {
-							retValue = adaptedObject;
-						}
-					}
-				}
-			} else {
-				Object adaptedObject = editorPart.getAdapter(Definition.class);
-				if (adaptedObject != null
-						&& adaptedObject instanceof Definition) {
-					retValue = adaptedObject;
-				} else {
-					adaptedObject = editorPart.getAdapter(XSDSchema.class);
-					if (adaptedObject != null
-							&& adaptedObject instanceof XSDSchema) {
-						retValue = adaptedObject;
-					}
-				}
-			}
-		}
-		return retValue;
-	}
 
 
 	public static XSDSchema parseSchema(URL url) throws IOException {

@@ -23,7 +23,8 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUIActivator;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelectorElementRenderer;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -158,7 +159,7 @@ public class UpdateTypeVersion extends AbastractTypeLibraryAtion {
 		private Image image = null;
 
 		public CustomTypeSelectorRenderer(Set<LibraryType> newTypes) {
-			image = TypeLibraryActivator.getImageFromRegistry("icons/new.gif")
+			image = TypeLibraryUIActivator.getImageFromRegistry("icons/new.gif")
 					.createImage();
 			this.newTypes = newTypes;
 		}

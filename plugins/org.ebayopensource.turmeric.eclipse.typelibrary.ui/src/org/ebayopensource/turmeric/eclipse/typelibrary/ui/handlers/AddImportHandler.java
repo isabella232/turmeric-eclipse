@@ -5,8 +5,8 @@ import java.util.Iterator;
 
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.ImportTypeFromTypeLibrary;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.RegistryView;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeViewer;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;

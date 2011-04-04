@@ -28,7 +28,8 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegist
 import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProjectResolver;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUIActivator;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.ImportTypesFromWSDLParser;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.ImportTypesFromXSDParser;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
@@ -547,39 +548,39 @@ public class ImportTypesWizardPage extends SOABasePage {
 		return typeTable.getSelectedType();
 	}
 
-	private static final Image CHECKED = TypeLibraryActivator
+	private static final Image CHECKED = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/select.gif").createImage();
-	private static final Image UNCHECKED = TypeLibraryActivator
+	private static final Image UNCHECKED = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/unselect.gif").createImage();
-	private static final Image ERROR = TypeLibraryActivator
+	private static final Image ERROR = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/error.gif").createImage();
-	private static final Image WARNING = TypeLibraryActivator
+	private static final Image WARNING = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/warning.gif").createImage();
 
-	private static final Image TOOLBAR_SELECT_ALL = TypeLibraryActivator
+	private static final Image TOOLBAR_SELECT_ALL = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/select_all.gif").createImage();
-	private static final Image TOOLBAR_DISSELECT_ALL = TypeLibraryActivator
+	private static final Image TOOLBAR_DISSELECT_ALL = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/unselect_all.gif").createImage();
-	private static final Image TOOLBAR_SELECT_ALL_CORRECT = TypeLibraryActivator
+	private static final Image TOOLBAR_SELECT_ALL_CORRECT = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/select_correct.gif").createImage();
 
-	private static final Image TOOLBAR_ERROR_REPORT = TypeLibraryActivator
+	private static final Image TOOLBAR_ERROR_REPORT = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/error_report.gif").createImage();
-	private static final ImageDescriptor TOOLBAR_SCHEMA_CONTENT_SELECTED_DES = TypeLibraryActivator
+	private static final ImageDescriptor TOOLBAR_SCHEMA_CONTENT_SELECTED_DES = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/schema_content_selected.gif");
 	private static final Image TOOLBAR_SCHEMA_CONTENT_SELECTED = TOOLBAR_SCHEMA_CONTENT_SELECTED_DES
 			.createImage();
-	private static final Image TOOLBAR_SCHEMA_CONTENT_IMPORT = TypeLibraryActivator
+	private static final Image TOOLBAR_SCHEMA_CONTENT_IMPORT = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/schema_content_import.gif")
 			.createImage();
 
-	private static final Image IMPORT_COL = TypeLibraryActivator
+	private static final Image IMPORT_COL = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/import_col.gif").createImage();
-	private static final Image TYPENAME_COL = TypeLibraryActivator
+	private static final Image TYPENAME_COL = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/typename_col.gif").createImage();
-	private static final Image NAMESPACE_COL = TypeLibraryActivator
+	private static final Image NAMESPACE_COL = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/namespace_col.gif").createImage();
-	private static final Image DOCUMENTATION_COL = TypeLibraryActivator
+	private static final Image DOCUMENTATION_COL = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/documentation_col.gif").createImage();
 
 	class TypeTable {

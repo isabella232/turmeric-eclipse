@@ -22,8 +22,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.wst.wsdl.Types;
 import org.eclipse.xsd.XSDAnnotation;
@@ -44,7 +43,7 @@ import org.w3c.dom.NodeList;
  * @author smathew
  * 
  */
-public class TypeLibraryActivator extends AbstractUIPlugin {
+public class TypeLibraryActivator extends Plugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.typelibrary";
@@ -90,31 +89,6 @@ public class TypeLibraryActivator extends AbstractUIPlugin {
 		return plugin;
 	}
 
-	public static ImageDescriptor getImageFromRegistry(String path) {
-		if (path == null)
-			return null;
-		path = StringUtils.replaceChars(path, '\\', '/');
-		final String iconPath = path.startsWith(ICON_PATH) ? path : ICON_PATH
-				+ path;
-
-		ImageDescriptor image = getDefault().getImageRegistry().getDescriptor(
-				iconPath);
-		if (image == null) {
-
-			final ImageDescriptor descriptor = imageDescriptorFromPlugin(
-					PLUGIN_ID, iconPath);
-			if (descriptor != null) {
-				getDefault().getImageRegistry().put(iconPath, descriptor);
-				image = getDefault().getImageRegistry().getDescriptor(iconPath);
-			}
-		}
-		return image;
-	}
-
-	public static ImageDescriptor getImageDescriptor(final String path) {
-		ImageDescriptor descriptor = imageDescriptorFromPlugin(PLUGIN_ID, path);
-		return descriptor;
-	}
 	
 	/**
 	 * Returns the types defined in the given WSDL definition that are part of

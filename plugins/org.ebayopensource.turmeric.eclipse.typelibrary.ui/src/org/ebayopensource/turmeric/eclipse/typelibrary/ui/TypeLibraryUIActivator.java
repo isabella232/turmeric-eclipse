@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.wst.sse.core.internal.format.IStructuredFormatProcessor;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMElement;
@@ -57,6 +58,7 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.typelibrary.ui"; //$NON-NLS-1$
+	public static final String ICON_PATH = "icons/";
 
 	// The shared instance
 	private static TypeLibraryUIActivator plugin;
@@ -423,6 +425,32 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 	}
 	
+
+	public static ImageDescriptor getImageFromRegistry(String path) {
+		if (path == null)
+			return null;
+		path = StringUtils.replaceChars(path, '\\', '/');
+		final String iconPath = path.startsWith(ICON_PATH) ? path : ICON_PATH
+				+ path;
+
+		ImageDescriptor image = getDefault().getImageRegistry().getDescriptor(
+				iconPath);
+		if (image == null) {
+
+			final ImageDescriptor descriptor = imageDescriptorFromPlugin(
+					PLUGIN_ID, iconPath);
+			if (descriptor != null) {
+				getDefault().getImageRegistry().put(iconPath, descriptor);
+				image = getDefault().getImageRegistry().getDescriptor(iconPath);
+			}
+		}
+		return image;
+	}
+
+	public static ImageDescriptor getImageDescriptor(final String path) {
+		ImageDescriptor descriptor = imageDescriptorFromPlugin(PLUGIN_ID, path);
+		return descriptor;
+	}
 	
 
 }

@@ -21,13 +21,13 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTempla
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.buildsystem.TypeCreator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.buildsystem.TypeLibraryCreator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.ImportTypeFromTypeLibrary;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.RemoveType;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.UpdateTypeVersion;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.WTPTypeLibUtil;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeSCParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.EnumTypeParamModel;
