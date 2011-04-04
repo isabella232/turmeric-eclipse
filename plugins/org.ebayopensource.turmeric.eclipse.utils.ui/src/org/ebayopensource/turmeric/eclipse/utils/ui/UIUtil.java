@@ -19,6 +19,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.ebayopensource.turmeric.eclipse.core.IRunnable;
 import org.ebayopensource.turmeric.eclipse.exception.core.SOAPartNotFoundException;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.eclipse.core.resources.IProject;
@@ -91,10 +92,6 @@ public class UIUtil {
 		if (Display.getCurrent() != null)
 			return Display.getCurrent();
 		return Display.getDefault();
-	}
-
-	public static interface IRunnable<T> {
-		public T run();
 	}
 
 	public static String fileDialog(final String title,

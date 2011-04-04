@@ -21,6 +21,7 @@ import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFromBlankWsdlTest;
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceSetupCleanupValidate;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
 import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
@@ -28,10 +29,10 @@ import org.ebayopensource.turmeric.eclipse.test.utils.ProjectUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.UpdateTypeVersion;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.WTPTypeLibUtil;
+import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.UpdateTypeVersion;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.WTPTypeLibUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
-import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
@@ -192,7 +193,7 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 					.getAdapterClassFromWTPEditors(editorPart);
 
 			Definition definition = (Definition) adaptedObject;
-			Map<LibraryType, XSDTypeDefinition> importedTypesMap = WTPTypeLibUtil
+			Map<LibraryType, XSDTypeDefinition> importedTypesMap = TypeLibraryActivator
 					.getTypeLibraryTypes(definition);
 
 			update.modifyWSDL(selectedTypes, definition, importedTypesMap,

@@ -8,15 +8,34 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.typelibrary;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.xml.namespace.QName;
+
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.typelibrary.resources.TypeLibMoveDeleteHook;
-import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.ResourcesPlugin;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
+import org.ebayopensource.turmeric.eclipse.exception.core.SOABadParameterException;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
+import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.wst.wsdl.Definition;
+import org.eclipse.wst.wsdl.Types;
+import org.eclipse.xsd.XSDAnnotation;
+import org.eclipse.xsd.XSDImport;
+import org.eclipse.xsd.XSDInclude;
+import org.eclipse.xsd.XSDSchema;
+import org.eclipse.xsd.XSDSchemaDirective;
+import org.eclipse.xsd.XSDTypeDefinition;
 import org.osgi.framework.BundleContext;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 
 /**
@@ -30,7 +49,7 @@ public class TypeLibraryActivator extends AbstractUIPlugin {
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.typelibrary";
 	public static final String ICON_PATH = "icons/";
-	private TypeLibMoveDeleteHook typeLibMoveDeleteHook;
+
 	// The shared instance
 	private static TypeLibraryActivator plugin;
 
@@ -49,13 +68,6 @@ public class TypeLibraryActivator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		StringBuffer buf = new StringBuffer();
-		buf.append("SOAPlugin.start - ");
-		buf.append(JDTUtil.getBundleInfo(context.getBundle(), SOALogger.DEBUG));
-		SOALogger.getLogger().info(buf);
-		typeLibMoveDeleteHook = new TypeLibMoveDeleteHook();
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(
-				typeLibMoveDeleteHook, IResourceChangeEvent.POST_CHANGE);
 	}
 
 	/*
@@ -64,9 +76,6 @@ public class TypeLibraryActivator extends AbstractUIPlugin {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
-		if (typeLibMoveDeleteHook != null)
-			ResourcesPlugin.getWorkspace().removeResourceChangeListener(
-					typeLibMoveDeleteHook);
 		plugin = null;
 		super.stop(context);
 
@@ -106,5 +115,118 @@ public class TypeLibraryActivator extends AbstractUIPlugin {
 		ImageDescriptor descriptor = imageDescriptorFromPlugin(PLUGIN_ID, path);
 		return descriptor;
 	}
+	
+	/**
+	 * Returns the types defined in the given WSDL definition that are part of
+	 * the global registry. Basically the API scan the WSDL and finds all the
+	 * types and then query the Global registry with the type name and will add
+	 * it to the returned map only if the registry has the type. In short it
+	 * returns all the type library types in the WSDL definition.
+	 * 
+	 * @param definition
+	 * @return
+	 * @throws Exception
+	 */
+	public static Map<LibraryType, XSDTypeDefinition> getTypeLibraryTypes(
+			Definition definition) throws Exception {
+		Map<LibraryType, XSDTypeDefinition> allSchemas = new ConcurrentHashMap<LibraryType, XSDTypeDefinition>();
+		Types types = ((Types) definition.getTypes());
+		// Do we have a schema already?
+		for (Object objSchema : types.getSchemas()) {
+			XSDSchema xsdSchema = (XSDSchema) objSchema;
+			for (Object xsdSchemaContent : xsdSchema.getContents()) {
+				if (xsdSchemaContent instanceof XSDTypeDefinition) {
+					XSDTypeDefinition xsdTypeDefinition = (XSDTypeDefinition) xsdSchemaContent;
+					// Annotations will take precedence over the XSD target
+					// namespace
+					String nameSpace = getNameSpace(xsdTypeDefinition);
+					SOATypeRegistry typeRegistry = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry(); 
+					LibraryType libraryType = typeRegistry.getType(
+									new QName(nameSpace, xsdTypeDefinition
+											.getName()));
+					if (libraryType != null) {
+						allSchemas.put(libraryType, xsdTypeDefinition);
+					}
+				}
+			}
+		}
+		return allSchemas;
+	}	
+	
+	public static String getNameSpace(XSDTypeDefinition xsdTypeDefinition)
+			throws SOABadParameterException {
+		for (XSDAnnotation annotation : xsdTypeDefinition.getAnnotations()) {
+			for (Element element : annotation.getApplicationInformation()) {
+				NodeList children = element.getChildNodes();
+				for (int i = 0; i < children.getLength(); i++) {
+					Node node = children.item(i);
+					if (node instanceof Element) {
+						Element childElement = (Element) node;
+						if (StringUtils.equals(childElement.getNodeName(),
+								SOATypeLibraryConstants.TAG_TYPE_LIB)) {
+							if (StringUtils
+									.isEmpty(childElement
+											.getAttribute(SOATypeLibraryConstants.ATTR_NMSPC))) {
+								throw new SOABadParameterException(
+										StringUtil.formatString(
+												SOAMessages.ERR_NMSPC,
+												xsdTypeDefinition.getName()));
+							}
+							return childElement
+									.getAttribute(SOATypeLibraryConstants.ATTR_NMSPC);
+						}
+					}
 
+				}
+			}
+		}
+		return xsdTypeDefinition.getTargetNamespace();
+	}
+	
+	/**
+	 * Scans the schema and returns all the type imports pertaining to SOA
+	 * protocol. Remember this will not return the normal XSD imports.ie the
+	 * imports without the typelib: protocol. The registry is being queried for
+	 * the type name before adding it to the returned map.
+	 * 
+	 * @param xsdSchema
+	 * @return
+	 * @throws Exception
+	 */
+	public static Map<LibraryType, XSDSchemaDirective> getAllTypeLibImports(
+			XSDSchema xsdSchema) throws Exception {
+		Map<LibraryType, XSDSchemaDirective> typeImportsList = new ConcurrentHashMap<LibraryType, XSDSchemaDirective>();
+		for (Object xsdContent : xsdSchema.getContents()) {
+			if (xsdContent instanceof XSDSchemaDirective) {
+				XSDSchemaDirective xsdSchemaDirective = (XSDSchemaDirective) xsdContent;
+				String xsdSchemaLocation = xsdSchemaDirective
+						.getSchemaLocation();
+				String typeName = TypeLibraryUtil
+						.getTypeNameFromProtocolString(xsdSchemaLocation);
+				String importedTypeNameSpace = "";
+				if (xsdSchemaDirective instanceof XSDInclude) {
+					if (xsdSchemaDirective.getResolvedSchema() != null) {
+						importedTypeNameSpace = ((XSDInclude)xsdSchemaDirective).getResolvedSchema().getTargetNamespace();
+					} else {
+						importedTypeNameSpace = xsdSchema.getTargetNamespace();
+					}
+				} else if (xsdSchemaDirective instanceof XSDImport) {
+					importedTypeNameSpace = ((XSDImport) xsdSchemaDirective)
+							.getNamespace();
+				}
+				if (!StringUtils.isEmpty(typeName)) {
+					SOATypeRegistry typeRegistry = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry();
+					LibraryType libType = typeRegistry.getType(new QName(importedTypeNameSpace,
+									typeName));
+					if (libType != null) {
+						typeImportsList.put(libType,
+								xsdSchemaDirective);
+					}
+				}
+			}
+		}
+		return typeImportsList;
+	}
+
+	
 }

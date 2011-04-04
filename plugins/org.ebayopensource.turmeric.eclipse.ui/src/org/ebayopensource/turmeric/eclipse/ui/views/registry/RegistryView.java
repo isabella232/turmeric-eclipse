@@ -10,7 +10,7 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.jface.action.IToolBarManager;

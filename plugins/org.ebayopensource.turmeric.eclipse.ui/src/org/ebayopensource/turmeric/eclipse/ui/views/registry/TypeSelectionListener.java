@@ -9,7 +9,7 @@
 package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 import org.ebayopensource.turmeric.eclipse.core.exception.SOAExceptionHandler;
-import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;

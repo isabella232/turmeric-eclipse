@@ -18,19 +18,20 @@ import javax.xml.namespace.QName;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
-import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeCreator;
-import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibraryCreator;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.RemoveType;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.UpdateTypeVersion;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.WTPTypeLibUtil;
+import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.buildsystem.TypeCreator;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.buildsystem.TypeLibraryCreator;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.ImportTypeFromTypeLibrary;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.RemoveType;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.UpdateTypeVersion;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.WTPTypeLibUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeSCParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.EnumTypeParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.SimpleTypeParamModel;
-import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardAttribPage.AttribTableModel;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardElementPage.ElementTableModel;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.EnumTypeWizardDetailsPage.EnumTableModel;
@@ -606,7 +607,7 @@ public class TLUtil {
 					.getAdapterClassFromWTPEditors(editorPart);
 			XSDSchema parentXSDSchema = (XSDSchema) adaptedObject;
 
-			Map<LibraryType, XSDSchemaDirective> importedTypesMap = WTPTypeLibUtil
+			Map<LibraryType, XSDSchemaDirective> importedTypesMap = TypeLibraryActivator
 					.getAllTypeLibImports(parentXSDSchema);
 
 			if (removeType.contentEquals("TYPELIB")) {
@@ -614,14 +615,9 @@ public class TLUtil {
 						importedTypesMap, typeLibProject, xsdFile);
 				editorPart.doSave(ProgressUtil.getDefaultMonitor(null));
 
-			} else {
-				// Import from wsdl
-
-				// ImportTypeFromTypeLibrary.performInlineOperationsForWSDLEditor
 			}
 			return true;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -649,11 +645,6 @@ public class TLUtil {
 		SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().removeTypeFromRegistry(
 				libraryType);
 		ProgressUtil.progressOneStep(ProgressUtil.getDefaultMonitor(null));
-		// file.delete(true, ProgressUtil
-		// .getDefaultMonitor(null));
-
-		// new DeleteTypeAction().callCodegen(typeLibProject, xsdFile,
-		// ProgressUtil.getDefaultMonitor(null));
 		ProgressUtil.progressOneStep(ProgressUtil.getDefaultMonitor(null));
 		WorkspaceUtil.refresh(ProgressUtil.getDefaultMonitor(null),
 				typeLibProject);
@@ -695,7 +686,7 @@ public class TLUtil {
 					.getAdapterClassFromWTPEditors(editorPart);
 
 			Definition definition = (Definition) adaptedObject;
-			Map<LibraryType, XSDTypeDefinition> importedTypesMap = WTPTypeLibUtil
+			Map<LibraryType, XSDTypeDefinition> importedTypesMap = TypeLibraryActivator
 					.getTypeLibraryTypes(definition);
 
 			update.modifyWSDL(selectedTypes, definition, importedTypesMap,

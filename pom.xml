@@ -37,6 +37,7 @@
       <module>plugins/org.ebayopensource.turmeric.eclipse.errorlibrary.properties</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.ui</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.typelibrary</module>
+      <module>plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.registry</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.repositorysystem</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.buildsystem</module>

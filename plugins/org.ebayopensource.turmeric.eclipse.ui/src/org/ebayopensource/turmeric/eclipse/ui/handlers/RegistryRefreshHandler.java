@@ -1,7 +1,7 @@
 package org.ebayopensource.turmeric.eclipse.ui.handlers;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.RegistryView;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;

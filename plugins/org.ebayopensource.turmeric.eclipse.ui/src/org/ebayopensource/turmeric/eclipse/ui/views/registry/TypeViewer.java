@@ -10,6 +10,7 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 //import org.ebayopensource.turmeric.eclipse.typelibrary.actions.AddImportAction;
 import org.ebayopensource.turmeric.eclipse.core.compare.LibraryTypeComparator;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.XMLUtil;
 import org.eclipse.jface.action.MenuManager;

@@ -17,12 +17,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ebayopensource.turmeric.eclipse.buildsystem.SynchronizeWsdlAndDepXML;
 import org.ebayopensource.turmeric.eclipse.core.ICommand;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
-import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateUtils;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUIActivator;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.JDOMUtil;
@@ -111,7 +111,7 @@ public class WSDLTemplateProcessor {
 				monitor, file);
 		String contents = null;
 		try {
-			contents = TemplateUtils.formatContents(JDOMUtil
+			contents = TypeLibraryUIActivator.formatContents(JDOMUtil
 					.convertXMLToString(JDOMUtil.convertToJDom(outDefinition
 							.getDocument())));
 			PrintWriter pw = new PrintWriter(new FileOutputStream(file));
@@ -145,12 +145,10 @@ public class WSDLTemplateProcessor {
 	public void finalize() throws CommandFailedException {
 		if (WorkspaceUtil.getWorkspace().isAutoBuilding() == false) {
 			try {
-				TypeLibSynhcronizer.syncronizeWSDLandDepXml(commonWDLProcessorParam
-						.getDefinition(), commonWDLProcessorParam.getTargetFile()
+				SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(commonWDLProcessorParam.getTargetFile()
 						.getProject());
-				TypeLibSynhcronizer.synchronizeTypeDepandProjectDep(
-						commonWDLProcessorParam.getTargetFile().getProject(),
-						ProgressUtil.getDefaultMonitor(null));
+				synch.syncronizeWSDLandDepXml(commonWDLProcessorParam.getDefinition());
+				synch.synchronizeTypeDepandProjectDep(ProgressUtil.getDefaultMonitor(null));
 			} catch (Exception e) {
 				throw new CommandFailedException("Failed to update Dependencies", e);
 			}

@@ -11,13 +11,13 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.builders;
 import java.util.List;
 import java.util.Map;
 
+import org.ebayopensource.turmeric.eclipse.buildsystem.SynchronizeWsdlAndDepXML;
 import org.ebayopensource.turmeric.eclipse.buildsystem.eclipse.AbstractSOAProjectBuilder;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuilderUtil;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
-import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.BaseTypeLibCodegenModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.TypeLibModelTransformer;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
@@ -76,20 +76,19 @@ public class TypeLibraryProjectBuilder extends AbstractSOAProjectBuilder {
 		// dependency to pitch in
 		if (kind == CLEAN_BUILD || kind == FULL_BUILD) {
 			try {
-				TypeLibSynhcronizer.syncronizeAllXSDsandDepXml(project);
-				TypeLibSynhcronizer
-						.synchronizeTypeDepandProjectDep(project, monitor);
-			} catch (Exception e) {
+				SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
+				synch.syncronizeAllXSDsandDepXml();
+				synch.synchronizeTypeDepandProjectDep(monitor);
+				} catch (Exception e) {
 				// Silently ignore. This is just an attempt
 			}
 		} else {
 			final List<IFile> modifiedXsds = TypeLibraryBuilderUtils.getModifiedXsds(delta, project);
 			if (modifiedXsds.isEmpty() == false) {
 				try {
-					TypeLibSynhcronizer.syncronizeAllXSDsandDepXml(project, 
-							TypeLibraryUtil.getAllXsdFiles(project, true));
-					TypeLibSynhcronizer
-					.synchronizeTypeDepandProjectDep(project, monitor);
+					SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
+					synch.syncronizeAllXSDsandDepXml(TypeLibraryUtil.getAllXsdFiles(project, true));
+					synch.synchronizeTypeDepandProjectDep(monitor);
 				} catch (Exception e) {
 					// Silently ignore. This is just an attempt
 				}

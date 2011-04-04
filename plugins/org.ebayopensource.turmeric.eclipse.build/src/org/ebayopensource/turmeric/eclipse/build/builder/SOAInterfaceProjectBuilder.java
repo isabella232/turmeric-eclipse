@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.build.SOAFrameworkBuilderActivator;
+import org.ebayopensource.turmeric.eclipse.buildsystem.SynchronizeWsdlAndDepXML;
 import org.ebayopensource.turmeric.eclipse.buildsystem.eclipse.AbstractSOAProjectBuilder;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuilderUtil;
@@ -25,7 +26,6 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
-import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -70,9 +70,9 @@ public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 			IResourceDelta delta, IProgressMonitor monitor) throws Exception {
 		if (kind == CLEAN_BUILD || kind == FULL_BUILD) {
 			try {
-				TypeLibSynhcronizer.syncronizeWsdlandDepXml(project);
-				TypeLibSynhcronizer.synchronizeTypeDepandProjectDep(project,
-						monitor);
+				SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
+ 				synch.syncronizeWsdlandDepXml();
+				synch.synchronizeTypeDepandProjectDep(monitor);
 			} catch (Exception e) {
 				SOAExceptionHandler.silentHandleException(e);
 				// Silently ignore. This is just an attempt
@@ -120,7 +120,6 @@ public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 	@Override
 	protected void doClean(IProject project, IProgressMonitor monitor)
 			throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 }

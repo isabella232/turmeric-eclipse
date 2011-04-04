@@ -19,6 +19,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece.IXSDPiece;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece.SchemaTypePiece;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece.StringPiece;
@@ -29,7 +30,6 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiec
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece.TypeQNamePiece;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece.TypeRelatedContent;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece.XSDContentList;
-import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

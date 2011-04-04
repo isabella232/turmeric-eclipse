@@ -9,8 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
-import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;

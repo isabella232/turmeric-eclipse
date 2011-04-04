@@ -31,12 +31,12 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage;
 import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.eclipse.ui.UIConstants;
 import org.ebayopensource.turmeric.eclipse.ui.components.ProjectSelectionListLabelProvider;
-import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.tools.library.TypeLibraryConstants;

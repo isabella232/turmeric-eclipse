@@ -20,11 +20,11 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibra
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.TemplateBinding;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.resources.SOAMessages;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.WTPTypeLibUtil;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateUtils;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUIActivator;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.WTPTypeLibUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
-import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.eclipse.wst.wsdl.Binding;
 import org.eclipse.wst.wsdl.Definition;
@@ -305,7 +305,7 @@ public class ServiceTemplateUtil {
 			throws CommandFailedException {
 		String prefixedElementType = "";
 		if (parameterElement.getDatatype() instanceof String) {
-			prefixedElementType = TemplateUtils.getPrefix(complexTypeDefinition
+			prefixedElementType = TypeLibraryUIActivator.getPrefix(complexTypeDefinition
 					.getSchema(), SOATypeLibraryConstants.W3C_NAMEPSACE)
 					+ (String) parameterElement.getDatatype();
 		} else {
@@ -316,26 +316,20 @@ public class ServiceTemplateUtil {
 				String elementNamespace = typeFolding ? complexTypeDefinition
 						.getTargetNamespace() : TypeLibraryUtil
 						.getNameSpace(libElementType);
-				prefixedElementType = TemplateUtils.getPrefix(
+				prefixedElementType = TypeLibraryUIActivator.getPrefix(
 						complexTypeDefinition.getSchema(), elementNamespace)
 						+ elementName;
-//				if (!typeFolding) {
-//					String libElementNamespace = TypeLibraryUtil
-//							.getNameSpace(libElementType);
-//					addImportDirective(complexTypeDefinition,
-//							libElementNamespace);
-//				}
 			} catch (Exception e) {
 				throw new CommandFailedException(StringUtil.formatString(
 						SOAMessages.TYPE_NOT_FOUND, parameterElement
 								.getDatatype()));
 			}
 		}
-		XSDParticle xsdParticle = TemplateUtils.createXSDElementDeclaration(
+		XSDParticle xsdParticle = TypeLibraryUIActivator.createXSDElementDeclaration(
 				parameterElement.getName(), prefixedElementType,
 				parameterElement.getMinOccurs(), parameterElement
 						.getMaxOccurs());
-		XSDModelGroup xsdModelGroup = TemplateUtils
+		XSDModelGroup xsdModelGroup = TypeLibraryUIActivator
 				.getModelGroup(complexTypeDefinition);
 		xsdModelGroup.getContents().add(xsdParticle);
 
@@ -443,21 +437,19 @@ public class ServiceTemplateUtil {
 
 		if (!StringUtils.isEmpty(baseElementName)
 				&& !StringUtils.isEmpty(baseElementNameSpace)) {
-//			if (!typeFolding)
-//				addImportDirective(complexTypeDefition, baseElementNameSpace);
 			if (!typeFolding)
-				restriction.setName(TemplateUtils.getPrefix(complexTypeDefition
+				restriction.setName(TypeLibraryUIActivator.getPrefix(complexTypeDefition
 						.getSchema(), baseElementNameSpace)
 						+ baseElementName);
 			else
-				restriction.setName(TemplateUtils.getPrefix(complexTypeDefition
+				restriction.setName(TypeLibraryUIActivator.getPrefix(complexTypeDefition
 						.getSchema(), targetNameSpace)
 						+ baseElementName);
 			complexTypeDefition
 					.setDerivationMethod(XSDDerivationMethod.EXTENSION_LITERAL);
 			complexTypeDefition.setBaseTypeDefinition(restriction);
 		}
-		TemplateUtils.addDocumentation(complexTypeDefition, "Document goes here");
+		TypeLibraryUIActivator.addDocumentation(complexTypeDefition, "Document goes here");
 		return complexTypeDefition;
 	}
 

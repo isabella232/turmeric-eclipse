@@ -12,7 +12,8 @@ import java.io.IOException;
 
 import org.ebayopensource.turmeric.eclipse.core.ICommand;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateUtils;
+import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUIActivator;
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.JDOMUtil;
@@ -53,7 +54,7 @@ public class FileProcessor implements ICommand {
 		FileProcessorParam fileProcessorParam = (FileProcessorParam) object;
 		String contents;
 		try {
-			contents = TemplateUtils.formatContents(JDOMUtil
+			contents = TypeLibraryUIActivator.formatContents(JDOMUtil
 					.convertXMLToString(JDOMUtil
 							.convertToJDom(fileProcessorParam.getInputWSDL()
 									.getDocument())));
