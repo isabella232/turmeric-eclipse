@@ -6,12 +6,11 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.repositorysystem.ui;
+package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 
 import org.eclipse.jface.wizard.IWizardPage;
 
 import org.ebayopensource.turmeric.eclipse.core.model.ISOAServiceParamModel;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
 
 /**
  * Build System should implement this page if it needs to perform any additional

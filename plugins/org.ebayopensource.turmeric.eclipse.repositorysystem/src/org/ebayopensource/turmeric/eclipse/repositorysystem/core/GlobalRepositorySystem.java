@@ -16,6 +16,7 @@ import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceReader;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
