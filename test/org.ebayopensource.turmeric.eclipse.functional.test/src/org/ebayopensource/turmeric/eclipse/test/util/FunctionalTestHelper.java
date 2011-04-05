@@ -23,15 +23,10 @@ import org.apache.commons.io.LineIterator;
 import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang.StringUtils;
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.repository.metadata.ArtifactMetadata;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
-import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.mavenapi.MavenApiPlugin;
-import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
-import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseUtil;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
@@ -40,7 +35,6 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
-import org.ebayopensource.turmeric.repositorysystem.imp.utils.TurmericConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
@@ -96,12 +90,6 @@ public class FunctionalTestHelper {
 			state = MavenApiPlugin.getDefault().getBundle().getState();
 		}
 						
-//		while (metadata != null && metadata.getVersion() == null) {
-//			System.out
-//					.println("Waiting for M2Eclipse, unable to retrieve library: " + libName + ". Sleeping.");
-//			Thread.sleep(5000L);
-//			metadata = MavenCoreUtils.getLibraryIdentifier(libName);
-//		}
 	}
 
 	/*
@@ -141,7 +129,6 @@ public class FunctionalTestHelper {
 		Assert.assertNotNull(files);
 		Assert.assertTrue(files.size() > 0);
 
-		// File curImplFile = files.iterator().next();
 		try {
 			FileUtils.forceDelete(curImplFile);
 		} catch (IOException e1) {
@@ -316,6 +303,7 @@ public class FunctionalTestHelper {
 		final StringBuffer errSb = new StringBuffer(1024);
 		streamProxy.getOutputStreamMonitor().addListener(new IStreamListener() {
 
+			@Override
 			public void streamAppended(String text, IStreamMonitor monitor) {
 				outSb.append(text);
 
@@ -323,6 +311,7 @@ public class FunctionalTestHelper {
 		});
 		streamProxy.getErrorStreamMonitor().addListener(new IStreamListener() {
 
+			@Override
 			public void streamAppended(String text, IStreamMonitor monitor) {
 				errSb.append(text);
 

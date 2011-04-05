@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.ui.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.ServiceFromWSDLWizard;
@@ -316,7 +317,7 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 				try {
 					// change local metadata (wsdl, properties), sync AR
 					// version.
-					org.ebayopensource.turmeric.eclipse.repositorysystem.utils.ActionUtil
+					ActionUtil
 							.updateInterfaceProjectVersion(
 									(SOAIntfProject) intfProject,
 									oldVersionStr, newVersionStr, false, monitor);

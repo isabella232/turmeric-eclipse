@@ -12,8 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.util.PreferenceUtil;
-
+import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 
 /**
  * @author smathew
@@ -23,25 +23,24 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.util.Pre
 public class PreferenceReader {
 
 	public static List<String> getServiceLayer() {
-		String serviceLayer = PreferenceUtil.getPreferenceStore().getString(
-				PreferenceConstants.PREF_SERVICE_LAYERS);
+		IEclipsePreferences prefs = RepositorySystemActivator.getDefault().getPreferences();
+		String serviceLayer = prefs.get(PreferenceConstants.PREF_SERVICE_LAYERS,  PreferenceConstants.getDefaultServiceLayers());
 		String layers[] = StringUtils.split(serviceLayer, ",");
 		return Arrays.asList(layers);
 	}
 
 	public static String getCurrentRepositorySystemId() {
-		return PreferenceUtil.getPreferenceStore().getString(
-				PreferenceConstants.PREF_REPOSITORY_SYSTEM);
+		IEclipsePreferences prefs = RepositorySystemActivator.getDefault().getPreferences();
+		return prefs.get(PreferenceConstants.PREF_REPOSITORY_SYSTEM, PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM);
 	}
 	
 	public static String getCurrentOrganizationId(String defaultOrgId) {
-		String orgId = PreferenceUtil.getPreferenceStore().getString(
-				PreferenceConstants.PREF_ORGANIZATION);
-		if (StringUtils.isBlank(orgId)) {
+		IEclipsePreferences prefs = RepositorySystemActivator.getDefault().getPreferences();
+		
+		String orgId = prefs.get(PreferenceConstants.PREF_ORGANIZATION, "");
+		if (orgId.equals("")) {
 			orgId = defaultOrgId;
-			PreferenceUtil.getPreferenceStore().setDefault(
-					PreferenceConstants.PREF_ORGANIZATION, 
-					orgId);
+			prefs.put(PreferenceConstants.PREF_ORGANIZATION, orgId);
 		}
 		return orgId;
 	}

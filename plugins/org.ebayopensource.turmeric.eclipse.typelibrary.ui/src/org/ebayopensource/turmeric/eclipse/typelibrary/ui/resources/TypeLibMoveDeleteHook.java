@@ -15,13 +15,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryDeltaVisitor;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.utils.collections.CollectionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
-import org.ebayopensource.turmeric.tools.library.SOAGlobalRegistryFactory;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -41,6 +40,7 @@ public class TypeLibMoveDeleteHook implements IResourceChangeListener {
 	public TypeLibMoveDeleteHook() {
 	}
 
+	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		if (IResourceChangeEvent.POST_CHANGE == event.getType()) {
 			TypeLibraryDeltaVisitor typeLibraryDeltaVisitor = new TypeLibraryDeltaVisitor();

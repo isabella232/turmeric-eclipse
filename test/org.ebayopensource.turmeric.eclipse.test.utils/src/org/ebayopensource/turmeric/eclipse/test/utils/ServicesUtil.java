@@ -88,17 +88,12 @@ public class ServicesUtil {
 	public static boolean createNewSvcFrmWsdl(String name, String location, String domainClassifier) {
 		try {
 			final ServiceFromTemplateWsdlParamModel model = new ServiceFromTemplateWsdlParamModel();
-			//final String servicePkg = "com.ebay.marketplace.services";
-			//String v3ViewRoot = Activator.PLUGIN_ID;
-			//v3ViewRoot = ".\\..\\..\\..\\..\\..\\..\\..\\" +v3ViewRoot;
 			final String v3ViewRoot = JavaCore.getClasspathVariable("V3_VIEW_ROOT").toString();
 			final URL templateFile = new URL(v3ViewRoot+"\\nexustools\\com.ebay.tools\\com.ebay.tools.soa\\plugins\\com.ebay.tools.soa.config\\templates\\wsdl\\marketplace\\Marketplace_NoOperationTemplate.wsdl");
 			String publicServiceName = getPublicServiceName(name, domainClassifier);
 			String nsPart = StringUtils.lowerCase(domainClassifier);
 			String targetNamespace = getTargetNamespace(domainClassifier);
-			//String packageName = SOAProjectConstants.DEFAULT_PACKAGE_NAME;
 			String interfacePackage = getInterfacePackage(name, targetNamespace);
-			//String interfacePackage = targetNamespace + name.toLowerCase() ;
 			String implClass = SOAServiceUtil.generateServiceImplClassName(publicServiceName, name, targetNamespace);
 			List <Operation> operations = new ArrayList<Operation>();
 			final Operation op = ServiceFromTemplateWsdlParamModel.createOperation("getVersion");

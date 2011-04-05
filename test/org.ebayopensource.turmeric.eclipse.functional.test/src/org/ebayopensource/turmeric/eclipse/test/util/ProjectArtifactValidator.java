@@ -38,9 +38,8 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.ElementNameAndAttributeQualifier;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
-import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.AttachmentWsdlConsumerTest;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
 import org.eclipse.core.resources.IResource;
@@ -126,6 +125,7 @@ public class ProjectArtifactValidator implements IResourceVisitor {
 	 * org.eclipse.core.resources.IResourceVisitor#visit(org.eclipse.core.resources
 	 * .IResource)
 	 */
+	@Override
 	public boolean visit(IResource resource) throws CoreException {
 
 		// if (!matches)

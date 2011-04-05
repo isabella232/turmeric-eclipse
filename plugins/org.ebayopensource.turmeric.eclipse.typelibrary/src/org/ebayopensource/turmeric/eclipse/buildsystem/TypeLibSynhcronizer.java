@@ -8,34 +8,16 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.buildsystem;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.xml.namespace.QName;
-
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.common.config.ReferredType;
 import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;
 import org.ebayopensource.turmeric.common.config.TypeDependencyType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
-import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
-import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
-import org.ebayopensource.turmeric.eclipse.utils.collections.CollectionUtil;
-import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
-import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * Synchronize in-lined types in Wsdl/Xsd to type dependency xml and from type

@@ -5,6 +5,7 @@ Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.repositorysystem;singleton:=true
 Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.equinox.preferences,
  org.ebayopensource.turmeric.eclipse.utils,
  org.ebayopensource.turmeric.eclipse.core,
  org.eclipse.core.resources,
@@ -13,18 +14,13 @@ Require-Bundle: org.eclipse.core.runtime,
  org.ebayopensource.turmeric.eclipse.exception;bundle-version="1.0.0",
  org.ebayopensource.turmeric.eclipse.registry;bundle-version="1.0.0",
  org.apache.commons.lang;bundle-version="2.4.0",
- org.apache.commons.io;bundle-version="1.4.0",
- org.ebayopensource.turmeric.eclipse.utils.ui;bundle-version="1.0.0",
- org.eclipse.jface,
- org.eclipse.ui
+ org.apache.commons.io;bundle-version="1.4.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator
 Export-Package: org.ebayopensource.turmeric.eclipse.repositorysystem,
  org.ebayopensource.turmeric.eclipse.repositorysystem.core,
  org.ebayopensource.turmeric.eclipse.repositorysystem.core.impl,
  org.ebayopensource.turmeric.eclipse.repositorysystem.model,
  org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core,
- org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.ui,
- org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.util,
  org.ebayopensource.turmeric.eclipse.repositorysystem.resources,
  org.ebayopensource.turmeric.eclipse.repositorysystem.utils
 Bundle-Version: 1.0.0.qualifier

@@ -1,4 +1,4 @@
-package org.ebayopensource.turmeric.eclipse.repositorysystem.utils;
+package org.ebayopensource.turmeric.eclipse.repositorysystem.ui.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -20,6 +20,8 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.GlobalProjectHealthChecker;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
@@ -79,19 +81,6 @@ public class ActionUtil {
 	 * @return
 	 */
 	public static IStatus submitNewAssetToSOARegistry(IProject project) {
-		/*
-		 * //validate the service for (IArtifactValidator validator :
-		 * ExtensionPointFactory.getArtifactValidators()) { if
-		 * (validator.getAllSupportedValidators
-		 * ().contains(SOAProjectConstants.WSDL)) { //as of now we only use WSDL
-		 * Validator final IFile wsdlFile = SOAServiceUtil.getWsdlFile(project,
-		 * serviceName); InputStream is = null; try { is =
-		 * wsdlFile.getContents(); byte[] contents = IOUtils.toByteArray(is);
-		 * IStatus status = validator.validateArtifact(contents,
-		 * wsdlFile.getFileExtension(), monitor); if (status.isOK() == false) {
-		 * throw new CoreException(status); } } finally {
-		 * IOUtils.closeQuietly(is); } } }
-		 */
 
 		IRegistryProvider regProvider;
 		try {
@@ -101,7 +90,7 @@ public class ActionUtil {
 						"Could not find a valid SOA Registry Provider");
 
 			final SubmitAssetModel model = getAssetModel(project);
-			// ProgressUtil.progressOneStep(monitor);
+			
 			// submit the model
 			return regProvider.submitNewAssetForGovernance(model);
 		} catch (CoreException e) {
@@ -168,7 +157,7 @@ public class ActionUtil {
 						"Could not find a valid SOA Registry Provider");
 
 			final SubmitAssetModel model = getAssetModel(project);
-			// ProgressUtil.progressOneStep(monitor);
+			
 			// submit the model
 			return regProvider.updateExistingVersionForGovernance(model);
 		} catch (CoreException e) {
@@ -203,7 +192,7 @@ public class ActionUtil {
 			if (newVersion != null && newVersion.trim().length() > 0) {
 				model.setServiceVersion(newVersion);
 			}
-			// ProgressUtil.progressOneStep(monitor);
+			
 			// submit the model
 			return regProvider.submitNewVersionForGovernance(model);
 		} catch (CoreException e) {

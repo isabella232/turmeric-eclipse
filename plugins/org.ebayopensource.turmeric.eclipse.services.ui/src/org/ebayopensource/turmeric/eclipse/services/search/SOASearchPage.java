@@ -215,36 +215,7 @@ public class SOASearchPage extends DialogPage implements ISearchPage {
 		Collections.reverse(layers);
 		serviceLayerList.setItems(
 				layers.toArray(new String[0]));
-		
-		/* TODO disable the domain list for now
-		 * label = new Label(group, SWT.NONE);
-		label.setText("Service &Domain:");
-		serviceDomainList = new CCombo(group, SWT.BORDER);
-		serviceDomainList.setLayoutData(data);
-		
-		try {
-			if (DOMAIN_LIST.isEmpty() == true) {
-				if (ExtensionPointFactory.getSOARegistryProvider() != null
-						&& ExtensionPointFactory.getSOARegistryProvider().getDomainNamespaceValues() != null) {
-					for (NameValuePair nameValuePair: 
-						ExtensionPointFactory.getSOARegistryProvider().getDomainNamespaceValues()) {
-						DOMAIN_LIST.add(nameValuePair.getDomainName());
-					}
-				}
-			}
-			final String[] items = DOMAIN_LIST.toArray(new String[0]);
-			serviceDomainList.setItems(items);
-			if (items.length > 0) {
-				new AutoCompleteField(serviceDomainList, new SOACComboControlAdapter(), items);
-			}
-			//disable the list if AR plugin is not installed
-			serviceDomainList.setEnabled(
-					ExtensionPointFactory.getSOARegistryProvider() != null);
 			
-		} catch (Exception e) {
-			logger.warning(e);
-		}*/
-		
 	}
 
 }

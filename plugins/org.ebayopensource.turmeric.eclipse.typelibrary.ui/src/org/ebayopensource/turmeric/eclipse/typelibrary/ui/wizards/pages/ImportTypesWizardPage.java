@@ -22,10 +22,9 @@ import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
-import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProjectResolver;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUIActivator;
@@ -132,6 +131,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 		return "";
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		Composite container = super.createParentControl(parent, 3);
 
@@ -229,10 +229,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 		browseButton.setSelection(false);
 		browseButton.addSelectionListener(new SelectionListener() {
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				browseSourceFile();
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// try {
 				// CutXSDFromWSDL.main(null);
@@ -260,10 +262,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 		existProjBtn.setText("Existing Type Library Project");
 		existProjBtn.addSelectionListener(new SelectionListener() {
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				updateTypeLibrarySelectionStatus();
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (existProjBtn.getSelection() == true) {
 					updateTypeLibrarySelectionStatus();
@@ -286,10 +290,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 		newProjBtn.setText("Create New Target Library");
 		newProjBtn.addSelectionListener(new SelectionListener() {
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				updateTypeLibrarySelectionStatus();
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (existProjBtn.getSelection() == false) {
 					updateTypeLibrarySelectionStatus();
@@ -344,10 +350,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 		browseTypeLibraryBtn.setText("&Select...");
 		browseTypeLibraryBtn.addSelectionListener(new SelectionListener() {
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				browseTargetTypeLibraryProject();
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				browseTargetTypeLibraryProject();
 			}
@@ -372,6 +380,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 		tableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
 				true, 3, 1));
 		viewTypeContentAction = new Action() {
+			@Override
 			public void run() {
 				List<TypeModel> selection = typeTable.getUserSelection();
 				if (selection.size() == 0) {
@@ -650,10 +659,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 			selectAll.setToolTipText("Choose all types");
 			selectAll.addSelectionListener(new SelectionListener() {
 
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					selectAll(true);
 				}
 
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					selectAll(true);
 				}
@@ -665,10 +676,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 			diselectAll.setToolTipText("Un-choose all types");
 			diselectAll.addSelectionListener(new SelectionListener() {
 
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					selectAll(false);
 				}
 
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					selectAll(false);
 				}
@@ -686,10 +699,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 							+ "if a dependency type has error or warnings.");
 			selectCorrect.addSelectionListener(new SelectionListener() {
 
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					selectAllCorrect();
 				}
 
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					selectAllCorrect();
 				}
@@ -703,10 +718,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 			errorReport.setToolTipText("View error report");
 			errorReport.addSelectionListener(new SelectionListener() {
 
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					showErrprReport();
 				}
 
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					showErrprReport();
 				}
@@ -722,10 +739,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 					+ "Please check the first column to choose a type.");
 			schemaContentImport.addSelectionListener(new SelectionListener() {
 
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					widgetSelected(e);
 				}
 
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					List<TypeModel> selection = getSelectedType();
 					if (selection.size() == 0) {
@@ -747,10 +766,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 					+ "to select multi types in the table.");
 			schemaContentSelected.addSelectionListener(new SelectionListener() {
 
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					widgetSelected(e);
 				}
 
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					List<TypeModel> selection = getUserSelection();
 					if (selection.size() == 0) {
@@ -816,6 +837,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 			cellEditors[3] = new TextCellEditor(typeTable);
 			typeTableView.setCellEditors(cellEditors);
 			typeTable.addListener(SWT.MouseDoubleClick, new Listener() {
+				@Override
 				public void handleEvent(Event event) {
 					// find clicked on which item
 					Point pt = new Point(event.x, event.y);
@@ -1032,14 +1054,17 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 		class TypeContentProvider implements IStructuredContentProvider {
 
+			@Override
 			public Object[] getElements(Object inputElement) {
 				return typeList.toArray();
 			}
 
+			@Override
 			public void dispose() {
 
 			}
 
+			@Override
 			public void inputChanged(Viewer viewer, Object oldInput,
 					Object newInput) {
 
@@ -1050,6 +1075,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 		class TypeLabelProvider extends LabelProvider implements
 				ITableLabelProvider {
 
+			@Override
 			public Image getColumnImage(Object element, int columnIndex) {
 
 				if ((element instanceof TypeModel) == false) {
@@ -1076,6 +1102,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 				}
 			}
 
+			@Override
 			public String getColumnText(Object element, int columnIndex) {
 				if (element == null) {
 					return "";
@@ -1103,6 +1130,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 		class TypeModifier implements ICellModifier {
 
+			@Override
 			public boolean canModify(Object element, String property) {
 				if (property == null
 						|| ((element instanceof TypeModel) == false)) {
@@ -1115,6 +1143,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 				return true;
 			}
 
+			@Override
 			public Object getValue(Object element, String property) {
 				if (property == null
 						|| ((element instanceof TypeModel) == false)) {
@@ -1161,6 +1190,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 				}
 			}
 
+			@Override
 			public void modify(Object element, String property, Object value) {
 				if (property == null || element == null) {
 					return;

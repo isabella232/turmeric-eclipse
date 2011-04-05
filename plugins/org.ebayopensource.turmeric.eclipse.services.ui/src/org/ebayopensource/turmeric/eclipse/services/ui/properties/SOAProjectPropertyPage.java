@@ -22,6 +22,7 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.ui.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
@@ -179,15 +180,6 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 			addBaseConsumerSrcDir(consumerGroup);
 		}
 
-		/*
-		 * //create options group Group optionsGroup = new Group(parent,
-		 * SWT.NONE); optionsGroup.setLayout(new GridLayout());
-		 * optionsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		 * optionsGroup.setText("Options"); this.includeTestJSPBtn =
-		 * addCheckBox(optionsGroup, "Include Test JSP Pages");
-		 * includeTestJSPBtn.setSelection(((SOAImplProject)
-		 * getSoaProject()).getMetadata() .isIncludeTestJsp());
-		 */
 	}
 
 	/**
@@ -225,23 +217,12 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		return consumerPropertyGroup;
 	}
 
-	/*
-	 * private Button addCheckBox(Composite parent, String label) { GridData gd
-	 * = new GridData(GridData.HORIZONTAL_ALIGN_FILL); Button button = new
-	 * Button(parent, SWT.CHECK); button.setText(label);
-	 * button.setLayoutData(gd); return button; }
-	 */
 
 	/*
 	 * @see PreferencePage#createControl(Composite)
 	 */
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-
-		// add help support
-		// UIUtil.getHelpSystem().setHelp(control, contextId)
-		// PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(),
-		// IJavaHelpContextIds.JAVA_BASE_PREFERENCE_PAGE);
 	}
 
 	public IAdaptable getElement() {
@@ -284,7 +265,7 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 								SOAIntfUtil.saveMetadataProps((SOAIntfProject) soaProject, monitor);
 							} else {
 								// change local metadata (wsdl, properties), sync AR version.
-								org.ebayopensource.turmeric.eclipse.repositorysystem.utils.ActionUtil
+								ActionUtil
 								.updateInterfaceProjectVersion(
 										(SOAIntfProject) soaProject,
 										oldVersion, newVersion, false, monitor);
@@ -313,12 +294,6 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 			} else if (soaProject instanceof SOAImplProject) {
 				// skip the modification for impl
 				return true;
-				// final SOAImplMetadata implMetadata = ((SOAImplProject)
-				// soaProject)
-				// .getMetadata();
-				// implMetadata.setImplVersion(implVersion.getText());
-				// implMetadata.setIncludeTestJsp(includeTestJSPBtn.getSelection());
-				// implMetadata.setBaseConsumerSrcDir(baseConsumerDir.getText());
 			} else if (soaProject instanceof SOAConsumerProject) {
 				// we do not support changing properties for consumer
 				return true;

@@ -8,16 +8,18 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core;
 
-import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.util.PreferenceUtil;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 
 
 /**
- * @author smathew
- * 
  * The preference initializer which will be called for the default 
  * first time the preference is read.
+ * 
+ * @author dcarver
+ * @since 1.0 Upgraded to use IEclipsePreferences.
  * 
  */
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
@@ -28,13 +30,12 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	 */
 	@Override
 	public void initializeDefaultPreferences() {
-		final IPreferenceStore store = PreferenceUtil.getPreferenceStore();
-		store.setDefault(PreferenceConstants.PREF_REPOSITORY_SYSTEM,
-				PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM);
-		store.setDefault(PreferenceConstants.PREF_SERVICE_LAYERS,
-				PreferenceConstants.getDefaultServiceLayers());
+		IEclipsePreferences node = new DefaultScope().getNode(RepositorySystemActivator.getDefault().getBundle().getSymbolicName());
 		
-
+		node.put(PreferenceConstants.PREF_REPOSITORY_SYSTEM,
+				PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM);
+		node.put(PreferenceConstants.PREF_SERVICE_LAYERS,
+				PreferenceConstants.getDefaultServiceLayers());
 	}
 
 }

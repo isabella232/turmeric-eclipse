@@ -13,13 +13,6 @@
    <extension-point id="repositorysystem" name="Repository System" schema="schema/repositorysystem.exsd"/>
 
  <extension
-       point="org.eclipse.ui.preferencePages">
-    <page
-          class="org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.ui.PreferencePage"
-          id="org.ebayopensource.turmeric.eclipse.ui.preferences"
-          name="%PrefPage.SOAPlugin.Name"/>
- </extension>
- <extension
        point="org.eclipse.core.runtime.preferences">
     <initializer class="org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceInitializer"/>
  </extension>

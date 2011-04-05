@@ -61,8 +61,7 @@ public class ServicesContentProvider implements ITreeContentProvider {
 					.getActiveRepositorySystem().getAssetRegistry()
 					.getAllAvailableServices().toArray();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			SOALogger.getLogger().error(e);
 		}
 		return services;
 	}

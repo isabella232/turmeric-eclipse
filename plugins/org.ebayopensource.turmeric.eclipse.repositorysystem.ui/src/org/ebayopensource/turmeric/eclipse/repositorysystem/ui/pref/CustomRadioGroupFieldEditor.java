@@ -6,7 +6,7 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.ui;
+package org.ebayopensource.turmeric.eclipse.repositorysystem.ui.pref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceConstants;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.ui.RepositorySystemUIActivator;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.swt.SWT;
@@ -82,7 +83,8 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
             int numColumns, String[][] labelAndValues,
             Map<String, Map<String, String>> organizations, Composite parent,
             boolean useGroup) {
-        setPreferenceStore(RepositorySystemActivator.getDefault()
+    	
+        setPreferenceStore(RepositorySystemUIActivator.getDefault()
                 .getPreferenceStore());
         init(name, labelText);
         Assert.isTrue(validateKeyValuePair(labelAndValues));

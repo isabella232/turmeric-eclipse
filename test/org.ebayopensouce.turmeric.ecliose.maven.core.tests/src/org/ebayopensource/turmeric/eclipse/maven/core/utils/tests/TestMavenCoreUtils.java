@@ -1,18 +1,10 @@
 package org.ebayopensource.turmeric.eclipse.maven.core.utils.tests;
 
-import java.util.Collection;
-
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
-import org.ebayopensource.turmeric.eclipse.mavenapi.MavenApiPlugin;
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseApi;
-import org.ebayopensource.turmeric.eclipse.mavenapi.intf.IMavenEclipseApi;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.maven.ide.eclipse.MavenPlugin;
 import org.maven.ide.eclipse.internal.index.IndexedArtifactGroup;
@@ -20,9 +12,6 @@ import org.maven.ide.eclipse.internal.index.NexusIndexManager;
 import org.maven.ide.eclipse.internal.repository.RepositoryRegistry;
 import org.maven.ide.eclipse.repository.IRepository;
 import org.maven.ide.eclipse.repository.IRepositoryRegistry;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-
 import static org.junit.Assert.*;
 
 public class TestMavenCoreUtils {

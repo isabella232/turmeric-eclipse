@@ -6,7 +6,7 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.ui;
+package org.ebayopensource.turmeric.eclipse.repositorysystem.ui.pref;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +22,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceConstants;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.ui.RepositorySystemUIActivator;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.runtime.IStatus;
@@ -47,7 +48,7 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 
 	public PreferencePage() {
 		super(GRID);
-		setPreferenceStore(RepositorySystemActivator.getDefault()
+		setPreferenceStore(RepositorySystemUIActivator.getDefault()
 				.getPreferenceStore());
 		setDescription("Turmeric SOA Plugin Preferences");
 	}

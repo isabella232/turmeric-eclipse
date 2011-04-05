@@ -10,14 +10,17 @@ package org.ebayopensource.turmeric.eclipse.repositorysystem;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.osgi.framework.BundleContext;
 
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class RepositorySystemActivator extends AbstractUIPlugin {
+public class RepositorySystemActivator extends Plugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.repositorysystem";
@@ -60,6 +63,18 @@ public class RepositorySystemActivator extends AbstractUIPlugin {
 	 */
 	public static RepositorySystemActivator getDefault() {
 		return plugin;
+	}
+	
+	private IScopeContext instanceScope = new InstanceScope();
+	/**
+	 * Gets the IEclipsePreferences for this particular plugin.  This uses the newer IEclipsePreferences
+	 * instead of the deprecated getPluginPreferences method.
+	 * 
+	 * @return returns the preferences for the repository system.
+	 */
+	public IEclipsePreferences getPreferences() {
+		IEclipsePreferences node =  instanceScope.getNode(plugin.getBundle().getSymbolicName());
+		return node;
 	}
 
 }

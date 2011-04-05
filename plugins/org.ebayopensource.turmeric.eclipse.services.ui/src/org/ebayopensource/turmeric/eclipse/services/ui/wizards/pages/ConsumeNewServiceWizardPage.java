@@ -177,8 +177,6 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 								String conID = StringUtils.isBlank(clientModel.getConsumerId()) 
 								? "" : clientModel.getConsumerId();
 								consumerId.setText(conID);
-								/*if (StringUtils.isNotBlank(conID))
-								retrieveConsumerIDBtn.setEnabled(false);*/
 							}
 						} catch (ClientProviderException e1) {
 							SOALogger.getLogger().error(e1);

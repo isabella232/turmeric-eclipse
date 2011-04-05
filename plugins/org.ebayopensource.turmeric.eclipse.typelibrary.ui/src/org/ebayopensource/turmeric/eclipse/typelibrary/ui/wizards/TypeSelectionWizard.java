@@ -15,15 +15,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.SynchronizeWsdlAndDepXML;
-import org.ebayopensource.turmeric.eclipse.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOATypeCreationFailedException;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.buildsystem.TypeCreator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.TypeSelectionWizardPage;
@@ -493,6 +492,7 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		return paramModel;
 	}
 
+	@Override
 	public IStatus preValidate() {
 		return Status.OK_STATUS;
 	}

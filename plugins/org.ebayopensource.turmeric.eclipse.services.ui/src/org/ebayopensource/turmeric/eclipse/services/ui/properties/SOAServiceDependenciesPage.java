@@ -161,15 +161,6 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 
 	private void addServiceDependenciesList() throws CoreException, IOException {
 		Composite parent = getFieldEditorParent();
-		/*
-		 * { Composite composite = new Composite(parent, SWT.NONE);
-		 * composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		 * composite.setLayout(new GridLayout(2, false)); Label label = new
-		 * Label(composite, SWT.NONE); label.setText("Client Name:"); Text text
-		 * = new Text(composite, SWT.BORDER); text.setEditable(false);
-		 * text.setText(SOAConsumerUtil.getServiceClientName(project));
-		 * text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL)); }
-		 */
 
 		final Group listComposite = new Group(parent, SWT.NONE);
 		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1);
@@ -199,7 +190,6 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 	private void addServiceLocation(Group group) {
 		serviceLocationEditor = new StringFieldEditor("", "Service Location: ",
 				group);
-		// serviceLocationEditor.getTextControl(group).setEnabled(false);
 		editorParentMap.put(serviceLocationEditor, group);
 		addField(serviceLocationEditor);
 	}
