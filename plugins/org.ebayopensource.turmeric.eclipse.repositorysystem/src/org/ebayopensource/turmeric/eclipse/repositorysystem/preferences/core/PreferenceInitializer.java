@@ -8,10 +8,13 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core;
 
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.osgi.service.prefs.BackingStoreException;
 
 
 /**
@@ -31,11 +34,27 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	@Override
 	public void initializeDefaultPreferences() {
 		IEclipsePreferences node = new DefaultScope().getNode(RepositorySystemActivator.getDefault().getBundle().getSymbolicName());
+		IEclipsePreferences instanceNode = new InstanceScope().getNode(RepositorySystemActivator.getDefault().getBundle().getSymbolicName());
 		
+		setNodeValues(node);
+		
+		try {
+			if (instanceNode.keys() != null || instanceNode.keys().length == 0) {
+				setNodeValues(instanceNode);
+				instanceNode.flush();
+			}
+		} catch (BackingStoreException e) {
+			SOALogger.getLogger().warning(e);
+		}
+	
+	}
+
+	private void setNodeValues(IEclipsePreferences node) {
 		node.put(PreferenceConstants.PREF_REPOSITORY_SYSTEM,
 				PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM);
 		node.put(PreferenceConstants.PREF_SERVICE_LAYERS,
 				PreferenceConstants.getDefaultServiceLayers());
 	}
+	
 
 }

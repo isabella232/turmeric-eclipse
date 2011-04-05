@@ -1,6 +1,11 @@
 package org.ebayopensource.turmeric.eclipse.repositorysystem.ui;
 
+import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
+import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -46,5 +51,21 @@ public class RepositorySystemUIActivator extends AbstractUIPlugin {
 	public static RepositorySystemUIActivator getDefault() {
 		return plugin;
 	}
+	
+	private IScopeContext scope = new InstanceScope();
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * This implements a ScopedPreferenceStore. Values are initialized in the repositorysystem plugin.
+	 * This shares a preferencestore with the core plugin.
+	 */
+	@Override
+	public IPreferenceStore getPreferenceStore() {
+		String pluginId = RepositorySystemActivator.PLUGIN_ID;
+		ScopedPreferenceStore prefStore = new ScopedPreferenceStore(scope,
+				pluginId);
+		return prefStore;
+	}	
 
 }

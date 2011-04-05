@@ -11,10 +11,12 @@ package org.ebayopensource.turmeric.eclipse.repositorysystem;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.osgi.framework.BundleContext;
+import org.osgi.service.prefs.BackingStoreException;
 
 
 /**
@@ -66,6 +68,7 @@ public class RepositorySystemActivator extends Plugin {
 	}
 	
 	private IScopeContext instanceScope = new InstanceScope();
+	
 	/**
 	 * Gets the IEclipsePreferences for this particular plugin.  This uses the newer IEclipsePreferences
 	 * instead of the deprecated getPluginPreferences method.

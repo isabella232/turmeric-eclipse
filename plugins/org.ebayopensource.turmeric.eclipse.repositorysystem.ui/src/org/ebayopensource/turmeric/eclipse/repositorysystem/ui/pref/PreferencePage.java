@@ -26,12 +26,16 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.ui.RepositorySystemU
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 
 /**
@@ -48,10 +52,10 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 
 	public PreferencePage() {
 		super(GRID);
-		setPreferenceStore(RepositorySystemUIActivator.getDefault()
-				.getPreferenceStore());
+		setPreferenceStore(RepositorySystemUIActivator.getDefault().getPreferenceStore());
 		setDescription("Turmeric SOA Plugin Preferences");
 	}
+
 
 	@Override
 	public void createFieldEditors() {
