@@ -9,8 +9,13 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.properties;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences.ErrorIdServicePreferenceConstants;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
+import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.framework.BundleContext;
 
 
@@ -47,6 +52,16 @@ public class Activator extends AbstractUIPlugin {
 		super.stop(context);
 	}
 	
+	public static boolean useLocalHost() {
+		return getDefault().getPreferenceStore()
+				.getBoolean(ErrorIdServicePreferenceConstants.USELOCALHOST);
+	}
+
+	public static String getErrorIdServiceEndpoint() {
+		return getDefault().getPreferenceStore()
+				.getString(ErrorIdServicePreferenceConstants.REMOTEENDPOINTURL);
+	}
+
 	/**
 	 * Returns the shared instance
 	 *
@@ -54,6 +69,16 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static Activator getDefault() {
 		return plugin;
+	}
+	
+	private InstanceScope scope = new InstanceScope();
+	
+	@Override
+	public IPreferenceStore getPreferenceStore() {
+		String pluginId = Activator.PLUGIN_ID;
+		ScopedPreferenceStore prefStore = new ScopedPreferenceStore(scope,
+				pluginId);
+		return prefStore;
 	}
 
 }

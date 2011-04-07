@@ -39,7 +39,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		setNodeValues(node);
 		
 		try {
-			if (instanceNode.keys() != null || instanceNode.keys().length == 0) {
+			if (instanceNode.keys() != null && instanceNode.keys().length == 0) {
 				setNodeValues(instanceNode);
 				instanceNode.flush();
 			}

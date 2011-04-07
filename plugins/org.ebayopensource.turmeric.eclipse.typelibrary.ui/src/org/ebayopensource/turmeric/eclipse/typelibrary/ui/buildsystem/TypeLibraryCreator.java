@@ -83,6 +83,9 @@ public class TypeLibraryCreator {
 
 		SOAGlobalRegistryAdapter registryAdapter = SOAGlobalRegistryAdapter.getInstance();
 		SOATypeRegistry typeRegistry = registryAdapter.getGlobalRegistry();
+		if (typeRegistry == null) {
+			typeRegistry = registryAdapter.getGlobalRegistry();
+		}
 		typeRegistry.addTypeLibraryToRegistry(
 				TypeLibraryUtil.getTypeLibraryType(project));
 
