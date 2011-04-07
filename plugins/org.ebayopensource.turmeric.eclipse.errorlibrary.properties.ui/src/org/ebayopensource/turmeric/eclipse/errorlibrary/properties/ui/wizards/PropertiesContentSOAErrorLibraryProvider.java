@@ -9,7 +9,7 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.wizards;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +17,11 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.Activator;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.PropertiesContentErrorDomainCreator;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.PropertiesContentErrorLibraryCreator;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.PropertiesContentErrorTypeCreator;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.PropertiesErrorRegistryViewProvider;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.PropertiesSOAConstants;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorDomainCreator;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryCreator;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryProvider;
@@ -35,6 +40,9 @@ import org.eclipse.core.resources.IProject;
  */
 public class PropertiesContentSOAErrorLibraryProvider implements
 		IErrorLibraryProvider {
+	/**
+	 * 
+	 */
 	public static final String PROVIDER_ID;
 	
 	static {
@@ -67,8 +75,8 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryProvider#getErrorLibraryCreationWizardpage()
+	/**
+	 * {@inheritDoc}
 	 */
 	public ISOAErrorLibraryWizardPageProvider getErrorLibraryWizardPageProvider() {
 		if (errorLibWizardProvider == null) {
@@ -77,6 +85,9 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 		return errorLibWizardProvider;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ISOAErrorLibraryWizardPageProvider getErrorWizardPageProvider() {
 		if (errorWizardProvider == null) {
 			errorWizardProvider = new PropertiesErrorWizardPageProvider();
@@ -84,6 +95,9 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 		return errorWizardProvider;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ISOAErrorLibraryWizardPageProvider getErrorDomainWizardPageProvider() {
 		if (errorDomainWizardProvider == null) {
 			errorDomainWizardProvider = new PropertiesDomainWizardPageProvider();
@@ -91,13 +105,16 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 		return errorDomainWizardProvider;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryProvider#getProvider()
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getProviderID() {
 		return PROVIDER_ID;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IErrorLibraryCreator getErrorLibraryCreator() {
 		if (errorCreator == null) {
 			errorCreator = new PropertiesContentErrorLibraryCreator();
@@ -105,6 +122,9 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 		return errorCreator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IErrorDomainCreator getErrorDomainCreator() {
 		if (domainCreator == null) {
 			domainCreator = new PropertiesContentErrorDomainCreator();
@@ -112,6 +132,9 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 		return domainCreator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IErrorTypeCreator getErrorTypeCreator() {
 		if (typeCreator == null) {
 			typeCreator = new PropertiesContentErrorTypeCreator();
@@ -119,6 +142,9 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 		return typeCreator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IErrorRegistryViewProvider getErrorRegistryViewProvider() {
 		if (viewProvider == null) {
 			viewProvider = new PropertiesErrorRegistryViewProvider();
@@ -126,16 +152,21 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 		return viewProvider;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<String> getSourceSubFolders(ISOAProject project) {
 		List<String> folders = new ArrayList<String>();
 		folders.add(PropertiesSOAConstants.FOLDER_ERROR_DOMAIN + "/" + project.getProjectName());
 		return folders;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getImportErrorSource(IProject project, ISOAError error) {
 		String retCode = PropertiesSOAConstants.IMPORT_CODE_ERROR_CONSTR;
 		retCode = StringUtils.replace(retCode, "$error", error.getName().toUpperCase());
-//		retCode = StringUtils.replace(retCode, "$domain", error.getDomain().getName().toUpperCase());
 		return retCode;
 	}
 

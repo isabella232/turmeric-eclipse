@@ -10,5 +10,14 @@
            name="ErrorIdService Preferences">
      </page>
   </extension>
+  
+  <extension
+         point="org.ebayopensource.turmeric.eclipse.errorlibrary.soaErrorLibProvider">
+      <SOAErrorLibraryProvider
+            providerID="PropertiesContentErrorLibraryProvider"
+            providerImplementation="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.wizards.PropertiesContentSOAErrorLibraryProvider">
+      </SOAErrorLibraryProvider>
+   </extension>
+  
 
 </plugin>

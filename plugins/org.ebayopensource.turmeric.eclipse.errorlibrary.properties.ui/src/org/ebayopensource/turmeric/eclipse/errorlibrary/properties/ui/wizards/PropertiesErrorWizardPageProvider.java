@@ -9,14 +9,13 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.wizards;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
-import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.wizards.pages.NewPropertiesContentErrorWizardPage;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ISOAErrorLibraryWizardPageProvider;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
@@ -41,14 +40,15 @@ public final class PropertiesErrorWizardPageProvider implements
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IStatus preValidate() {
 		return Status.OK_STATUS;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ISOAErrorLibraryWizardPageProvider#getWizardpages()
+	/**
+	 * {@inheritDoc}
 	 */
 	public List<SOABasePage> getWizardpages(IStructuredSelection selection) {
 		final List<SOABasePage> pages = new ArrayList<SOABasePage>(1);
@@ -57,10 +57,8 @@ public final class PropertiesErrorWizardPageProvider implements
 		return pages;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ISOAErrorLibraryWizardPageProvider#performFinish()
+	/**
+	 * {@inheritDoc}
 	 */
 	public BaseServiceParamModel performFinish() throws Exception {
 		if (SOALogger.DEBUG)

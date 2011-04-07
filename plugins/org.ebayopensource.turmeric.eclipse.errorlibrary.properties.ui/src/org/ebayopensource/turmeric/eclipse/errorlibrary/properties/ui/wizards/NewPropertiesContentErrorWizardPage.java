@@ -9,7 +9,7 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.wizards.pages;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.wizards;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,6 @@ import org.eclipse.swt.widgets.Text;
  */
 public final class NewPropertiesContentErrorWizardPage extends
 		AbstractNewErrorResourceWizardPage {
-	// private Text errorIDText;
 	private CCombo categoryCombo;
 	private Text organizationText;
 	private CCombo domainCombo;
@@ -57,26 +56,23 @@ public final class NewPropertiesContentErrorWizardPage extends
 	
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * 
+	 * @param selection A structured selection object
+	 */
 	public NewPropertiesContentErrorWizardPage(IStructuredSelection selection) {
 		super("newErrorWizardPage", "New Error", "Create a new error",
 				selection);
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage#getDefaultResourceName()
-	 */
 	@Override
 	public String getDefaultResourceName() {
 		return PropertiesSOAConstants.DEFAULT_ERROR_NAME;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		try {
@@ -112,9 +108,11 @@ public final class NewPropertiesContentErrorWizardPage extends
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected void errorLibraryChanged() {
 		populateDomainCombo();
-		// setErrorID();
 	}
 	
 	private void setOrganization() {
@@ -138,7 +136,6 @@ public final class NewPropertiesContentErrorWizardPage extends
 	}
 
 	private void populateDomainCombo() {
-		boolean foundDomains = false;
 		domainCombo.clearSelection();
 		if (StringUtils.isNotBlank(getErrorLibrary())) {
 			final List<String> names = new ArrayList<String>();
@@ -153,7 +150,6 @@ public final class NewPropertiesContentErrorWizardPage extends
 			domainCombo.setItems(names.toArray(new String[0]));
 			if (names.size() > 0) {
 				domainCombo.select(0);
-				foundDomains = true;
 			}
 		}
 
@@ -197,17 +193,6 @@ public final class NewPropertiesContentErrorWizardPage extends
 		return true;
 	}
 
-	/*
-	 * private void setErrorID() { if (errorIDText != null &&
-	 * StringUtils.isNotBlank(getErrorLibrary())) { final IProject project =
-	 * WorkspaceUtil.getProject(getErrorLibrary()); if (project.isAccessible()) {
-	 * 
-	 * try { long id = ErrorParamModel.generateErrorID(
-	 * project.getLocation().toString(), getOrganization(), getDomain());
-	 * errorIDText.setText(String.valueOf(id)); } catch (Exception e) {
-	 * SOALogger.getLogger().warning(e); } } } }
-	 */
-
 	private void createContentStructure(Composite parent) {
 		final Group container = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		container.setText(SOAMessages.GROUP_TITLE_CONTENT_STRUCTURE);
@@ -218,11 +203,6 @@ public final class NewPropertiesContentErrorWizardPage extends
 		container.setLayout(layout);
 
 		final ErrorParamModel model = new ErrorParamModel();
-
-		/*
-		 * errorIDText = super.createLabelTextField(container, "&Error ID:", "",
-		 * modifyListener, false);
-		 */
 
 		super.createResourceNameControl(container,
 				SOAMessages.TEXT_NAME_NAME, modifyListener, true, 
@@ -257,40 +237,77 @@ public final class NewPropertiesContentErrorWizardPage extends
 
 	}
 
+	/**
+	 * 
+	 * @return  the Error id as a long
+	 * @throws Exception 
+	 */
 	public long getErrorID() throws Exception {
 		return ErrorParamModel.generateErrorID(
 				ErrorLibraryUtil.getErrorLibraryCentralLocation(),
 				getOrganization(), getDomain());
 	}
 
+	/**
+	 * 
+	 * @return the Domain name
+	 */
 	public String getDomain() {
 		return getTextValue(domainCombo);
 	}
 
+	/**
+	 * 
+	 * @return the category
+	 */
 	public String getCategory() {
 		return getTextValue(categoryCombo);
 	}
 
+	/**
+	 * 
+	 * @return the organizations
+	 */
 	public String getOrganization() {
 		return getTextValue(organizationText);
 	}
 
+	/**
+	 * 
+	 * @return the severity
+	 */
 	public String getSeverity() {
 		return getTextValue(severityCombo);
 	}
 
+	/**
+	 * 
+	 * @return the error message
+	 */
 	public String getContentErrorMessage() {
 		return getTextValue(messageText);
 	}
 
+	/**
+	 * 
+	 * @return the Sub Domain
+	 */
 	public String getSubDomain() {
 		return getTextValue(subdomainText);
 	}
 
+	/**
+	 * 
+	 * @return the resolution
+	 */
 	public String getResolution() {
 		return getTextValue(resolutionText);
 	}
 
+	/**
+	 * 
+	 * @return the error name
+	 */
 	public String getErrorName() {
 		return getTextValue(getResourceNameText());
 	}

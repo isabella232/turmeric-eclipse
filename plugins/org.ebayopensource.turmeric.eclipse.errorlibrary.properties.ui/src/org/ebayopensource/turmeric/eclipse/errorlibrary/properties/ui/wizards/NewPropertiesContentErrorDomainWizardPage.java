@@ -9,7 +9,7 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.wizards.pages;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.wizards;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -44,25 +44,24 @@ AbstractNewErrorResourceWizardPage {
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * @param pageName
-	 * @param title
-	 * @param description
+	 * 
+	 * @param selection a structured selection object
 	 */
 	public NewPropertiesContentErrorDomainWizardPage(IStructuredSelection selection) {
 		super("newErrorDomainWizardPage", "New Error Domain", 
 		"Create a new error domain", selection);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage#getDefaultResourceName()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getDefaultResourceName() {
 		return PropertiesSOAConstants.DEFAULT_ERROR_DOMAIN_NAME;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		try {
@@ -104,6 +103,9 @@ AbstractNewErrorResourceWizardPage {
 	}	
 	
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		if (super.dialogChanged() == false) {
@@ -131,35 +133,52 @@ AbstractNewErrorResourceWizardPage {
 			logger.error(e);
 			UIUtil.showErrorDialog(e);
 		}
-		
-		//final String errorLibrary = getErrorLibrary();
-		
+				
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void errorLibraryChanged() {
 		
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * @return the text value of the Package name
+	 */
 	public String getPackageName() {
 		return getTextValue(packageText);
 	}
 
+	/**
+	 * 
+	 * @return the text value of the Domain Name
+	 */
 	public String getDomainName() {
 		return getTextValue(domainText);
 	}
 	
+	/**
+	 * 
+	 * @return the text value of the Organization
+	 */
 	public String getOrganization() {
 		return getTextValue(organizationCombo);
 	}
 	
+	/**
+	 * 
+	 * @return the text value of the Locale
+	 */
 	public String getLocale() {
 		return getTextValue(localeCombo);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getDefaultValue(Text text) {

@@ -9,7 +9,7 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.wizards.pages;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.wizards;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,29 +34,23 @@ public class NewPropertiesContentErrorLibraryWizardPage extends
 		AbstractSOAProjectWizardPage {
 
 	/**
-	 * @param pageName
-	 * @param title
-	 * @param description
+	 * The constructor.
 	 */
 	public NewPropertiesContentErrorLibraryWizardPage() {
 		super("newErrorLibraryWizardPage", "New Error Library Project",
 				"Create a new error library project");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage#getDefaultResourceName()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getDefaultResourceName() {
 		return PropertiesSOAConstants.DEFAULT_ERROR_LIBRARY_NAME;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		try {
@@ -77,20 +71,21 @@ public class NewPropertiesContentErrorLibraryWizardPage extends
 		}
 	}
 
+	/**
+	 * 
+	 * @param basePage the base SOA Page
+	 * @param parent the parent composite
+	 * @return A CCombo object with Locale information.
+	 */
 	protected static CCombo createLocaleCombo(SOABasePage basePage,
 			Composite parent) {
 		final List<String> items = new ArrayList<String>();
 		items.add(toString(Locale.ENGLISH));
 		items.add(toString(Locale.US));
-		/*for (final Locale locale : Locale.getAvailableLocales()) {
-			items.add(toString(locale));
-		}*/
 		final CCombo combo = basePage.createCCombo(parent,
 				SOAMessages.TEXT_NAME_LOCALE, false, items
 						.toArray(new String[0]), SOAMessages.TOOLTIP_NAME_LOCALE);
-		//combo.setEditable(false);
 		combo.select(0);
-		//combo.setEnabled(false);
 		return combo;
 	}
 
@@ -136,7 +131,11 @@ public class NewPropertiesContentErrorLibraryWizardPage extends
 		
 		return true;
 	}
-	
+
+	/**
+	 * 
+	 * @return the project name prefix
+	 */
 	public String getProjectNamePrefix() {
 		return super.getResourceName();
 	}

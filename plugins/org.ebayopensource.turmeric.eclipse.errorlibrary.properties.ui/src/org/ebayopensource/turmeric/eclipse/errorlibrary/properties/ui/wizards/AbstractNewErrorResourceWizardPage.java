@@ -9,7 +9,7 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.wizards.pages;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.wizards;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,13 +49,18 @@ public abstract class AbstractNewErrorResourceWizardPage extends
 AbstractSOAResourceWizardPage {
 	private IStructuredSelection selection;
 	
+	/**
+	 * 
+	 */
 	protected Text errorLibText;
 	
 
 	/**
-	 * @param pageName
-	 * @param title
-	 * @param description
+	 * 
+	 * @param pageName the Page Name
+	 * @param title the Title
+	 * @param description description
+	 * @param selection selection
 	 */
 	public AbstractNewErrorResourceWizardPage(String pageName, String title,
 			String description, IStructuredSelection selection) {
@@ -63,6 +68,12 @@ AbstractSOAResourceWizardPage {
 		this.selection = selection;
 	}
 
+	/**
+	 * 
+	 * @param parent the parent composite
+	 * @return a new Text object
+	 * @throws CoreException 
+	 */
 	protected Text createErrorLibrarySelector(Composite parent) throws CoreException {
 		new Label(parent, SWT.LEFT).setText(SOAMessages.TEXT_NAME_ERROR_LIBRARY);
 		errorLibText = new Text(parent, SWT.BORDER);
@@ -99,10 +110,6 @@ AbstractSOAResourceWizardPage {
 					@Override
 					protected Control createDialogArea(Composite parent) {
 						final Control control = super.createDialogArea(parent);
-						/*UIUtil.getHelpSystem().setHelp(
-								control, GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
-								.getHelpProvider().getHelpContextID(
-										ISOAHelpProvider.DIALOG_SELECT_TYPE_LIBRARY));*/
 						return control;
 					}
 				};
@@ -152,8 +159,15 @@ AbstractSOAResourceWizardPage {
 		return true;
 	}
 
+	/**
+	 * 
+	 */
 	protected abstract void errorLibraryChanged();
 	
+	/**
+	 * 
+	 * @return the text value of the Error Library.
+	 */
 	public String getErrorLibrary() {
 		return getTextValue(errorLibText);
 	}

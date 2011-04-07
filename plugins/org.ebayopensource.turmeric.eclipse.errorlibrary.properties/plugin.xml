@@ -12,13 +12,6 @@
 <plugin>
 
    <extension
-         point="org.ebayopensource.turmeric.eclipse.errorlibrary.soaErrorLibProvider">
-      <SOAErrorLibraryProvider
-            providerID="%ErrorLib.Provider.ID.Properties"
-            providerImplementation="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.PropertiesContentSOAErrorLibraryProvider">
-      </SOAErrorLibraryProvider>
-   </extension>
-   <extension
        point="org.ebayopensource.turmeric.eclipse.errorlibrary.soaErrorLibModelProvider">
     <SOAErrLibViewModelProvider
           errViewModelProvider="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.view.PropertiesContentRegistry"
