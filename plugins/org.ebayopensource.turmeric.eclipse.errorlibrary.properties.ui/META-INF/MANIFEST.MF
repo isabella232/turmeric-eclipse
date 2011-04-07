@@ -1,11 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Error Library Properties Ui
-Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui
+Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.Activator
+Bundle-Activator: org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.ErrorlibraryPropertiesUIActivator
 Bundle-Vendor: eBay, Inc.
+Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.ebayopensource.turmeric.eclipse.errorlibrary.properties;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

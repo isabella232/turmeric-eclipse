@@ -9,16 +9,19 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences;
 
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.Activator;
-import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.resources.SOAMessages;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
-import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+/**
+ * 
+ * @author yayu
+ * @since 1.0
+ */
 public class ErrorIdServicePreferencePage extends FieldEditorPreferencePage
 		implements IWorkbenchPreferencePage {
 
@@ -26,12 +29,15 @@ public class ErrorIdServicePreferencePage extends FieldEditorPreferencePage
 	private RadioGroupFieldEditor hostSelectionField;
 	private DirectoryFieldEditor localFileField;
 
-	String[][] radioGroup = new String[][] {
+	private String[][] radioGroup = new String[][] {
 			new String[] { SOAMessages.USE_LOCAL_CONF,
 					ErrorIdServicePreferenceConstants.USELOCALHOST },
 			new String[] { SOAMessages.USE_REMOTE_HOST,
 					ErrorIdServicePreferenceConstants.USEREMOTEHOST } };
 
+	/**
+	 * The constructor.
+	 */
 	public ErrorIdServicePreferencePage() {
 		super(GRID);
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
@@ -47,18 +53,18 @@ public class ErrorIdServicePreferencePage extends FieldEditorPreferencePage
 		hostSelectionField = new RadioGroupFieldEditor(
 				ErrorIdServicePreferenceConstants.HOSTSELECTION,
 				SOAMessages.SELECT_HOST, 1, radioGroup, getFieldEditorParent(), true);
-		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(new IPropertyChangeListener() {
-			
-			public void propertyChange(PropertyChangeEvent event) {
-				System.out.println(event.getProperty());
-				if (ErrorIdServicePreferenceConstants.HOSTSELECTION.equals(event.getProperty())){
-					//boolean enableRemoteHost = ErrorIdServicePreferenceConstants.USEREMOTEHOST.equals(Activator.getDefault().getPreferenceStore()
-					//		.getString(ErrorIdServicePreferenceConstants.HOSTSELECTION));
-					//FIXME set enabler dynamically according to the selected value of raido group
-					//setFieldEnabled(enableRemoteHost, getFieldEditorParent());
-				}
-			}
-		});
+//		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(new IPropertyChangeListener() {
+//			
+//			public void propertyChange(PropertyChangeEvent event) {
+//				System.out.println(event.getProperty());
+//				if (ErrorIdServicePreferenceConstants.HOSTSELECTION.equals(event.getProperty())){
+//					//boolean enableRemoteHost = ErrorIdServicePreferenceConstants.USEREMOTEHOST.equals(Activator.getDefault().getPreferenceStore()
+//					//		.getString(ErrorIdServicePreferenceConstants.HOSTSELECTION));
+//					//FIXME set enabler dynamically according to the selected value of raido group
+//					//setFieldEnabled(enableRemoteHost, getFieldEditorParent());
+//				}
+//			}
+//		});
 		addField(hostSelectionField);
 		
 		localFileField = new DirectoryFieldEditor(
@@ -74,10 +80,9 @@ public class ErrorIdServicePreferencePage extends FieldEditorPreferencePage
 		
 	}
 	
-//	private void setFieldEnabled(boolean newValue, Composite parent) {
-//		asEndpointField.setEnabled(newValue, parent);
-//	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	public void init(IWorkbench workbench) {
 	}
 

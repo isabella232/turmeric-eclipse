@@ -15,7 +15,6 @@ import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.registry.TurmericErrorRegistry;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrLibrary;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrRegistry;
-import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 
 
 /**
@@ -33,29 +32,28 @@ public class PropertiesContentRegistry implements ISOAErrRegistry {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrRegistry#getLibraries()
+	/**
+	 * {@inheritDoc}
 	 */
 	public Collection<ISOAErrLibrary> getLibraries() {
 		try {
 			return TurmericErrorRegistry.getErrorLibraries();
 		} catch (Exception e) {
 			logger.error(e);
-			UIUtil.showErrorDialog(e);
 		}
 		return Collections.emptySet();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrRegistry#importError()
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean importError() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrRegistry#refreshRegistry()
+	/**
+	 * {@inheritDoc}
 	 */
 	public void refreshRegistry() throws Exception {
 		TurmericErrorRegistry.refresh();

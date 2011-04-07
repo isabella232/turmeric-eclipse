@@ -10,7 +10,6 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.Activator;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
@@ -23,11 +22,9 @@ import org.osgi.service.prefs.BackingStoreException;
 public class ErrorIdServicePreferenceInitializer extends
 		AbstractPreferenceInitializer {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#
-	 * initializeDefaultPreferences()
+
+	/**
+	 * {@inheritDoc}
 	 */
 	public void initializeDefaultPreferences() {
 		String symbolicName = Activator.getDefault().getBundle().getSymbolicName();
