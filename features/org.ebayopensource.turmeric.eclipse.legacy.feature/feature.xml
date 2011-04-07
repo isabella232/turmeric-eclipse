@@ -92,4 +92,18 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.ebayopensource.turmeric.eclipse.typelibrary.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
