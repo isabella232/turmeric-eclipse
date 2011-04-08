@@ -6,14 +6,15 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.ui.views;
 
 import java.util.Iterator;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.exception.SOAExceptionHandler;
-import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.ErrorLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAError;
 import org.ebayopensource.turmeric.eclipse.exception.core.SOAPartNotFoundException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAOperationNotAvailableException;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;

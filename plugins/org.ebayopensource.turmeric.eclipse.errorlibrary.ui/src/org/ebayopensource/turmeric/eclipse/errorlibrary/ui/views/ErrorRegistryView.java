@@ -6,14 +6,18 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.ui.views;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ErrorLibraryProviderFactory;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorRegistryViewProvider;
-import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.ErrLibComparator;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrDomain;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrLibrary;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAError;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.views.SOAErrContentFactory;
 import org.ebayopensource.turmeric.eclipse.ui.SOAPerspectiveFactory;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.jface.action.IToolBarManager;

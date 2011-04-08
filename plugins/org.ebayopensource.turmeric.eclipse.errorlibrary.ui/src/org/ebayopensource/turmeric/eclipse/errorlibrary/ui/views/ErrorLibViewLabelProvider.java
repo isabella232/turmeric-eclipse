@@ -6,9 +6,10 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.ui.views;
 
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrUIComp;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;

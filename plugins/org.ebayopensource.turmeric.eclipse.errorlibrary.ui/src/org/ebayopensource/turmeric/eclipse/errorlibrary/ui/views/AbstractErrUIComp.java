@@ -6,7 +6,9 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.ui.views;
+
+import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrUIComp;
 
 /**
  * @author smathew

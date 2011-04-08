@@ -6,10 +6,13 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.ui.views;
 
 import java.util.Collections;
 
+import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrDomain;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrLibrary;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrRegistry;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 

@@ -12,16 +12,6 @@
 <plugin>
    <extension-point id="soaErrorLibProvider" name="Turmeric Error Library Provider" schema="schema/soaErrorLibProvider.exsd"/>
     <extension-point id="soaErrorLibModelProvider" name="Turmeric Error Library Model  Provider" schema="schema/soaErrorLibViewModelProvider.exsd"/>
- <extension
-         point="org.eclipse.ui.views">
-      <view
-            category="org.ebayopensource.turmeric.eclipse.ui.category"
-            class="org.ebayopensource.turmeric.eclipse.errorlibrary.views.ErrorRegistryView"
-            icon="icons/script_obj.gif"
-            id="org.ebayopensource.turmeric.eclipse.errorlibrary.errorRegistryView"
-            name="%View.ErrorRegistry.Name">
-      </view>
-   </extension>
    <extension
          point="org.eclipse.ui.newWizards">
          <wizard

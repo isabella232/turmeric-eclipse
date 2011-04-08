@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Error Library UI
+Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.errorlibrary.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.ebayopensource.turmeric.eclipse.errorlibrary.ui.Activator
+Bundle-Vendor: eBay, Inc.
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.ui.views,
+ org.ebayopensource.turmeric.eclipse.errorlibrary;bundle-version="1.0.0",
+ org.ebayopensource.turmeric.eclipse.core;bundle-version="1.0.0",
+ org.ebayopensource.turmeric.eclipse.exception;bundle-version="1.0.0",
+ org.ebayopensource.turmeric.eclipse.utils.ui;bundle-version="1.0.0",
+ org.apache.commons.lang;bundle-version="2.4.0",
+ org.ebayopensource.turmeric.eclipse.ui;bundle-version="1.0.0",
+ org.eclipse.ui.forms
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

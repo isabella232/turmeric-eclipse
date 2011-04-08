@@ -9,9 +9,9 @@
 /**
  * 
  */
-package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.ui.views;
 
-import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.ui.actions.SOASortAction;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.ViewerComparator;
