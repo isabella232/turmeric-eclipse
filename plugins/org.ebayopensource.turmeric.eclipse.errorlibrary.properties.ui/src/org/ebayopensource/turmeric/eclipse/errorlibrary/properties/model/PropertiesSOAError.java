@@ -33,13 +33,24 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	private String severity = null;
 	private String subDomain = null;
 	
-//	private String[] categoryArray = new String[]{"APPLICATION", "SYSTEM", "REQUEST"};
-//	private String[] severityArray = new String[]{"WARNING", "ERROR"};
-
+	/**
+	 * The constructor.
+	 */
 	public PropertiesSOAError() {
 		super();
 	}
 
+	/**
+	 * 
+	 * @param category category
+	 * @param domain domain
+	 * @param id id
+	 * @param message message
+	 * @param name name
+	 * @param resolution resolution
+	 * @param severity severity
+	 * @param subDomain sub domain
+	 */
 	public PropertiesSOAError(String category, ISOAErrDomain domain, String id,
 			String message, String name, String resolution, String severity,
 			String subDomain) {
@@ -54,66 +65,122 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 		this.subDomain = subDomain;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getCategory() {
 		return category;
 	}
 
+	/**
+	 * 
+	 * @param category the error category
+	 */
 	public void setCategory(String category) {
 		this.category = category;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ISOAErrDomain getDomain() {
 		return domain;
 	}
 
+	/**
+	 * 
+	 * @param domain error domain
+	 */
 	public void setDomain(ISOAErrDomain domain) {
 		this.domain = domain;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getId() {
 		return id;
 	}
 
+	/**
+	 * 
+	 * @param id error id
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * 
+	 * @param message error message
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * 
+	 * @param name the error name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getResolution() {
 		return resolution;
 	}
 
+	/**
+	 * 
+	 * @param resolution error resolution
+	 */
 	public void setResolution(String resolution) {
 		this.resolution = resolution;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getSeverity() {
 		return severity;
 	}
 
+	/**
+	 * 
+	 * @param severity error severity
+	 */
 	public void setSeverity(String severity) {
 		this.severity = severity;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getSubDomain() {
 		return subDomain;
 	}
 
+	/**
+	 * 
+	 * @param subDomain the sub domain for the error
+	 */
 	public void setSubDomain(String subDomain) {
 		this.subDomain = subDomain;
 	}
@@ -183,10 +250,16 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Object getEditableValue() {
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		List<IPropertyDescriptor> descriptors = new ArrayList<IPropertyDescriptor>();
 		descriptors.add(new PropertyDescriptor("id", SOAMessages.PROP_KEY_ERROR_ID));
@@ -194,15 +267,14 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 		descriptors.add(new PropertyDescriptor("subdomain", SOAMessages.PROP_KEY_SUBDOMAIN));
 		descriptors.add(new PropertyDescriptor("message", SOAMessages.PROP_KEY_MESSAGE));
 		descriptors.add(new PropertyDescriptor("resolution", SOAMessages.PROP_KEY_RESOLUTION));
-//		descriptors.add(new ComboBoxPropertyDescriptor("category", "Category",
-//				categoryArray));
-//		descriptors.add(new ComboBoxPropertyDescriptor("severity", "Severity",
-//				severityArray));
 		descriptors.add(new PropertyDescriptor("category", SOAMessages.PROP_KEY_CATEGORY));
 		descriptors.add(new PropertyDescriptor("severity", SOAMessages.PROP_KEY_SEVERITY));
 		return descriptors.toArray(new IPropertyDescriptor[0]);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Object getPropertyValue(Object id) {
 		if (id.equals("name")) {
 			return this.name;
@@ -215,34 +287,41 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 		} else if (id.equals("resolution")) {
 			return this.resolution;
 		} else if (id.equals("category")) {
-//			return ArrayUtils.indexOf(categoryArray, this.category);
 			return this.category != null ? this.category.toUpperCase() : "";
 		} else if (id.equals("severity")) {
-//			return ArrayUtils.indexOf(severityArray, this.severity);
 			return this.severity != null ? this.severity.toUpperCase() : "";
 		}
 		return "";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean isPropertySet(Object id) {
 		return id.equals("name") || id.equals("id") || id.equals("subdomain")
 		 || id.equals("message") || id.equals("resolution") || id.equals("category")
 		  || id.equals("severity");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void resetPropertyValue(Object id) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setPropertyValue(Object id, Object value) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getVersion() {
 		return null;
 	}
 	
-
 }

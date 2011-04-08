@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.utils.TurmericErrorLibraryUtils;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.utils.TurmericErrorLibraryUtils;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrDomain;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrLibrary;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAError;
@@ -31,7 +31,7 @@ import org.eclipse.ui.progress.IProgressService;
 
 
 /**
- * The error library registry which maintains all errors
+ * The error library registry which maintains all errors.
  * @author yayu
  *
  */
@@ -41,9 +41,6 @@ public final class TurmericErrorRegistry {
 	private static Map<String, ISOAErrDomain> errorDomains = null;
 	private static Map<String, ISOAError> errors = null;
 
-	/**
-	 * 
-	 */
 	private TurmericErrorRegistry() {
 		super();
 	}
@@ -126,6 +123,11 @@ public final class TurmericErrorRegistry {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return a collecation or Error Libraries
+	 * @throws Exception an exception if there is an error
+	 */
 	public static Collection<ISOAErrLibrary> getErrorLibraries() throws Exception {
 		if (errorLibs == null) {
 			init();
@@ -133,6 +135,12 @@ public final class TurmericErrorRegistry {
 		return errorLibs.values();
 	}
 	
+	/**
+	 * 
+	 * @param errorLibName error library name
+	 * @return the error library or null if the library is not found.
+	 * @throws Exception an exception if there is an error
+	 */
 	public static ISOAErrLibrary getErrorLibraryByName(String errorLibName) throws Exception {
 		getErrorLibraries();
 		if (errorLibs != null)
@@ -140,6 +148,12 @@ public final class TurmericErrorRegistry {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param errorDomainName domain name
+	 * @return the error domain
+	 * @throws Exception an exception if there is an error
+	 */
 	public static ISOAErrDomain getErrorDomainByName(String errorDomainName) throws Exception {
 		getErrorLibraries();
 		if (errorDomains != null)
@@ -147,6 +161,13 @@ public final class TurmericErrorRegistry {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param domainName the domain name
+	 * @param errorName the error name
+	 * @return an error object
+	 * @throws Exception .
+	 */
 	public static ISOAError getErrorByName(String domainName, String errorName) throws Exception {
 		getErrorLibraries();
 		if (errors != null)
@@ -154,6 +175,12 @@ public final class TurmericErrorRegistry {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param errorLib an error library
+	 * @return true if the library was added
+	 * @throws Exception an error
+	 */
 	public static boolean addErrorLibrary(ISOAErrLibrary errorLib) throws Exception {
 		getErrorLibraries();
 		if (errorLibs != null && errorLibs.containsKey(errorLib.getName()) == false) {
@@ -163,6 +190,13 @@ public final class TurmericErrorRegistry {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param errorLibName error library name
+	 * @param errorDomain error domain
+	 * @return true if the library was added successfully
+	 * @throws Exception an error 
+	 */
 	public static boolean addErrorDomain(String errorLibName, ISOAErrDomain errorDomain) throws Exception {
 		getErrorLibraries();
 		if (containsErrorLibrary(errorLibName) == false) {
@@ -177,6 +211,13 @@ public final class TurmericErrorRegistry {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param errorDomainName error domain
+	 * @param error an error object
+	 * @return true if the error was added successfully
+	 * @throws Exception if a critical error occurs and exception is thrown.
+	 */
 	public static boolean addError(String errorDomainName, ISOAError error) throws Exception {
 		getErrorLibraries();
 		String lowerErrorDomainName = errorDomainName.toLowerCase(Locale.US);
@@ -192,6 +233,12 @@ public final class TurmericErrorRegistry {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param errorLibName error library name
+	 * @return the error library removed.
+	 * @throws Exception if a critical error occurs an exception is thrown
+	 */
 	public static ISOAErrLibrary removeErrorLibrary(String errorLibName) throws Exception {
 		getErrorLibraries();
 		if (errorLibs != null) {
@@ -200,6 +247,12 @@ public final class TurmericErrorRegistry {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param domain the domain
+	 * @return an error domain object that was removed
+	 * @throws Exception an exception
+	 */
 	public static ISOAErrDomain removeErrorDomain(ISOAErrDomain domain) throws Exception {
 		getErrorLibraries();
 		if (errorDomains != null) {
@@ -211,6 +264,13 @@ public final class TurmericErrorRegistry {
 		return domain;
 	}
 	
+	/**
+	 * 
+	 * @param domainName domain name
+	 * @param error an error object
+	 * @return the error object removed
+	 * @throws Exception an error occurred
+	 */
 	public static ISOAError removeError(String domainName, ISOAError error) throws Exception {
 		getErrorLibraries();
 		if (errors != null) {
@@ -222,6 +282,12 @@ public final class TurmericErrorRegistry {
 		return error;
 	}
 	
+	/**
+	 * 
+	 * @param errorLibName error library name
+	 * @return true if the error library exists
+	 * @throws Exception an error has occurred
+	 */
 	public static boolean containsErrorLibrary(String errorLibName) throws Exception {
 		getErrorLibraries();
 		if (errorLibs != null) {
@@ -230,6 +296,12 @@ public final class TurmericErrorRegistry {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param errorDomainName error domain
+	 * @return true if it contains the error domain
+	 * @throws Exception an error has occurred
+	 */
 	public static boolean containsErrorDomain(String errorDomainName) throws Exception {
 		getErrorLibraries();
 		if (errorDomains != null) {
@@ -237,7 +309,14 @@ public final class TurmericErrorRegistry {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * 
+	 * @param domainName the domain name
+	 * @param errorName error name
+	 * @return true if it contains the dombination of domain name and error name
+	 * @throws Exception an exception
+	 */
 	public static boolean containsError(String domainName, String errorName) throws Exception {
 		getErrorLibraries();
 		if (errors != null) {
@@ -245,6 +324,11 @@ public final class TurmericErrorRegistry {
 		}
 		return false;
 	}
+	
+	/**
+	 * 
+	 * @throws Exception an exception
+	 */
 	
 	public static void refresh() throws Exception {
 		synchronized(TurmericErrorRegistry.class) {
@@ -255,9 +339,6 @@ public final class TurmericErrorRegistry {
 		init();
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#clone()
-	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException();

@@ -40,16 +40,18 @@ public class PropertiesContentErrorLibraryCreator implements
 		IErrorLibraryCreator {
 
 	/**
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryCreator#preCreation(org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryParamModel)
+	 * {@inheritDoc}
+	 * 
+	 * <p>Not implemented.</p>
 	 */
 	public void preCreation(ErrorLibraryParamModel model)
 			throws SOAErrorLibraryCreationFailedException {
-		// TODO Auto-generated method stub
 
 	}
 
 	/**
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryCreator#postCreation(org.eclipse.core.resources.IProject, org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryParamModel, org.eclipse.core.runtime.IProgressMonitor)
+	 * {@inheritDoc}
+	 * 
 	 */
 	public void postCreation(IProject project, ErrorLibraryParamModel model,
 			IProgressMonitor monitor)
@@ -69,7 +71,7 @@ public class PropertiesContentErrorLibraryCreator implements
 	}
 
 	/**
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryCreator#createPlatformSpecificArtifacts(org.eclipse.core.resources.IProject, java.lang.String, org.eclipse.core.runtime.IProgressMonitor)
+	 * {@inheritDoc}
 	 */
 	public void createPlatformSpecificArtifacts(IProject project,
 			String srcFolder, IProgressMonitor monitor) throws CoreException,

@@ -37,8 +37,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
  */
 public class PropertiesContentErrorTypeCreator implements IErrorTypeCreator {
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorTypeCreator#preCreation(org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorParamModel)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void preCreation(ErrorParamModel model)
 			throws SOAErrorCreationFailedException {
@@ -46,8 +46,8 @@ public class PropertiesContentErrorTypeCreator implements IErrorTypeCreator {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorTypeCreator#postCreation(org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorParamModel, org.eclipse.core.runtime.IProgressMonitor)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void postCreation(ErrorParamModel model, IProgressMonitor monitor)
 			throws SOAErrorCreationFailedException {

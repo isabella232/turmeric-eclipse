@@ -6,26 +6,41 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.utils;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.lang.StringUtils;
+import org.apache.xbean.classloader.JarFileClassLoader;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.model.PropertiesSOAError;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.model.PropertiesSOAErrorDomain;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.model.PropertiesSOAErrorLibrary;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers.PropertiesSOAConstants;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.vo.ErrorObjectXMLParser;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.vo.SOAErrorBundleVO;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.vo.SOAErrorVO;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorParamModel;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrLibrary;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAError;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
+import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -115,6 +130,142 @@ public final class TurmericErrorLibraryUtils {
 	public static IFolder getErrorDomainFolder(IProject project, String errorDomainName) {
 		return project.getFolder(PropertiesSOAConstants.FOLDER_ERROR_DOMAIN).getFolder(errorDomainName);
 	}
+	
+	public static ISOAErrLibrary loadErrorLibrary(AssetInfo assetInfo) 
+	throws Exception {
+		ISOAErrLibrary result = null;
+		final IProject project = WorkspaceUtil.getProject(assetInfo.getName());
+		if (project.isAccessible()) {
+			PropertiesSOAErrorLibrary errLib = new PropertiesSOAErrorLibrary();
+			errLib.setName(assetInfo.getName());
+			errLib.setVersion(assetInfo.getVersion());
+			//TODO revise all the properties
+			for (SOAErrorBundleVO bundle : ErrorObjectXMLParser.getErrorBundle(project)){
+				if (bundle != null) {
+					PropertiesSOAErrorDomain domain = new PropertiesSOAErrorDomain();
+					domain.setLibrary(errLib);
+					domain.setName(bundle.getDomain());
+					domain.setOrganization(bundle.getOrganization());
+					domain.setVersion(bundle.getVersion());
+					domain.setPackageName(bundle.getPackageName());
+					errLib.addErrorDomain(domain);
+					//load error property file
+					IFile errorPropFile = getErrorPropsFile(project, domain.getName());
+					Properties errorProperties = new Properties();
+					InputStream input = null;
+					if (errorPropFile != null && errorPropFile.isAccessible()) {
+						try {
+							input = errorPropFile.getContents();
+							errorProperties.load(input);
+						} finally {
+							IOUtils.closeQuietly(input);
+						}
+					}
+					for (SOAErrorVO vo : bundle.getList().getErrors()) {
+						PropertiesSOAError err = new PropertiesSOAError();
+						err.setCategory(vo.getCategory());
+						err.setDomain(domain);
+						err.setId(String.valueOf(vo.getId()));
+						err.setName(vo.getName());
+						err.setSeverity(vo.getSeverity());
+						err.setSubDomain(vo.getSubdomain());
+						err.setMessage(errorProperties.getProperty(err.getName() + "." + PropertiesSOAConstants.PROPS_KEY_MESSAGE ));
+						err.setResolution(errorProperties.getProperty(err.getName() + "." + PropertiesSOAConstants.PROPS_KEY_RESOLUTION));
+						domain.addError(err);
+					}
+				}
+			}
+			result = errLib;
+		} else {
+			result = loadErrorLibraryFromJar(assetInfo);
+		}
+		return result;
+	}
+	
+	private static ISOAErrLibrary loadErrorLibraryFromJar(AssetInfo assetInfo) throws Exception {
+		String assetLocation = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+		.getAssetRegistry().getAssetLocation(assetInfo);
+		String defaultErrorPropertyName = StringUtil.formatString(
+				PropertiesSOAConstants.PROPS_FILE_DEFAULT_ERROR_PROPERTIES,
+				PropertiesSOAConstants.DEFAULT_LOCALE);
+		if (assetLocation != null) {
+			File file = new File(assetLocation);
+			if (file.canRead() == false)
+				return null;
+			URL url = file.toURI().toURL();
+			JarFileClassLoader classLoader = null;
+			InputStream ins = null;
+			String vmFileEncoding = System.getProperty("file.encoding");
+			try {
+				URL decodedUrl = new URL(URLDecoder.decode(url.toString(), vmFileEncoding));
+				classLoader = new JarFileClassLoader("ErrorLibJarFileLoader", 
+						new URL[]{decodedUrl});
+				String filePath = PropertiesSOAConstants.FOLDER_ERROR_DOMAIN_IN_JAR + "/"
+				+ assetInfo.getName() + "/" + PropertiesSOAConstants.PROPS_FILE_ERROR_LIBRARY_PROJECT;
+				URL domainListFile = classLoader.findResource(filePath);
+				if (domainListFile == null)
+					return null;
+				ins = domainListFile.openStream();
+				Properties props = new Properties();
+				props.load(ins);
+				PropertiesSOAErrorLibrary errLib = new PropertiesSOAErrorLibrary();
+				errLib.setName(assetInfo.getName());
+				errLib.setVersion(assetInfo.getVersion());
+				for (String domainName : StringUtils.split(props.getProperty(
+						PropertiesSOAConstants.PROPS_LIST_OF_DOMAINS, ""), ",")) {
+					PropertiesSOAErrorDomain domain = new PropertiesSOAErrorDomain();
+					domain.setLibrary(errLib);
+					String domainFilePath = PropertiesSOAConstants.FOLDER_ERROR_DOMAIN_IN_JAR + "/"
+					+ domainName + "/" + PropertiesSOAConstants.FILE_ERROR_DATA;
+					String errorPropFilePath = PropertiesSOAConstants.FOLDER_ERROR_DOMAIN_IN_JAR
+							+ "/" + domainName + "/" + defaultErrorPropertyName;
+					URL domainUrl = classLoader.findResource(domainFilePath);
+					URL errorPropUrl = classLoader.findResource(errorPropFilePath);
+					if (domainUrl == null || errorPropUrl == null) {
+						SOALogger.getLogger().log(Level.WARNING, "ErrorData.xml or error properties file is missing");
+						continue;
+					}
+					InputStream in = null;
+					InputStream errorPropInput = null;
+					Properties errorProperties = new Properties();
+					try {
+						in = domainUrl.openStream();
+						errorPropInput = errorPropUrl.openStream();
+						errorProperties.load(errorPropInput);
+						SOAErrorBundleVO bundle = ErrorObjectXMLParser.getErrorBundle(in);
+						domain.setName(bundle.getDomain());
+						domain.setOrganization(bundle.getOrganization());
+						domain.setVersion(bundle.getVersion());
+						domain.setPackageName(bundle.getPackageName());
+						errLib.addErrorDomain(domain);
+						for (SOAErrorVO vo : bundle.getList().getErrors()) {
+							PropertiesSOAError err = new PropertiesSOAError();
+							err.setCategory(vo.getCategory());
+							err.setDomain(domain);
+							err.setId(String.valueOf(vo.getId()));
+							err.setName(vo.getName());
+							err.setSeverity(vo.getSeverity());
+							err.setSubDomain(vo.getSubdomain());
+							err.setMessage(errorProperties.getProperty(err.getName() + "." + PropertiesSOAConstants.PROPS_KEY_MESSAGE ));
+							err.setResolution(errorProperties.getProperty(err.getName() + "." + PropertiesSOAConstants.PROPS_KEY_RESOLUTION));
+							domain.addError(err);
+						}
+					} finally {
+						IOUtils.closeQuietly(in);
+						IOUtils.closeQuietly(errorPropInput);
+					}
+				}
+				return errLib;
+			} finally {
+				if (classLoader != null) {
+					classLoader.destroy();
+				}
+				IOUtils.closeQuietly(ins);
+			}
+		}
+
+		return null;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
@@ -138,9 +289,16 @@ public final class TurmericErrorLibraryUtils {
 					domains.add(domainName);
 				}
 				String domainListStr = StringUtils.join(domains, ",");
+//				if (PropertiesFileUtil.getPropertyValueByKey(input, key) == null) {
+//					input = file.getContents();
+//					Map<String, String> newProps = new HashMap<String, String>();
+//					newProps.put(key, domainListStr);
+//					PropertiesFileUtil.addProperty(input, output, newProps);
+//				} else {
 					input = file.getContents();
 					PropertiesFileUtil.updatePropertyByKey(input, output, key,
 							domainListStr);
+//				}
 				String contents = output.toString();
 				WorkspaceUtil.writeToFile(contents, file, monitor);
 			} finally {

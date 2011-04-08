@@ -41,6 +41,13 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 		super();
 	}
 
+	/**
+	 * 
+	 * @param library error library
+	 * @param organization organization
+	 * @param name library name
+	 * @param version version number
+	 */
 	public PropertiesSOAErrorDomain(ISOAErrLibrary library,
 			String organization, String name, String version) {
 		super();
@@ -53,38 +60,69 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 		this.version = version;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ISOAErrLibrary getLibrary() {
 		return library;
 	}
 
+	/**
+	 * 
+	 * @param library error library
+	 */
 	public void setLibrary(ISOAErrLibrary library) {
 		this.library = library;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getOrganization() {
 		return organization;
 	}
 
+	/**
+	 * 
+	 * @param organization organization name
+	 */
 	public void setOrganization(String organization) {
 		this.organization = organization;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * 
+	 * @param name error library name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getVersion() {
 		return version;
 	}
 
+	/**
+	 * 
+	 * @param version the version number
+	 */
 	public void setVersion(String version) {
 		this.version = version;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Set<ISOAError> getErrors() {
 		return errors;
 	}
@@ -146,10 +184,16 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Object getEditableValue() {
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		List<IPropertyDescriptor> descriptors = new ArrayList<IPropertyDescriptor>();
 		IPropertyDescriptor descriptor = new PropertyDescriptor("name", "Name");
@@ -161,6 +205,9 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 		return descriptors.toArray(new IPropertyDescriptor[0]);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Object getPropertyValue(Object id) {
 		if (id.equals("name")) {
 			return this.name;
@@ -174,28 +221,46 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 		return "";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean isPropertySet(Object id) {
 		return id.equals("name") || id.equals("version") || id.equals("organization");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void resetPropertyValue(Object id) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setPropertyValue(Object id, Object value) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void addError(ISOAError error) {
 		errors.add(error);
 	}
 
+	/**
+	 * 
+	 * @return the package name
+	 */
 	public String getPackageName() {
 		return packageName;
 	}
 
+	/**
+	 * 
+	 * @param packageName the package name
+	 */
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
 	}

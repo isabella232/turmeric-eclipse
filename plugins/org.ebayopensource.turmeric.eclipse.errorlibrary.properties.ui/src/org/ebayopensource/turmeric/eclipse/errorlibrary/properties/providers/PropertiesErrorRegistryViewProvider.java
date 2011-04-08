@@ -41,17 +41,20 @@ public class PropertiesErrorRegistryViewProvider implements
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorRegistryViewProvider#postClientAreaCreation(org.eclipse.swt.widgets.Composite, org.eclipse.jface.viewers.TreeViewer)
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * <p>Not implemented.</p>
 	 */
 	public void postClientAreaCreation(Composite parent, TreeViewer errorViewer)
 			throws Exception {
-		// TODO Auto-generated method stub
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorRegistryViewProvider#createContextMenu(org.eclipse.jface.action.MenuManager, org.eclipse.jface.viewers.TreeViewer)
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * <p>Should migrate to commands/handlers/menus extension.</p>
 	 */
 	public void createContextMenu(MenuManager menuMgr, final TreeViewer errorViewer)
 	throws Exception {
@@ -79,12 +82,13 @@ public class PropertiesErrorRegistryViewProvider implements
 		}); 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorRegistryViewProvider#createToolBar(org.eclipse.jface.action.IToolBarManager, org.eclipse.jface.viewers.TreeViewer)
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * <p>Not implemented.</p>
 	 */
 	public void createToolBar(IToolBarManager mgr, TreeViewer errorViewer)
 			throws Exception {
-		// TODO Auto-generated method stub
 
 	}
 

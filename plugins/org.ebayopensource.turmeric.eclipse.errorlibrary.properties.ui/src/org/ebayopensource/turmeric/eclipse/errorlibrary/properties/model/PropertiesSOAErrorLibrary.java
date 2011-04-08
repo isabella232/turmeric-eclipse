@@ -37,6 +37,11 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 		super();
 	}
 
+	/**
+	 * 
+	 * @param name error name
+	 * @param version error version
+	 */
 	public PropertiesSOAErrorLibrary(String name, String version) {
 		super();
 		this.name = name;
@@ -44,34 +49,47 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	}
 
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrLibrary#getDomains()
+	/**
+	 * {@inheritDoc}
 	 */
 	public Set<ISOAErrDomain> getDomains() {
 		return domains;
 	}
 	
+	/**
+	 * 
+	 * @param domain error domain
+	 * @return true if the domain was added successfully
+	 */
 	public boolean addErrorDomain(ISOAErrDomain domain) {
 		return this.domains.add(domain);
 	}
 
+	/**
+	 * 
+	 * @param name the error name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * 
+	 * @param version version number
+	 */
 	public void setVersion(String version) {
 		this.version = version;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrUIComp#getName()
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getName() {
 		return name;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrUIComp#getVersion()
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getVersion() {
 		return version;
@@ -114,10 +132,16 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 				+ name + ", version=" + version + "]";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Object getEditableValue() {
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		List<IPropertyDescriptor> descriptors = new ArrayList<IPropertyDescriptor>();
 		descriptors.add(new PropertyDescriptor("name", SOAMessages.PROP_KEY_NAME));
@@ -126,6 +150,9 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 		return descriptors.toArray(new IPropertyDescriptor[0]);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Object getPropertyValue(Object id) {
 		if (id.equals("name")) {
 			return this.name;
@@ -137,17 +164,24 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 		return "";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean isPropertySet(Object id) {
 		return id.equals("name") || id.equals("version");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void resetPropertyValue(Object id) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setPropertyValue(Object id, Object value) {
-		// TODO Auto-generated method stub
 		
 	}
 }

@@ -18,6 +18,30 @@
             providerImplementation="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.wizards.PropertiesContentSOAErrorLibraryProvider">
       </SOAErrorLibraryProvider>
    </extension>
-  
-
+   
+   <extension
+       point="org.ebayopensource.turmeric.eclipse.errorlibrary.soaErrorLibModelProvider">
+    <SOAErrLibViewModelProvider
+          errViewModelProvider="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.view.PropertiesContentRegistry"
+          providerID="PropertiesContentErrorLibraryProvider">
+    </SOAErrLibViewModelProvider>
+ </extension>
+ 
+ 	<extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.ErrorLibraryProjPropertyPage"
+            id="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.errorlibraryProjectPropertyPage"
+            name="%PropertyPage.ErrorLibrary.Name">
+         <enabledWhen>
+            <adapt
+                  type="org.eclipse.core.resources.IProject">
+               <test
+                     property="org.eclipse.core.resources.projectNature"
+                     value="%Turmeric.ProjectNature.ID.ErrorLibrary">
+               </test>
+            </adapt>
+         </enabledWhen>
+      </page>
+   </extension>
 </plugin>

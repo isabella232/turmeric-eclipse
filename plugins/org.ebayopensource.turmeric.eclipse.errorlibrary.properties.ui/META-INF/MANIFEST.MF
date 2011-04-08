@@ -18,10 +18,18 @@ Require-Bundle: org.eclipse.ui,
  org.ebayopensource.turmeric.eclipse.utils;bundle-version="1.0.0",
  org.ebayopensource.turmeric.eclipse.utils.ui;bundle-version="1.0.0",
  org.ebayopensource.turmeric.eclipse.errorlibrary;bundle-version="1.0.0",
- org.ebayopensource.turmeric.eclipse.exception;bundle-version="1.0.0"
+ org.ebayopensource.turmeric.eclipse.exception;bundle-version="1.0.0",
+ org.apache.commons.io;bundle-version="1.4.0",
+ org.eclipse.ui.views,
+ org.jdom;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Export-Package: org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences,
+Export-Package: org.ebayopensource.turmeric.eclipse.errorlibrary.properties.model,
+ org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences,
+ org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers,
+ org.ebayopensource.turmeric.eclipse.errorlibrary.properties.registry,
  org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui,
  org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.resources,
+ org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.utils,
+ org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.view,
  org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.wizards

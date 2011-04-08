@@ -11,13 +11,6 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-   <extension
-       point="org.ebayopensource.turmeric.eclipse.errorlibrary.soaErrorLibModelProvider">
-    <SOAErrLibViewModelProvider
-          errViewModelProvider="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.view.PropertiesContentRegistry"
-          providerID="%ErrorLib.Provider.ID.Properties">
-    </SOAErrLibViewModelProvider>
- </extension>
  <extension
          id="TurmericErrorLibraryProjectBuilder"
          name="Turmeric Property Based Error Library Builder"
@@ -38,23 +31,6 @@
       		</runtime>
      		 <builder id="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.TurmericErrorLibraryProjectBuilder"/>
    	</extension>
- 	<extension
-         point="org.eclipse.ui.propertyPages">
-      <page
-            class="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.ErrorLibraryProjPropertyPage"
-            id="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.errorlibraryProjectPropertyPage"
-            name="%PropertyPage.ErrorLibrary.Name">
-         <enabledWhen>
-            <adapt
-                  type="org.eclipse.core.resources.IProject">
-               <test
-                     property="org.eclipse.core.resources.projectNature"
-                     value="%Turmeric.ProjectNature.ID.ErrorLibrary">
-               </test>
-            </adapt>
-         </enabledWhen>
-      </page>
-   </extension>
   <extension
         point="org.ebayopensource.turmeric.eclipse.resources.soaProjectResolver">
      <soaProjectResolver

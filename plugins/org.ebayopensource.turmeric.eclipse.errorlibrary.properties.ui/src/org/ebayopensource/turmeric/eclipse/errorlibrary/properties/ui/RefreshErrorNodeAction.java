@@ -22,17 +22,13 @@ import org.eclipse.jface.viewers.StructuredViewer;
 public class RefreshErrorNodeAction extends AbstractErrorNodeAction {
 
 	/**
-	 * @param text
+	 * 
+	 * @param viewer structured viewer
 	 */
 	public RefreshErrorNodeAction(StructuredViewer viewer) {
 		super(SOAMessages.ACTION_TEXT_REFRESH, viewer);
 	}
 
-	
-
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.errorlibrary.properties.ui.AbstractErrorNodeAction#execute(org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrUIComp)
-	 */
 	@Override
 	public IStatus execute(ISOAErrUIComp selectedErrorNode) throws Exception {
 		getViewer().refresh(selectedErrorNode);

@@ -9,13 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.properties;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences.ErrorIdServicePreferenceConstants;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
-import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
 
@@ -24,15 +19,17 @@ import org.osgi.framework.BundleContext;
  * @author yayu
  * @since 1.0.0
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator extends Plugin {
+	/**
+	 * 
+	 */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.errorlibrary.properties";
 
 	// The shared instance
 	private static Activator plugin;
-	
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
+
+	/**
+	 * {@inheritDoc}
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -43,27 +40,16 @@ public class Activator extends AbstractUIPlugin {
         SOALogger.getLogger().info(buf);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
 	}
 	
-	public static boolean useLocalHost() {
-		return getDefault().getPreferenceStore()
-				.getBoolean(ErrorIdServicePreferenceConstants.USELOCALHOST);
-	}
-
-	public static String getErrorIdServiceEndpoint() {
-		return getDefault().getPreferenceStore()
-				.getString(ErrorIdServicePreferenceConstants.REMOTEENDPOINTURL);
-	}
-
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 *
 	 * @return the shared instance
 	 */
@@ -71,14 +57,4 @@ public class Activator extends AbstractUIPlugin {
 		return plugin;
 	}
 	
-	private InstanceScope scope = new InstanceScope();
-	
-	@Override
-	public IPreferenceStore getPreferenceStore() {
-		String pluginId = Activator.PLUGIN_ID;
-		ScopedPreferenceStore prefStore = new ScopedPreferenceStore(scope,
-				pluginId);
-		return prefStore;
-	}
-
 }

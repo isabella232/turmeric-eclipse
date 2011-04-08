@@ -1,6 +1,7 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui;
 
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.Activator;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences.ErrorIdServicePreferenceConstants;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -60,6 +61,24 @@ public class ErrorlibraryPropertiesUIActivator extends AbstractUIPlugin {
 		ScopedPreferenceStore prefStore = new ScopedPreferenceStore(scope,
 				pluginId);
 		return prefStore;
-	}	
+	}
+	
+	/**
+	 * 
+	 * @return whether to use Local Host or not.
+	 */
+	public boolean useLocalHost() {
+		return getPreferenceStore()
+				.getBoolean(ErrorIdServicePreferenceConstants.USELOCALHOST);
+	}
 
+	/**
+	 * 
+	 * @return the endpoint for the error id service
+	 */
+	public String getErrorIdServiceEndpoint() {
+		return getPreferenceStore()
+				.getString(ErrorIdServicePreferenceConstants.REMOTEENDPOINTURL);
+	}
+	
 }

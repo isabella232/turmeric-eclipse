@@ -29,7 +29,9 @@ public abstract class AbstractErrorNodeAction extends Action {
 	private StructuredViewer viewer;
 
 	/**
-	 * @param text
+	 * 
+	 * @param text the text
+	 * @param viewer the Viewer
 	 */
 	public AbstractErrorNodeAction(String text, StructuredViewer viewer) {
 		super(text);
@@ -50,6 +52,10 @@ public abstract class AbstractErrorNodeAction extends Action {
 		return selectedErrorNode;
 	}
 	
+	/**
+	 * 
+	 * @return the status of the validation
+	 */
 	protected IStatus preValidation() {
 		if (this.selectedErrorNode == null) {
 			return EclipseMessageUtils.createErrorStatus(
@@ -65,9 +71,7 @@ public abstract class AbstractErrorNodeAction extends Action {
 		return viewer;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.action.Action#run()
-	 */
+	
 	@Override
 	public void run() {
 		try {
@@ -94,9 +98,9 @@ public abstract class AbstractErrorNodeAction extends Action {
 	}
 
 	/**
-	 * @param selectedErrorNode
+	 * @param selectedErrorNode the error node
 	 * @return Staus.OK if succeed
-	 * @throws Exception
+	 * @throws Exception an exception if an error occurs
 	 */
 	public abstract IStatus execute(ISOAErrUIComp selectedErrorNode) throws Exception;
 }

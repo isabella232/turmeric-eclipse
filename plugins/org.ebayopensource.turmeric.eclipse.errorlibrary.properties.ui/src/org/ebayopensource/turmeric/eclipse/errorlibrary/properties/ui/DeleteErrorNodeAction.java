@@ -36,15 +36,13 @@ public class DeleteErrorNodeAction extends AbstractErrorNodeAction {
 
 
 	/**
-	 * @param text
+	 * 
+	 * @param viewer a structured viewer
 	 */
 	public DeleteErrorNodeAction(StructuredViewer viewer) {
 		super(SOAMessages.ACTION_TEXT_DELETE, viewer);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.AbstractErrorNodeAction#preValidation()
-	 */
 	@Override
 	protected IStatus preValidation() {
 		IStatus status = super.preValidation();
@@ -124,14 +122,12 @@ public class DeleteErrorNodeAction extends AbstractErrorNodeAction {
 					domain.getLibrary().getName());
 			IFolder domainFolder = TurmericErrorLibraryUtils.getErrorDomainFolder(
 					project, domain.getName());
-			TurmericErrorLibraryUtils.removeErrorFromXmlData(domainFolder, error); //delete from xml data
-			TurmericErrorLibraryUtils.removeErrorFromPropsFile(domainFolder, error); //delete from property file
+			TurmericErrorLibraryUtils.removeErrorFromXmlData(domainFolder, error);
+			TurmericErrorLibraryUtils.removeErrorFromPropsFile(domainFolder, error);
 			WorkspaceUtil.refresh(domainFolder.getParent());
 			TurmericErrorRegistry.removeError(domain.getName(), error);
 		}
 		return Status.OK_STATUS;
 	}
-
-	
 
 }

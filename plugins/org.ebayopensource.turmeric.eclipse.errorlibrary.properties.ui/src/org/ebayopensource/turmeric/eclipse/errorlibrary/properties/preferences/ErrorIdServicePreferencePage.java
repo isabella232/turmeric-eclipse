@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences;
 
-import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.Activator;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.ErrorlibraryPropertiesUIActivator;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.resources.SOAMessages;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -40,7 +40,7 @@ public class ErrorIdServicePreferencePage extends FieldEditorPreferencePage
 	 */
 	public ErrorIdServicePreferencePage() {
 		super(GRID);
-		setPreferenceStore(Activator.getDefault().getPreferenceStore());
+		setPreferenceStore(ErrorlibraryPropertiesUIActivator.getDefault().getPreferenceStore());
 		setDescription(SOAMessages.PREFERENCE_DESC);
 	}
 
@@ -53,18 +53,6 @@ public class ErrorIdServicePreferencePage extends FieldEditorPreferencePage
 		hostSelectionField = new RadioGroupFieldEditor(
 				ErrorIdServicePreferenceConstants.HOSTSELECTION,
 				SOAMessages.SELECT_HOST, 1, radioGroup, getFieldEditorParent(), true);
-//		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(new IPropertyChangeListener() {
-//			
-//			public void propertyChange(PropertyChangeEvent event) {
-//				System.out.println(event.getProperty());
-//				if (ErrorIdServicePreferenceConstants.HOSTSELECTION.equals(event.getProperty())){
-//					//boolean enableRemoteHost = ErrorIdServicePreferenceConstants.USEREMOTEHOST.equals(Activator.getDefault().getPreferenceStore()
-//					//		.getString(ErrorIdServicePreferenceConstants.HOSTSELECTION));
-//					//FIXME set enabler dynamically according to the selected value of raido group
-//					//setFieldEnabled(enableRemoteHost, getFieldEditorParent());
-//				}
-//			}
-//		});
 		addField(hostSelectionField);
 		
 		localFileField = new DirectoryFieldEditor(

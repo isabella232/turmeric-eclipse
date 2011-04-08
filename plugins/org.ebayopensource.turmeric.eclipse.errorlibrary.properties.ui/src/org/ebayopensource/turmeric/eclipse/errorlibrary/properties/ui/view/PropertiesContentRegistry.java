@@ -6,7 +6,7 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.view;
+package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.view;
 
 import java.util.Collection;
 import java.util.Collections;

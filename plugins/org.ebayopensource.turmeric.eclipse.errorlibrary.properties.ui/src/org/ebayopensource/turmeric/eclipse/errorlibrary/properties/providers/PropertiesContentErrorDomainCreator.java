@@ -44,7 +44,7 @@ import org.eclipse.core.runtime.Path;
 public class PropertiesContentErrorDomainCreator implements IErrorDomainCreator {
 
 	/**
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorDomainCreator#preCreation(org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.DomainParamModel)
+	 * {@inheritDoc}
 	 */
 	public void preCreation(DomainParamModel model)
 			throws SOAErrorDomainCreationFailedException {
@@ -53,7 +53,7 @@ public class PropertiesContentErrorDomainCreator implements IErrorDomainCreator 
 	}
 
 	/**
-	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorDomainCreator#postCreation(org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.DomainParamModel, org.eclipse.core.runtime.IProgressMonitor)
+	 * {@inheritDoc}
 	 */
 	public void postCreation(DomainParamModel model, IProgressMonitor monitor)
 			throws SOAErrorDomainCreationFailedException {
