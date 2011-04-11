@@ -24,6 +24,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
  */
 public class ErrorDomainCreator {
 
+	private static ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
+	
+	
 	/**
 	 * 
 	 */
@@ -35,7 +38,7 @@ public class ErrorDomainCreator {
 			IProgressMonitor monitor) throws Exception {
 		final IProject project = WorkspaceUtil.getProject(model.getErrorLibrary());
 		if (project.isAccessible()) {
-			ErrorLibraryProviderFactory.getPreferredProvider().getErrorDomainCreator()
+			factory.getPreferredProvider().getErrorDomainCreator()
 			.postCreation(model, monitor);
 			WorkspaceUtil.refresh(monitor, project);
 		}

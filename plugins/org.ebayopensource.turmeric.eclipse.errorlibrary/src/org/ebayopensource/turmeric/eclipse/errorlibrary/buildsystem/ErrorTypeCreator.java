@@ -22,16 +22,11 @@ import org.eclipse.core.runtime.IProgressMonitor;
  */
 public final class ErrorTypeCreator {
 
-	/**
-	 * 
-	 */
-	private ErrorTypeCreator() {
-		super();
-	}
-
+	private static ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
+	
 	public static void createErrorType(ErrorParamModel model,
 			IProgressMonitor monitor) throws Exception {
-		ErrorLibraryProviderFactory.getPreferredProvider().getErrorTypeCreator()
+		factory.getPreferredProvider().getErrorTypeCreator()
 		.postCreation(model, monitor);
 	}
 }

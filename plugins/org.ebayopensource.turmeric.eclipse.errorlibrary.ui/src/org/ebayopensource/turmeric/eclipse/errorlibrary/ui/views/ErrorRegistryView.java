@@ -200,8 +200,9 @@ public class ErrorRegistryView extends ViewPart {
 	}
 	
 	private void createContextMenu() throws Exception {
+		ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 		IErrorRegistryViewProvider vProvider = 
-			ErrorLibraryProviderFactory.getPreferredProvider().getErrorRegistryViewProvider();
+			factory.getPreferredProvider().getErrorRegistryViewProvider();
 		if (vProvider != null) {
 			MenuManager menuMgr = new MenuManager("#PopupMenu"); //$NON-NLS-1$
 			menuMgr.setRemoveAllWhenShown(true);
@@ -238,8 +239,9 @@ public class ErrorRegistryView extends ViewPart {
 
 		mgr.add(new SortRegistry(errorLibraryViewer, comparator));
 		
+		ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 		IErrorRegistryViewProvider vProvider = 
-			ErrorLibraryProviderFactory.getPreferredProvider().getErrorRegistryViewProvider();
+			factory.getPreferredProvider().getErrorRegistryViewProvider();
 		if (vProvider != null) {
 			vProvider.createToolBar(mgr, this.errorLibraryViewer);
 		}

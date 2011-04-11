@@ -32,7 +32,8 @@ import org.eclipse.jdt.core.JavaCore;
  */
 public class SOAErrorLibraryProject extends SOABaseProject {
 
-	public static final String[] SOURCE_DIRECTORIES = { SOAProjectConstants.FOLDER_DOT };
+	private static final String[] SOURCE_DIRECTORIES = { SOAProjectConstants.FOLDER_DOT };
+	private static ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 
 	/**
 	 * 
@@ -73,26 +74,19 @@ public class SOAErrorLibraryProject extends SOABaseProject {
 		return SOAErrorLibraryMetadata.class;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject#getSourceSubFolders()
-	 */
 	@Override
 	public List<String> getSourceSubFolders() {
 		List<String> srcDirs = new ArrayList<String>();
 		try {
-			srcDirs = ErrorLibraryProviderFactory.getPreferredProvider().getSourceSubFolders(this);
+			srcDirs = factory.getPreferredProvider().getSourceSubFolders(this);
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			SOALogger.getLogger().error(e);
 		}
 		return srcDirs;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject#getSourceDirectoryNames()
+	/**
+	 * {@inheritDoc}
 	 */
 	public List<String> getSourceDirectoryNames() {
 		List<String> srcDirs = new ArrayList<String>();

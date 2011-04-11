@@ -19,13 +19,5 @@ import java.util.Set;
 public interface ISOAErrLibrary extends ISOAErrUIComp {
 
 	Set<ISOAErrDomain> getDomains();
-
-	/**
-	 * Decides whether the library has been built and the errors in this library
-	 * can be shown in the Import errors Dialog
-	 * 
-	 * @return
-	 
-	boolean canImport();*/
-
+	
 }

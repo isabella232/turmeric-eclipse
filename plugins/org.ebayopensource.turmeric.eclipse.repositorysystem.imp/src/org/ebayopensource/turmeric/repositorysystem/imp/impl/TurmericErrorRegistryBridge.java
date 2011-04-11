@@ -72,8 +72,9 @@ public class TurmericErrorRegistryBridge implements IErrorRegistryBridge {
 	public void createPlatformSpecificArtifacts(IProject project,
 			IProgressMonitor monitor) throws CoreException,
 			AbstractSOAException, IOException {
+		ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 		IErrorLibraryCreator creator = 
-			ErrorLibraryProviderFactory.getPreferredProvider().getErrorLibraryCreator();
+			factory.getPreferredProvider().getErrorLibraryCreator();
 		creator.createPlatformSpecificArtifacts(project, SOAMavenConstants.FOLDER_SRC_MAIN_RESOURCES, monitor);
 	}
 

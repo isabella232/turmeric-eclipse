@@ -49,6 +49,8 @@ public final class ErrorLibraryProviderFactory {
 
 	public static final String PROP_KEY_PROVIDER_ID = "providerID";
 	public static final String PROP_KEY_PROVIDER_IMPLEMENTATION = "providerImplementation";
+	
+	private static ErrorLibraryProviderFactory factory = new ErrorLibraryProviderFactory();
 
 	/**
 	 * 
@@ -57,7 +59,12 @@ public final class ErrorLibraryProviderFactory {
 		super();
 	}
 	
-	public static List<IErrorLibraryProvider> getErrorLibraryProviders() 
+	public static ErrorLibraryProviderFactory getInstance() {
+		return factory;
+	}
+	
+	
+	public List<IErrorLibraryProvider> getErrorLibraryProviders() 
 	throws SOAGetErrorLibraryProviderFailedException{
 		if (errorProviders.isEmpty() == true) {
 			try {
@@ -89,14 +96,14 @@ public final class ErrorLibraryProviderFactory {
 		return ListUtil.arrayList(errorProviders.values());
 	}
 	
-	public static void setPreferredErrorLibraryProviderId(String providerId) {
+	public void setPreferredErrorLibraryProviderId(String providerId) {
 		preferredProviderID = providerId;
 	}
 
 	/**
 	 * @return The preferred error library content provider
 	 */
-	public static IErrorLibraryProvider getPreferredProvider()
+	public IErrorLibraryProvider getPreferredProvider()
 			throws SOAGetErrorLibraryProviderFailedException {
 		IErrorLibraryProvider preferredProvider = null;
 		if (preferredProviderID == null) {
@@ -106,71 +113,7 @@ public final class ErrorLibraryProviderFactory {
 					preferredProviderID = providers.get(0).getProviderID();
 					logger.info(SOAMessages.PREF_CONTENT_PROVIDER, preferredProviderID);
 				} else {
-					IStructuredContentProvider contentProvider = new IStructuredContentProvider() {
-
-						public Object[] getElements(Object inputElement) {
-							try {
-								return getErrorLibraryProviders().toArray();
-							} catch (SOAGetErrorLibraryProviderFailedException e) {
-								return Collections.EMPTY_LIST.toArray();
-							}
-						}
-
-						public void dispose() {
-						}
-
-						public void inputChanged(Viewer viewer, Object oldInput,
-								Object newInput) {
-						}
-
-					};
-					ILabelProvider labelProvider = new ILabelProvider() {
-
-						public Image getImage(Object element) {
-							return null;
-						}
-
-						public String getText(Object element) {
-							if (element instanceof IErrorLibraryProvider) {
-								return ((IErrorLibraryProvider)element).getProviderID();
-							}
-							return "";
-						}
-
-						public void addListener(ILabelProviderListener listener) {
-
-						}
-
-						public void dispose() {
-
-						}
-
-						public boolean isLabelProperty(Object element,
-								String property) {
-							return false;
-						}
-
-						public void removeListener(ILabelProviderListener listener) {
-
-						}
-
-					};
-					ListDialog dialog = new ListDialog(
-							UIUtil.getActiveShell());
-					dialog.setContentProvider(contentProvider);
-					dialog.setLabelProvider(labelProvider);
-					dialog.setInput(new Object());
-					dialog.setMessage("Please select a preferred error library provider to use, " +
-					"\nthe selected provider will be used as the default provider.");
-
-					if (dialog.open() == Window.OK) {
-						Object[] objects = dialog.getResult();
-						if (objects != null && objects.length > 0) {
-							preferredProviderID = ((IErrorLibraryProvider)objects[0]).getProviderID();
-							logger.info(SOAMessages.PREF_CONTENT_PROVIDER, preferredProviderID);
-						}
-
-					}
+					showDialogAndSelectProvider();
 				}
 			} catch (Exception e) {
 				throw new SOAGetErrorLibraryProviderFailedException(
@@ -191,6 +134,88 @@ public final class ErrorLibraryProviderFactory {
 		}
 		
 		return preferredProvider;
+	}
+
+	private void showDialogAndSelectProvider() {
+		IStructuredContentProvider contentProvider = new ErrorLibraryStructuredContentProvider(); 
+		ILabelProvider labelProvider = new ErrorLibraryLabelProvider();
+				
+		ListDialog dialog = new ListDialog(
+				UIUtil.getActiveShell());
+		dialog.setContentProvider(contentProvider);
+		dialog.setLabelProvider(labelProvider);
+		dialog.setInput(new Object());
+		dialog.setMessage("Please select a preferred error library provider to use, " +
+		"\nthe selected provider will be used as the default provider.");
+
+		if (dialog.open() == Window.OK) {
+			Object[] objects = dialog.getResult();
+			if (objects != null && objects.length > 0) {
+				preferredProviderID = ((IErrorLibraryProvider)objects[0]).getProviderID();
+				logger.info(SOAMessages.PREF_CONTENT_PROVIDER, preferredProviderID);
+			}
+
+		}
+	}
+	
+	private class ErrorLibraryStructuredContentProvider implements IStructuredContentProvider {
+
+		@Override
+		public void dispose() {
+			
+		}
+
+		@Override
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+			
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
+		public Object[] getElements(Object inputElement) {
+			try {
+				return getErrorLibraryProviders().toArray();
+			} catch (SOAGetErrorLibraryProviderFailedException e) {
+				return Collections.EMPTY_LIST.toArray();
+			}
+		}
+		
+	}
+	
+	private class ErrorLibraryLabelProvider implements ILabelProvider {
+
+		public Image getImage(Object element) {
+			return null;
+		}
+
+		public String getText(Object element) {
+			if (element instanceof IErrorLibraryProvider) {
+				return ((IErrorLibraryProvider)element).getProviderID();
+			}
+			return "";
+		}
+
+		@Override
+		public void addListener(ILabelProviderListener listener) {
+			
+		}
+
+		@Override
+		public void dispose() {
+			
+		}
+
+		@Override
+		public boolean isLabelProperty(Object element, String property) {
+			return false;
+		}
+
+		@Override
+		public void removeListener(ILabelProviderListener listener) {
+			
+		}
+		
 	}
 
 }

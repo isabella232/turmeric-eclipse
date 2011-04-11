@@ -37,12 +37,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
  */
 public class ErrorLibraryCreator {
 
-	/**
-	 * 
-	 */
-	private ErrorLibraryCreator() {
-		super();
-	}
+
+	private static ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 	
 	public static void createErrorLibrary(ErrorLibraryParamModel model,
 			IProgressMonitor monitor) throws Exception {
@@ -67,8 +63,6 @@ public class ErrorLibraryCreator {
 		}
 		ProgressUtil.progressOneStep(monitor);
 		
-//		errorLibraryProject.setRequiredProjects(SetUtil.linkedSet(
-//				SOAProjectConstants.REQUIRED_PROJECTS_ERROR_LIB_PROJECT));
 		errorLibraryProject.setRequiredLibraries(SetUtil.linkedSet(
 				GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 				.getActiveOrganizationProvider().getDefaultDependencies(SupportedProjectType.ERROR_LIBRARY)));
@@ -91,7 +85,7 @@ public class ErrorLibraryCreator {
 		ProgressUtil.progressOneStep(monitor);
 		
 		IErrorLibraryCreator creator = 
-			ErrorLibraryProviderFactory.getPreferredProvider().getErrorLibraryCreator();
+			factory.getPreferredProvider().getErrorLibraryCreator();
 		
 		creator.postCreation(errorLibraryProject.getProject(), model, monitor);
 		

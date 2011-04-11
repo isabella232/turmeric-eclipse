@@ -48,7 +48,8 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 public class NewErrorLibraryWizard extends SOABaseWizard {
 	private ISOAErrorLibraryWizardPageProvider wizardProvider;
 	private static final SOALogger logger = SOALogger.getLogger();
-
+	private ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
+	
 	public NewErrorLibraryWizard() {
 		super();
 	}
@@ -60,7 +61,7 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 			return result;
 		}
 		try {
-			return ErrorLibraryProviderFactory.getPreferredProvider()
+			return factory.getPreferredProvider()
 					.getErrorLibraryWizardPageProvider().preValidate();
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			return EclipseMessageUtils.createErrorStatus(e);
@@ -78,8 +79,7 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 		IErrorLibraryProvider errorLibProvider;
 		try {
 
-			errorLibProvider = ErrorLibraryProviderFactory
-					.getPreferredProvider();
+			errorLibProvider = factory.getPreferredProvider();
 			if (errorLibProvider != null
 					&& errorLibProvider.getErrorLibraryWizardPageProvider() != null) {
 				wizardProvider = errorLibProvider
@@ -139,7 +139,7 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 					}
 
 				};
-				ErrorLibraryProviderFactory.getPreferredProvider()
+				factory.getPreferredProvider()
 						.getErrorLibraryCreator().preCreation(model);
 				getContainer().run(false, true, operation);
 			} catch (Exception e) {

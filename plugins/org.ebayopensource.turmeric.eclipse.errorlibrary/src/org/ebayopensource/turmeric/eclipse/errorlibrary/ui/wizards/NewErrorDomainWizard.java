@@ -47,6 +47,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 public class NewErrorDomainWizard extends SOABaseWizard {
 	private ISOAErrorLibraryWizardPageProvider wizardProvider;
 	private static final SOALogger logger = SOALogger.getLogger();
+	private ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 
 	/**
 	 * 
@@ -59,7 +60,7 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 	public IStatus preValidate() {
 		// checking if there is a provider
 		try {
-			ErrorLibraryProviderFactory.getPreferredProvider();
+			factory.getPreferredProvider();
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			return EclipseMessageUtils.createErrorStatus(e);
 		}
@@ -71,8 +72,7 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 		final List<IWizardPage> pages = new ArrayList<IWizardPage>();
 		IErrorLibraryProvider errorLibProvider;
 		try {
-			errorLibProvider = ErrorLibraryProviderFactory
-					.getPreferredProvider();
+			errorLibProvider = factory.getPreferredProvider();
 			if (errorLibProvider != null
 					&& errorLibProvider.getErrorDomainWizardPageProvider() != null) {
 				wizardProvider = errorLibProvider
@@ -131,12 +131,9 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 						}
 					}
 				};
-				ErrorLibraryProviderFactory.getPreferredProvider()
+				factory.getPreferredProvider()
 						.getErrorDomainCreator().preCreation(model);
 				getContainer().run(false, true, operation);
-				// http://www.nbweekly.com/Print/Page/844,62.shtml
-				// No change if just resource created inside a project
-				// changePerspective();
 			} catch (Exception e) {
 				logger.error(e);
 				UIUtil.showErrorDialog(SOAMessages.CREATE_DOMAIN_ERR, e);
