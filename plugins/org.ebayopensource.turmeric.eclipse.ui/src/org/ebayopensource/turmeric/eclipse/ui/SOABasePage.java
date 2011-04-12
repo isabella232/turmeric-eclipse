@@ -71,7 +71,7 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	private ISOAOrganizationProvider organizationProvider = null;
 	
 	public static final String DEFAULT_TEXT_VALUE = SOAProjectConstants.EMPTY_STRING;
-	
+		
 	@Override
 	public void dispose() {
 		super.dispose();
@@ -117,6 +117,7 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	 * Constructor with no extra logic, Just calls the super.
 	 * 
 	 * @param pageName
+	 * @wbp.parser.constructor
 	 */
 	protected SOABasePage(String pageName) {
 		super(pageName);

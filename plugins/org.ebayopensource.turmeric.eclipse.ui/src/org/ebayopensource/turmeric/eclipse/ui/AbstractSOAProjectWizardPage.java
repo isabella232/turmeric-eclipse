@@ -256,7 +256,7 @@ AbstractSOAResourceWizardPage {
 				dialogChanged();
 			}
 		};
-		//serviceDomainList.addModifyListener(domainListModifyListener);
+		
 		serviceDomainList.addListener(SWT.DefaultSelection, new Listener() {
 			public void handleEvent(Event e) {
 				domainListModifyListener.modifyText(new ModifyEvent(e));

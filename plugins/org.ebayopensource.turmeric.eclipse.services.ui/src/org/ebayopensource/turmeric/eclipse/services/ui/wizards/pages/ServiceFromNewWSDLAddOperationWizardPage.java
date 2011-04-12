@@ -121,6 +121,7 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 			final Composite container = super.createParentControl(parent, 3);
 			createOperationViewer(container);
 			createControlButtons(container);
+			setControl(container);
 			dialogChanged();
 		} catch (Exception e) {
 			UIUtil.showErrorDialog(e);

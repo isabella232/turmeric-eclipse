@@ -64,8 +64,8 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 		return selection;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
 	 * @see org.eclipse.jface.wizard.Wizard#addPages() This is overriden here to
 	 * include the pre flight checks at a common place. Implementors if

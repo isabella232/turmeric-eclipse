@@ -141,14 +141,9 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		uiModel.setServiceImpl(wizardPage
 				.getFullyQualifiedServiceImplementation());
 		uiModel.setServiceVersion(wizardPage.getServiceVersion());
-		// TODO we use the default base consumer dir for impl projects for now.
 		uiModel
 				.setBaseConsumerSrcDir(SOAProjectConstants.DEFAULT_BASE_CONSUMER_SOURCE_DIRECTORY);
-		/*
-		 * uiModel.setIncludeValidateInternals(wizardPage
-		 * .includeValidateInternals());
-		 * uiModel.setIncludeTestJSP(wizardPage.includeTestJSP());
-		 */
+	
 		if (!wizardPage.getTypeFolding())
 			uiModel.setTypeNamespace(wizardPage.getTypeNamespace());
 		uiModel.setTypeFolding(wizardPage.getTypeFolding());
@@ -206,8 +201,6 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 						final SimpleAssetModel assetModel = new SimpleAssetModel();
 						assetModel.setAssetAdminName(uiModel.getServiceName());
 						assetModel.setAssetName(uiModel.getPublicServiceName());
-						// assetModel.setAssetType("Service"); //asset type is
-						// always Service
 						assetModel.setAssetVersion(uiModel.getServiceVersion());
 						assetModel.setDomainName(uiModel.getServiceDomain());
 						assetModel.setNamespacePart(uiModel.getNamespacePart());
@@ -230,10 +223,6 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 						} else if (nameCheckStatus.isOK() == false) {
 							statuses.add(nameCheckStatus);
 						}
-						// continues to validation even name check failed.
-						// if (nameCheckStatus.isOK() == false) {
-						// return new NameValidationStatus(nameCheckStatus);
-						// }
 						ProgressUtil.progressOneStep(monitor);
 					}
 

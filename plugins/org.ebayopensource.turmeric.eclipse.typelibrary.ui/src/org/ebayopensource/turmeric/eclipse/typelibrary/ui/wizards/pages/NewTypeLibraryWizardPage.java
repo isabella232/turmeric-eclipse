@@ -129,7 +129,6 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 
 		boolean result = super.dialogChanged();
 		if (result) {
-			// IStatus validationModel = null;
 			try {
 				if (SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
 						.getTypeLibrary(getResourceName()) != null) {
@@ -180,14 +179,6 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 				updatePageStatus(getResourceNameText(), status);
 				return true;
 			}
-
-			// if(Character.isUpperCase((getResourceName().charAt(0))) ==
-			// false){
-			// updateStatus(super.getResourceNameText(),
-			// "Type library name should start with upper case character");
-			// return true;
-			// }
-
 		}
 		return result;
 	}

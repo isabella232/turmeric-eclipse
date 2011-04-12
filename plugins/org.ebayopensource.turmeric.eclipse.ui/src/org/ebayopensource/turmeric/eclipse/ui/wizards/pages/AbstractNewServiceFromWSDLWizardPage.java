@@ -305,15 +305,13 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		layout.addColumnData(new ColumnWeightData(50, 75, true));
 		table.setLayout(layout);
 
-		{// columns
-			TableColumn column = new TableColumn(table, SWT.LEFT);
-			column.setText("Namespace");
-			column.setImage(UIActivator.getImageFromRegistry("element.gif"));
+		TableColumn column = new TableColumn(table, SWT.LEFT);
+		column.setText("Namespace");
+		column.setImage(UIActivator.getImageFromRegistry("element.gif"));
 
-			column = new TableColumn(table, SWT.LEFT);
-			column.setText("Package Name");
-			column.setImage(UIActivator.getImageFromRegistry("package.gif"));
-		}
+		column = new TableColumn(table, SWT.LEFT);
+		column.setText("Package Name");
+		column.setImage(UIActivator.getImageFromRegistry("package.gif"));
 
 		ns2pkgViewer.setContentProvider(new IStructuredContentProvider() {
 
@@ -696,4 +694,6 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 	}
 
 	public abstract void wsdlChanged(final Definition wsdl);
+	
+	
 }

@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.ebayopensource.turmeric.eclipse.ui" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.ebayopensource.turmeric.eclipse.ui" id="projectWizardProvider" name="Turmeric Integration Provider"/>
+      </appInfo>
+      <documentation>
+         Provides the type of project to be created.  Specifically information regarding wizard pages during the creation process of the project.
+      </documentation>
+   </annotation>
+
+   <element name="provider">
+      <complexType>
+         <sequence>
+            <element ref="wizard" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="provider"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The extension point
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  Extension point id
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  Extension point name
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="wizard">
+      <complexType>
+         <sequence>
+            <element ref="page" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="type" use="required">
+            <annotation>
+               <documentation>
+                  The type of wizard this will be contributed too.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="Service">
+                  </enumeration>
+                  <enumeration value="Consumer WSDL">
+                  </enumeration>
+                  <enumeration value="Type Library">
+                  </enumeration>
+                  <enumeration value="Error Library">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="page">
+      <complexType>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  A page to be contributed.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.jface.wizard.IWizardPage"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         1.0.0
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+            &amp;lt;extension
+         id=&quot;testProjectProvider&quot;
+         point=&quot;org.ebayopensource.turmeric.eclipse.ui.projectWizardProvider&quot;&gt;
+      &amp;lt;provider
+            id=&quot;org.ebayopensource.turmeric.eclipse.ui.tests.provider1&quot;
+            name=&quot;testProvider&quot;&gt;
+         &amp;lt;wizard type=&quot;Service&quot;&gt;
+            &amp;lt;page
+                  class=&quot;org.ebayopensource.turmeric.eclipse.ui.test.extensions.MockServicePage&quot;
+                  id=&quot;testProjectPage1&quot;&gt;&lt;/page&gt;
+         &amp;lt;/wizard&gt;
+      &amp;lt;/provider&gt;
+         
+   &amp;lt;/extension&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiinfo"/>
+      </appInfo>
+      <documentation>
+         Pages implement the IWizardPage extension point.  Adopters may also extend the abstract SOABasePage implementation.
+      </documentation>
+   </annotation>
+
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright 2011, eBay, Inc.  Licensed under an Apache Public License 2.0.
+      </documentation>
+   </annotation>
+
+</schema>

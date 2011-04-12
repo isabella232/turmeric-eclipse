@@ -20,7 +20,6 @@ import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAConsu
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.services.buildsystem.ServiceCreator;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ConsumerFromJavaWizardPage;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLPage;
@@ -76,8 +75,9 @@ public class ConsumerFromJavaWizard extends SOABaseWizard {
 	@Override
 	public boolean performFinish() {
 		try {
-			if (SOALogger.DEBUG)
+			if (SOALogger.DEBUG) {
 				logger.entering();
+			}
 			if (!ProjectUtils.isProjectGoodForConsumption(newConsumerPage
 					.getServiceList().toArray(new String[0]))) {
 				return false;
@@ -93,46 +93,9 @@ public class ConsumerFromJavaWizard extends SOABaseWizard {
 				ServiceFromNewWSDLPage
 						.saveWorkspaceRoot(workspaceRootDirectory);
 
-			final ConsumerFromJavaParamModel uiModel = new ConsumerFromJavaParamModel();
-			uiModel.setBaseConsumerSrcDir(newConsumerPage
-					.getBaseConsumerSrcDir());
-			uiModel.setParentDirectory(newConsumerPage
-					.getProjectRootDirectory());
-			uiModel.setServiceNames(newConsumerPage.getServiceList());
-			uiModel.setClientName(clientProjectName);
-			uiModel.setEnvironments(newConsumerPage.getEnvironments());
-			uiModel.setConvertingJavaProject(convertExistingJavaProject);
-			if (StringUtils.isNotBlank(newConsumerPage.getConsumerID()))
-				uiModel.setConsumerId(newConsumerPage.getConsumerID());
-			final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
-				@Override
-				protected void execute(IProgressMonitor monitor)
-						throws CoreException, InvocationTargetException,
-						InterruptedException {
-					final long startTime = System.currentTimeMillis();
-					final int totalWork = ProgressUtil.PROGRESS_STEP * 30;
-					monitor.beginTask("Creating SOA Consumer->"
-							+ clientProjectName, totalWork);
-					try {
-						ProgressUtil.progressOneStep(monitor);
-
-						ServiceCreator.createConsumerFromJava(uiModel, monitor);
-						final TrackingEvent event = new TrackingEvent(
-								"NewConsumerFromJAVA", new Date(startTime),
-								System.currentTimeMillis() - startTime);
-						GlobalRepositorySystem.instanceOf()
-								.getActiveRepositorySystem().trackingUsage(
-										event);
-					} catch (Exception e) {
-						logger.error(e);
-						throw new SOAConsumerCreationFailedException(
-								"Failed to create consumer ->"
-										+ clientProjectName, e);
-					} finally {
-						monitor.done();
-					}
-				}
-			};
+			final ConsumerFromJavaParamModel uiModel = createModel(clientProjectName);
+			
+			final WorkspaceModifyOperation operation = new ConsumerWorkspaceModifyOperation(clientProjectName, uiModel);
 			getContainer().run(false, true, operation);
 			changePerspective();
 		} catch (Exception e) {
@@ -146,5 +109,61 @@ public class ConsumerFromJavaWizard extends SOABaseWizard {
 		if (SOALogger.DEBUG)
 			logger.exiting(true);
 		return true;
+	}
+
+	private ConsumerFromJavaParamModel createModel(
+			final String clientProjectName) {
+		final ConsumerFromJavaParamModel uiModel = new ConsumerFromJavaParamModel();
+		uiModel.setBaseConsumerSrcDir(newConsumerPage
+				.getBaseConsumerSrcDir());
+		uiModel.setParentDirectory(newConsumerPage
+				.getProjectRootDirectory());
+		uiModel.setServiceNames(newConsumerPage.getServiceList());
+		uiModel.setClientName(clientProjectName);
+		uiModel.setEnvironments(newConsumerPage.getEnvironments());
+		uiModel.setConvertingJavaProject(convertExistingJavaProject);
+		if (StringUtils.isNotBlank(newConsumerPage.getConsumerID()))
+			uiModel.setConsumerId(newConsumerPage.getConsumerID());
+		return uiModel;
+	}
+	
+	private class ConsumerWorkspaceModifyOperation extends WorkspaceModifyOperation {
+
+		private String clientProjectName;
+		private ConsumerFromJavaParamModel uiModel;
+		
+		public ConsumerWorkspaceModifyOperation (String clientProjectName, ConsumerFromJavaParamModel uiModel) {
+			super();
+			this.clientProjectName = clientProjectName;
+			this.uiModel = uiModel;
+		}
+		
+		@Override
+		protected void execute(IProgressMonitor monitor)
+				throws CoreException, InvocationTargetException,
+				InterruptedException {
+			final long startTime = System.currentTimeMillis();
+			final int totalWork = ProgressUtil.PROGRESS_STEP * 30;
+			monitor.beginTask("Creating SOA Consumer->"
+					+ clientProjectName, totalWork);
+			try {
+				ProgressUtil.progressOneStep(monitor);
+
+				ServiceCreator.createConsumerFromJava(uiModel, monitor);
+				final TrackingEvent event = new TrackingEvent(
+						"NewConsumerFromJAVA", new Date(startTime),
+						System.currentTimeMillis() - startTime);
+				GlobalRepositorySystem.instanceOf()
+						.getActiveRepositorySystem().trackingUsage(
+								event);
+			} catch (Exception e) {
+				logger.error(e);
+				throw new SOAConsumerCreationFailedException(
+						"Failed to create consumer ->"
+								+ clientProjectName, e);
+			} finally {
+				monitor.done();
+			}
+		}
 	}
 }

@@ -80,6 +80,7 @@ public class ServiceFromExistingWSDLWizardPage extends
 			addServiceLayer(container);
 			addTypeFolding(container);
 			addWSDLPackageToNamespace(container);
+			setControl(container);
 		} catch (Exception e) {
 			logger.error(e);
 			UIUtil.showErrorDialog(e);
@@ -139,23 +140,6 @@ public class ServiceFromExistingWSDLWizardPage extends
 		final boolean result = super.dialogChanged(validateWsdl);
 		if (result == false && isPageComplete() == false)
 			return result;
-
-		// String version = resourceVersionText.getText();
-		// if (StringUtils.isNotBlank(version) &&
-		// (isV2Format == true)) {
-		// // version from WSDL is X.Y, only maintenance version should be
-		// changed.
-		// Version newVer = new Version(version);
-		// Version oldVer = new Version(versionFromWSDL);
-		// if ((newVer.getMajor() != oldVer.getMajor())
-		// || (newVer.getMinor() != oldVer.getMinor())) {
-		// updateStatus(super.resourceVersionText,
-		// "Service version from WSDL is: "+versionFromWSDL +
-		// ". You can not change the major and minor version. The version must start with->"
-		// + versionFromWSDL);
-		// return false;
-		// }
-		// }
 
 		if (domainClassifierList != null
 				&& StringUtils.isNotBlank(getDomainClassifier())

@@ -482,56 +482,7 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 									msg.toString());
 						}
 
-						final WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
-
-							@Override
-							protected void execute(IProgressMonitor monitor)
-									throws CoreException,
-									InvocationTargetException,
-									InterruptedException {
-								logger
-										.warning(
-												"The consumer ID has been changed, re-generate the service_consumer_project.properties and "
-														+ "modify all ClientConfig.xml files for project->",
-												consumerProject);
-								try {
-									ProjectPropertiesFileUtil
-											.createPropsFileForImplProjects(
-													consumerProject,
-													clientName,
-													consumerId,
-													StringUtils
-															.trim(result
-																	.getProperties()
-																	.getProperty(
-																			SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR)),
-													monitor);
-									
-									for (SOAClientConfig clientConfig : result
-											.getClientConfigs()) {
-										String protocalProcessorClassName = GlobalRepositorySystem
-												.instanceOf()
-												.getActiveRepositorySystem()
-												.getActiveOrganizationProvider()
-												.getSOAPProtocolProcessorClassName();
-										SOAClientConfigUtil
-												.save(clientConfig, result
-														.getOldClientConfigs()
-														.contains(clientConfig), protocalProcessorClassName);
-									}
-
-								} catch (Exception e) {
-									logger.error(e);
-									throw new SOAResourceModifyFailedException(
-											"Failed to modify consumerID for the underlying consumer projects->"
-													+ consumerProject.getName(),
-											e);
-								} finally {
-									consumerProject.refreshLocal(
-											IProject.DEPTH_INFINITE, monitor);
-								}
-							}
-						};
+						final WorkspaceModifyOperation op = new ConsumerNewServiceWorkspaceModifyOperation(clientName, consumerId, result);
 						getContainer().run(false, true, op);
 						changePerspective();
 					}
@@ -555,6 +506,67 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 		if (SOALogger.DEBUG)
 			logger.exiting(true);
 		return true;
+	}
+	
+	private class ConsumerNewServiceWorkspaceModifyOperation extends WorkspaceModifyOperation {
+		
+		private String clientName;
+		private String consumerId;
+		private ModifyConsumerIDResult result;
+		
+		public ConsumerNewServiceWorkspaceModifyOperation (String clientName, String consumerId, ModifyConsumerIDResult result) {
+			this.clientName = clientName;
+			this.consumerId = consumerId;
+			this.result = result;
+		}
+
+		@Override
+		protected void execute(IProgressMonitor monitor)
+				throws CoreException,
+				InvocationTargetException,
+				InterruptedException {
+			logger
+					.warning(
+							"The consumer ID has been changed, re-generate the service_consumer_project.properties and "
+									+ "modify all ClientConfig.xml files for project->",
+							consumerProject);
+			try {
+				ProjectPropertiesFileUtil
+						.createPropsFileForImplProjects(
+								consumerProject,
+								clientName,
+								consumerId,
+								StringUtils
+										.trim(result
+												.getProperties()
+												.getProperty(
+														SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR)),
+								monitor);
+				
+				for (SOAClientConfig clientConfig : result
+						.getClientConfigs()) {
+					String protocalProcessorClassName = GlobalRepositorySystem
+							.instanceOf()
+							.getActiveRepositorySystem()
+							.getActiveOrganizationProvider()
+							.getSOAPProtocolProcessorClassName();
+					SOAClientConfigUtil
+							.save(clientConfig, result
+									.getOldClientConfigs()
+									.contains(clientConfig), protocalProcessorClassName);
+				}
+
+			} catch (Exception e) {
+				logger.error(e);
+				throw new SOAResourceModifyFailedException(
+						"Failed to modify consumerID for the underlying consumer projects->"
+								+ consumerProject.getName(),
+						e);
+			} finally {
+				consumerProject.refreshLocal(
+						IProject.DEPTH_INFINITE, monitor);
+			}
+		}		
 	}
 
 }

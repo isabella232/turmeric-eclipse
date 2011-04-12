@@ -47,7 +47,7 @@ import org.eclipse.swt.widgets.Text;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
- * Attribute Page for complex type wizard
+ * Attribute Page for complex type wizard.
  * 
  * @author ramurthy
  * 
@@ -68,7 +68,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 	private CellEditor[] editors;
 
 	private static final ColumnDef[] colDef = {
-	// removed icons because it is causing blur
+			// removed icons because it is causing blur
 			new ColumnDef(ATTRIBUTE_NAME, 80, null), // UIActivator.getImageFromRegistry("attribute.gif")
 			new ColumnDef(ATTRIBUTE_TYPE, 80, null), // UIActivator.getImageFromRegistry("schemaType.gif")
 			new ColumnDef(ATTRIBUTE_DESC, 150, null) }; // UIActivator.getImageFromRegistry("description.gif")
@@ -105,63 +105,9 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 	public void createViewer(Composite container) {
 		int style = SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL
 				| SWT.FULL_SELECTION;
-		attribViewer = new TableButtonPanelViewer(container, style, colDef,
-				true) {
 
-			@Override
-			protected void addButtonSelected(SelectionEvent event) {
-				super.addButtonSelected(event);
-				AttribTableModel model = new AttribTableModel();
-				model.setAttribName(ATTRIBUTE_NAME);
-				model
-						.setAttribType(SOATypeLibraryConstants.SCHEMA_DATA_TYPES[0]);
-				model.setAttribDesc(ATTRIBUTE_DESC);
-				if (attribHolder.add(model)) {
-					attribViewer.getRemoveButton().setEnabled(true);
-					attribViewer.refresh();
-					dialogChanged();
-				}
-			}
-
-			@Override
-			protected void downButtonSelected(SelectionEvent event) {
-				super.downButtonSelected(event);
-				final Object obj = getSelectedObject();
-				if (obj instanceof AttribTableModel) {
-					ListUtil.moveOnePositionDown(attribHolder,
-							(AttribTableModel) obj);
-					attribViewer.refresh();
-				}
-			}
-
-			@Override
-			protected void removeButtonSelected(SelectionEvent event) {
-				super.removeButtonSelected(event);
-				final Object obj = getSelectedObject();
-				if (obj instanceof AttribTableModel && attribHolder.remove(obj)) {
-					attribViewer.getRemoveButton().setEnabled(false);
-					attribViewer.refresh();
-					dialogChanged();
-				}
-			}
-
-			@Override
-			protected void upButtonSelected(SelectionEvent event) {
-				super.upButtonSelected(event);
-				final Object obj = getSelectedObject();
-				if (obj instanceof AttribTableModel) {
-					ListUtil.moveOnePositionUp(attribHolder,
-							(AttribTableModel) obj);
-					attribViewer.refresh();
-				}
-			}
-
-			@Override
-			protected void viewerSelectionChanged(SelectionChangedEvent event) {
-				super.viewerSelectionChanged(event);
-				dialogChanged();
-			}
-		};
+		attribViewer = new ComplexTypeTableButtonPanelViewer(container, style, colDef,
+				true);
 		attribViewer.setContentProvider(new ArrayContentProvider());
 		attribViewer.setLabelProvider(new AttribTableLabelProvider());
 		attribViewer.setColumnProperties(colProperties);
@@ -176,24 +122,6 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		editors[0] = new TextCellEditor(table);
 		editors[1] = new ComboBoxCellEditor(table,
 				SOATypeLibraryConstants.SCHEMA_DATA_TYPES);
-		/*
-		 * new SOAComboDialogCellEditor(table,
-		 * SOATypeLibraryConstants.SCHEMA_DATA_TYPES) {
-		 * 
-		 * @Override protected Object openDialogBox(Control cellEditorWindow) {
-		 * try { List<LibraryType> libTypes =
-		 * SOAGlobalRegistryAdapter.getGlobalRegistry() .getAllTypes(); if
-		 * (libTypes != null) { TypeSelector typeSelector = new
-		 * TypeSelector(UIUtil.getActiveShell(), "Select Type",
-		 * libTypes.toArray(new LibraryType[0]), "New Project");
-		 * typeSelector.setMultipleSelection(false);
-		 * 
-		 * if (typeSelector.open() == Window.OK) return
-		 * typeSelector.getFirstResult(); } } catch (Exception e) {
-		 * SOALogger.getLogger().error(e); }
-		 * 
-		 * return null; } };
-		 */
 		editors[2] = new TextCellEditor(table);
 	}
 
@@ -206,7 +134,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 	}
 
 	/**
-	 * Label Provider for Attrib Table
+	 * Label Provider for Attrib Table.
 	 * 
 	 * @author ramurthy
 	 * 
@@ -305,13 +233,8 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 
 	@Override
 	protected boolean dialogChanged() {
-		/*
-		 * TODO this page is optional if (attribHolder.isEmpty()) {
-		 * updateStatus("At least one attribute must be added"); return false; }
-		 * else {
-		 */
+		
 		updateStatus(null);
-		// }
 
 		final Set<String> attribNames = new HashSet<String>();
 		for (final AttribTableModel attribModel : attribHolder) {
@@ -336,12 +259,12 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
-				.getHelpProvider().getHelpContextID(
-						ISOAHelpProvider.PAGE_CREATE_SCHEMA_TYPE);
+				.getHelpProvider()
+				.getHelpContextID(ISOAHelpProvider.PAGE_CREATE_SCHEMA_TYPE);
 	}
 
 	/**
-	 * Attribute Table Model
+	 * Attribute Table Model.
 	 * 
 	 */
 
@@ -420,5 +343,66 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 	@Override
 	public String getDefaultValue(Text text) {
 		return SOAProjectConstants.EMPTY_STRING;
+	}
+
+	private class ComplexTypeTableButtonPanelViewer extends
+			TableButtonPanelViewer {
+
+		public ComplexTypeTableButtonPanelViewer(Composite parent, int style,
+				ColumnDef[] columnDef, boolean createAddRemoveButtons) {
+			super(parent, style, columnDef, createAddRemoveButtons);
+		}
+
+		@Override
+		protected void addButtonSelected(SelectionEvent event) {
+			super.addButtonSelected(event);
+			AttribTableModel model = new AttribTableModel();
+			model.setAttribName(ATTRIBUTE_NAME);
+			model.setAttribType(SOATypeLibraryConstants.SCHEMA_DATA_TYPES[0]);
+			model.setAttribDesc(ATTRIBUTE_DESC);
+			if (attribHolder.add(model)) {
+				attribViewer.getRemoveButton().setEnabled(true);
+				attribViewer.refresh();
+				dialogChanged();
+			}
+		}
+
+		@Override
+		protected void downButtonSelected(SelectionEvent event) {
+			super.downButtonSelected(event);
+			final Object obj = getSelectedObject();
+			if (obj instanceof AttribTableModel) {
+				ListUtil.moveOnePositionDown(attribHolder,
+						(AttribTableModel) obj);
+				attribViewer.refresh();
+			}
+		}
+
+		@Override
+		protected void removeButtonSelected(SelectionEvent event) {
+			super.removeButtonSelected(event);
+			final Object obj = getSelectedObject();
+			if (obj instanceof AttribTableModel && attribHolder.remove(obj)) {
+				attribViewer.getRemoveButton().setEnabled(false);
+				attribViewer.refresh();
+				dialogChanged();
+			}
+		}
+
+		@Override
+		protected void upButtonSelected(SelectionEvent event) {
+			super.upButtonSelected(event);
+			final Object obj = getSelectedObject();
+			if (obj instanceof AttribTableModel) {
+				ListUtil.moveOnePositionUp(attribHolder, (AttribTableModel) obj);
+				attribViewer.refresh();
+			}
+		}
+
+		@Override
+		protected void viewerSelectionChanged(SelectionChangedEvent event) {
+			super.viewerSelectionChanged(event);
+			dialogChanged();
+		}
 	}
 }

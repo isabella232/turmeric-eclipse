@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="testProjectProvider"
+         point="org.ebayopensource.turmeric.eclipse.ui.projectWizardProvider">
+      <provider
+            id="org.ebayopensource.turmeric.eclipse.ui.tests.provider1"
+            name="testProvider">
+         <wizard type="Service">
+            <page
+                  class="org.ebayopensource.turmeric.eclipse.ui.test.extensions.MockServicePage"
+                  id="testProjectPage1"></page>
+         </wizard>
+      </provider>
+         
+   </extension>
+
+</plugin>
