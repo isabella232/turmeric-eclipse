@@ -202,15 +202,10 @@ public class TypesVersionTest extends AbstractTestCase {
 					"TypeInformation.xml is not updated with version 1.1.2 for CustomerType.xsd",
 					s.contains("version=\"1.1.2\""));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-
 		
 	}
 

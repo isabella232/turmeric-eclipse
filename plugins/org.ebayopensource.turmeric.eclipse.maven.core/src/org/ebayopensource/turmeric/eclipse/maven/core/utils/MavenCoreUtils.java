@@ -457,15 +457,7 @@ public class MavenCoreUtils {
 				IPath jarPath = getServiceJarLocation(projectName);
 				if (jarPath != null)
 					return jarPath.toString();
-				/*
-				 * final String[] groupIDs =
-				 * {SOAMavenConstants.SOA_TYPELIBRARY_GROUPID,
-				 * SOAMavenConstants.SOA_ERRORLIBRARY_GROUPID,
-				 * SOAMavenConstants.SOA_IMPL_GROUPID,
-				 * SOAMavenConstants.SOA_CLIENT_GROUPID,
-				 * SOAMavenConstants.SOA_FRAMEWORK_GROUPID};
-				 */
-				// FIXME we need SOA framework group ID here
+				
 				for (String groupID : getMavenOrgProviderInstance()
 						.getAllProjectTypeGroupIds()) {
 					jarPath = getArtifactJarLocation(groupID, projectName);
@@ -712,18 +704,6 @@ public class MavenCoreUtils {
 
 			if (result != null) {
 				result.setImplementationProjectName(implProjectName);
-				/*
-				 * if (StringUtils.isNotBlank(implProjectName))
-				 * result.setImplementationProjectName(implProjectName); else {
-				 * //TODO the impl project name might not be available for those
-				 * project created in the old SOA plugin
-				 * result.setImplementationProjectName(serviceName +
-				 * SOAProjectConstants.IMPL_PROJECT_SUFFIX); logger.warning(
-				 * "Could not load the impl project name from the pom.xml of service->"
-				 * , projectName,
-				 * ", using the default logic with \"Impl\" as suffix ->",
-				 * result.getImplementationProjectName()); }
-				 */
 				processDependencies(mProject.getModel(), result);
 			}
 		}
@@ -877,18 +857,6 @@ public class MavenCoreUtils {
 				serviceName, metadataProps);
 		if (result != null) {
 			result.setImplementationProjectName(implProjectName);
-			/*
-			 * if (StringUtils.isNotBlank(implProjectName))
-			 * result.setImplementationProjectName(implProjectName); else {
-			 * //TODO the impl project name might not be available for those
-			 * project created in the old SOA plugin
-			 * result.setImplementationProjectName(serviceName +
-			 * SOAProjectConstants.IMPL_PROJECT_SUFFIX); logger.warning(
-			 * "Could not load the impl project name from the pom.xml of service->"
-			 * , serviceName,
-			 * ", using the default logic with \"Impl\" as suffix ->",
-			 * result.getImplementationProjectName()); }
-			 */
 
 			processDependencies(pom, result);
 		}
@@ -901,7 +869,7 @@ public class MavenCoreUtils {
 		MavenProjectInfo result = null;
 
 		if (metadataProps != null) {
-			// TODO we still need the service layer and version info for
+			// we still need the service layer and version info for
 			// projects
 			final String serviceLayer = metadataProps
 					.getProperty(SOAProjectConstants.SERVICE_METADATA_PROPS_SERVICE_LAYER);
@@ -1122,7 +1090,7 @@ public class MavenCoreUtils {
 						SOAProjectConstants.DEFAULT_SERVICE_VERSION);
 		final String fullLibName = MavenCoreUtils.translateLibraryName(groupID,
 				projectName, libVersion);
-		final ArtifactMetadata artifact = getLibraryIdentifier(fullLibName); // TODO
+		final ArtifactMetadata artifact = getLibraryIdentifier(fullLibName); 
 		if (artifact != null) {
 			final MavenProject mProject = MavenCoreUtils.getLibrary(artifact);
 			if (getMavenOrgProviderInstance().getProjectGroupId(
@@ -1141,14 +1109,7 @@ public class MavenCoreUtils {
 						mProject.getModel());
 			} else if (getMavenOrgProviderInstance().getProjectGroupId(
 					SupportedProjectType.TYPE_LIBRARY).equals(groupID)) {
-				// TODO return type library project info
-				// return MavenUtil.getTypeLibraryInfo(mProject);
-			} else if (SOAMavenConstants.SOA_FRAMEWORK_GROUPID.equals(groupID)) {
-				// this could be either the soa framework jars or the client
-				// projects
-				// return MavenUtil.get(projectName, mProject.getProperties(),
-				// mProject.getModel());
-			}
+			} 
 		}
 
 		return null;
@@ -1327,11 +1288,7 @@ public class MavenCoreUtils {
 			containerInitializer.requestClasspathContainerUpdate(containerPath,
 					javaProject, mavenContainer);
 			containerInitializer.initialize(containerPath, javaProject);
-			/*
-			 * project.build(IncrementalProjectBuilder.FULL_BUILD,
-			 * ProgressUtil.getDefaultMonitor(null));
-			 */
-			// TODO this is a hot fix for the Maven class path issue
+			// this is a hot fix for the Maven class path issue
 			// it will continuously wait until the newly added service is
 			// available in the classpath
 			String tlGroupId = getMavenOrgProviderInstance().getProjectGroupId(

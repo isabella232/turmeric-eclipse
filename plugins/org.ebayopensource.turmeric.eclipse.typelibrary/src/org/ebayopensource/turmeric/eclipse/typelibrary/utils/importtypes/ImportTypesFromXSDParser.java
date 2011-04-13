@@ -36,7 +36,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class ImportTypesFromXSDParser extends DefaultHandler {
 
-	// FIXME: remove this later
 	private String path = null;
 
 	public void cutXSD(String wsdlPath) throws SAXException, IOException,

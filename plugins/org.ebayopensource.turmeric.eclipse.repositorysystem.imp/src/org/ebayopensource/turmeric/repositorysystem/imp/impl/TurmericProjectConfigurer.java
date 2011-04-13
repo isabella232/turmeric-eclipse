@@ -100,7 +100,6 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 	 */
 
 	public IPath getRepositoryPath(IPath projectLocation) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -515,7 +514,7 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 			if( changed ) {
 				javaProject.setRawClasspath( newEntries.toArray( new IClasspathEntry[ 0 ] ), null );
 				ProgressUtil.progressOneStep(monitor);
-				//TODO This is a hot fix for the Maven classpath container issue,
+				//This is a hot fix for the Maven classpath container issue,
 				//should be removed as soon as the M2Eclipse guys fix it
 				int count = 0; //we only go to sleep 5 times.
 				while (MavenCoreUtils.getMaven2ClasspathContainer(javaProject).getClasspathEntries().length == 0

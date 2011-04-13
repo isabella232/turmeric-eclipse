@@ -43,7 +43,6 @@ public class UnitTestHelper {
 			scheduleMethod.invoke(job, new Object[] { null });
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

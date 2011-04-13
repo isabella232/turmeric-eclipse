@@ -104,7 +104,6 @@ public class TLArtifactValidator implements IResourceVisitor {
 				try {
 					srcProp.load(new FileInputStream(rsrcPath.toFile()));
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					matches = false;
 				}
@@ -112,7 +111,6 @@ public class TLArtifactValidator implements IResourceVisitor {
 				try {
 					goldCopyProp.load(new FileInputStream(new File(goldCopyDir + "/" + path.toString())));
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					matches = false;
 				}
@@ -149,7 +147,6 @@ public class TLArtifactValidator implements IResourceVisitor {
 						}
 					}	
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					System.out.println("the following did not match: " + goldCopyDir + "/" + path);
 					matches = false;

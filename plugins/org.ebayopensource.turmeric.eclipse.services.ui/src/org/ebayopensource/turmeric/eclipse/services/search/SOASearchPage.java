@@ -132,7 +132,6 @@ public class SOASearchPage extends DialogPage implements ISearchPage {
 		
 		assetTypeList = new CCombo(composite, SWT.BORDER | SWT.READ_ONLY);
 		assetTypeList.setItems(new String[]{SimpleAssetModel.ASSET_TYPE_SERVICE});
-		//TODO pass a null control decorator for now
 		UIUtil.decorateControl(null, assetTypeList, "the type of the asset");
 		assetTypeList.select(0);
 		GridData data = new GridData();
@@ -198,7 +197,6 @@ public class SOASearchPage extends DialogPage implements ISearchPage {
 		label.setText("Service &Name:");
 		serviceNameText = new Text(group, SWT.BORDER);
 		serviceNameText.setLayoutData(data);
-		//TODO pass a null control decorator for now
 		UIUtil.decorateControl(null, serviceNameText, 
 				"the name of the service for searching");
 		
@@ -208,7 +206,6 @@ public class SOASearchPage extends DialogPage implements ISearchPage {
 		serviceLayerList.setBackground(UIUtil.display()
 				.getSystemColor(SWT.COLOR_LIST_BACKGROUND));
 		serviceLayerList.setLayoutData(data);
-		//TODO pass a null control decorator for now
 		UIUtil.decorateControl(null, serviceLayerList, 
 				"the service layer of the service for searching");
 		final List<String> layers = PreferenceReader.getServiceLayer();

@@ -291,7 +291,6 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 	 * {@inheritDoc}
 	 */
 	public Object getAdapter(Class arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -85,7 +85,6 @@ public final class SOAConsumerUtil {
 							if (folder != null && folder.exists()) {
 								final File file = new File(folder.getLocation().toString());
 								FileUtils.deleteDirectory(file);
-								// folder.delete(true, new NullProgressMonitor()); TODO
 							}
 						}
 					}
@@ -151,7 +150,6 @@ public final class SOAConsumerUtil {
 					if (folder != null && folder.exists()) {
 						final File file = new File(folder.getLocation().toString());
 						FileUtils.deleteDirectory(file);
-						// folder.delete(true, new NullProgressMonitor()); TODO
 					}
 				}
 			}
@@ -398,7 +396,7 @@ public final class SOAConsumerUtil {
 			CoreException {
 		final Map<String, String> svcClientNameMap = new ConcurrentHashMap<String, String>();
 		// This is a hot fix for consumers. Impls wont have this props file
-		// TODO: This is not a very nice approach. Impls also should have
+		// This is not a very nice approach. Impls also should have
 		// consumer properties if its a consumer.
 		IFile consumerPropsFile = getConsumerPropertiesFile(project);
 		if (consumerPropsFile != null && consumerPropsFile.isAccessible()) {
@@ -440,7 +438,7 @@ public final class SOAConsumerUtil {
 			} else if (project
 					.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_IMPL).isAccessible()){
 				//this is an impl project that has not consumed any services yet
-				//TODO this is a dirty fix, but we could not get the service name at this point
+				//this is a dirty fix, but we could not get the service name at this point
 				final String serviceName = StringUtils.removeEnd(project.getName(), 
 						SOAProjectConstants.IMPL_PROJECT_SUFFIX);
 				return serviceName + SOAProjectConstants.CLIENT_PROJECT_SUFFIX;

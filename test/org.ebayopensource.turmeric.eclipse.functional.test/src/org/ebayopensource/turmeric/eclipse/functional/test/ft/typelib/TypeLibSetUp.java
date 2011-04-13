@@ -52,7 +52,6 @@ public class TypeLibSetUp {
 			try {
 				ProjectUtil.cleanUpWS();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

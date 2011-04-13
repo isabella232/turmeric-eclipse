@@ -100,31 +100,6 @@ public class BlankWsdlServiceConsumerTest extends AbstractTestCase {
 		// SimpleTestUtil.setAutoBuilding(true);
 	}
 
-	/*
-	 * @Override public void setUp() throws Exception {
-	 * 
-	 * super.setUp(); SimpleTestUtil.setAutoBuilding(false);
-	 * 
-	 * ISOARepositorySystem repositorySystem = new TurmericRepositorySystem();
-	 * GlobalRepositorySystem.instanceOf().setActiveRepositorySystem(
-	 * repositorySystem);
-	 * 
-	 * ServiceName = "Service"; ServiceName =
-	 * ServicesUtil.getAdminName(ServiceName);
-	 * System.out.println(" ---  Service name : " + ServiceName);
-	 * 
-	 * if (WorkspaceUtil.getProject(ServiceName + "Consumer").exists())
-	 * ProjectUtil.cleanUpProjects(WorkspaceUtil .getProject(ServiceName +
-	 * "Consumer")); //
-	 * ServiceSetupCleanupValidate.cleanupWSConsumer(ServiceName);
-	 * ServiceSetupCleanupValidate.cleanup(ServiceName);
-	 * EBServiceSetupCleanupValidate.cleanupConsumer(ServiceName);
-	 * FunctionalTestHelper.ensureM2EcipseBeingInited();
-	 * ServiceFromBlankWsdlTest.createServiceFromBlankWsdl( ServiceName,
-	 * ServiceName); // SimpleTestUtil.setAutoBuilding(true); }
-	 */
-
-	// FIXME: This test fails after refactoring with a Nullpointer exception
 	@Test
      @Ignore("Fails after refactoring")
 	public void testConsumeCalculatorSvc() throws Exception {

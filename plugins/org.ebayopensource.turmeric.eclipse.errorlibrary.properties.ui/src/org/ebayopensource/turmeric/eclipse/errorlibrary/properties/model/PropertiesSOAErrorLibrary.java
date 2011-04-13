@@ -159,7 +159,7 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 		} else if (id.equals("version")) {
 			return this.version;
 		} else if (id.equals("locale")) {
-			return "en";//FIXME get from local configuration
+			return "en";
 		}
 		return "";
 	}

@@ -229,7 +229,6 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 		this.setErrorMessage(null);
 		
 		if(majorBtn.getSelection() == true){
-			// FIXME: anything to show on the title"
 			return;
 		}
 		

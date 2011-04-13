@@ -114,7 +114,6 @@ public class TestPropertiesFileUtil {
 			output = new ByteArrayOutputStream();
 			PropertiesFileUtil.removePropertyByKey(input, output, new String[]{"Nikon"});
 			
-			//TODO more tests
 			System.out.println("byte output: " + output.toString());
 		} finally {
 			IOUtils.closeQuietly(output);

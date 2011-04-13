@@ -95,7 +95,7 @@ public class TypeCreator {
 		}
 		
 		if (needSync == true) {
-			//FIXME need to fix the case that a complex type reference types from other type libs.
+			//need to fix the case that a complex type reference types from other type libs.
 			final List<IFile> xsdFiles = TypeLibraryUtil.getAllXsdFiles(project, true);
 			xsdFiles.add(xsdFile);
 			SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
@@ -105,10 +105,6 @@ public class TypeCreator {
 
 		processTemplate(typeParamModel, xsdFile, monitor);
 		
-		/* This is causing issue in eBox
-		callCodegen(project, typeLibraryName, typeName);
-		WorkspaceUtil.refresh(project);
-		postProcessTypeCreation(typeName, version, typeLibraryName, xsdFile);*/
 	}
 	
 	/**

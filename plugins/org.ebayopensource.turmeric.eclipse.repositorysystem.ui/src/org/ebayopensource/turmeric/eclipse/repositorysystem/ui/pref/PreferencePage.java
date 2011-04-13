@@ -193,7 +193,6 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 	}
 
 	public void init(IWorkbench workbench) {
-		// TODO Auto-generated method stub
 		// nothing here for now
 
 	}

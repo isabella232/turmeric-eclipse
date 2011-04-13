@@ -85,7 +85,6 @@ public class NewTypeLibraryWizard extends AbstractTypeLibraryWizard {
 			if (overrideWorkspaceRoot)
 				SOABasePage.saveWorkspaceRoot(workspaceRootDirectory);
 
-			// TODO create the UI model
 
 			final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 

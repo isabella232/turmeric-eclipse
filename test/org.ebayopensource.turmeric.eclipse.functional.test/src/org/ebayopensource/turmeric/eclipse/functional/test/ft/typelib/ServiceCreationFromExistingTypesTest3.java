@@ -131,7 +131,6 @@ public class ServiceCreationFromExistingTypesTest3 extends
 					true);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Assert.assertTrue("Service Creation with Import action failed",
 					false);

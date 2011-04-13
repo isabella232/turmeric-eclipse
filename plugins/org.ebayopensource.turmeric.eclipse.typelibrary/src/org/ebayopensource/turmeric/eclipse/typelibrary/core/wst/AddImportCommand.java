@@ -87,7 +87,7 @@ public class AddImportCommand {
 			}
 
 		} catch (Exception e) {
-			// TODO: there could be some invalid imports/includes in the XSD
+			// there could be some invalid imports/includes in the XSD
 			// but still we would like our import logic to work
 		}
 		return false;

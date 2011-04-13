@@ -296,9 +296,7 @@ public class TurmericOrganizationProvider implements IMavenOrganizationProvider 
 
 	public void postAddingServiceToWebProjects(
 			List<IProject> serviceImplProjects, IProject webProject,
-			Model webProjectPom, IProgressMonitor monitor) throws Exception {
-		// TODO Auto-generated method stub
-		
+			Model webProjectPom, IProgressMonitor monitor) throws Exception {	
 	}
 
 }

@@ -75,7 +75,7 @@ public class TypeLibraryDeltaVisitor implements IResourceDeltaVisitor {
 			final IProject typeLibProject = (IProject)delta.getResource();
 			if (deletedTypeLibProjects.contains(typeLibProject) == false
 					&& typeLibProject.getName().contains("TypeLibrary")) {
-				//TODO this is a dirty fix to check the name, 
+				//this is a dirty fix to check the name, 
 				//but the project already been deleted so no way to 
 				//check the project nature
 				deletedTypeLibProjects.add(typeLibProject);

@@ -57,7 +57,7 @@ public abstract class AbstractTestCase {
 			root.delete(true, true, new NullProgressMonitor());
 			
 		} catch (ResourceException ex) {
-			//TODO: Fix EBoxTypeLib.setup() to use friendlier deletion.
+			//Fix EBoxTypeLib.setup() to use friendlier deletion.
 			//If we get the exception we ignore it, seems to only handle on Windows.
 			//This is due to the deletion of files in the EBoxTypeLib.Setup() method
 			//This should eventually be addressed.

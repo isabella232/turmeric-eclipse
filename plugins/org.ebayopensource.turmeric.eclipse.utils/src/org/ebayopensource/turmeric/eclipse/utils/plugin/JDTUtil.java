@@ -125,7 +125,7 @@ public class JDTUtil {
 		final IJavaProject javaProject = JavaCore.create(project);
 		final List<IClasspathEntry> classpath = JDTUtil.rawClasspath(
 				javaProject, true);
-		//TODO Lets see if we need this
+		
 		if (outputLocation.equals(javaProject.getOutputLocation()) == false) {
 			final IFolder outputDirClasses = project.getFolder(outputLocation);
 			javaProject.setOutputLocation(outputDirClasses.getFullPath(), monitor);
@@ -319,8 +319,7 @@ public class JDTUtil {
 	}
 
 	/**
-	 * Have to discuss with Toby.
-	 * TODO:Toby, Please justify the usage of this method
+	 * 
 	 * @param project
 	 * @param readFromDisk
 	 * @return

@@ -95,7 +95,7 @@ public class ErrorLibraryBuildSystemConfigurer {
 		final List<IClasspathEntry> classpath = JDTUtil.rawClasspath(
 				javaProject, true);
 		final List<IClasspathEntry> classpathContainers = new ArrayList<IClasspathEntry>();
-		// TODO Lets see if we need this
+		
 		if (outputLocation.equals(javaProject.getOutputLocation()) == false) {
 			final IFolder outputDirClasses = project.getFolder(outputLocation);
 			javaProject.setOutputLocation(outputDirClasses.getFullPath(),

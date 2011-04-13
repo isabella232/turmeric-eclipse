@@ -89,16 +89,10 @@ public class ProjectArtifactValidator implements IResourceVisitor {
 		// filtering out this file as there is a harcoded path in this property
 		// file which will make the comparison fail if executed from some other
 		// system.
-		// TODO need to find a way to compare property file
+		// need to find a way to compare property file
 		fileList.add("service_intf_project.properties");
 		fileList.add("project.xml");
 		fileList.add(".classpath");
-		// else
-		// {
-		// to do: add content validation for pom.xml;
-		// the tags in pom.xml are not populated in the same order everytime
-		// fileList.add("pom.xml");
-		// }
 
 		NotFileFilter dirFilter = new NotFileFilter(new NameFileFilter(dirList));
 		NotFileFilter fileFilter = new NotFileFilter(new NameFileFilter(
@@ -177,7 +171,6 @@ public class ProjectArtifactValidator implements IResourceVisitor {
 					ins = new FileInputStream(rsrcPath.toFile());
 					srcProp.load(ins);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					matches = false;
 				} finally {
@@ -189,7 +182,6 @@ public class ProjectArtifactValidator implements IResourceVisitor {
 							+ File.separator + path.toString()));
 					goldCopyProp.load(ins);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					matches = false;
 				} finally {
@@ -296,73 +288,6 @@ public class ProjectArtifactValidator implements IResourceVisitor {
 							System.out.println("wsdlFile file : "
 									+ rsrcPath.toOSString());
 
-							/*
-							 * if (FileUtils.contentEquals( rsrcPath.toFile(),
-							 * new File(goldCopyDir + "/" + path.toString())) ==
-							 * false) { formatMessage(rsrcPath); System.out
-							 * .println("the following did not match: " +
-							 * goldCopyDir + "/" + path); matches = false; }
-							 */
-
-//							try {
-								// String wsdlFile = readFileAsString(rsrcPath
-								// .toOSString());
-								//
-								//
-								//
-								// // Only Validated if we have a schema with
-								// the file
-								// //XMLAssert.assertXMLValid(xmlfile);
-								// //XMLAssert.assertXMLValid(goldCopyDir
-								// // + File.separator + path);
-								// String goldFile =
-								// readFileAsString(goldCopyDir
-								// + File.separator + path);
-								// XMLAssert.assertXMLEqual(goldFile,wsdlFile);
-
-//								DocumentBuilderFactory dbf = DocumentBuilderFactory
-//										.newInstance();
-//								dbf.setNamespaceAware(true);
-//								dbf.setCoalescing(true);
-//								dbf.setIgnoringElementContentWhitespace(true);
-//								dbf.setIgnoringComments(true);
-//								DocumentBuilder db;
-//								try {
-//									db = dbf.newDocumentBuilder();
-//									Document doc1 = db.parse(new File(rsrcPath
-//											.toOSString()));
-//									doc1.normalizeDocument();
-//
-//									Document doc2 = db
-//											.parse(new File(goldCopyDir + "/"
-//													+ path.toString()));
-//									doc2.normalizeDocument();
-//									if (!doc1.isEqualNode(doc2)) {
-//
-//										formatMessage(rsrcPath,
-//												"gold copy did not match");
-//										System.out
-//												.println("the following did not match: "
-//														+ goldCopyDir
-//														+ "/"
-//														+ path);
-//										matches = false;
-//
-//									}
-//								} catch (ParserConfigurationException e) {
-//									// TODO Auto-generated catch block
-//									e.printStackTrace();
-//								} catch (SAXException e) {
-//									// TODO Auto-generated catch block
-//									e.printStackTrace();
-//								}
-//
-//							} catch (Exception e) {
-//								formatMessage(rsrcPath,
-//										"gold copy did not match");
-//								e.printStackTrace();
-//							}
-
 						} 
 						else {
 
@@ -387,7 +312,6 @@ public class ProjectArtifactValidator implements IResourceVisitor {
 					formatMessage(rsrcPath, "file not found exception");
 
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					System.out.println("the following did not match: "
 							+ goldCopyDir + "/" + path);

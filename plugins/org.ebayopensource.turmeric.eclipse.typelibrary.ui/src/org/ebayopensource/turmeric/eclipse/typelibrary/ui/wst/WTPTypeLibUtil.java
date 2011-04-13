@@ -467,10 +467,7 @@ public class WTPTypeLibUtil {
 						XSDSchema xsdSchema = (XSDSchema) schemaObj;
 						for (Object objXsdTypeDefinition : xsdSchema
 								.getTypeDefinitions()) {
-							// This is just for 3.2 version to work.(The
-							// following Object array parsing. In 3.3 they are
-							// returning XSD Schema Content directly.Very Imp
-							// TODO: Remove this as soon as 3.2 EDE retires
+							
 							if (objXsdTypeDefinition != null
 									&& (objXsdTypeDefinition instanceof XSDTypeDefinition)
 									&& StringUtils
@@ -576,15 +573,6 @@ public class WTPTypeLibUtil {
 				// found all import node in current schema and add it to a set
 				importNodes.add((XSDImport) xsdSchemaContent);
 			}
-		}
-
-		if (typeCount == 0) {
-			// FIXME: remove the whole schema
-			// XSDConcreteComponent comp = deletedSchemasParent.getContainer();
-			// boolean ret =
-			// deletedSchemasParent.getContainer().eContents().remove(deletedSchemasParent);
-			// boolean ret = types.getSchemas().remove(new Object());
-			// return;
 		}
 
 		// remove unused import nodes

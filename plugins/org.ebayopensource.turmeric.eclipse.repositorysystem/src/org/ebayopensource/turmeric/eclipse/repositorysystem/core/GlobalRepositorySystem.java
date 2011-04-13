@@ -67,7 +67,7 @@ public class GlobalRepositorySystem {
 							foundV3 = true;
 						}
 					} catch (CoreException e) {
-						// TODO The SOA logger is not available yet, need an altertinave way to report the error
+						// The SOA logger is not available yet, need an altertinave way to report the error
 					}
 				}
 			}

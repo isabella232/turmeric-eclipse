@@ -236,18 +236,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// try {
-				// CutXSDFromWSDL.main(null);
-				// } catch (SAXException e1) {
-				// // TODO Auto-generated catch block
-				// e1.printStackTrace();
-				// } catch (IOException e1) {
-				// // TODO Auto-generated catch block
-				// e1.printStackTrace();
-				// } catch (ParserConfigurationException e1) {
-				// // TODO Auto-generated catch block
-				// e1.printStackTrace();
-				// }
 				browseSourceFile();
 			}
 

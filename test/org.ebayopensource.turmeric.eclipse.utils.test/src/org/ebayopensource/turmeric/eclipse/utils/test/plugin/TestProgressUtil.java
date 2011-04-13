@@ -57,12 +57,10 @@ public class TestProgressUtil {
 		private int progress = 0;
 		
 		public void beginTask(String arg0, int arg1) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		public void done() {
-			// TODO Auto-generated method stub
 			
 		}
 
@@ -72,22 +70,18 @@ public class TestProgressUtil {
 		}
 
 		public boolean isCanceled() {
-			// TODO Auto-generated method stub
 			return false;
 		}
 
 		public void setCanceled(boolean arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		public void setTaskName(String arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		public void subTask(String arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
@@ -100,6 +94,6 @@ public class TestProgressUtil {
 			return this.progress;
 		}
 		
-	};
+	}
 
 }

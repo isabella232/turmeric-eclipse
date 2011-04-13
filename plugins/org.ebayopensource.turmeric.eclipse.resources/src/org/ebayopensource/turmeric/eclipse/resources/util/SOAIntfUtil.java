@@ -598,7 +598,6 @@ public class SOAIntfUtil {
 			result = new Properties();
 			InputStream in = null;
 			try {
-				//TODO decode the white spaces: %20
 				in = new FileInputStream(metadataFile);
 				result.load(in);
 			} finally {

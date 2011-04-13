@@ -54,7 +54,7 @@ public class ConfigureLibrary implements IObjectActionDelegate {
             if (project == null)
                 return;
 
-            // FIXME: Is this check needed for type library project?
+            // Is this check needed for type library project?
             final IStatus status = new AbstractBaseAccessValidator() {
 
                 @Override

@@ -341,10 +341,6 @@ public class TypeDepMarshaller {
 	 * matching name, it does not return the type but the library that contains
 	 * the type
 	 * 
-	 * TODO:if (StringUtils.equalsIgnoreCase(typeName, referredType .getName()))
-	 * has to be changed to honor the name space also. QName is the right option
-	 * here
-	 * 
 	 * @param typeDependencyType
 	 * @param typeName
 	 * @return
@@ -521,7 +517,7 @@ public class TypeDepMarshaller {
 		.getTypeRegistryBridge().createReferredTypeInstance();
 		refType.setName(addedType.getName());
 		String version = addedType.getVersion();
-		// TODO:QName is not honored here
+		
 		for (ReferredType referredType : oldReferredTypes) {
 			if (StringUtils.equals(addedType.getName(), referredType.getName())) {
 				version = referredType.getVersion();

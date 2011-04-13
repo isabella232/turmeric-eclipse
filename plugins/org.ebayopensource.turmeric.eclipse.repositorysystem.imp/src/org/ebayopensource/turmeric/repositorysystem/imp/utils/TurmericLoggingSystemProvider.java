@@ -75,7 +75,6 @@ public class TurmericLoggingSystemProvider implements
 	}
 
 	public void loggingPropertyChanged(PropertyChangeEvent event) {
-		// TODO Auto-generated method stub
 		
 	}
 

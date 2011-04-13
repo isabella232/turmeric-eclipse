@@ -78,10 +78,6 @@ public class SubmitNewConsumer implements IObjectActionDelegate {
 							SOAMessages.CLIENT_SUMISSION_SUCCEEDED_MESSAGE, 
 							new Object[]{project.getName(), result.getMessage()});
 					logger.info(message);
-					//TODO we do not need any popup for now
-					//MessageDialog.openInformation(UIUtil.getActiveShell(), 
-					//		SOAMessages.ASSET_SUMISSION_SUCCEEDED_TITLE,
-					//		message);
 			} else {
 				final String message = ValidateUtil.getFormattedStatusMessagesForAction(result);
 				UIUtil.showErrorDialog(UIUtil.getActiveShell(), 

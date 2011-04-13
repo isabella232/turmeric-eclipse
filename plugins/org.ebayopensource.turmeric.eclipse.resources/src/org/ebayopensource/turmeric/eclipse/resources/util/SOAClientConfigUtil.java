@@ -56,10 +56,6 @@ public class SOAClientConfigUtil {
 	private static final String SOAP12_VERSION = "1.2";
 	private static final String CLASS_NAME = "class-name";
 
-	// private static final String CLASS_NAME_VALUE =
-	// "org.ebayopensource.turmeric.sif.impl.protocolprocessor.soap.ClientSOAPProtocolProcessor";
-	// //FIXME use the new turmeric name
-
 	public static SOAClientConfig parseClientConfig(IFile iFile)
 	throws IOException, JDOMException {
 		SOAClientConfig soaClientConfig = new SOAClientConfig();
@@ -182,7 +178,7 @@ public class SOAClientConfigUtil {
 		String responseDataBinding = config.getResponseDataBinding();
 		String consumerId = config.getConsumerId();
 		String messageProtocol = config.getMessageProtocol();
-		// TODO: We could add a check here.. This is one of the reason to avoid
+		// We could add a check here.. This is one of the reason to avoid
 		// the config tool parsing
 		// service location
 		Element clientConfigList = document.getRootElement();

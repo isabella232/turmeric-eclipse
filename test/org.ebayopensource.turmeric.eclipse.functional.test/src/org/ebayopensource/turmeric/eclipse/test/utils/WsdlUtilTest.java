@@ -55,8 +55,6 @@ public class WsdlUtilTest extends AbstractTestCase {
 		FileUtils.forceMkdir(outputFile);
 		inputFile = new File(testDataLocation, "input");
 		Assert.assertNotNull(inputFile);
-		//TODO temporarilly disable the following asssertion
-		//Assert.assertTrue(inputFile.exists());
 	}
 	
 	/**

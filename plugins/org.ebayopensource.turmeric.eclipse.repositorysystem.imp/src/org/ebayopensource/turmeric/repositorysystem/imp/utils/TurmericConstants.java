@@ -113,7 +113,6 @@ public final class TurmericConstants {
 		DEFAULT_DEPENDENCIES_TYPELIB = Collections.unmodifiableList(
 				ListUtil.arrayList(JAXB_XJC));
 		
-		//FIXME find new error lib dependencies
 		DEFAULT_DEPENDENCIES_ERRORLIB = Collections.unmodifiableList(
 				ListUtil.arrayList(SOA_COMMON_TL));
 		

@@ -70,7 +70,6 @@ public class DialogMonitorJob extends Thread {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		while (true) {
 
 			if (isSyncMode) {
@@ -103,7 +102,6 @@ public class DialogMonitorJob extends Thread {
 			try {
 				Thread.sleep(150);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

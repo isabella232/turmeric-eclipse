@@ -149,7 +149,6 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 			super.createEmptyLabel(parent, 1);
 		}
 		
-		//TODO get consumer ID if possible
 		return this.consumerID;
 	}
 	

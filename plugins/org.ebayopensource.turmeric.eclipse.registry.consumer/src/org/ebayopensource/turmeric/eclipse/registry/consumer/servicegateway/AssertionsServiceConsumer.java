@@ -86,10 +86,7 @@ public class AssertionsServiceConsumer extends SharedTurmericASV1Consumer {
 		if (url == null) {
 			url = AssertionServicePreferenceInitializer.getAssertionServiceEndpoint();
 		}
-		//if(null ==fAssertionsServiceConsumer)
-		//{
-			fAssertionsServiceConsumer = new AssertionsServiceConsumer(url);
-		//}
+		fAssertionsServiceConsumer = new AssertionsServiceConsumer(url);
 		
 		return fAssertionsServiceConsumer;
 	}
@@ -155,7 +152,6 @@ public class AssertionsServiceConsumer extends SharedTurmericASV1Consumer {
 	
 	public ApplyAssertionGroupsResponse applyAssertionGroups(byte[] artifactContent, String artifactType)
 	{
-//		System.out.println("\n***Starting testAssertionGroupsRequestWithMultipleGroupsAndExternalArtifact");
 		ApplyAssertionGroupsRequest request = new ApplyAssertionGroupsRequest();
 
 		AssertionGroupAsset reference = createAssertionGroup();
@@ -169,21 +165,6 @@ public class AssertionsServiceConsumer extends SharedTurmericASV1Consumer {
 		return applyAssertionGroupsResponse;
 	}
 	
-//	public ApplyAssertionGroupsResponse applyAssertionGroups()
-//	{
-//		System.out.println("\n***Starting testAssertionGroupsRequestWithMultipleGroupsAndExternalArtifact");
-//		ApplyAssertionGroupsRequest request = new ApplyAssertionGroupsRequest();
-//
-//		AssertionGroupAsset reference = createAssertionGroup();
-//		request.getAssertionGroups().add(reference);
-//		
-//		AssertableArtifact artifact = createExternalArtifactWithPassingContent();
-//		request.getArtifacts().add(artifact);
-//		
-//		ApplyAssertionGroupsResponse applyAssertionGroupsResponse = applyAssertionGroups(request);
-//		
-//		return applyAssertionGroupsResponse;
-//	}
 	
 	/**
 	 * Validate external artifact.
@@ -210,7 +191,6 @@ public class AssertionsServiceConsumer extends SharedTurmericASV1Consumer {
 	private AssertionGroupAsset createAssertionGroup(){
 		
 		AssertionGroupAsset reference = new AssertionGroupAsset();
-//		reference.setAssetName("soa_wsdl_assertionGroup"); 
 		reference.setAssetName("soa_wsdlAttributeRules_assertionGroup");
 		reference.setLibraryName(ASSERTIONS_LIB); 
 		reference.setVersion("1.0.0");
@@ -230,143 +210,4 @@ public class AssertionsServiceConsumer extends SharedTurmericASV1Consumer {
 		
 		return artifact;
 	}
-
-//	private AssertableArtifact createExternalArtifactWithPassingContent() {		
-//		AssertableArtifact artifact = new AssertableArtifact();
-//		ExternalArtifact artifactExternal = new ExternalArtifact();
-//		artifactExternal.setContentType(ArtifactContentTypes.WSDL);
-//		artifactExternal.setBinaryContent(getBinaryContent("C:/FindingService.wsdl"));
-//		artifact.setArtifactExternal(artifactExternal);
-//		
-//		return artifact;
-//	}
-//
-//	public ApplyAssertionsResponse applyAssertions()
-//	{
-//		String assertionAssetName = "soa_attributesAreArrangedInRequiredOrder_assertion";
-//		ApplyAssertionsRequest request = new ApplyAssertionsRequest();
-//		Assertion assertion = createAssertion(assertionAssetName);
-//		request.getAssertions().add(assertion);
-//		
-//		AssertableArtifact artifact = createArtifactForPositiveScenario(assertionAssetName);
-//		request.getArtifacts().add(artifact);
-//		
-//		ApplyAssertionsResponse response = applyAssertions(request);
-//		
-//		return response;
-//	}
-	
-//	private Assertion createAssertion(String assertionAssetName){
-//		
-//		Assertion assertion = new Assertion();
-//		AssertionAsset reference = new AssertionAsset();
-//		reference.setAssetName(assertionAssetName);
-//		reference.setAssetType(AssertionAssetTypes.ASSERTION);
-//		reference.setLibraryName(ASSERTIONS_LIB);
-//		reference.setVersion("1.0.0");
-//		assertion.setAssertionAsset(reference);
-//		
-//		return assertion;
-//	}
-	
-//	private AssertableArtifact createArtifactForPositiveScenario(String assertionAssetName){
-//		
-//		AssertableArtifact artifact = new AssertableArtifact();
-//		ExternalArtifact artifactExternal = new ExternalArtifact();
-//		artifactExternal.setContentType(ArtifactContentTypes.WSDL);
-//		artifactExternal.setBinaryContent(getBinaryContent("C:/ViewStore/OtherFiles/Sample_Pass.wsdl"));
-//		artifact.setArtifactExternal(artifactExternal);
-//		
-//		return artifact;
-//	}
-	
-//	private BinaryContent getBinaryContent(String resourceName) {		
-//		BinaryContent content = new BinaryContent();
-//		int count;
-//	    int chunkSize = 10000;
-//	    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//	    byte[] b = new byte[chunkSize];
-//		InputStream in = null;
-//		
-//		try {
-//			in = new FileInputStream(resourceName);
-//			 while( ( count = in.read( b, 0, chunkSize ) ) > 0 )
-//			        stream.write( b, 0, count );
-//			      byte[] thebytes = stream.toByteArray();
-//			      
-//			      content.setContent(thebytes);
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}catch(IOException ioe){
-//	    	System.out.println("Error while reading"  + resourceName);
-//			//TODO :  Handle correctly
-//	    }
-//	    finally {
-//	    	try{
-//	    		in.close();
-//	    		//stream.close();
-//	    		}
-//	    	catch(IOException ioe){
-//	    		System.out.println("Could not close stream properly" + ioe.getMessage());
-//	    	}
-//	    }
-//	    
-//	    return content;
-//	}
-	
-	/**
-	 * Entry Point
-	 * @param args
-	 */		
-	public static void main(String[] args) {
-//		try {
-//			AssertionsServiceConsumer consumer = new AssertionsServiceConsumer(HOST_URL);
-//			consumer.setUserName(USERNAME);
-//			consumer.setPassword(PASSWORD);
-//			
-//			// Plugin will not use this 
-////			ApplyAssertionsResponse applyAssertionResponse = consumer.applyAssertions();
-////			AssertionReport report = applyAssertionResponse.getAssertionReport();
-////			System.out.print("\n\nApplyAssertion============Ack value: "+applyAssertionResponse.getAck());
-////			printErrorsInResponse(applyAssertionResponse.getErrorMessage());
-//			
-//			long startTime = System.currentTimeMillis();
-//			System.out.println("Start Time = " + startTime);
-//			ApplyAssertionGroupsResponse groupResponse = consumer.applyAssertionGroups();
-//			long totalTime = System.currentTimeMillis() - startTime;
-//			System.out.println("Total Time = " + totalTime);
-//			
-//			startTime = System.currentTimeMillis();
-//			System.out.println("Start Time = " + startTime);
-//			groupResponse = consumer.applyAssertionGroups();
-//			totalTime = System.currentTimeMillis() - startTime;
-//			System.out.println("Total Time = " + totalTime);
-//			System.out.print("\n\nApplyAssertionGroups============Ack value: "+groupResponse.getAck());
-//			
-////			ErrorMessage errorMsg = groupResponse.getErrorMessage();
-////			printErrorsInResponse(errorMsg);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-	}
-
-	/**
-	 * @param errorMsg
-	 */
-//	private static void printErrorsInResponse(ErrorMessage errorMsg) {
-//		if(errorMsg != null)
-//		{
-//			System.out.print("\n\nError(s)\n");
-//			List<ErrorData> errorList = errorMsg.getError();
-//			for(Iterator<ErrorData> iterator = errorList.iterator(); iterator.hasNext();)
-//			{
-//				ErrorData errorData = (ErrorData) iterator.next();
-//				System.out.print("======>errorData.getErrorId() = "+errorData.getErrorId());
-//				System.out.print("======>errorData.getMessage() = "+errorData.getMessage());
-//				System.out.print("\n\n");
-//			}
-//		}
-//	}
 }

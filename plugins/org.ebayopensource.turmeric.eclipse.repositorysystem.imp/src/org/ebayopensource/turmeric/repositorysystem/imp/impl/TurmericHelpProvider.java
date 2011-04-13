@@ -36,7 +36,6 @@ public class TurmericHelpProvider implements ISOAHelpProvider {
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider#getHelpContextID(int)
 	 */
 	public String getHelpContextID(int helpID) {
-		// TODO Auto-generated method stub
 		return "";
 	}
 

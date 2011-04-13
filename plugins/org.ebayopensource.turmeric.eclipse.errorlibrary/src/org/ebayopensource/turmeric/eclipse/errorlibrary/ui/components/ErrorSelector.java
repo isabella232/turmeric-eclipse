@@ -92,7 +92,6 @@ public class ErrorSelector extends TwoPaneElementSelector {
 
 	@Override
 	protected void computeResult() {
-		// TODO Auto-generated method stub
 		super.computeResult();
 		selectedErrors = new ArrayList<ISOAError>();
 		if (fFilteredList != null) {

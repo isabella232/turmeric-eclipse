@@ -90,7 +90,6 @@ public class SOASearchResultPage extends AbstractTextSearchViewPage {
 
 	@Override
 	protected void configureTreeViewer(TreeViewer viewer) {
-		// TODO Auto-generated method stub
 		
 	}
 	

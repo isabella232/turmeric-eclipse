@@ -164,7 +164,6 @@ public class SOASearchQuery implements ISearchQuery{
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		monitor.done();
@@ -180,11 +179,6 @@ public class SOASearchQuery implements ISearchQuery{
 				&& serviceLayer.equals(project.getServiceLayer()) == false) {
 			return false;
 		}
-		/*if (StringUtils.isNotBlank(serviceDomain)
-				) {
-			//TODO what to query
-			return false;
-		}*/
 		return true;
 	}
 

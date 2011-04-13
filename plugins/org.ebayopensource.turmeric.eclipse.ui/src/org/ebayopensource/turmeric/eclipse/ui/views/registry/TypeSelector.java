@@ -28,7 +28,6 @@ public class TypeSelector extends TwoPaneElementSelector {
 
 	@Override
 	protected void computeResult() {
-		// TODO Auto-generated method stub
 		super.computeResult();
 		selectedTypes = new ArrayList<LibraryType>();
 		if (fFilteredList != null) {

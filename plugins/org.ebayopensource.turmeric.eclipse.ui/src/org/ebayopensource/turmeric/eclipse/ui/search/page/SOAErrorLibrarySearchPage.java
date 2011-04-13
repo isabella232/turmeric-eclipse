@@ -97,7 +97,6 @@ public class SOAErrorLibrarySearchPage extends DialogPage implements
 		
 		Text text = new Text(group, SWT.SINGLE | SWT.BORDER);
 		
-		//TODO pass a null control decorator for now
 		UIUtil.decorateControl(null, text, "the type of the asset");
 		text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		text.setBackground(UIUtil.display()
@@ -107,7 +106,6 @@ public class SOAErrorLibrarySearchPage extends DialogPage implements
 	
 
 	public boolean performAction() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

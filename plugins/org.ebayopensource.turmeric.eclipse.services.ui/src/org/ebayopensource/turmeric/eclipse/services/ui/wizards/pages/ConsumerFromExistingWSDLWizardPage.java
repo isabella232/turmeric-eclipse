@@ -229,7 +229,6 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			super.createEmptyLabel(parent, 1);
 		}
 
-		// TODO get consumer ID if possible
 		return this.consumerID;
 	}
 

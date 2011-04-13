@@ -230,14 +230,10 @@ public class WebXMLParser {
 				servletNames.add(servletName);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JDOMException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			// IOUtils.closeQuietly(source);
-		}
+		} 
 		return servletNames;
 	}
 

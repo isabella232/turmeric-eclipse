@@ -203,7 +203,6 @@ public abstract class AbstractElementManagementWizardPage extends SOABasePage {
 			@Override
 			protected void viewerSelectionChanged(
 					SelectionChangedEvent event) {
-				// TODO Auto-generated method stub
 				super.viewerSelectionChanged(event);
 				dialogChanged();
 			}

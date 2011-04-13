@@ -131,7 +131,6 @@ public class SOAImplProjectBuilder extends AbstractSOAProjectBuilder {
 	@Override
 	protected void doClean(IProject project, IProgressMonitor monitor)
 			throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 }

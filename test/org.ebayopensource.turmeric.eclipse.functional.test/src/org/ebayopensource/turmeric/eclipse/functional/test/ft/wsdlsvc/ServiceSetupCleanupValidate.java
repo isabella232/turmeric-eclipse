@@ -59,7 +59,6 @@ public class ServiceSetupCleanupValidate {
 				ProjectUtil.cleanUpProjects(WorkspaceUtil
 						.getProject(serviceName + "Consumer"));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println(" --- Exception in cleanupWSConsumer() : "
 					+ e.getMessage());
 			e.printStackTrace();
@@ -78,7 +77,6 @@ public class ServiceSetupCleanupValidate {
 						.getProject(serviceName + "Impl"));
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println(" -- Exception in cleanupWSService() : "
 					+ e.getMessage());
 			e.printStackTrace();

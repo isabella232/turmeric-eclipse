@@ -270,8 +270,6 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 			updatePageStatus(bindingViewer.getControl(), 
 					EclipseMessageUtils.createStatus(
 					"No binding are added to the WSDL", IStatus.WARNING));
-			//TODO updateStatus("At least one binding must be added");
-			//return false;
 		}
 		return true;
 	}

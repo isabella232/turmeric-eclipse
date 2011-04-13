@@ -74,7 +74,6 @@ public class SOASearchResult extends AbstractTextSearchResult implements IFileMa
 
 	@Override
 	public IEditorMatchAdapter getEditorMatchAdapter() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

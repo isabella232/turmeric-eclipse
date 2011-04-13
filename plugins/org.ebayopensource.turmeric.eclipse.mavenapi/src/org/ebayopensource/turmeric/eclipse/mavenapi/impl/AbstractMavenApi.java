@@ -276,7 +276,6 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 			if (md == null)
 				throw new MavenEclipseApiException(
 						"null metadata object supplied");
-			//FIXME below is a temp fix for the NPE from M2Eclipse, lets do this flow approach for now
 			RepositorySystem repoSystem = MavenApiHelper.getRepositorySystem();
 			Set<Artifact> data = new HashSet<Artifact>();
 			Artifact artifact = resolveArtifact(embedder, repoSystem, md);

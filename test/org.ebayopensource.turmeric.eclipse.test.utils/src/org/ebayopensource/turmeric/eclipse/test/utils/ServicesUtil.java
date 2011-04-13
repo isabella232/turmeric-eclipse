@@ -78,30 +78,40 @@ import org.eclipse.jdt.launching.VMRunnerConfiguration;
  *
  */
 public class ServicesUtil {
-	
+
 	public static final String MAJOR_VERSION_PREFIX = "V";
 	public static final String SERVICE_MAJOR_VERSION = "1";
-	public static final String DEFAULT_DOMAIN_CLASSIFIER  = "Blogs";
+	public static final String DEFAULT_DOMAIN_CLASSIFIER = "Blogs";
+
 	/*
 	 * Service Creation from New Wsdl
 	 */
-	public static boolean createNewSvcFrmWsdl(String name, String location, String domainClassifier) {
+	public static boolean createNewSvcFrmWsdl(String name, String location,
+			String domainClassifier) {
 		try {
 			final ServiceFromTemplateWsdlParamModel model = new ServiceFromTemplateWsdlParamModel();
-			final String v3ViewRoot = JavaCore.getClasspathVariable("V3_VIEW_ROOT").toString();
-			final URL templateFile = new URL(v3ViewRoot+"\\nexustools\\com.ebay.tools\\com.ebay.tools.soa\\plugins\\com.ebay.tools.soa.config\\templates\\wsdl\\marketplace\\Marketplace_NoOperationTemplate.wsdl");
-			String publicServiceName = getPublicServiceName(name, domainClassifier);
+			final String v3ViewRoot = JavaCore.getClasspathVariable(
+					"V3_VIEW_ROOT").toString();
+			final URL templateFile = new URL(
+					v3ViewRoot
+							+ "\\nexustools\\com.ebay.tools\\com.ebay.tools.soa\\plugins\\com.ebay.tools.soa.config\\templates\\wsdl\\marketplace\\Marketplace_NoOperationTemplate.wsdl");
+			String publicServiceName = getPublicServiceName(name,
+					domainClassifier);
 			String nsPart = StringUtils.lowerCase(domainClassifier);
 			String targetNamespace = getTargetNamespace(domainClassifier);
 			String interfacePackage = getInterfacePackage(name, targetNamespace);
-			String implClass = SOAServiceUtil.generateServiceImplClassName(publicServiceName, name, targetNamespace);
-			List <Operation> operations = new ArrayList<Operation>();
-			final Operation op = ServiceFromTemplateWsdlParamModel.createOperation("getVersion");
+			String implClass = SOAServiceUtil.generateServiceImplClassName(
+					publicServiceName, name, targetNamespace);
+			List<Operation> operations = new ArrayList<Operation>();
+			final Operation op = ServiceFromTemplateWsdlParamModel
+					.createOperation("getVersion");
 			op.getOutputParameter().getElements().get(0).setName("version");
 			operations.add(op);
 			final Set<Binding> bindings = new LinkedHashSet<Binding>();
-			final Binding binding0 = new Binding(SOAProjectConstants.TemplateBinding.values()[0]);
-			final Binding binding1 = new Binding(SOAProjectConstants.TemplateBinding.values()[1]);
+			final Binding binding0 = new Binding(
+					SOAProjectConstants.TemplateBinding.values()[0]);
+			final Binding binding1 = new Binding(
+					SOAProjectConstants.TemplateBinding.values()[1]);
 			bindings.add(binding0);
 			bindings.add(binding1);
 			model.setTemplateFile(templateFile);
@@ -122,12 +132,15 @@ public class ServicesUtil {
 			model.setTypeFolding(true);
 			model.setTypeNamespace(targetNamespace);
 			SimpleTestUtil.setAutoBuilding(false);
-			ServiceCreator.createServiceFromBlankWSDL(model, ProgressUtil.getDefaultMonitor(null));
-
-			WorkspaceUtil.getProject(model.getServiceName()).build(IncrementalProjectBuilder.FULL_BUILD,
+			ServiceCreator.createServiceFromBlankWSDL(model,
 					ProgressUtil.getDefaultMonitor(null));
 
-			WorkspaceUtil.getProject(model.getImplName() + "Impl").build(IncrementalProjectBuilder.FULL_BUILD,
+			WorkspaceUtil.getProject(model.getServiceName()).build(
+					IncrementalProjectBuilder.FULL_BUILD,
+					ProgressUtil.getDefaultMonitor(null));
+
+			WorkspaceUtil.getProject(model.getImplName() + "Impl").build(
+					IncrementalProjectBuilder.FULL_BUILD,
 					ProgressUtil.getDefaultMonitor(null));
 			SimpleTestUtil.setAutoBuilding(true);
 			return true;
@@ -140,12 +153,13 @@ public class ServicesUtil {
 	/*
 	 * Consumer Creation from Java
 	 */
-	public static boolean createConsumerFrmJava(String name, String location, List<String> environment) {
-		
+	public static boolean createConsumerFrmJava(String name, String location,
+			List<String> environment) {
+
 		environment.add("production");
-		 
+
 		try {
-			
+
 			String consumerId = "cons_id";
 			ConsumerFromJavaParamModel model = new ConsumerFromJavaParamModel();
 			model.setBaseConsumerSrcDir("src");
@@ -155,17 +169,21 @@ public class ServicesUtil {
 			model.setServiceNames(list);
 			model.setParentDirectory(location);
 			model.setConsumerId(consumerId);
-			model.setEnvironments(environment);		
-			ServiceCreator.createConsumerFromJava(model, ProgressUtil.getDefaultMonitor(null));
-			IProject consProject = WorkspaceUtil.getProject(model.getClientName());
-			consProject.build(IncrementalProjectBuilder.FULL_BUILD, ProgressUtil.getDefaultMonitor(null));
+			model.setEnvironments(environment);
+			ServiceCreator.createConsumerFromJava(model,
+					ProgressUtil.getDefaultMonitor(null));
+			IProject consProject = WorkspaceUtil.getProject(model
+					.getClientName());
+			consProject.build(IncrementalProjectBuilder.FULL_BUILD,
+					ProgressUtil.getDefaultMonitor(null));
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
 
-	public static String[] invokeConsumer(IProject consProject) throws Exception {
+	public static String[] invokeConsumer(IProject consProject)
+			throws Exception {
 
 		IJavaProject clientJProj = JavaCore.create(consProject);
 
@@ -228,7 +246,6 @@ public class ServicesUtil {
 
 	}
 
-
 	@SuppressWarnings("unchecked")
 	public static String getConsumerFQN(IProject prj) {
 
@@ -277,28 +294,31 @@ public class ServicesUtil {
 
 		try {
 			final SOAClientConfig config = SOAConsumerUtil.loadClientConfig(
-					consProject,"production", serviceName);
+					consProject, "production", serviceName);
 
 			config.setServiceBinding("LOCAL");
 			String protocalProcessorClassName = GlobalRepositorySystem
-			.instanceOf()
-			.getActiveRepositorySystem()
-			.getActiveOrganizationProvider()
-			.getSOAPProtocolProcessorClassName();
+					.instanceOf().getActiveRepositorySystem()
+					.getActiveOrganizationProvider()
+					.getSOAPProtocolProcessorClassName();
 			SOAClientConfigUtil.save(config, protocalProcessorClassName);
 
 			// When adding the local binding u might need to add the project as
 			// dependency also..For that use the below code,
 
-			GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
-					.getProjectConfigurer().addDependency(
-							consProject.getName(), serviceName + "Impl",
+			GlobalRepositorySystem
+					.instanceOf()
+					.getActiveRepositorySystem()
+					.getProjectConfigurer()
+					.addDependency(consProject.getName(), serviceName + "Impl",
 							AssetInfo.TYPE_PROJECT, true,
 							ProgressUtil.getDefaultMonitor(null));
 
-			GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
-					.getProjectConfigurer().addDependency(
-							consProject.getName(), "SOAServer",
+			GlobalRepositorySystem
+					.instanceOf()
+					.getActiveRepositorySystem()
+					.getProjectConfigurer()
+					.addDependency(consProject.getName(), "SOAServer",
 							AssetInfo.TYPE_LIBRARY, true,
 							ProgressUtil.getDefaultMonitor(null));
 
@@ -316,7 +336,13 @@ public class ServicesUtil {
 
 	}
 
-	public static String getServiceName(String wsdlFilePath) { // gets the Service Name and not the Service Admin Name (wsdl doesnt have admin name)
+	public static String getServiceName(String wsdlFilePath) { // gets the
+																// Service Name
+																// and not the
+																// Service Admin
+																// Name (wsdl
+																// doesnt have
+																// admin name)
 		String serviceName = "";
 		try {
 			final Definition definition = WSDLUtil.readWSDL(wsdlFilePath);
@@ -324,7 +350,8 @@ public class ServicesUtil {
 			if (services.size() > 0) { // we believe that the wsdl should
 				// contain only one service
 				final Service service = (Service) services.toArray()[0];
-				// serviceName = StringUtils.capitalize(service.getQName().getLocalPart());
+				// serviceName =
+				// StringUtils.capitalize(service.getQName().getLocalPart());
 				serviceName = service.getQName().getLocalPart();
 			}
 
@@ -333,8 +360,22 @@ public class ServicesUtil {
 		}
 		return serviceName;
 	}
-	
-	public static String getTargetNamespaceFromWsdl(String wsdlFilePath) { // gets the Service Name and not the Service Admin Name (wsdl doesnt have admin name)
+
+	public static String getTargetNamespaceFromWsdl(String wsdlFilePath) { // gets
+																			// the
+																			// Service
+																			// Name
+																			// and
+																			// not
+																			// the
+																			// Service
+																			// Admin
+																			// Name
+																			// (wsdl
+																			// doesnt
+																			// have
+																			// admin
+																			// name)
 		String targetNamespace = "";
 		try {
 			final Definition definition = WSDLUtil.readWSDL(wsdlFilePath);
@@ -344,19 +385,20 @@ public class ServicesUtil {
 		}
 		return targetNamespace;
 	}
-	
-	public static Map<String,String> getNamespaceToPackage(String wsdlFilePath) { 
+
+	public static Map<String, String> getNamespaceToPackage(String wsdlFilePath) {
 		final Map<String, String> result = new LinkedHashMap<String, String>();
 		try {
 			final Definition definition = WSDLUtil.readWSDL(wsdlFilePath);
 			for (final String namespace : WSDLUtil
 					.getAllTargetNamespaces(definition)) {
-				//we do not need the default namespace to be displayed
-				if (TurmericConstants.DEFAULT_SERVICE_NAMESPACE.equals(namespace) == false) {
+				// we do not need the default namespace to be displayed
+				if (TurmericConstants.DEFAULT_SERVICE_NAMESPACE
+						.equals(namespace) == false) {
 					final String defaultPkgName = ConfigTool
-					.getDefaultPackageNameFromNamespace(namespace);
-					
-					result.put(namespace,defaultPkgName);
+							.getDefaultPackageNameFromNamespace(namespace);
+
+					result.put(namespace, defaultPkgName);
 				}
 			}
 		} catch (final WSDLException wsdlE) {
@@ -364,18 +406,25 @@ public class ServicesUtil {
 		}
 		return result;
 	}
-	
-	public static String getDomainClassifierFromWsdl(String wsdlFilePath) { // gets the domain classifier
+
+	public static String getDomainClassifierFromWsdl(String wsdlFilePath) { // gets
+																			// the
+																			// domain
+																			// classifier
 		String domainClassifier = "";
 		try {
 			final Definition definition = WSDLUtil.readWSDL(wsdlFilePath);
 			final String targetNamespace = definition.getTargetNamespace();
-			
-			if(StringUtils.isNotEmpty(targetNamespace)&& 
-					targetNamespace.contains(TurmericConstants.DEFAULT_SERVICE_NAMESPACE_PREFIX) &&
-					!targetNamespace.equals(TurmericConstants.DEFAULT_SERVICE_NAMESPACE)) {
-				domainClassifier = StringUtils.substringBetween(targetNamespace,
-						TurmericConstants.DEFAULT_SERVICE_NAMESPACE_PREFIX + "/", "/").trim();
+
+			if (StringUtils.isNotEmpty(targetNamespace)
+					&& targetNamespace
+							.contains(TurmericConstants.DEFAULT_SERVICE_NAMESPACE_PREFIX)
+					&& !targetNamespace
+							.equals(TurmericConstants.DEFAULT_SERVICE_NAMESPACE)) {
+				domainClassifier = StringUtils.substringBetween(
+						targetNamespace,
+						TurmericConstants.DEFAULT_SERVICE_NAMESPACE_PREFIX
+								+ "/", "/").trim();
 			} else {
 				domainClassifier = DEFAULT_DOMAIN_CLASSIFIER;
 
@@ -385,7 +434,7 @@ public class ServicesUtil {
 		}
 		return StringUtils.capitalize(domainClassifier);
 	}
-	
+
 	private static SOAIntfMetadata intfMetadata = null;
 	private static SOAImplMetadata implMetadata = null;
 	private static SOAConsumerMetadata consumerMetadata = null;
@@ -394,30 +443,34 @@ public class ServicesUtil {
 	private static SOAConsumerProject consumerProject = null;
 	private static SOAProjectEclipseMetadata soaEclipseMetadata = null;
 
-
-	public static SOAIntfProject servicesIntfSetUp(String name) throws Exception {
-		soaEclipseMetadata =
-			SOAServiceUtil.getSOAEclipseMetadata(WorkspaceUtil.getProject(name));
+	public static SOAIntfProject servicesIntfSetUp(String name)
+			throws Exception {
+		soaEclipseMetadata = SOAServiceUtil.getSOAEclipseMetadata(WorkspaceUtil
+				.getProject(name));
 		intfMetadata = SOAServiceUtil.getSOAIntfMetadata(soaEclipseMetadata);
 		intfProject = SOAIntfProject.create(intfMetadata, soaEclipseMetadata);
 		return intfProject;
 	}
 
-	public static SOAImplProject servicesImplSetUp(String name) throws Exception {
-		soaEclipseMetadata =
-			SOAServiceUtil.getSOAEclipseMetadata(WorkspaceUtil.getProject(name));
+	public static SOAImplProject servicesImplSetUp(String name)
+			throws Exception {
+		soaEclipseMetadata = SOAServiceUtil.getSOAEclipseMetadata(WorkspaceUtil
+				.getProject(name));
 		implMetadata = SOAServiceUtil.getSOAImplMetadata(soaEclipseMetadata);
-		implProject =  SOAImplProject.create(implMetadata, soaEclipseMetadata);
+		implProject = SOAImplProject.create(implMetadata, soaEclipseMetadata);
 		return implProject;
 	}
-	public static SOAConsumerProject servicesConsumerSetUp(String name) throws Exception {
-		soaEclipseMetadata =
-			SOAServiceUtil.getSOAEclipseMetadata(WorkspaceUtil.getProject(name));
-		consumerMetadata = SOAServiceUtil.getSOAImplMetadata(soaEclipseMetadata);
-		consumerProject =  SOAImplProject.create(consumerMetadata, soaEclipseMetadata);
+
+	public static SOAConsumerProject servicesConsumerSetUp(String name)
+			throws Exception {
+		soaEclipseMetadata = SOAServiceUtil.getSOAEclipseMetadata(WorkspaceUtil
+				.getProject(name));
+		consumerMetadata = SOAServiceUtil
+				.getSOAImplMetadata(soaEclipseMetadata);
+		consumerProject = SOAImplProject.create(consumerMetadata,
+				soaEclipseMetadata);
 		return consumerProject;
 	}
-
 
 	public static String executePreCodeGenerationForConsumerFromjava(
 			ConsumerFromJavaParamModel paramModel) {
@@ -430,85 +483,43 @@ public class ServicesUtil {
 		return null;
 
 	}
-	
 
-public static String getAdminName(String serviceName){
-		
+	public static String getAdminName(String serviceName) {
+
 		StringBuffer result = new StringBuffer();
-		result.append(DEFAULT_DOMAIN_CLASSIFIER).append(serviceName).append(MAJOR_VERSION_PREFIX).append(SERVICE_MAJOR_VERSION);
+		result.append(DEFAULT_DOMAIN_CLASSIFIER).append(serviceName)
+				.append(MAJOR_VERSION_PREFIX).append(SERVICE_MAJOR_VERSION);
 		serviceName = result.toString();
 		return serviceName;
 	}
 
-public static String getPublicServiceName(String serviceName , String domainClassifier){
-	
-	StringBuffer result = new StringBuffer();
-	result.append( serviceName.substring(domainClassifier.length(), serviceName.indexOf('V')));
-	return result.toString();
-}
+	public static String getPublicServiceName(String serviceName,
+			String domainClassifier) {
 
-public static String getTargetNamespace(String domainClassifier) {
-	String nsPart = StringUtils.lowerCase(domainClassifier);
-	
-	String targetNS = TurmericConstants.DEFAULT_SERVICE_NAMESPACE_PREFIX
-	+ "/" + nsPart + "/" + MAJOR_VERSION_PREFIX.toLowerCase() + SERVICE_MAJOR_VERSION + TurmericConstants.DEFAULT_SERVICE_NAMESPACE_SUFFIX ;
-	return targetNS;
-}
-
-public static String getInterfacePackage(String serviceName,String targetNS) {
-    
-    String adminName = ServicesUtil.getAdminName(serviceName);
-   final String servicePackageName = SOAServiceUtil.generateServicePackageName(serviceName, SOAServiceUtil.generatePackageNamePrefix(targetNS));
-    return StringUtils.isBlank(servicePackageName) ? adminName
-                : servicePackageName + "." + adminName;
-}
-
-/*
-	public static void createServiceFromExistingWsdl(URL wsdlUrl) throws Exception {
-		final ServiceFromWsdlParamModel model = new ServiceFromWsdlParamModel();
-
-
-		model.setServiceName(getServiceName(WSDL_FILE));
-		final String servicePkg = "com.ebay.marketplace.services." + model.getServiceName();
-		model.setServiceInterface(servicePkg + "." + model.getServiceName());
-		model.setWorkspaceRootDirectory(PARENT_DIR);
-		model.setServiceImpl("com.ebay.marketplace.services." + model.getServiceName() + "Impl");
-		model.setServiceVersion("1.0.0");
-		model.setIncludeValidateInternals(false);
-		model.setIncludeTestJSP(false);
-		model.setImplName(model.getServiceName() + "Impl");
-
-		model.setWSDLSourceType(SOAProjectConstants.InterfaceWsdlSourceType.EXISTIING);
-
-		// String wsdlPath = new File(WsdlUtilTest.getPluginOSPath(Activator.PLUGIN_ID, "test-data"),"JunitEndTestModified2.wsdl").getAbsolutePath();
-
-		model.setOriginalWsdlUrl(wsdlUrl);
-
-		SimpleTestUtil.setAutoBuilding(false);
-
-		ServiceCreator.createServiceFromExistingWSDL(model, ProgressUtil.getDefaultMonitor(null));
-
-		// SimpleTestUtil.setAutoBuilding(true);
-		ITestableNextTask nextTask = new ITestableNextTask() {
-
-			public void execute(){
-				try {
-					WorkspaceUtil.getProject(model.getImplName()).build(IncrementalProjectBuilder.FULL_BUILD, ProgressUtil.getDefaultMonitor(null));
-				} catch (CoreException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		};
-		IProgressMonitor prMonitor = new TestProgressMonitor(nextTask);
-
-		WorkspaceUtil.getProject(model.getServiceName()).build(IncrementalProjectBuilder.FULL_BUILD, ProgressUtil.getDefaultMonitor(null));
-
-		WorkspaceUtil.getProject(model.getImplName()).build(IncrementalProjectBuilder.FULL_BUILD, ProgressUtil.getDefaultMonitor(null));
-
-
+		StringBuffer result = new StringBuffer();
+		result.append(serviceName.substring(domainClassifier.length(),
+				serviceName.indexOf('V')));
+		return result.toString();
 	}
-*/
 
+	public static String getTargetNamespace(String domainClassifier) {
+		String nsPart = StringUtils.lowerCase(domainClassifier);
+
+		String targetNS = TurmericConstants.DEFAULT_SERVICE_NAMESPACE_PREFIX
+				+ "/" + nsPart + "/" + MAJOR_VERSION_PREFIX.toLowerCase()
+				+ SERVICE_MAJOR_VERSION
+				+ TurmericConstants.DEFAULT_SERVICE_NAMESPACE_SUFFIX;
+		return targetNS;
+	}
+
+	public static String getInterfacePackage(String serviceName, String targetNS) {
+
+		String adminName = ServicesUtil.getAdminName(serviceName);
+		final String servicePackageName = SOAServiceUtil
+				.generateServicePackageName(serviceName,
+						SOAServiceUtil.generatePackageNamePrefix(targetNS));
+		return StringUtils.isBlank(servicePackageName) ? adminName
+				: servicePackageName + "." + adminName;
+	}
 
 }

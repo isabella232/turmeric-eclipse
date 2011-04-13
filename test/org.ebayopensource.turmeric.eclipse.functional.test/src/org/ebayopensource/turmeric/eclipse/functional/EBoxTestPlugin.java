@@ -13,7 +13,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 public class EBoxTestPlugin extends AbstractUIPlugin {
 
 	public EBoxTestPlugin() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 }

@@ -157,7 +157,7 @@ public class TurmericCoreActivator extends Plugin {
 	}
 
 	/**
-	 * TODO: these need to be setup through an extension point or preference
+	 * these need to be setup through an extension point or preference
 	 * page.
 	 */
 	public static final String TYPES_LOCATION_IN_JAR = "types";

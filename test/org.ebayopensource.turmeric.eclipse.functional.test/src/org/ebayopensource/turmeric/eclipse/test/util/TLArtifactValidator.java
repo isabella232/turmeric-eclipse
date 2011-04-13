@@ -215,7 +215,6 @@ public class TLArtifactValidator implements IResourceVisitor {
 						}
 					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					System.out.println("the following did not match: "
 							+ goldCopyDir + "/" + path);

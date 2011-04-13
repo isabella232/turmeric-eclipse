@@ -359,7 +359,7 @@ public class ServiceTemplateUtil {
 					BindingGenerator bindingGenerator = new BindingGenerator(
 							definition, binding);
 					for (TemplateBinding templBinding : bindings) {
-						// TODO:This is bad we are identifying the type
+						// This is bad we are identifying the type
 						// of binding (ie if it is http or soap)
 						// by the name
 						if (StringUtils.containsIgnoreCase(binding.getQName()

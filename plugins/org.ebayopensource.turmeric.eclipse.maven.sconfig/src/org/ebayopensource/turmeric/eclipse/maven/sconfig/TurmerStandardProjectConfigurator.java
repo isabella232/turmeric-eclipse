@@ -42,7 +42,7 @@ public class TurmerStandardProjectConfigurator extends
 	private static final String TURMERIC_MAVEN_PLUGIN = "turmeric-maven-plugin";
 
 	public TurmerStandardProjectConfigurator() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
