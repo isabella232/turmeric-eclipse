@@ -132,6 +132,23 @@
                <argLine>-Xms512m -Xmx1024m -XX:MaxPermSize=256M</argLine>
             </configuration>
          </plugin>
+		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>checkstyle</goal>
+						</goals>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>         
       </plugins>
+      
    </build>
 </project>
