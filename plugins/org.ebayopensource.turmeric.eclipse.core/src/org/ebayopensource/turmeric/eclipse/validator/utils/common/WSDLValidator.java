@@ -86,7 +86,6 @@ public class WSDLValidator extends AbstractSOAValidator {
 			if (!IOUtil.validateURL(wsdlUrl)) {
 				mStatus.add(getBasicStatusModel("Invalid WSDL specified->" + wsdlUrl));
 			}
-			//TODO This WSDL validation is different with the one used in in codeGen.
 
 			IValidationMessage[] validationMessages = org.eclipse.wst.wsdl.validation.internal.eclipse.WSDLValidator
 			.getInstance().validate(wsdlUrl).getValidationMessages();

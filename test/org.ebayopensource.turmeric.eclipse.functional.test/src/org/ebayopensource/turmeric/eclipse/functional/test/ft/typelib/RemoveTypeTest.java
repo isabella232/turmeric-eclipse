@@ -222,7 +222,7 @@ public class RemoveTypeTest extends AbstractTestCase {
 	
 	@Test
 	public void doNothingTest() {
-		//TODO this meant to be removed once we fix all the issues in this test, 
+		//this meant to be removed once we fix all the issues in this test, 
 		//otherwise the entire CI will be blocked for at least two hours.
 		System.out.println("This dummy test is to ensure CI job would not throw no test to run error");
 	}

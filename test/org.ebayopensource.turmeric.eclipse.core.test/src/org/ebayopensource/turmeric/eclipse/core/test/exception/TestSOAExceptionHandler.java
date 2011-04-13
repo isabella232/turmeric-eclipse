@@ -27,8 +27,6 @@ public class TestSOAExceptionHandler {
 	@Test
 	public void testHandleException() {
 		Throwable throwable = new RuntimeException("Error");
-		//SOAExceptionHandler.handleException(throwable);
-		//TODO handle the popuped dialog.
 	}
 
 	/**

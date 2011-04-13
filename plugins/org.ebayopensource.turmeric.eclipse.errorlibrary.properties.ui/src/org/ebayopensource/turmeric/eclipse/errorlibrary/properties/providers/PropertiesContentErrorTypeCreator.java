@@ -42,8 +42,6 @@ public class PropertiesContentErrorTypeCreator implements IErrorTypeCreator {
 	 */
 	public void preCreation(ErrorParamModel model)
 			throws SOAErrorCreationFailedException {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**

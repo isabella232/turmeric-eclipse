@@ -156,8 +156,6 @@ public final class SOALogger extends Logger{
 		// We want 1 logger per subsystem
 		String subsystem = "";
 		if (clazz != null) {
-//			TODO: after plugin added SOABinding in. add this back
-//			subsystem = BindingUtils.getPackageName(clazz);
 			if (subsystem.length() == 0) {
 				subsystem = clazz;
 			}

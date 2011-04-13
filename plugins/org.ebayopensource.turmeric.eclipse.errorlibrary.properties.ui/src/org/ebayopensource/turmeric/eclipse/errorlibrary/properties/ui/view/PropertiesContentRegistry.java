@@ -48,7 +48,6 @@ public class PropertiesContentRegistry implements ISOAErrRegistry {
 	 * {@inheritDoc}
 	 */
 	public boolean importError() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

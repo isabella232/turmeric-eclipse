@@ -154,7 +154,6 @@ public class DeleteDomain extends AbstractTestCase {
 			ins = new FileInputStream(new File(ERROR_PROPS));
 			srcProp.load(ins);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		
 		} finally {

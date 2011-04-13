@@ -88,7 +88,7 @@ public class GenTypeConsumerTest {
 	
 	@Ignore
 	public void testIterator() {
-		//TODO: refactor this method to get rid of the of the nasty inner class to make it testable.
+		
 	}
 	
 }

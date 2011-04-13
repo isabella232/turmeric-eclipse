@@ -25,9 +25,7 @@ import org.eclipse.jdt.core.JavaModelException;
  * class path entries and give it to the SOA container in an uniform fashion.
  * Typically for Maven this is managed by the Maven container, but for V3 we are
  * using this as the sole container. From a SOA project functionality this is
- * one of the key classes. TODO: Try making this more efficient. May be we have
- * to file a bug with V3 to make the performance a little better especially on
- * Initializing Java phase.
+ * one of the key classes.
  * 
  * @author smathew
  * 

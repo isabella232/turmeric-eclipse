@@ -91,7 +91,6 @@ public class DeleteErrorNodeAction extends AbstractErrorNodeAction {
 					StringUtil.formatString(SOAMessages.ERROR_NO_ERRORDOMAIN_FOLDER, 
 							domainFolder.getLocation()));
 		}
-		//TODO ensure error exist in the ErrorData.xml file
 		return Status.OK_STATUS;
 	}
 

@@ -48,7 +48,6 @@ public class PropertiesContentErrorDomainCreator implements IErrorDomainCreator 
 	 */
 	public void preCreation(DomainParamModel model)
 			throws SOAErrorDomainCreationFailedException {
-		// TODO Auto-generated method stub
 
 	}
 

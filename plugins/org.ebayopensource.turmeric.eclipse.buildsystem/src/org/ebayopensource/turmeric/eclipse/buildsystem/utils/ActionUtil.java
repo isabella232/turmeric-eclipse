@@ -471,8 +471,6 @@ public class ActionUtil {
 			IProgressMonitor monitor) throws ValidationInterruptedException,
 			CoreException, MalformedURLException, IOException {
 
-		// TODO This WSDL validation is different with the one used in in
-		// codeGen.
 		logger
 				.info(
 						"Validating WSDL with WTP validator->",

@@ -56,8 +56,6 @@ public class CodeGenInvokerTest {
 	}
 	
 	@Test
-	// TODO This test should fail if a null project is passed in.  Should throw
-	// an exception to be handled.
 	public void testInitfail() throws Exception {
 		IProject project = null;
 		try {
@@ -68,11 +66,6 @@ public class CodeGenInvokerTest {
 		fail("Accepted a Null value for a Project");
 	}
 
-	@Ignore
-	// TODO Need to implement a test for the execute method.
-	public void testExecute() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testGetSoaPluginClassLoader() throws Exception {

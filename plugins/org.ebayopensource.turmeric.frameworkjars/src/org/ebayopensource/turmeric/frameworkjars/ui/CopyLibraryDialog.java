@@ -233,7 +233,6 @@ public class CopyLibraryDialog extends TitleAreaDialog {
 						try {
 							FileUtils.cleanDirectory(destDir);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -249,7 +248,6 @@ public class CopyLibraryDialog extends TitleAreaDialog {
 							monitor.internalWorked(20);
 						}
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				} catch (Exception e) {

@@ -139,7 +139,7 @@ public final class TurmericErrorLibraryUtils {
 			PropertiesSOAErrorLibrary errLib = new PropertiesSOAErrorLibrary();
 			errLib.setName(assetInfo.getName());
 			errLib.setVersion(assetInfo.getVersion());
-			//TODO revise all the properties
+
 			for (SOAErrorBundleVO bundle : ErrorObjectXMLParser.getErrorBundle(project)){
 				if (bundle != null) {
 					PropertiesSOAErrorDomain domain = new PropertiesSOAErrorDomain();

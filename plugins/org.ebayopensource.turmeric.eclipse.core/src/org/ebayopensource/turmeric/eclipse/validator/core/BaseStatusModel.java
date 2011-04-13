@@ -17,16 +17,6 @@ import org.eclipse.core.runtime.Status;
  */
 public class BaseStatusModel extends Status {
 
-	/* TODO comment out for backward compatibility with Eclipse v3.2
-	 * public BaseStatusModel(int severity, String pluginId, String message,
-			Throwable exception) {
-		super(severity, pluginId, message, exception);
-	}
-
-	public BaseStatusModel(int severity, String pluginId, String message) {
-		super(severity, pluginId, message);
-	}*/
-
 	public BaseStatusModel(int severity, String pluginId, int code,
 			String message, Throwable exception) {
 		super(severity, pluginId, code, message, exception);

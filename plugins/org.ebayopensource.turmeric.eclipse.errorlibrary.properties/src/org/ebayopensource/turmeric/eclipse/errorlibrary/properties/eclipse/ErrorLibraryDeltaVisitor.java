@@ -76,7 +76,7 @@ public class ErrorLibraryDeltaVisitor implements IResourceDeltaVisitor {
 			final IProject errorLibProject = (IProject)delta.getResource();
 			if (deletedErrorLibProjects.contains(errorLibProject) == false
 					&& errorLibProject.getName().contains("ErrorLibrary")) {
-				//TODO this is a dirty fix to check the name, 
+				//this is a dirty fix to check the name, 
 				//but the project already been deleted so no way to 
 				//check the project nature
 				deletedErrorLibProjects.add(errorLibProject);

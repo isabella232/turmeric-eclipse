@@ -96,13 +96,6 @@ public class SOAClientProjectBuilder extends AbstractSOAProjectBuilder {
 	private boolean shouldGenerateConsumers(final IProject project,
 			final ConsumerCodeGenModel baseConsumerModel,
 			final IProgressMonitor monitor) throws Exception {
-		// TODO lets generate the consumer as long as its required services are
-		// not empty
-		// TODO remove this logic since it is always regenerating consumers.
-		/*
-		 * if (baseConsumerModel.getRequiredServices().isEmpty() == false)
-		 * return true;
-		 */
 		// check whether the consumer has already been generated
 		boolean shouldGenerate = false;
 		monitor.internalWorked(10);
@@ -114,7 +107,7 @@ public class SOAClientProjectBuilder extends AbstractSOAProjectBuilder {
 			post24Services = ListUtil.arrayList(
 					StringUtils.split(serviceList, SOAProjectConstants.DELIMITER_COMMA));
 		}
-		//final String clientName = SOAConsumerUtil.getClientName(project);
+		
 		for (Iterator<String> it = baseConsumerModel.getRequiredServices()
 				.keySet().iterator(); it.hasNext();) {
 			final String serviceName = it.next();
@@ -133,7 +126,6 @@ public class SOAClientProjectBuilder extends AbstractSOAProjectBuilder {
 			String svcConsumerClassName = SOAProjectConstants.BASE
 					+ CodeGenUtil.makeFirstLetterUpper(serviceName)
 					+ SOAProjectConstants.CLIENT_PROJECT_SUFFIX;
-			//TODO we might need to convert the clientname to lowercase
 			svcConsumerClassName = JDTUtil
 					.generateQualifiedClassNameUsingPathSeperator(
 							serviceInterface, 

@@ -443,7 +443,7 @@ public class BuildSystemCodeGen {
 	}
 
 	/**
-	 * TODO: unused
+	 * 
 	 * 
 	 * @param templateLoadingClass
 	 * @param templates

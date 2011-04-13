@@ -211,7 +211,6 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 			Assert.assertTrue("WSDL updation with changed version failed", true);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Assert.assertTrue("WSDL updation with changed version failed",
 					false);

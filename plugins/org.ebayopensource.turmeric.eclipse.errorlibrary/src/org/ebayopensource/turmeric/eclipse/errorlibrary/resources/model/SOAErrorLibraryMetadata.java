@@ -43,7 +43,6 @@ public class SOAErrorLibraryMetadata extends AbstractSOAMetadata {
 	 */
 	@Override
 	public String getMetadataFileName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
