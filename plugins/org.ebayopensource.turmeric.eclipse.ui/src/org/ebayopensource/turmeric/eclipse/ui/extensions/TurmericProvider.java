@@ -8,17 +8,24 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.ui.extensions;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 
 public class TurmericProvider implements ITurmericProvider {
 	
-	private Collection<ITurmericWizard> wizards;
+	private Collection<ITurmericWizard> wizards = new ArrayList<ITurmericWizard>();
 	private IConfigurationElement providerElement;
 	
 	public TurmericProvider(IConfigurationElement configElement) {
 		this.providerElement = configElement;
+		IConfigurationElement[] children = providerElement.getChildren("wizard");
+
+		for(IConfigurationElement wizElm : children) {
+			ITurmericWizard wizard = new TurmericWizard(wizElm);
+		    wizards.add(wizard);
+		}
 	}
 
 	@Override

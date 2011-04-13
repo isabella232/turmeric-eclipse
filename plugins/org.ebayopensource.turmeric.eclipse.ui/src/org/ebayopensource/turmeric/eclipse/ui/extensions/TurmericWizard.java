@@ -8,30 +8,40 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.ui.extensions;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A do nothing implemenation.  Basically used so we don't have to return Null.
- * 
- * @author dcarver
- *
- */
-public class NullTurmericWizard implements ITurmericWizard {
+import org.eclipse.core.runtime.IConfigurationElement;
 
+public class TurmericWizard implements ITurmericWizard {
+
+	private List<ITurmericWizardPage> pages = new ArrayList<ITurmericWizardPage>();
+	private String type;
+	
+	public TurmericWizard(IConfigurationElement elem) {
+		this.type = elem.getAttribute("type");
+		IConfigurationElement[] pelems = elem.getChildren("page");
+		for(IConfigurationElement pelem : pelems) {
+			
+		}
+	}
+	
 	@Override
 	public boolean isType(String type) {
-		return false;
+		if (this.type == null) {
+			return false;
+		}
+		return this.type.equals(type);
 	}
 
 	@Override
 	public List<ITurmericWizardPage> allPages() {
-		return Collections.emptyList();
+		return pages;
 	}
 
 	@Override
 	public boolean hasPages() {
-		return false;
+		return pages.isEmpty();
 	}
 
 }
