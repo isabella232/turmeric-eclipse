@@ -13,11 +13,21 @@ import java.util.Collection;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 
+/**
+ * The provider object from the extension point.
+ * 
+ * @author dcarver
+ *
+ */
 public class TurmericProvider implements ITurmericProvider {
 	
 	private Collection<ITurmericWizard> wizards = new ArrayList<ITurmericWizard>();
 	private IConfigurationElement providerElement;
 	
+	/**
+	 * 
+	 * @param configElement provider configuration element
+	 */
 	public TurmericProvider(IConfigurationElement configElement) {
 		this.providerElement = configElement;
 		IConfigurationElement[] children = providerElement.getChildren("wizard");
@@ -28,6 +38,7 @@ public class TurmericProvider implements ITurmericProvider {
 		}
 	}
 
+	
 	@Override
 	public String providerName() {
 		return providerElement.getAttribute("name");
@@ -35,7 +46,7 @@ public class TurmericProvider implements ITurmericProvider {
 
 	@Override
 	public boolean hasWizards() {
-		return wizards.isEmpty();
+		return !wizards.isEmpty();
 	}
 
 	@Override
