@@ -11,5 +11,12 @@
             priority="100">
       </configurator>
    </extension>
+   
+	<extension point="org.maven.ide.eclipse.archetypeCatalogs">
+	  <remote description="Turmeric Snapshots Catalog" url="http://www.ebayopensource.org/nexus/content/repositories/snapshots/"/>
+	  <remote description="Turmeric Releases Catalog"
+         url="http://www.ebayopensource.org/nexus/content/repositories/releases/">
+	  </remote>
+	</extension>   
 
 </plugin>
