@@ -164,7 +164,7 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 	 * Label Provider for Enum Table
 	 * 
 	 */
-	private class EnumTableLabelProvider extends LabelProvider implements
+	private static class EnumTableLabelProvider extends LabelProvider implements
 			ITableLabelProvider {
 
 		public Image getColumnImage(Object element, int columnIndex) {

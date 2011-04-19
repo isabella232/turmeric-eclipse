@@ -285,7 +285,7 @@ public class DependenciesDialog extends TitleAreaDialog {
 		return selected.iterator().next();
 	}
 
-	class DependencySorter extends ViewerSorter {
+	static class DependencySorter extends ViewerSorter {
 		@Override
 		public int compare(Viewer viewer, Object e1, Object e2) {
 			if (e1 instanceof AssetInfo && e2 instanceof AssetInfo) {

@@ -139,7 +139,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 	 * @author ramurthy
 	 * 
 	 */
-	private class AttribTableLabelProvider extends LabelProvider implements
+	private static class AttribTableLabelProvider extends LabelProvider implements
 			ITableLabelProvider {
 
 		public Image getColumnImage(Object element, int columnIndex) {

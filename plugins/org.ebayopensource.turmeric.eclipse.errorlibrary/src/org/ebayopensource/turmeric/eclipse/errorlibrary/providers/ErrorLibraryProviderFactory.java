@@ -183,7 +183,7 @@ public final class ErrorLibraryProviderFactory {
 		
 	}
 	
-	private class ErrorLibraryLabelProvider implements ILabelProvider {
+	private static class ErrorLibraryLabelProvider implements ILabelProvider {
 
 		public Image getImage(Object element) {
 			return null;

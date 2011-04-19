@@ -154,7 +154,7 @@ public class UpdateTypeVersion extends AbastractTypeLibraryAtion {
 	}
 
 
-	class CustomTypeSelectorRenderer extends TypeSelectorElementRenderer {
+	static class CustomTypeSelectorRenderer extends TypeSelectorElementRenderer {
 		private Set<LibraryType> newTypes;
 		private Image image = null;
 

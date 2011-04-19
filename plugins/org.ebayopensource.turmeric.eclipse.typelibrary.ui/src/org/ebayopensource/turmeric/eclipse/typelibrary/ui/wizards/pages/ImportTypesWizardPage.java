@@ -1403,7 +1403,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 	}
 
-	class TypeSorter extends ViewerSorter {
+	static class TypeSorter extends ViewerSorter {
 
 		private int columnIndex;
 		private int direction = SWT.UP;

@@ -489,7 +489,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		return super.getMinimumHeight() + 50;
 	}
 
-	private class NameValidationStatus extends Status {
+	private static class NameValidationStatus extends Status {
 		private IStatus nestedStatus;
 
 		public NameValidationStatus(IStatus status) {

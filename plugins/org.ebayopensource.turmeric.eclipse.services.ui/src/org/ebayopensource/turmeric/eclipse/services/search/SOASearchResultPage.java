@@ -93,7 +93,7 @@ public class SOASearchResultPage extends AbstractTextSearchViewPage {
 		
 	}
 	
-	private class SOASearchResultTableViewerSorter extends ViewerSorter {
+	private static class SOASearchResultTableViewerSorter extends ViewerSorter {
 		//0=service name, 1=service layer, 2=service version
 		private int column;
 		
@@ -131,7 +131,7 @@ public class SOASearchResultPage extends AbstractTextSearchViewPage {
 		}
 	}
 	
-	private class TableSortSelectionAdatper extends SelectionAdapter {
+	private static class TableSortSelectionAdatper extends SelectionAdapter {
 		private TableColumn tableColumn;
 		private TableViewer viewer;
 		private int index;
