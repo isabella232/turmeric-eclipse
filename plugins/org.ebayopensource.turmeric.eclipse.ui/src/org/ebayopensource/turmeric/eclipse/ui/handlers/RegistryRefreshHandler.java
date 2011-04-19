@@ -2,6 +2,7 @@ package org.ebayopensource.turmeric.eclipse.ui.handlers;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.ui.TypeLibRegistryJob;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.RegistryView;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -62,7 +63,7 @@ public class RegistryRefreshHandler extends AbstractHandler implements IHandler 
 	 * @author dcarver
 	 *
 	 */
-	private class RefreshJob extends Job {
+	private class RefreshJob extends TypeLibRegistryJob {
 
 		public RefreshJob(String name) {
 			super(name);
@@ -95,11 +96,6 @@ public class RegistryRefreshHandler extends AbstractHandler implements IHandler 
 			return Status.OK_STATUS;
 		}
 
-		private IStatus cancelJob(IProgressMonitor monitor) {
-			monitor.done();
-			return Status.CANCEL_STATUS;
-		}
-
 		private void refreshViewers() {
 			Display.getDefault().asyncExec(new Runnable() {
 
@@ -113,7 +109,8 @@ public class RegistryRefreshHandler extends AbstractHandler implements IHandler 
 			});
 		}
 
-		private void refreshRegistry(IProgressMonitor monitor,
+		@Override
+		protected void refreshRegistry(IProgressMonitor monitor,
 				SOAGlobalRegistryAdapter registryAdapter) {
 			try {
 				input = registryAdapter.getGlobalRegistry();

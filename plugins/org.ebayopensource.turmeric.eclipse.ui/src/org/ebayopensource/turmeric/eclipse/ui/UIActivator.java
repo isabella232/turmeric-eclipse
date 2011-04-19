@@ -82,6 +82,9 @@ public class UIActivator extends AbstractUIPlugin {
 		StringBuffer buf = new StringBuffer();
 		buf.append("SOAPlugin.start - ");
 		buf.append(JDTUtil.getBundleInfo(context.getBundle(), SOALogger.DEBUG));
+		TypeLibRegistryJob registryJob = new TypeLibRegistryJob("Initialize Type library");
+		registryJob.setUser(false);
+		registryJob.schedule(1000);
 		SOALogger.getLogger().info(buf);
 //		initImageRegistry(context);
 	}
