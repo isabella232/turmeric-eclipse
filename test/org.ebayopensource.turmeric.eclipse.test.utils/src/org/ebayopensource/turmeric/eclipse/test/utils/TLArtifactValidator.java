@@ -101,18 +101,26 @@ public class TLArtifactValidator implements IResourceVisitor {
 		if (rsrcPath.toFile().isFile()) {
 			if (rsrcPath.toString().endsWith("properties")) {
 				Properties srcProp = new Properties();
+				FileInputStream srcIs = null;
 				try {
-					srcProp.load(new FileInputStream(rsrcPath.toFile()));
+					srcIs = new FileInputStream(rsrcPath.toFile());
+					srcProp.load(srcIs);
 				} catch (Exception e) {
 					e.printStackTrace();
 					matches = false;
+				} finally {
+					closeInputStream(srcIs);
 				}
 				Properties goldCopyProp = new Properties();
+				FileInputStream is = null;
 				try {
-					goldCopyProp.load(new FileInputStream(new File(goldCopyDir + "/" + path.toString())));
+					is = new FileInputStream(new File(goldCopyDir + "/" + path.toString()));
+					goldCopyProp.load(is);
 				} catch (Exception e) {
 					e.printStackTrace();
 					matches = false;
+				} finally {
+					closeInputStream(is);
 				}
 				if (matches) {
 					matches = PropertiesFileUtil.isEqual(srcProp, goldCopyProp);
@@ -157,6 +165,15 @@ public class TLArtifactValidator implements IResourceVisitor {
 		}
 		return true;
 
+	}
+
+	private void closeInputStream(FileInputStream srcIs) {
+		if (srcIs != null) {
+			try {
+				srcIs.close();
+			} catch (IOException e) {
+			}
+		}
 	}
 
 }

@@ -16,10 +16,20 @@ public class PropertyUtil {
 
 	public static Properties loadPropertiesFile(String fileName) {
 		Properties props = new Properties();
+		FileInputStream is = null;
 		try {
-			props.load(new FileInputStream(fileName));
+			is = new FileInputStream(fileName);
+			props.load(is);
 		} catch (IOException e) {
 			return null;
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException e) {
+					// We don't care about the exception
+				}
+			}
 		}
 		return props;
 	}

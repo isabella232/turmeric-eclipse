@@ -50,6 +50,7 @@ public class SimpleTestUtil {
 			sb.append(line + "\n");
 
 		}
+		reader.close();
 		return sb.toString();
 
 	}
