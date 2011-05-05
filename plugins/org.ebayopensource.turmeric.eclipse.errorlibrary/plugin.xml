@@ -88,8 +88,8 @@
         <view
               id="org.ebayopensource.turmeric.eclipse.errorlibrary.errorRegistryView"
               minimized="false"
-              relationship="bottom"
-              relative="org.eclipse.jdt.ui.PackageExplorer"
+              relationship="stack"
+              relative="org.eclipse.ui.views.ContentOutline"
               visible="true">
         </view>
       </perspectiveExtension>

@@ -56,7 +56,8 @@
                id="org.ebayopensource.turmeric.eclipse.services.ui.views.ServicesExplorerView"
                minimized="false"
                relative="org.eclipse.ui.views.ContentOutline"
-               relationship="top">
+               relationship="stack"
+               visible="false">
          </view>
       </perspectiveExtension>
       <perspectiveExtension targetID="org.eclipse.jdt.ui.JavaPerspective">

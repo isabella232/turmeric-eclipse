@@ -9,49 +9,55 @@
 package org.ebayopensource.turmeric.eclipse.repositorysystem;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.mavenapi.MavenApiPlugin;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.maven.ide.eclipse.MavenPlugin;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.prefs.BackingStoreException;
 
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the plug-in life cycle.
  */
 public class RepositorySystemActivator extends Plugin {
 
 	// The plug-in ID
+	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.repositorysystem";
 
 	// The shared instance
+	/** The plugin. */
 	private static RepositorySystemActivator plugin;
 	
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public RepositorySystemActivator() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+				
 		StringBuffer buf = new StringBuffer();
     	buf.append("SOAPlugin.start - ");
     	buf.append(JDTUtil.getBundleInfo(context.getBundle(), SOALogger.DEBUG));
         SOALogger.getLogger().info(buf);
 	}
+	
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+
+	/**
+	 * {@inheritDoc}
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
@@ -59,7 +65,7 @@ public class RepositorySystemActivator extends Plugin {
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 *
 	 * @return the shared instance
 	 */
@@ -67,6 +73,7 @@ public class RepositorySystemActivator extends Plugin {
 		return plugin;
 	}
 	
+	/** The instance scope. */
 	private IScopeContext instanceScope = new InstanceScope();
 	
 	/**
@@ -79,5 +86,4 @@ public class RepositorySystemActivator extends Plugin {
 		IEclipsePreferences node =  instanceScope.getNode(plugin.getBundle().getSymbolicName());
 		return node;
 	}
-
 }
