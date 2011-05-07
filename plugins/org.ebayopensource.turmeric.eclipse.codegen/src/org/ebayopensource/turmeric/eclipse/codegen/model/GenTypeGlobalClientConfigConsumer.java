@@ -26,7 +26,7 @@ public class GenTypeGlobalClientConfigConsumer extends ConsumerCodeGenModel {
 	// files
 
 	/**
-	 * 
+	 * Instantiates a new gen type global client config consumer.
 	 */
 	public GenTypeGlobalClientConfigConsumer() {
 		super();
@@ -34,19 +34,21 @@ public class GenTypeGlobalClientConfigConsumer extends ConsumerCodeGenModel {
 	}
 
 	/**
-	 * @param genType
-	 * @param namespace
-	 * @param serviceLayerFile
-	 * @param serviceInterface
-	 * @param serviceName
-	 * @param serviceVersion
-	 * @param serviceImpl
-	 * @param projectRoot
-	 * @param serviceLayer
-	 * @param sourceDirectory
-	 * @param destination
-	 * @param outputDirectory
-	 * @param metadataDirectory
+	 * Instantiates a new gen type global client config consumer.
+	 *
+	 * @param genType the gen type
+	 * @param namespace the namespace
+	 * @param serviceLayerFile the service layer file
+	 * @param serviceInterface the service interface
+	 * @param serviceName the service name
+	 * @param serviceVersion the service version
+	 * @param serviceImpl the service impl
+	 * @param projectRoot the project root
+	 * @param serviceLayer the service layer
+	 * @param sourceDirectory the source directory
+	 * @param destination the destination
+	 * @param outputDirectory the output directory
+	 * @param metadataDirectory the metadata directory
 	 */
 	public GenTypeGlobalClientConfigConsumer(String genType, String namespace,
 			String serviceLayerFile, String serviceInterface,
@@ -59,14 +61,27 @@ public class GenTypeGlobalClientConfigConsumer extends ConsumerCodeGenModel {
 		this.metadataDirectory = metadataDirectory;
 	}
 
+	/**
+	 * Gets the metadata directory.
+	 *
+	 * @return the metadata directory
+	 */
 	public String getMetadataDirectory() {
 		return metadataDirectory;
 	}
 
+	/**
+	 * Sets the metadata directory.
+	 *
+	 * @param metadataDirectory the new metadata directory
+	 */
 	public void setMetadataDirectory(String metadataDirectory) {
 		this.metadataDirectory = metadataDirectory;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.codegen.model.ConsumerCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		Map<String, String> result = super.getCodeGenOptions();

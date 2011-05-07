@@ -11,17 +11,29 @@ package org.ebayopensource.turmeric.eclipse.core.model;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * The Class TemplateModel.
+ *
  * @author smathew Thsi class encapsulates the information in the template This
- *         is an evolving class. Right now just has the documentation
+ * is an evolving class. Right now just has the documentation
  */
 public class TemplateModel {
 
 	private String documentation;
 
+	/**
+	 * Gets the documentation.
+	 *
+	 * @return the documentation
+	 */
 	public String getDocumentation() {
 		return StringUtils.defaultString(documentation);
 	}
 
+	/**
+	 * Sets the documentation.
+	 *
+	 * @param documentation the new documentation
+	 */
 	public void setDocumentation(String documentation) {
 		this.documentation = documentation;
 	}

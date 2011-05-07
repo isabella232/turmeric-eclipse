@@ -29,27 +29,53 @@ public class GenTypeClientConfig extends ConsumerCodeGenModel implements
 	private String metadataDirectory;
 	private List<String> environments = new ArrayList<String>();
 
+	/**
+	 * Instantiates a new gen type client config.
+	 */
 	public GenTypeClientConfig() {
 		super();
 		setGenType(GENTYPE_CLIENT_CONFIG);
 	}
 
+	/**
+	 * Gets the metadata directory.
+	 *
+	 * @return the metadata directory
+	 */
 	public String getMetadataDirectory() {
 		return metadataDirectory;
 	}
 
+	/**
+	 * Sets the metadata directory.
+	 *
+	 * @param metadataDirectory the new metadata directory
+	 */
 	public void setMetadataDirectory(String metadataDirectory) {
 		this.metadataDirectory = metadataDirectory;
 	}
 
+	/**
+	 * Gets the environments.
+	 *
+	 * @return the environments
+	 */
 	public List<String> getEnvironments() {
 		return environments;
 	}
 
+	/**
+	 * Sets the environments.
+	 *
+	 * @param environments the new environments
+	 */
 	public void setEnvironments(List<String> environments) {
 		this.environments = environments;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.codegen.model.ConsumerCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		Map<String, String> result = super.getCodeGenOptions();
@@ -58,6 +84,9 @@ public class GenTypeClientConfig extends ConsumerCodeGenModel implements
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IMultiCodeGenModelIterator iterator() {
 		final List<SOAClientEnvironment> envs = new ArrayList<SOAClientEnvironment>();
 		for (String env : environments) {

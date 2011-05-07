@@ -10,8 +10,6 @@ package org.ebayopensource.turmeric.eclipse.codegen.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
 /**
@@ -25,11 +23,17 @@ public class GenTypeUnitTest extends BaseCodeGenModel {
 								// Java source files
 	private String clientName;
 
+	/**
+	 * Instantiates a new gen type unit test.
+	 */
 	public GenTypeUnitTest() {
 		super();
 		setGenType(GENTYPE_UNIT_TEST);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		final Map<String, String> result = new HashMap<String, String>();
@@ -49,18 +53,36 @@ public class GenTypeUnitTest extends BaseCodeGenModel {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getGenFolder()
+	 */
+	@Override
 	public String getGenFolder() {
 		return genFolder;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#setGenFolder(java.lang.String)
+	 */
+	@Override
 	public void setGenFolder(String genFolder) {
 		this.genFolder = genFolder;
 	}
 
+	/**
+	 * Gets the client name.
+	 *
+	 * @return the client name
+	 */
 	public String getClientName() {
 		return clientName;
 	}
 
+	/**
+	 * Sets the client name.
+	 *
+	 * @param clientName the new client name
+	 */
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}

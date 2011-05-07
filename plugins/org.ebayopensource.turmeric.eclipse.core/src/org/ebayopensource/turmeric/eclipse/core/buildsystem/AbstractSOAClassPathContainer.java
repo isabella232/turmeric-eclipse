@@ -32,14 +32,28 @@ import org.eclipse.jdt.core.JavaModelException;
  */
 public abstract class AbstractSOAClassPathContainer {
 
+	/** The path. */
 	protected IPath path;
+	
+	/** The project. */
 	protected IJavaProject project;
 
+	/**
+	 * Instantiates a new abstract soa class path container.
+	 *
+	 * @param path the path
+	 * @param javaProject the java project
+	 */
 	public AbstractSOAClassPathContainer(IPath path, IJavaProject javaProject) {
 		this.path = path;
 		this.project = javaProject;
 	}
 
+	/**
+	 * Gets the classpath entries.
+	 *
+	 * @return the classpath entries
+	 */
 	public abstract IClasspathEntry[] getClasspathEntries();
 
 	/**
@@ -50,9 +64,9 @@ public abstract class AbstractSOAClassPathContainer {
 	 * in this class path. This is a bad fix for now. V3 interacts with the
 	 * plugin and add some project dependency during the V3 build. And this ends
 	 * in duplicate class path entry. Avoiding that here
-	 * 
-	 * @return
-	 * @throws JavaModelException
+	 *
+	 * @return the unique classpath entries
+	 * @throws JavaModelException the java model exception
 	 */
 	public IClasspathEntry[] getUniqueClasspathEntries()
 			throws JavaModelException {

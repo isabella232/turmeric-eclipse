@@ -25,20 +25,24 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 
 /**
+ * The Class AbstractSOAProjectBuilder.
+ *
  * @author yayu
- * 
  */
 public abstract class AbstractSOAProjectBuilder extends
 		IncrementalProjectBuilder {
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * 
+	 * Instantiates a new abstract soa project builder.
 	 */
 	public AbstractSOAProjectBuilder() {
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.core.resources.IncrementalProjectBuilder#build(int, java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
 	protected IProject[] build(int kind, Map args, IProgressMonitor monitor)
 			throws CoreException {
@@ -78,21 +82,57 @@ public abstract class AbstractSOAProjectBuilder extends
 		return null;
 	}
 
+	/**
+	 * Do build.
+	 *
+	 * @param kind the kind
+	 * @param args the args
+	 * @param project the project
+	 * @param delta the delta
+	 * @param monitor the monitor
+	 * @return the i project[]
+	 * @throws Exception the exception
+	 */
 	protected abstract IProject[] doBuild(int kind, Map args, IProject project,
 			IResourceDelta delta, IProgressMonitor monitor) throws Exception;
 
+	/**
+	 * Should build.
+	 *
+	 * @param delta the delta
+	 * @param project the project
+	 * @return true, if successful
+	 * @throws Exception the exception
+	 */
 	protected boolean shouldBuild(IResourceDelta delta, IProject project)
 			throws Exception {
 		return BuilderUtil.shouldBuild(delta, project);
 	}
 
+	/**
+	 * Check project health.
+	 *
+	 * @param project the project
+	 * @return the i status
+	 * @throws Exception the exception
+	 */
 	protected IStatus checkProjectHealth(IProject project) throws Exception {
 		return GlobalProjectHealthChecker.checkProjectHealth(project);
 	}
 
+	/**
+	 * Do clean.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	protected abstract void doClean(IProject project, IProgressMonitor monitor)
 			throws Exception;
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.core.resources.IncrementalProjectBuilder#clean(org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
 	protected void clean(IProgressMonitor monitor) throws CoreException {
 		final IProject project = getProject();

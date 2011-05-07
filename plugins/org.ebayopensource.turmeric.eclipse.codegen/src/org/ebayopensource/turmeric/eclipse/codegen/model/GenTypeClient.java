@@ -16,8 +16,9 @@ import java.util.Map;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
 /**
+ * The Class GenTypeClient.
+ *
  * @author yayu
- * 
  */
 public class GenTypeClient extends BaseCodeGenModel {
 
@@ -26,7 +27,7 @@ public class GenTypeClient extends BaseCodeGenModel {
 	private String genInterfaceClassName; // -gin
 
 	/**
-	 * 
+	 * Instantiates a new gen type client.
 	 */
 	public GenTypeClient() {
 		super();
@@ -34,17 +35,24 @@ public class GenTypeClient extends BaseCodeGenModel {
 	}
 	
 	/**
-	 * @param namespace
-	 * @param serviceLayerFile
-	 * @param serviceInterface
-	 * @param serviceName
-	 * @param serviceVersion
-	 * @param serviceImpl
-	 * @param projectRoot
-	 * @param serviceLayer
-	 * @param sourceDirectory
-	 * @param destination
-	 * @param outputDirectory
+	 * Instantiates a new gen type client.
+	 *
+	 * @param genType the gen type
+	 * @param namespace the namespace
+	 * @param serviceLayerFile the service layer file
+	 * @param serviceInterface the service interface
+	 * @param serviceName the service name
+	 * @param serviceVersion the service version
+	 * @param serviceImpl the service impl
+	 * @param projectRoot the project root
+	 * @param serviceLayer the service layer
+	 * @param sourceDirectory the source directory
+	 * @param destination the destination
+	 * @param outputDirectory the output directory
+	 * @param generateFromWsdl the generate from wsdl
+	 * @param genFolder the gen folder
+	 * @param genInterfacePacakgeName the gen interface pacakge name
+	 * @param genInterfaceClassName the gen interface class name
 	 */
 	public GenTypeClient(String genType, String namespace, String serviceLayerFile,
 			String serviceInterface, String serviceName, String serviceVersion,
@@ -62,17 +70,23 @@ public class GenTypeClient extends BaseCodeGenModel {
 	}
 
 	/**
-	 * @param namespace
-	 * @param serviceLayerFile
-	 * @param serviceInterface
-	 * @param serviceName
-	 * @param serviceVersion
-	 * @param serviceImpl
-	 * @param projectRoot
-	 * @param serviceLayer
-	 * @param sourceDirectory
-	 * @param destination
-	 * @param outputDirectory
+	 * Instantiates a new gen type client.
+	 *
+	 * @param namespace the namespace
+	 * @param serviceLayerFile the service layer file
+	 * @param serviceInterface the service interface
+	 * @param serviceName the service name
+	 * @param serviceVersion the service version
+	 * @param serviceImpl the service impl
+	 * @param projectRoot the project root
+	 * @param serviceLayer the service layer
+	 * @param sourceDirectory the source directory
+	 * @param destination the destination
+	 * @param outputDirectory the output directory
+	 * @param generateFromWsdl the generate from wsdl
+	 * @param genFolder the gen folder
+	 * @param genInterfacePacakgeName the gen interface pacakge name
+	 * @param genInterfaceClassName the gen interface class name
 	 */
 	public GenTypeClient(String namespace, String serviceLayerFile,
 			String serviceInterface, String serviceName, String serviceVersion,
@@ -87,30 +101,63 @@ public class GenTypeClient extends BaseCodeGenModel {
 				genInterfaceClassName);
 	}
 
+	/**
+	 * Checks if is generate from wsdl.
+	 *
+	 * @return true, if is generate from wsdl
+	 */
 	public boolean isGenerateFromWsdl() {
 		return generateFromWsdl;
 	}
 
+	/**
+	 * Sets the generate from wsdl.
+	 *
+	 * @param generateFromWsdl the new generate from wsdl
+	 */
 	public void setGenerateFromWsdl(boolean generateFromWsdl) {
 		this.generateFromWsdl = generateFromWsdl;
 	}
 
+	/**
+	 * Gets the gen interface pacakge name.
+	 *
+	 * @return the gen interface pacakge name
+	 */
 	public String getGenInterfacePacakgeName() {
 		return genInterfacePacakgeName;
 	}
 
+	/**
+	 * Sets the gen interface pacakge name.
+	 *
+	 * @param genInterfacePacakgeName the new gen interface pacakge name
+	 */
 	public void setGenInterfacePacakgeName(String genInterfacePacakgeName) {
 		this.genInterfacePacakgeName = genInterfacePacakgeName;
 	}
 
+	/**
+	 * Gets the gen interface class name.
+	 *
+	 * @return the gen interface class name
+	 */
 	public String getGenInterfaceClassName() {
 		return genInterfaceClassName;
 	}
 
+	/**
+	 * Sets the gen interface class name.
+	 *
+	 * @param genInterfaceClassName the new gen interface class name
+	 */
 	public void setGenInterfaceClassName(String genInterfaceClassName) {
 		this.genInterfaceClassName = genInterfaceClassName;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		final Map<String, String> result = super.getCodeGenOptions();

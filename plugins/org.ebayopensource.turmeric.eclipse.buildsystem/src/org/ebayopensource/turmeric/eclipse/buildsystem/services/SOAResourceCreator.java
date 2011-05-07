@@ -38,13 +38,13 @@ public class SOAResourceCreator {
 	 * Creates the project from the extracted information from the metadata
 	 * passed. This is not a null safe method. Clients are expected to handle
 	 * the expected.
-	 * 
+	 *
 	 * @param metadata -
-	 *            All SOA project models will have this metadata and for the
-	 *            same reason this utility is used across all projects
-	 * @param monitor
-	 * @return
-	 * @throws CoreException
+	 * All SOA project models will have this metadata and for the
+	 * same reason this utility is used across all projects
+	 * @param monitor the monitor
+	 * @return the i project
+	 * @throws CoreException the core exception
 	 */
 	public static IProject createProject(SOAProjectEclipseMetadata metadata,
 			IProgressMonitor monitor) throws CoreException {
@@ -57,13 +57,13 @@ public class SOAResourceCreator {
 
 	/**
 	 * Simple API to create the folders and sub folders for a given project.
-	 * 
+	 *
 	 * @param project -
-	 *            The project in which the folders are created.
+	 * The project in which the folders are created.
 	 * @param soaBaseProject -
-	 *            The model object holding the folder paths to be created.
-	 * @param monitor
-	 * @throws CoreException
+	 * The model object holding the folder paths to be created.
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
 	 */
 	public static void createFolders(IProject project,
 			SOABaseProject soaBaseProject, IProgressMonitor monitor)
@@ -82,11 +82,12 @@ public class SOAResourceCreator {
 	/**
 	 * Creates the properties file for an interface project. This file is
 	 * created, modified and maintained by plugin
-	 * 
-	 * @param intfProject
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
+	 *
+	 * @param intfProject the intf project
+	 * @param monitor the monitor
+	 * @return the i file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static IFile createPropertiesFile(SOAIntfProject intfProject, 
 			IProgressMonitor monitor)
@@ -97,11 +98,11 @@ public class SOAResourceCreator {
 	/**
 	 * Creates the properties file for an implementation project. This file is
 	 * created, modified and maintained by plugin
-	 * 
-	 * @param implProject
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
+	 *
+	 * @param implProject the impl project
+	 * @return the i file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static IFile createPropertiesFile(SOAImplProject implProject)
 			throws IOException, CoreException {
@@ -111,10 +112,11 @@ public class SOAResourceCreator {
 	/**
 	 * Creates the properties file for a consumer project. This file is created,
 	 * modified and maintained by plugin
-	 * 
-	 * @param consumerProject
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param consumerProject the consumer project
+	 * @param monitor the monitor
+	 * @return the i file
+	 * @throws Exception the exception
 	 */
 	public static IFile createPropertiesFile(SOAConsumerProject consumerProject, 
 			IProgressMonitor monitor)
@@ -122,6 +124,17 @@ public class SOAResourceCreator {
 		return ProjectPropertiesFileUtil.createPropsFile(consumerProject, monitor);
 	}
 	
+	/**
+	 * Creates the consumer properties file for impl projects.
+	 *
+	 * @param project the project
+	 * @param clientName the client name
+	 * @param consumerId the consumer id
+	 * @param monitor the monitor
+	 * @return the i file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static IFile createConsumerPropertiesFileForImplProjects(IProject project,
 			String clientName, String consumerId, IProgressMonitor monitor) 
 	throws IOException, CoreException {

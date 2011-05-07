@@ -10,6 +10,8 @@ package org.ebayopensource.turmeric.eclipse.core.model;
 
 
 /**
+ * The Interface ISOAServiceParamModel.
+ *
  * @author smathew
  * 
  * The model interface. Right now we mandate that it should have a type. Later
@@ -18,8 +20,9 @@ package org.ebayopensource.turmeric.eclipse.core.model;
 public interface ISOAServiceParamModel {
 
 	/**
+	 * Validate.
+	 *
 	 * @return validates if this model object is well formed
-	 * 
 	 */
 	public boolean validate();
 

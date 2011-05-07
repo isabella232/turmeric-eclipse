@@ -22,11 +22,17 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
  */
 public class GenTypeTypeMappings extends BaseCodeGenModel {
 
+	/**
+	 * Instantiates a new gen type type mappings.
+	 */
 	public GenTypeTypeMappings() {
 		super();
 		setGenType(GENTYPE_TYPE_MAPPINGS);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		Map<String, String> options = super.getCodeGenOptions();

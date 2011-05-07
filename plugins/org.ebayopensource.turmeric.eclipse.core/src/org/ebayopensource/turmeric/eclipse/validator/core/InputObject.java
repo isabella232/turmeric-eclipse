@@ -9,9 +9,9 @@
 package org.ebayopensource.turmeric.eclipse.validator.core;
 
 /**
- * Input object used for validation
- * @author ramurthy
+ * Input object used for validation.
  *
+ * @author ramurthy
  */
 
 public class InputObject {
@@ -22,20 +22,42 @@ public class InputObject {
 	
 	private String pattern;
 	
+	/**
+	 * Instantiates a new input object.
+	 *
+	 * @param value the value
+	 * @param pattern the pattern
+	 * @param errorMsg the error msg
+	 */
 	public InputObject(String value, String pattern, String errorMsg) {
 		this.value = value;
 		this.errorMsg = errorMsg;
 		this.pattern = pattern;
 	}	
 
+	/**
+	 * Gets the error msg.
+	 *
+	 * @return the error msg
+	 */
 	public String getErrorMsg() {
 		return errorMsg;
 	}
 
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
 	public String getValue() {
 		return value;
 	}	
 	
+	/**
+	 * Gets the pattern.
+	 *
+	 * @return the pattern
+	 */
 	public String getPattern() {
 		return pattern;
 	}

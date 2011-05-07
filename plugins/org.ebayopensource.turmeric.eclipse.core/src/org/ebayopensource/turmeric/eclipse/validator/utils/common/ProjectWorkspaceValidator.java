@@ -15,10 +15,11 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
+ * The Class ProjectWorkspaceValidator.
+ *
  * @author smathew
  * 
  * Validates the workspace
- * 
  */
 public class ProjectWorkspaceValidator extends AbstractSOAValidator {
 

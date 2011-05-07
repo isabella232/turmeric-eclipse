@@ -26,13 +26,16 @@ import org.junit.Test;
 
 
 /**
- * @author yayu
+ * A factory for creating TestSOAConfigExtension objects.
  *
+ * @author yayu
  */
 public class TestSOAConfigExtensionFactory {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory#getWSDLTemplate(java.lang.String, java.lang.String)}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetWSDLTemplate() throws Exception {
@@ -49,6 +52,8 @@ public class TestSOAConfigExtensionFactory {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory#getXSDTemplates(java.lang.String)}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetXSDTemplates() throws Exception {
@@ -69,6 +74,8 @@ public class TestSOAConfigExtensionFactory {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory#getWSDLTemplates(java.lang.String)}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetWSDLTemplates() throws Exception {
@@ -84,6 +91,8 @@ public class TestSOAConfigExtensionFactory {
 	
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testSOAConfigTemplate() throws Exception {

@@ -19,12 +19,18 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
+ * The Class NameValidator.
+ *
  * @author smathew
- * 
  */
 public class NameValidator extends AbstractSOAValidator {
 	private static final NameValidator instance = new NameValidator();
 	
+	/**
+	 * Gets the single instance of NameValidator.
+	 *
+	 * @return single instance of NameValidator
+	 */
 	public static NameValidator getInstance() {
 		return instance;
 	}

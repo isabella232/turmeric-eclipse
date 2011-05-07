@@ -12,14 +12,15 @@
 package org.ebayopensource.turmeric.eclipse.codegen.model;
 
 /**
- * @author yayu
+ * The Class GenTypeGlobalServerConfig.
  *
+ * @author yayu
  */
 public class GenTypeGlobalServerConfig extends AbstractGenTypeGlobalConfig {
 
 	
 	/**
-	 * 
+	 * Instantiates a new gen type global server config.
 	 */
 	public GenTypeGlobalServerConfig() {
 		super();
@@ -27,17 +28,20 @@ public class GenTypeGlobalServerConfig extends AbstractGenTypeGlobalConfig {
 	}
 
 	/**
-	 * @param namespace
-	 * @param serviceLayerFile
-	 * @param serviceInterface
-	 * @param serviceName
-	 * @param serviceVersion
-	 * @param serviceImpl
-	 * @param projectRoot
-	 * @param serviceLayer
-	 * @param sourceDirectory
-	 * @param destination
-	 * @param outputDirectory
+	 * Instantiates a new gen type global server config.
+	 *
+	 * @param namespace the namespace
+	 * @param serviceLayerFile the service layer file
+	 * @param serviceInterface the service interface
+	 * @param serviceName the service name
+	 * @param serviceVersion the service version
+	 * @param serviceImpl the service impl
+	 * @param projectRoot the project root
+	 * @param serviceLayer the service layer
+	 * @param sourceDirectory the source directory
+	 * @param destination the destination
+	 * @param outputDirectory the output directory
+	 * @param metadataDirectory the metadata directory
 	 */
 	public GenTypeGlobalServerConfig(String namespace,
 			String serviceLayerFile, String serviceInterface,

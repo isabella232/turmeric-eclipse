@@ -17,14 +17,15 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
- * @author yayu
+ * The Class AbstractTargetDirectoryValidator.
  *
+ * @author yayu
  */
 public abstract class AbstractTargetDirectoryValidator extends
 		AbstractSOAValidator {
 
 	/**
-	 * 
+	 * Instantiates a new abstract target directory validator.
 	 */
 	public AbstractTargetDirectoryValidator() {
 		super();
@@ -32,8 +33,11 @@ public abstract class AbstractTargetDirectoryValidator extends
 	
 	
 	/**
-	 * @param object
-	 * @return
+	 * Validate.
+	 *
+	 * @param object the object
+	 * @return the i status
+	 * @throws ValidationInterruptedException the validation interrupted exception
 	 */
 	public IStatus validate(Object object) throws ValidationInterruptedException {
 		IStatus status = super.validate(object);

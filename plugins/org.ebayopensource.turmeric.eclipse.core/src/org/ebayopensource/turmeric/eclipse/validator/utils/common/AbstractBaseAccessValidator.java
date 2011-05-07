@@ -20,19 +20,25 @@ import org.eclipse.core.runtime.Status;
 
 
 /**
+ * The Class AbstractBaseAccessValidator.
+ *
  * @author smathew This is the base class for most of the generate action
- *         validators
+ * validators
  */
 public abstract class AbstractBaseAccessValidator extends AbstractSOAValidator {
 
 	/**
-	 * @return
+	 * Gets the writable files.
+	 *
+	 * @return the writable files
 	 */
 	public abstract List<IResource> getWritableFiles();
 
 	/**
+	 * Gets the readable files.
+	 *
 	 * @return Client should return the appropriate files that are to be
-	 *         validated for readability
+	 * validated for readability
 	 */
 	public abstract List<IResource> getReadableFiles();
 

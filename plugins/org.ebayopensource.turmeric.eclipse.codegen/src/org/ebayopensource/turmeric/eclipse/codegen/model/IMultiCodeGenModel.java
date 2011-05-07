@@ -14,16 +14,36 @@ package org.ebayopensource.turmeric.eclipse.codegen.model;
 import java.util.Map;
 
 /**
- * A code gen model that should be executed more than once
- * @author yayu
+ * A code gen model that should be executed more than once.
  *
+ * @author yayu
  */
 public interface IMultiCodeGenModel {
+	
+	/**
+	 * Iterator.
+	 *
+	 * @return the i multi code gen model iterator
+	 */
 	public IMultiCodeGenModelIterator iterator();
 	
+	/**
+	 * The Interface IMultiCodeGenModelIterator.
+	 */
 	public static interface IMultiCodeGenModelIterator {
+		
+		/**
+		 * Checks for next.
+		 *
+		 * @return true, if successful
+		 */
 		public boolean hasNext();
 		
+		/**
+		 * Next input options.
+		 *
+		 * @return the map
+		 */
 		public Map<String, String> nextInputOptions();
 	}
 }

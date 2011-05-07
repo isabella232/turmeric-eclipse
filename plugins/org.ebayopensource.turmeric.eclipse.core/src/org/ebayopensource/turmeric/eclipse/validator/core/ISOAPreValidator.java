@@ -16,21 +16,36 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
- * @author yayu
+ * The Interface ISOAPreValidator.
  *
+ * @author yayu
  */
 public interface ISOAPreValidator extends ISOAValidator {
+	
+	/** The Constant SERVICE. */
 	public static final String SERVICE = "service";
+	
+	/** The Constant CONSUMER. */
 	public static final String CONSUMER = "consumer";
+	
+	/** The Constant CONSUMER_FROM_WSDL. */
 	public static final String CONSUMER_FROM_WSDL = "consumer_from_wsdl";
+	
+	/** The Constant OTHERS. */
 	public static final String OTHERS = "others";
+	
+	/** The Constant TYPE_LIBRARY. */
 	public static final String TYPE_LIBRARY = "type_library";
+	
+	/** The Constant ERROR_LIBRARY. */
 	public static final String ERROR_LIBRARY = "error_library";
 
 	/**
 	 * Pre-validation for project creation.
-	 * @param obj
-	 * @return
+	 *
+	 * @param obj the obj
+	 * @return the i status
+	 * @throws ValidationInterruptedException the validation interrupted exception
 	 */
 	public IStatus validateProjectCreation(Object obj) throws ValidationInterruptedException ;
 }

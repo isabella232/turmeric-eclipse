@@ -9,20 +9,25 @@
 package org.ebayopensource.turmeric.eclipse.validator.core;
 
 /**
- * Error message constants 
- * @author ramurthy
+ * Error message constants.
  *
+ * @author ramurthy
  */
 
 public interface ErrorMessage {
 
+	/** The Constant PROJECT_NAME_ERRORMSG. */
 	public static final String PROJECT_NAME_ERRORMSG = "Invalid Name.";
 	
+	/** The Constant DIR_NAME_ERRORMSG. */
 	public static final String DIR_NAME_ERRORMSG = "Invalid Directory name. Directory Name should start with a letter or digit.";
 	
+	/** The Constant NAMESPACE_NAME_ERRORMSG. */
 	public static final String NAMESPACE_NAME_ERRORMSG = "Invalid Namespace.";
 	
+	/** The Constant CLIENT_NAME_ERRORMSG. */
 	public static final String CLIENT_NAME_ERRORMSG = "Invalid Client Name.";
 	
+	/** The Constant DOMAIN_NAME_ERRORMSG. */
 	public static final String DOMAIN_NAME_ERRORMSG = "Invalid Domain Name.";
 }

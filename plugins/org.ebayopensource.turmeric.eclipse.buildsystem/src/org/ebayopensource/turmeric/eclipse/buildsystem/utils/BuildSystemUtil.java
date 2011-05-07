@@ -36,10 +36,11 @@ public class BuildSystemUtil {
 	 * Adds all natures and containers that SOA needs to perform its code
 	 * generation and management for a SOA project. As per JDT API specification we have to set
 	 * the raw class path back to effect the new container addition.
-	 * 
-	 * @param soaProject
-	 * @param monitor
-	 * @throws CoreException
+	 *
+	 * @param soaProject the soa project
+	 * @param natureId the nature id
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
 	 */
 	public static void addSOASupport(SOABaseProject soaProject, String natureId,
 			IProgressMonitor monitor) throws CoreException {
@@ -61,9 +62,9 @@ public class BuildSystemUtil {
 	 * would be re-initialize. This basically fetches the associated container
 	 * initializer and as the initializer to reinitialize the container, which
 	 * in turn calls the container call back methods.
-	 * 
-	 * @param project
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @throws CoreException the core exception
 	 */
 	public static void updateSOAClasspathContainer(final IProject project)
 			throws CoreException {
@@ -83,10 +84,11 @@ public class BuildSystemUtil {
 	 * this assumes that the project already has SOA Nature and it also assumes
 	 * that the SOA container is also present. The reason why its safe to assume
 	 * this is that this API will be called only on an existing SOA Project.
-	 * 
-	 * @param implProject
-	 * @param monitor
-	 * @throws CoreException
+	 *
+	 * @param implProject the impl project
+	 * @param natureId the nature id
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
 	 */
 	public static void addSOAConsumerSupport(final IProject implProject,
 			String natureId, IProgressMonitor monitor) throws CoreException {
@@ -97,6 +99,13 @@ public class BuildSystemUtil {
 				natureId);
 	}
 
+	/**
+	 * Append soa class path.
+	 *
+	 * @param javaProject the java project
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 */
 	public static void appendSOAClassPath(IJavaProject javaProject,
 			IProgressMonitor monitor) throws CoreException {
 		GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()

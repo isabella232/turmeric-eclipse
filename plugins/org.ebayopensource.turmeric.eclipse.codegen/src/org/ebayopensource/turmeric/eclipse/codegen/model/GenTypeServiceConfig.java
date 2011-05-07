@@ -13,26 +13,42 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @author smathew
- * 
+ * The Class GenTypeServiceConfig.
  *
+ * @author smathew
  */
 public class GenTypeServiceConfig extends AbstractGenTypeGlobalConfig{
 	private String serviceConfigGroup;
 	
+	/**
+	 * Instantiates a new gen type service config.
+	 */
 	public GenTypeServiceConfig(){
 		super();
 		setGenType(GENTYPE_SERVER_CONFIG);
 	}
 
+	/**
+	 * Gets the service config group.
+	 *
+	 * @return the service config group
+	 */
 	public String getServiceConfigGroup() {
 		return serviceConfigGroup;
 	}
 
+	/**
+	 * Sets the service config group.
+	 *
+	 * @param serviceConfigGroup the new service config group
+	 */
 	public void setServiceConfigGroup(String serviceConfigGroup) {
 		this.serviceConfigGroup = serviceConfigGroup;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.codegen.model.AbstractGenTypeGlobalConfig#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		final Map<String, String> result = super.getCodeGenOptions();

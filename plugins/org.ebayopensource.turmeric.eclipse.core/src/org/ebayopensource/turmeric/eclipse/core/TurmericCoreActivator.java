@@ -36,24 +36,34 @@ import org.eclipse.xsd.util.XSDParser;
 import org.osgi.framework.BundleContext;
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the plug-in life cycle.
  */
 public class TurmericCoreActivator extends Plugin {
 
 	private static final String EXT_XSD = ".xsd";
 	// The plug-in ID
+	/** The Constant PLUGIN_ID_PREFIX. */
 	public static final String PLUGIN_ID_PREFIX = "org.ebayopensource.turmeric.eclipse";
+	
+	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = PLUGIN_ID_PREFIX + ".core";
 
 	// The shared instance
 	private static TurmericCoreActivator plugin;
 	
+	/** The Constant MY_PROPERTIES. */
 	public final static String MY_PROPERTIES = "plugin.properties";
 	private static BundleContext context = null;
 	private static SOALogger soaLogger = SOALogger.getLogger();
 
+    /** The plugin properties. */
     protected PropertyResourceBundle pluginProperties;
 
+    /**
+     * Gets the plugin properties.
+     *
+     * @return the plugin properties
+     */
     public PropertyResourceBundle getPluginProperties(){
     	if (pluginProperties == null){
     		try {
@@ -68,7 +78,7 @@ public class TurmericCoreActivator extends Plugin {
     }	
 
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public TurmericCoreActivator() {
 	}
@@ -86,6 +96,9 @@ public class TurmericCoreActivator extends Plugin {
 		SOALogger.getLogger().info(buf);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
+	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
@@ -101,6 +114,13 @@ public class TurmericCoreActivator extends Plugin {
 		return plugin;
 	}
 
+	/**
+	 * Parses the schema.
+	 *
+	 * @param inputStream the input stream
+	 * @return the xSD schema
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static XSDSchema parseSchema(InputStream inputStream)
 			throws IOException {
 		try {
@@ -113,6 +133,13 @@ public class TurmericCoreActivator extends Plugin {
 		}
 	}
 
+	/**
+	 * Parses the schema.
+	 *
+	 * @param url the url
+	 * @return the xSD schema
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static XSDSchema parseSchema(URL url) throws IOException {
 		InputStream inputStream = null;
 		inputStream = url.openStream();
@@ -122,9 +149,9 @@ public class TurmericCoreActivator extends Plugin {
 	/**
 	 * Just appending the extn to the XSD name. Extn names could be changed :)),
 	 * You never know. This is just a dumb helper
-	 * 
-	 * @param typeName
-	 * @return
+	 *
+	 * @param typeName the type name
+	 * @return the xsd file name from type name
 	 */
 	public static String getXsdFileNameFromTypeName(String typeName) {
 		String retValue = typeName;
@@ -134,11 +161,13 @@ public class TurmericCoreActivator extends Plugin {
 	}
 
 	/**
-	 * @param typeName
-	 * @return
-	 * 
-	 *         Answers the file location relative to the project structure. In
-	 *         short project.getFile() with this output should return the file.
+	 * Gets the xsd file location.
+	 *
+	 * @param typeName the type name
+	 * @param project the project
+	 * @return the xsd file location
+	 * Answers the file location relative to the project structure. In
+	 * short project.getFile() with this output should return the file.
 	 */
 	public static String getXsdFileLocation(String typeName, IProject project) {
 		String retValue = "";
@@ -166,11 +195,12 @@ public class TurmericCoreActivator extends Plugin {
 
 	/**
 	 * Old type library jar(NOT in workspace) has the dir structure \types\<xsd>
-	 * and the new one has meta-src\types\<typeLibName>\<xsd>
-	 * 
-	 * @return
-	 * @throws IOException
-	 * @throws URISyntaxException
+	 * and the new one has meta-src\types\<typeLibName>\<xsd>.
+	 *
+	 * @param jarURL the jar url
+	 * @param projectName the project name
+	 * @return true, if is new typ library
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static boolean isNewTypLibrary(URL jarURL, String projectName)
 			throws IOException {
@@ -185,9 +215,10 @@ public class TurmericCoreActivator extends Plugin {
 	/**
 	 * Old type library project (in workspace) has the dir structure
 	 * meta-src\types\<xsd> and the new one has
-	 * meta-src\types\<typeLibName>\<xsd>
-	 * 
-	 * @return
+	 * meta-src\types\<typeLibName>\<xsd>.
+	 *
+	 * @param project the project
+	 * @return true, if is new typ library
 	 */
 	public static boolean isNewTypLibrary(IProject project) {
 		return project.getFolder(
@@ -195,6 +226,14 @@ public class TurmericCoreActivator extends Plugin {
 						+ project.getName()).exists();
 	}
 
+	/**
+	 * Format contents.
+	 *
+	 * @param contents the contents
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static String formatContents(String contents) throws IOException,
 			CoreException {
 		FormatProcessorXML formatProcessor = new FormatProcessorXML();
@@ -203,9 +242,9 @@ public class TurmericCoreActivator extends Plugin {
 	
 	/**
 	 * Adding the TypeLibProtocal to the name for the xsd entry.
-	 * 
-	 * @param typeName
-	 * @return
+	 *
+	 * @param project the project
+	 * @return the dependency file
 	 */
 	public static IFile getDependencyFile(IProject project) {
 		return project.getFile(FOLDER_META_SRC_META_INF
@@ -219,11 +258,11 @@ public class TurmericCoreActivator extends Plugin {
 	 * files that should be writable for the SOA plugin and codegen to modify.
 	 * The returned list of files could be modified either by codegen or soa
 	 * plugin. For now its just the type dependency file.
-	 * 
-	 * @param project
+	 *
+	 * @param project the project
 	 * @return list of resources that are supposed tobe writable in a valid type
-	 *         library project.
-	 * @throws Exception
+	 * library project.
+	 * @throws Exception the exception
 	 */
 	public static List<IResource> getTypeLibProjectWritableResources(
 			final IProject project) throws Exception {
@@ -236,11 +275,11 @@ public class TurmericCoreActivator extends Plugin {
 	 * Mainly used to validate a type library project. These are the minimum
 	 * files that should be readable for the SOA plugin and codegen to work. For
 	 * now its just the type dependency file.
-	 * 
-	 * @param project
+	 *
+	 * @param project the project
 	 * @return list of resources that are supposed to exist in a valid type
-	 *         library project.
-	 * @throws Exception
+	 * library project.
+	 * @throws Exception the exception
 	 */
 	public static List<IResource> getTypeLibProjectReadableResources(
 			final IProject project) throws Exception {

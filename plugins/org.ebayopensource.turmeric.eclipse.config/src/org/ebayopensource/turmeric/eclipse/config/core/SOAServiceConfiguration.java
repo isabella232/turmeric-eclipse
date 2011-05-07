@@ -20,13 +20,29 @@ package org.ebayopensource.turmeric.eclipse.config.core;
  * 
  */
 public class SOAServiceConfiguration {
+	
+	/** The Constant KEY_BASE_REQ_TYPE_NAME. */
 	public static final String KEY_BASE_REQ_TYPE_NAME = "BASE_REQ_TYPE";
+	
+	/** The Constant KEY_BASE_REQ_TYPE_NAMESPACE. */
 	public static final String KEY_BASE_REQ_TYPE_NAMESPACE = "BASE_REQ_TYPE_NAMESPACE";
+	
+	/** The Constant KEY_BASE_RESP_TYPE_NAME. */
 	public static final String KEY_BASE_RESP_TYPE_NAME = "BASE_RESP_TYPE";
+	
+	/** The Constant KEY_BASE_RESP_TYPE_NAMESPACE. */
 	public static final String KEY_BASE_RESP_TYPE_NAMESPACE = "BASE_RESP_TYPE_NAMESPACE";
+	
+	/** The Constant KEY_INCLUDED_TYPES_WSDL. */
 	public static final String KEY_INCLUDED_TYPES_WSDL = "INCLUDED_TYPES_WSDL";
+	
+	/** The Constant KEY_CLIENT_CONFIG_GROUP. */
 	public static final String KEY_CLIENT_CONFIG_GROUP = "CLIENT_CONFIG_GROUP";
+	
+	/** The Constant KEY_SERVICE_CONFIG_GROUP. */
 	public static final String KEY_SERVICE_CONFIG_GROUP = "SERVICE_CONFIG_GROUP";
+	
+	/** The Constant KEY_ENV_MAPPER_IMPL. */
 	public static final String KEY_ENV_MAPPER_IMPL = "ENV_MAPPER_IMPL";
 
 	private String baseRequestTypeName;
@@ -38,6 +54,18 @@ public class SOAServiceConfiguration {
 	private String serviceConfigGroup;
 	private String envMapperImpl;
 
+	/**
+	 * Instantiates a new sOA service configuration.
+	 *
+	 * @param baseRequestTypeName the base request type name
+	 * @param baseResponseTypeName the base response type name
+	 * @param baseRequestTypeNameSpace the base request type name space
+	 * @param baseResponseTypeNameSpace the base response type name space
+	 * @param typesInWSDL the types in wsdl
+	 * @param clientConfigGroup the client config group
+	 * @param serviceConfigGroup the service config group
+	 * @param envMapperImpl the env mapper impl
+	 */
 	public SOAServiceConfiguration(String baseRequestTypeName,
 			String baseResponseTypeName, String baseRequestTypeNameSpace,
 			String baseResponseTypeNameSpace, String typesInWSDL, 
@@ -55,18 +83,18 @@ public class SOAServiceConfiguration {
 	}
 
 	/**
-	 * All request types extend from this Base request type
-	 * 
-	 * @return
+	 * All request types extend from this Base request type.
+	 *
+	 * @return the base request type name
 	 */
 	public String getBaseRequestTypeName() {
 		return baseRequestTypeName;
 	}
 
 	/**
-	 * All response types extend from this base response type
-	 * 
-	 * @return
+	 * All response types extend from this base response type.
+	 *
+	 * @return the base response type name
 	 */
 	public String getBaseResponseTypeName() {
 		return baseResponseTypeName;
@@ -74,8 +102,8 @@ public class SOAServiceConfiguration {
 
 	/**
 	 * Name space of the base request type.
-	 * 
-	 * @return
+	 *
+	 * @return the base request type name space
 	 */
 	public String getBaseRequestTypeNameSpace() {
 		return baseRequestTypeNameSpace;
@@ -83,8 +111,8 @@ public class SOAServiceConfiguration {
 
 	/**
 	 * Name space of the base response type.
-	 * 
-	 * @return
+	 *
+	 * @return the base response type name space
 	 */
 	public String getBaseResponseTypeNameSpace() {
 		return baseResponseTypeNameSpace;
@@ -92,32 +120,35 @@ public class SOAServiceConfiguration {
 
 	/**
 	 * Types to be included in WSDL.
-	 * 
-	 * @return
+	 *
+	 * @return the types in wsdl
 	 */
 	public String getTypesInWSDL() {
 		return typesInWSDL;
 	}
 
 	/**
-	 * The client config group name
-	 * @return
+	 * The client config group name.
+	 *
+	 * @return the client config group
 	 */
 	public String getClientConfigGroup() {
 		return clientConfigGroup;
 	}
 
 	/**
-	 * The service config group name
-	 * @return
+	 * The service config group name.
+	 *
+	 * @return the service config group
 	 */
 	public String getServiceConfigGroup() {
 		return serviceConfigGroup;
 	}
 
 	/**
-	 * The envrionment mapper implementation class name
-	 * @return
+	 * The envrionment mapper implementation class name.
+	 *
+	 * @return the env mapper impl
 	 */
 	public String getEnvMapperImpl() {
 		return envMapperImpl;

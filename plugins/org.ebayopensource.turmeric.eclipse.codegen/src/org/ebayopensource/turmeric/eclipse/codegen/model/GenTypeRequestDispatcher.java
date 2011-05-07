@@ -18,6 +18,9 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
  */
 public class GenTypeRequestDispatcher extends BaseCodeGenModel {
 
+	/**
+	 * Instantiates a new gen type request dispatcher.
+	 */
 	public GenTypeRequestDispatcher() {
 		super();
 		setGenType(GENTYPE_DISPATCHER);

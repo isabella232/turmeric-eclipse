@@ -37,18 +37,22 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
+ * The Class SOACodegenTransformer.
+ *
  * @author yayu
- * 
  */
 public class SOACodegenTransformer implements ISOACodegenTransformer {
 
 	/**
-	 * 
+	 * Instantiates a new sOA codegen transformer.
 	 */
 	public SOACodegenTransformer() {
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public BaseCodeGenModel transformModel(IProject project,
 			final IProgressMonitor monitor) throws Exception {
 		BaseCodeGenModel model = new BaseCodeGenModel();

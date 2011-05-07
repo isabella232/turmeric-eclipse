@@ -34,24 +34,46 @@ import org.osgi.framework.Bundle;
  * 
  */
 public class SOAGlobalConfigAccessor {
+	
+	/** The Constant CONF_FOLDER. */
 	public static final String CONF_FOLDER = "configurations";
+	
+	/** The Constant GLOBAL_CONFIG_PATH. */
 	public static final String GLOBAL_CONFIG_PATH = CONF_FOLDER + "/global_config.properties";
+	
+	/** The Constant ORGANIZATION_CONFIG_FILE_NAME. */
 	public static final String ORGANIZATION_CONFIG_FILE_NAME = "org_conf.properties";
+	
+	/** The KE y_ defaul t_ compile r_ level. */
 	public static String KEY_DEFAULT_COMPILER_LEVEL = "project.compiler.level";
 	private static Properties globalConfigurations = null;
 	private static Map<String, Map<String, Properties>> orgConfigsCache = 
 		new ConcurrentHashMap<String, Map<String, Properties>>();
 	
+	/** The Constant KEY_CATEGORIES. */
 	public static final String KEY_CATEGORIES = "Type.Library.CATEGORIES";
 	private static String strCategories = null;
 
+	/** The Constant KEY_ORGANIZATION. */
 	public static final String KEY_ORGANIZATION = "Error.Lib.ORGANIZATION";
+	
+	/** The Constant KEY_PREFERRED_ERROR_LIB_CONTENT_PROVIDER. */
 	public static final String KEY_PREFERRED_ERROR_LIB_CONTENT_PROVIDER = "Preferred.Error.Lib.Content.Provider";
+	
+	/** The Constant KEY_ERROR_LIB_CENTRAL_LOCATION. */
 	public static final String KEY_ERROR_LIB_CENTRAL_LOCATION = "Error.Lib.Central.Location";
 
 	
 	private static SOAServiceConfiguration soaServiceConfiguration = null;
 
+	/**
+	 * Gets the resource.
+	 *
+	 * @param bundle the bundle
+	 * @param path the path
+	 * @return the resource
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static URL getResource(Bundle bundle, String path) throws IOException {
 		if (bundle == null)
 			bundle = ConfigActivator.getDefault().getBundle();
@@ -78,6 +100,12 @@ public class SOAGlobalConfigAccessor {
 		return props;
 	}
 	
+	/**
+	 * Gets the global configurations.
+	 *
+	 * @return the global configurations
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static Properties getGlobalConfigurations() throws IOException {
 		if (globalConfigurations == null) {
 			globalConfigurations = loadConfigurations(GLOBAL_CONFIG_PATH);
@@ -85,6 +113,15 @@ public class SOAGlobalConfigAccessor {
 		return globalConfigurations;
 	}
 	
+	/**
+	 * Gets the organization resource.
+	 *
+	 * @param buildSystem the build system
+	 * @param oraganization the oraganization
+	 * @param path the path
+	 * @return the organization resource
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static URL getOrganizationResource(
 			String buildSystem, String oraganization, String path) throws IOException {
 		path = CONF_FOLDER + "/" + buildSystem.toLowerCase(Locale.US) + "/" 
@@ -93,6 +130,14 @@ public class SOAGlobalConfigAccessor {
 	}
 	
 	
+	/**
+	 * Gets the organization configurations.
+	 *
+	 * @param buildSystemName the build system name
+	 * @param organization the organization
+	 * @return the organization configurations
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static Properties getOrganizationConfigurations(String buildSystemName, String organization) 
 	throws IOException {
 		buildSystemName = buildSystemName.toLowerCase(Locale.US);
@@ -112,6 +157,12 @@ public class SOAGlobalConfigAccessor {
 		return props;
 	}
 	
+	/**
+	 * Gets the default compiler level.
+	 *
+	 * @return the default compiler level
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static String getDefaultCompilerLevel() throws IOException {
 		return StringUtils.trim(getGlobalConfigurations().getProperty(KEY_DEFAULT_COMPILER_LEVEL));
 	}
@@ -119,9 +170,9 @@ public class SOAGlobalConfigAccessor {
 	/**
 	 * Returns the type library categories. This can be different for ebay and
 	 * pay pal. Later we might even give a preference based UI to edit this.Fs
-	 * 
-	 * @return
-	 * @throws IOException
+	 *
+	 * @return the categories for type lib
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static String getCategoriesForTypeLib() throws IOException {
 		if (strCategories == null) {
@@ -138,9 +189,11 @@ public class SOAGlobalConfigAccessor {
 	 * provider for V4. By default it returns V4 provider now and later if
 	 * somebody wants to implement a provider they can very well do that and
 	 * update the properties file.
-	 * 
-	 * @return
-	 * @throws IOException
+	 *
+	 * @param buildSystemName the build system name
+	 * @param organization the organization
+	 * @return the preferred error library content provider
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static String getPreferredErrorLibraryContentProvider(String buildSystemName, 
 			String organization)
@@ -151,13 +204,14 @@ public class SOAGlobalConfigAccessor {
 	}
 
 	/**
-	 * 
 	 * Returns the central location for error id generation. This is being used
 	 * for error id creation. This is now a file based algorithm and the
 	 * SOATools expect this location to be passed to the generation algorithm.
-	 * 
-	 * @return
-	 * @throws IOException
+	 *
+	 * @param buildSystemName the build system name
+	 * @param organization the organization
+	 * @return the error library central location
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static String getErrorLibraryCentralLocation(String buildSystemName, 
 			String organization) throws IOException {
@@ -174,10 +228,12 @@ public class SOAGlobalConfigAccessor {
 	 * is added to the WSDL. If anything goes wrong in this process the whole
 	 * service creation flow is interrupted and that way it is very important to
 	 * have this property correct.
-	 * 
+	 *
 	 * @param buildSystemName -
-	 *            the name of the folder which has the serivice_conf.properties
-	 * @return
+	 * the name of the folder which has the serivice_conf.properties
+	 * @param organization the organization
+	 * @return the service configuration
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static SOAServiceConfiguration getServiceConfiguration(
 			String buildSystemName, String organization) throws IOException {

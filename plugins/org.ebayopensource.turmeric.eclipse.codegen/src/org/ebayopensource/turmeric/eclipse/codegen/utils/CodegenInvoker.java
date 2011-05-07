@@ -53,10 +53,10 @@ public class CodegenInvoker {
 	 * or SUN java class loader, reason being those class loaders seem to be
 	 * using a locked stream for reading the classes from a jar file and the
 	 * custom class loader address this issue.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @return the codegen invoker
+	 * @throws Exception the exception
 	 */
 	public static CodegenInvoker init(IProject project) throws Exception {
 		if (project == null) {
@@ -73,23 +73,19 @@ public class CodegenInvoker {
 	}
 
 	/**
-	 * 
-	 * Executes the given code generation model in the context created by the
-	 * 
+	 * Executes the given code generation model in the context created by the.
+	 *
+	 * @param model - This model has all the parameters required for codegen
+	 * invocation.
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 * @see CodegenInvoker#init(IProject).
 	 * 
-	 *      This is again a tricky method. We want to have our old class loader
-	 *      stored temporarily and use the fresh soa class loader for code
-	 *      generation for obvious reasons( the relevant class path is there in
-	 *      this class loader). After codegen we will set the old classpath
-	 *      back.
-	 * 
-	 * 
-	 * 
-	 * @param model
-	 *            - This model has all the parameters required for codegen
-	 *            invocation.
-	 * @return
+	 * This is again a tricky method. We want to have our old class loader
+	 * stored temporarily and use the fresh soa class loader for code
+	 * generation for obvious reasons( the relevant class path is there in
+	 * this class loader). After codegen we will set the old classpath
+	 * back.
 	 */
 	public boolean execute(BaseCodeGenModel model) throws Exception {
 		Map<String, String> paramMap = model.getCodeGenOptions();
@@ -139,9 +135,9 @@ public class CodegenInvoker {
 	}
 
 	/**
-	 * Usual getter
-	 * 
-	 * @return
+	 * Usual getter.
+	 *
+	 * @return the soa plugin class loader
 	 */
 	public SOAPluginClassLoader getSoaPluginClassLoader() {
 		return soaPluginClassLoader;

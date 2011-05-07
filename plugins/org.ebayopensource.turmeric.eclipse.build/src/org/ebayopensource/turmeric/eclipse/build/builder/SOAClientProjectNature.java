@@ -31,11 +31,17 @@ public class SOAClientProjectNature extends AbstractSOANature {
 	public static final String NATURE_ID = SOAFrameworkBuilderActivator.PLUGIN_ID
 			+ ".SOAClientProjectNature";
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.core.buildsystem.AbstractSOANature#getBuilderName()
+	 */
 	@Override
 	public String getBuilderName() {
 		return SOAClientProjectBuilder.BUILDER_ID;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.core.buildsystem.AbstractSOANature#configure()
+	 */
 	@Override
 	public void configure() throws CoreException {
 		if (GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()

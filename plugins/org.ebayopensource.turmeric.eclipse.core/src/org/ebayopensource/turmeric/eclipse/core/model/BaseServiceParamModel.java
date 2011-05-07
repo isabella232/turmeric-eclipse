@@ -11,8 +11,10 @@ package org.ebayopensource.turmeric.eclipse.core.model;
 
 
 /**
- * @author smathew
+ * The Class BaseServiceParamModel.
  *
+ * @author smathew
+ * 
  * The base class which holds the common elements.
  * this class would be always evolving until the refactoring is over.
  */

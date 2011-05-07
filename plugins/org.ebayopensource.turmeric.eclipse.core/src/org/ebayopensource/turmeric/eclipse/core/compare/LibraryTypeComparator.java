@@ -16,14 +16,18 @@ import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
+ * The Class LibraryTypeComparator.
+ *
  * @author smathew
- * 
  */
 public class LibraryTypeComparator implements Comparator<LibraryType>,
 		Serializable {
 
 	private static final long serialVersionUID = 201L;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public int compare(LibraryType o1, LibraryType o2) {
 		if (o1 == null && o2 == null)
 			return 0;

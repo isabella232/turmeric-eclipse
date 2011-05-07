@@ -24,13 +24,16 @@ import org.junit.Test;
 
 
 /**
- * @author yayu
+ * The Class TestSOAGlobalConfigAccessor.
  *
+ * @author yayu
  */
 public class TestSOAGlobalConfigAccessor {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor#getResource(org.osgi.framework.Bundle, java.lang.String)}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetResource() throws Exception {
@@ -43,6 +46,12 @@ public class TestSOAGlobalConfigAccessor {
 		Assert.assertNull(resource);
 	}
 	
+	/**
+	 * Check url instance.
+	 *
+	 * @param resource the resource
+	 * @throws Exception the exception
+	 */
 	public static void checkUrlInstance(URL resource) throws Exception {
 		Assert.assertNotNull(resource);
 		InputStream ins = null;
@@ -59,6 +68,8 @@ public class TestSOAGlobalConfigAccessor {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor#getOrganizationResource(java.lang.String, java.lang.String, java.lang.String)}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetOrganizationResource() throws Exception {
@@ -69,6 +80,8 @@ public class TestSOAGlobalConfigAccessor {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor#getGlobalConfigurations()}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetGlobalConfigurations() throws Exception {
@@ -85,6 +98,8 @@ public class TestSOAGlobalConfigAccessor {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor#getOrganizationConfigurations(java.lang.String, java.lang.String)}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetOrganizationConfigurations() throws Exception {
@@ -103,6 +118,8 @@ public class TestSOAGlobalConfigAccessor {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor#getDefaultCompilerLevel()}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetDefaultCompilerLevel() throws Exception {
@@ -111,6 +128,8 @@ public class TestSOAGlobalConfigAccessor {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor#getCategoriesForTypeLib()}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetCategoriesForTypeLib() throws Exception {
@@ -119,6 +138,8 @@ public class TestSOAGlobalConfigAccessor {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor#getPreferredErrorLibraryContentProvider(java.lang.String, java.lang.String)}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetPreferredErrorLibraryContentProvider() throws Exception {
@@ -129,6 +150,8 @@ public class TestSOAGlobalConfigAccessor {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor#getErrorLibraryCentralLocation(java.lang.String, java.lang.String)}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetErrorLibraryCentralLocation() throws Exception {
@@ -139,6 +162,8 @@ public class TestSOAGlobalConfigAccessor {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor#getServiceConfiguration(java.lang.String, java.lang.String)}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetServiceConfiguration() throws Exception {

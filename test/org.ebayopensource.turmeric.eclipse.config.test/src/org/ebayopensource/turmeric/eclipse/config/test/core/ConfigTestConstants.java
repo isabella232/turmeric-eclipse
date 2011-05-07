@@ -12,9 +12,9 @@
 package org.ebayopensource.turmeric.eclipse.config.test.core;
 
 /**
- * Constants for testing the config plugin
- * @author yayu
+ * Constants for testing the config plugin.
  *
+ * @author yayu
  */
 public final class ConfigTestConstants {
 
@@ -25,9 +25,15 @@ public final class ConfigTestConstants {
 		super();
 	}
 	
+	/** The Constant CONFIG_TEST_REPO_ID. */
 	public static final String CONFIG_TEST_REPO_ID = "config_test";
+	
+	/** The Constant CONFIG_TEST_ORG_ID. */
 	public static final String CONFIG_TEST_ORG_ID = CONFIG_TEST_REPO_ID;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException();

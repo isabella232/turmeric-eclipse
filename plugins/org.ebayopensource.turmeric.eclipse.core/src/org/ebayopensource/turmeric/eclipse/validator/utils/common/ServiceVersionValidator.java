@@ -16,23 +16,38 @@ import org.osgi.framework.Version;
 
 
 /**
+ * The Class ServiceVersionValidator.
+ *
  * @author smathew
  * Checks the version format and the validity
  */
 public class ServiceVersionValidator extends AbstractSOAValidator {
 	private static final ServiceVersionValidator INSTANCE = new ServiceVersionValidator();
 
+	/** The Constant SERVICE_VERSION_SEPARATOR. */
 	public static final String SERVICE_VERSION_SEPARATOR = ".";
+	
+	/** The Constant ERROR_MESSAGE. */
 	public static final String ERROR_MESSAGE = "Service Version must be of the type x.y.z, where x, y and z are positive "
 			+ "integers for major version, minor version and maintenance";
+	
+	/** The Constant ERROR_MAJOR_VERSION. */
 	public static final String ERROR_MAJOR_VERSION = "Service major version must be greater than zero";
 	
+	/** The Constant MAX_DIGIT. */
 	public static final int MAX_DIGIT = 3;
+	
+	/** The Constant ERROR_TOO_MANY_DIGITS. */
 	public static final String ERROR_TOO_MANY_DIGITS = 
 		"The length of major/minor/maintenance version must not exceed " 
 		+ MAX_DIGIT + " digits.";
 	
 
+	/**
+	 * Gets the single instance of ServiceVersionValidator.
+	 *
+	 * @return single instance of ServiceVersionValidator
+	 */
 	public static ServiceVersionValidator getInstance() {
 		return INSTANCE;
 	}

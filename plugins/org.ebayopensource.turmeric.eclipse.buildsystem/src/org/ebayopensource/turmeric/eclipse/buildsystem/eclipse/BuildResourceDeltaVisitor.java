@@ -95,7 +95,9 @@ public class BuildResourceDeltaVisitor implements IResourceDeltaVisitor {
 	}
 
 	/**
-	 * @param isBuildRequired 
+	 * Sets the builds the required.
+	 *
+	 * @param isBuildRequired the new builds the required
 	 */
 	public void setBuildRequired(boolean isBuildRequired) {
 		this.buildRequired = isBuildRequired;

@@ -59,14 +59,18 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.wst.wsdl.validation.internal.IValidationMessage;
 
 /**
- * All Action calls comes here
- * 
+ * All Action calls comes here.
+ *
  * @author smathew
  */
 public class ActionUtil {
 
 	private static final SOALogger logger = SOALogger.getLogger();
+	
+	/** The Constant WST_FACET_NATURE_ID. */
 	public static final String WST_FACET_NATURE_ID = "org.eclipse.wst.common.project.facet.core.nature";
+	
+	/** The Constant WST_MODULECORE_NATURE_ID. */
 	public static final String WST_MODULECORE_NATURE_ID = "org.eclipse.wst.common.modulecore.ModuleCoreNature";
 	private static final String WSI_PREFIX = "WSI";
 	private static final String AS_PREFIX = "AS";
@@ -79,10 +83,10 @@ public class ActionUtil {
 	 * exception, because there are also other ways to find the project. if its
 	 * adaptable this API will adapt the selected object to a project and
 	 * returns it back
-	 * 
-	 * @param selectedObject
-	 * @param logger
-	 * @return
+	 *
+	 * @param selectedObject the selected object
+	 * @param logger the logger
+	 * @return the i project
 	 */
 	public static IProject preValidateAction(final Object selectedObject,
 			SOALogger logger) {
@@ -106,11 +110,11 @@ public class ActionUtil {
 	 * TypeMappings. Mainly called from actions, because we have grouped, impl,
 	 * intf gentypes and users might still want to regenerate their type
 	 * mappings just in case.
-	 * 
-	 * @param project
-	 * @param monitor
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public static boolean generateTypeMappings(IProject project,
 			IProgressMonitor monitor) throws Exception {
@@ -138,11 +142,11 @@ public class ActionUtil {
 	 * obvious, Not all projects are supposed to have this file. And for the
 	 * same reason we have now given a context menu to generate it on demand.
 	 * The gen-type used is GlobalServerConfig.
-	 * 
-	 * @param project
-	 * @param monitor
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public static boolean generateGlobalServiceConfig(IProject project,
 			IProgressMonitor monitor) throws Exception {
@@ -168,11 +172,11 @@ public class ActionUtil {
 	 * obvious, Not all projects are supposed to have this file. And for the
 	 * same reason we have now given a context menu to generate it on demand.
 	 * The gen-type used is GlobalClientConfig.
-	 * 
-	 * @param project
-	 * @param monitor
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public static boolean generateGlobalClientConfig(IProject project,
 			IProgressMonitor monitor) throws Exception {
@@ -210,11 +214,11 @@ public class ActionUtil {
 	 * Generates the Skeleton for the given implementation project. Skeleton
 	 * means everything except implementation class. Again everything means all
 	 * generated files :).
-	 * 
-	 * @param project
-	 * @param monitor
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public static boolean generateServiceImplSkeleton(IProject project,
 			IProgressMonitor monitor) throws Exception {
@@ -228,12 +232,12 @@ public class ActionUtil {
 	 * it, is because in most cases people will have domain logic in the
 	 * implementation class and we do not want to overwrite it withour a
 	 * confirmation from the user.
-	 * 
-	 * @param project
-	 * @param overwriteImplClass
-	 * @param monitor
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param overwriteImplClass the overwrite impl class
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public static boolean generateServiceImplSkeleton(IProject project,
 			boolean overwriteImplClass, IProgressMonitor monitor)
@@ -261,13 +265,13 @@ public class ActionUtil {
 
 	/**
 	 * Generates the web xml. This is web application descriptor.
-	 * 
-	 * @param project
-	 * @param templates
-	 * @param templateLoadingClass
-	 * @param monitor
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param templates the templates
+	 * @param templateLoadingClass the template loading class
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public static boolean generateWebXml(IProject project,
 			final Map<String, String> templates,
@@ -306,9 +310,9 @@ public class ActionUtil {
 	 * Validates the given project to make sure that it can consume a service.
 	 * we have to make sure that the source directory is not the the root
 	 * directory, it does not have more than one source directory,
-	 * 
-	 * @param project
-	 * @return
+	 *
+	 * @param project the project
+	 * @return the i status
 	 */
 	public static IStatus validateJavaProjectForConvertingToConsumer(
 			final IProject project) {
@@ -465,6 +469,19 @@ public class ActionUtil {
 		}
 	}
 
+	/**
+	 * Validate using wtp.
+	 *
+	 * @param wsdlWorkspaceFile the wsdl workspace file
+	 * @param wsdlFile the wsdl file
+	 * @param statuses the statuses
+	 * @param needDowngrade the need downgrade
+	 * @param monitor the monitor
+	 * @throws ValidationInterruptedException the validation interrupted exception
+	 * @throws CoreException the core exception
+	 * @throws MalformedURLException the malformed url exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@SuppressWarnings("restriction")
 	public static void validateUsingWTP(IFile wsdlWorkspaceFile, URL wsdlFile,
 			List<IStatus> statuses, boolean needDowngrade,
@@ -521,6 +538,17 @@ public class ActionUtil {
 		}
 	}
 
+	/**
+	 * Validate service wsdl.
+	 *
+	 * @param wsdlFile the wsdl file
+	 * @param wsdlFileURL the wsdl file url
+	 * @param needASValidation the need as validation
+	 * @param needDowngrade the need downgrade
+	 * @param monitor the monitor
+	 * @return the i status
+	 * @throws Exception the exception
+	 */
 	public static IStatus validateServiceWSDL(IFile wsdlFile, URL wsdlFileURL,
 			boolean needASValidation, boolean needDowngrade,
 			IProgressMonitor monitor) throws Exception {
@@ -562,6 +590,14 @@ public class ActionUtil {
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * Clean project.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return the i status
+	 * @throws CoreException the core exception
+	 */
 	public static IStatus cleanProject(IProject project,
 			IProgressMonitor monitor) throws CoreException {
 
@@ -600,34 +636,34 @@ public class ActionUtil {
 
 	/**
 	 * Wrapper to execute the job and schedule and show a message in the UI if
-	 * required
-	 * 
+	 * required.
 	 */
 	public static interface ActionJob {
+		
 		/**
-		 * Gets the target platform
-		 * 
-		 * @return
+		 * Gets the target platform.
+		 *
+		 * @return the target platform
 		 */
 		public String getTargetPlatform();
 
 		/**
-		 * Schedules the job for execution
+		 * Schedules the job for execution.
 		 */
 		public void schedule();
 
 		/**
-		 * Setting the sub job for the parent job
-		 * 
-		 * @param job
+		 * Setting the sub job for the parent job.
+		 *
+		 * @param job the new sub job
 		 */
 		public void setSubJob(Job job);
 
 		/**
-		 * Shows the message box in the UI
-		 * 
-		 * @param title
-		 * @param message
+		 * Shows the message box in the UI.
+		 *
+		 * @param title the title
+		 * @param message the message
 		 */
 		public void showMessage(String title, String message);
 	}

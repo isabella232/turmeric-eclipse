@@ -15,8 +15,10 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
+ * The Class ProjectFileSystemValidator.
+ *
  * @author smathew
- * Validates the project path 
+ * Validates the project path
  */
 public class ProjectFileSystemValidator extends AbstractSOAValidator{
 	

@@ -1,5 +1,18 @@
 package org.ebayopensource.turmeric.eclipse.core.resources.constants;
 
+/**
+ * The Enum SOAXSDTemplateSubType.
+ */
 public enum SOAXSDTemplateSubType {
-	SIMPLE, COMPLEX, ENUM, COMPLEX_COMPLEXCONTENT, COMPLEX_SIMPLECONTENT
+	
+	/** The SIMPLE. */
+	SIMPLE, 
+ /** The COMPLEX. */
+ COMPLEX, 
+ /** The ENUM. */
+ ENUM, 
+ /** The COMPLE x_ complexcontent. */
+ COMPLEX_COMPLEXCONTENT, 
+ /** The COMPLE x_ simplecontent. */
+ COMPLEX_SIMPLECONTENT
 }

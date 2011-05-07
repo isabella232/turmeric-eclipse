@@ -39,21 +39,23 @@ public final class SOALogger extends Logger{
 	
 	//public static final String USAGE_TRACKING = "!USAGE_TRACKING: ";
     
+	/** The Constant DEBUG. */
 	public static final boolean DEBUG;
-	/**
-	 * Codegen and runtime global logger ID
-	 */
+	
+	/** Codegen and runtime global logger ID. */
 	public static final String GLOBAL_LOGGER_ID = "org.ebayopensource.turmeric";
-	/**
-	 * Plugin global logger ID
-	 */
+	
+	/** Plugin global logger ID. */
 	public static final String GLOBAL_LOGGER_ID_PLUGIN = "org.ebayopensource.turmeric.eclipse";
 	
 	private static final PluginLogDelegateHandler pluginLogHandler = new PluginLogDelegateHandler();
+	
+	/** The Constant GLOBAL_LOGGER. */
 	public static final Logger GLOBAL_LOGGER = Logger.getLogger("");
 	
 	private static final String FILENAME_LOGGING_PROPERTIES = "turmeric-plugin-logging.properties";
 	
+	/** The Constant CONSOLE_HANDLER. */
 	public static final ConsoleHandler CONSOLE_HANDLER;
 	
 
@@ -143,15 +145,32 @@ public final class SOALogger extends Logger{
 		DEBUG = trace;
 	}
 	
+	/**
+	 * Gets the log handler.
+	 *
+	 * @return the log handler
+	 */
 	public static Handler getLogHandler() {
 		return pluginLogHandler;
 	}
 	
 	
+	/**
+	 * Gets the single instance of SOALogger.
+	 *
+	 * @param clazz the clazz
+	 * @return single instance of SOALogger
+	 */
 	public static SOALogger getInstance(Class< ? > clazz) {
 		return getInstance(clazz.getName());
 	}
 	
+	/**
+	 * Gets the single instance of SOALogger.
+	 *
+	 * @param clazz the clazz
+	 * @return single instance of SOALogger
+	 */
 	public static SOALogger getInstance(String clazz) {
 		// We want 1 logger per subsystem
 		String subsystem = "";
@@ -172,7 +191,8 @@ public final class SOALogger extends Logger{
 	
 	/**
 	 * If the tracing is enabled, then the logging level will be setup accordingly.
-	 * @param clazz
+	 *
+	 * @param clazz the clazz
 	 * @return An instance of <code>LogManager</code>
 	 */
 	public static synchronized SOALogger getLogger(String clazz)
@@ -216,14 +236,21 @@ public final class SOALogger extends Logger{
 		return logger;
 	}
 	
+	/**
+	 * Sets the builds the system name.
+	 *
+	 * @param name the new builds the system name
+	 */
 	public static void setBuildSystemName(String name)
 	{
 		PluginLogDelegateHandler.setBuildSystemName(name);
 	}
 
 	/**
+	 * Gets the logger.
+	 *
 	 * @param clazz The <code>Class</code> instance that is used for constructing <code>Logger</code> instance.
-	 * @return
+	 * @return the logger
 	 */
 	public static SOALogger getLogger(Class<?> clazz)
 	{
@@ -247,6 +274,8 @@ public final class SOALogger extends Logger{
 	//Info Logging
 	//////////////////////////////////////////
 	/**
+	 * Info.
+	 *
 	 * @param msgs The messages
 	 * @see java.util.logging.Level#INFO
 	 */
@@ -254,7 +283,10 @@ public final class SOALogger extends Logger{
 		StackTraceElement[] elements = new Throwable().getStackTrace();
     	logp(Level.INFO, elements[1].getClassName(), elements[1].getMethodName(), StringUtil.toString(msgs));
 	}
+	
 	/**
+	 * Checks if is info enabled.
+	 *
 	 * @return <code>True</code> if the <code>INFO</code> logging level is enabled, or <code>False</code> otherwise.
 	 * @see java.util.logging.Level#INFO
 	 */
@@ -267,7 +299,9 @@ public final class SOALogger extends Logger{
 	//Warning Logging
 	//////////////////////////////////////////
 	/**
-	 * @param message The warning message
+	 * Warning.
+	 *
+	 * @param messages the messages
 	 * @see java.util.logging.Level#WARNING
 	 */
 	public void warning(Object... messages)
@@ -276,7 +310,11 @@ public final class SOALogger extends Logger{
     	logp(Level.WARNING, elements[1].getClassName(), elements[1].getMethodName(), 
     			StringUtil.toString(messages));
     }
+	
 	/**
+	 * Warning.
+	 *
+	 * @param cause the cause
 	 * @param messages The warning messages
 	 * @see java.util.logging.Level#WARNING
 	 */
@@ -302,14 +340,19 @@ public final class SOALogger extends Logger{
 	//Error Logging
 	//////////////////////////////////////////
 	/**
-	 * @param msg The error message
-	 * @see java.util.logging.Level#SEVERE
-	 */
+     * Error.
+     *
+     * @param msg The error message
+     * @see java.util.logging.Level#SEVERE
+     */
 	public void error(String msg) {
 		StackTraceElement[] elements = new Throwable().getStackTrace();
         logp(Level.SEVERE, elements[1].getClassName(), elements[1].getMethodName(), String.valueOf(msg));
 	}
+	
 	/**
+	 * Error.
+	 *
 	 * @param message The error message
 	 * @param cause The cause of the error
 	 * @see java.util.logging.Level#SEVERE
@@ -319,7 +362,10 @@ public final class SOALogger extends Logger{
 		StackTraceElement[] elements = new Throwable().getStackTrace();
         logp(Level.SEVERE, elements[1].getClassName(), elements[1].getMethodName(), String.valueOf(message), cause);
     }
+	
 	/**
+	 * Error.
+	 *
 	 * @param cause The cause of the error
 	 * @see java.util.logging.Level#SEVERE
 	 */
@@ -328,7 +374,10 @@ public final class SOALogger extends Logger{
 		StackTraceElement[] elements = new Throwable().getStackTrace();
         logp(Level.SEVERE, elements[1].getClassName(), elements[1].getMethodName(),cause.getLocalizedMessage(), cause);
     }
+	
 	/**
+	 * Throwing.
+	 *
 	 * @param thrown The instance of <code>Throwable</code>
 	 * @see java.util.logging.Level#SEVERE
 	 */
@@ -341,7 +390,9 @@ public final class SOALogger extends Logger{
 	//Debug Logging
 	//////////////////////////////////////////
     /**
-     * @param msg The debug message
+     * Debug.
+     *
+     * @param msgs the msgs
      * @see java.util.logging.Level#FINE
      */
     public void debug(Object... msgs)
@@ -354,6 +405,8 @@ public final class SOALogger extends Logger{
 	//Logging Entry/Exit
 	//////////////////////////////////////////
 	/**
+	 * Entering.
+	 *
 	 * @param params The multiple parameters that passed in
 	 * @see java.util.logging.Level#FINER
 	 */
@@ -377,6 +430,8 @@ public final class SOALogger extends Logger{
 	}
 
 	/**
+	 * Exiting.
+	 *
 	 * @param result The result of the method call
 	 * @see java.util.logging.Level#FINER
 	 */

@@ -24,9 +24,9 @@ public class CodeGenUtil {
 	/**
 	 * Extracts the GIP value from the service interface name. Acts as a domain
 	 * wrapper over string utility class
-	 * 
-	 * @param serviceInterface
-	 * @return
+	 *
+	 * @param serviceInterface the service interface
+	 * @return the gIP from interface
 	 */
 	public static String getGIPFromInterface(String serviceInterface) {
 		return StringUtils.substringBeforeLast(serviceInterface, ".");
@@ -35,18 +35,28 @@ public class CodeGenUtil {
 	/**
 	 * Extracts the GIN value from the service interface name. Acts as a domain
 	 * wrapper over string utility class
-	 * 
-	 * @param serviceInterface
-	 * @return
+	 *
+	 * @param serviceInterface the service interface
+	 * @return the gIN from interface
 	 */
 	public static String getGINFromInterface(String serviceInterface) {
 		return StringUtils.substringAfterLast(serviceInterface, ".");
 	}
 	
+	/**
+	 * Gets the java home.
+	 *
+	 * @return the java home
+	 */
 	public static String getJavaHome() {
 		return System.getProperty("java.home");
 	}
 	
+	/**
+	 * Gets the jdk home.
+	 *
+	 * @return the jdk home
+	 */
 	public static String getJdkHome() {
 		final String javaHome = getJavaHome();
 		

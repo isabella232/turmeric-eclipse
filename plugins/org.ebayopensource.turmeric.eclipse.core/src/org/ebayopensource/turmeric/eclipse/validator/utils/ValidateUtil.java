@@ -11,6 +11,8 @@ package org.ebayopensource.turmeric.eclipse.validator.utils;
 import org.eclipse.core.runtime.IStatus;
 
 /**
+ * The Class ValidateUtil.
+ *
  * @author smathew
  * Caters the util functions common for validators
  */
@@ -18,11 +20,12 @@ public class ValidateUtil {
 
 	/**
 	 * Formats the message with basic basic linear formatting
-	 * Filters out all messages with severity not equal to the 
-	 * aupplied severity
-	 * @param model
+	 * Filters out all messages with severity not equal to the
+	 * aupplied severity.
+	 *
+	 * @param model the model
 	 * @param severity - the filter level of severity
-	 * @return
+	 * @return the basic formatted ui error message
 	 */
 	public static String getBasicFormattedUIErrorMessage(
 			IStatus model, int severity) {
@@ -45,9 +48,10 @@ public class ValidateUtil {
 
 	/**
 	 * Simply formats the message without any filtering
-	 * all erros are returned after formatting
-	 * @param model
-	 * @return
+	 * all erros are returned after formatting.
+	 *
+	 * @param model the model
+	 * @return the basic formatted ui error message
 	 */
 	public static String getBasicFormattedUIErrorMessage(
 			IStatus model) {
@@ -67,7 +71,9 @@ public class ValidateUtil {
 	}
 	
 	/**
-	 * @param status
+	 * Gets the formatted status messages for action.
+	 *
+	 * @param status the status
 	 * @return Null is the status is OK, or the error messages otherwise
 	 */
 	public static String getFormattedStatusMessagesForAction(IStatus status) {

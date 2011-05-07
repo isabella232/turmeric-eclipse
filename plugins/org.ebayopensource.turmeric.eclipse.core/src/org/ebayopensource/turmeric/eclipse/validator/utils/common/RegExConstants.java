@@ -9,15 +9,19 @@
 package org.ebayopensource.turmeric.eclipse.validator.utils.common;
 
 /**
- * Constants for validation against regular expression
- * 
+ * Constants for validation against regular expression.
+ *
  * @author ramurthy
- * 
  */
 public interface RegExConstants {
 
+	/** The Constant PROJECT_NAME_EXP. */
 	public static final String PROJECT_NAME_EXP = "[A-Za-z]+[A-Za-z0-9_]*";
+	
+	/** The Constant SERVICE_NAME_EXP. */
 	public static final String SERVICE_NAME_EXP = "[A-Z]+[A-Za-z0-9_]*";
+	
+	/** The Constant DOMAIN_NAME_EXP. */
 	public static final String DOMAIN_NAME_EXP = "[A-Za-z]+[A-Za-z _]*";
 
 }

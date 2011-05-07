@@ -18,8 +18,9 @@ import org.junit.Test;
 
 
 /**
- * @author yayu
+ * The Class TestSOAConfigAreaCorruptedException.
  *
+ * @author yayu
  */
 public class TestSOAConfigAreaCorruptedException {
 	 private static final String OOPS_BUG = "Oops. Bug";

@@ -29,6 +29,9 @@ public class SOAInterfaceProjectNature extends AbstractSOANature {
 	public static final String NATURE_ID = SOAFrameworkBuilderActivator.PLUGIN_ID
 			+ ".SOAInterfaceProjectNature";
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.core.buildsystem.AbstractSOANature#configure()
+	 */
 	@Override
 	public void configure() throws org.eclipse.core.runtime.CoreException {
 		if (GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
@@ -37,6 +40,9 @@ public class SOAInterfaceProjectNature extends AbstractSOANature {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.core.buildsystem.AbstractSOANature#getBuilderName()
+	 */
 	@Override
 	public String getBuilderName() {
 		return SOAInterfaceProjectBuilder.BUILDER_ID;

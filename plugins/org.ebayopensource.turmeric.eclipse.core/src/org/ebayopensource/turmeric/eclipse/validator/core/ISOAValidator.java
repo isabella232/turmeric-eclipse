@@ -13,15 +13,19 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
+ * The Interface ISOAValidator.
+ *
  * @author smathew This interface should be implemented by all all SOA
- *         validators, both UI and non UI validators. Might have to revisit this
+ * validators, both UI and non UI validators. Might have to revisit this
  */
 public interface ISOAValidator {
 
 	/**
-	 * core validation method
-	 * 
+	 * core validation method.
+	 *
+	 * @param obj the obj
 	 * @return Status.OK model if the validation succeeds
+	 * @throws ValidationInterruptedException the validation interrupted exception
 	 * @see Status.OK_STATUS;
 	 * 
 	 * Implementing classes are advised to use proper names

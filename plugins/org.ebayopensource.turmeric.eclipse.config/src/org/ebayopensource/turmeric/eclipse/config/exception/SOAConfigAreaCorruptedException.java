@@ -29,10 +29,20 @@ public class SOAConfigAreaCorruptedException extends AbstractSOAException {
 	private static final long serialVersionUID = 1L;
 	
 
+	/**
+	 * Instantiates a new sOA config area corrupted exception.
+	 *
+	 * @param cause the cause
+	 */
 	public SOAConfigAreaCorruptedException(Throwable cause) {
 		super(cause);
 	}
 
+	/**
+	 * Instantiates a new sOA config area corrupted exception.
+	 *
+	 * @param message the message
+	 */
 	public SOAConfigAreaCorruptedException(String message) {
 		super(StringUtil.formatString(SOAMessages.CORRUPTED_CONFIF, ConfigActivator
 						.getDefault().getBundle().getLocation(), message));

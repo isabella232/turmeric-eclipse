@@ -33,7 +33,7 @@ public class GenTypeServiceFromWSDLImpl extends BaseCodeGenModel {
 	private String metaDir;
 	
 	/**
-	 * 
+	 * Instantiates a new gen type service from wsdl impl.
 	 */
 	public GenTypeServiceFromWSDLImpl() {
 		super();
@@ -41,18 +41,20 @@ public class GenTypeServiceFromWSDLImpl extends BaseCodeGenModel {
 	}
 
 	/**
-	 * @param genType
-	 * @param namespace
-	 * @param serviceLayerFile
-	 * @param serviceInterface
-	 * @param serviceName
-	 * @param serviceVersion
-	 * @param serviceImpl
-	 * @param projectRoot
-	 * @param serviceLayer
-	 * @param sourceDirectory
-	 * @param destination
-	 * @param outputDirectory
+	 * Instantiates a new gen type service from wsdl impl.
+	 *
+	 * @param genType the gen type
+	 * @param namespace the namespace
+	 * @param serviceLayerFile the service layer file
+	 * @param serviceInterface the service interface
+	 * @param serviceName the service name
+	 * @param serviceVersion the service version
+	 * @param serviceImpl the service impl
+	 * @param projectRoot the project root
+	 * @param serviceLayer the service layer
+	 * @param sourceDirectory the source directory
+	 * @param destination the destination
+	 * @param outputDirectory the output directory
 	 */
 	public GenTypeServiceFromWSDLImpl(String genType, String namespace,
 			String serviceLayerFile, String serviceInterface,
@@ -64,30 +66,63 @@ public class GenTypeServiceFromWSDLImpl extends BaseCodeGenModel {
 				serviceLayer, sourceDirectory, destination, outputDirectory);
 	}
 
+	/**
+	 * Gets the client name.
+	 *
+	 * @return the client name
+	 */
 	public String getClientName() {
 		return clientName;
 	}
 
+	/**
+	 * Sets the client name.
+	 *
+	 * @param clientName the new client name
+	 */
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}
 	
+	/**
+	 * Gets the meta dir.
+	 *
+	 * @return the meta dir
+	 */
 	public String getMetaDir() {
 		return metaDir;
 	}
 
+	/**
+	 * Sets the meta dir.
+	 *
+	 * @param metaDir the new meta dir
+	 */
 	public void setMetaDir(String metaDir) {
 		this.metaDir = metaDir;
 	}
 
+	/**
+	 * Gets the service config group.
+	 *
+	 * @return the service config group
+	 */
 	public String getServiceConfigGroup() {
 		return serviceConfigGroup;
 	}
 
+	/**
+	 * Sets the service config group.
+	 *
+	 * @param serviceConfigGroup the new service config group
+	 */
 	public void setServiceConfigGroup(String serviceConfigGroup) {
 		this.serviceConfigGroup = serviceConfigGroup;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		final Map<String, String> result = new HashMap<String, String>();

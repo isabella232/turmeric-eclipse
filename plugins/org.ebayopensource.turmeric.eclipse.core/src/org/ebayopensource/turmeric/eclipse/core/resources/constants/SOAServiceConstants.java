@@ -10,8 +10,10 @@ package org.ebayopensource.turmeric.eclipse.core.resources.constants;
 
 
 /**
+ * The Class SOAServiceConstants.
+ *
  * @author smathew
- *  Service related constants
+ * Service related constants
  */
 public final class SOAServiceConstants {
 	
@@ -30,9 +32,7 @@ public final class SOAServiceConstants {
      */
     public static final String SOA_TOOLS = "codegen-tools";
     
-    /**
-     * 
-     */
+    /** The Constant SOA_FRAMEWORK_JARS. */
     public static final String[] SOA_FRAMEWORK_JARS = { SOA_CLIENT, SOA_SERVER, SOA_TOOLS };
     
     /**

@@ -21,12 +21,16 @@ public class SOAMessages extends NLS {
 	
 	private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.eclipse.build.resources.messages"; //$NON-NLS-1$
 	
+	/** The WSD l_ namespac e_ changed. */
 	public static String WSDL_NAMESPACE_CHANGED;
 
+	/** The CLIEN t_ confi g_ no t_ found. */
 	public static String CLIENT_CONFIG_NOT_FOUND;
 
+	/** The TN s_ changed. */
 	public static String TNS_CHANGED;
 
+	/** The N o_ sv c_ confi g_ found. */
 	public static String NO_SVC_CONFIG_FOUND;
 	
 	static {

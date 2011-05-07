@@ -20,6 +20,7 @@ public class SOAMessages extends NLS {
 
 	private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.eclipse.codegen.resources.messages"; //$NON-NLS-1$
 	
+	/** The OPTION s_ processed. */
 	public static String OPTIONS_PROCESSED;
 	
 	static {

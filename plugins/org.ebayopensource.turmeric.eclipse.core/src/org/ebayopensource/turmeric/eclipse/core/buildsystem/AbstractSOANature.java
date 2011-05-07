@@ -32,8 +32,8 @@ import org.eclipse.core.runtime.Path;
 public abstract class AbstractSOANature implements IProjectNature {
 	private IProject project;
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.IProjectNature#configure()
+	/**
+	 * {@inheritDoc}
 	 */
 	public void configure() throws CoreException {
 		final IProjectDescription desc = project.getDescription();
@@ -49,8 +49,8 @@ public abstract class AbstractSOANature implements IProjectNature {
 		project.setDescription(desc, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.IProjectNature#deconfigure()
+	/**
+	 * {@inheritDoc}
 	 */
 	public void deconfigure() throws CoreException {
 		final IProjectDescription description = getProject().getDescription();
@@ -58,15 +58,15 @@ public abstract class AbstractSOANature implements IProjectNature {
 		description.setBuildSpec(removeCommand(commands, getBuilderName()));
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.IProjectNature#getProject()
+	/**
+	 * {@inheritDoc}
 	 */
 	public IProject getProject() {
 		return project;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.IProjectNature#setProject(org.eclipse.core.resources.IProject)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void setProject(final IProject soaProject) {
 		this.project = soaProject;
@@ -75,8 +75,8 @@ public abstract class AbstractSOANature implements IProjectNature {
 	/**
 	 * Child Classes should define this method. This is how the nature class
 	 * would know the id/name of the builder
-	 * 
-	 * @return
+	 *
+	 * @return the builder name
 	 */
 	public abstract String getBuilderName();
 
@@ -85,10 +85,10 @@ public abstract class AbstractSOANature implements IProjectNature {
 	 * of inserting command in the top and we would like to have our builders at
 	 * the top because JDT builder should pitch in after our builder has
 	 * finished the job
-	 * 
-	 * @param commands
-	 * @param commandToBeAdded
-	 * @return
+	 *
+	 * @param commands the commands
+	 * @param commandToBeAdded the command to be added
+	 * @return the i command[]
 	 */
 	protected ICommand[] addCommand(ICommand[] commands,
 			ICommand commandToBeAdded) {
@@ -102,10 +102,10 @@ public abstract class AbstractSOANature implements IProjectNature {
 	 * Removes the build command that has the specified builder ID and then
 	 * return the remaining commands. It will return the original command array
 	 * if the specified command could not be found.
-	 * 
-	 * @param commands
-	 * @param builderId
-	 * @return
+	 *
+	 * @param commands the commands
+	 * @param builderId the builder id
+	 * @return the i command[]
 	 */
 	protected ICommand[] removeCommand(ICommand[] commands, String builderId) {
 		final List<ICommand> retCommands = ListUtil.arrayList(commands);

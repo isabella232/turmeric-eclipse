@@ -32,14 +32,14 @@ public interface ICommand {
 	 * progress monitor object. Also the classes which lines up this processors
 	 * are supposed indicate the progress to the user using this monitor. In
 	 * special cases in which the operations are very short, this can be null.
-	 * 
+	 *
 	 * @param object -
-	 *            Any input object the implementing class can understand and act
-	 *            on.
+	 * Any input object the implementing class can understand and act
+	 * on.
 	 * @param monitor -
-	 *            to show the visual progress of the operation.
-	 * @return
-	 * @throws CommandFailedException
+	 * to show the visual progress of the operation.
+	 * @return true, if successful
+	 * @throws CommandFailedException the command failed exception
 	 */
 	public boolean execute(Object object, IProgressMonitor monitor)
 			throws CommandFailedException;

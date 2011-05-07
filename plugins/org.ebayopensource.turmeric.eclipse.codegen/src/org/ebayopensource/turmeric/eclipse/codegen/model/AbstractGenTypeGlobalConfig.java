@@ -16,33 +16,36 @@ import java.util.Map;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
 /**
- * @author yayu
+ * The Class AbstractGenTypeGlobalConfig.
  *
+ * @author yayu
  */
 public abstract class AbstractGenTypeGlobalConfig extends BaseCodeGenModel {
 	private String metadataDirectory; //-mdest Destination location for generated configuration and other XML files
 	
 	/**
-	 * 
+	 * Instantiates a new abstract gen type global config.
 	 */
 	public AbstractGenTypeGlobalConfig() {
 		super();
 	}
 
 	/**
-	 * @param genType
-	 * @param namespace
-	 * @param serviceLayerFile
-	 * @param serviceInterface
-	 * @param serviceName
-	 * @param serviceVersion
-	 * @param serviceImpl
-	 * @param projectRoot
-	 * @param serviceLayer
-	 * @param sourceDirectory
-	 * @param destination
-	 * @param outputDirectory
-	 * @param metadataDirectory
+	 * Instantiates a new abstract gen type global config.
+	 *
+	 * @param genType the gen type
+	 * @param namespace the namespace
+	 * @param serviceLayerFile the service layer file
+	 * @param serviceInterface the service interface
+	 * @param serviceName the service name
+	 * @param serviceVersion the service version
+	 * @param serviceImpl the service impl
+	 * @param projectRoot the project root
+	 * @param serviceLayer the service layer
+	 * @param sourceDirectory the source directory
+	 * @param destination the destination
+	 * @param outputDirectory the output directory
+	 * @param metadataDirectory the metadata directory
 	 */
 	public AbstractGenTypeGlobalConfig(String genType, String namespace,
 			String serviceLayerFile, String serviceInterface,
@@ -55,14 +58,27 @@ public abstract class AbstractGenTypeGlobalConfig extends BaseCodeGenModel {
 		this.metadataDirectory = metadataDirectory;
 	}
 	
+	/**
+	 * Gets the metadata directory.
+	 *
+	 * @return the metadata directory
+	 */
 	public String getMetadataDirectory() {
 		return metadataDirectory;
 	}
 
+	/**
+	 * Sets the metadata directory.
+	 *
+	 * @param metadataDirectory the new metadata directory
+	 */
 	public void setMetadataDirectory(String metadataDirectory) {
 		this.metadataDirectory = metadataDirectory;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		Map<String, String> result = super.getCodeGenOptions();

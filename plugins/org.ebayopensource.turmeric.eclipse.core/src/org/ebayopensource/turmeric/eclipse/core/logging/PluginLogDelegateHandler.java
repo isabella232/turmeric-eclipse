@@ -50,13 +50,24 @@ extends Handler
 	}
     private final Formatter formatter = new MySimpleFormatter();
     
+    /**
+     * Instantiates a new plugin log delegate handler.
+     */
     public PluginLogDelegateHandler() {
 		super();
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.util.logging.Handler#close()
+	 */
 	@Override
     public void close() throws SecurityException
     {
     }
+    
+    /* (non-Javadoc)
+     * @see java.util.logging.Handler#flush()
+     */
     @Override
     public void flush()
     {
@@ -71,6 +82,10 @@ extends Handler
             return IStatus.WARNING;
         return IStatus.INFO;
     }
+    
+    /* (non-Javadoc)
+     * @see java.util.logging.Handler#publish(java.util.logging.LogRecord)
+     */
     @Override
     public void publish( final LogRecord record )
     {
@@ -98,7 +113,10 @@ extends Handler
 		}
     	return false;
     }
+    
     /**
+     * Sets the builds the system name.
+     *
      * @param name The new Build System Name
      */
     public static void setBuildSystemName(String name) {
@@ -109,6 +127,11 @@ extends Handler
     	}
     }
     
+    /**
+     * Gets the builds the system name.
+     *
+     * @return the builds the system name
+     */
     public static String getBuildSystemName() {
     	return BUILD_SYSTEM_NAME;
     }

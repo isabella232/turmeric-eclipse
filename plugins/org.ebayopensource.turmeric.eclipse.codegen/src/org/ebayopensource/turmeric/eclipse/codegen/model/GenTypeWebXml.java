@@ -23,19 +23,35 @@ public class GenTypeWebXml extends BaseCodeGenModel {
 
 	private String metaDir;
 
+	/**
+	 * Instantiates a new gen type web xml.
+	 */
 	public GenTypeWebXml() {
 		super();
 		setGenType(GENTYPE_WEB_XML);
 	}
 
+	/**
+	 * Gets the meta dir.
+	 *
+	 * @return the meta dir
+	 */
 	public String getMetaDir() {
 		return metaDir;
 	}
 
+	/**
+	 * Sets the meta dir.
+	 *
+	 * @param metaDir the new meta dir
+	 */
 	public void setMetaDir(String metaDir) {
 		this.metaDir = metaDir;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		Map<String, String> result = super.getCodeGenOptions();

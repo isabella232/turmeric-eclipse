@@ -21,8 +21,9 @@ import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 
 
 /**
- * @author yayu
+ * The Class ConsumerCodeGenModel.
  *
+ * @author yayu
  */
 public class ConsumerCodeGenModel extends BaseCodeGenModel{
 	private String clientName;
@@ -31,25 +32,27 @@ public class ConsumerCodeGenModel extends BaseCodeGenModel{
 	private Map<String, Map<String, String>> requiredServices = new TreeMap<String, Map<String, String>>();
 	
 	/**
-	 * 
+	 * Instantiates a new consumer code gen model.
 	 */
 	public ConsumerCodeGenModel() {
 		super();
 	}
 
 	/**
-	 * @param genType
-	 * @param namespace
-	 * @param serviceLayerFile
-	 * @param serviceInterface
-	 * @param serviceName
-	 * @param serviceVersion
-	 * @param serviceImpl
-	 * @param projectRoot
-	 * @param serviceLayer
-	 * @param sourceDirectory
-	 * @param destination
-	 * @param outputDirectory
+	 * Instantiates a new consumer code gen model.
+	 *
+	 * @param genType the gen type
+	 * @param namespace the namespace
+	 * @param serviceLayerFile the service layer file
+	 * @param serviceInterface the service interface
+	 * @param serviceName the service name
+	 * @param serviceVersion the service version
+	 * @param serviceImpl the service impl
+	 * @param projectRoot the project root
+	 * @param serviceLayer the service layer
+	 * @param sourceDirectory the source directory
+	 * @param destination the destination
+	 * @param outputDirectory the output directory
 	 */
 	public ConsumerCodeGenModel(String genType, String namespace,
 			String serviceLayerFile, String serviceInterface,
@@ -61,38 +64,81 @@ public class ConsumerCodeGenModel extends BaseCodeGenModel{
 				serviceLayer, sourceDirectory, destination, outputDirectory);
 	}
 
+	/**
+	 * Gets the required services.
+	 *
+	 * @return the required services
+	 */
 	public Map<String, Map<String, String>> getRequiredServices() {
 		return requiredServices;
 	}
 
+	/**
+	 * Sets the required services.
+	 *
+	 * @param requiredServices the required services
+	 */
 	public void setRequiredServices(Map<String, Map<String, String>> requiredServices) {
 		this.requiredServices = requiredServices;
 	}
 
+	/**
+	 * Gets the client name.
+	 *
+	 * @return the client name
+	 */
 	public String getClientName() {
 		return clientName;
 	}
 
+	/**
+	 * Sets the client name.
+	 *
+	 * @param clientName the new client name
+	 */
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}
 
+	/**
+	 * Gets the consumer id.
+	 *
+	 * @return the consumer id
+	 */
 	public String getConsumerId() {
 		return consumerId;
 	}
 
+	/**
+	 * Sets the consumer id.
+	 *
+	 * @param consumerId the new consumer id
+	 */
 	public void setConsumerId(String consumerId) {
 		this.consumerId = consumerId;
 	}
 
+	/**
+	 * Gets the client config group.
+	 *
+	 * @return the client config group
+	 */
 	public String getClientConfigGroup() {
 		return clientConfigGroup;
 	}
 
+	/**
+	 * Sets the client config group.
+	 *
+	 * @param clientConfigGroup the new client config group
+	 */
 	public void setClientConfigGroup(String clientConfigGroup) {
 		this.clientConfigGroup = clientConfigGroup;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		final Map<String, String> result = super.getCodeGenOptions();
@@ -109,8 +155,9 @@ public class ConsumerCodeGenModel extends BaseCodeGenModel{
 	}
 
 	/**
-	 * the key is the service name
-	 * @param requiredServices
+	 * the key is the service name.
+	 *
+	 * @param requiredServices the required services
 	 */
 	public void setRequiredServicesMetadata(Map<String, SOAIntfMetadata> requiredServices) {
 		for (SOAIntfMetadata metadata : requiredServices.values()) {

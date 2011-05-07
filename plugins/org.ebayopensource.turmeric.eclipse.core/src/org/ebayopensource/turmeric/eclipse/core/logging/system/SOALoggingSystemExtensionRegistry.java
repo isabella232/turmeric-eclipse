@@ -20,17 +20,29 @@ import org.eclipse.core.runtime.Platform;
 
 
 /**
- * @author yayu
+ * The Class SOALoggingSystemExtensionRegistry.
  *
+ * @author yayu
  */
 public final class SOALoggingSystemExtensionRegistry {
+	
+	/** The Constant LOGGING_SYSTEM_ID_PROVIDER_EXTENSION_POINT_ID. */
 	public static final String LOGGING_SYSTEM_ID_PROVIDER_EXTENSION_POINT_ID = "org.ebayopensource.turmeric.eclipse.loggingSystem";
+	
+	/** The Constant ELEM_SOA_LOGGING_SYSTEM. */
 	public static final String ELEM_SOA_LOGGING_SYSTEM = "SOALoggingSystem";
+	
+	/** The Constant ATTR_LOGGING_SYSTEM_ID_PROVIDER. */
 	public static final String ATTR_LOGGING_SYSTEM_ID_PROVIDER = "loggingSystemIDProvider";
 	private static SOALoggingSystemExtensionRegistry instance;
 	private static Map<String, ISOALoggingSystemProvider> providerMaps;
 	
 	
+	/**
+	 * Gets the single instance of SOALoggingSystemExtensionRegistry.
+	 *
+	 * @return single instance of SOALoggingSystemExtensionRegistry
+	 */
 	public static SOALoggingSystemExtensionRegistry getInstance() {
 		if (instance == null) {
 			instance = new SOALoggingSystemExtensionRegistry();
@@ -45,6 +57,13 @@ public final class SOALoggingSystemExtensionRegistry {
 		super();
 	}
 	
+	/**
+	 * Gets the logging system id provider.
+	 *
+	 * @param buildSystemID the build system id
+	 * @return the logging system id provider
+	 * @throws CoreException the core exception
+	 */
 	public ISOALoggingSystemProvider getLoggingSystemIDProvider(String buildSystemID) throws CoreException{
 		if (providerMaps == null)
 			init();

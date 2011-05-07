@@ -28,23 +28,35 @@ import org.eclipse.wst.wsdl.validation.internal.IValidationMessage;
 
 
 /**
+ * The Class WSDLValidator.
+ *
  * @author yayu
- * 
  */
 public class WSDLValidator extends AbstractSOAValidator {
 	private static final WSDLValidator instance = new WSDLValidator();
 		
+	/**
+	 * Gets the single instance of WSDLValidator.
+	 *
+	 * @return single instance of WSDLValidator
+	 */
 	public static WSDLValidator getInstance() {
 		return instance;
 	}
 
 	/**
-	 * 
+	 * Instantiates a new wSDL validator.
 	 */
 	public WSDLValidator() {
 		super();
 	}
 	
+	/**
+	 * Gets the wSDLURL.
+	 *
+	 * @param wsdl the wsdl
+	 * @return the wSDLURL
+	 */
 	protected String getWSDLURL(Object wsdl) {
 		String wsdlUrl = null;
 		if (wsdl instanceof String) {
@@ -64,6 +76,9 @@ public class WSDLValidator extends AbstractSOAValidator {
 		return wsdlUrl;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.validator.core.AbstractSOAValidator#validate(java.lang.Object)
+	 */
 	@SuppressWarnings("restriction")
 	@Override
 	public IStatus validate(Object wsdl) throws ValidationInterruptedException {

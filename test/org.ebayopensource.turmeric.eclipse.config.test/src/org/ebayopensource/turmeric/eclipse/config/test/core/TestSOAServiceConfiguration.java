@@ -18,13 +18,17 @@ import org.junit.Test;
 
 
 /**
- * @author yayu
+ * The Class TestSOAServiceConfiguration.
  *
+ * @author yayu
  */
 public class TestSOAServiceConfiguration {
 	
 	
 
+	/**
+	 * Test soa service configuration.
+	 */
 	@Test
 	public void testSOAServiceConfiguration() {
 		String baseRequestTypeName = "BaseRequest";

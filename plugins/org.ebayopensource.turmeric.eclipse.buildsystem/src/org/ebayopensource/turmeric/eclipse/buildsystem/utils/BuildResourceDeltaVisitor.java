@@ -36,10 +36,10 @@ public class BuildResourceDeltaVisitor implements IResourceDeltaVisitor {
 
 	/**
 	 * This visitor takes the project and the criteria String eg
-	 * SOAProjectConstants.WSDL_EXT
-	 * 
-	 * @param project
-	 * @param criteriaStrs
+	 * SOAProjectConstants.WSDL_EXT.
+	 *
+	 * @param project the project
+	 * @param criteriaStrs the criteria strs
 	 */
 	public BuildResourceDeltaVisitor(IProject project, String... criteriaStrs) {
 		javaProject = JavaCore.create(project);
@@ -52,7 +52,10 @@ public class BuildResourceDeltaVisitor implements IResourceDeltaVisitor {
 	 * Visits the code and if there are some changes in delta which we are
 	 * interested in, then it will set the build required to true and
 	 * immediately return.
-	 * 
+	 *
+	 * @param delta the delta
+	 * @return true, if successful
+	 * @throws CoreException the core exception
 	 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
 	 */
 	public boolean visit(IResourceDelta delta) throws CoreException {
@@ -85,15 +88,17 @@ public class BuildResourceDeltaVisitor implements IResourceDeltaVisitor {
 
 	/**
 	 * Return true if build is required.
-	 * 
-	 * @return
+	 *
+	 * @return true, if is builds the required
 	 */
 	public boolean isBuildRequired() {
 		return buildRequired;
 	}
 
 	/**
-	 * @param isBuildRequired
+	 * Sets the builds the required.
+	 *
+	 * @param isBuildRequired the new builds the required
 	 */
 	public void setBuildRequired(boolean isBuildRequired) {
 		this.buildRequired = isBuildRequired;

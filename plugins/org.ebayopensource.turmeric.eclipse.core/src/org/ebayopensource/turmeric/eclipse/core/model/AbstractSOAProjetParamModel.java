@@ -16,9 +16,10 @@ import java.util.List;
 
 
 /**
+ * The Class AbstractSOAProjetParamModel.
+ *
  * @author yayu
  * @since 1.0.0
- *
  */
 public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel {
 	private String projectName;
@@ -28,14 +29,15 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 	private final List<UIModelProjectLinkedResource> linkedResources = new ArrayList<UIModelProjectLinkedResource>(3);
 	
 	/**
-	 * 
+	 * Instantiates a new abstract soa projet param model.
 	 */
 	public AbstractSOAProjetParamModel() {
 		super();
 	}
 	
 	/**
-	 * 
+	 * Gets the project name.
+	 *
 	 * @return the project name
 	 */
 	public String getProjectName() {
@@ -43,7 +45,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 	}
 
 	/**
-	 * 
+	 * Sets the project name.
+	 *
 	 * @param projectName the project name
 	 */
 	public void setProjectName(String projectName) {
@@ -51,7 +54,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 	}
 
 	/**
-	 * 
+	 * Gets the eclipse natures.
+	 *
 	 * @return a List of eclispe natures
 	 */
 	public List<String> getEclipseNatures() {
@@ -59,7 +63,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 	}
 	
 	/**
-	 * 
+	 * Adds the eclipse nature.
+	 *
 	 * @param eclipseNature a eclipse nature name
 	 * @return whether the nature was added successfully.
 	 */
@@ -68,7 +73,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 	}
 	
 	/**
-	 * 
+	 * Adds the project linked resource.
+	 *
 	 * @param linkedResource a UIModelProjectLinkedResource
 	 * @return whether the linked resource was added successfully.
 	 */
@@ -77,7 +83,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 	}
 
 	/**
-	 * 
+	 * Gets the linked resources.
+	 *
 	 * @return a List of UIModelProjectLinkedResource.
 	 */
 	public List<UIModelProjectLinkedResource> getLinkedResources() {
@@ -93,6 +100,9 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 		return true;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		final StringBuffer buf = new StringBuffer();
@@ -102,9 +112,7 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 	}
 	
 	/**
-	 * 
-	 * 
-	 *
+	 * The Class UIModelProjectLinkedResource.
 	 */
 	public static class UIModelProjectLinkedResource {
 		/**
@@ -122,7 +130,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 		private String location;
 		
 		/**
-		 * 
+		 * Instantiates a new uI model project linked resource.
+		 *
 		 * @param name resource name
 		 * @param type type
 		 * @param location location
@@ -135,7 +144,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 		}
 		
 		/**
-		 * 
+		 * Instantiates a new uI model project linked resource.
+		 *
 		 * @param name resource name
 		 * @param location location
 		 */
@@ -144,7 +154,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 		}
 
 		/**
-		 * 
+		 * Gets the name.
+		 *
 		 * @return resource name
 		 */
 		public String getName() {
@@ -152,7 +163,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 		}
 
 		/**
-		 * 
+		 * Sets the name.
+		 *
 		 * @param name resource name
 		 */
 		public void setName(String name) {
@@ -160,7 +172,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 		}
 
 		/**
-		 * 
+		 * Gets the type.
+		 *
 		 * @return resource type
 		 */
 		public int getType() {
@@ -168,7 +181,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 		}
 
 		/**
-		 * 
+		 * Sets the type.
+		 *
 		 * @param type linked resource type
 		 */
 		public void setType(int type) {
@@ -176,7 +190,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 		}
 
 		/**
-		 * 
+		 * Gets the location.
+		 *
 		 * @return the location
 		 */
 		public String getLocation() {
@@ -184,7 +199,8 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 		}
 
 		/**
-		 * 
+		 * Sets the location.
+		 *
 		 * @param location location
 		 */
 		public void setLocation(String location) {

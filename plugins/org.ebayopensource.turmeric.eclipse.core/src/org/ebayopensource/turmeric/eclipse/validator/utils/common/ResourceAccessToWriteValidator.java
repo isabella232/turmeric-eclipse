@@ -18,6 +18,8 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
+ * The Class ResourceAccessToWriteValidator.
+ *
  * @author smathew
  * 
  * Checks whether the resource can be accessed for a write. 1)Resource should be
@@ -27,8 +29,11 @@ import org.eclipse.core.runtime.IStatus;
 public class ResourceAccessToWriteValidator extends AbstractSOAValidator {
 
 	/**
-	 * @param obj
-	 * @return
+	 * Validate.
+	 *
+	 * @param obj the obj
+	 * @return the i status
+	 * @throws ValidationInterruptedException the validation interrupted exception
 	 */
 	@Override
 	public IStatus validate(Object obj) throws ValidationInterruptedException {

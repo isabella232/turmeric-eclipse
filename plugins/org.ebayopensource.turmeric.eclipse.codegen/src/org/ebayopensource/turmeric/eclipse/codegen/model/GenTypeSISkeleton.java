@@ -19,14 +19,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
 /**
+ * The Class GenTypeSISkeleton.
+ *
  * @author yayu
- * 
  */
 public class GenTypeSISkeleton extends BaseCodeGenModel {
 	private boolean overwriteImplClass = false;
 
 	/**
-	 * 
+	 * Instantiates a new gen type si skeleton.
 	 */
 	public GenTypeSISkeleton() {
 		super();
@@ -34,17 +35,19 @@ public class GenTypeSISkeleton extends BaseCodeGenModel {
 	}
 
 	/**
-	 * @param namespace
-	 * @param serviceLayerFile
-	 * @param serviceInterface
-	 * @param serviceName
-	 * @param serviceVersion
-	 * @param serviceImpl
-	 * @param projectRoot
-	 * @param serviceLayer
-	 * @param sourceDirectory
-	 * @param destination
-	 * @param outputDirectory
+	 * Instantiates a new gen type si skeleton.
+	 *
+	 * @param namespace the namespace
+	 * @param serviceLayerFile the service layer file
+	 * @param serviceInterface the service interface
+	 * @param serviceName the service name
+	 * @param serviceVersion the service version
+	 * @param serviceImpl the service impl
+	 * @param projectRoot the project root
+	 * @param serviceLayer the service layer
+	 * @param sourceDirectory the source directory
+	 * @param destination the destination
+	 * @param outputDirectory the output directory
 	 */
 	public GenTypeSISkeleton(String namespace, String serviceLayerFile,
 			String serviceInterface, String serviceName, String serviceVersion,
@@ -57,14 +60,27 @@ public class GenTypeSISkeleton extends BaseCodeGenModel {
 	}
 	
 
+	/**
+	 * Checks if is overwrite impl class.
+	 *
+	 * @return true, if is overwrite impl class
+	 */
 	public boolean isOverwriteImplClass() {
 		return overwriteImplClass;
 	}
 
+	/**
+	 * Sets the overwrite impl class.
+	 *
+	 * @param overwriteImplClass the new overwrite impl class
+	 */
 	public void setOverwriteImplClass(boolean overwriteImplClass) {
 		this.overwriteImplClass = overwriteImplClass;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		final Map<String, String> result = new HashMap<String, String>();

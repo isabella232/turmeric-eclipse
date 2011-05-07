@@ -17,23 +17,26 @@ import java.util.List;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 
 /**
- * @author yayu
+ * The Class ConsumerFromWsdlParamModel.
  *
+ * @author yayu
  */
 public class ConsumerFromWsdlParamModel extends ServiceFromWsdlParamModel {
 
 	private String clientName;
 	private String consumerId;
 	private List<String> environments = new ArrayList<String>();
+	
 	/**
-	 * 
+	 * Instantiates a new consumer from wsdl param model.
 	 */
 	public ConsumerFromWsdlParamModel() {
 		super();
 	}
 	
 	/**
-	 * 
+	 * Gets the consumer id.
+	 *
 	 * @return the consumer id
 	 */
 	public String getConsumerId() {
@@ -41,7 +44,8 @@ public class ConsumerFromWsdlParamModel extends ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
+	 * Sets the consumer id.
+	 *
 	 * @param consumerId the consumer id
 	 */
 	public void setConsumerId(String consumerId) {
@@ -49,7 +53,8 @@ public class ConsumerFromWsdlParamModel extends ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
+	 * Gets the client name.
+	 *
 	 * @return the client name
 	 */
 	public String getClientName() {
@@ -57,7 +62,8 @@ public class ConsumerFromWsdlParamModel extends ServiceFromWsdlParamModel {
 	}
 	
 	/**
-	 * 
+	 * Sets the client name.
+	 *
 	 * @param clientName the client name
 	 */
 	public void setClientName(String clientName) {
@@ -65,7 +71,8 @@ public class ConsumerFromWsdlParamModel extends ServiceFromWsdlParamModel {
 	}
 	
 	/**
-	 * 
+	 * Gets the environments.
+	 *
 	 * @return a List of Environments
 	 */
 	public List<String> getEnvironments() {
@@ -73,15 +80,17 @@ public class ConsumerFromWsdlParamModel extends ServiceFromWsdlParamModel {
 	}
 	
 	/**
-	 * 
-	 * @param environments List environments 
+	 * Sets the environments.
+	 *
+	 * @param environments List environments
 	 */
 	public void setEnvironments(List<String> environments) {
 		this.environments = environments;
 	}
 	
 	/**
-	 * 
+	 * Adds the environment.
+	 *
 	 * @param environment the environment
 	 * @return whether the environement was succssefully wadded.
 	 */

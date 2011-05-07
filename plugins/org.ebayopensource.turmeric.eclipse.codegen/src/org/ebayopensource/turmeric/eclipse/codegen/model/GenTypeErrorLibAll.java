@@ -18,15 +18,16 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
 
 
 /**
- * @author yayu
+ * The Class GenTypeErrorLibAll.
  *
+ * @author yayu
  */
 public class GenTypeErrorLibAll extends BaseCodeGenModel {
 	private String errorLibraryName;
 	private final Collection<String> domains = new ArrayList<String>();
 
 	/**
-	 * 
+	 * Instantiates a new gen type error lib all.
 	 */
 	public GenTypeErrorLibAll() {
 		super();
@@ -34,8 +35,10 @@ public class GenTypeErrorLibAll extends BaseCodeGenModel {
 	}
 
 	/**
-	 * @param projectRoot
-	 * @param destination
+	 * Instantiates a new gen type error lib all.
+	 *
+	 * @param projectRoot the project root
+	 * @param destination the destination
 	 */
 	public GenTypeErrorLibAll(String projectRoot, 
 			String destination) {
@@ -44,15 +47,27 @@ public class GenTypeErrorLibAll extends BaseCodeGenModel {
 		this.setDestination(destination);
 	}
 
+	/**
+	 * Gets the error library name.
+	 *
+	 * @return the error library name
+	 */
 	public String getErrorLibraryName() {
 		return errorLibraryName;
 	}
 
+	/**
+	 * Sets the error library name.
+	 *
+	 * @param errorLibraryName the new error library name
+	 */
 	public void setErrorLibraryName(String errorLibraryName) {
 		this.errorLibraryName = errorLibraryName;
 	}
 
 	/**
+	 * Gets the domains.
+	 *
 	 * @return the domains
 	 */
 	public Collection<String> getDomains() {
@@ -60,14 +75,22 @@ public class GenTypeErrorLibAll extends BaseCodeGenModel {
 	}
 
 	/**
-	 * @param domain
-	 * @return
+	 * Adds the domain.
+	 *
+	 * @param domain the domain
+	 * @return true, if successful
 	 * @see java.util.Collection#add(java.lang.Object)
 	 */
 	public boolean addDomain(String domain) {
 		return domains.add(domain);
 	}
 	
+	/**
+	 * Adds the domains.
+	 *
+	 * @param domains the domains
+	 * @return true, if successful
+	 */
 	public boolean addDomains(Collection<String> domains) {
 		return this.domains.addAll(domains);
 	}

@@ -69,10 +69,10 @@ public class BuildSystemCodeGen {
 
 	/**
 	 * Generates the interface metadata properties file.
-	 * 
-	 * @param intfProject
-	 * @param nameSpace
-	 * @throws Exception
+	 *
+	 * @param intfProject the intf project
+	 * @param nameSpace the name space
+	 * @throws Exception the exception
 	 */
 	public static void generateServiceMetadataProperties(
 			SOAIntfProject intfProject, String nameSpace) throws Exception {
@@ -103,11 +103,10 @@ public class BuildSystemCodeGen {
 	/**
 	 * -scgn Service config group name -wsdl to get the QName of the service (
 	 * iff -servicename is not used ) -sicn service impl class name -namespace
-	 * -servicename -scv service version
-	 * 
-	 * @param implProject
-	 * @param intfProject
-	 * @throws Exception
+	 * -servicename -scv service version.
+	 *
+	 * @param implProject the impl project
+	 * @throws Exception the exception
 	 */
 	public static void generateServiceConfigXml(final SOAImplProject implProject)
 			throws Exception {
@@ -144,11 +143,13 @@ public class BuildSystemCodeGen {
 
 	/**
 	 * Generates the Client Config xml.
-	 * 
-	 * @param consumerProject
-	 * @param addedServices
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param consumerProject the consumer project
+	 * @param clientName the client name
+	 * @param environments the environments
+	 * @param addedServices the added services
+	 * @return the gen type client config
+	 * @throws Exception the exception
 	 */
 	public static GenTypeClientConfig generateGenTypeClientConfigXml(
 			final IProject consumerProject, final String clientName, 
@@ -197,42 +198,13 @@ public class BuildSystemCodeGen {
 		return genTypeClientConfig;
 	}
 
-	/**
-	 * Generates the test jsp client.
-	 * 
-	 * @param project
-	 * @param codeGenModel
-	 * @return
-	 * @throws Exception
-	 */
-	/*public static GenTypeClientConfig generateGenTypeTestJSPClientConfigXml(
-			final IProject project, final BaseCodeGenModel codeGenModel)
-			throws Exception {
-		final String serviceName = codeGenModel.getServiceName();
-		final SOAIntfMetadata serviceMetadata = SOAIntfMetadata.create(
-				serviceName, codeGenModel.getServiceVersion(), codeGenModel
-						.getServiceLayer());
-		serviceMetadata.setServiceInterface(codeGenModel.getServiceInterface());
-		serviceMetadata.setTargetNamespace(codeGenModel.getNamespace());
-		serviceMetadata.setServiceLocation(SOAProjectConstants.URL_FILE_PREFIX
-				+ codeGenModel.getServiceName());
-		final GenTypeClientConfig result = generateGenTypeClientConfigXml(
-				project, project.getName(), 
-				ListUtil.array(SOAProjectConstants.DEFAULT_CLIENT_CONFIG_ENVIRONMENT), 
-				Collections.singleton(serviceMetadata));
-		result.setMetadataDirectory(project.getFolder(
-				SOAProjectConstants.FOLDER_GEN_META_SRC).getLocation()
-				.toString());
-		result.getRequiredServices().get(serviceName).put(
-				BaseCodeGenModel.PARAM_CN, getTestClientName(serviceName));
-		return result;
-	}*/
 
 	/**
-	 * Generates the Client config xml
-	 * 
-	 * @param consumerProject
-	 * @throws Exception
+	 * Generate client config xml.
+	 *
+	 * @param consumerProject the consumer project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public static void generateClientConfigXml(
 			SOAConsumerProject consumerProject, IProgressMonitor monitor) throws Exception {
@@ -250,10 +222,13 @@ public class BuildSystemCodeGen {
 	}
 
 	/**
-	 *  generate client configure for newly created service
-	 * 
-	 * @param consumerProject
-	 * @throws Exception
+	 * generate client configure for newly created service.
+	 *
+	 * @param consumerProject the consumer project
+	 * @param addServices the add services
+	 * @param consumerEnvs the consumer envs
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public static void generateClientConfigXmlForAddedService(
 			SOAConsumerProject consumerProject,
@@ -274,11 +249,11 @@ public class BuildSystemCodeGen {
 
 	/**
 	 * Generates the ClientConfig.xml and Consumer code for the given newly
-	 * created consumer project
-	 * 
-	 * @param consumerProject
-	 * @param monitor
-	 * @throws Exception
+	 * created consumer project.
+	 *
+	 * @param consumerProject the consumer project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public static void generateArtifactsForConsumerProject(
 			final SOAConsumerProject consumerProject,
@@ -305,14 +280,14 @@ public class BuildSystemCodeGen {
 
 	/**
 	 * generate the ClientConfig.xml and Consumer code for the given list of
-	 * newly added services
-	 * 
-	 * @param consumerProject
-	 * @param clientName
-	 * @param environments
-	 * @param addedServices
-	 * @param monitor
-	 * @throws Exception
+	 * newly added services.
+	 *
+	 * @param consumerProject the consumer project
+	 * @param clientName the client name
+	 * @param environments the environments
+	 * @param addedServices the added services
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public static void generateArtifactsForAddedService(
 			final IProject consumerProject,
@@ -350,6 +325,14 @@ public class BuildSystemCodeGen {
 				monitor);
 	}
 	
+	/**
+	 * Adds the env mapper to gen type consumer.
+	 *
+	 * @param genTypeConsumer the gen type consumer
+	 * @param project the project
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void addEnvMapperToGenTypeConsumer(GenTypeConsumer genTypeConsumer, 
 			IProject project) throws CoreException, IOException {
 		final IFile conFile = SOAConsumerUtil.getConsumerPropertiesFile(project);
@@ -364,11 +347,12 @@ public class BuildSystemCodeGen {
 	/**
 	 * Generates a consumer from the scratch. This is a one time generation and
 	 * in builders it is mostly a no operation.
-	 * 
-	 * @param consumerProject
-	 * @param addedServices
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param consumerProject the consumer project
+	 * @param defaultEnvName the default env name
+	 * @param addedServices the added services
+	 * @return the gen type consumer
+	 * @throws Exception the exception
 	 */
 	public static GenTypeConsumer generateGenTypeConsumer(
 			final IProject consumerProject, final String defaultEnvName, 
@@ -415,9 +399,9 @@ public class BuildSystemCodeGen {
 	/**
 	 * Returns the test client name for a given service name. Simply adds a
 	 * suffix.
-	 * 
-	 * @param serviceName
-	 * @return
+	 *
+	 * @param serviceName the service name
+	 * @return the test client name
 	 */
 	public static String getTestClientName(final String serviceName) {
 		return serviceName + SOAProjectConstants.CLIENT_NAME_SUFFIX_TEST;
@@ -425,9 +409,9 @@ public class BuildSystemCodeGen {
 
 	/**
 	 * Generates the consumer artifacts.
-	 * 
-	 * @param consumerProject
-	 * @throws Exception
+	 *
+	 * @param consumerProject the consumer project
+	 * @throws Exception the exception
 	 */
 	public static void generateConsumer(SOAConsumerProject consumerProject)
 			throws Exception {
@@ -443,15 +427,15 @@ public class BuildSystemCodeGen {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @param templateLoadingClass
-	 * @param templates
-	 * @param templateData
-	 * @param destinationFolder
-	 * @param monitor
-	 * @return
-	 * @throws CoreException
+	 * Generate artifacts from templates.
+	 *
+	 * @param templateLoadingClass the template loading class
+	 * @param templates the templates
+	 * @param templateData the template data
+	 * @param destinationFolder the destination folder
+	 * @param monitor the monitor
+	 * @return the list
+	 * @throws CoreException the core exception
 	 */
 	public static List<IFile> generateArtifactsFromTemplates(
 			final Class<?> templateLoadingClass,

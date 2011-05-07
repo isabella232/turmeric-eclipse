@@ -68,11 +68,11 @@ public class BuilderUtil {
 	 * But The gen type that is the most crucial factor is not decided here. It
 	 * is decided in the specialization phase. Its also called heavily from
 	 * context menu actions which includes codegen.
-	 * 
-	 * @param project
-	 * @param monitor
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return the base code gen model
+	 * @throws Exception the exception
 	 */
 	public static BaseCodeGenModel buildBaseCodeGenModel(final IProject project, 
 			final IProgressMonitor monitor)
@@ -84,11 +84,11 @@ public class BuilderUtil {
 	 * Returns trues if the WSDL file is changed. This is not a straight forward
 	 * API. It does not care about the changes in the WSDL file if it is not an
 	 * interface projects. So please don't use it as a generic API.
-	 * 
-	 * @param delta
-	 * @param project
-	 * @return
-	 * @throws CoreException
+	 *
+	 * @param delta the delta
+	 * @param project the project
+	 * @return true, if is wSDL file changed
+	 * @throws CoreException the core exception
 	 */
 	public static boolean isWSDLFileChanged(IResourceDelta delta,
 			IProject project) throws CoreException {
@@ -127,13 +127,13 @@ public class BuilderUtil {
 	 * interface project. To be precise, it does NOT compare the WSDl's old name
 	 * space and the new name space, but compares the WSDL's current namespace
 	 * to the namespace in the implementation projects metadata file.
-	 * 
-	 * @param delta
-	 * @param serviceName
-	 * @param intfProject
-	 * @param implProject
+	 *
+	 * @param delta the delta
+	 * @param serviceName the service name
+	 * @param intfProject the intf project
+	 * @param implProject the impl project
 	 * @return null means no change or the new targetNamespace otherwise.
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public static String isWSDLTargetNamespaceChanged(IResourceDelta delta,
 			String serviceName, IProject intfProject, IProject implProject)
@@ -158,12 +158,12 @@ public class BuilderUtil {
 	 * interface project. To be precise, it does NOT compare the WSDl's old name
 	 * space and the new name space, but compares the WSDL's current namespace
 	 * to the namespace in the client config file of the consumer.
-	 * 
-	 * @param serviceName
-	 * @param intfProject
-	 * @param consumerProject
+	 *
+	 * @param serviceName the service name
+	 * @param intfProject the intf project
+	 * @param consumerProject the consumer project
 	 * @return null means no change or the new targetNamespace otherwise.
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public static String isWSDLTargetNamespaceChangedInConsumerProject(
 			String serviceName, IProject intfProject, IProject consumerProject)
@@ -197,14 +197,14 @@ public class BuilderUtil {
 	 * true builder gets kicked off and return silently otherwise. Remember
 	 * there are two builders most of the time and its very imp to silently
 	 * return at some point of time to avoid cyclic builds.
-	 * 
-	 * @param delta
-	 * @param project
+	 *
+	 * @param delta the delta
+	 * @param project the project
 	 * @param criteriaString -
-	 *            this is mostly the extensions that we are interested in
-	 *            rebuilding. something like WSDT EXT, XSD EXT etc
-	 * @return
-	 * @throws Exception
+	 * this is mostly the extensions that we are interested in
+	 * rebuilding. something like WSDT EXT, XSD EXT etc
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public static boolean shouldBuild(IResourceDelta delta, IProject project,
 			String... criteriaString) throws Exception {
@@ -220,9 +220,9 @@ public class BuilderUtil {
 	/**
 	 * This is required because V3 appears to mess with the build order. This
 	 * will stay here until V3 comes up with a bug fix.
-	 * 
-	 * @param project
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @throws CoreException the core exception
 	 */
 	public static void reOrderBuildersIfRequired(IProject project)
 			throws CoreException {
@@ -247,12 +247,12 @@ public class BuilderUtil {
 	}
 
 	/**
-	 * Cleans the bin/META-INF folder and do a refresh
-	 * 
-	 * @param project
-	 * @param monitor
-	 * @throws IOException
-	 * @throws CoreException
+	 * Cleans the bin/META-INF folder and do a refresh.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static void cleanBinMetaInfDir(final IProject project,
 			IProgressMonitor monitor) throws IOException, CoreException {
@@ -272,10 +272,10 @@ public class BuilderUtil {
 	/**
 	 * Returns the required project for any given project. Scans the build bath
 	 * and finds all the project references and returns it back.
-	 * 
-	 * @param project
-	 * @param natureIds
-	 * @return
+	 *
+	 * @param project the project
+	 * @param natureIds the nature ids
+	 * @return the required projects
 	 */
 	public static IProject[] getRequiredProjects(IProject project,
 			String... natureIds) {
@@ -314,10 +314,10 @@ public class BuilderUtil {
 	/**
 	 * Creates missing source folders as per the projects java model. If it
 	 * exists, it is a no operation.
-	 * 
-	 * @param project
-	 * @param monitor
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
 	 */
 	public static void generateSourceDirectories(final IProject project,
 			final IProgressMonitor monitor) throws CoreException {
@@ -346,11 +346,11 @@ public class BuilderUtil {
 	 * Deletes the gen folder content of interface projects(for now). The types
 	 * are generated in the folder and we don't want stale java types to live
 	 * there. Washing it out in this call.
-	 * 
-	 * @param project
-	 * @throws CoreException
-	 * @throws SOAResourceNotAccessibleException
-	 * @throws SOANullParameterException
+	 *
+	 * @param project the project
+	 * @throws CoreException the core exception
+	 * @throws SOANullParameterException the sOA null parameter exception
+	 * @throws SOAResourceNotAccessibleException the sOA resource not accessible exception
 	 */
 	public static void cleanGenFolders(IProject project) throws CoreException,
 			SOANullParameterException, SOAResourceNotAccessibleException {

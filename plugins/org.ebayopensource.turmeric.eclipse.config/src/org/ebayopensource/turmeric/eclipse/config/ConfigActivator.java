@@ -15,26 +15,27 @@ import org.osgi.framework.BundleContext;
 
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the plug-in life cycle.
+ *
  * @author smathew
  */
 public class ConfigActivator extends Plugin {
 
 	// The plug-in ID
+	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.config";
 
 	// The shared instance
 	private static ConfigActivator plugin;
 	
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public ConfigActivator() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -45,9 +46,8 @@ public class ConfigActivator extends Plugin {
         SOALogger.getLogger().info(buf);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
@@ -55,7 +55,7 @@ public class ConfigActivator extends Plugin {
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 *
 	 * @return the shared instance
 	 */

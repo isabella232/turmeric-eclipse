@@ -42,8 +42,9 @@ import org.eclipse.core.runtime.Status;
 
 
 /**
+ * The Class PropertiesUtil.
+ *
  * @author yayu
- * 
  */
 public final class PropertiesUtil {
 	private static final SOALogger logger = SOALogger.getLogger();
@@ -55,6 +56,13 @@ public final class PropertiesUtil {
 		super();
 	}
 
+	/**
+	 * Modify project properties.
+	 *
+	 * @param soaProject the soa project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void modifyProjectProperties(final ISOAProject soaProject,
 			IProgressMonitor monitor) throws Exception {
 		if (SOALogger.DEBUG)
@@ -70,6 +78,15 @@ public final class PropertiesUtil {
 			logger.exiting();
 	}
 
+	/**
+	 * Modify project dependencies.
+	 *
+	 * @param projectName the project name
+	 * @param addedProjects the added projects
+	 * @param removedProjects the removed projects
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void modifyProjectDependencies(final String projectName,
 			final Set<String> addedProjects, final Set<String> removedProjects,
 			IProgressMonitor monitor) throws Exception {
@@ -101,6 +118,15 @@ public final class PropertiesUtil {
 			logger.exiting();
 	}
 
+	/**
+	 * Modify library dependencies.
+	 *
+	 * @param projectName the project name
+	 * @param addedLibraries the added libraries
+	 * @param removedLibraries the removed libraries
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void modifyLibraryDependencies(final String projectName,
 			final Set<String> addedLibraries,
 			final Set<String> removedLibraries, IProgressMonitor monitor)
@@ -137,6 +163,16 @@ public final class PropertiesUtil {
 		}
 	}
 
+	/**
+	 * Validate.
+	 *
+	 * @param serviceName the service name
+	 * @param implProjectName the impl project name
+	 * @param newServiceLocation the new service location
+	 * @param newServiceBinding the new service binding
+	 * @return the i status
+	 * @throws Exception the exception
+	 */
 	public static IStatus validate(String serviceName, String implProjectName,
 			String newServiceLocation, String newServiceBinding)
 			throws Exception {
@@ -201,24 +237,22 @@ public final class PropertiesUtil {
 
 	/**
 	 * The caller should call the validate method before calling this function.
-	 * 
-	 * @param consumerProject
-	 * @param serviceName
-	 *            The name of the consuming service
-	 * @param implProjectName
-	 *            The name of the corresponding impl project name of the
-	 *            service, This is an optional param, and the caller can pass
-	 *            null for it
-	 * @param newServiceLocation
-	 * @param newServiceBinding
-	 * @param newMessageProtocol
-	 * @param newRequestDataBinding
-	 * @param newResponseDataBinding
-	 * @param requiredServices
-	 *            All required services, this is used to check whether still
-	 *            have Local binding service
-	 * @param monitor
-	 * @throws Exception
+	 *
+	 * @param consumerProject the consumer project
+	 * @param envName the env name
+	 * @param serviceName The name of the consuming service
+	 * @param implProjectName The name of the corresponding impl project name of the
+	 * service, This is an optional param, and the caller can pass
+	 * null for it
+	 * @param newServiceLocation the new service location
+	 * @param newServiceBinding the new service binding
+	 * @param newMessageProtocol the new message protocol
+	 * @param newRequestDataBinding the new request data binding
+	 * @param newResponseDataBinding the new response data binding
+	 * @param requiredServices All required services, this is used to check whether still
+	 * have Local binding service
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public static void modifyServiceDependencies(
 			final IProject consumerProject, final String envName, final String serviceName,
@@ -363,6 +397,13 @@ public final class PropertiesUtil {
 			logger.exiting();
 	}
 
+	/**
+	 * Gets the interface class name for service.
+	 *
+	 * @param serviceName the service name
+	 * @return the interface class name for service
+	 * @throws Exception the exception
+	 */
 	public static String getInterfaceClassNameForService(
 			final String serviceName) throws Exception {
 		return getValueFromServiceProps(

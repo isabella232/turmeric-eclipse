@@ -37,10 +37,11 @@ public class BuildSystemConfigurer {
 
 	/**
 	 * Configure the interface project with both Java support and Turmeric support.
+	 *
 	 * @param intfProject SOAIntfProject
 	 * @param monitor IProgressMonitor
-	 * @throws CoreException 
-	 * @throws IOException 
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static void configure(SOAIntfProject intfProject,
 			IProgressMonitor monitor) throws CoreException, IOException {
@@ -57,10 +58,10 @@ public class BuildSystemConfigurer {
 
 	/**
 	 * Configure the implementation project with Java and Turmeric support.
-	 * 
+	 *
 	 * @param implProject SOAImplProject
-	 * @param monitor IProgressMonitor 
-	 * @throws Exception 
+	 * @param monitor IProgressMonitor
+	 * @throws Exception the exception
 	 */
 	public static void configure(SOAImplProject implProject,
 			IProgressMonitor monitor) throws Exception {
@@ -76,11 +77,11 @@ public class BuildSystemConfigurer {
 
 	/**
 	 * Configure a consumer project for both Java and Turmeric support.
-	 * 
-	 * @param consumerProject SOAConsumerProject 
+	 *
+	 * @param consumerProject SOAConsumerProject
 	 * @param monitor IProgressMonitor
-	 * @throws CoreException 
-	 * @throws IOException 
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static void configure(SOAConsumerProject consumerProject,
 			IProgressMonitor monitor) throws CoreException, IOException {
@@ -94,6 +95,14 @@ public class BuildSystemConfigurer {
 				.getActiveRepositorySystem().getProjectNatureId(SupportedProjectType.CONSUMER), monitor);
 	}
 
+	/**
+	 * Perform repository specific tasks.
+	 *
+	 * @param intfProject the intf project
+	 * @param implProject the impl project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void performRepositorySpecificTasks(
 			SOAIntfProject intfProject, SOAImplProject implProject,
 			IProgressMonitor monitor) throws Exception {
@@ -102,6 +111,13 @@ public class BuildSystemConfigurer {
 						implProject, monitor);
 	}
 
+	/**
+	 * Perform repository specific tasks.
+	 *
+	 * @param intfProject the intf project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void performRepositorySpecificTasks(
 			SOAIntfProject intfProject, IProgressMonitor monitor)
 			throws Exception {
@@ -109,6 +125,13 @@ public class BuildSystemConfigurer {
 				.getProjectConfigurer().initializeProject(intfProject, monitor);
 	}
 
+	/**
+	 * Perform repository specific tasks.
+	 *
+	 * @param implProject the impl project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void performRepositorySpecificTasks(
 			SOAImplProject implProject, IProgressMonitor monitor)
 			throws Exception {
@@ -116,6 +139,15 @@ public class BuildSystemConfigurer {
 				.getProjectConfigurer().initializeProject(implProject, monitor);
 	}
 
+	/**
+	 * Perform repository specific tasks.
+	 *
+	 * @param consumerProject the consumer project
+	 * @param serviceVersion the service version
+	 * @param convertingJavaProject the converting java project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void performRepositorySpecificTasks(
 			SOAConsumerProject consumerProject, String serviceVersion,
 			boolean convertingJavaProject, 

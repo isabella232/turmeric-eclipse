@@ -23,14 +23,17 @@ import org.junit.Test;
 
 
 /**
- * @author yayu
+ * The Class TestSOADomainAccessor.
  *
+ * @author yayu
  */
 public class TestSOADomainAccessor {
 	
 	
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.core.SOADomainAccessor#getDomains(java.lang.String, java.lang.String)}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetDomains() throws Exception {
@@ -66,6 +69,8 @@ public class TestSOADomainAccessor {
 
 	/**
 	 * Test method for {@link org.ebayopensource.turmeric.eclipse.config.core.SOADomainAccessor#isDomainRequired(java.lang.String, java.lang.String)}.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testIsDomainRequired() throws Exception {

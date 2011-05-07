@@ -10,6 +10,8 @@ package org.ebayopensource.turmeric.eclipse.buildsystem.utils;
 
 
 /**
+ * The Class CodeGenModelUtil.
+ *
  * @author smathew
  * 
  * Code generation related utility class for builders.

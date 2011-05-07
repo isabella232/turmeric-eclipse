@@ -20,12 +20,16 @@ import org.eclipse.osgi.util.NLS;
 public class SOAMessages extends NLS {
 	private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.eclipse.config.resources.messages"; //$NON-NLS-1$
 
+	/** The CORRUPTE d_ confif. */
 	public static String CORRUPTED_CONFIF;
 
+	/** The EMPT y_ confdir. */
 	public static String EMPTY_CONFDIR;
 
+	/** The N o_ res. */
 	public static String NO_RES;
 
+	/** The NO t_ exist. */
 	public static String NOT_EXIST;
 	
 	static {

@@ -25,12 +25,17 @@ import org.ebayopensource.turmeric.eclipse.config.exception.SOAConfigAreaCorrupt
 
 
 /**
+ * The Class SOADomainAccessor.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public final class SOADomainAccessor {
 	
+	/** The Constant PROP_KEY_DOMAIN_REQUIRED. */
 	public static final String PROP_KEY_DOMAIN_REQUIRED = "IsDomainRequired";
+	
+	/** The Constant PROP_KEY_DOMAINS. */
 	public static final String PROP_KEY_DOMAINS= "Domains";
 	
 	private static final Map<String, Boolean> IS_DOMAIN_REQUIRED 
@@ -83,6 +88,12 @@ public final class SOADomainAccessor {
 		}
 	}
 	
+	/**
+	 * Parses the string to domain map.
+	 *
+	 * @param value the value
+	 * @return the map
+	 */
 	public static Map<String, List<String>> parseStringToDomainMap(String value) {
 		final Map<String, List<String>> data = new LinkedHashMap<String, List<String>>();
 		for (String val : StringUtils.split(value, ",")) {
@@ -102,6 +113,12 @@ public final class SOADomainAccessor {
 		return data;
 	}
 	
+	/**
+	 * Pase domain map to string.
+	 *
+	 * @param domains the domains
+	 * @return the string
+	 */
 	public static String paseDomainMapToString(Map<String, List<String>> domains) {
 		final StringBuffer result = new StringBuffer();
 		int index = 0;
@@ -121,6 +138,14 @@ public final class SOADomainAccessor {
 		return result.toString();
 	}
 	
+	/**
+	 * Checks if is domain required.
+	 *
+	 * @param buildSystemID the build system id
+	 * @param organization the organization
+	 * @return true, if is domain required
+	 * @throws Exception the exception
+	 */
 	public static boolean isDomainRequired(String buildSystemID, String organization) throws Exception {
 		if (IS_DOMAIN_REQUIRED.isEmpty()) {
 			init(buildSystemID, organization);
@@ -128,6 +153,14 @@ public final class SOADomainAccessor {
 		return IS_DOMAIN_REQUIRED.get(getKey(buildSystemID, organization));
 	}
 	
+	/**
+	 * Gets the domains.
+	 *
+	 * @param buildSystemID the build system id
+	 * @param organization the organization
+	 * @return the domains
+	 * @throws Exception the exception
+	 */
 	public static Map<String, List<String>> getDomains(String buildSystemID, String organization) throws Exception {
 		if (DOMAINS.isEmpty()) {
 			init(buildSystemID, organization);

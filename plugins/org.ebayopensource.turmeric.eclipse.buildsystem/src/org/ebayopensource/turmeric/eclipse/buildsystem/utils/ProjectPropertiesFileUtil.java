@@ -55,11 +55,12 @@ public class ProjectPropertiesFileUtil {
 	 * Creates the interface project properties file. The name of the file is
 	 * "service_intf_project.properties". This file has information like source
 	 * type of the project, package to name space mapping etc.
-	 * 
-	 * @param soaIntfProject
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
+	 *
+	 * @param soaIntfProject the soa intf project
+	 * @param monitor the monitor
+	 * @return the i file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static IFile createPropsFile(SOAIntfProject soaIntfProject, 
 			IProgressMonitor monitor)
@@ -171,11 +172,11 @@ public class ProjectPropertiesFileUtil {
 	 * Creates the implementation project properties file. The name of the file
 	 * is "service_impl_project.properties". This file has information about the
 	 * base consumer source directory if there is one.
-	 * 
-	 * @param soaImplProject
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
+	 *
+	 * @param soaImplProject the soa impl project
+	 * @return the i file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static IFile createPropsFile(SOAImplProject soaImplProject)
 			throws IOException, CoreException {
@@ -210,11 +211,11 @@ public class ProjectPropertiesFileUtil {
 	 * Creates the consumer project properties file. The name of the file is
 	 * "service_consumer_project.properties". This file has information about
 	 * the base consumer source directory if there is one.
-	 * 
-	 * @param soaConsumerProject
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
+	 *
+	 * @param soaConsumerProject the soa consumer project
+	 * @param monitor the monitor
+	 * @return the i file
+	 * @throws Exception the exception
 	 */
 	public static IFile createPropsFile(SOAConsumerProject soaConsumerProject, 
 			IProgressMonitor monitor)
@@ -272,6 +273,17 @@ public class ProjectPropertiesFileUtil {
 		return file;
 	}
 	
+	/**
+	 * Creates the props file for impl projects.
+	 *
+	 * @param implProject the impl project
+	 * @param clientName the client name
+	 * @param consumerId the consumer id
+	 * @param monitor the monitor
+	 * @return the i file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static IFile createPropsFileForImplProjects(IProject implProject, 
 			String clientName, String consumerId, IProgressMonitor monitor)
 			throws IOException, CoreException {
@@ -279,6 +291,18 @@ public class ProjectPropertiesFileUtil {
 				 monitor);
 	}
 	
+	/**
+	 * Creates the props file for impl projects.
+	 *
+	 * @param implProject the impl project
+	 * @param clientName the client name
+	 * @param consumerId the consumer id
+	 * @param baseconsumerDir the baseconsumer dir
+	 * @param monitor the monitor
+	 * @return the i file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static IFile createPropsFileForImplProjects(IProject implProject, 
 			String clientName, String consumerId, String baseconsumerDir, 
 			IProgressMonitor monitor)

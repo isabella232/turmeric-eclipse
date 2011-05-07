@@ -26,8 +26,9 @@ import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
 
 
 /**
+ * The Class ServiceFromTemplateWsdlParamModel.
+ *
  * @author yayu
- * 
  */
 public class ServiceFromTemplateWsdlParamModel extends
 ServiceFromWsdlParamModel {
@@ -37,14 +38,15 @@ ServiceFromWsdlParamModel {
 	private List<Operation> operations = new ArrayList<Operation>();
 
 	/**
-	 * 
+	 * Instantiates a new service from template wsdl param model.
 	 */
 	public ServiceFromTemplateWsdlParamModel() {
 		super();
 	}
 
 	/**
-	 * 
+	 * Gets the template file.
+	 *
 	 * @return A URL representation of the template file
 	 */
 	public URL getTemplateFile() {
@@ -52,7 +54,8 @@ ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
+	 * Sets the template file.
+	 *
 	 * @param templateFile a URL representation of a template file
 	 */
 	public void setTemplateFile(URL templateFile) {
@@ -60,7 +63,8 @@ ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
+	 * Gets the sel bindings.
+	 *
 	 * @return a Set of TemplateBinding objects
 	 */
 	public Set<TemplateBinding> getSelBindings() {
@@ -72,7 +76,8 @@ ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
+	 * Gets the bindings.
+	 *
 	 * @return A set of Binding objects
 	 */
 	public Set<Binding> getBindings() {
@@ -80,7 +85,8 @@ ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
+	 * Adds the binding.
+	 *
 	 * @param binding a Binding object to be added.
 	 */
 	public void addBinding(Binding binding) {
@@ -88,7 +94,8 @@ ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
+	 * Gets the operations.
+	 *
 	 * @return a List of Operations
 	 */
 	public List<Operation> getOperations() {
@@ -96,7 +103,8 @@ ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
+	 * Adds the operation.
+	 *
 	 * @param operation an Operation to be added
 	 */
 	public void addOperation(Operation operation) {
@@ -104,7 +112,8 @@ ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
+	 * Sets the bindings.
+	 *
 	 * @param bindings A Set of Bindings
 	 */
 	public void setBindings(Set<Binding> bindings) {
@@ -112,7 +121,8 @@ ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
+	 * Sets the operations.
+	 *
 	 * @param operations A List of Operation objects
 	 */
 	public void setOperations(List<Operation> operations) {
@@ -137,7 +147,8 @@ ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
+	 * Gets the default bindings.
+	 *
 	 * @return A Collection of Binding, typically TemplateBindings for HTTP and SOAP
 	 */
 	public static Collection<Binding> getDefaultBindings() {
@@ -177,14 +188,15 @@ ServiceFromWsdlParamModel {
 		private Parameter inputParameter;
 
 		/**
-		 * 
+		 * Instantiates a new operation.
 		 */
 		public Operation() {
 			super();
 		}
 
 		/**
-		 * 
+		 * Instantiates a new operation.
+		 *
 		 * @param name operation name
 		 * @param outputParameter output Parameter
 		 */
@@ -193,7 +205,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Instantiates a new operation.
+		 *
 		 * @param name operation name
 		 * @param inputParameter input Parameter
 		 * @param outputParameter output Parameter
@@ -213,7 +226,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Gets the name.
+		 *
 		 * @return the Operation name
 		 */
 		public String getName() {
@@ -221,7 +235,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Sets the name.
+		 *
 		 * @param name the operation name
 		 */
 		public void setName(String name) {
@@ -229,7 +244,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Gets the output parameter.
+		 *
 		 * @return the output Parameter
 		 */
 		public Parameter getOutputParameter() {
@@ -237,7 +253,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Sets the output parameter.
+		 *
 		 * @param outputParameter the output Parameter
 		 */
 		public void setOutputParameter(Parameter outputParameter) {
@@ -245,7 +262,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Gets the input parameter.
+		 *
 		 * @return the input Parameter
 		 */
 		public Parameter getInputParameter() {
@@ -253,7 +271,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Sets the input parameter.
+		 *
 		 * @param inputParameter the input Parameter
 		 */
 		public void setInputParameter(Parameter inputParameter) {
@@ -275,9 +294,10 @@ ServiceFromWsdlParamModel {
 		private int maxOccurs = 1;
 
 		/**
-		 * 
+		 * Instantiates a new parameter element.
+		 *
 		 * @param name the element name
-		 * @param datatype the data type 
+		 * @param datatype the data type
 		 */
 		public ParameterElement(String name, String datatype) {
 			super();
@@ -356,23 +376,22 @@ ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
-	 * 
-	 *
+	 * The Class Parameter.
 	 */
 	public static class Parameter extends TemplateWSDLModel {
 		private String name;
 		private List<IParameterElement> elements = new ArrayList<IParameterElement>();
 
 		/**
-		 * 
+		 * Instantiates a new parameter.
 		 */
 		public Parameter() {
 			super();
 		}
 
 		/**
-		 * 
+		 * Instantiates a new parameter.
+		 *
 		 * @param name the parameter name
 		 */
 		public Parameter(String name) {
@@ -381,7 +400,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Gets the name.
+		 *
 		 * @return the parameter name
 		 */
 		public String getName() {
@@ -389,7 +409,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Sets the name.
+		 *
 		 * @param name the parameter name
 		 */
 		public void setName(String name) {
@@ -397,7 +418,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Gets the elements.
+		 *
 		 * @return a List of IParameterElement objects
 		 */
 		public List<IParameterElement> getElements() {
@@ -405,7 +427,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Sets the elements.
+		 *
 		 * @param elements A List of elements
 		 */
 		public void setElements(List<? extends IParameterElement> elements) {
@@ -417,23 +440,22 @@ ServiceFromWsdlParamModel {
 	}
 
 	/**
-	 * 
-	 * 
-	 *
+	 * The Class Binding.
 	 */
 	public static class Binding extends TemplateWSDLModel {
 		private TemplateBinding binding;
 
 
 		/**
-		 * 
+		 * Instantiates a new binding.
 		 */
 		public Binding() {
 			super();
 		}
 
 		/**
-		 * 
+		 * Instantiates a new binding.
+		 *
 		 * @param binding a TemplateBinding
 		 */
 		public Binding(TemplateBinding binding) {
@@ -442,7 +464,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Sets the binding.
+		 *
 		 * @param binding a TemplateBinding
 		 */
 		public void setBinding(TemplateBinding binding) {
@@ -450,7 +473,8 @@ ServiceFromWsdlParamModel {
 		}
 
 		/**
-		 * 
+		 * Gets the binding.
+		 *
 		 * @return the TemplateBinding
 		 */
 		public TemplateBinding getBinding() {

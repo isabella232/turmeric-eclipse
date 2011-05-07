@@ -24,11 +24,17 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
  */
 public class GenTypeServiceMetadataProps extends BaseCodeGenModel {
 
+	/**
+	 * Instantiates a new gen type service metadata props.
+	 */
 	public GenTypeServiceMetadataProps() {
 		super();
 		setGenType(GENTYPE_SERVICE_METADATA_PROPS);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		Map<String, String> result = new TreeMap<String, String>();
