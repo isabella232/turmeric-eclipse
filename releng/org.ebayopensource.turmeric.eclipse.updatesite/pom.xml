@@ -23,5 +23,20 @@
    <artifactId>org.ebayopensource.tumeric.eclipse.updatesite</artifactId>
    <version>1.0.0-SNAPSHOT</version>
    <packaging>eclipse-update-site</packaging>
-   <name>Turmeric: Update Site</name>
+   <name>Turmeric :: Eclipse :: Repository</name>
+   
+   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.tycho</groupId>
+        <artifactId>tycho-p2-repository-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <includeAllDependencies>true</includeAllDependencies>
+          <createArtifactRepository>true</createArtifactRepository>
+          <compress>true</compress>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
