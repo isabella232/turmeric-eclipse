@@ -17,14 +17,26 @@ import org.eclipse.core.runtime.Status;
 
 
 /**
- * SOA Message Utils
+ * SOA Message Utils.
+ *
  * @author ramurthy
  */
 
 public class SOAMessageUtils {
 	
+	/** The Constant UNKNOWN_ERROR. */
 	public static final String UNKNOWN_ERROR = "Unknown error";
 
+	/**
+	 * Creates the multi status.
+	 *
+	 * @param pluginID the plugin id
+	 * @param code the code
+	 * @param children the children
+	 * @param description the description
+	 * @param throwable the throwable
+	 * @return the i status
+	 */
 	public static IStatus createMultiStatus(String pluginID, int code,
 			IStatus[] children, String description, Throwable throwable) {
 		if (description == null) {
@@ -43,10 +55,28 @@ public class SOAMessageUtils {
 		}
 	}
 	
+	/**
+	 * Creates the may assertion status.
+	 *
+	 * @param message the message
+	 * @param exception the exception
+	 * @return the status
+	 */
 	public static Status createMayAssertionStatus(String message, Throwable exception) {
 		return new AssertionStatus(message, null);
 	}
 	
+	/**
+	 * Creates the status.
+	 *
+	 * @param severity the severity
+	 * @param pluginID the plugin id
+	 * @param code the code
+	 * @param message the message
+	 * @param exception the exception
+	 * @param lineNumber the line number
+	 * @return the assertion status
+	 */
 	public static AssertionStatus createStatus(int severity, String pluginID, int code, String message, 
 			Throwable exception, int lineNumber) {
 		if (lineNumber <= 0) {

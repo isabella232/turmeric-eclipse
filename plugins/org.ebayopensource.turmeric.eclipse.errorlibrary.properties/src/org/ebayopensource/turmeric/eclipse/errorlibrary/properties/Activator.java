@@ -16,13 +16,14 @@ import org.osgi.framework.BundleContext;
 
 
 /**
+ * The Class Activator.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public class Activator extends Plugin {
-	/**
-	 * 
-	 */
+	
+	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.errorlibrary.properties";
 
 	// The shared instance

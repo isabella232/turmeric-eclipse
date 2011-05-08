@@ -14,8 +14,9 @@ package org.ebayopensource.turmeric.eclipse.exception.resources;
 import org.eclipse.core.resources.IResource;
 
 /**
- * @author yayu
+ * The Class SOAResourceModifyFailedException.
  *
+ * @author yayu
  */
 public class SOAResourceModifyFailedException extends
 		AbstractSOAResourceModifyException {
@@ -26,20 +27,30 @@ public class SOAResourceModifyFailedException extends
 	private static final long serialVersionUID = 201L;
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA resource modify failed exception.
+	 *
+	 * @param cause the cause
 	 */
 	public SOAResourceModifyFailedException(Throwable cause) {
 		super(cause);
 	}
 	
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new sOA resource modify failed exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public SOAResourceModifyFailedException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new sOA resource modify failed exception.
+	 *
+	 * @param resource the resource
+	 * @param cause the cause
+	 */
 	public SOAResourceModifyFailedException(IResource resource, Throwable cause) {
 		super("Failed to modify resource->" + resource.getLocation(), cause);
 	}

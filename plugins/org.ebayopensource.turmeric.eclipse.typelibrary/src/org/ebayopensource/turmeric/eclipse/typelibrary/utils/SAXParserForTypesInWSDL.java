@@ -33,6 +33,9 @@ enum SchemaProcessStage {
 	NotStart, Processing, Processed
 }
 
+/**
+ * The Class SAXParserForTypesInWSDL.
+ */
 public class SAXParserForTypesInWSDL extends DefaultHandler {
 
 	private static String DEF_NODE = "definitions";
@@ -49,6 +52,13 @@ public class SAXParserForTypesInWSDL extends DefaultHandler {
 	private SchemaProcessStage status = SchemaProcessStage.NotStart;
 	private StringBuffer attrInWSDL = new StringBuffer();
 
+	/**
+	 * Gets the type defs from wsdl.
+	 *
+	 * @param wsdlPath the wsdl path
+	 * @return the type defs from wsdl
+	 * @throws ImportTypeException the import type exception
+	 */
 	public List<StringBuffer> getTypeDefsFromWSDL(String wsdlPath) throws ImportTypeException {
 		InputStream stream;
 		try {
@@ -73,6 +83,9 @@ public class SAXParserForTypesInWSDL extends DefaultHandler {
 		return qName;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
+	 */
 	@Override
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {
@@ -82,6 +95,9 @@ public class SAXParserForTypesInWSDL extends DefaultHandler {
 		super.characters(ch, start, length);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
@@ -113,6 +129,9 @@ public class SAXParserForTypesInWSDL extends DefaultHandler {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
+	 */
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {

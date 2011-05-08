@@ -26,18 +26,22 @@ import org.eclipse.core.runtime.Status;
 
 
 /**
- * @author yayu
+ * The Class TurmericServiceValidator.
  *
+ * @author yayu
  */
 public class TurmericServiceValidator extends AbstractSOAValidator {
 
 	/**
-	 * 
+	 * Instantiates a new turmeric service validator.
 	 */
 	public TurmericServiceValidator() {
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IStatus validate(Object obj) throws ValidationInterruptedException {
 		IStatus status = super.validate(obj);
 		if (status.isOK()) {

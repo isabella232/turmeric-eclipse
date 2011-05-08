@@ -27,10 +27,21 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibra
  */
 public class AbstractTypeSorterFactory {
 
+	/** The type sorter. */
 	static TypeSorter typeSorter = new TypeSorter();
+	
+	/** The viewer sorter. */
 	static ViewerSorter viewerSorter = new ViewerSorter();
+	
+	/** The version sorter. */
 	static VersionSorter versionSorter = new VersionSorter();
 
+	/**
+	 * Creates a new AbstractTypeSorter object.
+	 *
+	 * @param columnName the column name
+	 * @return the viewer sorter
+	 */
 	public static ViewerSorter createSorter(String columnName) {
 		if (StringUtils.equals(columnName,
 				SOATypeLibraryConstants.REGISTRY_VIEW_COLUMN_NAME)) {
@@ -62,6 +73,9 @@ public class AbstractTypeSorterFactory {
 		private TypeSorter() {
 		}
 
+		/* (non-Javadoc)
+		 * @see org.eclipse.jface.viewers.ViewerComparator#compare(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+		 */
 		@Override
 		public int compare(Viewer viewer, Object e1, Object e2) {
 			if (e1 instanceof LibraryType && e2 instanceof LibraryType) {
@@ -73,10 +87,20 @@ public class AbstractTypeSorterFactory {
 					.toString());
 		}
 
+		/**
+		 * Gets the type column.
+		 *
+		 * @return the type column
+		 */
 		public int getTypeColumn() {
 			return column;
 		}
 
+		/**
+		 * Sets the type name column.
+		 *
+		 * @param column the new type name column
+		 */
 		public void setTypeNameColumn(int column) {
 			this.column = column;
 		}
@@ -101,6 +125,9 @@ public class AbstractTypeSorterFactory {
 		private VersionSorter() {
 		}
 
+		/* (non-Javadoc)
+		 * @see org.eclipse.jface.viewers.ViewerComparator#compare(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+		 */
 		@Override
 		public int compare(Viewer viewer, Object e1, Object e2) {
 			if (e1 instanceof LibraryType && e2 instanceof LibraryType) {
@@ -112,10 +139,20 @@ public class AbstractTypeSorterFactory {
 					.toString());
 		}
 
+		/**
+		 * Gets the type column.
+		 *
+		 * @return the type column
+		 */
 		public int getTypeColumn() {
 			return column;
 		}
 
+		/**
+		 * Sets the type name column.
+		 *
+		 * @param column the new type name column
+		 */
 		public void setTypeNameColumn(int column) {
 			this.column = column;
 		}

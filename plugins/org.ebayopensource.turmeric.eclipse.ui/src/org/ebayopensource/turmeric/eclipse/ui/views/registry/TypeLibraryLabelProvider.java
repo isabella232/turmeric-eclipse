@@ -25,8 +25,8 @@ import org.eclipse.swt.graphics.Image;
  */
 public class TypeLibraryLabelProvider implements ILabelProvider {
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getText(Object element) {
 		if (element instanceof IRegistryTreeNode) {
@@ -35,33 +35,33 @@ public class TypeLibraryLabelProvider implements ILabelProvider {
 		return SOAProjectConstants.EMPTY_STRING;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#addListener(org.eclipse.jface.viewers.ILabelProviderListener)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void addListener(ILabelProviderListener listener) {
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#dispose()
+	/**
+	 * {@inheritDoc}
 	 */
 	public void dispose() {
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#isLabelProperty(java.lang.Object, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void removeListener(ILabelProviderListener listener) {
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.ILabelProvider#getImage(java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	public Image getImage(Object element) {
 		return null;

@@ -38,15 +38,15 @@ public class TypeLibSynhcronizer {
 	 * The referred type is found using the type name. Then updates the version
 	 * of all the types referred from this type. Only modifies the type
 	 * dependencies file.
-	 * 
+	 *
 	 * @param typeName -
-	 *            the name of the parent type. i.e the schema file in which the
-	 *            selected types are referred from.
+	 * the name of the parent type. i.e the schema file in which the
+	 * selected types are referred from.
 	 * @param selectedTypes -
-	 *            the types referred from first parameter .
+	 * the types referred from first parameter .
 	 * @param project -
-	 *            the container project of the first parameter xsd file.
-	 * @throws Exception
+	 * the container project of the first parameter xsd file.
+	 * @throws Exception the exception
 	 */
 	public static void updateVersionEntryTypeDep(String typeName,
 			Collection<LibraryType> selectedTypes, IProject project)

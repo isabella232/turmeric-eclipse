@@ -20,6 +20,8 @@ import org.eclipse.core.resources.IProject;
 
 
 /**
+ * The Interface ISOAAssetRegistry.
+ *
  * @author smathew
  * 
  * This is the library and project regisrty. Each Repo system will have
@@ -29,37 +31,53 @@ import org.eclipse.core.resources.IProject;
  */
 public interface ISOAAssetRegistry {
 
+	/**
+	 * Gets the all libraries.
+	 *
+	 * @return the all libraries
+	 * @throws Exception the exception
+	 */
 	public Set<AssetInfo> getAllLibraries() throws Exception;
 	
 	/**
+	 * Gets the all available services.
+	 *
 	 * @return the list of all Turmeric service instances
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public Set<? extends AssetInfo> getAllAvailableServices() throws Exception;
 	
 	/**
-	 * @param projectName
+	 * Gets the dependencies.
+	 *
+	 * @param projectName the project name
 	 * @return the list of dependencies for the given project
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public List<AssetInfo> getDependencies(String projectName) throws Exception;
 	
 	/**
-	 * @param projectName
+	 * Gets the project info.
+	 *
+	 * @param projectName the project name
 	 * @return the information of the given project name
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public ProjectInfo getProjectInfo(String projectName) throws Exception;
 	
 	/**
-	 * @param project
+	 * Gets the sOA project.
+	 *
+	 * @param project the project
 	 * @return the information of the given project
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public ISOAProject getSOAProject(IProject project) throws Exception;
 	
 	/**
-	 * @param project
+	 * Gets the project configuration file.
+	 *
+	 * @param project the project
 	 * @return The project configuration file for the given project.
 	 */
 	public IFile getProjectConfigurationFile(IProject project);
@@ -68,32 +86,38 @@ public interface ISOAAssetRegistry {
 	/**
 	 * This should return the jar file location or even the directory location of the project.
 	 * If its directory, it should return the root.
-	 * @param projectName
-	 * @return
+	 *
+	 * @param projectName the project name
+	 * @return the asset location
+	 * @throws Exception the exception
 	 */
 	public String getAssetLocation(String projectName) throws Exception;
 	
 	/**
-	 * @param libraryName
+	 * Gets the asset location.
+	 *
+	 * @param libraryName the library name
 	 * @return the location of the given asset
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public String getAssetLocation(AssetInfo libraryName) throws Exception;
 	
 	/**
-	 * Get the corresponding asset
-	 * @param project
-	 * @return
-	 * @throws Exception
+	 * Get the corresponding asset.
+	 *
+	 * @param project the project
+	 * @return the asset
+	 * @throws Exception the exception
 	 */
 	public IAssetInfo getAsset(IProject project) throws Exception;
 	
 	/**
-	 * Get the instance of AssetInfo for the given project dependency name
-	 * @param project
-	 * @param libraryName
-	 * @return
-	 * @throws Exception
+	 * Get the instance of AssetInfo for the given project dependency name.
+	 *
+	 * @param project the project
+	 * @param libraryName the library name
+	 * @return the asset from project dependency
+	 * @throws Exception the exception
 	 */
 	public AssetInfo getAssetFromProjectDependency(IProject project, String libraryName) throws Exception;
 

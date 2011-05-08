@@ -50,7 +50,11 @@ import org.eclipse.core.runtime.Platform;
  */
 public final class SOADomainUtil {
 	private static final SOALogger logger = SOALogger.getLogger();
+	
+	/** The Constant SOA_DOMAIN_PREFERENCE_ID. */
 	public static final String SOA_DOMAIN_PREFERENCE_ID = "org.ebayopensource.turmeric.eclipse.domains";
+	
+	/** The Constant SOA_DOMAIN_PREFERENCE_NODE. */
 	public static final String SOA_DOMAIN_PREFERENCE_NODE = "domainNames";
 	private static final URL SOA_DOMAIN_PREF_LOCATION;
 	
@@ -76,8 +80,9 @@ public final class SOADomainUtil {
 	
 	/**
 	 * Key is the domain name, value is the list of namespace parts.
-	 * @return
-	 * @throws Exception 
+	 *
+	 * @return the registered domains
+	 * @throws Exception the exception
 	 */
 	public static Map<String, List<String>> getRegisteredDomains() throws Exception {
 		final Map<String, List<String>> result = new LinkedHashMap<String, List<String>>();
@@ -175,6 +180,9 @@ public final class SOADomainUtil {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException();

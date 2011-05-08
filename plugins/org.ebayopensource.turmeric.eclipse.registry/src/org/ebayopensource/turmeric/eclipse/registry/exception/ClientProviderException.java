@@ -24,20 +24,36 @@ public class ClientProviderException extends ProviderException{
 	private static final long serialVersionUID = 240L;
 
 	/**
-	 * 
+	 * Instantiates a new client provider exception.
 	 */
 	public ClientProviderException() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new client provider exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public ClientProviderException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new client provider exception.
+	 *
+	 * @param message the message
+	 */
 	public ClientProviderException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new client provider exception.
+	 *
+	 * @param cause the cause
+	 */
 	public ClientProviderException(Throwable cause) {
 		super(cause);
 	}

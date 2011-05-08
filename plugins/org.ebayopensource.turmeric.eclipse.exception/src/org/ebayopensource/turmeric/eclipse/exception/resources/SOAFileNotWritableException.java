@@ -17,8 +17,9 @@ import org.ebayopensource.turmeric.eclipse.exception.AbstractSOAException;
 
 
 /**
+ * The Class SOAFileNotWritableException.
+ *
  * @author yayu
- * 
  */
 public class SOAFileNotWritableException extends AbstractSOAException {
 	private File file;
@@ -30,7 +31,9 @@ public class SOAFileNotWritableException extends AbstractSOAException {
 
 	
 	/**
-	 * @param message
+	 * Instantiates a new sOA file not writable exception.
+	 *
+	 * @param file the file
 	 */
 	public SOAFileNotWritableException(File file) {	
 		this.file = file;
@@ -38,7 +41,10 @@ public class SOAFileNotWritableException extends AbstractSOAException {
 	
 
 	/**
-	 * @param message
+	 * Instantiates a new sOA file not writable exception.
+	 *
+	 * @param message the message
+	 * @param file the file
 	 */
 	public SOAFileNotWritableException(String message, File file) {
 		super(message);
@@ -46,20 +52,31 @@ public class SOAFileNotWritableException extends AbstractSOAException {
 	}
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA file not writable exception.
+	 *
+	 * @param file the file
+	 * @param cause the cause
 	 */
 	public SOAFileNotWritableException(File file, Throwable cause) {
 		super(cause);
 		this.file = file;
 	}
 
+	/**
+	 * Instantiates a new sOA file not writable exception.
+	 *
+	 * @param cause the cause
+	 */
 	public SOAFileNotWritableException(Throwable cause) {
 		this(null, cause);
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new sOA file not writable exception.
+	 *
+	 * @param message the message
+	 * @param file the file
+	 * @param cause the cause
 	 */
 	public SOAFileNotWritableException(String message, File file,
 			Throwable cause) {
@@ -67,6 +84,9 @@ public class SOAFileNotWritableException extends AbstractSOAException {
 		this.file = file;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.exception.AbstractSOAException#getMessage()
+	 */
 	@Override
 	public String getMessage() {
 		final StringBuffer buf = new StringBuffer();
@@ -80,6 +100,11 @@ public class SOAFileNotWritableException extends AbstractSOAException {
 		return buf.toString();
 	}
 
+	/**
+	 * Gets the file.
+	 *
+	 * @return the file
+	 */
 	public File getFile() {
 		return this.file;
 	}

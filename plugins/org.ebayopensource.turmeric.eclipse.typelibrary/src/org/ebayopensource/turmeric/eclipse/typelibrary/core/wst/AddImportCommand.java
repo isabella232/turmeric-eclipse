@@ -18,8 +18,9 @@ import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDSchemaDirective;
 
 /**
+ * The Class AddImportCommand.
+ *
  * @author smathew
- * 
  */
 public class AddImportCommand {
 
@@ -27,6 +28,13 @@ public class AddImportCommand {
 	private String schemaLocation;
 	private XSDSchema resolvedSchema;
 
+	/**
+	 * Instantiates a new adds the import command.
+	 *
+	 * @param xsdSchema the xsd schema
+	 * @param schemaLocation the schema location
+	 * @param resolvedSchema the resolved schema
+	 */
 	public AddImportCommand(XSDSchema xsdSchema, String schemaLocation,
 			XSDSchema resolvedSchema) {
 		this.xsdSchema = xsdSchema;
@@ -34,6 +42,9 @@ public class AddImportCommand {
 		this.resolvedSchema = resolvedSchema;
 	}
 
+	/**
+	 * Run.
+	 */
 	public void run() {
 		XSDSchemaDirective xsdSchemaDirective = null;
 		if (StringUtils.equals(xsdSchema.getTargetNamespace(), resolvedSchema

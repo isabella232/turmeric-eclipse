@@ -24,26 +24,26 @@ import org.eclipse.jdt.core.JavaCore;
 
 
 /**
+ * The Class TypeLibraryBuildSystemConfigurer.
+ *
  * @author smathew
  * 
  * The build System configurer, This class glues normal project to build system .
  * adds the nature, java support etc
- * 
  */
 public class TypeLibraryBuildSystemConfigurer {
 
 	/**
 	 * Configure the given source project with the java nature and typelibrary
 	 * nature, Also it adds the classpath container as well.
-	 * 
+	 *
 	 * @param typeLibraryProject -
-	 *            the source project
+	 * the source project
 	 * @param monitor -
-	 *            displayable monitor
-	 * @throws CoreException
-	 *             if there is some problem. Very rare chance that there could
-	 *             be one as we are using all the jkdt apis here
-	 * @throws IOException 
+	 * displayable monitor
+	 * @throws CoreException if there is some problem. Very rare chance that there could
+	 * be one as we are using all the jkdt apis here
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static void configure(SOATypeLibraryProject typeLibraryProject,
 			IProgressMonitor monitor) throws CoreException, IOException {

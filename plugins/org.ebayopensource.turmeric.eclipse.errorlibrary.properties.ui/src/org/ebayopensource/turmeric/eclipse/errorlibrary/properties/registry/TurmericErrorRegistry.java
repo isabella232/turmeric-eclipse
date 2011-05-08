@@ -124,7 +124,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Gets the error libraries.
+	 *
 	 * @return a collecation or Error Libraries
 	 * @throws Exception an exception if there is an error
 	 */
@@ -136,7 +137,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Gets the error library by name.
+	 *
 	 * @param errorLibName error library name
 	 * @return the error library or null if the library is not found.
 	 * @throws Exception an exception if there is an error
@@ -149,7 +151,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Gets the error domain by name.
+	 *
 	 * @param errorDomainName domain name
 	 * @return the error domain
 	 * @throws Exception an exception if there is an error
@@ -162,7 +165,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Gets the error by name.
+	 *
 	 * @param domainName the domain name
 	 * @param errorName the error name
 	 * @return an error object
@@ -176,7 +180,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Adds the error library.
+	 *
 	 * @param errorLib an error library
 	 * @return true if the library was added
 	 * @throws Exception an error
@@ -191,11 +196,12 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Adds the error domain.
+	 *
 	 * @param errorLibName error library name
 	 * @param errorDomain error domain
 	 * @return true if the library was added successfully
-	 * @throws Exception an error 
+	 * @throws Exception an error
 	 */
 	public static boolean addErrorDomain(String errorLibName, ISOAErrDomain errorDomain) throws Exception {
 		getErrorLibraries();
@@ -212,7 +218,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Adds the error.
+	 *
 	 * @param errorDomainName error domain
 	 * @param error an error object
 	 * @return true if the error was added successfully
@@ -234,7 +241,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Removes the error library.
+	 *
 	 * @param errorLibName error library name
 	 * @return the error library removed.
 	 * @throws Exception if a critical error occurs an exception is thrown
@@ -248,7 +256,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Removes the error domain.
+	 *
 	 * @param domain the domain
 	 * @return an error domain object that was removed
 	 * @throws Exception an exception
@@ -265,7 +274,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Removes the error.
+	 *
 	 * @param domainName domain name
 	 * @param error an error object
 	 * @return the error object removed
@@ -283,7 +293,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Contains error library.
+	 *
 	 * @param errorLibName error library name
 	 * @return true if the error library exists
 	 * @throws Exception an error has occurred
@@ -297,7 +308,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Contains error domain.
+	 *
 	 * @param errorDomainName error domain
 	 * @return true if it contains the error domain
 	 * @throws Exception an error has occurred
@@ -311,7 +323,8 @@ public final class TurmericErrorRegistry {
 	}
 
 	/**
-	 * 
+	 * Contains error.
+	 *
 	 * @param domainName the domain name
 	 * @param errorName error name
 	 * @return true if it contains the dombination of domain name and error name
@@ -326,7 +339,8 @@ public final class TurmericErrorRegistry {
 	}
 	
 	/**
-	 * 
+	 * Refresh.
+	 *
 	 * @throws Exception an exception
 	 */
 	
@@ -339,6 +353,9 @@ public final class TurmericErrorRegistry {
 		init();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException();

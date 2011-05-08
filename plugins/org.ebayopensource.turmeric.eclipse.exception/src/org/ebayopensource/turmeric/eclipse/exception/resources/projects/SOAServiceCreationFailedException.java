@@ -13,8 +13,9 @@ package org.ebayopensource.turmeric.eclipse.exception.resources.projects;
 
 
 /**
- * @author yayu
+ * The Class SOAServiceCreationFailedException.
  *
+ * @author yayu
  */
 public class SOAServiceCreationFailedException extends
 		SOAProjectCreationFailedException {
@@ -25,15 +26,19 @@ public class SOAServiceCreationFailedException extends
 	private static final long serialVersionUID = 201L;
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA service creation failed exception.
+	 *
+	 * @param cause the cause
 	 */
 	public SOAServiceCreationFailedException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param serviceName
-	 * @param cause
+	 * Instantiates a new sOA service creation failed exception.
+	 *
+	 * @param serviceName the service name
+	 * @param cause the cause
 	 */
 	public SOAServiceCreationFailedException(String serviceName, Throwable cause) {
 		super("SOA service", serviceName, cause);

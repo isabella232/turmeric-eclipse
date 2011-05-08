@@ -25,7 +25,8 @@ public class TurmericProvider implements ITurmericProvider {
 	private IConfigurationElement providerElement;
 	
 	/**
-	 * 
+	 * Instantiates a new turmeric provider.
+	 *
 	 * @param configElement provider configuration element
 	 */
 	public TurmericProvider(IConfigurationElement configElement) {
@@ -39,16 +40,25 @@ public class TurmericProvider implements ITurmericProvider {
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericProvider#providerName()
+	 */
 	@Override
 	public String providerName() {
 		return providerElement.getAttribute("name");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericProvider#hasWizards()
+	 */
 	@Override
 	public boolean hasWizards() {
 		return !wizards.isEmpty();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericProvider#hasServiceWizard()
+	 */
 	@Override
 	public boolean hasServiceWizard() {
 		return findWizardType("Service");
@@ -63,21 +73,33 @@ public class TurmericProvider implements ITurmericProvider {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericProvider#hasTypeLibWizard()
+	 */
 	@Override
 	public boolean hasTypeLibWizard() {
 		return findWizardType("Type Library");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericProvider#hasErrorLibWizard()
+	 */
 	@Override
 	public boolean hasErrorLibWizard() {
 		return findWizardType("Error Library");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericProvider#hasConsumerWSDLWizard()
+	 */
 	@Override
 	public boolean hasConsumerWSDLWizard() {
 		return findWizardType("Consumer WSDL");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericProvider#findWizard(java.lang.String)
+	 */
 	@Override
 	public ITurmericWizard findWizard(String type) {
 		for(ITurmericWizard wizard : wizards) {

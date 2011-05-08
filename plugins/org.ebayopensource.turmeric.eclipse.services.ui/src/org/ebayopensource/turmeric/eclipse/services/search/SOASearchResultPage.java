@@ -27,28 +27,41 @@ import org.eclipse.swt.widgets.TableColumn;
 
 
 /**
- * @author yayu
+ * The Class SOASearchResultPage.
  *
+ * @author yayu
  */
 public class SOASearchResultPage extends AbstractTextSearchViewPage {
 	private SOASearchTableContentProvider fContentProvider;
+	
 	/**
-	 * 
+	 * Instantiates a new sOA search result page.
 	 */
 	public SOASearchResultPage() {
 		super(FLAG_LAYOUT_FLAT);
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.search.ui.text.AbstractTextSearchViewPage#elementsChanged(java.lang.Object[])
+	 */
 	@Override
 	protected void elementsChanged(Object[] objects) {
 		if (fContentProvider != null)
 			fContentProvider.elementsChanged(objects);
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.search.ui.text.AbstractTextSearchViewPage#clear()
+	 */
 	@Override
 	protected void clear() {
 		if (fContentProvider != null)
 			fContentProvider.clear();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.search.ui.text.AbstractTextSearchViewPage#configureTableViewer(org.eclipse.jface.viewers.TableViewer)
+	 */
 	@Override
 	protected void configureTableViewer(final TableViewer viewer) {
 		viewer.setLabelProvider(new SOASearchTableLabelProvider());
@@ -88,6 +101,9 @@ public class SOASearchResultPage extends AbstractTextSearchViewPage {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.search.ui.text.AbstractTextSearchViewPage#configureTreeViewer(org.eclipse.jface.viewers.TreeViewer)
+	 */
 	@Override
 	protected void configureTreeViewer(TreeViewer viewer) {
 		

@@ -26,17 +26,20 @@ import org.eclipse.core.runtime.CoreException;
 
 
 /**
+ * The Class PropertiesFileUtil.
+ *
  * @author smathew
- * 
  */
 public class PropertiesFileUtil {
 	
 	
 	/**
-	 * @param firstProperties
-	 * @param secondProperties
+	 * Checks if is equal.
+	 *
+	 * @param firstProperties the first properties
+	 * @param secondProperties the second properties
 	 * @return assumes that the key/value are all strings can be enhanced later
-	 *         if required
+	 * if required
 	 */
 	public static boolean isEqual(Properties firstProperties,
 			Properties secondProperties) {
@@ -58,6 +61,15 @@ public class PropertiesFileUtil {
 		return false;
 	}
 
+	/**
+	 * Write to file.
+	 *
+	 * @param properties the properties
+	 * @param file the file
+	 * @param comments the comments
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static void writeToFile(Properties properties, IFile file,
 			String comments) throws IOException, CoreException {
 		OutputStream output = null;
@@ -110,6 +122,14 @@ public class PropertiesFileUtil {
 		}
 	}
 	
+	/**
+	 * Gets the property value by key.
+	 *
+	 * @param input the input
+	 * @param key the key
+	 * @return the property value by key
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static String getPropertyValueByKey(InputStream input, String key) throws IOException {
 		final StringBuffer buffer = new StringBuffer();
 		accessProperty(input, null, new String[]{key}, new PropertyOperation() {
@@ -123,6 +143,14 @@ public class PropertiesFileUtil {
 		return buffer.length() > 0 ? buffer.toString() : null;
 	}
 	
+	/**
+	 * Removes the property by key.
+	 *
+	 * @param input the input
+	 * @param output the output
+	 * @param keys the keys
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void removePropertyByKey(InputStream input, OutputStream output, String[] keys) throws IOException {
 		accessProperty(input, output, keys, new PropertyOperation() {
 			
@@ -133,6 +161,15 @@ public class PropertiesFileUtil {
 		}, true);
 	}
 	
+	/**
+	 * Update property by key.
+	 *
+	 * @param input the input
+	 * @param output the output
+	 * @param targetKey the target key
+	 * @param targetValue the target value
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void updatePropertyByKey(InputStream input, OutputStream output, String targetKey, final String targetValue) throws IOException {
 		accessProperty(input, output, new String[]{targetKey}, new PropertyOperation() {
 			
@@ -143,6 +180,14 @@ public class PropertiesFileUtil {
 		}, true);
 	}
 	
+	/**
+	 * Adds the property.
+	 *
+	 * @param input the input
+	 * @param output the output
+	 * @param properties the properties
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@SuppressWarnings("unchecked")
 	public static void addProperty(InputStream input, OutputStream output, Map<String, String> properties) throws IOException {
 		List<String> sources = new ArrayList<String>();

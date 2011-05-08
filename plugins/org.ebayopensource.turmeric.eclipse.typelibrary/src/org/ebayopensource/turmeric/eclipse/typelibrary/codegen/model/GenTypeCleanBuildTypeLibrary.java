@@ -20,11 +20,17 @@ import java.util.Map;
  */
 public class GenTypeCleanBuildTypeLibrary extends BaseTypeLibCodegenModel {
 
+	/**
+	 * Instantiates a new gen type clean build type library.
+	 */
 	public GenTypeCleanBuildTypeLibrary() {
 		super();
 		setGenType(GENTYPE_CLEANBUILDTYPELIBRARY);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.BaseTypeLibCodegenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		// happy with BaseTypeLibCodegenModels functionality

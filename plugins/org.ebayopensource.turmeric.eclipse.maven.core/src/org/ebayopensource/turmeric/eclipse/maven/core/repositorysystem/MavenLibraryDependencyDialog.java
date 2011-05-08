@@ -29,21 +29,22 @@ import org.maven.ide.eclipse.ui.dialogs.MavenRepositorySearchDialog;
 
 
 /**
- * @author yayu
+ * The Class MavenLibraryDependencyDialog.
  *
+ * @author yayu
  */
 public class MavenLibraryDependencyDialog implements
 		ISOALibraryDependencyDialog {
 
 	/**
-	 * 
+	 * Instantiates a new maven library dependency dialog.
 	 */
 	public MavenLibraryDependencyDialog() {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOALibraryDependencyDialog#open(org.eclipse.swt.widgets.Shell, org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject, java.util.Set, java.util.Set)
+	/**
+	 * {@inheritDoc}
 	 */
 	public Collection<AssetInfo> open(Shell shell, ISOAProject soaProject,
 			Set<? extends AssetInfo> availableLibs,

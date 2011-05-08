@@ -28,8 +28,9 @@ import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.TemplateException;
 
 /**
+ * The Class FreeMarkerUtil.
+ *
  * @author yayu
- * 
  */
 public final class FreeMarkerUtil {
 
@@ -40,6 +41,16 @@ public final class FreeMarkerUtil {
 		super();
 	}
 
+	/**
+	 * Generate.
+	 *
+	 * @param data the data
+	 * @param templateParentFolder the template parent folder
+	 * @param templateName the template name
+	 * @param out the out
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws TemplateException the template exception
+	 */
 	public static void generate(final Map<String, ?> data,
 			final Object templateParentFolder, final String templateName,
 			final OutputStream out) throws IOException, TemplateException {
@@ -52,6 +63,16 @@ public final class FreeMarkerUtil {
 		}
 	}
 
+	/**
+	 * Generate.
+	 *
+	 * @param data the data
+	 * @param templateParentFolder the template parent folder
+	 * @param templateName the template name
+	 * @param writer the writer
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws TemplateException the template exception
+	 */
 	public static void generate(final Map<String, ?> data,
 			final Object templateParentFolder, final String templateName,
 			final Writer writer) throws IOException, TemplateException {

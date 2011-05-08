@@ -21,29 +21,35 @@ public class NoDataReturnedException extends AbstractRegistryException {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public NoDataReturnedException() {
 		super();
 	}
 
 	/**
-	 * @param message
+	 * Instantiates a new no data returned exception.
+	 *
+	 * @param message the message
 	 */
 	public NoDataReturnedException(String message) {
 		super(message);
 	}
 
 	/**
-	 * @param throwable
+	 * Instantiates a new no data returned exception.
+	 *
+	 * @param throwable the throwable
 	 */
 	public NoDataReturnedException(Throwable throwable) {
 		super(throwable);
 	}
 
 	/**
-	 * @param message
-	 * @param throwable
+	 * Instantiates a new no data returned exception.
+	 *
+	 * @param message the message
+	 * @param throwable the throwable
 	 */
 	public NoDataReturnedException(String message, Throwable throwable) {
 		super(message, throwable);

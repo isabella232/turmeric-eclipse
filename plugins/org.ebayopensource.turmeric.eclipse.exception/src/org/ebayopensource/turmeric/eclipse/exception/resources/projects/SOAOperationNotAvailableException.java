@@ -21,6 +21,11 @@ public class SOAOperationNotAvailableException extends CommandFailedException {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Instantiates a new sOA operation not available exception.
+	 *
+	 * @param msg the msg
+	 */
 	public SOAOperationNotAvailableException(String msg) {
 		super(msg);
 	}

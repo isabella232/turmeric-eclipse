@@ -20,8 +20,9 @@ import org.eclipse.jface.viewers.StructuredViewer;
 
 
 /**
- * @author yayu
+ * The Class AbstractErrorNodeAction.
  *
+ * @author yayu
  */
 public abstract class AbstractErrorNodeAction extends Action {
 	private static final SOALogger logger = SOALogger.getLogger();
@@ -29,7 +30,8 @@ public abstract class AbstractErrorNodeAction extends Action {
 	private StructuredViewer viewer;
 
 	/**
-	 * 
+	 * Instantiates a new abstract error node action.
+	 *
 	 * @param text the text
 	 * @param viewer the Viewer
 	 */
@@ -39,6 +41,8 @@ public abstract class AbstractErrorNodeAction extends Action {
 	}
 
 	/**
+	 * Sets the selected error node.
+	 *
 	 * @param errorNode the errorNode to set
 	 */
 	public void setSelectedErrorNode(ISOAErrUIComp errorNode) {
@@ -46,6 +50,8 @@ public abstract class AbstractErrorNodeAction extends Action {
 	}
 
 	/**
+	 * Gets the selected error node.
+	 *
 	 * @return the errorNode
 	 */
 	public ISOAErrUIComp getSelectedErrorNode() {
@@ -53,7 +59,8 @@ public abstract class AbstractErrorNodeAction extends Action {
 	}
 	
 	/**
-	 * 
+	 * Pre validation.
+	 *
 	 * @return the status of the validation
 	 */
 	protected IStatus preValidation() {
@@ -65,6 +72,8 @@ public abstract class AbstractErrorNodeAction extends Action {
 	}
 	
 	/**
+	 * Gets the viewer.
+	 *
 	 * @return the viewer
 	 */
 	public StructuredViewer getViewer() {
@@ -72,6 +81,9 @@ public abstract class AbstractErrorNodeAction extends Action {
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.action.Action#run()
+	 */
 	@Override
 	public void run() {
 		try {
@@ -98,6 +110,8 @@ public abstract class AbstractErrorNodeAction extends Action {
 	}
 
 	/**
+	 * Execute.
+	 *
 	 * @param selectedErrorNode the error node
 	 * @return Staus.OK if succeed
 	 * @throws Exception an exception if an error occurs

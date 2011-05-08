@@ -29,11 +29,14 @@ import org.ebayopensource.turmeric.repository.v1.services.ValidateArtifactRespon
 import org.ebayopensource.turmeric.repository.v1.services.ValidationResultItem;
 
 /**
- * Artifact Validator Util
+ * Artifact Validator Util.
+ *
  * @author ramurthy
  */
 
 public class ArtifactValidatorUtil {
+	
+	/** The Constant SUCCESS. */
 	public static final String SUCCESS = "SUCCESS";
 	
 	/**
@@ -62,8 +65,9 @@ public class ArtifactValidatorUtil {
 	}
 	
 	/**
-	 * Get All Supported Artifact Validators
-	 * @return
+	 * Get All Supported Artifact Validators.
+	 *
+	 * @return the all supported artifact validators
 	 */
 	public static List<String> getAllSupportedArtifactValidators() {
 		List<String> supportedArtifactValidatorsList = new ArrayList<String>();
@@ -74,13 +78,14 @@ public class ArtifactValidatorUtil {
 	}
 	
 	/**
-	 * Get Artifact Validation Result
-	 * @param artifactContents
-	 * @param artifactType
-	 * @return
-	 * @throws AssertionsServiceException
-	 * @throws NoDataReturnedException
-	 * @throws InvalidInputException
+	 * Get Artifact Validation Result.
+	 *
+	 * @param artifactContents the artifact contents
+	 * @param artifactType the artifact type
+	 * @return the artifact validation result
+	 * @throws AssertionsServiceException the assertions service exception
+	 * @throws NoDataReturnedException the no data returned exception
+	 * @throws InvalidInputException the invalid input exception
 	 */
 	public static List<ArtifactValidationResult> getArtifactValidationResult(byte[] artifactContents, String artifactType)
 			throws AssertionsServiceException, NoDataReturnedException,	InvalidInputException {
@@ -120,6 +125,12 @@ public class ArtifactValidatorUtil {
 		return artifactValidationResultList;
 	}
 	
+	/**
+	 * Gets the assertions severity model.
+	 *
+	 * @param assertionSeverity the assertion severity
+	 * @return the assertions severity model
+	 */
 	public static AssertionsSeverityModel getAssertionsSeverityModel(AssertionSeverity assertionSeverity) {
 		if (assertionSeverity == AssertionSeverity.MUST)
 			return AssertionsSeverityModel.MUST;
@@ -131,9 +142,13 @@ public class ArtifactValidatorUtil {
 	}
 	
 	/**
-	 * Validate Artifact
-	 * @return
-	 * @throws AssertionsServiceException
+	 * Validate Artifact.
+	 *
+	 * @param assertionsServiceConsumer the assertions service consumer
+	 * @param artifactContent the artifact content
+	 * @param artifactType the artifact type
+	 * @return the validate artifact response
+	 * @throws AssertionsServiceException the assertions service exception
 	 */
 	public static ValidateArtifactResponse validateArtifact(AssertionsServiceConsumer assertionsServiceConsumer, 
 			byte[] artifactContent, String artifactType) throws AssertionsServiceException {

@@ -35,14 +35,14 @@ import org.eclipse.core.resources.IProject;
 
 
 /**
- * @author yayu
+ * The Class PropertiesContentSOAErrorLibraryProvider.
  *
+ * @author yayu
  */
 public class PropertiesContentSOAErrorLibraryProvider implements
 		IErrorLibraryProvider {
-	/**
-	 * 
-	 */
+	
+	/** The Constant PROVIDER_ID. */
 	public static final String PROVIDER_ID;
 	
 	static {
@@ -69,7 +69,7 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	private IErrorRegistryViewProvider viewProvider = null;
 
 	/**
-	 * 
+	 * Instantiates a new properties content soa error library provider.
 	 */
 	public PropertiesContentSOAErrorLibraryProvider() {
 		super();

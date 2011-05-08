@@ -30,8 +30,18 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
+/**
+ * The Class ConfigTool.
+ */
 public class ConfigTool {
 	
+	/**
+	 * Modify service config namespace.
+	 *
+	 * @param newNamespace the new namespace
+	 * @param fileLocation the file location
+	 * @throws Exception the exception
+	 */
 	public static void modifyServiceConfigNamespace(final String newNamespace, 
 			final URL fileLocation) throws Exception {
 		final ClassLoader loader = Thread.currentThread()
@@ -66,6 +76,13 @@ public class ConfigTool {
 		}
 	}
 	
+	/**
+	 * Save server config.
+	 *
+	 * @param serviceConfig the service config
+	 * @param fileLocation the file location
+	 * @throws Exception the exception
+	 */
 	public static void saveServerConfig(final ISOAServiceConfig serviceConfig, 
 			final IFile fileLocation) throws Exception {
 		final ClassLoader loader = Thread.currentThread()
@@ -89,6 +106,13 @@ public class ConfigTool {
 		}
 	}
 	
+	/**
+	 * Modify client config namespace.
+	 *
+	 * @param newNamespace the new namespace
+	 * @param fileLocation the file location
+	 * @throws Exception the exception
+	 */
 	public static void modifyClientConfigNamespace(final String newNamespace, 
 			final URL fileLocation) throws Exception {
 		final ClassLoader loader = Thread.currentThread()
@@ -126,6 +150,14 @@ public class ConfigTool {
 		}
 	}
 	
+	/**
+	 * Parses the client config.
+	 *
+	 * @param input the input
+	 * @param clientConfig the client config
+	 * @return the iSOA client config
+	 * @throws Exception the exception
+	 */
 	public static ISOAClientConfig parseClientConfig(final InputStream input, final ISOAClientConfig clientConfig)
 			throws Exception {
 		final ClassLoader loader = Thread.currentThread()
@@ -170,6 +202,14 @@ public class ConfigTool {
 		}
 	}
 
+	/**
+	 * Parses the service config.
+	 *
+	 * @param input the input
+	 * @param serviceConfig the service config
+	 * @return the iSOA service config
+	 * @throws Exception the exception
+	 */
 	public static ISOAServiceConfig parseServiceConfig(final InputStream input, final ISOAServiceConfig serviceConfig)
 			throws Exception {
 		final ClassLoader loader = Thread.currentThread()
@@ -195,6 +235,13 @@ public class ConfigTool {
 		}
 	}
 
+	/**
+	 * Client config to xml.
+	 *
+	 * @param clientCfgList the client cfg list
+	 * @return the string
+	 * @throws Exception the exception
+	 */
 	public static String clientConfigToXml(final ClientConfigList clientCfgList)
 			throws Exception {
 		final ClassLoader loader = Thread.currentThread()
@@ -208,6 +255,13 @@ public class ConfigTool {
 		}
 	}
 
+	/**
+	 * Service config to xml.
+	 *
+	 * @param config the config
+	 * @return the string
+	 * @throws Exception the exception
+	 */
 	public static String serviceConfigToXml(final ServiceConfig config)
 			throws Exception {
 		final ClassLoader loader = Thread.currentThread()
@@ -221,16 +275,35 @@ public class ConfigTool {
 		}
 	}
 
+	/**
+	 * Gets the service meta data path.
+	 *
+	 * @param serviceName the service name
+	 * @return the service meta data path
+	 * @throws BadInputValueException the bad input value exception
+	 */
 	public static IPath getServiceMetaDataPath(final String serviceName) throws BadInputValueException {
 			return new Path(CodeGenInfoFinder.getPathforNonModifiableArtifact(
 					serviceName, "SERVICE_METADATA"));
 	}
 
+	/**
+	 * Gets the wSDL path.
+	 *
+	 * @param serviceName the service name
+	 * @return the wSDL path
+	 * @throws BadInputValueException the bad input value exception
+	 */
 	public static IPath getWSDLPath(final String serviceName) throws BadInputValueException {
 		return new Path(CodeGenInfoFinder.getPathforNonModifiableArtifact(
 				serviceName, "WSDL"));
 	}
 
+	/**
+	 * Gets the default service layers from file.
+	 *
+	 * @return the default service layers from file
+	 */
 	public static List<String> getDefaultServiceLayersFromFile() {
 		try {
 			return CodeGenInfoFinder.getServiceLayersFromDefaultFile();
@@ -239,10 +312,23 @@ public class ConfigTool {
 		}
 	}
 	
+	/**
+	 * Gets the default package name from namespace.
+	 *
+	 * @param namespace the namespace
+	 * @return the default package name from namespace
+	 */
 	public static String getDefaultPackageNameFromNamespace(final String namespace) {
 		return WSDLUtil.getPackageFromNamespace(namespace);
 	}
 	
+	/**
+	 * Gets the type package name from namespace.
+	 *
+	 * @param namespace the namespace
+	 * @param serviceName the service name
+	 * @return the type package name from namespace
+	 */
 	public static String getTypePackageNameFromNamespace(final String namespace, 
 			final String serviceName) {
 		final String defaultPkgName = getDefaultPackageNameFromNamespace(namespace);
@@ -250,54 +336,196 @@ public class ConfigTool {
 		.append(StringUtils.lowerCase(serviceName)).toString();
 	}
 	
+	/**
+	 * The Interface ISOAClientConfig.
+	 */
 	public static interface ISOAClientConfig {
 		
+		/**
+		 * Sets the target namespace.
+		 *
+		 * @param targetNamespace the new target namespace
+		 */
 		public void setTargetNamespace(String targetNamespace);
+		
+		/**
+		 * Sets the service name.
+		 *
+		 * @param serviceName the new service name
+		 */
 		public void setServiceName(String serviceName);
+		
+		/**
+		 * Sets the fully qualified service name.
+		 *
+		 * @param fullyQualifiedServiceName the new fully qualified service name
+		 */
 		public void setFullyQualifiedServiceName(String fullyQualifiedServiceName);
+		
+		/**
+		 * Sets the group.
+		 *
+		 * @param group the new group
+		 */
 		public void setGroup(String group);
+		
+		/**
+		 * Sets the service interface class name.
+		 *
+		 * @param serviceInterfaceClassName the new service interface class name
+		 */
 		public void setServiceInterfaceClassName(String serviceInterfaceClassName);
+		
+		/**
+		 * Sets the service location.
+		 *
+		 * @param serviceLocation the new service location
+		 */
 		public void setServiceLocation(String serviceLocation);
+		
+		/**
+		 * Sets the wsdl location.
+		 *
+		 * @param wsdlLocation the new wsdl location
+		 */
 		public void setWsdlLocation(String wsdlLocation);
+		
+		/**
+		 * Sets the service binding.
+		 *
+		 * @param serviceBinding the new service binding
+		 */
 		public void setServiceBinding(String serviceBinding);
+		
+		/**
+		 * Sets the invocation use case.
+		 *
+		 * @param invocationUseCase the new invocation use case
+		 */
 		public void setInvocationUseCase(String invocationUseCase);
+		
+		/**
+		 * Sets the request data binding.
+		 *
+		 * @param requestDataBinding the new request data binding
+		 */
 		public void setRequestDataBinding(String requestDataBinding);
+		
+		/**
+		 * Sets the response data binding.
+		 *
+		 * @param responseDataBinding the new response data binding
+		 */
 		public void setResponseDataBinding(String responseDataBinding);
+		
+		/**
+		 * Sets the consumer id.
+		 *
+		 * @param consumerId the new consumer id
+		 */
 		public void setConsumerId(String consumerId);
+		
+		/**
+		 * Sets the message protocol.
+		 *
+		 * @param messageProtocol the new message protocol
+		 */
 		public void setMessageProtocol(String messageProtocol);
 		
 	}
 	
+	/**
+	 * The Interface ISOAServiceConfig.
+	 */
 	public static interface ISOAServiceConfig {
 		//service config file will no longer have version
 		/*public String getCurrentVersion();
 		public void setCurrentVersion(String currentVersion);*/
 
+		/**
+		 * Sets the supported version.
+		 *
+		 * @param supportedVersion the new supported version
+		 */
 		public void setSupportedVersion(String supportedVersion);
 
+		/**
+		 * Sets the group.
+		 *
+		 * @param group the new group
+		 */
 		public void setGroup(String group);
 
+		/**
+		 * Sets the target namespace.
+		 *
+		 * @param targetNamespace the new target namespace
+		 */
 		public void setTargetNamespace(String targetNamespace);
 
+		/**
+		 * Sets the service name.
+		 *
+		 * @param serviceName the new service name
+		 */
 		public void setServiceName(String serviceName);
 
+		/**
+		 * Sets the fully qualified service name.
+		 *
+		 * @param fullyQualifiedServiceName the new fully qualified service name
+		 */
 		public void setFullyQualifiedServiceName(String fullyQualifiedServiceName);
 		
+		/**
+		 * Sets the service interface class name.
+		 *
+		 * @param serviceInterfaceClassName the new service interface class name
+		 */
 		public void setServiceInterfaceClassName(String serviceInterfaceClassName);
 
+		/**
+		 * Gets the service impl class name.
+		 *
+		 * @return the service impl class name
+		 */
 		public String getServiceImplClassName();
+		
+		/**
+		 * Sets the service impl class name.
+		 *
+		 * @param serviceImplClassName the new service impl class name
+		 */
 		public void setServiceImplClassName(String serviceImplClassName);
 		
+		/**
+		 * Gets the message protocol.
+		 *
+		 * @return the message protocol
+		 */
 		public String getMessageProtocol();
+		
+		/**
+		 * Sets the message protocol.
+		 *
+		 * @param messageProtocol the new message protocol
+		 */
 		public void setMessageProtocol(String messageProtocol);
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		System.out.println(getDefaultServiceLayersFromFile());
 	}
 	
 	/**
-	 * @param serviceName
+	 * Parses the fully qualified service name.
+	 *
+	 * @param serviceName the service name
 	 * @return The first value is the namespace and the second is the service name
 	 */
 	public static String[] parseFullyQualifiedServiceName(final String serviceName) {

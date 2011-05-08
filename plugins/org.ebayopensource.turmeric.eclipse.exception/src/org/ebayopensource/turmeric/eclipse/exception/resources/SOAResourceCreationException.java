@@ -13,8 +13,9 @@ package org.ebayopensource.turmeric.eclipse.exception.resources;
 
 
 /**
- * @author yayu
+ * The Class SOAResourceCreationException.
  *
+ * @author yayu
  */
 public class SOAResourceCreationException extends
 		AbstractSOAResourceModifyException {
@@ -25,15 +26,19 @@ public class SOAResourceCreationException extends
 	private static final long serialVersionUID = 201L;
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA resource creation exception.
+	 *
+	 * @param cause the cause
 	 */
 	public SOAResourceCreationException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new sOA resource creation exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public SOAResourceCreationException(String message, Throwable cause) {
 		super(message, cause);

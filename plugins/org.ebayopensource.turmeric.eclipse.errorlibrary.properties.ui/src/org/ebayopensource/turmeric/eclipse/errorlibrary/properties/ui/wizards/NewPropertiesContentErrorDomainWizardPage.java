@@ -31,8 +31,9 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
- * @author yayu
+ * The Class NewPropertiesContentErrorDomainWizardPage.
  *
+ * @author yayu
  */
 public class NewPropertiesContentErrorDomainWizardPage extends
 AbstractNewErrorResourceWizardPage {
@@ -44,7 +45,8 @@ AbstractNewErrorResourceWizardPage {
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * 
+	 * Instantiates a new new properties content error domain wizard page.
+	 *
 	 * @param selection a structured selection object
 	 */
 	public NewPropertiesContentErrorDomainWizardPage(IStructuredSelection selection) {
@@ -154,7 +156,8 @@ AbstractNewErrorResourceWizardPage {
 	}
 
 	/**
-	 * 
+	 * Gets the domain name.
+	 *
 	 * @return the text value of the Domain Name
 	 */
 	public String getDomainName() {
@@ -162,7 +165,8 @@ AbstractNewErrorResourceWizardPage {
 	}
 	
 	/**
-	 * 
+	 * Gets the organization.
+	 *
 	 * @return the text value of the Organization
 	 */
 	public String getOrganization() {
@@ -170,7 +174,8 @@ AbstractNewErrorResourceWizardPage {
 	}
 	
 	/**
-	 * 
+	 * Gets the locale.
+	 *
 	 * @return the text value of the Locale
 	 */
 	public String getLocale() {

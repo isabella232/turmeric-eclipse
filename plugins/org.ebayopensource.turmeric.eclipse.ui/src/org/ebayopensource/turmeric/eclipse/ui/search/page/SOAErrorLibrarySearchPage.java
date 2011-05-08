@@ -28,8 +28,9 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
- * @author yayu
+ * The Class SOAErrorLibrarySearchPage.
  *
+ * @author yayu
  */
 public class SOAErrorLibrarySearchPage extends DialogPage implements
 		ISearchPage {
@@ -39,29 +40,33 @@ public class SOAErrorLibrarySearchPage extends DialogPage implements
 	
 
 	/**
-	 * 
+	 * Instantiates a new sOA error library search page.
 	 */
 	public SOAErrorLibrarySearchPage() {
 		super();
 	}
 
 	/**
-	 * @param title
+	 * Instantiates a new sOA error library search page.
+	 *
+	 * @param title the title
 	 */
 	public SOAErrorLibrarySearchPage(String title) {
 		super(title);
 	}
 
 	/**
-	 * @param title
-	 * @param image
+	 * Instantiates a new sOA error library search page.
+	 *
+	 * @param title the title
+	 * @param image the image
 	 */
 	public SOAErrorLibrarySearchPage(String title, ImageDescriptor image) {
 		super(title, image);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
@@ -105,10 +110,16 @@ public class SOAErrorLibrarySearchPage extends DialogPage implements
 	
 	
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean performAction() {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setContainer(ISearchPageContainer container) {
 		this.searchContainer = container;
 		

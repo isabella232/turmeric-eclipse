@@ -19,11 +19,17 @@ import java.util.Map;
  */
 public class GenTypeAddType extends BaseTypeLibCodegenModel {
 
+	/**
+	 * Instantiates a new gen type add type.
+	 */
 	public GenTypeAddType() {
 		super();
 		setGenType(GENTYPE_ADDTYPE);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.BaseTypeLibCodegenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		// happy with BaseTypeLibCodegenModels functionality

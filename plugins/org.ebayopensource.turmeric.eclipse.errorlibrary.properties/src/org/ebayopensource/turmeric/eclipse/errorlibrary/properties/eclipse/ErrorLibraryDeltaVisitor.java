@@ -21,8 +21,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 
 /**
- * @author yayu
+ * The Class ErrorLibraryDeltaVisitor.
  *
+ * @author yayu
  */
 public class ErrorLibraryDeltaVisitor implements IResourceDeltaVisitor {
 	private IProject project;
@@ -31,7 +32,7 @@ public class ErrorLibraryDeltaVisitor implements IResourceDeltaVisitor {
 	private List<IFile> deletedErrorDomainList = new ArrayList<IFile>();
 
 	/**
-	 * 
+	 * Instantiates a new error library delta visitor.
 	 */
 	public ErrorLibraryDeltaVisitor() {
 		super();
@@ -39,15 +40,23 @@ public class ErrorLibraryDeltaVisitor implements IResourceDeltaVisitor {
 
 	
 
+	/**
+	 * Instantiates a new error library delta visitor.
+	 *
+	 * @param project the project
+	 */
 	public ErrorLibraryDeltaVisitor(IProject project) {
 		this.project = project;
 	}
 
-	/*
+	/**
 	 * Visits the delta, finds out if there are modified error domains and returns true
 	 * if delta is not over. In addition it populates the deleted xsd files and
-	 * modified xsd files list. (non-Javadoc)
-	 * 
+	 * modified xsd files list. (non-Javadoc).
+	 *
+	 * @param delta the delta
+	 * @return true, if successful
+	 * @throws CoreException the core exception
 	 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
 	 */
 	public boolean visit(IResourceDelta delta) throws CoreException {
@@ -85,25 +94,40 @@ public class ErrorLibraryDeltaVisitor implements IResourceDeltaVisitor {
 		return true;
 	}
 	
+	/**
+	 * Gets the deleted project.
+	 *
+	 * @return the deleted project
+	 */
 	public List<IProject> getDeletedProject() {
 		return deletedErrorLibProjects;
 	}
 
 	/**
+	 * Gets the modified error domains.
+	 *
 	 * @return list of modified error domains.
-	 * @return
 	 */
 	public List<IFile> getModifiedErrorDomains() {
 		return modifiedErrorDomainList;
 	}
 
 	/**
+	 * Gets the deleted error domain list.
+	 *
 	 * @return list of deleted error domains.
 	 */
 	public List<IFile> getDeletedErrorDomainList() {
 		return deletedErrorDomainList;
 	}
 
+	/**
+	 * Checks if is valid error domain file deleted.
+	 *
+	 * @param fileObject the file object
+	 * @return true, if is valid error domain file deleted
+	 * @throws CoreException the core exception
+	 */
 	public static boolean isValidErrorDomainFileDeleted(Object fileObject)
 	throws CoreException {
 		IFile file = null;
@@ -120,6 +144,13 @@ public class ErrorLibraryDeltaVisitor implements IResourceDeltaVisitor {
 						TurmericErrorLibraryProjectNature.getNatureId());
 	}
 
+	/**
+	 * Checks if is valid error domain file modified.
+	 *
+	 * @param fileObject the file object
+	 * @return true, if is valid error domain file modified
+	 * @throws CoreException the core exception
+	 */
 	public static boolean isValidErrorDomainFileModified(Object fileObject)
 	throws CoreException {
 		IFile file = null;

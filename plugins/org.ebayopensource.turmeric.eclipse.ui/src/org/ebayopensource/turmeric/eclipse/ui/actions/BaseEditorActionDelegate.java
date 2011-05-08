@@ -29,22 +29,18 @@ import org.eclipse.ui.actions.ActionDelegate;
  */
 public abstract class BaseEditorActionDelegate extends ActionDelegate implements
 		IEditorActionDelegate {
+	
+	/** The editor part. */
 	protected IEditorPart editorPart = null;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.actions.ActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.jface.viewers.ISelection)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.ui.IEditorPart)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		editorPart = targetEditor;
@@ -71,8 +67,8 @@ public abstract class BaseEditorActionDelegate extends ActionDelegate implements
 	 * Usual getter. Most of the actions needs this selected project to operate
 	 * on. Most of them needs this project needs minimum to minimum refresh the
 	 * project.
-	 * 
-	 * @return
+	 *
+	 * @return the selected project
 	 */
 	protected IProject getSelectedProject() {
 		IProject project = null;

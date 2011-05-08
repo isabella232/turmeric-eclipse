@@ -17,6 +17,8 @@ import org.eclipse.jface.viewers.StructuredViewer;
 
 
 /**
+ * The Class RefreshServicesAction.
+ *
  * @author smathew
  * 
  * Refresh Action for Services Explorer. Uses the build in refresh support from
@@ -25,22 +27,38 @@ import org.eclipse.jface.viewers.StructuredViewer;
 public class RefreshServicesAction extends Action {
 
 	private StructuredViewer structuredViewer;
+	
+	/** The Constant ID. */
 	public static final String ID = "org.ebayopensource.turmeric.eclipse.services.ui.refreshaction";
 
+	/**
+	 * Instantiates a new refresh services action.
+	 *
+	 * @param structuredViewer the structured viewer
+	 */
 	public RefreshServicesAction(StructuredViewer structuredViewer) {
 		this.structuredViewer = structuredViewer;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.action.Action#getText()
+	 */
 	@Override
 	public String getText() {
 		return "Refresh";
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.action.Action#getToolTipText()
+	 */
 	@Override
 	public String getToolTipText() {
 		return "Refresh the registry";
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.action.Action#run()
+	 */
 	@Override
 	public void run() {
 		if (structuredViewer != null) {
@@ -48,12 +66,18 @@ public class RefreshServicesAction extends Action {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.action.Action#getImageDescriptor()
+	 */
 	@Override
 	public ImageDescriptor getImageDescriptor() {
 		
 		return UIActivator.getImageDescriptor("icons/refresh.gif");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.action.Action#getId()
+	 */
 	@Override
 	public String getId() {
 		return ID;

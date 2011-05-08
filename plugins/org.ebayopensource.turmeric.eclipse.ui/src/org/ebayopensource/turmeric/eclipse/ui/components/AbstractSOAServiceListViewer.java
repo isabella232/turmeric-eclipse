@@ -58,6 +58,8 @@ import org.eclipse.swt.widgets.Tree;
 
 
 /**
+ * The Class AbstractSOAServiceListViewer.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -73,18 +75,34 @@ public abstract class AbstractSOAServiceListViewer {
 	private int helpID = -1;
 
 	/**
-	 * 
+	 * Instantiates a new abstract soa service list viewer.
+	 *
+	 * @param project the project
 	 */
 	public AbstractSOAServiceListViewer(IProject project) {
 		super();
 		this.project = project;
 	}
 	
+	/**
+	 * Instantiates a new abstract soa service list viewer.
+	 *
+	 * @param project the project
+	 * @param helpID the help id
+	 */
 	public AbstractSOAServiceListViewer(IProject project, int helpID) {
 		this(project);
 		this.helpID = helpID;
 	}
 
+	/**
+	 * Creates the control.
+	 *
+	 * @param parent the parent
+	 * @param availableServices the available services
+	 * @return the composite
+	 * @throws CoreException the core exception
+	 */
 	public Composite createControl(final Composite parent, 
 			final Collection<EnvironmentItem> availableServices) throws CoreException {
 		final Composite container = new Composite(parent, SWT.None);
@@ -363,6 +381,11 @@ public abstract class AbstractSOAServiceListViewer {
 		return container;
 	}
 	
+	/**
+	 * Gets the selected object.
+	 *
+	 * @return the selected object
+	 */
 	public Object getSelectedObject() {
 		final IStructuredSelection selection = (IStructuredSelection)serviceList.getSelection();
 		if (selection.isEmpty() == true)
@@ -370,6 +393,12 @@ public abstract class AbstractSOAServiceListViewer {
 		return selection.getFirstElement();
 	}
 	
+	/**
+	 * Gets the service.
+	 *
+	 * @param serviceDescription the service description
+	 * @return the service
+	 */
 	public ProjectInfo getService(String serviceDescription) {
 		if (allAvailableServiecs != null)
 			allAvailableServiecs.get(serviceDescription);
@@ -377,6 +406,11 @@ public abstract class AbstractSOAServiceListViewer {
 		return null;
 	}
 	
+	/**
+	 * Gets the service info list.
+	 *
+	 * @return the service info list
+	 */
 	public List<EnvironmentItem> getServiceInfoList() {
 		final List<EnvironmentItem> result = ListUtil.list();
 		if (serviceList == null || 
@@ -390,11 +424,21 @@ public abstract class AbstractSOAServiceListViewer {
 		return result;
 	}
 	
+	/**
+	 * Checks if is environment list empty.
+	 *
+	 * @return true, if is environment list empty
+	 */
 	public boolean isEnvironmentListEmpty() {
 		return this.serviceList != null && 
 		this.serviceList.getTree().getItemCount() == 0;
 	}
 
+	/**
+	 * Checks if is service list empty.
+	 *
+	 * @return true, if is service list empty
+	 */
 	public boolean isServiceListEmpty() {
 		if (isEnvironmentListEmpty() == false) {
 			return getServiceInfoList().get(0).getServices().isEmpty();
@@ -402,25 +446,61 @@ public abstract class AbstractSOAServiceListViewer {
 		return false;
 	}
 
+	/**
+	 * Gets the service list.
+	 *
+	 * @return the service list
+	 */
 	public TreeViewer getServiceList() {
 		return serviceList;
 	}
 
+	/**
+	 * Gets the adds the service button.
+	 *
+	 * @return the adds the service button
+	 */
 	public Button getAddServiceButton() {
 		return addServiceButton;
 	}
 
+	/**
+	 * Gets the removes the service button.
+	 *
+	 * @return the removes the service button
+	 */
 	public Button getRemoveServiceButton() {
 		return removeServiceButton;
 	}
 	
+	/**
+	 * Enviroment added.
+	 *
+	 * @param environmentName the environment name
+	 * @param environmentForCopy the environment for copy
+	 */
 	protected abstract void enviromentAdded(String environmentName, 
 			EnvironmentItem environmentForCopy);
 	
+	/**
+	 * Environment removed.
+	 *
+	 * @param environment the environment
+	 */
 	protected abstract void environmentRemoved(EnvironmentItem environment);
 	
+	/**
+	 * Service added.
+	 *
+	 * @param services the services
+	 */
 	protected abstract void serviceAdded(final Collection<AssetInfo> services);
 	
+	/**
+	 * Service removed.
+	 *
+	 * @param removedService the removed service
+	 */
 	protected abstract void serviceRemoved(final Object removedService);
 	
 	

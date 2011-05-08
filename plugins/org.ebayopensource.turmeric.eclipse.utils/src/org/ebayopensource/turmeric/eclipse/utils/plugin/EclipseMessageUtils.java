@@ -28,10 +28,9 @@ import org.eclipse.core.runtime.Status;
 
 /**
  * This is a helper util class for dealing with the Eclipse messages and
- * statuses
- * 
+ * statuses.
+ *
  * @author yayu
- * 
  */
 public class EclipseMessageUtils {
 	private static final String STATUS_LABEL_OK = "ok";
@@ -41,6 +40,7 @@ public class EclipseMessageUtils {
 	private static final String STATUS_LABEL_ERROR = "error";
 	private static final Map<Integer, String> SEVERITY_LABELS;
 
+	/** The Constant ERROR_MESSAGE_UNKNOWN. */
 	public static final String ERROR_MESSAGE_UNKNOWN = "Unknown error";
 
 	static {
@@ -53,6 +53,16 @@ public class EclipseMessageUtils {
 		SEVERITY_LABELS = Collections.unmodifiableMap(map);
 	}
 
+	/**
+	 * Creates the assert safe status.
+	 *
+	 * @param severity the severity
+	 * @param pluginId the plugin id
+	 * @param code the code
+	 * @param message the message
+	 * @param exception the exception
+	 * @return the status
+	 */
 	public static Status createAssertSafeStatus(int severity, String pluginId,
 			int code, String message, Throwable exception) {
 		if (!(severity == Status.OK || severity == Status.ERROR
@@ -77,6 +87,14 @@ public class EclipseMessageUtils {
 		return new Status(severity, pluginId, code, message, exception);
 	}
 
+	/**
+	 * Creates the soa resource error status.
+	 *
+	 * @param resource the resource
+	 * @param message the message
+	 * @param exception the exception
+	 * @return the sOA resource status
+	 */
 	public static SOAResourceStatus createSOAResourceErrorStatus(
 			IResource resource, String message, Throwable exception) {
 		final SOAResourceStatus status = new SOAResourceStatus(IStatus.ERROR,
@@ -85,6 +103,14 @@ public class EclipseMessageUtils {
 		return status;
 	}
 
+	/**
+	 * Creates the soa resource warn status.
+	 *
+	 * @param resource the resource
+	 * @param message the message
+	 * @param exception the exception
+	 * @return the sOA resource status
+	 */
 	public static SOAResourceStatus createSOAResourceWarnStatus(
 			IResource resource, String message, Throwable exception) {
 		final SOAResourceStatus status = new SOAResourceStatus(IStatus.WARNING,
@@ -93,6 +119,14 @@ public class EclipseMessageUtils {
 		return status;
 	}
 
+	/**
+	 * Creates the resource error status.
+	 *
+	 * @param resourcePath the resource path
+	 * @param message the message
+	 * @param exception the exception
+	 * @return the i resource status
+	 */
 	public static IResourceStatus createResourceErrorStatus(IPath resourcePath,
 			String message, Throwable exception) {
 		return new SOAResourceStatus(IStatus.ERROR, IStatus.ERROR,
@@ -100,24 +134,58 @@ public class EclipseMessageUtils {
 	}
 	
 	// Allow missing resources to be set at Warning Levels instead of Error.
+	/**
+	 * Creates the resource warn status.
+	 *
+	 * @param resourcePath the resource path
+	 * @param message the message
+	 * @param exception the exception
+	 * @return the i resource status
+	 */
 	public static IResourceStatus createResourceWarnStatus(IPath resourcePath, String message, Throwable exception) {
 		return new SOAResourceStatus(IStatus.WARNING, IStatus.WARNING, resourcePath, message, exception);
 	}
 
+	/**
+	 * Creates the empty ok multi status.
+	 *
+	 * @param description the description
+	 * @return the i status
+	 */
 	public static IStatus createEmptyOKMultiStatus(String description) {
 		return createMultiStatus(null, IStatus.OK, null, description, null);
 	}
 
+	/**
+	 * Creates the empty error multi status.
+	 *
+	 * @param description the description
+	 * @return the i status
+	 */
 	public static IStatus createEmptyErrorMultiStatus(String description) {
 		return createMultiStatus(null, IStatus.ERROR, null, description, null);
 	}
 
+	/**
+	 * Creates the error multi status.
+	 *
+	 * @param children the children
+	 * @param description the description
+	 * @return the i status
+	 */
 	public static IStatus createErrorMultiStatus(Collection<IStatus> children,
 			String description) {
 		return createMultiStatus(null, IStatus.ERROR, children
 				.toArray(new IStatus[0]), description, null);
 	}
 	
+	/**
+	 * Creates the error multi status based on children severity.
+	 *
+	 * @param children the children
+	 * @param description the description
+	 * @return the i status
+	 */
 	public static IStatus createErrorMultiStatusBasedOnChildrenSeverity(Collection<IStatus> children,
 			String description) {
 		int severity = IStatus.OK;
@@ -136,18 +204,43 @@ public class EclipseMessageUtils {
 				.toArray(new IStatus[0]), description, null);
 	}
 
+	/**
+	 * Creates the error multi status.
+	 *
+	 * @param children the children
+	 * @param description the description
+	 * @return the i status
+	 */
 	public static IStatus createErrorMultiStatus(IStatus[] children,
 			String description) {
 		return createMultiStatus(null, IStatus.ERROR, children, description,
 				null);
 	}
 
+	/**
+	 * Creates the multi status.
+	 *
+	 * @param children the children
+	 * @param description the description
+	 * @param thrown the thrown
+	 * @return the i status
+	 */
 	public static IStatus createMultiStatus(IStatus[] children,
 			String description, Throwable thrown) {
 		int code = thrown != null ? IStatus.ERROR : IStatus.OK;
 		return createMultiStatus(null, code, children, description, thrown);
 	}
 
+	/**
+	 * Creates the multi status.
+	 *
+	 * @param pluginID the plugin id
+	 * @param code the code
+	 * @param children the children
+	 * @param description the description
+	 * @param thrown the thrown
+	 * @return the i status
+	 */
 	public static IStatus createMultiStatus(String pluginID, int code,
 			IStatus[] children, String description, Throwable thrown) {
 		if (description == null) {
@@ -167,9 +260,11 @@ public class EclipseMessageUtils {
 	}
 
 	/**
-	 * @param pluginID
-	 * @param description
-	 * @param thrown
+	 * Creates the error status.
+	 *
+	 * @param pluginID the plugin id
+	 * @param description the description
+	 * @param thrown the thrown
 	 * @return an instance of <code>IStatus</code> with Error severity level
 	 */
 	public static IStatus createErrorStatus(String pluginID,
@@ -186,8 +281,10 @@ public class EclipseMessageUtils {
 	}
 
 	/**
-	 * @param description
-	 * @param thrown
+	 * Creates the error status.
+	 *
+	 * @param description the description
+	 * @param thrown the thrown
 	 * @return an instance of <code>IStatus</code> with Error severity level
 	 */
 	public static IStatus createErrorStatus(String description, Throwable thrown) {
@@ -195,13 +292,21 @@ public class EclipseMessageUtils {
 				thrown);
 	}
 
+	/**
+	 * Creates the error status.
+	 *
+	 * @param description the description
+	 * @return the i status
+	 */
 	public static IStatus createErrorStatus(String description) {
 		return createErrorStatus(UtilsActivator.SOA_PLUGIN_ID, description,
 				null);
 	}
 
 	/**
-	 * @param thrown
+	 * Creates the error status.
+	 *
+	 * @param thrown the thrown
 	 * @return an instance of <code>IStatus</code> with Error severity level
 	 */
 	public static IStatus createErrorStatus(Throwable thrown) {
@@ -209,6 +314,13 @@ public class EclipseMessageUtils {
 				.getLocalizedMessage(), thrown);
 	}
 
+	/**
+	 * Creates the status.
+	 *
+	 * @param description the description
+	 * @param severity the severity
+	 * @return the i status
+	 */
 	public static IStatus createStatus(String description, int severity) {
 		return createAssertSafeStatus(severity, UtilsActivator.SOA_PLUGIN_ID,
 				0, description, null);
@@ -277,9 +389,9 @@ public class EclipseMessageUtils {
 	/**
 	 * Formats the status and give a string out. If its multi status then each
 	 * message would be in seperate line. Its suitable to show in a dialog
-	 * 
-	 * @param status
-	 * @return
+	 *
+	 * @param status the status
+	 * @return the string
 	 */
 	public static String formatStatus(IStatus status) {
 		StringBuffer retBuffer = new StringBuffer();
@@ -295,7 +407,9 @@ public class EclipseMessageUtils {
 	}
 
 	/**
-	 * 
+	 * Severity label.
+	 *
+	 * @param severity the severity
 	 * @return null if not a valid severity or a user-readable name otherwise
 	 */
 	public static String severityLabel(int severity) {
@@ -303,6 +417,8 @@ public class EclipseMessageUtils {
 	}
 
 	/**
+	 * The Class SOAResourceStatus.
+	 *
 	 * @author yayu
 	 * @see ResourceStatus
 	 */
@@ -311,32 +427,71 @@ public class EclipseMessageUtils {
 		private IPath path;
 		private IResource resource;
 
+		/**
+		 * Instantiates a new sOA resource status.
+		 *
+		 * @param type the type
+		 * @param code the code
+		 * @param path the path
+		 * @param message the message
+		 * @param exception the exception
+		 */
 		public SOAResourceStatus(int type, int code, IPath path,
 				String message, Throwable exception) {
 			super(type, ResourcesPlugin.PI_RESOURCES, code, message, exception);
 			this.path = path;
 		}
 
+		/**
+		 * Instantiates a new sOA resource status.
+		 *
+		 * @param code the code
+		 * @param message the message
+		 */
 		public SOAResourceStatus(int code, String message) {
 			this(getSeverity(code), code, null, message, null);
 		}
 
+		/**
+		 * Instantiates a new sOA resource status.
+		 *
+		 * @param code the code
+		 * @param path the path
+		 * @param message the message
+		 */
 		public SOAResourceStatus(int code, IPath path, String message) {
 			this(getSeverity(code), code, path, message, null);
 		}
 
+		/**
+		 * Instantiates a new sOA resource status.
+		 *
+		 * @param code the code
+		 * @param path the path
+		 * @param message the message
+		 * @param exception the exception
+		 */
 		public SOAResourceStatus(int code, IPath path, String message,
 				Throwable exception) {
 			this(getSeverity(code), code, path, message, exception);
 		}
 
 		/**
+		 * Gets the path.
+		 *
+		 * @return the path
 		 * @see IResourceStatus#getPath()
 		 */
 		public IPath getPath() {
 			return path;
 		}
 
+		/**
+		 * Gets the severity.
+		 *
+		 * @param code the code
+		 * @return the severity
+		 */
 		protected static int getSeverity(int code) {
 			return code == 0 ? 0 : 1 << (code % 100 / 33);
 		}
@@ -357,15 +512,28 @@ public class EclipseMessageUtils {
 			}
 		}
 
+		/**
+		 * Gets the resource.
+		 *
+		 * @return the resource
+		 */
 		public IResource getResource() {
 			return resource;
 		}
 
+		/**
+		 * Sets the resource.
+		 *
+		 * @param resource the new resource
+		 */
 		public void setResource(IResource resource) {
 			this.resource = resource;
 		}
 
 		// for debug only
+		/**
+		 * {@inheritDoc}
+		 */
 		public String toString() {
 			StringBuffer sb = new StringBuffer();
 			sb.append("[type: "); //$NON-NLS-1$

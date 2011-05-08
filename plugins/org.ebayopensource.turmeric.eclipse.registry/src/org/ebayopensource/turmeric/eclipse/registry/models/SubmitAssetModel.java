@@ -12,6 +12,8 @@
 package org.ebayopensource.turmeric.eclipse.registry.models;
 
 /**
+ * The Class SubmitAssetModel.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -27,87 +29,177 @@ public class SubmitAssetModel {
 	private String namespacePart;
 
 	/**
-	 * 
+	 * Instantiates a new submit asset model.
 	 */
 	public SubmitAssetModel() {
 		super();
 	}
 
 	/**
+	 * Gets the admin name.
+	 *
 	 * @return Null if the underlying service is pre2.4
 	 */
 	public String getAdminName() {
 		return adminName;
 	}
 
+	/**
+	 * Sets the admin name.
+	 *
+	 * @param adminName the new admin name
+	 */
 	public void setAdminName(String adminName) {
 		this.adminName = adminName;
 	}
 
+	/**
+	 * Gets the service name.
+	 *
+	 * @return the service name
+	 */
 	public String getServiceName() {
 		return serviceName;
 	}
 
+	/**
+	 * Sets the service name.
+	 *
+	 * @param serviceName the new service name
+	 */
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
 
+	/**
+	 * Gets the interface project path.
+	 *
+	 * @return the interface project path
+	 */
 	public String getInterfaceProjectPath() {
 		return interfaceProjectPath;
 	}
 
+	/**
+	 * Sets the interface project path.
+	 *
+	 * @param interfaceProjectPath the new interface project path
+	 */
 	public void setInterfaceProjectPath(String interfaceProjectPath) {
 		this.interfaceProjectPath = interfaceProjectPath;
 	}
 
+	/**
+	 * Gets the service version.
+	 *
+	 * @return the service version
+	 */
 	public String getServiceVersion() {
 		return serviceVersion;
 	}
 
+	/**
+	 * Sets the service version.
+	 *
+	 * @param serviceVersion the new service version
+	 */
 	public void setServiceVersion(String serviceVersion) {
 		this.serviceVersion = serviceVersion;
 	}
 
+	/**
+	 * Gets the service layer.
+	 *
+	 * @return the service layer
+	 */
 	public String getServiceLayer() {
 		return serviceLayer;
 	}
 
+	/**
+	 * Sets the service layer.
+	 *
+	 * @param serviceLayer the new service layer
+	 */
 	public void setServiceLayer(String serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}
 
+	/**
+	 * Gets the service domain.
+	 *
+	 * @return the service domain
+	 */
 	public String getServiceDomain() {
 		return serviceDomain;
 	}
 
+	/**
+	 * Sets the service domain.
+	 *
+	 * @param serviceDomain the new service domain
+	 */
 	public void setServiceDomain(String serviceDomain) {
 		this.serviceDomain = serviceDomain;
 	}
 
+	/**
+	 * Gets the service namespace.
+	 *
+	 * @return the service namespace
+	 */
 	public String getServiceNamespace() {
 		return serviceNamespace;
 	}
 
+	/**
+	 * Sets the service namespace.
+	 *
+	 * @param serviceNamespace the new service namespace
+	 */
 	public void setServiceNamespace(String serviceNamespace) {
 		this.serviceNamespace = serviceNamespace;
 	}
 
+	/**
+	 * Gets the service wsdl location.
+	 *
+	 * @return the service wsdl location
+	 */
 	public String getServiceWsdlLocation() {
 		return serviceWsdlLocation;
 	}
 
+	/**
+	 * Sets the service wsdl location.
+	 *
+	 * @param serviceWsdlLocation the new service wsdl location
+	 */
 	public void setServiceWsdlLocation(String serviceWsdlLocation) {
 		this.serviceWsdlLocation = serviceWsdlLocation;
 	}
 
+	/**
+	 * Gets the namespace part.
+	 *
+	 * @return the namespace part
+	 */
 	public String getNamespacePart() {
 		return namespacePart;
 	}
 
+	/**
+	 * Sets the namespace part.
+	 *
+	 * @param namespacePart the new namespace part
+	 */
 	public void setNamespacePart(String namespacePart) {
 		this.namespacePart = namespacePart;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -138,6 +230,9 @@ public class SubmitAssetModel {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

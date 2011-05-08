@@ -65,8 +65,9 @@ import org.osgi.framework.Version;
 
 
 /**
+ * The Class SOAProjectPropertyPage.
+ *
  * @author yayu
- * 
  */
 public class SOAProjectPropertyPage extends PreferencePage implements
 		IWorkbenchPropertyPage {
@@ -84,6 +85,11 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 	
 	
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	protected Control createContents(Composite parent) {
 		noDefaultAndApplyButton();
@@ -109,6 +115,7 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 	}
 
 	/**
+	 * Create Groups.
 	 * @param parent
 	 * @throws Exception
 	 */
@@ -218,17 +225,28 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 	}
 
 
-	/*
-	 * @see PreferencePage#createControl(Composite)
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.jface.preference.PreferencePage#createControl(org.eclipse.swt.widgets.Composite)
 	 */
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.ui.IWorkbenchPropertyPage#getElement()
+	 */
 	public IAdaptable getElement() {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.jface.preference.PreferencePage#performOk()
+	 */
 	@Override
 	public boolean performOk() {
 		try {
@@ -557,6 +575,11 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		return true;
 	}
 
+	/**
+	 * Validate consumer project fields.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean validateConsumerProjectFields() {
 		if (StringUtils.isNotBlank(baseConsumerDir.getText())) {
 			setErrorMessage("Base comsumer source dir could be null");
@@ -565,6 +588,10 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.ui.IWorkbenchPropertyPage#setElement(org.eclipse.core.runtime.IAdaptable)
+	 */
 	public void setElement(IAdaptable element) {
 		try {
 			if (element.getAdapter(IProject.class) instanceof IProject) {
@@ -582,6 +609,11 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		}
 	}
 
+	/**
+	 * Gets the soa project.
+	 *
+	 * @return the soa project
+	 */
 	public ISOAProject getSoaProject() {
 		return soaProject;
 	}

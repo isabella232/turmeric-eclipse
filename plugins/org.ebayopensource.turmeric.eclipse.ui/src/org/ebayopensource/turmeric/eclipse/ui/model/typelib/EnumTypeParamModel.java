@@ -11,19 +11,29 @@ package org.ebayopensource.turmeric.eclipse.ui.model.typelib;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.EnumTypeWizardDetailsPage;
 
 /**
- * UI Model for Enum Type creation
- * @author ramurthy
+ * UI Model for Enum Type creation.
  *
+ * @author ramurthy
  */
 
 public class EnumTypeParamModel extends SimpleTypeParamModel {
 
 	private EnumTypeWizardDetailsPage.EnumTableModel[] enumTableModel;
 
+	/**
+	 * Gets the enum table model.
+	 *
+	 * @return the enum table model
+	 */
 	public EnumTypeWizardDetailsPage.EnumTableModel[] getEnumTableModel() {
 		return enumTableModel;
 	}
 
+	/**
+	 * Sets the enum table model.
+	 *
+	 * @param enumTableModel the new enum table model
+	 */
 	public void setEnumTableModel(EnumTypeWizardDetailsPage.EnumTableModel[] enumTableModel) {
 		this.enumTableModel = enumTableModel;
 	}

@@ -34,8 +34,9 @@ import org.eclipse.swt.widgets.Composite;
 
 
 /**
+ * The Class ServiceFromExistingWSDLWizardPage.
+ *
  * @author yayu
- * 
  */
 public class ServiceFromExistingWSDLWizardPage extends
 		AbstractNewServiceFromWSDLWizardPage {
@@ -43,12 +44,18 @@ public class ServiceFromExistingWSDLWizardPage extends
 
 	private String versionFromWSDL = null;
 
+	/**
+	 * Instantiates a new service from existing wsdl wizard page.
+	 */
 	public ServiceFromExistingWSDLWizardPage() {
 		super("newSOAServiceProjectFromWSDLWizardPage",
 				"New SOA Service From Existing WSDL Wizard",
 				"This wizard creates a new SOA Service from a pre-existing WSDL document.");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage#setVisible(boolean)
+	 */
 	@Override
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
@@ -57,6 +64,9 @@ public class ServiceFromExistingWSDLWizardPage extends
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(final Composite parent) {
 		try {
 			final Composite container = createParentControl(parent, 4);
@@ -87,6 +97,9 @@ public class ServiceFromExistingWSDLWizardPage extends
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#targetNamespaceModified(java.lang.String)
+	 */
 	@Override
 	protected void targetNamespaceModified(String newNamespace) {
 		super.targetNamespaceModified(newNamespace);
@@ -126,6 +139,9 @@ public class ServiceFromExistingWSDLWizardPage extends
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem
@@ -136,6 +152,9 @@ public class ServiceFromExistingWSDLWizardPage extends
 						ISOAHelpProvider.PAGE_CREATE_SERVICE_FROM_EXISTING_WSDL);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean dialogChanged(boolean validateWsdl) {
 		final boolean result = super.dialogChanged(validateWsdl);
 		if (result == false && isPageComplete() == false)
@@ -191,11 +210,17 @@ public class ServiceFromExistingWSDLWizardPage extends
 		return true;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#getDefaultTypeNamespace()
+	 */
 	@Override
 	public String getDefaultTypeNamespace() {
 		return getTargetNamespace();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#getDefaultResourceName()
+	 */
 	@Override
 	public String getDefaultResourceName() {
 		final String defaultName = computeServiceName();
@@ -205,6 +230,9 @@ public class ServiceFromExistingWSDLWizardPage extends
 			return "";
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#wsdlChanged(javax.wsdl.Definition)
+	 */
 	@Override
 	public void wsdlChanged(Definition wsdl) {
 		boolean nsChanged = false;

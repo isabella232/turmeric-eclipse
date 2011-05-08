@@ -15,15 +15,16 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAError;
 
 
 /**
+ * The Class ErrLibComparator.
+ *
  * @author smathew
  * 
  * This is being used the in the sort action in the Error View.
- * 
  */
 public class ErrLibComparator implements Comparator<ISOAError> {
 
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	public int compare(ISOAError o1, ISOAError o2) {
 		return StringUtils.defaultString(o1.getName()).compareTo(

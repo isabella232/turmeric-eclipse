@@ -29,22 +29,29 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 
 
 /**
+ * The Class AbstractTypeLibraryWizard.
+ *
  * @author yayu
- * 
  */
 public abstract class AbstractTypeLibraryWizard extends AbstractSOADomainWizard {
 
+	/** The Constant logger. */
 	protected static final SOALogger logger = SOALogger.getLogger();
+	
+	/** The type lib name. */
 	protected String typeLibName = "";
 	
 
 	/**
-	 * 
+	 * Instantiates a new abstract type library wizard.
 	 */
 	public AbstractTypeLibraryWizard() {
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#preValidate()
+	 */
 	@Override
 	public IStatus preValidate() throws ValidationInterruptedException {
 		// initialize the Global type Registry
@@ -62,6 +69,12 @@ public abstract class AbstractTypeLibraryWizard extends AbstractSOADomainWizard 
 
 	}
 
+	/**
+	 * Sets the selected project name.
+	 *
+	 * @param selection the new selected project name
+	 * @throws CoreException the core exception
+	 */
 	protected void setSelectedProjectName(IStructuredSelection selection)
 			throws CoreException {
 		if (selection != null) {

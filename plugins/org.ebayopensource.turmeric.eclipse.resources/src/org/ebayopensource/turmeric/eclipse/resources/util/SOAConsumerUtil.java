@@ -55,6 +55,8 @@ import org.jdom.JDOMException;
 
 
 /**
+ * The Class SOAConsumerUtil.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -67,6 +69,15 @@ public final class SOAConsumerUtil {
 		super();
 	}
 
+	/**
+	 * Removes the client config files.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @param serviceNames the service names
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void removeClientConfigFiles(final IProject project,
 			IProgressMonitor monitor, final String... serviceNames)
 			throws CoreException, IOException {
@@ -94,21 +105,56 @@ public final class SOAConsumerUtil {
 		}
 	}
 	
+	/**
+	 * The Class ModifyConsumerIDResult.
+	 */
 	public static class ModifyConsumerIDResult {
+		
+		/** The client configs. */
 		final List<SOAClientConfig> clientConfigs = new ArrayList<SOAClientConfig>();
+		
+		/** The old client configs. */
 		final List<SOAClientConfig> oldClientConfigs = new ArrayList<SOAClientConfig>();
 		private Properties properties = null;
+		
+		/**
+		 * Gets the client configs.
+		 *
+		 * @return the client configs
+		 */
 		public List<SOAClientConfig> getClientConfigs() {
 			return clientConfigs;
 		}
+		
+		/**
+		 * Gets the old client configs.
+		 *
+		 * @return the old client configs
+		 */
 		public List<SOAClientConfig> getOldClientConfigs() {
 			return oldClientConfigs;
 		}
+		
+		/**
+		 * Gets the properties.
+		 *
+		 * @return the properties
+		 */
 		public Properties getProperties() {
 			return properties;
 		}
 	}
 	
+	/**
+	 * Update consumer id.
+	 *
+	 * @param consumerId the consumer id
+	 * @param consumerProject the consumer project
+	 * @return the modify consumer id result
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws JDOMException the jDOM exception
+	 */
 	public static ModifyConsumerIDResult updateConsumerId(String consumerId, IProject consumerProject) 
 	throws CoreException, IOException, JDOMException {
 		final Properties props = SOAConsumerUtil.loadConsumerProperties(consumerProject);
@@ -133,6 +179,15 @@ public final class SOAConsumerUtil {
 		return null;
 	}
 	
+	/**
+	 * Removes the environments.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @param envrionmentNames the envrionment names
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void removeEnvironments(final IProject project, 
 			IProgressMonitor monitor, final String... envrionmentNames)
 	throws CoreException, IOException {
@@ -157,6 +212,14 @@ public final class SOAConsumerUtil {
 		}
 	}
 	
+	/**
+	 * Gets the consumed service list.
+	 *
+	 * @param project the project
+	 * @return the consumed service list
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static List<String> getConsumedServiceList(IProject project) throws CoreException, IOException {
 		final List<String> result = new ArrayList<String>();
 		final List<EnvironmentItem> items = SOAConsumerUtil.getClientConfigStructure(project);
@@ -168,16 +231,17 @@ public final class SOAConsumerUtil {
 
 	/**
 	 * <p>
-	 * Get all client config files of the underlying consumer project. 
-	 * The key would be the environment name, and the values would be the client 
+	 * Get all client config files of the underlying consumer project.
+	 * The key would be the environment name, and the values would be the client
 	 * config files belong to this enviroment.</p>
 	 * 
-	 * <p>Note. this method would be able to handle both old and new dir structure for 
-	 * ClientConfig.xml files. For the old dir structure, the environment name would 
+	 * <p>Note. this method would be able to handle both old and new dir structure for
+	 * ClientConfig.xml files. For the old dir structure, the environment name would
 	 * be <b>default</b>.</p>
-	 * @param project
+	 *
+	 * @param project the project
 	 * @return all client configs of the underlying consumer project
-	 * @throws CoreException
+	 * @throws CoreException the core exception
 	 */
 	public static Map<SOAClientEnvironment, IFile> getClientConfigFiles(final IProject project)
 			throws CoreException {
@@ -234,6 +298,13 @@ public final class SOAConsumerUtil {
 		return result;
 	}
 
+	/**
+	 * Save impl metadata props.
+	 *
+	 * @param consumerProject the consumer project
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static void saveImplMetadataProps(
 			final SOAConsumerProject consumerProject) throws IOException,
 			CoreException {
@@ -246,6 +317,12 @@ public final class SOAConsumerUtil {
 				SOAProjectConstants.PROPS_COMMENTS);
 	}
 
+	/**
+	 * Load client configs.
+	 *
+	 * @param consumerProject the consumer project
+	 * @throws Exception the exception
+	 */
 	public static void loadClientConfigs(
 			final SOAConsumerProject consumerProject) throws Exception {
 		final Map<SOAClientEnvironment, IFile> clientConfigFiles = getClientConfigFiles(consumerProject
@@ -262,6 +339,14 @@ public final class SOAConsumerUtil {
 		fillMetadata(consumerProject, ListUtil.arrayList(serviceNames));
 	}
 
+	/**
+	 * Fill metadata.
+	 *
+	 * @param consumerProject the consumer project
+	 * @param serviceNames the service names
+	 * @return the sOA consumer project
+	 * @throws Exception the exception
+	 */
 	public static SOAConsumerProject fillMetadata(
 			final SOAConsumerProject consumerProject,
 			final List<String> serviceNames) throws Exception {
@@ -303,13 +388,15 @@ public final class SOAConsumerUtil {
 	}
 	
 	/**
-	 * @param project
-	 * @param serviceName
-	 * @return
-	 * @throws CoreException 
-	 * @throws IOException 
-	 * @deprecated This is only used for the old dir structure which 
-	 * does not have environment in the path. Please use another overloaded 
+	 * Gets the client config.
+	 *
+	 * @param project the project
+	 * @param serviceName the service name
+	 * @return the client config
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @deprecated This is only used for the old dir structure which
+	 * does not have environment in the path. Please use another overloaded
 	 * version which has environmentName as input option.
 	 */
 	public static IFile getClientConfig(final IProject project,
@@ -318,12 +405,14 @@ public final class SOAConsumerUtil {
 	}
 
 	/**
-	 * @param project
+	 * Gets the client config.
+	 *
+	 * @param project the project
 	 * @param environmentName null means loading client config from old dir structure
-	 * @param serviceName
-	 * @return
-	 * @throws CoreException 
-	 * @throws IOException 
+	 * @param serviceName the service name
+	 * @return the client config
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static IFile getClientConfig(final IProject project,
 			final String environmentName, final String serviceName) throws CoreException, IOException {
@@ -349,6 +438,17 @@ public final class SOAConsumerUtil {
 		return null;
 	}
 
+	/**
+	 * Load client config.
+	 *
+	 * @param project the project
+	 * @param environmentName the environment name
+	 * @param serviceName the service name
+	 * @return the sOA client config
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws JDOMException the jDOM exception
+	 * @throws CoreException the core exception
+	 */
 	public static SOAClientConfig loadClientConfig(final IProject project,
 			final String environmentName, final String serviceName) 
 	throws IOException, JDOMException, CoreException {
@@ -359,10 +459,24 @@ public final class SOAConsumerUtil {
 		return null;
 	}
 
+	/**
+	 * Gets the consumer properties file.
+	 *
+	 * @param project the project
+	 * @return the consumer properties file
+	 */
 	public static IFile getConsumerPropertiesFile(IProject project) {
 		return project.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_CONSUMER);
 	}
 	
+	/**
+	 * Load consumer properties.
+	 *
+	 * @param project the project
+	 * @return the properties
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static Properties loadConsumerProperties(IProject project) 
 	throws CoreException, IOException {
 		final Properties properties = new Properties();
@@ -376,6 +490,14 @@ public final class SOAConsumerUtil {
 		return properties;
 	}
 	
+	/**
+	 * Gets the env mapper from consumer properties.
+	 *
+	 * @param project the project
+	 * @return the env mapper from consumer properties
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static String getEnvMapperFromConsumerProperties(IProject project) 
 	throws CoreException, IOException {
 		return StringUtils.trim(loadConsumerProperties(project).getProperty(
@@ -387,9 +509,12 @@ public final class SOAConsumerUtil {
 	 * name is "a" and if a has an entry in the the properties file map,then
 	 * that entry is returned otherwise a. the format of the String in the props
 	 * file is {[a,b],[d,e]}
-	 * 
-	 * @throws CoreException
-	 * @throws IOException
+	 *
+	 * @param project the project
+	 * @param clientNames the client names
+	 * @return the mapped service names from props file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static Map<String, String> getMappedServiceNamesFromPropsFile(
 			IProject project, String... clientNames) throws IOException,
@@ -427,6 +552,13 @@ public final class SOAConsumerUtil {
 		return svcClientNameMap;
 	}
 	
+	/**
+	 * Gets the service client name.
+	 *
+	 * @param project the project
+	 * @return the service client name
+	 * @throws CoreException the core exception
+	 */
 	public static String getServiceClientName(IProject project) throws CoreException {
 		if (isOldClientConfigDirStructure(project) == true) {
 			return project.getName();
@@ -450,9 +582,10 @@ public final class SOAConsumerUtil {
 	/**
 	 * Starting from SOA v2.3.0, we have deployed a new multi client config directory strucutre.
 	 * The new path format would be <b>meta-src/META-INF/soa/client/config/<client name>/<environment>/<service name>/ClientConfig.xml</b>
-	 * @param project
+	 *
+	 * @param project the project
 	 * @return True is old client config directory structure or False otherwise
-	 * @throws CoreException
+	 * @throws CoreException the core exception
 	 * @since 1.0.0
 	 */
 	public static boolean isOldClientConfigDirStructure(IProject project) throws CoreException {
@@ -474,6 +607,14 @@ public final class SOAConsumerUtil {
 		return false;
 	}
 	
+	/**
+	 * Gets the client config structure.
+	 *
+	 * @param project the project
+	 * @param availableServices the available services
+	 * @return the client config structure
+	 * @throws CoreException the core exception
+	 */
 	public static List<EnvironmentItem> getClientConfigStructure(IProject project, 
 			List<String> availableServices) throws CoreException{
 		final List<EnvironmentItem> result = getClientConfigEnvironments(project, null);
@@ -483,11 +624,27 @@ public final class SOAConsumerUtil {
 		return result;
 	}
 	
+	/**
+	 * Gets the client config structure.
+	 *
+	 * @param project the project
+	 * @return the client config structure
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static List<EnvironmentItem> getClientConfigStructure(IProject project) 
 	throws CoreException, IOException {
 		return getClientConfigStructure(project, (IProgressMonitor)null);
 	}
 	
+	/**
+	 * Gets the client environment list.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return the client environment list
+	 * @throws CoreException the core exception
+	 */
 	public static List<String> getClientEnvironmentList(IProject project, 
 			IProgressMonitor monitor) throws CoreException {
 		final List<String> clients = new ArrayList<String>();
@@ -523,6 +680,14 @@ public final class SOAConsumerUtil {
 		return clients;
 	}
 	
+	/**
+	 * Gets the client config environments.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return the client config environments
+	 * @throws CoreException the core exception
+	 */
 	public static List<EnvironmentItem> getClientConfigEnvironments(IProject project, 
 			IProgressMonitor monitor) 
 	throws CoreException {
@@ -533,6 +698,14 @@ public final class SOAConsumerUtil {
 		return clients;
 	}
 	
+	/**
+	 * Gets the client name.
+	 *
+	 * @param project the project
+	 * @return the client name
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static String getClientName(IProject project) throws IOException, CoreException {
 		final IFile file = getConsumerPropertiesFile(project);
 		//the default name is same as the project name
@@ -548,6 +721,13 @@ public final class SOAConsumerUtil {
 		return clientName;
 	}
 	
+	/**
+	 * Gets the client config client folder.
+	 *
+	 * @param project the project
+	 * @return the client config client folder
+	 * @throws CoreException the core exception
+	 */
 	public static IFolder getClientConfigClientFolder(IProject project) throws CoreException {
 		final IFolder clientConfigFolder = project
 		.getFolder(SOAConsumerProject.META_SRC_ClIENT_CONFIG);
@@ -569,6 +749,16 @@ public final class SOAConsumerUtil {
 		return null;
 	}
 	
+	/**
+	 * Clone environment.
+	 *
+	 * @param project the project
+	 * @param existingEnvName the existing env name
+	 * @param newEnvName the new env name
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void cloneEnvironment(IProject project, String existingEnvName, 
 			String newEnvName, IProgressMonitor monitor) throws CoreException, IOException {
 		final IFolder clientFolder = getClientConfigClientFolder(project);
@@ -586,11 +776,14 @@ public final class SOAConsumerUtil {
 	
 	/**
 	 * Add an admin name into the consumer_project.props file to indicate that the base
-	 * consumer should not be generated in the consumer project
-	 * @param project
-	 * @param adminName
-	 * @throws IOException 
-	 * @throws CoreException 
+	 * consumer should not be generated in the consumer project.
+	 *
+	 * @param project the project
+	 * @param addedAdminNames the added admin names
+	 * @param removedAdminNames the removed admin names
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static void modifyNotGenerateBaseConsumers(final IProject project, 
 			final Collection<String> addedAdminNames, final Collection<String> removedAdminNames, 
@@ -624,6 +817,15 @@ public final class SOAConsumerUtil {
 		savePropsFileForConsumer(project, props, monitor);
 	}
 	
+	/**
+	 * Save props file for consumer.
+	 *
+	 * @param project the project
+	 * @param props the props
+	 * @param monitor the monitor
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static void savePropsFileForConsumer(IProject project, final Properties props, 
 			IProgressMonitor monitor) throws IOException, CoreException {
 		final IFile file = SOAConsumerUtil.getConsumerPropertiesFile(project);
@@ -637,6 +839,15 @@ public final class SOAConsumerUtil {
 		}
 	}
 	
+	/**
+	 * Gets the client config structure.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return the client config structure
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static List<EnvironmentItem> getClientConfigStructure(IProject project, 
 			IProgressMonitor monitor) 
 	throws CoreException, IOException {
@@ -688,51 +899,123 @@ public final class SOAConsumerUtil {
 		return clients;
 	}
 	
+	/**
+	 * The Class EnvironmentItem.
+	 */
 	public static class EnvironmentItem {
 		private String name;
 		private List<String> services = new ArrayList<String>();
 		private Map<String, AssetInfo> serviceData = new ConcurrentHashMap<String, AssetInfo>();
+		
+		/**
+		 * Instantiates a new environment item.
+		 *
+		 * @param name the name
+		 */
 		public EnvironmentItem(String name) {
 			super();
 			this.name = name;
 		}
+		
+		/**
+		 * Gets the name.
+		 *
+		 * @return the name
+		 */
 		public String getName() {
 			return name;
 		}
+		
+		/**
+		 * Sets the name.
+		 *
+		 * @param name the new name
+		 */
 		public void setName(String name) {
 			this.name = name;
 		}
+		
+		/**
+		 * Gets the services.
+		 *
+		 * @return the services
+		 */
 		public List<String> getServices() {
 			return services;
 		}
+		
+		/**
+		 * Removes the service.
+		 *
+		 * @param service the service
+		 */
 		public void removeService(String service) {
 			services.remove(service);
 			serviceData.remove(service);
 		}
+		
+		/**
+		 * Adds the service.
+		 *
+		 * @param service the service
+		 * @return true, if successful
+		 */
 		public boolean addService(String service) {
 			return services.add(service);
 		}
+		
+		/**
+		 * Sets the services.
+		 *
+		 * @param services the new services
+		 */
 		public void setServices(List<String> services) {
 			this.services = services;
 		}
 		
+		/**
+		 * Gets the service data.
+		 *
+		 * @param serviceName the service name
+		 * @return the service data
+		 */
 		public AssetInfo getServiceData(String serviceName) {
 			return serviceData.get(serviceName);
 		}
 		
+		/**
+		 * Gets the service data.
+		 *
+		 * @return the service data
+		 */
 		public Map<String, AssetInfo> getServiceData() {
 			return serviceData;
 		}
+		
+		/**
+		 * Sets the service data.
+		 *
+		 * @param serviceData the service data
+		 */
 		public void setServiceData(Map<String, AssetInfo> serviceData) {
 			this.serviceData = serviceData;
 		}
+		
+		/**
+		 * Adds the service data.
+		 *
+		 * @param svcData the svc data
+		 */
 		public void addServiceData(AssetInfo svcData) {
 			if (services.contains(svcData.getName()) == false)
 				services.add(svcData.getName());
 			
 			serviceData.put(svcData.getName(), svcData);
 		}
-		
+
+		/**
+		 * {@inheritDoc}
+		 */
 		public String toString() {
 			return this.name;
 		}

@@ -18,27 +18,29 @@ import org.eclipse.swt.graphics.Image;
 
 
 /**
+ * The Class SOASearchTableLabelProvider.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public class SOASearchTableLabelProvider implements ITableLabelProvider {
 
 	/**
-	 * 
+	 * Instantiates a new sOA search table label provider.
 	 */
 	public SOASearchTableLabelProvider() {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
+	/**
+	 * {@inheritDoc}
 	 */
 	public Image getColumnImage(Object element, int columnIndex) {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getColumnText(Object element, int columnIndex) {
 		if (element instanceof SOASearchResultService) {
@@ -55,29 +57,29 @@ public class SOASearchTableLabelProvider implements ITableLabelProvider {
 		return "";
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#addListener(org.eclipse.jface.viewers.ILabelProviderListener)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void addListener(ILabelProviderListener listener) {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#dispose()
+	/**
+	 * {@inheritDoc}
 	 */
 	public void dispose() {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#isLabelProperty(java.lang.Object, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void removeListener(ILabelProviderListener listener) {
 

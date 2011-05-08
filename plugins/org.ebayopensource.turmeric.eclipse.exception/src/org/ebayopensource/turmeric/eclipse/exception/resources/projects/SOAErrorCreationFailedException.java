@@ -22,10 +22,20 @@ public class SOAErrorCreationFailedException extends CommandFailedException {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Instantiates a new sOA error creation failed exception.
+	 *
+	 * @param message the message
+	 */
 	public SOAErrorCreationFailedException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new sOA error creation failed exception.
+	 *
+	 * @param exception the exception
+	 */
 	public SOAErrorCreationFailedException(Exception exception) {
 		super(exception);
 	}

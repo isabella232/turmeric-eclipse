@@ -16,12 +16,21 @@ import org.eclipse.ui.dialogs.TwoPaneElementSelector;
 
 
 /**
+ * The Class DependencySelector.
+ *
  * @author smathew
  * 
  * This is the dialog for selecting libraries
  */
 public class DependencySelector extends TwoPaneElementSelector {
 
+	/**
+	 * Instantiates a new dependency selector.
+	 *
+	 * @param parent the parent
+	 * @param items the items
+	 * @param title the title
+	 */
 	public DependencySelector(Shell parent, Set<? extends AssetInfo> items, String title) {
 		super(parent, new ElementRenderer(), new QualifiedRenderer());
 		setTitle(title);

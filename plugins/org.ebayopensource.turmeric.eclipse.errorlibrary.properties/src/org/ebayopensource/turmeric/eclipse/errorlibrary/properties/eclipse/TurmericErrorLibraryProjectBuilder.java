@@ -29,15 +29,18 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
- * @author yayu
+ * The Class TurmericErrorLibraryProjectBuilder.
  *
+ * @author yayu
  */
 public class TurmericErrorLibraryProjectBuilder extends AbstractSOAProjectBuilder {
+	
+	/** The Constant BUILDER_ID. */
 	public static final String BUILDER_ID = Activator.PLUGIN_ID
 	+ ".TurmericErrorLibraryProjectBuilder";
 
 	/**
-	 * 
+	 * Instantiates a new turmeric error library project builder.
 	 */
 	public TurmericErrorLibraryProjectBuilder() {
 		super();
@@ -46,12 +49,12 @@ public class TurmericErrorLibraryProjectBuilder extends AbstractSOAProjectBuilde
 	/**
 	 * Wrapper API for ErrorLibraryDeltaVisitor pattern. Returns all the error domains
 	 * which has been modified according to the delta
-	 * 
+	 *
 	 * @param delta -
-	 *            resource delta
-	 * @param project
+	 * resource delta
+	 * @param project the project
 	 * @return list of modified error domains.
-	 * @throws CoreException
+	 * @throws CoreException the core exception
 	 */
 	public static List<IFile> getModifiedErrorDomains(IResourceDelta delta,
 			IProject project) throws CoreException {

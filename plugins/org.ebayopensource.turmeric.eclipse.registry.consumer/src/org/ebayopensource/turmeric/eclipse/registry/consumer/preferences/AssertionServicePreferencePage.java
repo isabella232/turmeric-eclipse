@@ -40,6 +40,9 @@ public class AssertionServicePreferencePage
 	private BooleanFieldEditor overwriteASField;
 	private StringFieldEditor asEndpointField;
 
+	/**
+	 * Instantiates a new assertion service preference page.
+	 */
 	public AssertionServicePreferencePage() {
 		super(GRID);
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
@@ -92,8 +95,8 @@ public class AssertionServicePreferencePage
 		asEndpointField.setEnabled(enabled, fieldParent);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void init(IWorkbench workbench) {
 	}

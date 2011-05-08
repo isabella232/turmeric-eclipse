@@ -36,6 +36,8 @@ import org.eclipse.swt.widgets.TreeColumn;
 
 
 /**
+ * The Class SOAConsumerServicesViewer.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -44,13 +46,21 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 	private boolean useAssetInfo = true;
 	
 	/**
-	 * @param parent
+	 * Instantiates a new sOA consumer services viewer.
+	 *
+	 * @param parent the parent
 	 */
 	public SOAConsumerServicesViewer(Composite parent) {
 		this(parent, true);
 	}
 	
 	
+	/**
+	 * Instantiates a new sOA consumer services viewer.
+	 *
+	 * @param parent the parent
+	 * @param useAssetInfo the use asset info
+	 */
 	public SOAConsumerServicesViewer(Composite parent, boolean useAssetInfo) {
 		super(parent, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL
                 | SWT.H_SCROLL| SWT.FULL_SELECTION);
@@ -59,6 +69,9 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 	}
 
 
+	/**
+	 * Adds the content provider.
+	 */
 	protected void addContentProvider() {
 		setContentProvider(new ITreeContentProvider() {
 
@@ -97,6 +110,9 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 		});
 	}
 	
+	/**
+	 * Adds the label provider.
+	 */
 	protected void addLabelProvider() {
 		setLabelProvider(new ITableLabelProvider() {
 
@@ -139,6 +155,9 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 		});
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init() {
 		setAutoExpandLevel(TreeViewer.ALL_LEVELS);
 		addContentProvider();
@@ -146,6 +165,9 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 		createColumns();
 	}
 	
+	/**
+	 * Creates the columns.
+	 */
 	protected void createColumns() {
 		final Tree tree = getTree();
 		Assert.isTrue(tree.getParent().getLayout() instanceof GridLayout, 

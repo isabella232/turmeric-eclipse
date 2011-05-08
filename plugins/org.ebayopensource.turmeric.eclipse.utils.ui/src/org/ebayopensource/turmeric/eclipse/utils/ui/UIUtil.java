@@ -76,24 +76,51 @@ import org.eclipse.ui.progress.UIJob;
  */
 public class UIUtil {
 
+	/**
+	 * Progress service.
+	 *
+	 * @return the i progress service
+	 */
 	public static IProgressService progressService() {
 		return getWorkbench().getProgressService();
 	}
-
+ 
+	/**
+	 * Gets the workbench.
+	 *
+	 * @return the workbench
+	 */
 	public static IWorkbench getWorkbench() {
 		return PlatformUI.getWorkbench();
 	}
 
+	/**
+	 * Gets the help system.
+	 *
+	 * @return the help system
+	 */
 	public static IWorkbenchHelpSystem getHelpSystem() {
 		return getWorkbench().getHelpSystem();
 	}
 
+	/**
+	 * Display.
+	 *
+	 * @return the display
+	 */
 	public static Display display() {
 		if (Display.getCurrent() != null)
 			return Display.getCurrent();
 		return Display.getDefault();
 	}
 
+	/**
+	 * File dialog.
+	 *
+	 * @param title the title
+	 * @param filterExtensions the filter extensions
+	 * @return the string
+	 */
 	public static String fileDialog(final String title,
 			final String... filterExtensions) {
 		final FileDialog dialog = new FileDialog(getActiveShell(), SWT.OPEN);
@@ -102,6 +129,14 @@ public class UIUtil {
 		return dialog.open();
 	}
 
+	/**
+	 * File dialog.
+	 *
+	 * @param title the title
+	 * @param sourceFile the source file
+	 * @param filterExtensions the filter extensions
+	 * @return the string
+	 */
 	public static String fileDialog(final String title, File sourceFile,
 			final String... filterExtensions) {
 		boolean isFile = sourceFile.isFile();
@@ -113,6 +148,15 @@ public class UIUtil {
 		return fileDialog(title, fileName, sourceFile, filterExtensions);
 	}
 	
+	/**
+	 * File dialog.
+	 *
+	 * @param title the title
+	 * @param filterName the filter name
+	 * @param sourceFile the source file
+	 * @param filterExtensions the filter extensions
+	 * @return the string
+	 */
 	public static String fileDialog(final String title, String filterName,
 			File sourceFile, final String... filterExtensions) {
 		final FileDialog dialog = new FileDialog(getActiveShell(), SWT.OPEN);
@@ -131,10 +175,20 @@ public class UIUtil {
 		return dialog.open();
 	}
 
+	/**
+	 * Gets the active shell.
+	 *
+	 * @return the active shell
+	 */
 	public static Shell getActiveShell() {
 		return getActiveWorkBenchWindow().getShell();
 	}
 
+	/**
+	 * Gets the active work bench window.
+	 *
+	 * @return the active work bench window
+	 */
 	public static IWorkbenchWindow getActiveWorkBenchWindow() {
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		final WorkBenchWindowWrapper windowWrapper = new WorkBenchWindowWrapper();
@@ -156,11 +210,11 @@ public class UIUtil {
 
 	/**
 	 * This dialogs open up a modal file dialog The modal behaviour is on
-	 * application level
-	 * 
-	 * @param title
-	 * @param filterExtensions
-	 * @return
+	 * application level.
+	 *
+	 * @param title the title
+	 * @param filterExtensions the filter extensions
+	 * @return the string
 	 */
 	public static String modalFileDialog(final String title,
 			final String... filterExtensions) {
@@ -171,6 +225,13 @@ public class UIUtil {
 		return dialog.open();
 	}
 
+	/**
+	 * Directory dialog.
+	 *
+	 * @param title the title
+	 * @param filterPath the filter path
+	 * @return the string
+	 */
 	public static String directoryDialog(final String title,
 			final String filterPath) {
 		final DirectoryDialog dialog = new DirectoryDialog(getActiveShell(),
@@ -181,6 +242,13 @@ public class UIUtil {
 		return dialog.open();
 	}
 
+	/**
+	 * Run job in ui dialog.
+	 *
+	 * @param <J> the generic type
+	 * @param job the job
+	 * @return the j
+	 */
 	public static <J extends Job> J runJobInUIDialog(J job) {
 		getWorkbench().getProgressService()
 				.showInDialog(
@@ -189,6 +257,12 @@ public class UIUtil {
 		return job;
 	}
 
+	/**
+	 * Open property page.
+	 *
+	 * @param adaptable the adaptable
+	 * @param pageID the page id
+	 */
 	public static void openPropertyPage(final IAdaptable adaptable,
 			final String pageID) {
 		final Runnable runnable = new Runnable() {
@@ -203,11 +277,14 @@ public class UIUtil {
 	}
 
 	/**
-	 * @param title
-	 * @param message
-	 * @param type
-	 * 
-	 * @return
+	 * Open choice dialog.
+	 *
+	 * @param title the title
+	 * @param message the message
+	 * @param type the type
+	 * @param yesLabel the yes label
+	 * @param noLabel the no label
+	 * @return true, if successful
 	 */
 	public static boolean openChoiceDialog(final String title,
 			final String message, final int type, final String yesLabel,
@@ -228,11 +305,12 @@ public class UIUtil {
 	}
 
 	/**
-	 * @param title
-	 * @param message
-	 * @param type
-	 * 
-	 * @return
+	 * Open choice dialog.
+	 *
+	 * @param title the title
+	 * @param message the message
+	 * @param type the type
+	 * @return true, if successful
 	 */
 	public static boolean openChoiceDialog(final String title,
 			final String message, final int type) {
@@ -252,6 +330,12 @@ public class UIUtil {
 		return returnValue[0];
 	}
 	
+	/**
+	 * Gets the detailed exception stack trace.
+	 *
+	 * @param exception the exception
+	 * @return the detailed exception stack trace
+	 */
 	public static IStatus getDetailedExceptionStackTrace(final Throwable exception) {
 		IStatus status = null;
 		if (exception instanceof CoreException) {
@@ -289,22 +373,18 @@ public class UIUtil {
 	}
 
 	/**
-	 * open the error dialog and display error stacktrace
-	 * 
-	 * @param parent
-	 *            the parent shell of the dialog, or <code>null</code> if none
-	 * @param dialogTitle
-	 *            the title to use for this dialog, or <code>null</code> to
-	 *            indicate that the default title should be used,default is
-	 *            "Problem Occurred"
-	 * @param message
-	 *            the message to show in this dialog, or <code>null</code> to
-	 *            indicate that the exception's message should be shown as the
-	 *            primary message
-	 * @param exception
-	 *            the exception used to display stackTrace ,or <code>null</code>
-	 *            to indicate that the exception is not available,only
-	 *            errorMessage will be shown.
+	 * open the error dialog and display error stacktrace.
+	 *
+	 * @param parent the parent shell of the dialog, or <code>null</code> if none
+	 * @param dialogTitle the title to use for this dialog, or <code>null</code> to
+	 * indicate that the default title should be used,default is
+	 * "Problem Occurred"
+	 * @param message the message to show in this dialog, or <code>null</code> to
+	 * indicate that the exception's message should be shown as the
+	 * primary message
+	 * @param exception the exception used to display stackTrace ,or <code>null</code>
+	 * to indicate that the exception is not available,only
+	 * errorMessage will be shown.
 	 */
 	public static void showErrorDialog(final Shell parent,
 			final String dialogTitle, final String message,
@@ -377,16 +457,24 @@ public class UIUtil {
 	}
 
 	/**
-	 * @param dialogTitle
-	 *            the title to use for this dialog, or <code>null</code> to
-	 *            indicate that the default title should be used,default is
-	 *            "Problem Occurred"
-	 * @param exception
+	 * Show error dialog.
+	 *
+	 * @param dialogTitle the title to use for this dialog, or <code>null</code> to
+	 * indicate that the default title should be used,default is
+	 * "Problem Occurred"
+	 * @param exception the exception
 	 */
 	public static void showErrorDialog(String dialogTitle, Throwable exception) {
 		showErrorDialog(null, dialogTitle, null, exception);
 	}
 	
+	/**
+	 * Show error dialog.
+	 *
+	 * @param dialogTitle the dialog title
+	 * @param message the message
+	 * @param exception the exception
+	 */
 	public static void showErrorDialog(String dialogTitle, String message,  Throwable exception) {
 		showErrorDialog(null, dialogTitle, message, exception);
 	}
@@ -394,17 +482,19 @@ public class UIUtil {
 	/**
 	 * This will use the default shell, and the dialog titiel will be "Problem
 	 * Occurred".
-	 * 
-	 * @param exception
+	 *
+	 * @param exception the exception
 	 */
 	public static void showErrorDialog(Throwable exception) {
 		showErrorDialog(null, null, null, exception);
 	}
 
 	/**
-	 * @param shell
-	 * @param title
-	 * @param message
+	 * Show error dialog.
+	 *
+	 * @param shell the shell
+	 * @param title the title
+	 * @param message the message
 	 */
 	public static void showErrorDialog(Shell shell, String title, String message) {
 		StringWriter msg = new StringWriter();
@@ -415,10 +505,31 @@ public class UIUtil {
 		MessageDialog.openError(shell, title, msg.toString());
 	}
 
+	/**
+	 * Show error dialog.
+	 *
+	 * @param shell the shell
+	 * @param title the title
+	 * @param status the status
+	 * @return the int
+	 */
 	public static int showErrorDialog(Shell shell, String title, IStatus status) {
 		return showErrorDialog(shell, title, status.getMessage(), status);
 	}
 	
+	/**
+	 * Show error dialog.
+	 *
+	 * @param shell the shell
+	 * @param title the title
+	 * @param message the message
+	 * @param status the status
+	 * @param needLineBreak the need line break
+	 * @param needLineTitle the need line title
+	 * @param needCancelButton the need cancel button
+	 * @param changeButtonLabel the change button label
+	 * @return the int
+	 */
 	public static int showErrorDialog(Shell shell, String title, String message, IStatus status, 
 			boolean needLineBreak, boolean needLineTitle, boolean needCancelButton, 
 			boolean changeButtonLabel) {
@@ -428,16 +539,27 @@ public class UIUtil {
 				needCancelButton, changeButtonLabel);
 	}
 	
+	/**
+	 * Show error dialog.
+	 *
+	 * @param shell the shell
+	 * @param title the title
+	 * @param message the message
+	 * @param status the status
+	 * @return the int
+	 */
 	public static int showErrorDialog(Shell shell, String title, String message, IStatus status) {
 		return SOAErrorDialog.openError(shell, title, message,
 				status, IStatus.ERROR | IStatus.WARNING);
 	}
 
 	/**
-	 * @param shell
-	 * @param exceptionMessage
-	 * @param title
-	 * @param message
+	 * Show error dialog.
+	 *
+	 * @param shell the shell
+	 * @param exceptionMessage the exception message
+	 * @param title the title
+	 * @param message the message
 	 */
 	public static void showErrorDialog(Shell shell, String exceptionMessage,
 			String title, String message) {
@@ -456,6 +578,13 @@ public class UIUtil {
 		MessageDialog.openError(shell, title, msg.toString());
 	}
 
+	/**
+	 * Show error dialog in new thread.
+	 *
+	 * @param shell the shell
+	 * @param title the title
+	 * @param message the message
+	 */
 	public static void showErrorDialogInNewThread(Shell shell, String title,
 			final String message) {
 		final Shell parent = shell != null ? shell : getActiveShell();
@@ -521,9 +650,9 @@ public class UIUtil {
 	}
 
 	/**
-	 * make buttons with equal widthHint
-	 * 
-	 * @param buttons
+	 * make buttons with equal widthHint.
+	 *
+	 * @param buttons the new equal width hint for buttons
 	 */
 	public static void setEqualWidthHintForButtons(Button... buttons) {
 		int max = 0;
@@ -538,32 +667,77 @@ public class UIUtil {
 		}
 	}
 
+	/**
+	 * Sync exec.
+	 *
+	 * @param <T> the generic type
+	 * @param name the name
+	 * @param runnable the runnable
+	 * @return the t
+	 */
 	public static <T> T syncExec(String name, final IRunnable<T> runnable) {
 		if (Thread.currentThread() == display().getThread())
 			return runnable.run();
 		return UIRunner.syncExec(name, runnable);
 	}
 
+	/**
+	 * The Class UIRunner.
+	 *
+	 * @param <T> the generic type
+	 */
 	public static final class UIRunner<T> extends UIJob {
 		private enum Sync {
 			SYNC, ASYNC
 		}
 
+		/**
+		 * Sync exec.
+		 *
+		 * @param <U> the generic type
+		 * @param name the name
+		 * @param runner the runner
+		 * @return the u
+		 */
 		public static final <U> U syncExec(String name, IRunnable<U> runner) {
 			checkNull(runner);
 			return doExec(new UIRunner<U>(name, runner), Sync.SYNC);
 		}
 
+		/**
+		 * Async exec.
+		 *
+		 * @param <U> the generic type
+		 * @param name the name
+		 * @param runner the runner
+		 * @return the u
+		 */
 		public static final <U> U asyncExec(String name, IRunnable<U> runner) {
 			checkNull(runner);
 			return doExec(new UIRunner<U>(name, runner), Sync.ASYNC);
 		}
 
+		/**
+		 * Sync exec.
+		 *
+		 * @param <U> the generic type
+		 * @param name the name
+		 * @param runner the runner
+		 * @return the u
+		 */
 		public static final <U> U syncExec(String name, Runnable runner) {
 			checkNull(runner);
 			return doExec(new UIRunner<U>(name, runner), Sync.SYNC);
 		}
 
+		/**
+		 * Async exec.
+		 *
+		 * @param <U> the generic type
+		 * @param name the name
+		 * @param runner the runner
+		 * @return the u
+		 */
 		public static final <U> U asyncExec(String name, Runnable runner) {
 			checkNull(runner);
 			return doExec(new UIRunner<U>(name, runner), Sync.ASYNC);
@@ -594,18 +768,33 @@ public class UIUtil {
 		private final IRunnable<T> irunner;
 		private T returnValue;
 
+		/**
+		 * Instantiates a new uI runner.
+		 *
+		 * @param name the name
+		 * @param irunner the irunner
+		 */
 		public UIRunner(String name, IRunnable<T> irunner) {
 			super(nonNullName(name));
 			this.irunner = irunner;
 			this.runnable = null;
 		}
 
+		/**
+		 * Instantiates a new uI runner.
+		 *
+		 * @param name the name
+		 * @param runnable the runnable
+		 */
 		public UIRunner(String name, Runnable runnable) {
 			super(nonNullName(name));
 			this.runnable = runnable;
 			this.irunner = null;
 		}
 
+		/**
+		 * Do run.
+		 */
 		protected void doRun() {
 			if (null != runnable) {
 				runnable.run();
@@ -614,6 +803,9 @@ public class UIUtil {
 			}
 		}
 
+		/**
+		 * Sync exec.
+		 */
 		public void syncExec() {
 			if ((runnable == null) && (irunner == null)) {
 				return;
@@ -634,6 +826,9 @@ public class UIUtil {
 			returnValue = sink.size() > 0 ? sink.get(0) : null;
 		}
 
+		/**
+		 * Async exec.
+		 */
 		public void asyncExec() {
 			if ((runnable == null) && (irunner == null)) {
 				return;
@@ -654,6 +849,9 @@ public class UIUtil {
 			returnValue = sink.size() > 0 ? sink.get(0) : null;
 		}
 
+		/* (non-Javadoc)
+		 * @see org.eclipse.ui.progress.UIJob#runInUIThread(org.eclipse.core.runtime.IProgressMonitor)
+		 */
 		@Override
 		public IStatus runInUIThread(IProgressMonitor monitor) {
 			IStatus result = Status.OK_STATUS;
@@ -671,16 +869,30 @@ public class UIUtil {
 			return result;
 		}
 
+		/**
+		 * Return value.
+		 *
+		 * @return the t
+		 */
 		public T returnValue() {
 			return returnValue;
 		}
 
+		/* (non-Javadoc)
+		 * @see org.eclipse.core.runtime.jobs.Job#belongsTo(java.lang.Object)
+		 */
 		@Override
 		public boolean belongsTo(final Object family) {
 			return UIUtil.belongsTo(family);
 		}
 	}
 
+	/**
+	 * Belongs to.
+	 *
+	 * @param family the family
+	 * @return true, if successful
+	 */
 	public static boolean belongsTo(final Object family) {
 		return ResourcesPlugin.FAMILY_MANUAL_BUILD.equals(family)
 				|| ResourcesPlugin.FAMILY_AUTO_BUILD.equals(family)
@@ -726,6 +938,11 @@ public class UIUtil {
 
 	}
 
+	/**
+	 * Gets the active page.
+	 *
+	 * @return the active page
+	 */
 	public static IWorkbenchPage getActivePage() {
 		final IWorkbenchWindow workbenchWindow = getActiveWorkBenchWindow();
 		final IWorkbench workbench = PlatformUI.getWorkbench();
@@ -752,6 +969,11 @@ public class UIUtil {
 		return workBenchPageWrapper.getWorkbenchPage();
 	}
 
+	/**
+	 * Gets the active editor.
+	 *
+	 * @return the active editor
+	 */
 	public static IEditorPart getActiveEditor() {
 		final IWorkbenchPage activePage = getActivePage();
 		final IWorkbench workbench = PlatformUI.getWorkbench();
@@ -795,14 +1017,27 @@ public class UIUtil {
 				.getProject();
 	}
 	
+	/**
+	 * The Interface ISOAControlDecorator.
+	 */
 	public static interface ISOAControlDecorator {
+		
+		/**
+		 * Adds the control decoration.
+		 *
+		 * @param control the control
+		 * @param controlDecoration the control decoration
+		 */
 		public void addControlDecoration(Control control, ControlDecoration controlDecoration);
 	}
 	
 	/**
-	 * decorate control with tooltip 
-	 * @param control
-	 * @param tooltip
+	 * decorate control with tooltip.
+	 *
+	 * @param decorator the decorator
+	 * @param control the control
+	 * @param tooltip the tooltip
+	 * @return the control decoration
 	 */
 	public static ControlDecoration decorateControl(ISOAControlDecorator decorator, 
 			final Control control, final String tooltip) {
@@ -826,6 +1061,11 @@ public class UIUtil {
 		return controlDecoration;
 	}
 	
+	/**
+	 * Gets the status line manager.
+	 *
+	 * @return the status line manager
+	 */
 	public static IStatusLineManager getStatusLineManager() {
 		IWorkbenchPage page =  getActivePage();
 		IWorkbenchPart part = page.getActivePart();

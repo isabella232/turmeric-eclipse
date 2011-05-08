@@ -46,24 +46,23 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.ide.IDE;
 
 /**
+ * The Class ConsumeServiceFromWSDLWizard.
+ *
  * @author yayu
- * 
  */
 public class ConsumeServiceFromWSDLWizard extends AbstractSOADomainWizard {
 	private ConsumeServiceFromExistingWSDLWizardPage consumerFromWsdl = null;
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * 
+	 * Instantiates a new consume service from wsdl wizard.
 	 */
 	public ConsumeServiceFromWSDLWizard() {
 		super();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#getContentPages()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public IWizardPage[] getContentPages() {
@@ -76,11 +75,17 @@ public class ConsumeServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		return new IWizardPage[] { consumerFromWsdl };
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected Object getCreatingType() {
 		return ISOAPreValidator.CONSUMER_FROM_WSDL;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean performFinish() {
 		// saving the user selected project dir
@@ -225,6 +230,9 @@ public class ConsumeServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public int getMinimumHeight() {
 		return super.getMinimumHeight() + 150;
 	}

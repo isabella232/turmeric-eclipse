@@ -38,6 +38,8 @@ import org.eclipse.ui.IWorkbenchPart;
 
 
 /**
+ * The Class GenerateServiceImplSkeleton.
+ *
  * @author smathew
  * @deprecated
  */
@@ -45,10 +47,18 @@ public class GenerateServiceImplSkeleton implements IObjectActionDelegate {
 	private IStructuredSelection selection;
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * {@inheritDoc}
+	 *  @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
+	 */
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *  @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
+	 */
 	public void run(final IAction action) {
 		try {
 			if (SOALogger.DEBUG)
@@ -141,6 +151,10 @@ public class GenerateServiceImplSkeleton implements IObjectActionDelegate {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
+	 */
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

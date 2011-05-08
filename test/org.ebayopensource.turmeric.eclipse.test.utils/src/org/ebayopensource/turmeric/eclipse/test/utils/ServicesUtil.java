@@ -77,14 +77,30 @@ import org.eclipse.jdt.launching.VMRunnerConfiguration;
  * Models for Service Creation, Consumer Creation
  *
  */
+/**
+ * The Class ServicesUtil.
+ */
 public class ServicesUtil {
 
+	/** The Constant MAJOR_VERSION_PREFIX. */
 	public static final String MAJOR_VERSION_PREFIX = "V";
+	
+	/** The Constant SERVICE_MAJOR_VERSION. */
 	public static final String SERVICE_MAJOR_VERSION = "1";
+	
+	/** The Constant DEFAULT_DOMAIN_CLASSIFIER. */
 	public static final String DEFAULT_DOMAIN_CLASSIFIER = "Blogs";
 
 	/*
 	 * Service Creation from New Wsdl
+	 */
+	/**
+	 * Creates the new svc frm wsdl.
+	 *
+	 * @param name the name
+	 * @param location the location
+	 * @param domainClassifier the domain classifier
+	 * @return true, if successful
 	 */
 	public static boolean createNewSvcFrmWsdl(String name, String location,
 			String domainClassifier) {
@@ -153,6 +169,14 @@ public class ServicesUtil {
 	/*
 	 * Consumer Creation from Java
 	 */
+	/**
+	 * Creates the consumer frm java.
+	 *
+	 * @param name the name
+	 * @param location the location
+	 * @param environment the environment
+	 * @return true, if successful
+	 */
 	public static boolean createConsumerFrmJava(String name, String location,
 			List<String> environment) {
 
@@ -182,6 +206,13 @@ public class ServicesUtil {
 		}
 	}
 
+	/**
+	 * Invoke consumer.
+	 *
+	 * @param consProject the cons project
+	 * @return the string[]
+	 * @throws Exception the exception
+	 */
 	public static String[] invokeConsumer(IProject consProject)
 			throws Exception {
 
@@ -246,6 +277,12 @@ public class ServicesUtil {
 
 	}
 
+	/**
+	 * Gets the consumer fqn.
+	 *
+	 * @param prj the prj
+	 * @return the consumer fqn
+	 */
 	@SuppressWarnings("unchecked")
 	public static String getConsumerFQN(IProject prj) {
 
@@ -289,6 +326,13 @@ public class ServicesUtil {
 	 * For now it sets Binding to LOCAL
 	 */
 
+	/**
+	 * Modify client prj transport.
+	 *
+	 * @param consProject the cons project
+	 * @param serviceName the service name
+	 * @param binding the binding
+	 */
 	public static void modifyClientPrjTransport(IProject consProject,
 			String serviceName, SOAProjectConstants.Binding binding) {
 
@@ -336,6 +380,12 @@ public class ServicesUtil {
 
 	}
 
+	/**
+	 * Gets the service name.
+	 *
+	 * @param wsdlFilePath the wsdl file path
+	 * @return the service name
+	 */
 	public static String getServiceName(String wsdlFilePath) { // gets the
 																// Service Name
 																// and not the
@@ -361,6 +411,12 @@ public class ServicesUtil {
 		return serviceName;
 	}
 
+	/**
+	 * Gets the target namespace from wsdl.
+	 *
+	 * @param wsdlFilePath the wsdl file path
+	 * @return the target namespace from wsdl
+	 */
 	public static String getTargetNamespaceFromWsdl(String wsdlFilePath) { // gets
 																			// the
 																			// Service
@@ -386,6 +442,12 @@ public class ServicesUtil {
 		return targetNamespace;
 	}
 
+	/**
+	 * Gets the namespace to package.
+	 *
+	 * @param wsdlFilePath the wsdl file path
+	 * @return the namespace to package
+	 */
 	public static Map<String, String> getNamespaceToPackage(String wsdlFilePath) {
 		final Map<String, String> result = new LinkedHashMap<String, String>();
 		try {
@@ -407,6 +469,12 @@ public class ServicesUtil {
 		return result;
 	}
 
+	/**
+	 * Gets the domain classifier from wsdl.
+	 *
+	 * @param wsdlFilePath the wsdl file path
+	 * @return the domain classifier from wsdl
+	 */
 	public static String getDomainClassifierFromWsdl(String wsdlFilePath) { // gets
 																			// the
 																			// domain
@@ -443,6 +511,13 @@ public class ServicesUtil {
 	private static SOAConsumerProject consumerProject = null;
 	private static SOAProjectEclipseMetadata soaEclipseMetadata = null;
 
+	/**
+	 * Services intf set up.
+	 *
+	 * @param name the name
+	 * @return the sOA intf project
+	 * @throws Exception the exception
+	 */
 	public static SOAIntfProject servicesIntfSetUp(String name)
 			throws Exception {
 		soaEclipseMetadata = SOAServiceUtil.getSOAEclipseMetadata(WorkspaceUtil
@@ -452,6 +527,13 @@ public class ServicesUtil {
 		return intfProject;
 	}
 
+	/**
+	 * Services impl set up.
+	 *
+	 * @param name the name
+	 * @return the sOA impl project
+	 * @throws Exception the exception
+	 */
 	public static SOAImplProject servicesImplSetUp(String name)
 			throws Exception {
 		soaEclipseMetadata = SOAServiceUtil.getSOAEclipseMetadata(WorkspaceUtil
@@ -461,6 +543,13 @@ public class ServicesUtil {
 		return implProject;
 	}
 
+	/**
+	 * Services consumer set up.
+	 *
+	 * @param name the name
+	 * @return the sOA consumer project
+	 * @throws Exception the exception
+	 */
 	public static SOAConsumerProject servicesConsumerSetUp(String name)
 			throws Exception {
 		soaEclipseMetadata = SOAServiceUtil.getSOAEclipseMetadata(WorkspaceUtil
@@ -472,11 +561,23 @@ public class ServicesUtil {
 		return consumerProject;
 	}
 
+	/**
+	 * Execute pre code generation for consumer fromjava.
+	 *
+	 * @param paramModel the param model
+	 * @return the string
+	 */
 	public static String executePreCodeGenerationForConsumerFromjava(
 			ConsumerFromJavaParamModel paramModel) {
 		return "";
 	}
 
+	/**
+	 * Execute code generation for cosumer from java.
+	 *
+	 * @param projectName the project name
+	 * @return the sOA consumer project
+	 */
 	public static SOAConsumerProject executeCodeGenerationForCosumerFromJava(
 			String projectName) {
 
@@ -484,6 +585,12 @@ public class ServicesUtil {
 
 	}
 
+	/**
+	 * Gets the admin name.
+	 *
+	 * @param serviceName the service name
+	 * @return the admin name
+	 */
 	public static String getAdminName(String serviceName) {
 
 		StringBuffer result = new StringBuffer();
@@ -493,6 +600,13 @@ public class ServicesUtil {
 		return serviceName;
 	}
 
+	/**
+	 * Gets the public service name.
+	 *
+	 * @param serviceName the service name
+	 * @param domainClassifier the domain classifier
+	 * @return the public service name
+	 */
 	public static String getPublicServiceName(String serviceName,
 			String domainClassifier) {
 
@@ -502,6 +616,12 @@ public class ServicesUtil {
 		return result.toString();
 	}
 
+	/**
+	 * Gets the target namespace.
+	 *
+	 * @param domainClassifier the domain classifier
+	 * @return the target namespace
+	 */
 	public static String getTargetNamespace(String domainClassifier) {
 		String nsPart = StringUtils.lowerCase(domainClassifier);
 
@@ -512,6 +632,13 @@ public class ServicesUtil {
 		return targetNS;
 	}
 
+	/**
+	 * Gets the interface package.
+	 *
+	 * @param serviceName the service name
+	 * @param targetNS the target ns
+	 * @return the interface package
+	 */
 	public static String getInterfacePackage(String serviceName, String targetNS) {
 
 		String adminName = ServicesUtil.getAdminName(serviceName);

@@ -21,17 +21,41 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
- * @author yayu
+ * The Interface IErrorLibraryCreator.
  *
+ * @author yayu
  */
 public interface IErrorLibraryCreator {
 	
+	/**
+	 * Pre creation.
+	 *
+	 * @param model the model
+	 * @throws SOAErrorLibraryCreationFailedException the sOA error library creation failed exception
+	 */
 	public void preCreation(ErrorLibraryParamModel model) 
 	throws SOAErrorLibraryCreationFailedException;
 	
+	/**
+	 * Post creation.
+	 *
+	 * @param project the project
+	 * @param model the model
+	 * @param monitor the monitor
+	 * @throws SOAErrorLibraryCreationFailedException the sOA error library creation failed exception
+	 */
 	public void postCreation(IProject project, ErrorLibraryParamModel model,
 			IProgressMonitor monitor) throws SOAErrorLibraryCreationFailedException;
 	
+	/**
+	 * Creates the platform specific artifacts.
+	 *
+	 * @param project the project
+	 * @param srcFolder the src folder
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void createPlatformSpecificArtifacts(IProject project, String srcFolder, 
 			IProgressMonitor monitor) throws CoreException, IOException;
 

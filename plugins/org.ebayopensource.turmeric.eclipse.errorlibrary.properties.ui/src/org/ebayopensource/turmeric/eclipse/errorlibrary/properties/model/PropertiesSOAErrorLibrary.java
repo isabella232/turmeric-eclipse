@@ -22,6 +22,8 @@ import org.eclipse.ui.views.properties.PropertyDescriptor;
 
 
 /**
+ * The Class PropertiesSOAErrorLibrary.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -31,14 +33,15 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	private String version;
 
 	/**
-	 * 
+	 * Instantiates a new properties soa error library.
 	 */
 	public PropertiesSOAErrorLibrary() {
 		super();
 	}
 
 	/**
-	 * 
+	 * Instantiates a new properties soa error library.
+	 *
 	 * @param name error name
 	 * @param version error version
 	 */
@@ -57,7 +60,8 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	}
 	
 	/**
-	 * 
+	 * Adds the error domain.
+	 *
 	 * @param domain error domain
 	 * @return true if the domain was added successfully
 	 */
@@ -66,7 +70,8 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	}
 
 	/**
-	 * 
+	 * Sets the name.
+	 *
 	 * @param name the error name
 	 */
 	public void setName(String name) {
@@ -74,7 +79,8 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	}
 
 	/**
-	 * 
+	 * Sets the version.
+	 *
 	 * @param version version number
 	 */
 	public void setVersion(String version) {
@@ -95,6 +101,9 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 		return version;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -104,6 +113,9 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -126,6 +138,9 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "PropertiesSOAErrorLibrary [domains=" + domains + ", name="

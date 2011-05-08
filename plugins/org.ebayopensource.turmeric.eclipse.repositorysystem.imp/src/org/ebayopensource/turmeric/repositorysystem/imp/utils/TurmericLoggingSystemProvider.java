@@ -16,14 +16,15 @@ import org.ebayopensource.turmeric.eclipse.core.logging.system.ISOALoggingSystem
 
 
 /**
- * @author yayu
+ * The Class TurmericLoggingSystemProvider.
  *
+ * @author yayu
  */
 public class TurmericLoggingSystemProvider implements
 		ISOALoggingSystemProvider {
 	
 	/**
-	 * 
+	 * Instantiates a new turmeric logging system provider.
 	 */
 	public TurmericLoggingSystemProvider() {
 		super();
@@ -48,8 +49,9 @@ public class TurmericLoggingSystemProvider implements
 	}
 	
 	/**
-	 * 
-	 * @param logger
+	 * Inits the log hanlder.
+	 *
+	 * @param logger the logger
 	 */
 	public static void initLogHanlder(Logger logger) {
 		
@@ -74,6 +76,9 @@ public class TurmericLoggingSystemProvider implements
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void loggingPropertyChanged(PropertyChangeEvent event) {
 		
 	}

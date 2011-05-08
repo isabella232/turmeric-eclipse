@@ -74,9 +74,9 @@ public class ServiceTemplateUtil {
 	 * Gets the default port in a definition object. The default is the first
 	 * port type available in the WSDL. If the definition does not have any port
 	 * types then it creates a new one, add it to the definition and returns it.
-	 * 
-	 * @param definition
-	 * @return
+	 *
+	 * @param definition the definition
+	 * @return the default port
 	 */
 	public static PortType getDefaultPort(Definition definition) {
 		PortType portType = null;
@@ -106,10 +106,10 @@ public class ServiceTemplateUtil {
 	 * same name can exist in the WSDL under a different port type and clients
 	 * are supposed to use this API with different port types to achieve a full
 	 * length uniqueness.
-	 * 
-	 * @param portType
-	 * @param opName
-	 * @return
+	 *
+	 * @param portType the port type
+	 * @param opName the op name
+	 * @return true, if successful
 	 */
 	public static boolean operationExists(PortType portType, String opName) {
 		for (Object operationObject : portType.getOperations()) {
@@ -126,13 +126,12 @@ public class ServiceTemplateUtil {
 	/**
 	 * Adds an operation with the given name to the port type. Does not check
 	 * for existing operations. In that case clients can use
-	 * 
+	 *
+	 * @param portType the port type
+	 * @param operationName the operation name
+	 * @return the operation
 	 * @see ServiceTemplateUtil#operationExists(PortType, String) API before
-	 *      calling this API.
-	 * 
-	 * @param portType
-	 * @param operationName
-	 * @return
+	 * calling this API.
 	 */
 	public static Operation addOperation(PortType portType, String operationName) {
 		Operation operation = WSDLFactory.eINSTANCE.createOperation();
@@ -156,11 +155,11 @@ public class ServiceTemplateUtil {
 	 * Adds the specified input parameter to the operation, creates a message
 	 * for it and return the part. Remember for setting the input parameter we
 	 * need the message and part to be added as well.
-	 * 
-	 * @param operation
-	 * @param inputParamName
-	 * @return
-	 * @throws CommandFailedException
+	 *
+	 * @param operation the operation
+	 * @param inputParamName the input param name
+	 * @return the part
+	 * @throws CommandFailedException the command failed exception
 	 */
 	public static Part addInput(Operation operation, String inputParamName)
 			throws CommandFailedException {
@@ -176,11 +175,11 @@ public class ServiceTemplateUtil {
 	 * Adds the specified output parameter to the operation, creates a message
 	 * for it and return the part. Remember for setting the output parameter we
 	 * need the message and part to be added as well.
-	 * 
-	 * @param operation
-	 * @param outputParamName
-	 * @return
-	 * @throws CommandFailedException
+	 *
+	 * @param operation the operation
+	 * @param outputParamName the output param name
+	 * @return the part
+	 * @throws CommandFailedException the command failed exception
 	 */
 	public static Part addOutput(Operation operation, String outputParamName)
 			throws CommandFailedException {
@@ -196,12 +195,12 @@ public class ServiceTemplateUtil {
 	 * Creates the message with the given message name. The WSDL definition is
 	 * automatically discovered from the operation passed. Finally the part is
 	 * also created with this message and returned to the client.
-	 * 
-	 * @param operation
-	 * @param messageName
-	 * @param messageReference
-	 * @return
-	 * @throws CommandFailedException
+	 *
+	 * @param operation the operation
+	 * @param messageName the message name
+	 * @param messageReference the message reference
+	 * @return the part
+	 * @throws CommandFailedException the command failed exception
 	 */
 	public static Part createMessage(Operation operation, String messageName,
 			MessageReference messageReference) throws CommandFailedException {
@@ -217,9 +216,9 @@ public class ServiceTemplateUtil {
 	 * Creates the part for the message, the name of the part is the default
 	 * name and the name space and name are discovered from the message
 	 * parameter. It used the WTP EMF based command internally.
-	 * 
-	 * @param message
-	 * @return
+	 *
+	 * @param message the message
+	 * @return the part
 	 */
 	public static Part createPart(Message message) {
 		AddPartCommand command = new AddPartCommand(message,
@@ -231,20 +230,20 @@ public class ServiceTemplateUtil {
 	}
 
 	/**
-	 * Wrapper over the method
-	 * 
+	 * Wrapper over the method.
+	 *
+	 * @param part the part
+	 * @param operation the operation
+	 * @param typeFolding the type folding
+	 * @return the xSD complex type definition
+	 * @throws CommandFailedException the command failed exception
 	 * @see ServiceTemplateUtil#createXSDElementDefinition(String, Part, String,
-	 *      String).
+	 * String).
 	 * 
 	 * The input parameter element name is computed from the part name using the
 	 * WTP API and the operation parameter. The base service request type name
 	 * and name space are parsed from the "service_config.properties" and passed
 	 * to the API
-	 * 
-	 * @param part
-	 * @param operation
-	 * @return
-	 * @throws CommandFailedException
 	 */
 	public static XSDComplexTypeDefinition createInputComplexType(Part part,
 			Operation operation, boolean typeFolding)
@@ -261,20 +260,20 @@ public class ServiceTemplateUtil {
 	}
 
 	/**
-	 * Wrapper over the method
-	 * 
+	 * Wrapper over the method.
+	 *
+	 * @param part the part
+	 * @param operation the operation
+	 * @param typeFolding the type folding
+	 * @return the xSD complex type definition
+	 * @throws CommandFailedException the command failed exception
 	 * @see ServiceTemplateUtil#createXSDElementDefinition(String, Part, String,
-	 *      String).
+	 * String).
 	 * 
 	 * The output parameter element name is computed from the part name using
 	 * the WTP API and the operation parameter. The base service response type
 	 * name and name space are parsed from the "service_config.properties" and
 	 * passed to the API
-	 * 
-	 * @param part
-	 * @param operation
-	 * @return
-	 * @throws CommandFailedException
 	 */
 	public static XSDComplexTypeDefinition createOutputComplexType(Part part,
 			Operation operation, boolean typeFolding)
@@ -294,10 +293,11 @@ public class ServiceTemplateUtil {
 	 * default w3c data types will carry the prefix from corresponding to w3c
 	 * name space and rest all will be computed and if the prefix does not exist
 	 * then it is added before using it.
-	 * 
-	 * @param parameterElement
-	 * @param complexTypeDefinition
-	 * @throws CommandFailedException
+	 *
+	 * @param parameterElement the parameter element
+	 * @param complexTypeDefinition the complex type definition
+	 * @param typeFolding the type folding
+	 * @throws CommandFailedException the command failed exception
 	 */
 	public static void addElementDeclaration(
 			IParameterElement parameterElement,
@@ -341,10 +341,10 @@ public class ServiceTemplateUtil {
 	 * bindings to see if we have an existing binding. If we don't have one the
 	 * we will add it. Note there is no hard coding for HTTP or SOAP here, but
 	 * is there in the UI and we just consult the WTP model before adding it.
-	 * 
-	 * @param definition
-	 * @param bindings
-	 * @return
+	 *
+	 * @param definition the definition
+	 * @param bindings the bindings
+	 * @return the binding
 	 */
 	public static Binding addBinding(Definition definition,
 			Set<TemplateBinding> bindings) {
@@ -401,12 +401,14 @@ public class ServiceTemplateUtil {
 	 * name space is the base element name space. THe definition is derived from
 	 * the part and the anonymous type is also created based on the part. This
 	 * API also makes sure that the parent type is imported before usage.
-	 * 
-	 * @param elementName
-	 * @param part
-	 * @param baseElementName
-	 * @param baseElementNameSpace
-	 * @return
+	 *
+	 * @param elementName the element name
+	 * @param part the part
+	 * @param baseElementName the base element name
+	 * @param baseElementNameSpace the base element name space
+	 * @param typeFolding the type folding
+	 * @param targetNameSpace the target name space
+	 * @return the xSD complex type definition
 	 */
 	public static XSDComplexTypeDefinition createXSDElementDefinition(
 			String elementName, Part part, String baseElementName,
@@ -457,13 +459,12 @@ public class ServiceTemplateUtil {
 	 * Computes the dependency of the parameter library type and in line the
 	 * WSDL with the computed types. Duplicate types will be ignored. This is
 	 * more a Wrapper over the method
-	 * 
+	 *
+	 * @param libraryType the library type
+	 * @param definition the definition
+	 * @param typeFolding the type folding
+	 * @throws Exception the exception
 	 * @see WTPTypeLibUtil#inlineType(LibraryType, Definition, boolean, boolean)
-	 * 
-	 * @param libraryType
-	 * @param definition
-	 * @param typeFolding
-	 * @throws Exception
 	 */
 	public static void inlineTypesInWSDL(LibraryType libraryType,
 			Definition definition, boolean typeFolding) throws Exception {

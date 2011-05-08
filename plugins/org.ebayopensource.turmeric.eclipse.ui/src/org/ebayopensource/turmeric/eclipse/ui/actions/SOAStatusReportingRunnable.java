@@ -30,14 +30,14 @@ public abstract class SOAStatusReportingRunnable implements IRunnableWithProgres
 	private IStatus status = Status.OK_STATUS;
 	
 	/**
-	 * 
+	 * Instantiates a new sOA status reporting runnable.
 	 */
 	public SOAStatusReportingRunnable() {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.operation.IRunnableWithProgress#run(org.eclipse.core.runtime.IProgressMonitor)
+	/**
+	 * {@inheritDoc}
 	 */
 	public final void run(IProgressMonitor monitor) throws InvocationTargetException,
 			InterruptedException {
@@ -59,13 +59,20 @@ public abstract class SOAStatusReportingRunnable implements IRunnableWithProgres
 	}
 	
 	/**
-	 * no need to try catch
-	 * @param monitor
-	 * @throws Exception
+	 * no need to try catch.
+	 *
+	 * @param monitor the monitor
+	 * @return the i status
+	 * @throws Exception the exception
 	 */
 	public abstract IStatus execute(IProgressMonitor monitor) throws Exception; 
 	
 	
+	/**
+	 * Gets the status.
+	 *
+	 * @return the status
+	 */
 	public IStatus getStatus() {
 		return status;
 	}

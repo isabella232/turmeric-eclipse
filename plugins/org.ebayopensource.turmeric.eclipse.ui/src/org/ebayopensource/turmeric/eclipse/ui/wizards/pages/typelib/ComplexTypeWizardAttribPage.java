@@ -81,11 +81,17 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 				.asList(SOATypeLibraryConstants.SCHEMA_DATA_TYPES));
 	}
 
+	/**
+	 * Instantiates a new complex type wizard attrib page.
+	 */
 	public ComplexTypeWizardAttribPage() {
 		super("complexTypeWizardAttribPage", "Add Details",
 				"Add Attribute Name, Type and Description");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(Composite parent) {
 		final Composite container = super.createParentControl(parent, 2);
 		createViewer(container);
@@ -102,6 +108,11 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		dialogChanged();
 	}
 
+	/**
+	 * Creates the viewer.
+	 *
+	 * @param container the container
+	 */
 	public void createViewer(Composite container) {
 		int style = SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL
 				| SWT.FULL_SELECTION;
@@ -116,6 +127,9 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 				new GridData(SWT.FILL, SWT.FILL, true, true));
 	}
 
+	/**
+	 * Initialize cell editors.
+	 */
 	public void initializeCellEditors() {
 		table = attribViewer.getTable();
 		editors = new CellEditor[colDef.length];
@@ -125,6 +139,11 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		editors[2] = new TextCellEditor(table);
 	}
 
+	/**
+	 * Gets the attrib table model.
+	 *
+	 * @return the attrib table model
+	 */
 	public AttribTableModel[] getAttribTableModel() {
 		AttribTableModel[] attribTableModel = new AttribTableModel[attribHolder
 				.size()];
@@ -231,6 +250,9 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		
@@ -256,6 +278,9 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
@@ -274,22 +299,47 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		private Object attribType;
 		private String attribDesc;
 
+		/**
+		 * Gets the attrib desc.
+		 *
+		 * @return the attrib desc
+		 */
 		public String getAttribDesc() {
 			return attribDesc;
 		}
 
+		/**
+		 * Sets the attrib desc.
+		 *
+		 * @param attribDesc the new attrib desc
+		 */
 		public void setAttribDesc(String attribDesc) {
 			this.attribDesc = attribDesc;
 		}
 
+		/**
+		 * Gets the attrib name.
+		 *
+		 * @return the attrib name
+		 */
 		public String getAttribName() {
 			return attribName;
 		}
 
+		/**
+		 * Sets the attrib name.
+		 *
+		 * @param attribName the new attrib name
+		 */
 		public void setAttribName(String attribName) {
 			this.attribName = attribName;
 		}
 
+		/**
+		 * Gets the attrib type.
+		 *
+		 * @return the attrib type
+		 */
 		public String getAttribType() {
 			if (attribType instanceof LibraryType) {
 				return ((LibraryType) attribType).getName();
@@ -299,47 +349,84 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 			return null;
 		}
 
+		/**
+		 * Sets the attrib type.
+		 *
+		 * @param attribType the new attrib type
+		 */
 		public void setAttribType(Object attribType) {
 			this.attribType = attribType;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public Object getDatatype() {
 			return getAttribType();
 		}
 
+		/**
+		 * Gets the raw data type.
+		 *
+		 * @return the raw data type
+		 */
 		public Object getRawDataType() {
 			return attribType;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public int getMaxOccurs() {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public int getMinOccurs() {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public String getName() {
 			return getAttribName();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public void setDatatype(Object datatype) {
 			setAttribType(datatype);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public void setMaxOccurs(int maxOccurs) throws IllegalArgumentException {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public void setMinOccurs(int minOccurs) throws IllegalArgumentException {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public void setName(String name) {
 			setAttribName(name);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		return SOAProjectConstants.EMPTY_STRING;

@@ -29,8 +29,9 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
- * @author yayu
+ * The Class GlobalProjectHealthChecker.
  *
+ * @author yayu
  */
 public final class GlobalProjectHealthChecker {
 
@@ -44,9 +45,10 @@ public final class GlobalProjectHealthChecker {
 	/**
 	 * This method is used for checking the project health status for a particular SOA project.
 	 * It returns an instance of IStatus  for any issues with the project.
-	 * In the case of an issue with a resource, it will return an instance of IResourceStatus, 
+	 * In the case of an issue with a resource, it will return an instance of IResourceStatus,
 	 * which would have the path of the underlying resource.
-	 * @param project
+	 *
+	 * @param project the project
 	 * @return An instance of <code>IStatus</code>
 	 * @throws Exception If any errors occured during the checking
 	 */
@@ -73,10 +75,12 @@ public final class GlobalProjectHealthChecker {
 	}
 	
 	/**
-	 * @param project
+	 * Gets the sOA project readable resources.
+	 *
+	 * @param project the project
 	 * @return A list of resources that are supposed to be readable for the provided SOA project.
 	 * It will return an empty list if not a valid SOA project.
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public static List<IResource> getSOAProjectReadableResources(final IProject project) 
 	throws Exception {

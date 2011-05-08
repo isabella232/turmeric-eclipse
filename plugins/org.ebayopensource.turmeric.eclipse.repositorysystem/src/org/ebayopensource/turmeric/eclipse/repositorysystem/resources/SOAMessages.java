@@ -20,10 +20,13 @@ public class SOAMessages extends NLS {
 
 	private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.eclipse.repositorysystem.resources.messages"; //$NON-NLS-1$
 	
+	/** The ERRO r_ a r_ ou t_ o f_ date. */
 	public static String  ERROR_AR_OUT_OF_DATE;
 	
+	/** The WARNIN g_ a r_ no t_ available. */
 	public static String  WARNING_AR_NOT_AVAILABLE;
 	
+	/** The ERRO r_ fai l_ t o_ submi t_ servic e_ versio n_ t o_ ar. */
 	public static String ERROR_FAIL_TO_SUBMIT_SERVICE_VERSION_TO_AR;
 
 	

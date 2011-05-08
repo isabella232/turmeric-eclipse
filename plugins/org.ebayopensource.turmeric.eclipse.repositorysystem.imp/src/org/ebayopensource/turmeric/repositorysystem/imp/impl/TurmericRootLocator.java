@@ -17,14 +17,17 @@ import org.eclipse.core.runtime.IPath;
 
 
 /**
- * @author yayu
+ * The Class TurmericRootLocator.
  *
+ * @author yayu
  */
 public class TurmericRootLocator implements ISOARootLocator {
+	
+	/** The Constant INSTANCE. */
 	public static final ISOARootLocator INSTANCE = new TurmericRootLocator();
 
 	/**
-	 * 
+	 * Instantiates a new turmeric root locator.
 	 */
 	public TurmericRootLocator() {
 		

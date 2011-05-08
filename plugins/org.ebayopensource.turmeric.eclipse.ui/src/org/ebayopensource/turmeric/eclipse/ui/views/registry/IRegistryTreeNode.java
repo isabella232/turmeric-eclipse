@@ -12,33 +12,43 @@
 package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 /**
- * @author yayu
+ * The Interface IRegistryTreeNode.
  *
+ * @author yayu
  */
 public interface IRegistryTreeNode {
 
 	/**
-	 * Set parent node
-	 * @param parent
+	 * Set parent node.
+	 *
+	 * @param parent the new parent
 	 */
 	public void setParent(IRegistryTreeNode parent);
 	
 	/**
+	 * Gets the parent.
+	 *
 	 * @return The parent node
 	 */
 	public IRegistryTreeNode getParent();
 	
 	/**
+	 * Sets the node.
+	 *
 	 * @param object The object
 	 */
 	public void setNode(Object object);
 	
 	/**
+	 * Gets the node.
+	 *
 	 * @return The underlying object
 	 */
 	public Object getNode();
 	
 	/**
+	 * Gets the label.
+	 *
 	 * @return The label of the node
 	 */
 	public String getLabel();

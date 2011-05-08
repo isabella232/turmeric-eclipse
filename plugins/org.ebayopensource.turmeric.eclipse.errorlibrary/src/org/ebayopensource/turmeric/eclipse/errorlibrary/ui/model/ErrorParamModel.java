@@ -22,6 +22,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 
 /**
+ * The Class ErrorParamModel.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -41,12 +43,21 @@ public class ErrorParamModel extends BaseServiceParamModel {
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * 
+	 * Instantiates a new error param model.
 	 */
 	public ErrorParamModel() {
 		super();
 	}
 
+	/**
+	 * Generate error id.
+	 *
+	 * @param storeLocation the store location
+	 * @param organizationName the organization name
+	 * @param domain the domain
+	 * @return the long
+	 * @throws Exception the exception
+	 */
 	public static long generateErrorID(String storeLocation,
 			String organizationName, String domain) throws Exception {
 		long startTime = System.currentTimeMillis();
@@ -71,103 +82,217 @@ public class ErrorParamModel extends BaseServiceParamModel {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.resources.ui.model.ISOAServiceParamModel#validate()
+	 * This currently always returns true.
+	 * 
 	 */
 	public boolean validate() {
 		return true;
 	}
 
+	/**
+	 * Gets the domain.
+	 *
+	 * @return the domain
+	 */
 	public String getDomain() {
 		return domain;
 	}
 
+	/**
+	 * Sets the domain.
+	 *
+	 * @param domain the new domain
+	 */
 	public void setDomain(String domain) {
 		this.domain = domain;
 	}
 
+	/**
+	 * Gets the resolution.
+	 *
+	 * @return the resolution
+	 */
 	public String getResolution() {
 		return resolution;
 	}
 
+	/**
+	 * Sets the resolution.
+	 *
+	 * @param resolution the new resolution
+	 */
 	public void setResolution(String resolution) {
 		this.resolution = resolution;
 	}
 
+	/**
+	 * Gets the subdomain.
+	 *
+	 * @return the subdomain
+	 */
 	public String getSubdomain() {
 		return subdomain;
 	}
 
+	/**
+	 * Sets the subdomain.
+	 *
+	 * @param subdomain the new subdomain
+	 */
 	public void setSubdomain(String subdomain) {
 		this.subdomain = subdomain;
 	}
 
+	/**
+	 * Gets the error id.
+	 *
+	 * @return the error id
+	 */
 	public String getErrorID() {
 		return errorID;
 	}
 
+	/**
+	 * Sets the error id.
+	 *
+	 * @param errorID the new error id
+	 */
 	public void setErrorID(String errorID) {
 		this.errorID = errorID;
 	}
 
+	/**
+	 * Gets the nID.
+	 *
+	 * @return the nID
+	 */
 	public long getNID() {
 		return nID;
 	}
 
+	/**
+	 * Sets the nID.
+	 *
+	 * @param nid the new nID
+	 */
 	public void setNID(long nid) {
 		nID = nid;
 	}
 
+	/**
+	 * Gets the category.
+	 *
+	 * @return the category
+	 */
 	public String getCategory() {
 		return category;
 	}
 
+	/**
+	 * Sets the category.
+	 *
+	 * @param category the new category
+	 */
 	public void setCategory(String category) {
 		this.category = category;
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets the organization.
+	 *
+	 * @return the organization
+	 */
 	public String getOrganization() {
 		return organization;
 	}
 
+	/**
+	 * Sets the organization.
+	 *
+	 * @param organization the new organization
+	 */
 	public void setOrganization(String organization) {
 		this.organization = organization;
 	}
 
+	/**
+	 * Gets the severity.
+	 *
+	 * @return the severity
+	 */
 	public String getSeverity() {
 		return severity;
 	}
 
+	/**
+	 * Sets the severity.
+	 *
+	 * @param severity the new severity
+	 */
 	public void setSeverity(String severity) {
 		this.severity = severity;
 	}
 
+	/**
+	 * Gets the message.
+	 *
+	 * @return the message
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * Sets the message.
+	 *
+	 * @param message the new message
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
+	/**
+	 * Gets the error library.
+	 *
+	 * @return the error library
+	 */
 	public String getErrorLibrary() {
 		return errorLibrary;
 	}
 
+	/**
+	 * Sets the error library.
+	 *
+	 * @param errorLibrary the new error library
+	 */
 	public void setErrorLibrary(String errorLibrary) {
 		this.errorLibrary = errorLibrary;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		final StringBuffer buf = new StringBuffer();
@@ -176,6 +301,11 @@ public class ErrorParamModel extends BaseServiceParamModel {
 		return buf.toString();
 	}
 
+	/**
+	 * Gets the free marker data.
+	 *
+	 * @return the free marker data
+	 */
 	public Map<String, String> getFreeMarkerData() {
 		final Map<String, String> data = new ConcurrentHashMap<String, String>();
 		data.put(SOAErrorLibraryConstants.ID, errorID);

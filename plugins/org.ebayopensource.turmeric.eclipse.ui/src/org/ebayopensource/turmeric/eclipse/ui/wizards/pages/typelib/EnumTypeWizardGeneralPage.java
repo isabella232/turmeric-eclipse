@@ -21,19 +21,26 @@ import org.eclipse.swt.widgets.Composite;
 
 
 /**
- * General Page for enum type wizard
- * 
+ * General Page for enum type wizard.
+ *
  * @author ramurthy
- * 
  */
 
 public class EnumTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 
+	/**
+	 * Instantiates a new enum type wizard general page.
+	 *
+	 * @param typeLibName the type lib name
+	 */
 	public EnumTypeWizardGeneralPage(String typeLibName) {
 		super("enumTypeWizardGeneralPage", "Create Enum Type",
 				"Create a new enum type", typeLibName);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(Composite parent) {
 		try {
 			super.createControl(parent, false);
@@ -46,10 +53,16 @@ public class EnumTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected Map<String, URL> getTemplateTypes() {
 		return getTemplateTypeNames(SOAXSDTemplateSubType.ENUM);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected void createTypeCombo(Composite parent, String typeLabel) {
 		baseTypeComp = createCCombo(parent, typeLabel, false,
 				SOATypeLibraryConstants.SCHEMA_DATA_TYPES, 

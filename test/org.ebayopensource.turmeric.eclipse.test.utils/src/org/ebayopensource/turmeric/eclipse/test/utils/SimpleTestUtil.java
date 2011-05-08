@@ -25,11 +25,18 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 
 /**
- * @author rpallikonda
+ * The Class SimpleTestUtil.
  *
+ * @author rpallikonda
  */
 public class SimpleTestUtil {
 
+	/**
+	 * Sets the auto building.
+	 *
+	 * @param flag the new auto building
+	 * @throws CoreException the core exception
+	 */
 	public static void setAutoBuilding(boolean flag ) throws CoreException {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceDescription description = workspace.getDescription();
@@ -39,6 +46,14 @@ public class SimpleTestUtil {
 	
 	/*
 	 * Read content from IFile into String
+	 */
+	/**
+	 * Read contents from i file.
+	 *
+	 * @param file the file
+	 * @return the string
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static String readContentsFromIFile(IFile file) throws CoreException, IOException {
 		InputStream is = file.getContents();
@@ -55,6 +70,13 @@ public class SimpleTestUtil {
 
 	}
 	
+	/**
+	 * Read file as string.
+	 *
+	 * @param filePath the file path
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static String readFileAsString(File filePath)
     throws java.io.IOException{
         StringBuffer fileData = new StringBuffer(1000);

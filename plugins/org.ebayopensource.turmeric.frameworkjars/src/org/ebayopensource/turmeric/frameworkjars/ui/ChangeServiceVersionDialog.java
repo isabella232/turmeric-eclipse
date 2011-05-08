@@ -26,13 +26,16 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * @author yayu
+ * The Class ChangeServiceVersionDialog.
  *
+ * @author yayu
  */
 public class ChangeServiceVersionDialog extends TitleAreaDialog {
 
 	/**
-	 * @param parentShell
+	 * Instantiates a new change service version dialog.
+	 *
+	 * @param parentShell the parent shell
 	 */
 	public ChangeServiceVersionDialog(Shell parentShell) {
 		super(parentShell);

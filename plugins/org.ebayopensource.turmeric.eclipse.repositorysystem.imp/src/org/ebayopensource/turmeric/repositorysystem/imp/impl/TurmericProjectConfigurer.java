@@ -70,8 +70,9 @@ import org.eclipse.jdt.core.JavaCore;
 import freemarker.template.TemplateException;
 
 /**
- * @author yayu
+ * The Class TurmericProjectConfigurer.
  *
+ * @author yayu
  */
 public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 	private static final SOALogger logger = SOALogger.getLogger();
@@ -87,7 +88,7 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 	private static final List<String> EMPTY_STRING_LIST = ListUtil.list(new String[0]);
 
 	/**
-	 * 
+	 * Instantiates a new turmeric project configurer.
 	 */
 	public TurmericProjectConfigurer() {
 		super();

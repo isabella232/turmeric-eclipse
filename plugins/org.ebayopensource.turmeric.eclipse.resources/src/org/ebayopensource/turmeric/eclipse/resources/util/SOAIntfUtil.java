@@ -15,9 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 import java.util.jar.JarFile;
 
@@ -55,8 +53,9 @@ import org.xml.sax.InputSource;
 
 
 /**
+ * The Class SOAIntfUtil.
+ *
  * @author smathew
- * 
  */
 public class SOAIntfUtil {
 	private static final SOALogger logger = SOALogger.getLogger();
@@ -65,14 +64,15 @@ public class SOAIntfUtil {
 	 * This function returns the version of the service metadata.
 	 * For pre 2.4 services, the version would be 1.0.0.
 	 * For post 2.4 services, the logic would be the following:
-	 * 1) For services available in the workspace, 
+	 * 1) For services available in the workspace,
 	 * it would firstly look into the service_intf_project.properties for key sipp_version
-	 * 2) For services only available in the underlying repo system as a jar, 
-	 * then check service_metadata.properties for key smpp_version 
-	 * @param assetName
-	 * @param assetLocation
-	 * @return
-	 * @throws Exception
+	 * 2) For services only available in the underlying repo system as a jar,
+	 * then check service_metadata.properties for key smpp_version
+	 *
+	 * @param assetName the asset name
+	 * @param assetLocation the asset location
+	 * @return the service metadata version
+	 * @throws Exception the exception
 	 */
 	public static Version getServiceMetadataVersion(String assetName, 
 			String assetLocation)
@@ -87,6 +87,13 @@ public class SOAIntfUtil {
 		return new Version(SOAProjectConstants.DEFAULT_VERSION);
 	}
 	
+	/**
+	 * Gets the service version from wsdl.
+	 *
+	 * @param wsdl the wsdl
+	 * @param publicServiceName the public service name
+	 * @return the service version from wsdl
+	 */
 	public static String getServiceVersionFromWsdl(Definition wsdl, 
 			String publicServiceName) {
 		if (wsdl == null) {
@@ -117,6 +124,14 @@ public class SOAIntfUtil {
 		return "";
 	}
 
+	/**
+	 * Load metadata props.
+	 *
+	 * @param assetLocation the asset location
+	 * @param serviceName the service name
+	 * @return the properties
+	 * @throws Exception the exception
+	 */
 	public static Properties loadMetadataProps(String assetLocation,
 			final String serviceName) throws Exception {
 		if (SOALogger.DEBUG)
@@ -138,6 +153,14 @@ public class SOAIntfUtil {
 		return props;
 	}
 
+	/**
+	 * Load intf metadata.
+	 *
+	 * @param assetLocation the asset location
+	 * @param serviceName the service name
+	 * @return the sOA intf metadata
+	 * @throws Exception the exception
+	 */
 	public static SOAIntfMetadata loadIntfMetadata(final String assetLocation,
 			final String serviceName) throws Exception {
 		if (SOALogger.DEBUG)
@@ -167,11 +190,13 @@ public class SOAIntfUtil {
 	}
 
 	/**
-	 * @param zipFile
-	 * @param serviceName
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
+	 * Load metadata props.
+	 *
+	 * @param zipFiles the zip files
+	 * @param serviceName the service name
+	 * @return the properties
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static Properties loadMetadataProps(final JarFile zipFiles[],
 			String serviceName) throws IOException, CoreException {
@@ -201,6 +226,15 @@ public class SOAIntfUtil {
 		return properties;
 	}
 
+	/**
+	 * Load metadata props.
+	 *
+	 * @param project the project
+	 * @param serviceName the service name
+	 * @return the properties
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static Properties loadMetadataProps(final IProject project,
 			final String serviceName) throws IOException, CoreException {
 		if (SOALogger.DEBUG)
@@ -225,6 +259,16 @@ public class SOAIntfUtil {
 		return result;
 	}
 
+	/**
+	 * Save metadata props.
+	 *
+	 * @param oldProperties the old properties
+	 * @param newProperties the new properties
+	 * @param intfProject the intf project
+	 * @return true, if successful
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static boolean saveMetadataProps(Properties oldProperties,
 			Properties newProperties, SOAIntfProject intfProject)
 			throws IOException, CoreException {
@@ -242,6 +286,14 @@ public class SOAIntfUtil {
 		return result;
 	}
 
+	/**
+	 * Save metadata props.
+	 *
+	 * @param newProperties the new properties
+	 * @param intfProject the intf project
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static void saveMetadataProps(Properties newProperties,
 			SOAIntfProject intfProject) throws IOException, CoreException {
 		if (SOALogger.DEBUG)
@@ -253,6 +305,14 @@ public class SOAIntfUtil {
 			logger.exiting();
 	}
 	
+	/**
+	 * Save metadata props.
+	 *
+	 * @param newProperties the new properties
+	 * @param intfProject the intf project
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static void saveMetadataProps(Properties newProperties,
 			IProject intfProject) throws IOException, CoreException {
 		if (SOALogger.DEBUG)
@@ -266,9 +326,11 @@ public class SOAIntfUtil {
 
 	/**
 	 * This is only supposed to be used for modifying service layers and version.
-	 * @param intfProject
-	 * @throws IOException
-	 * @throws CoreException
+	 *
+	 * @param intfProject the intf project
+	 * @param monitor the monitor
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static void saveMetadataProps(SOAIntfProject intfProject, 
 			IProgressMonitor monitor)
@@ -314,12 +376,11 @@ public class SOAIntfUtil {
 
 	/**
 	 * Get the IFile instance of the
-	 * [PROJECT]/gen-meta-src/META-INF/soa/common/config/[SERVICE_NAME]/service_metadata.properties
-	 * 
-	 * @param project
-	 * @param serviceName
-	 *            The interface project name or the service name
-	 * @return
+	 * [PROJECT]/gen-meta-src/META-INF/soa/common/config/[SERVICE_NAME]/service_metadata.properties.
+	 *
+	 * @param project the project
+	 * @param serviceName The interface project name or the service name
+	 * @return the new metadata file
 	 */
 	public static IFile getNewMetadataFile(final IProject project,
 			final String serviceName) {
@@ -330,11 +391,12 @@ public class SOAIntfUtil {
 	
 	/**
 	 * return the instance of the service_metadata.properties file. For old project
-	 * structure it would call getOldMetadataFile(), otherwise it would invoke 
-	 * getNewMetadataFile(); 
-	 * @param project
-	 * @param serviceName
-	 * @return
+	 * structure it would call getOldMetadataFile(), otherwise it would invoke
+	 * getNewMetadataFile();
+	 *
+	 * @param project the project
+	 * @param serviceName the service name
+	 * @return the metadata file
 	 */
 	public static IFile getMetadataFile(final IProject project, 
 			final String serviceName) {
@@ -355,12 +417,11 @@ public class SOAIntfUtil {
 	
 	/**
 	 * Get the IFile instance of the
-	 * [PROJECT]/meta-src/META-INF/soa/common/config/[SERVICE_NAME]/service_metadata.properties
-	 * 
-	 * @param project
-	 * @param serviceName
-	 *            The interface project name or the service name
-	 * @return
+	 * [PROJECT]/meta-src/META-INF/soa/common/config/[SERVICE_NAME]/service_metadata.properties.
+	 *
+	 * @param project the project
+	 * @param serviceName The interface project name or the service name
+	 * @return the old metadata file
 	 */
 	public static IFile getOldMetadataFile(final IProject project, 
 			final String serviceName) {
@@ -369,6 +430,13 @@ public class SOAIntfUtil {
 				serviceName);
 	}
 
+	/**
+	 * Gets the type mappings file.
+	 *
+	 * @param project the project
+	 * @param serviceName the service name
+	 * @return the type mappings file
+	 */
 	public static IFile getTypeMappingsFile(final IProject project,
 			final String serviceName) {
 		return project.getFile(StringUtil.toString(
@@ -378,17 +446,37 @@ public class SOAIntfUtil {
 				SOAProjectConstants.FILE_TYPE_MAPPINGS));
 	}
 
+	/**
+	 * Gets the metadata file.
+	 *
+	 * @param intfProject the intf project
+	 * @return the metadata file
+	 */
 	public static IFile getMetadataFile(SOAIntfProject intfProject) {
 		IProject project = intfProject.getEclipseMetadata().getProject();
 		return getMetadataFile(project, intfProject.getMetadata()
 				.getServiceName());
 	}
 
+	/**
+	 * Gets the intf project prop file.
+	 *
+	 * @param project the project
+	 * @return the intf project prop file
+	 */
 	public static IFile getIntfProjectPropFile(final IProject project) {
 		return project
 				.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_INTERFACE);
 	}
 
+	/**
+	 * Load intf project prop file.
+	 *
+	 * @param project the project
+	 * @return the properties
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static Properties loadIntfProjectPropFile(final IProject project)
 			throws CoreException, IOException {
 		final Properties properties = new Properties();
@@ -408,6 +496,13 @@ public class SOAIntfUtil {
 		return properties;
 	}
 
+	/**
+	 * Sets the information from wsdl.
+	 *
+	 * @param wsdlLocation the wsdl location
+	 * @param metadata the metadata
+	 * @throws WSDLException the wSDL exception
+	 */
 	public static void setInformationFromWsdl(final URL wsdlLocation,
 			final SOAIntfMetadata metadata) throws WSDLException {
 		if (wsdlLocation != null) {
@@ -415,6 +510,14 @@ public class SOAIntfUtil {
 		}
 	}
 
+	/**
+	 * Sets the information from wsdl.
+	 *
+	 * @param documentBaseURI the document base uri
+	 * @param wsdlStream the wsdl stream
+	 * @param metadata the metadata
+	 * @throws WSDLException the wSDL exception
+	 */
 	public static void setInformationFromWsdl(final String documentBaseURI,
 			final InputStream wsdlStream, final SOAIntfMetadata metadata)
 			throws WSDLException {
@@ -433,6 +536,13 @@ public class SOAIntfUtil {
 		}
 	}
 
+	/**
+	 * Sets the information from wsdl.
+	 *
+	 * @param wsdlLocation the wsdl location
+	 * @param metadata the metadata
+	 * @throws WSDLException the wSDL exception
+	 */
 	public static void setInformationFromWsdl(final String wsdlLocation,
 			final SOAIntfMetadata metadata) throws WSDLException {
 		if (SOALogger.DEBUG)
@@ -445,6 +555,13 @@ public class SOAIntfUtil {
 			logger.exiting();
 	}
 
+	/**
+	 * Sets the information from wsdl.
+	 *
+	 * @param wsdl the wsdl
+	 * @param metadata the metadata
+	 * @throws WSDLException the wSDL exception
+	 */
 	public static void setInformationFromWsdl(final Definition wsdl,
 			final SOAIntfMetadata metadata) throws WSDLException {
 		if (SOALogger.DEBUG)
@@ -463,13 +580,13 @@ public class SOAIntfUtil {
 
 	/**
 	 * load the metadata from
-	 * [PROJECT]/meta-src/META-INF/soa/common/config/[SERVICE_NAME]/service_metadata.properties
-	 * 
-	 * @param project
-	 * @param metadata
-	 * @throws IOException
-	 * @throws CoreException
-	 * @throws WSDLException
+	 * [PROJECT]/meta-src/META-INF/soa/common/config/[SERVICE_NAME]/service_metadata.properties.
+	 *
+	 * @param project the project
+	 * @param metadata the metadata
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 * @throws WSDLException the wSDL exception
 	 */
 	public static void fillMetadata(final IProject project,
 			final SOAIntfMetadata metadata) throws IOException, CoreException,
@@ -493,6 +610,14 @@ public class SOAIntfUtil {
 			logger.exiting();
 	}
 
+	/**
+	 * Gets the metadata from properties.
+	 *
+	 * @param properties the properties
+	 * @param metadata the metadata
+	 * @return the metadata from properties
+	 * @throws MalformedURLException the malformed url exception
+	 */
 	public static SOAIntfMetadata getMetadataFromProperties(
 			final Properties properties, SOAIntfMetadata metadata)
 			throws MalformedURLException {
@@ -555,15 +680,16 @@ public class SOAIntfUtil {
 	}
 
 	/**
-	 * load the service_metadata.properties from the correct location: 
+	 * load the service_metadata.properties from the correct location:
 	 * 1) if file exists in meta-src folder, then it is using old dir structure
 	 * 2) if file exists in gen-meta-src folder, then it is using the new dir structure and it is already been generated
-	 * 3) if file does not exist in the previous two locations, then it should be using new dir but file not generated yet. 
+	 * 3) if file does not exist in the previous two locations, then it should be using new dir but file not generated yet.
 	 * Read it from service_interface_project.properties file.
-	 * @param projectDir
-	 * @param serviceName
-	 * @return
-	 * @throws IOException
+	 *
+	 * @param projectDir the project dir
+	 * @param serviceName the service name
+	 * @return the properties
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static Properties loadMetadataProps(final IPath projectDir,
 			final String serviceName) throws IOException {
@@ -610,6 +736,14 @@ public class SOAIntfUtil {
 		return result;
 	}
 
+	/**
+	 * Gets the wSDL url from intf project.
+	 *
+	 * @param serviceName the service name
+	 * @param requiredServiceProjectPath the required service project path
+	 * @return the wSDL url from intf project
+	 * @throws Exception the exception
+	 */
 	public static Definition getWSDLUrlFromIntfProject(
 			final String serviceName, String requiredServiceProjectPath)
 			throws Exception {
@@ -622,16 +756,19 @@ public class SOAIntfUtil {
 	private static final String ELEM_NAME_DOCUMENTATION = "documentation";
 	private static final String ELEM_NAME_VERSION_V2_CAMEL_CASE = "Version";
 	private static final String ELEM_NAME_VERSION_V3_CAMEL_CASE = "version";
+	
 	/**
 	 * The format should be the following
-	 * <wsdl:service name="CreativeService">
-	 * <wsdl:documentation>
-	 *	  <Version>1.0</Version>
-     * </wsdl:documentation>
+	 * &lt;wsdl:service name="CreativeService">
+	 * &lt;wsdl:documentation>
+	 *    &lt;version>1.0&lt;/version>
+	 * &lt;/wsdl:documentation>
 	 * ...
-	 * @param project
-	 * @param newVersion
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param newVersion the new version
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public static void modifyWsdlAppInfoVersion(final IProject project, 
 			final String newVersion, IProgressMonitor monitor)

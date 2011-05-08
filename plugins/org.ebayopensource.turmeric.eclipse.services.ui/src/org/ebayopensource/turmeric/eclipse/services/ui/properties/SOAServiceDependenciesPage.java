@@ -60,11 +60,14 @@ import org.jdom.JDOMException;
 
 
 /**
+ * The Class SOAServiceDependenciesPage.
+ *
  * @author yayu
- * 
  */
 public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		implements IWorkbenchPropertyPage {
+	
+	/** The Constant REQUIRED_SERVICES_DELIMITER. */
 	public static final String REQUIRED_SERVICES_DELIMITER = ",";
 	private IProject project;
 	private boolean isOldClientConfigDirStructure = false;
@@ -80,11 +83,18 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Instantiates a new sOA service dependencies page.
+	 */
 	public SOAServiceDependenciesPage() {
 		super(FieldEditorPreferencePage.GRID);
 		noDefaultAndApplyButton();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#createFieldEditors()
+	 */
 	@Override
 	protected void createFieldEditors() {
 		if (project != null) {
@@ -137,6 +147,10 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		return layout;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *  @see org.eclipse.ui.IWorkbenchPropertyPage#getElement()
+	 */
 	public IAdaptable getElement() {
 		return null;
 	}
@@ -194,6 +208,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		addField(serviceLocationEditor);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#initialize()
+	 */
 	@Override
 	protected void initialize() {
 		super.initialize();
@@ -382,6 +401,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		editorParentMap.put(messageProtocolEditor, group);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.ui.IWorkbenchPropertyPage#setElement(org.eclipse.core.runtime.IAdaptable)
+	 */
 	public void setElement(IAdaptable element) {
 		try {
 			if (element.getAdapter(IProject.class) instanceof IProject) {
@@ -403,6 +427,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 				editorParentMap.get(simpleComboEditor)).getText();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#performOk()
+	 */
 	@Override
 	public boolean performOk() {
 		try {
@@ -472,6 +501,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#checkState()
+	 */
 	@Override
 	protected void checkState() {
 		try {

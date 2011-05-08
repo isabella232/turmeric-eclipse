@@ -32,6 +32,9 @@ public class RegistryRefreshHandler extends AbstractHandler implements IHandler 
 	private TreeViewer typeLibraryViewer = null;
 	private Object input = null;
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
+	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		init(event);

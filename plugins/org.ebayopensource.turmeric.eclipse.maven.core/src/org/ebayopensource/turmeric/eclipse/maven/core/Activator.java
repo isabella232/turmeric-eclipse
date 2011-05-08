@@ -17,9 +17,9 @@ import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
 /**
- * 
- * @since 1.0
+ * The Class Activator.
  *
+ * @since 1.0
  */
 public class Activator extends Plugin {
 	/**
@@ -32,13 +32,12 @@ public class Activator extends Plugin {
 	
 	private static SOALogger logger = SOALogger.getLogger();
 	
-	/**
-	 * 
-	 */
+	/** The plugin properties. */
 	protected PropertyResourceBundle pluginProperties;
 
 	/**
-	 * 
+	 * Gets the config properties.
+	 *
 	 * @return the configuratin properties
 	 */
     public PropertyResourceBundle getConfigProperties(){
@@ -52,6 +51,9 @@ public class Activator extends Plugin {
     	return pluginProperties;
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.core.runtime.Plugin#start(org.osgi.framework.BundleContext)
+     */
     @Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -63,6 +65,9 @@ public class Activator extends Plugin {
         logger.info(buf);
 	}
 
+    /* (non-Javadoc)
+     * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
+     */
     @Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;

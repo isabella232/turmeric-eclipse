@@ -27,21 +27,30 @@ import org.eclipse.swt.widgets.Text;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
- * @author yayu
+ * The Class DataTypeManagementWizardPage.
  *
+ * @author yayu
  */
 public class DataTypeManagementWizardPage extends AbstractElementManagementWizardPage {
 	
 	/**
-	 * @param pageName
-	 * @param title
-	 * @param description
+	 * Instantiates a new data type management wizard page.
+	 *
+	 * @param title the title
+	 * @param elements the elements
 	 */
 	public DataTypeManagementWizardPage(String title,  
 			List<? extends IParameterElement> elements) {
 		this(title, elements, 1);
 	}
 	
+	/**
+	 * Instantiates a new data type management wizard page.
+	 *
+	 * @param title the title
+	 * @param elements the elements
+	 * @param minimumRequiredElementNum the minimum required element num
+	 */
 	public DataTypeManagementWizardPage(String title,
 			List<? extends IParameterElement> elements,
 			int minimumRequiredElementNum) {
@@ -49,39 +58,57 @@ public class DataTypeManagementWizardPage extends AbstractElementManagementWizar
 				"manage elements for the given parameter", elements, minimumRequiredElementNum);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 		dialogChanged();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<IParameterElement> getElements() {
 		return this.elements;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		return SOAProjectConstants.EMPTY_STRING;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage#addPressed()
+	 */
 	@Override
 	protected void addPressed() {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage#removePrssed(java.lang.Object)
+	 */
 	@Override
 	protected void removePrssed(Object object) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage#createNewElement(java.lang.String, java.lang.String)
+	 */
 	@Override
 	protected IParameterElement createNewElement(String name, String type) {
 		return new ParameterElement(name, type);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	protected Object openTypeSelectorDialog(Shell shell, LibraryType[] libTypes) {
 		TypeSelector typeSelector = new TypeSelector(shell,
 				"Select Type",	libTypes,
@@ -92,6 +119,9 @@ public class DataTypeManagementWizardPage extends AbstractElementManagementWizar
 		return null;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	protected List<LibraryType> getSelectedLibraryTypes() throws Exception {
 		return SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
 		.getAllTypes();

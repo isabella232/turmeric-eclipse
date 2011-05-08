@@ -19,13 +19,15 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
- * @author yayu
+ * The Interface IMavenOrganizationProvider.
  *
+ * @author yayu
  */
 public interface IMavenOrganizationProvider extends ISOAOrganizationProvider {
 	
 	/**
-	 * 
+	 * Gets the parent pom.
+	 *
 	 * @param projectType the project type
 	 * @return the parent POM instance of null if no parent POM
 	 */
@@ -48,10 +50,12 @@ public interface IMavenOrganizationProvider extends ISOAOrganizationProvider {
 	
 	/**
 	 * post action after adding the list of impl projects to the target web project.
-	 * @param serviceImplProjects
-	 * @param webProject
-	 * @param monitor
-	 * @throws Exception
+	 *
+	 * @param serviceImplProjects the service impl projects
+	 * @param webProject the web project
+	 * @param webProjectPom the web project pom
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public void postAddingServiceToWebProjects(
 			List<IProject> serviceImplProjects, IProject webProject,

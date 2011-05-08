@@ -76,37 +76,62 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
+ * The Class AbstractNewServiceFromWSDLWizardPage.
+ *
  * @author yayu
- * 
  */
 public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		AbstractNewServiceWizardPage {
 	private Text wsdlURLText;
 	private Button importWSDLFileButton;
+	
+	/** The ns2pkg viewer. */
 	protected TableViewer ns2pkgViewer;
 	private boolean hasWSDLError;
 	private Button overrideNamespaceBtn;
 	private Text namespaceText;
+	
+	/** The public service name text. */
 	protected Text publicServiceNameText;
+	
+	/** The wsdl. */
 	protected Definition wsdl;
 
 	/**
-	 * @param pageName
+	 * Instantiates a new abstract new service from wsdl wizard page.
+	 *
+	 * @param pageName the page name
+	 * @param title the title
+	 * @param description the description
 	 */
 	public AbstractNewServiceFromWSDLWizardPage(String pageName, String title,
 			String description) {
 		super(pageName, title, description);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		return dialogChanged(false);
 	}
 	
+	/**
+	 * Checks for wsdl error.
+	 *
+	 * @return true, if successful
+	 */
 	protected boolean hasWsdlError() {
 		return hasWSDLError;
 	}
 
+	/**
+	 * Dialog changed.
+	 *
+	 * @param validateWsdl the validate wsdl
+	 * @return true, if successful
+	 */
 	protected boolean dialogChanged(boolean validateWsdl) {
 		if (wsdlURLText != null) {
 			String wsdlUrl = getWSDLURL();
@@ -179,6 +204,11 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		return true;
 	}
 	
+	/**
+	 * Adds the service impl type combo box.
+	 *
+	 * @param parent the parent
+	 */
 	protected void addServiceImplTypeComboBox(final Composite parent) {
 		final CCombo combo = super.createCCombo(parent, "Service Implementation Type",
 				false,new String[]{"Service Impl", "Service Impl Factory"}, "the implementation type of the new service");
@@ -186,6 +216,12 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 	}
 
 
+	/**
+	 * Adds the wsdl.
+	 *
+	 * @param composite the composite
+	 * @return the text
+	 */
 	protected Text addWSDL(final Composite composite) {
 		final Label label = new Label(composite, SWT.NULL);
 		label.setText("&WSDL: ");
@@ -243,6 +279,14 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		return wsdlURLText;
 	}
 	
+	/**
+	 * Adds the target namespace.
+	 *
+	 * @param parent the parent
+	 * @param defaultNamespace the default namespace
+	 * @param allowOverride the allow override
+	 * @return the composite
+	 */
 	protected Composite addTargetNamespace(final Composite parent, 
 			final String defaultNamespace, final boolean allowOverride) {
 		final String namespace = StringUtils.isNotBlank(defaultNamespace) 
@@ -267,6 +311,11 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		return parent;
 	}
 	
+	/**
+	 * Target namespace modified.
+	 *
+	 * @param newNamespace the new namespace
+	 */
 	protected void targetNamespaceModified(String newNamespace) {
 		if (StringUtils.isNotBlank(newNamespace)) {
 			final String defaultPkgName = ConfigTool
@@ -284,11 +333,21 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		}
 	}
 	
+	/**
+	 * Populate service namespace.
+	 *
+	 * @return the string
+	 */
 	public String populateServiceNamespace() {
 		return getOrganizationProvider()
 		.generateServiceNamespace(getServiceDomain(), getDomainClassifier(), getServiceVersion());
 	}
 
+	/**
+	 * Adds the wsdl package to namespace.
+	 *
+	 * @param parent the parent
+	 */
 	protected void addWSDLPackageToNamespace(final Composite parent) {
 		ns2pkgViewer = new TableViewer(parent, SWT.SINGLE | SWT.H_SCROLL
 				| SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
@@ -436,6 +495,11 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		return JDTUtil.validatePacakgeName(newPkgValue);
 	}
 
+	/**
+	 * Gets the namespace to package mappings.
+	 *
+	 * @return the namespace to package mappings
+	 */
 	public Map<String, String> getNamespaceToPackageMappings() {
 		final Map<String, String> result = new LinkedHashMap<String, String>();
 		for (final TableItem item : ns2pkgViewer.getTable().getItems()) {
@@ -515,10 +579,18 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		return true;
 	}
 	
+	/**
+	 * Gets the current wsdl definition.
+	 *
+	 * @return the current wsdl definition
+	 */
 	protected Definition getCurrentWSDLDefinition() {
 		return this.wsdl;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage#domainClassifierChanged()
+	 */
 	@Override
 	protected void domainClassifierChanged() {
 		final Text adminText = getResourceNameText();
@@ -539,6 +611,9 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		dialogChanged();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#setServiceName(java.lang.String)
+	 */
 	@Override
 	protected void setServiceName(String serviceName) {
 		if (serviceName != null) {
@@ -551,6 +626,9 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#addServiceVersion(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	protected Text addServiceVersion(Composite composite) {
 		final Text text = super.addServiceVersion(composite);
@@ -563,6 +641,11 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		return text;
 	}
 	
+	/**
+	 * Service version changed.
+	 *
+	 * @param newServiceVersion the new service version
+	 */
 	protected void serviceVersionChanged(String newServiceVersion) {
 		if (publicServiceNameText != null) {
 			//we only set the service name if we use public service name text field
@@ -584,6 +667,13 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		}
 	}
 
+	/**
+	 * Adds the service name.
+	 *
+	 * @param composite the composite
+	 * @param editable the editable
+	 * @return the text
+	 */
 	protected Text addServiceName(final Composite composite, boolean editable) {
 		final ModifyListener svcNameListener = new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
@@ -628,11 +718,19 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 	}
 	
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getPublicServiceName() {
 		String publicSvcName = getTextValue(publicServiceNameText);
 		return publicSvcName;
 	}
 	
+	/**
+	 * Compute service name.
+	 *
+	 * @return the string
+	 */
 	public String computeServiceName() {
 		final String serviceName = getPublicServiceName();
 		if (StringUtils.isEmpty(serviceName))
@@ -646,6 +744,9 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		return SOAServiceUtil.computeAdminName(serviceName, domainClassifier, getServiceVersion());
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#getDefaultResourceName()
+	 */
 	@Override
 	public String getDefaultResourceName() {
 		final String defaultName = computeServiceName();
@@ -655,35 +756,64 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 			return super.getDefaultResourceName();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#getDefaultServicePackageNamePrefix()
+	 */
 	@Override
 	protected String getDefaultServicePackageNamePrefix() {
 		return SOAServiceUtil.generatePackageNamePrefix(getTargetNamespace());
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#getDefaultIMplPackageNamePrefix()
+	 */
 	@Override
 	protected String getDefaultIMplPackageNamePrefix() {
 		return SOAServiceUtil.generatePackageNamePrefix(getTargetNamespace());
 	}
 	
+	/**
+	 * Gets the target namespace.
+	 *
+	 * @return the target namespace
+	 */
 	public String getTargetNamespace() {
 		return getTextValue(namespaceText);
 	}
 	
+	/**
+	 * Gets the target namespace text.
+	 *
+	 * @return the target namespace text
+	 */
 	public Text getTargetNamespaceText() {
 		return namespaceText;
 	}
 	
+	/**
+	 * Sets the target namespace.
+	 *
+	 * @param namespace the new target namespace
+	 */
 	public void setTargetNamespace(String namespace) {
 		if (StringUtils.isNotBlank(namespace) && this.namespaceText != null)
 			this.namespaceText.setText(namespace);
 	}
 
+	/**
+	 * Gets the wSDLURL.
+	 *
+	 * @return the wSDLURL
+	 */
 	public String getWSDLURL() {
 		if (wsdlURLText == null || StringUtils.isBlank(wsdlURLText.getText()))
 			return "";
 		return getTextValue(wsdlURLText);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		if (text == this.namespaceText) {
@@ -693,6 +823,11 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		}
 	}
 
+	/**
+	 * Wsdl changed.
+	 *
+	 * @param wsdl the wsdl
+	 */
 	public abstract void wsdlChanged(final Definition wsdl);
 	
 	

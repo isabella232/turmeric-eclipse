@@ -18,13 +18,14 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 /**
- * @author yayu
+ * The Class TurmericProjectHealthChecker.
  *
+ * @author yayu
  */
 public class TurmericProjectHealthChecker implements IProjectHealthChecker {
 
 	/**
-	 * 
+	 * Instantiates a new turmeric project health checker.
 	 */
 	public TurmericProjectHealthChecker() {
 		super();

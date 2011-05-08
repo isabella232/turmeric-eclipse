@@ -29,10 +29,9 @@ import org.eclipse.swt.widgets.Text;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
- * General Page for complex type with complex content wizard
- * 
+ * General Page for complex type with complex content wizard.
+ *
  * @author ramurthy
- * 
  */
 
 public class ComplexTypeCCWizardGeneralPage extends
@@ -42,12 +41,20 @@ public class ComplexTypeCCWizardGeneralPage extends
 
 	private Button extensionTypeButton;
 
+	/**
+	 * Instantiates a new complex type cc wizard general page.
+	 *
+	 * @param typeLibName the type lib name
+	 */
 	public ComplexTypeCCWizardGeneralPage(String typeLibName) {
 		super("complexTypeCCWizardGeneralPage",
 				"Create Complex Type (Complex Content)",
 				"Create a new complex type with complex content", typeLibName);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardGeneralPage#createControl(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	public void createControl(Composite parent) {
 		try {
@@ -61,6 +68,11 @@ public class ComplexTypeCCWizardGeneralPage extends
 		}
 	}
 
+	/**
+	 * Creates the extension type.
+	 *
+	 * @param parent the parent
+	 */
 	protected void createExtensionType(final Composite parent) {
 		extensionType = super.createLabelTextField(container, getBaseType(), "", 
 				modifyListener, false, false, "base extension type");
@@ -98,6 +110,9 @@ public class ComplexTypeCCWizardGeneralPage extends
 		});
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewTypeWizardPage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		if (super.dialogChanged() == false)
@@ -112,6 +127,9 @@ public class ComplexTypeCCWizardGeneralPage extends
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewTypeWizardPage#getRawBaseType()
+	 */
 	@Override
 	public Object getRawBaseType() {
 		if (extensionType.getData() != null) {
@@ -121,6 +139,9 @@ public class ComplexTypeCCWizardGeneralPage extends
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected Map<String, URL> getTemplateTypes() {
 		return getTemplateTypeNames(SOAXSDTemplateSubType.COMPLEX_COMPLEXCONTENT);
 	}

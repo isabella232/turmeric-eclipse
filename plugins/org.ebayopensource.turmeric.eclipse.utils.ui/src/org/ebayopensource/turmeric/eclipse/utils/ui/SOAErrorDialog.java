@@ -39,9 +39,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * 
- * code to show error message for soa plug-ins
- * 
+ * code to show error message for soa plug-ins.
  */
 public class SOAErrorDialog extends IconAndMessageDialog {
 
@@ -73,13 +71,13 @@ public class SOAErrorDialog extends IconAndMessageDialog {
     
 
     /**
-     * create an error dialog instance
-     * 
-     * @param parent
-     * @param title
-     * @param message
-     * @param status
-     * @param mask
+     * create an error dialog instance.
+     *
+     * @param parent the parent
+     * @param title the title
+     * @param message the message
+     * @param status the status
+     * @param mask the mask
      */
     public SOAErrorDialog(Shell parent, String title, String message,
             IStatus status, int mask) {
@@ -87,6 +85,19 @@ public class SOAErrorDialog extends IconAndMessageDialog {
 
     }
 
+    /**
+     * Instantiates a new sOA error dialog.
+     *
+     * @param parent the parent
+     * @param title the title
+     * @param message the message
+     * @param status the status
+     * @param mask the mask
+     * @param needLineBreak the need line break
+     * @param needLineTitle the need line title
+     * @param needCancelButton the need cancel button
+     * @param changeButtonLabel the change button label
+     */
     public SOAErrorDialog(Shell parent, String title, String message,
             IStatus status, int mask, boolean needLineBreak,
             boolean needLineTitle, boolean needCancelButton,
@@ -113,6 +124,8 @@ public class SOAErrorDialog extends IconAndMessageDialog {
     /**
      * Handle "Details" button action.show details if it is hidden. Hide details
      * if it is shown.
+     *
+     * @param id the id
      */
     protected void buttonPressed(int id) {
         if (id == IDialogConstants.DETAILS_ID) {
@@ -122,11 +135,17 @@ public class SOAErrorDialog extends IconAndMessageDialog {
         }
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     protected void configureShell(Shell shell) {
         super.configureShell(shell);
         shell.setText(errorDialogTitle);
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     protected void createButtonsForButtonBar(Composite parent) {
         // create OK and Details buttons
         String okLabel = IDialogConstants.OK_LABEL;
@@ -146,7 +165,10 @@ public class SOAErrorDialog extends IconAndMessageDialog {
     }
 
     /**
-     * create the main part of the dialog
+     * create the main part of the dialog.
+     *
+     * @param parent the parent
+     * @return the control
      */
     protected Control createDialogArea(Composite parent) {
         createMessageArea(parent);
@@ -168,6 +190,9 @@ public class SOAErrorDialog extends IconAndMessageDialog {
         return composite;
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     protected void createDialogAndButtonArea(Composite parent) {
         super.createDialogAndButtonArea(parent);
         if (this.dialogArea instanceof Composite) {
@@ -180,6 +205,8 @@ public class SOAErrorDialog extends IconAndMessageDialog {
 
     /**
      * get dialog icon.
+     *
+     * @return the image
      */
     protected Image getImage() {
         if (status != null) {
@@ -198,10 +225,10 @@ public class SOAErrorDialog extends IconAndMessageDialog {
     }
 
     /**
-     * create the details list
-     * 
-     * @param parent
-     * @return
+     * create the details list.
+     *
+     * @param parent the parent
+     * @return the list
      */
     protected List createDetailsList(Composite parent) {
         // create the list
@@ -240,7 +267,9 @@ public class SOAErrorDialog extends IconAndMessageDialog {
     }
 
     /**
-     * open error dialog.only show desired status based on status mask
+     * open error dialog.only show desired status based on status mask.
+     *
+     * @return the int
      */
     public int open() {
         if (shouldShow(status, filterMask)) {
@@ -250,18 +279,51 @@ public class SOAErrorDialog extends IconAndMessageDialog {
         return OK;
     }
 
+    /**
+     * Open error.
+     *
+     * @param parent the parent
+     * @param dialogTitle the dialog title
+     * @param message the message
+     * @param status the status
+     * @return the int
+     */
     public static int openError(Shell parent, String dialogTitle,
             String message, IStatus status) {
         return openError(parent, dialogTitle, message, status, IStatus.OK
                 | IStatus.INFO | IStatus.WARNING | IStatus.ERROR);
     }
 
+    /**
+     * Open error.
+     *
+     * @param parentShell the parent shell
+     * @param title the title
+     * @param message the message
+     * @param status the status
+     * @param displayMask the display mask
+     * @return the int
+     */
     public static int openError(Shell parentShell, String title,
             String message, IStatus status, int displayMask) {
         return openError(parentShell, title, message, status, displayMask,
                 false, false, false, false);
     }
 
+    /**
+     * Open error.
+     *
+     * @param parentShell the parent shell
+     * @param title the title
+     * @param message the message
+     * @param status the status
+     * @param displayMask the display mask
+     * @param needLineBreak the need line break
+     * @param needLineTitle the need line title
+     * @param needCancelButton the need cancel button
+     * @param changeButtonLabel the change button label
+     * @return the int
+     */
     public static int openError(Shell parentShell, String title,
             String message, IStatus status, int displayMask,
             boolean needLineBreak, boolean needLineTitle,
@@ -283,6 +345,13 @@ public class SOAErrorDialog extends IconAndMessageDialog {
         }
     }
 
+    /**
+     * Should show.
+     *
+     * @param status the status
+     * @param mask the mask
+     * @return true, if successful
+     */
     protected static boolean shouldShow(IStatus status, int mask) {
         IStatus[] children = status.getChildren();
         if (children == null || children.length == 0) {
@@ -412,6 +481,9 @@ public class SOAErrorDialog extends IconAndMessageDialog {
                 new Transfer[] { TextTransfer.getInstance() });
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     public boolean close() {
         if (clipboard != null) {
             clipboard.dispose();
@@ -419,6 +491,11 @@ public class SOAErrorDialog extends IconAndMessageDialog {
         return super.close();
     }
 
+    /**
+     * Should show details button.
+     *
+     * @return true, if successful
+     */
     protected boolean shouldShowDetailsButton() {
         return status.isMultiStatus() || status.getException() != null;
     }

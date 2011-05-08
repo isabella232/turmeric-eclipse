@@ -17,6 +17,9 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model;
  */
 public class GenTypeCreateTypeLibrary extends BaseTypeLibCodegenModel {
 
+	/**
+	 * Instantiates a new gen type create type library.
+	 */
 	public GenTypeCreateTypeLibrary() {
 		super();
 		setGenType(GENTYPE_CREATETYPELIBRARY);

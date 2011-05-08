@@ -37,14 +37,16 @@ import org.eclipse.wst.wsdl.Definition;
  */
 public class FileProcessor implements ICommand {
 
-	/*
+	/**
 	 * This is where the save logic resides. The parameter should be the file
 	 * processor parameter for this API to react.
-	 * 
-	 * (non-Javadoc)
-	 * 
+	 *
+	 * @param object the object
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws CommandFailedException the command failed exception
 	 * @see org.ebayopensource.turmeric.eclipse.core.ICommand#execute(java.lang.Object,
-	 *      org.eclipse.core.runtime.IProgressMonitor)
+	 * org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public boolean execute(Object object, IProgressMonitor monitor)
 			throws CommandFailedException {
@@ -82,22 +84,48 @@ public class FileProcessor implements ICommand {
 		private Definition inputWSDLDef;
 		private IFile outputFile;
 
+		/**
+		 * Gets the input wsdl.
+		 *
+		 * @return the input wsdl
+		 */
 		public Definition getInputWSDL() {
 			return inputWSDLDef;
 		}
 
+		/**
+		 * Sets the input schema.
+		 *
+		 * @param inputWSDL the new input schema
+		 */
 		public void setInputSchema(Definition inputWSDL) {
 			this.inputWSDLDef = inputWSDL;
 		}
 
+		/**
+		 * Gets the output file.
+		 *
+		 * @return the output file
+		 */
 		public IFile getOutputFile() {
 			return outputFile;
 		}
 
+		/**
+		 * Sets the output file.
+		 *
+		 * @param outputFile the new output file
+		 */
 		public void setOutputFile(IFile outputFile) {
 			this.outputFile = outputFile;
 		}
 
+		/**
+		 * Instantiates a new file processor param.
+		 *
+		 * @param inputWSDL the input wsdl
+		 * @param outputFile the output file
+		 */
 		public FileProcessorParam(Definition inputWSDL, IFile outputFile) {
 			super();
 			this.inputWSDLDef = inputWSDL;

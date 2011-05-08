@@ -47,6 +47,8 @@ import org.eclipse.ui.progress.IProgressService;
 
 
 /**
+ * The Class ValidateServiceWSDL.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -57,16 +59,24 @@ public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorAction
 	private IStatus regStatus;
 	private IEditorPart targetEditor;
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
+	 */
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action.IAction, org.eclipse.ui.IEditorPart)
+	 */
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		this.targetEditor = targetEditor;
 	}
 	
 	/**
-	 * 
+	 * Instantiates a new validate service wsdl.
 	 */
 	public ValidateServiceWSDL() {
 		super();
@@ -108,6 +118,11 @@ public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorAction
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 *  @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
+	 */
 	public void run(final IAction action) {
 		if (SOALogger.DEBUG)
 			logger.entering(action, selection);
@@ -252,6 +267,10 @@ public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorAction
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
+	 */
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

@@ -15,17 +15,32 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * 
- * @author James Ervin</a>
- * 
+ * The Class SetUtil.
+ *
+ * @author James Ervin
  */
 public class SetUtil {
+	
+	/**
+	 * Tree set.
+	 *
+	 * @param <T> the generic type
+	 * @param objects the objects
+	 * @return the sets the
+	 */
 	public static <T> Set<T> treeSet(final T... objects) {
 		final Set<T> list = new TreeSet<T>();
 		add(list, objects);
 		return list;
 	}
 
+	/**
+	 * Tree set.
+	 *
+	 * @param <T> the generic type
+	 * @param collection the collection
+	 * @return the sets the
+	 */
 	public static <T> Set<T> treeSet(final Collection<T> collection) {
 		final Set<T> list = new TreeSet<T>();
 		if (collection != null && collection.size() > 0)
@@ -33,12 +48,26 @@ public class SetUtil {
 		return list;
 	}
 
+	/**
+	 * Hash set.
+	 *
+	 * @param <T> the generic type
+	 * @param objects the objects
+	 * @return the sets the
+	 */
 	public static <T> Set<T> hashSet(final T... objects) {
 		final Set<T> list = new HashSet<T>();
 		add(list, objects);
 		return list;
 	}
 
+	/**
+	 * Hash set.
+	 *
+	 * @param <T> the generic type
+	 * @param collection the collection
+	 * @return the sets the
+	 */
 	public static <T> Set<T> hashSet(final Collection<T> collection) {
 		final Set<T> list = new HashSet<T>();
 		if (collection != null && collection.size() > 0)
@@ -46,12 +75,26 @@ public class SetUtil {
 		return list;
 	}
 
+	/**
+	 * Linked set.
+	 *
+	 * @param <T> the generic type
+	 * @param objects the objects
+	 * @return the sets the
+	 */
 	public static <T> Set<T> linkedSet(final T... objects) {
 		final Set<T> list = new LinkedHashSet<T>();
 		add(list, objects);
 		return list;
 	}
 
+	/**
+	 * Linked set.
+	 *
+	 * @param <T> the generic type
+	 * @param collection the collection
+	 * @return the sets the
+	 */
 	public static <T> Set<T> linkedSet(final Collection<T> collection) {
 		final Set<T> list = new LinkedHashSet<T>();
 		if (collection != null && collection.size() > 0)
@@ -59,6 +102,13 @@ public class SetUtil {
 		return list;
 	}
 
+	/**
+	 * Sets the.
+	 *
+	 * @param <T> the generic type
+	 * @param collection the collection
+	 * @return the sets the
+	 */
 	public static <T> Set<T> set(final Collection<T> collection) {
 		final Set<T> list = new HashSet<T>();
 		if (collection != null && collection.size() > 0)
@@ -66,10 +116,25 @@ public class SetUtil {
 		return list;
 	}
 
+	/**
+	 * Sets the.
+	 *
+	 * @param <T> the generic type
+	 * @param objects the objects
+	 * @return the sets the
+	 */
 	public static <T> Set<T> set(final T... objects) {
 		return hashSet(objects);
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param <T> the generic type
+	 * @param set the set
+	 * @param objects the objects
+	 * @return the sets the
+	 */
 	public static <T> Set<T> add(final Set<T> set, final T... objects) {
 		if (objects == null)
 			return set;
@@ -78,16 +143,40 @@ public class SetUtil {
 		return set;
 	}
 
+	/**
+	 * Sets the add.
+	 *
+	 * @param <T> the generic type
+	 * @param set the set
+	 * @param objects the objects
+	 * @return the sets the
+	 */
 	public static <T> Set<T> setAdd(final Set<T> set, final T... objects) {
 		return add(set, objects);
 	}
 
+	/**
+	 * Removes the.
+	 *
+	 * @param <T> the generic type
+	 * @param set the set
+	 * @param objects the objects
+	 * @return the sets the
+	 */
 	public static <T> Set<T> remove(final Set<T> set, final T... objects) {
 		for (final T object : objects)
 			set.remove(object);
 		return set;
 	}
 
+	/**
+	 * Sets the remove.
+	 *
+	 * @param <T> the generic type
+	 * @param set the set
+	 * @param objects the objects
+	 * @return the sets the
+	 */
 	public static <T> Set<T> setRemove(final Set<T> set, final T... objects) {
 		return remove(set, objects);
 	}

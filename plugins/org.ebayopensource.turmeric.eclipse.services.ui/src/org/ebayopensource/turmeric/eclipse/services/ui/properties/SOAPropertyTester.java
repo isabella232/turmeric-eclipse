@@ -14,14 +14,20 @@ import org.eclipse.core.expressions.PropertyTester;
 
 
 /**
+ * The Class SOAPropertyTester.
+ *
  * @author smathew
- * 
  */
 public class SOAPropertyTester extends PropertyTester {
 	
+	/** The Constant IS_SERVICES_VIEW_ENABLED. */
 	public static final String IS_SERVICES_VIEW_ENABLED = "isServicesViewEnabled";
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.core.expressions.IPropertyTester#test(java.lang.Object, java.lang.String, java.lang.Object[], java.lang.Object)
+	 */
 	public boolean test(final Object receiver, final String property,
 			final Object[] args, final Object expectedValue) {
 		try {

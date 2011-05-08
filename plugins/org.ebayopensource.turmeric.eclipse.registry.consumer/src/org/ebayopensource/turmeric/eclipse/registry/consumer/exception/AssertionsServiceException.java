@@ -21,29 +21,35 @@ public class AssertionsServiceException extends AbstractRegistryException {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public AssertionsServiceException() {
 		super();
 	}
 
 	/**
-	 * @param message
+	 * Instantiates a new assertions service exception.
+	 *
+	 * @param message the message
 	 */
 	public AssertionsServiceException(String message) {
 		super(message);
 	}
 
 	/**
-	 * @param throwable
+	 * Instantiates a new assertions service exception.
+	 *
+	 * @param throwable the throwable
 	 */
 	public AssertionsServiceException(Throwable throwable) {
 		super(throwable);
 	}
 
 	/**
-	 * @param message
-	 * @param throwable
+	 * Instantiates a new assertions service exception.
+	 *
+	 * @param message the message
+	 * @param throwable the throwable
 	 */
 	public AssertionsServiceException(String message, Throwable throwable) {
 		super(message, throwable);

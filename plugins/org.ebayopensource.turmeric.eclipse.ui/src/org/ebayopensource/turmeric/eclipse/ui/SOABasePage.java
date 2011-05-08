@@ -70,8 +70,12 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	= new ConcurrentHashMap<Control, ControlDecoration>();
 	private ISOAOrganizationProvider organizationProvider = null;
 	
+	/** The Constant DEFAULT_TEXT_VALUE. */
 	public static final String DEFAULT_TEXT_VALUE = SOAProjectConstants.EMPTY_STRING;
 		
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.DialogPage#dispose()
+	 */
 	@Override
 	public void dispose() {
 		super.dispose();
@@ -85,10 +89,20 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 		controlDecorations.clear();
 	}
 
+	/**
+	 * Gets the error decorations.
+	 *
+	 * @return the error decorations
+	 */
 	public Map<Control, ControlDecoration> getErrorDecorations() {
 		return errorDecorations;
 	}
 
+	/**
+	 * Gets the control decorations.
+	 *
+	 * @return the control decorations
+	 */
 	public Map<Control, ControlDecoration> getControlDecorations() {
 		return controlDecorations;
 	}
@@ -98,8 +112,8 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	 * Saves the provided work space root to the preference store. Once user
 	 * provides the work space root, SOA remembers it and will show it as the
 	 * default value next time user opens the wizard.
-	 * 
-	 * @param workspaceRoot
+	 *
+	 * @param workspaceRoot the workspace root
 	 */
 	public static void saveWorkspaceRoot(final String workspaceRoot) {
 		final IEclipsePreferences preferences = new InstanceScope()
@@ -115,8 +129,8 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 
 	/**
 	 * Constructor with no extra logic, Just calls the super.
-	 * 
-	 * @param pageName
+	 *
+	 * @param pageName the page name
 	 * @wbp.parser.constructor
 	 */
 	protected SOABasePage(String pageName) {
@@ -124,11 +138,13 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	}
 
 	/**
+	 * Instantiates a new sOA base page.
+	 *
 	 * @param pageName -
-	 *            Name of the page. Shown in the UI
+	 * Name of the page. Shown in the UI
 	 * @param title -
-	 *            Title, Again shown in the UI under the name typically.
-	 * @param description
+	 * Title, Again shown in the UI under the name typically.
+	 * @param description the description
 	 */
 	protected SOABasePage(String pageName, String title, String description) {
 		this(pageName);
@@ -138,8 +154,8 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 
 	/**
 	 * Returns the work space root stored in the preference store.
-	 * 
-	 * @return
+	 *
+	 * @return the workspace root
 	 */
 	public static String getWorkspaceRoot() {
 		final IEclipsePreferences preferences = new InstanceScope()
@@ -148,6 +164,12 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 				.get(SOAConstants.WORKSPACE_ROOT, SOAProjectConstants.EMPTY_STRING);
 	}
 	
+	/**
+	 * Update page status.
+	 *
+	 * @param control the control
+	 * @param status the status
+	 */
 	public void updatePageStatus(final Control control, final IStatus status) {
 		updatePageStatus(status, control);
 	}
@@ -155,8 +177,9 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	/**
 	 * Update the message of the wizard page along with the appropriate icon. If
 	 * the status is not OK, then the page will be marked as not completed.
-	 * 
-	 * @param status
+	 *
+	 * @param status the status
+	 * @param controls the controls
 	 */
 	public void updatePageStatus(final IStatus status, Control... controls) {
 		String message = null;
@@ -198,10 +221,22 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 		updateStatus(message, (Control)null);
 	}
 	
+	/**
+	 * Update status.
+	 *
+	 * @param control the control
+	 * @param message the message
+	 */
 	public void updateStatus(final Control control, final String message) {
 		updateStatus(message, control);
 	}
 	
+	/**
+	 * Update status.
+	 *
+	 * @param message the message
+	 * @param controls the controls
+	 */
 	public void updateStatus(final String message, final Control... controls) {
 		for (ControlDecoration decoration : this.errorDecorations.values()) {
 			decoration.hide();
@@ -240,10 +275,10 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 
 	/**
 	 * Creates the parent container. Additionally sets the help context id also.
-	 * 
-	 * @param parent
-	 * @param columnCount
-	 * @return
+	 *
+	 * @param parent the parent
+	 * @param columnCount the column count
+	 * @return the composite
 	 */
 	protected Composite createParentControl(Composite parent, int columnCount) {
 		final Composite container = new Composite(parent, SWT.NONE);
@@ -260,6 +295,12 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 		return container;
 	}
 	
+	/**
+	 * Creates the advanced settings panel.
+	 *
+	 * @param parent the parent
+	 * @return the composite
+	 */
 	protected Composite createAdvancedSettingsPanel(final Composite parent) {
 		ExpandableComposite eComposite = new ExpandableComposite(parent, 
 				ExpandableComposite.COMPACT | ExpandableComposite.TWISTIE | ExpandableComposite.EXPANDED);
@@ -287,9 +328,9 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 
 	/**
 	 * Create the options specification widgets.
-	 * 
-	 * @param parent
-	 *            org.eclipse.swt.widgets.Composite
+	 *
+	 * @param parent org.eclipse.swt.widgets.Composite
+	 * @param tooltip the tooltip
 	 */
 	protected void createOptionsGroup(Composite parent, String tooltip) {
 		Composite panel = new Composite(parent, SWT.NONE);
@@ -313,10 +354,10 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 
 	/**
 	 * Create an empty label widget.
-	 * 
-	 * @param composite
-	 * @param columnCount
-	 * @return
+	 *
+	 * @param composite the composite
+	 * @param columnCount the column count
+	 * @return the label
 	 */
 	protected Label createEmptyLabel(Composite composite, int columnCount) {
 		Label label = new Label(composite, SWT.NONE);
@@ -327,11 +368,14 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	}
 
 	/**
-	 * @param composite
-	 * @param labelText
-	 * @param defaultText
-	 * @param modifyListener
-	 * @return
+	 * Creates the label text field.
+	 *
+	 * @param composite the composite
+	 * @param labelText the label text
+	 * @param defaultText the default text
+	 * @param modifyListener the modify listener
+	 * @param tooltip the tooltip
+	 * @return the text
 	 */
 	protected Text createLabelTextField(final Composite composite,
 			final String labelText, final String defaultText,
@@ -341,12 +385,15 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	}
 
 	/**
-	 * @param composite
-	 * @param labelText
-	 * @param defaultText
-	 * @param modifyListener
-	 * @param textEditable
-	 * @return
+	 * Creates the label text field.
+	 *
+	 * @param composite the composite
+	 * @param labelText the label text
+	 * @param defaultText the default text
+	 * @param modifyListener the modify listener
+	 * @param textEditable the text editable
+	 * @param tooltip the tooltip
+	 * @return the text
 	 */
 	protected Text createLabelTextField(final Composite composite,
 			final String labelText, final String defaultText,
@@ -357,13 +404,16 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	}
 
 	/**
-	 * @param composite
-	 * @param labelText
-	 * @param defaultText
-	 * @param modifyListener
-	 * @param needEmptyLabel
-	 * @param textEditable
-	 * @return
+	 * Creates the label text field.
+	 *
+	 * @param composite the composite
+	 * @param labelText the label text
+	 * @param defaultText the default text
+	 * @param modifyListener the modify listener
+	 * @param needEmptyLabel the need empty label
+	 * @param textEditable the text editable
+	 * @param tooltip the tooltip
+	 * @return the text
 	 */
 	protected Text createLabelTextField(final Composite composite,
 			final String labelText, final String defaultText,
@@ -374,14 +424,17 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	}
 
 	/**
-	 * @param composite
-	 * @param labelText
-	 * @param defaultText
-	 * @param modifyListener
-	 * @param needEmptyLabel
-	 * @param textEditable
-	 * @param textStyle
-	 * @return
+	 * Creates the label text field.
+	 *
+	 * @param composite the composite
+	 * @param labelText the label text
+	 * @param defaultText the default text
+	 * @param modifyListener the modify listener
+	 * @param needEmptyLabel the need empty label
+	 * @param textEditable the text editable
+	 * @param textStyle the text style
+	 * @param tooltip the tooltip
+	 * @return the text
 	 */
 	protected Text createLabelTextField(final Composite composite,
 			final String labelText, final String defaultText,
@@ -408,11 +461,11 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 
 	/**
 	 * Create an Override button for the given Text field.
-	 * 
-	 * @param parent
-	 * @param relatedText
-	 * @param listener
-	 * @return
+	 *
+	 * @param parent the parent
+	 * @param label the label
+	 * @param tooltip the tooltip
+	 * @return the button
 	 */
 	protected Button createButton(final Composite parent, String label, String tooltip) {
 		final Button button = new Button(parent, SWT.CHECK);
@@ -426,11 +479,11 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 
 	/**
 	 * Create an Override button for the given Text field.
-	 * 
-	 * @param parent
-	 * @param relatedText
-	 * @param listener
-	 * @return
+	 *
+	 * @param parent the parent
+	 * @param relatedText the related text
+	 * @param listener the listener
+	 * @return the button
 	 */
 	protected Button createOverrideButton(final Composite parent,
 			final Text relatedText, final SelectionListener listener) {
@@ -464,6 +517,9 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 		return overrideButton;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void addControlDecoration(Control control, ControlDecoration controlDecoration) {
 		if (control != null && controlDecoration != null
 				&& controlDecoration.getControl() == control) {
@@ -473,13 +529,13 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 
 	/**
 	 * Create a combo box widget in standard SOA dimension and style.
-	 * 
-	 * @param composite
-	 * @param labelText
-	 * @param editable
-	 * @param items
-	 * @param horizontalSpan
-	 * @return
+	 *
+	 * @param composite the composite
+	 * @param labelText the label text
+	 * @param editable the editable
+	 * @param items the items
+	 * @param tooltip the tooltip
+	 * @return the c combo
 	 */
 	public CCombo createCCombo(final Composite composite,
 			final String labelText, final boolean editable, final String[] items, 
@@ -509,6 +565,16 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 		return combo;
 	}
 	
+	/**
+	 * Creates the combo.
+	 *
+	 * @param composite the composite
+	 * @param labelText the label text
+	 * @param editable the editable
+	 * @param items the items
+	 * @param tooltip the tooltip
+	 * @return the combo
+	 */
 	public Combo createCombo(final Composite composite,
 			final String labelText, final boolean editable, final String[] items, 
 			final String tooltip) {
@@ -538,8 +604,8 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	}
 
 	/**
-	 * Validate the state of the current wizard page
-	 * 
+	 * Validate the state of the current wizard page.
+	 *
 	 * @return true is passed validation of false otherwise
 	 */
 	protected boolean dialogChanged() {
@@ -552,9 +618,10 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	 * result, but it is displaying the status object. It checks if severity is
 	 * error and if it is then it will display it in the standard message area
 	 * of the wizard or ignore it otherwise.
-	 * 
-	 * @param validationModel
-	 * @return
+	 *
+	 * @param validationModel the validation model
+	 * @param controls the controls
+	 * @return true, if successful
 	 */
 	protected boolean checkValidationResult(IStatus validationModel, Control... controls) {
 		if (validationModel != null
@@ -566,6 +633,13 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 		return true;
 	}
 	
+	/**
+	 * Check validation result.
+	 *
+	 * @param control the control
+	 * @param validationModel the validation model
+	 * @return true, if successful
+	 */
 	protected boolean checkValidationResult(Control control, IStatus validationModel) {
 		return checkValidationResult(validationModel, control);
 	}
@@ -574,9 +648,9 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	 * Standard way of processing SOA exception occured in a wizard page. Simple -
 	 * show it to the user in the standard message area of the wizard page and
 	 * log the exception.
-	 * 
-	 * @param exception
-	 * @return
+	 *
+	 * @param exception the exception
+	 * @return true, if successful
 	 */
 	protected boolean processException(Exception exception) {
 		if (exception != null) {
@@ -587,6 +661,7 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 		return true;
 	}
 
+	/** The modify listener. */
 	protected final ModifyListener modifyListener = new ModifyListener() {
 		public void modifyText(final ModifyEvent e) {
 			if (e != null && e.getSource() instanceof Control) {
@@ -640,6 +715,11 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 						ISOAHelpProvider.SOA_TUTORIAL);
 	}
 
+	/**
+	 * Gets the organization provider.
+	 *
+	 * @return the organization provider
+	 */
 	public ISOAOrganizationProvider getOrganizationProvider() {
 		if (this.organizationProvider == null) {
 			this.organizationProvider = GlobalRepositorySystem.instanceOf()
@@ -652,9 +732,9 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	 * This method is used for ensuring that the default value could be
 	 * retrieved for a particular Text widget, when user un-select the Override
 	 * button.
-	 * 
-	 * @param text
-	 * @return
+	 *
+	 * @param text the text
+	 * @return the default value
 	 */
 	public abstract String getDefaultValue(Text text);
 }

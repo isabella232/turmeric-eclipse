@@ -27,25 +27,38 @@ import org.eclipse.swt.widgets.TableItem;
 
 
 /**
- * @author smathew
+ * The Class DependenciesViewer.
  *
+ * @author smathew
  */
 public class DependenciesViewer extends CheckboxTableViewer {
 	private String serviceName = "";
 	private final Map<AssetInfo, Boolean> selected = new TreeMap<AssetInfo, Boolean>();
 
+	/**
+	 * Instantiates a new dependencies viewer.
+	 *
+	 * @param parent the parent
+	 */
 	public DependenciesViewer(final Composite parent) {
 		this(parent, true);
 	}
 
+	/**
+	 * Instantiates a new dependencies viewer.
+	 *
+	 * @param parent the parent
+	 * @param multiSelect the multi select
+	 */
 	public DependenciesViewer(final Composite parent, final boolean multiSelect) {
 		this(new Table(parent, (multiSelect ? SWT.MULTI : SWT.SINGLE) | SWT.H_SCROLL
 				| SWT.V_SCROLL | SWT.BORDER | SWT.CHECK | SWT.FULL_SELECTION));
 	}
 
 	/**
-	 * create a table viewer with MultiSelect support
-	 * @param table
+	 * create a table viewer with MultiSelect support.
+	 *
+	 * @param table the table
 	 */
 	public DependenciesViewer(Table table) {
 		super(table);
@@ -76,15 +89,29 @@ public class DependenciesViewer extends CheckboxTableViewer {
 				"serviceVersion", "serviceLayer" });
 	}
 
+	/**
+	 * Gets the service name.
+	 *
+	 * @return the service name
+	 */
 	public String getServiceName() {
 		return serviceName;
 	}
 
+	/**
+	 * Sets the service name.
+	 *
+	 * @param serviceName the service name
+	 * @return the dependencies viewer
+	 */
 	public DependenciesViewer setServiceName(final String serviceName) {
 		this.serviceName = serviceName;
 		return this;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.CheckboxTableViewer#handleSelect(org.eclipse.swt.events.SelectionEvent)
+	 */
 	@Override
 	public void handleSelect(SelectionEvent event) {
 		super.handleSelect(event);
@@ -102,6 +129,11 @@ public class DependenciesViewer extends CheckboxTableViewer {
         } 
 	}
 
+	/**
+	 * Gets the selected.
+	 *
+	 * @return the selected
+	 */
 	public Set<AssetInfo> getSelected() {
 		final Set<AssetInfo> selection = SetUtil.linkedSet();
 		for (final AssetInfo service : selected.keySet()) {
@@ -111,6 +143,12 @@ public class DependenciesViewer extends CheckboxTableViewer {
 		return selection;
 	}
 
+	/**
+	 * Checks if is selected.
+	 *
+	 * @param serviceInfo the service info
+	 * @return true, if is selected
+	 */
 	public boolean isSelected(final AssetInfo serviceInfo) {
 		if (!selected.containsKey(serviceInfo))
 			return false;

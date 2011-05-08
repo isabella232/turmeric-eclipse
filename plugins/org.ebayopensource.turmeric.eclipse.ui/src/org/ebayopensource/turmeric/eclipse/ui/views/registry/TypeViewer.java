@@ -55,8 +55,15 @@ public class TypeViewer extends TableViewer {
 
 	private RefreshRegistryAction refreshRegistryAction = null;
 
+	/** The lib type comparator. */
 	final LibraryTypeComparator libTypeComparator = new LibraryTypeComparator();
 
+	/**
+	 * Instantiates a new type viewer.
+	 *
+	 * @param table the table
+	 * @param refreshRegistryAction the refresh registry action
+	 */
 	public TypeViewer(Table table, RefreshRegistryAction refreshRegistryAction) {
 		super(table);
 		this.refreshRegistryAction = refreshRegistryAction;

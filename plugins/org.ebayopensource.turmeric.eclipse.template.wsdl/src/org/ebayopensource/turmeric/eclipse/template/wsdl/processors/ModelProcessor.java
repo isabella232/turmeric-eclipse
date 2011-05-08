@@ -21,22 +21,36 @@ import org.eclipse.wst.wsdl.internal.impl.wsdl4j.WSDLReaderImpl;
 
 
 /**
+ * The Class ModelProcessor.
+ *
  * @author smathew
  * 
  * 
- *         Takes the UI models and process it and create the templates.
- *         Processing can be of two types emf based or template based
+ * Takes the UI models and process it and create the templates.
+ * Processing can be of two types emf based or template based
  */
 public class ModelProcessor implements ICommand {
 	private File targetFile;
 
+	/**
+	 * Instantiates a new model processor.
+	 */
 	public ModelProcessor() {
 		this(null);
 	}
 
+	/**
+	 * Instantiates a new model processor.
+	 *
+	 * @param tempTargetFile the temp target file
+	 */
 	public ModelProcessor(File tempTargetFile) {
 		this.targetFile = tempTargetFile;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 
 	public boolean execute(Object parameter, IProgressMonitor monitor)
 			throws CommandFailedException {

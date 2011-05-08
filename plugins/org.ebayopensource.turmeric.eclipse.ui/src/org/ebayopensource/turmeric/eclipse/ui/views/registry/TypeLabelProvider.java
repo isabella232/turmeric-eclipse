@@ -15,16 +15,23 @@ import org.eclipse.swt.graphics.Image;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
+ * The Class TypeLabelProvider.
+ *
  * @author smathew
  * Label Provider for Right side Type Viewer.
- * 
  */
 public class TypeLabelProvider implements ITableLabelProvider {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Image getColumnImage(Object element, int columnIndex) {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getColumnText(Object element, int columnIndex) {
 		if (element instanceof LibraryType) {
 			LibraryType libType = (LibraryType) element;
@@ -38,18 +45,30 @@ public class TypeLabelProvider implements ITableLabelProvider {
 		return "Not Available";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void addListener(ILabelProviderListener listener) {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void dispose() {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void removeListener(ILabelProviderListener listener) {
 
 	}

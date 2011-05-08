@@ -30,12 +30,17 @@ import org.eclipse.ui.dialogs.TwoPaneElementSelector;
 
 
 /**
+ * The Class ErrorSelector.
+ *
  * @author smathew
  * 
  * The selection dialog for adding errors
  */
 public class ErrorSelector extends TwoPaneElementSelector {
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.dialogs.TwoPaneElementSelector#validateCurrentSelection()
+	 */
 	@Override
 	protected boolean validateCurrentSelection() {
 		IStatus status = new Status(IStatus.OK, PlatformUI.PLUGIN_ID,
@@ -90,6 +95,9 @@ public class ErrorSelector extends TwoPaneElementSelector {
 
 	private ArrayList<ISOAError> selectedErrors = new ArrayList<ISOAError>();
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.dialogs.TwoPaneElementSelector#computeResult()
+	 */
 	@Override
 	protected void computeResult() {
 		super.computeResult();
@@ -122,6 +130,13 @@ public class ErrorSelector extends TwoPaneElementSelector {
 		return retErrors;
 	}
 
+	/**
+	 * Instantiates a new error selector.
+	 *
+	 * @param parent the parent
+	 * @param title the title
+	 * @param errors the errors
+	 */
 	public ErrorSelector(Shell parent, String title, ISOAError errors[]) {
 		super(parent, new ErrorSelectorElementRenderer(),
 				new ErrorSelectorQualifiedRenderer());
@@ -134,6 +149,11 @@ public class ErrorSelector extends TwoPaneElementSelector {
 		}
 	}
 
+	/**
+	 * Gets the selected errors.
+	 *
+	 * @return the selected errors
+	 */
 	public ArrayList<ISOAError> getSelectedErrors() {
 		if (selectedErrors == null) {
 			selectedErrors = new ArrayList<ISOAError>();
@@ -141,6 +161,11 @@ public class ErrorSelector extends TwoPaneElementSelector {
 		return selectedErrors;
 	}
 
+	/**
+	 * Sets the selected types.
+	 *
+	 * @param selectedErrors the new selected types
+	 */
 	public void setSelectedTypes(ArrayList<ISOAError> selectedErrors) {
 		this.selectedErrors = selectedErrors;
 	}

@@ -43,27 +43,25 @@ import org.maven.ide.eclipse.MavenPlugin;
 import org.maven.ide.eclipse.internal.embedder.MavenImpl;
 
 /**
- * 
+ * The Class AbstractMavenApi.
+ *
  * @author <a href="oleg@codehaus.org">Oleg Gusakov</a>
- * 
  */
 public abstract class AbstractMavenApi implements IMavenEclipseApi {
-	/**
-	 * 
-	 */
+	
+	/** The Constant PACKAGING_TYPE_MAVENPLUGIN. */
 	public static final String PACKAGING_TYPE_MAVENPLUGIN = "maven-plugin";
 	
-	/**
-	 * 
-	 */
+	/** The Constant PACKAGING_TYPE_POM. */
 	public static final String PACKAGING_TYPE_POM = "pom";
 
 	/**
-	 * 
+	 * _get known repositories.
+	 *
 	 * @param embedder the maven implementation to use
 	 * @param packagingType the packaging type to filter by
 	 * @return A list of known repositories filtered by packaging type
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	protected List<ArtifactRepository> _getKnownRepositories(
 			MavenImpl embedder, String packagingType)
@@ -91,12 +89,12 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 	 * For <code>maven-plugin</code> package type, it will return
 	 * pluginRepositories, and all other types will return Mirrors and
 	 * Repositories.
-	 * 
-	 * @param plexus 
+	 *
+	 * @param plexus the plexus
 	 * @param settings the settings.xml file to use
 	 * @param packagingType the pom packaging type to return.
-	 * @return the remote repositories defined in the Maven settings.xml file.  
-	 * @throws MavenEclipseApiException 
+	 * @return the remote repositories defined in the Maven settings.xml file.
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	protected List<ArtifactRepository> _getKnownRepositories(
 			PlexusContainer plexus, Settings settings, String packagingType)
@@ -177,11 +175,12 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 
 	/**
 	 * Resolve an artifact using a particular maven implementation and repository.
+	 *
 	 * @param embedder the embedded version of maven to use
 	 * @param repoSystem the repository to resolve against
 	 * @param md the artifact metadata to search
-	 * @return the resolved artifact 
-	 * @throws MavenEclipseApiException 
+	 * @return the resolved artifact
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public Artifact resolveArtifact(MavenImpl embedder, RepositorySystem repoSystem, ArtifactMetadata md)
 			throws MavenEclipseApiException {
@@ -261,10 +260,11 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 
 	/**
 	 * Returns a list of Artifacts.
+	 *
 	 * @param embedder the maven implementation to use.
 	 * @param md the artifact meta data.
 	 * @return A list of Artifacts that were resolved.
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public List<Artifact> resolveArtifactAsClasspath(MavenImpl embedder,
 			ArtifactMetadata md) throws MavenEclipseApiException {
@@ -292,10 +292,11 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 
 	/**
 	 * Resolves the artifact Metadata from the repository.
+	 *
 	 * @param embedder the maven implementation to use
 	 * @param md the artifact metadata
-	 * @return the MetadataResolutionResult 
-	 * @throws MavenEclipseApiException 
+	 * @return the MetadataResolutionResult
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	protected MetadataResolutionResult resolveArtifactMetadata(
 			MavenImpl embedder, ArtifactMetadata md)

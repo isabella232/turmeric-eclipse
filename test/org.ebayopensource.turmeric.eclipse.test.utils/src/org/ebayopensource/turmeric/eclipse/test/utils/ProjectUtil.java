@@ -29,13 +29,22 @@ import org.eclipse.jdt.core.JavaCore;
 
 
 /**
+ * The Class ProjectUtil.
+ *
  * @author smathew
  * 
  * Test helper for Proect related activities
- * 
  */
 public class ProjectUtil {
 
+	/**
+	 * Creates the project.
+	 *
+	 * @param name the name
+	 * @param location the location
+	 * @return the i project
+	 * @throws CoreException the core exception
+	 */
 	public static IProject createProject(String name, String location)
 			throws CoreException {
 		// testing utility
@@ -44,23 +53,54 @@ public class ProjectUtil {
 
 	}
 
+	/**
+	 * Gets the workspace.
+	 *
+	 * @return the workspace
+	 */
 	public static IWorkspace getWorkspace() {
 		return WorkspaceUtil.getWorkspace();
 	}
 
+	/**
+	 * Creates the project.
+	 *
+	 * @param name the name
+	 * @throws CoreException the core exception
+	 */
 	public static void createProject(String name) throws CoreException {
 		WorkspaceUtil.createProject(name, WorkspaceUtil.getWorkspaceRoot()
 				.getLocation(), null);
 	}
 
+	/**
+	 * Delete project.
+	 *
+	 * @param name the name
+	 * @throws CoreException the core exception
+	 */
 	public static void deleteProject(String name) throws CoreException {
 		WorkspaceUtil.deleteProject(name);
 	}
 
+	/**
+	 * Gets the project.
+	 *
+	 * @param name the name
+	 * @return the project
+	 * @throws CoreException the core exception
+	 */
 	public static IProject getProject(String name) throws CoreException {
 		return WorkspaceUtil.getWorkspaceRoot().getProject(name);
 	}
 
+	/**
+	 * Checks if is java nature set.
+	 *
+	 * @param projectName the project name
+	 * @return true, if is java nature set
+	 * @throws CoreException the core exception
+	 */
 	public static boolean isJavaNatureSet(String projectName)
 			throws CoreException {
 		IProject project = getProject(projectName);
@@ -78,6 +118,13 @@ public class ProjectUtil {
 
 
 
+	/**
+	 * Clean up projects.
+	 *
+	 * @param projects the projects
+	 * @throws CoreException the core exception
+	 * @throws InterruptedException the interrupted exception
+	 */
 	public static void cleanUpProjects(IProject... projects)
 			throws CoreException, InterruptedException {
 
@@ -176,6 +223,12 @@ public class ProjectUtil {
 		}
 	}
 
+	/**
+	 * Clean up ws.
+	 *
+	 * @throws CoreException the core exception
+	 * @throws InterruptedException the interrupted exception
+	 */
 	public static void cleanUpWS() throws CoreException, InterruptedException {
 		cleanUpProjects(WorkspaceUtil.getAllProjectsInWorkSpace());
 	}

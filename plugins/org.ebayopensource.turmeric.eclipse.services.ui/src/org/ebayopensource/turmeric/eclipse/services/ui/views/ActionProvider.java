@@ -15,6 +15,8 @@ import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 
 /**
+ * The Class ActionProvider.
+ *
  * @author smathew
  * 
  * Provider for Service Explorer View. Right Now Only Refresh is added.
@@ -24,11 +26,17 @@ public class ActionProvider extends CommonActionProvider {
 
 	private RefreshServicesAction refreshAction;
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.navigator.CommonActionProvider#init(org.eclipse.ui.navigator.ICommonActionExtensionSite)
+	 */
 	@Override
 	public void init(ICommonActionExtensionSite site) {
 		refreshAction = new RefreshServicesAction(site.getStructuredViewer());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.actions.ActionGroup#fillActionBars(org.eclipse.ui.IActionBars)
+	 */
 	@Override
 	public void fillActionBars(IActionBars theActionBars) {
 		IMenuManager menu = theActionBars.getMenuManager();

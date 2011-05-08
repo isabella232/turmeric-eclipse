@@ -38,11 +38,20 @@ import org.eclipse.jdt.launching.JavaRuntime;
 
 
 /**
+ * The Class ErrorLibraryBuildSystemConfigurer.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public class ErrorLibraryBuildSystemConfigurer {
 
+	/**
+	 * Configure.
+	 *
+	 * @param errorLibraryProject the error library project
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 */
 	public static void configure(SOAErrorLibraryProject errorLibraryProject,
 			IProgressMonitor monitor) throws CoreException {
 		// add java support
@@ -51,6 +60,13 @@ public class ErrorLibraryBuildSystemConfigurer {
 		addSOASupport(errorLibraryProject.getProject(), monitor);
 	}
 
+	/**
+	 * Reorder classpath.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @throws JavaModelException the java model exception
+	 */
 	public static void reorderClasspath(IProject project,
 			IProgressMonitor monitor) throws JavaModelException {
 		final IJavaProject javaProject = JavaCore.create(project);
@@ -82,6 +98,14 @@ public class ErrorLibraryBuildSystemConfigurer {
 
 	}
 
+	/**
+	 * Adds the java support.
+	 *
+	 * @param errorLibraryProject the error library project
+	 * @param outputLocation the output location
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 */
 	public static void addJavaSupport(
 			SOAErrorLibraryProject errorLibraryProject, String outputLocation,
 			IProgressMonitor monitor) throws CoreException {
@@ -183,6 +207,13 @@ public class ErrorLibraryBuildSystemConfigurer {
 		}
 	}
 
+	/**
+	 * Adds the soa support.
+	 *
+	 * @param errorLibProject the error lib project
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 */
 	public static void addSOASupport(IProject errorLibProject,
 			IProgressMonitor monitor) throws CoreException {
 		ProjectUtil.addNature(errorLibProject, monitor,

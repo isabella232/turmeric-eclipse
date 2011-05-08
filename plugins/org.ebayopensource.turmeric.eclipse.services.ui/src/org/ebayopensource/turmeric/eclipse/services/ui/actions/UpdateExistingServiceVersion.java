@@ -22,23 +22,32 @@ import org.eclipse.jface.action.IAction;
 
 
 /**
+ * The Class UpdateExistingServiceVersion.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public class UpdateExistingServiceVersion extends AbstractSubmitAssetAction {
 	private static final SOALogger logger = SOALogger.getLogger();
+	
 	/**
-	 * 
+	 * Instantiates a new update existing service version.
 	 */
 	public UpdateExistingServiceVersion() {
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.services.ui.actions.AbstractSubmitAssetAction#logger()
+	 */
 	@Override
 	protected SOALogger logger() {
 		return logger;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.services.ui.actions.AbstractSubmitAssetAction#submitAsset(org.eclipse.jface.action.IAction, org.eclipse.core.resources.IProject)
+	 */
 	@Override
 	public IStatus submitAsset(IAction action, IProject project)
 			throws Exception {
@@ -55,6 +64,9 @@ public class UpdateExistingServiceVersion extends AbstractSubmitAssetAction {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.services.ui.actions.AbstractSubmitAssetAction#needOKDialog()
+	 */
 	@Override
 	protected boolean needOKDialog() {
 		//this action opens an editor, and do need to popup the dialog

@@ -21,18 +21,19 @@ import org.ebayopensource.turmeric.repositorysystem.imp.utils.TurmericConstants;
 
 
 /**
- * @author yayu
+ * The Class TurmericConfigurationRegistry.
  *
+ * @author yayu
  */
 public class TurmericConfigurationRegistry implements ISOAConfigurationRegistry {
-	/**
-	 * 
-	 */
+	
+	/** The service configuration. */
 	SOAServiceConfiguration serviceConfiguration = null;
 	private String organizationName;
 
 	/**
-	 * 
+	 * Instantiates a new turmeric configuration registry.
+	 *
 	 * @param organizationName The organization name.
 	 */
 	public TurmericConfigurationRegistry(String organizationName) {

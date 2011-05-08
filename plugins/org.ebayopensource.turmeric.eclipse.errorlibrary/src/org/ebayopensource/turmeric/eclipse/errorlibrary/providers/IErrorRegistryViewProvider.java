@@ -17,36 +17,40 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
 
 /**
+ * The Interface IErrorRegistryViewProvider.
+ *
  * @author yayu
  * @since 1.0.0
- *
  */
 public interface IErrorRegistryViewProvider {
 	
 	/**
-	 * Create build system specific client area
-	 * @param parent
-	 * @param errorViewer
-	 * @throws Exception
+	 * Create build system specific client area.
+	 *
+	 * @param parent the parent
+	 * @param errorViewer the error viewer
+	 * @throws Exception the exception
 	 */
 	public void postClientAreaCreation(Composite parent, 
 			TreeViewer errorViewer) throws Exception;
 
 	/**
-	 * Create build system specific context menu
-	 * @param mgr
-	 * @param errorViewer
-	 * @throws Exception
+	 * Create build system specific context menu.
+	 *
+	 * @param mgr the mgr
+	 * @param errorViewer the error viewer
+	 * @throws Exception the exception
 	 */
 	public void createContextMenu( 
 			MenuManager mgr, 
 			TreeViewer errorViewer) throws Exception;
 	
 	/**
-	 * Create build system specific tool bar
-	 * @param mgr
-	 * @param errorViewer
-	 * @throws Exception
+	 * Create build system specific tool bar.
+	 *
+	 * @param mgr the mgr
+	 * @param errorViewer the error viewer
+	 * @throws Exception the exception
 	 */
 	public void createToolBar(IToolBarManager mgr, TreeViewer errorViewer) throws Exception;
 	

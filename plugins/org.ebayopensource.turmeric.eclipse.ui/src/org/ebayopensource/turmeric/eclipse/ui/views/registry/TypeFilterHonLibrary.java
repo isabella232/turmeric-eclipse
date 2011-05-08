@@ -15,8 +15,9 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
+ * The Class TypeFilterHonLibrary.
+ *
  * @author smathew
- * 
  */
 public class TypeFilterHonLibrary extends ViewerFilter {
 	
@@ -24,10 +25,18 @@ public class TypeFilterHonLibrary extends ViewerFilter {
 	private IRegistryTreeNode node;
 
 	
+	/**
+	 * Instantiates a new type filter hon library.
+	 *
+	 * @param node the node
+	 */
 	public TypeFilterHonLibrary(IRegistryTreeNode node) {
 		this.node = node;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+	 */
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
 		if (node == null || node instanceof TypeTreeRoot)
@@ -49,10 +58,20 @@ public class TypeFilterHonLibrary extends ViewerFilter {
 		return false;
 	}
 
+	/**
+	 * Gets the node.
+	 *
+	 * @return the node
+	 */
 	public IRegistryTreeNode getNode() {
 		return node;
 	}
 
+	/**
+	 * Sets the node.
+	 *
+	 * @param node the new node
+	 */
 	public void setNode(IRegistryTreeNode node) {
 		this.node = node;
 	}

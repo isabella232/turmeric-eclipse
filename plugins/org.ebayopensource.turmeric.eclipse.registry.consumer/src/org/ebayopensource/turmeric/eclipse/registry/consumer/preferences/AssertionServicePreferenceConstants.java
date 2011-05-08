@@ -9,16 +9,20 @@
 package org.ebayopensource.turmeric.eclipse.registry.consumer.preferences;
 
 /**
- * Constant definitions for plug-in preferences
+ * Constant definitions for plug-in preferences.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public class AssertionServicePreferenceConstants {
 	
+	/** The Constant ENABLE_ASSERTION_SERVICE. */
 	public static final String ENABLE_ASSERTION_SERVICE = "enableAssertionService";
 
+	/** The Constant OVERWRITE_AS_ENDPOINT. */
 	public static final String OVERWRITE_AS_ENDPOINT = "overwriteASEndpoing";
 
+	/** The Constant URL_AS_ENDPOINT. */
 	public static final String URL_AS_ENDPOINT = "urlASEndpoint";
 	
 	

@@ -12,19 +12,29 @@ import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardAttribPage;
 
 /**
- * UI Model for Complex Type with Simple Content creation
- * @author ramurthy
+ * UI Model for Complex Type with Simple Content creation.
  *
+ * @author ramurthy
  */
 
 public class ComplexTypeSCParamModel extends TypeParamModel {
 
 	private ComplexTypeWizardAttribPage.AttribTableModel[] attribTableModel;
 
+	/**
+	 * Gets the attrib table model.
+	 *
+	 * @return the attrib table model
+	 */
 	public ComplexTypeWizardAttribPage.AttribTableModel[] getAttribTableModel() {
 		return attribTableModel;
 	}
 
+	/**
+	 * Sets the attrib table model.
+	 *
+	 * @param attribTableModel the new attrib table model
+	 */
 	public void setAttribTableModel(ComplexTypeWizardAttribPage.AttribTableModel[] attribTableModel) {
 		this.attribTableModel = attribTableModel;
 	}	

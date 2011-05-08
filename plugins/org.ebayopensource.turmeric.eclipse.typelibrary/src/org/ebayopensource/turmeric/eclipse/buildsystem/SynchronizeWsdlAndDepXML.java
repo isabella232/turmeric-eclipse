@@ -47,25 +47,29 @@ import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDSchemaDirective;
 import org.eclipse.xsd.XSDTypeDefinition;
 
+/**
+ * The Class SynchronizeWsdlAndDepXML.
+ */
 public class SynchronizeWsdlAndDepXML {
 
 	private Definition definition = null;
 	private IProject project = null;
 
+	/**
+	 * Instantiates a new synchronize wsdl and dep xml.
+	 *
+	 * @param project the project
+	 */
 	public SynchronizeWsdlAndDepXML(IProject project) {
 		this.project = project;
 	}
 
 	/**
-	 * Wrapper method, Internally uses
-	 * 
+	 * Wrapper method, Internally uses.
+	 *
+	 * @throws CoreException the core exception
+	 * @throws Exception the exception
 	 * @see {@link TypeLibSynhcronizer#syncronizeWSDLandDepXml(Definition, IProject)}
-	 * 
-	 * @param project
-	 *            - the definition is extracted from the wsdl (based on the
-	 *            standard wsdl location) inside the project parameter
-	 * @throws CoreException
-	 * @throws Exception
 	 */
 	public void syncronizeWsdlandDepXml() throws CoreException, Exception {
 		final IFile wsdlFile = SOAServiceUtil.getWsdlFile(project.getName());
@@ -111,11 +115,10 @@ public class SynchronizeWsdlAndDepXML {
 	 * present. Also it removes the unwanted dependencies from the type
 	 * dependencies. Unwanted includes unwanted parent type references and types
 	 * referred from the parent type.
-	 * 
-	 * @param schema
-	 * @param project
-	 * @param type
-	 * @throws Exception
+	 *
+	 * @param schema the schema
+	 * @param type the type
+	 * @throws Exception the exception
 	 */
 	public void syncronizeXSDandDepXml(XSDSchema schema, QName type) throws Exception {
 		IFile typeDepFile = TurmericCoreActivator.getDependencyFile(project);
@@ -185,20 +188,24 @@ public class SynchronizeWsdlAndDepXML {
 		}
 	}
 
+	/**
+	 * Syncronize all xs dsand dep xml.
+	 *
+	 * @throws CoreException the core exception
+	 * @throws Exception the exception
+	 */
 	public void syncronizeAllXSDsandDepXml() throws CoreException, Exception {
 		syncronizeAllXSDsandDepXml(null);
 	}
 
 /**
-	 * Wrapper method, Internally uses
-	 * 
-	 * @see {@link TypeLibSynhcronizer#syncronizeXSDandDepXml(XSDSchema, IProject, QName)
-	 * @param project -
-	 *            the XSD schemas are created from the XSDs living in the
-	 *            standard location of any typelibrary project.
-	 * @throws CoreException
-	 * @throws Exception
-	 */
+ * Wrapper method, Internally uses.
+ *
+ * @param xsdFiles the xsd files
+ * @throws CoreException the core exception
+ * @throws Exception the exception
+ * @see {@link TypeLibSynhcronizer#syncronizeXSDandDepXml(XSDSchema, IProject, QName)
+ */
 	public void syncronizeAllXSDsandDepXml(List<IFile> xsdFiles)
 			throws CoreException, Exception {
 		// there could be some deleted XSDs also
@@ -248,10 +255,9 @@ public class SynchronizeWsdlAndDepXML {
 	 * Synchronize the wsdl and the dependencies. Meaning, Scans the wsdl, finds
 	 * the types and adds it to the dependencies if not present. Also it removes
 	 * the unwanted dependencies from the type dependencies.
-	 * 
-	 * @param definition
-	 * @param project
-	 * @throws Exception
+	 *
+	 * @param definition the definition
+	 * @throws Exception the exception
 	 */
 	public void syncronizeWSDLandDepXml(Definition definition) throws Exception {
 		Map<LibraryType, XSDTypeDefinition> wsdlImportedSchemas = TypeLibraryActivator.getTypeLibraryTypes(definition);
@@ -323,9 +329,9 @@ public class SynchronizeWsdlAndDepXML {
 	 * project dependencies to match the type dependency. One possible
 	 * optimization is to avoid removing and adding existing dependencies. Need
 	 * some enhancement from Bnr API also
-	 * 
-	 * @param project
-	 * @throws Exception
+	 *
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public void synchronizeTypeDepandProjectDep(IProgressMonitor monitor)
 			throws Exception {

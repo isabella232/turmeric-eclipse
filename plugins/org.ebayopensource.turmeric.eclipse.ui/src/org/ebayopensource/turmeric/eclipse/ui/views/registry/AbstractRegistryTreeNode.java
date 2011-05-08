@@ -14,8 +14,9 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 
 /**
- * @author yayu
+ * The Class AbstractRegistryTreeNode.
  *
+ * @author yayu
  */
 public abstract class AbstractRegistryTreeNode implements IRegistryTreeNode {
 
@@ -24,12 +25,18 @@ public abstract class AbstractRegistryTreeNode implements IRegistryTreeNode {
 	private IRegistryTreeNode parent;
 	
 	/**
-	 * 
+	 * Instantiates a new abstract registry tree node.
 	 */
 	public AbstractRegistryTreeNode() {
 		super();
 	}
 	
+	/**
+	 * Instantiates a new abstract registry tree node.
+	 *
+	 * @param parent the parent
+	 * @param node the node
+	 */
 	public AbstractRegistryTreeNode(IRegistryTreeNode parent, 
 			Object node) {
 		this();
@@ -37,36 +44,36 @@ public abstract class AbstractRegistryTreeNode implements IRegistryTreeNode {
 		this.node = node;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.registry.IRegistryTreeNode#getNode()
+	/**
+	 * {@inheritDoc}
 	 */
 	public Object getNode() {
 		return node;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.registry.IRegistryTreeNode#getParent()
+	/**
+	 * {@inheritDoc}
 	 */
 	public IRegistryTreeNode getParent() {
 		return parent;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.registry.IRegistryTreeNode#setNode(java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void setNode(Object object) {
 		this.node = object;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.registry.IRegistryTreeNode#setParent(org.ebayopensource.turmeric.eclipse.typelibrary.registry.IRegistryTreeNode)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void setParent(IRegistryTreeNode parent) {
 		this.parent = parent;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.registry.IRegistryTreeNode#getLabel()
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getLabel() {
 		return getNode() != null ? getNode().toString() 

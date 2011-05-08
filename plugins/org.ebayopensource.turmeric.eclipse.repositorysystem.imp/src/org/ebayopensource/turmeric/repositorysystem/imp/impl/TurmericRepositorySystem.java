@@ -50,8 +50,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 
 /**
+ * The Class TurmericRepositorySystem.
+ *
  * @author yayu
- * 
  */
 public class TurmericRepositorySystem implements ISOARepositorySystem {
 	private ISOAValidator targetDirValidator;
@@ -71,7 +72,7 @@ public class TurmericRepositorySystem implements ISOARepositorySystem {
 	private IProjectHealthChecker projectHealthChecker;
 
 	/**
-	 * 
+	 * Instantiates a new turmeric repository system.
 	 */
 	public TurmericRepositorySystem() {
 		super();

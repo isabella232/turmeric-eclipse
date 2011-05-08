@@ -34,8 +34,9 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
+ * The Class ConsumerFromJavaWizard.
+ *
  * @author yayu
- * 
  */
 public class ConsumerFromJavaWizard extends SOABaseWizard {
 	private ConsumerFromJavaWizardPage newConsumerPage;
@@ -44,17 +45,25 @@ public class ConsumerFromJavaWizard extends SOABaseWizard {
 	private boolean convertExistingJavaProject = false;
 
 	/**
-	 * 
+	 * Instantiates a new consumer from java wizard.
 	 */
 	public ConsumerFromJavaWizard() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new consumer from java wizard.
+	 *
+	 * @param convertExistingJavaProject the convert existing java project
+	 */
 	public ConsumerFromJavaWizard(boolean convertExistingJavaProject) {
 		this();
 		this.convertExistingJavaProject = convertExistingJavaProject;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#getContentPages()
+	 */
 	@Override
 	public IWizardPage[] getContentPages() {
 		newConsumerPage = new ConsumerFromJavaWizardPage(getSelection(),
@@ -62,6 +71,9 @@ public class ConsumerFromJavaWizard extends SOABaseWizard {
 		return new IWizardPage[] { newConsumerPage };
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#getCreatingType()
+	 */
 	@Override
 	protected Object getCreatingType() {
 		return ISOAPreValidator.CONSUMER;

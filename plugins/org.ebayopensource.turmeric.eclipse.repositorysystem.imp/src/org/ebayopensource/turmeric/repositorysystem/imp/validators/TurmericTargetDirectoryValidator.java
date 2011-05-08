@@ -18,19 +18,23 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
- * @author yayu
+ * The Class TurmericTargetDirectoryValidator.
  *
+ * @author yayu
  */
 public class TurmericTargetDirectoryValidator extends
 		AbstractTargetDirectoryValidator {
 
 	/**
-	 * 
+	 * Instantiates a new turmeric target directory validator.
 	 */
 	public TurmericTargetDirectoryValidator() {
 		super();
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public IStatus validate(Object object) throws ValidationInterruptedException {
 		IStatus baseValidationModel = super.validate(object);
 

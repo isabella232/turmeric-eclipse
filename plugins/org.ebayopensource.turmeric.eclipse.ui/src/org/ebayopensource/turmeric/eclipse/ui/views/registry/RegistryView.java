@@ -13,9 +13,6 @@ import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
-import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.viewers.StructuredViewer;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
@@ -49,6 +46,8 @@ import org.eclipse.ui.part.ViewPart;
  * 
  */
 public class RegistryView extends ViewPart {
+	
+	/** The Constant VIEW_ID. */
 	public static final String VIEW_ID = "org.ebayopensource.turmeric.eclipse.typelibrary.registryView"; 
 	private static final SOALogger logger = SOALogger.getLogger();
 	private TreeViewer typeLibraryViewer;
@@ -195,6 +194,11 @@ public class RegistryView extends ViewPart {
 	 * 
 	 */
 	class RegModifyListener implements ModifyListener {
+		
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
 		public void modifyText(ModifyEvent e) {
 			if (e.getSource() instanceof Text) {
 				String entered = ((Text) e.getSource()).getText();
@@ -211,6 +215,11 @@ public class RegistryView extends ViewPart {
 		}
 	}
 	
+	/**
+	 * Gets the library comparator.
+	 *
+	 * @return the library comparator
+	 */
 	public ViewerComparator getLibraryComparator() {
 		final ViewerComparator comparator = new ViewerComparator() {
 			@Override
@@ -227,10 +236,20 @@ public class RegistryView extends ViewPart {
 		return comparator;
 	}
 	
+	/**
+	 * Gets the type library viewer.
+	 *
+	 * @return the type library viewer
+	 */
 	public TreeViewer getTypeLibraryViewer() {
 		return typeLibraryViewer;
 	}
 	
+	/**
+	 * Gets the type viewer.
+	 *
+	 * @return the type viewer
+	 */
 	public TypeViewer getTypeViewer() {
 		return typeViewer;
 	}

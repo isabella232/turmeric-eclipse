@@ -33,16 +33,23 @@ import org.eclipse.wst.wsdl.Definition;
 
 
 /**
+ * The Class WSDLTemplateProcessor.
+ *
  * @author smathew
  * 
  * 
- *         Takes the UI models and process it and create the templates.
- *         Processing can be of two types emf based or template based
+ * Takes the UI models and process it and create the templates.
+ * Processing can be of two types emf based or template based
  */
 public class WSDLTemplateProcessor {
 
 	private static SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Gets the temp wsdl file.
+	 *
+	 * @return the temp wsdl file
+	 */
 	public static File getTempWSDLFile() {
 		return new File(System.getProperty("java.io.tmpdir"),
 				"TurmericNewSvcFromTemplateTemp.wsdl");
@@ -52,12 +59,23 @@ public class WSDLTemplateProcessor {
 	private IFile destinationFile;
 	private CommonWSDLProcessorParam commonWDLProcessorParam;
 
+	/**
+	 * Instantiates a new wSDL template processor.
+	 *
+	 * @param inputParamModel the input param model
+	 */
 	public WSDLTemplateProcessor(
 			ServiceFromTemplateWsdlParamModel inputParamModel) {
 		super();
 		this.inputParamModel = inputParamModel;
 	}
 
+	/**
+	 * Process.
+	 *
+	 * @param monitor the monitor
+	 * @throws CommandFailedException the command failed exception
+	 */
 	public void process(final IProgressMonitor monitor)
 			throws CommandFailedException {
 		Definition outDefinition = generateWSDLDefinitionUsingTempTargetFile(
@@ -97,6 +115,14 @@ public class WSDLTemplateProcessor {
 		return outDefinition;
 	}
 
+	/**
+	 * Gets the wSDL file url.
+	 *
+	 * @param monitor the monitor
+	 * @return the wSDL file url
+	 * @throws CommandFailedException the command failed exception
+	 * @throws MalformedURLException the malformed url exception
+	 */
 	public URL getWSDLFileURL(final IProgressMonitor monitor)
 			throws CommandFailedException, MalformedURLException {
 		File file = getTempWSDLFile();
@@ -134,14 +160,27 @@ public class WSDLTemplateProcessor {
 		}
 	}
 
+	/**
+	 * Gets the destination file.
+	 *
+	 * @return the destination file
+	 */
 	public IFile getDestinationFile() {
 		return destinationFile;
 	}
 
+	/**
+	 * Sets the destination file.
+	 *
+	 * @param destinationFile the new destination file
+	 */
 	public void setDestinationFile(IFile destinationFile) {
 		this.destinationFile = destinationFile;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void finalize() throws CommandFailedException {
 		if (WorkspaceUtil.getWorkspace().isAutoBuilding() == false) {
 			try {

@@ -20,6 +20,8 @@ import org.eclipse.ui.views.properties.PropertyDescriptor;
 
 
 /**
+ * The Class PropertiesSOAError.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -41,7 +43,8 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	}
 
 	/**
-	 * 
+	 * Instantiates a new properties soa error.
+	 *
 	 * @param category category
 	 * @param domain domain
 	 * @param id id
@@ -73,7 +76,8 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	}
 
 	/**
-	 * 
+	 * Sets the category.
+	 *
 	 * @param category the error category
 	 */
 	public void setCategory(String category) {
@@ -88,7 +92,8 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	}
 
 	/**
-	 * 
+	 * Sets the domain.
+	 *
 	 * @param domain error domain
 	 */
 	public void setDomain(ISOAErrDomain domain) {
@@ -103,7 +108,8 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	}
 
 	/**
-	 * 
+	 * Sets the id.
+	 *
 	 * @param id error id
 	 */
 	public void setId(String id) {
@@ -118,7 +124,8 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	}
 
 	/**
-	 * 
+	 * Sets the message.
+	 *
 	 * @param message error message
 	 */
 	public void setMessage(String message) {
@@ -133,7 +140,8 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	}
 
 	/**
-	 * 
+	 * Sets the name.
+	 *
 	 * @param name the error name
 	 */
 	public void setName(String name) {
@@ -148,7 +156,8 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	}
 
 	/**
-	 * 
+	 * Sets the resolution.
+	 *
 	 * @param resolution error resolution
 	 */
 	public void setResolution(String resolution) {
@@ -163,7 +172,8 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	}
 
 	/**
-	 * 
+	 * Sets the severity.
+	 *
 	 * @param severity error severity
 	 */
 	public void setSeverity(String severity) {
@@ -178,13 +188,17 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	}
 
 	/**
-	 * 
+	 * Sets the sub domain.
+	 *
 	 * @param subDomain the sub domain for the error
 	 */
 	public void setSubDomain(String subDomain) {
 		this.subDomain = subDomain;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -203,6 +217,9 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

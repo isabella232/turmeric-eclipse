@@ -15,6 +15,11 @@ package org.ebayopensource.turmeric.eclipse.exception.validation;
  * @author smathew
  * 
  */
-public class ProjectValidationInterruptedException {
+public class ProjectValidationInterruptedException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2051849131122657224L;
 
 }

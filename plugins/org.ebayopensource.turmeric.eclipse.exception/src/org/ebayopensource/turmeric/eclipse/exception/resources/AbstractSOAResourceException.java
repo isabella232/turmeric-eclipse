@@ -16,14 +16,22 @@ import org.eclipse.core.resources.IResource;
 
 
 /**
- * @author yayu
+ * The Class AbstractSOAResourceException.
  *
+ * @author yayu
  */
 public abstract class AbstractSOAResourceException extends AbstractSOAException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1955701516596970946L;
 	private IResource resource;
 
 	/**
-	 * @param message
+	 * Instantiates a new abstract soa resource exception.
+	 *
+	 * @param message the message
+	 * @param resource the resource
 	 */
 	public AbstractSOAResourceException(String message, IResource resource) {
 		super(message);
@@ -31,7 +39,10 @@ public abstract class AbstractSOAResourceException extends AbstractSOAException 
 	}
 
 	/**
-	 * @param cause
+	 * Instantiates a new abstract soa resource exception.
+	 *
+	 * @param resource the resource
+	 * @param cause the cause
 	 */
 	public AbstractSOAResourceException(IResource resource, Throwable cause) {
 		super(cause);
@@ -39,14 +50,20 @@ public abstract class AbstractSOAResourceException extends AbstractSOAException 
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new abstract soa resource exception.
+	 *
+	 * @param message the message
+	 * @param resource the resource
+	 * @param cause the cause
 	 */
 	public AbstractSOAResourceException(String message, IResource resource, Throwable cause) {
 		super(message, cause);
 		this.resource = resource;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.exception.AbstractSOAException#getMessage()
+	 */
 	@Override
 	public String getMessage() {
 		final StringBuffer buf = new StringBuffer();
@@ -59,6 +76,11 @@ public abstract class AbstractSOAResourceException extends AbstractSOAException 
 		return buf.toString();
 	}
 	
+	/**
+	 * Gets the resource.
+	 *
+	 * @return the resource
+	 */
 	public IResource getResource() {
 		return this.resource;
 	}

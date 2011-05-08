@@ -14,15 +14,22 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
 
 /**
+ * The Class ProjectSelectionListLabelProvider.
+ *
  * @author smathew
- * 
  */
 public class ProjectSelectionListLabelProvider implements ILabelProvider {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Image getImage(Object element) {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getText(Object element) {
 		if (element instanceof IProject) {
 			return ((IProject) element).getName();
@@ -30,18 +37,30 @@ public class ProjectSelectionListLabelProvider implements ILabelProvider {
 		return "";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void addListener(ILabelProviderListener listener) {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void dispose() {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void removeListener(ILabelProviderListener listener) {
 	}
 

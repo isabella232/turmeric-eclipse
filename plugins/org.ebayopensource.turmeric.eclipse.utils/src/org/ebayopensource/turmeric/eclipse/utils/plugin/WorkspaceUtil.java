@@ -41,28 +41,49 @@ import org.eclipse.core.runtime.Path;
 
 
 /**
+ * The Class WorkspaceUtil.
+ *
  * @author smathew This util class contains the util methods for workspace,
- *         workbench and resource related calls.
+ * workbench and resource related calls.
  */
 public class WorkspaceUtil {
 
+	/** The Constant PATH_SEPERATOR. */
 	public static final String PATH_SEPERATOR = "/";
 
+	/**
+	 * Gets the workspace.
+	 *
+	 * @return the workspace
+	 */
 	public static IWorkspace getWorkspace() {
 		return ResourcesPlugin.getWorkspace();
 	}
 
+	/**
+	 * Gets the workspace root.
+	 *
+	 * @return the workspace root
+	 */
 	public static IWorkspaceRoot getWorkspaceRoot() {
 		return getWorkspace().getRoot();
 	}
 
+	/**
+	 * Project exists in work space.
+	 *
+	 * @param projectName the project name
+	 * @return true, if successful
+	 */
 	public static boolean projectExistsInWorkSpace(String projectName) {
 		IProject project = getWorkspaceRoot().getProject(projectName);
 		return project != null && project.exists();
 	}
 
 	/**
-	 * @param dir
+	 * Directory exists in file system.
+	 *
+	 * @param dir the dir
 	 * @return True if the directory exists
 	 */
 	public static boolean directoryExistsInFileSystem(String dir) {
@@ -70,16 +91,22 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * @param parentFolder
-	 * @param file
+	 * Gets the project dir path.
+	 *
+	 * @param parentFolder the parent folder
+	 * @param file the file
 	 * @return Concatenates the folder and project name and return the complete
-	 *         path as a string
-	 * 
+	 * path as a string
 	 */
 	public static String getProjectDirPath(String parentFolder, String file) {
 		return parentFolder + File.separator + file;
 	}
 
+	/**
+	 * Gets the all projects in work space.
+	 *
+	 * @return the all projects in work space
+	 */
 	public static IProject[] getAllProjectsInWorkSpace() {
 		return getWorkspaceRoot().getProjects();
 	}
@@ -88,12 +115,11 @@ public class WorkspaceUtil {
 	 * This function resolves the project location if the project location
 	 * logically ie if the project location already has the project name as its
 	 * last segment then it will remove it and will return the new location with
-	 * project name only once at the end
-	 * 
-	 * 
-	 * @param projectName
-	 * @param projectLocation
-	 * @return
+	 * project name only once at the end.
+	 *
+	 * @param projectName the project name
+	 * @param projectLocation the project location
+	 * @return the i path
 	 */
 	public static IPath resolveProjectPath(final String projectName,
 			final IPath projectLocation) {
@@ -111,11 +137,11 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * Iterated wrapper to resolveProjectPath function
-	 * 
-	 * @param projectLocation
-	 * @param projectNames
-	 * @return
+	 * Iterated wrapper to resolveProjectPath function.
+	 *
+	 * @param projectLocation the project location
+	 * @param projectNames the project names
+	 * @return the i path
 	 */
 	public static IPath resolveProjectRoot(final IPath projectLocation,
 			final String... projectNames) {
@@ -130,6 +156,15 @@ public class WorkspaceUtil {
 		return projectLocation;
 	}
 
+	/**
+	 * Creates the project.
+	 *
+	 * @param projectName the project name
+	 * @param projectLocation the project location
+	 * @param progressMonitor the progress monitor
+	 * @return the i project
+	 * @throws CoreException the core exception
+	 */
 	public static IProject createProject(final String projectName,
 			final IPath projectLocation, final IProgressMonitor progressMonitor)
 			throws CoreException {
@@ -151,16 +186,36 @@ public class WorkspaceUtil {
 		return openProject(project, monitor);
 	}
 
+	/**
+	 * Gets the project.
+	 *
+	 * @param projectName the project name
+	 * @return the project
+	 */
 	public static IProject getProject(final String projectName) {
 		return getWorkspaceRoot().getProject(projectName);
 	}
 
+	/**
+	 * Gets the project.
+	 *
+	 * @param path the path
+	 * @return the project
+	 */
 	public static IProject getProject(final IPath path) {
 		final IProject project = getWorkspaceRoot().getProject(
 				path.lastSegment());
 		return project;
 	}
 
+	/**
+	 * Open project.
+	 *
+	 * @param project the project
+	 * @param progressMonitor the progress monitor
+	 * @return the i project
+	 * @throws CoreException the core exception
+	 */
 	public static IProject openProject(final IProject project,
 			final IProgressMonitor progressMonitor) throws CoreException {
 		final IProgressMonitor monitor = progressMonitor != null ? progressMonitor
@@ -173,15 +228,15 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * @param folder
-	 *            names with "/", like src/meta-inf/ The delimiter used is
+	 * Creates the folders.
+	 *
+	 * @param project the project
+	 * @param folders the folders
+	 * @param monitor the monitor
+	 * @throws CoreException This method creates sub folder. Good thing is that it will
+	 * check for existance of parent directories and eliminates the
+	 * chance of folder creation failures to a certain level
 	 * @WorkSpaceUtil.PATH_SEPERATOR
-	 * @param project
-	 * @throws CoreException
-	 *             This method creates sub folder. Good thing is that it will
-	 *             check for existance of parent directories and eliminates the
-	 *             chance of folder creation failures to a certain level
-	 * 
 	 */
 	public static void createFolders(IProject project,
 			final List<String> folders, final IProgressMonitor monitor)
@@ -216,18 +271,38 @@ public class WorkspaceUtil {
 
 	}
 
+	/**
+	 * Refresh.
+	 *
+	 * @param resources the resources
+	 * @throws CoreException the core exception
+	 */
 	public static void refresh(final IResource... resources)
 			throws CoreException {
 		for (final IResource resource : resources)
 			refresh(resource, null);
 	}
 
+	/**
+	 * Refresh.
+	 *
+	 * @param monitor the monitor
+	 * @param resources the resources
+	 * @throws CoreException the core exception
+	 */
 	public static void refresh(final IProgressMonitor monitor,
 			final IResource... resources) throws CoreException {
 		for (final IResource resource : resources)
 			refresh(resource, monitor);
 	}
 
+	/**
+	 * Refresh.
+	 *
+	 * @param resource the resource
+	 * @param progressMonitor the progress monitor
+	 * @throws CoreException the core exception
+	 */
 	public static void refresh(final IResource resource,
 			final IProgressMonitor progressMonitor) throws CoreException {
 		if (resource == null)
@@ -239,7 +314,10 @@ public class WorkspaceUtil {
 
 	/**
 	 * This method assumes the path is relative to the workspace root or is
-	 * indeed a true absolute location
+	 * indeed a true absolute location.
+	 *
+	 * @param path the path
+	 * @return the location
 	 */
 	public static IPath getLocation(final IPath path) {
 		if (path == null)
@@ -252,13 +330,14 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * @param contents
-	 * @param file
-	 * @param progressMonitor
-	 * @throws CoreException
-	 *             This is a simple write method. If the file doesnt exist it
-	 *             will create one,Any issues will result in Core Exception
-	 *             being thrown, Clients should handle those
+	 * Write to file.
+	 *
+	 * @param contents the contents
+	 * @param file the file
+	 * @param progressMonitor the progress monitor
+	 * @throws CoreException This is a simple write method. If the file doesnt exist it
+	 * will create one,Any issues will result in Core Exception
+	 * being thrown, Clients should handle those
 	 */
 	public static void writeToFile(final String contents, final IFile file,
 			final IProgressMonitor progressMonitor) throws CoreException {
@@ -267,13 +346,14 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * @param input
-	 * @param file
-	 * @param progressMonitor
-	 * @throws CoreException
-	 *             This is a simple write method. If the file doesnt exist it
-	 *             will create one,Any issues will result in Core Exception
-	 *             being thrown, Clients should handle those
+	 * Write to file.
+	 *
+	 * @param input the input
+	 * @param file the file
+	 * @param progressMonitor the progress monitor
+	 * @throws CoreException This is a simple write method. If the file doesnt exist it
+	 * will create one,Any issues will result in Core Exception
+	 * being thrown, Clients should handle those
 	 */
 	public static void writeToFile(final InputStream input, final IFile file,
 			final IProgressMonitor progressMonitor) throws CoreException {
@@ -290,6 +370,14 @@ public class WorkspaceUtil {
 		}
 	}
 
+	/**
+	 * Load properties.
+	 *
+	 * @param file the file
+	 * @return the properties
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static Properties loadProperties(IFile file) throws CoreException,
 			IOException {
 		InputStream input = null;
@@ -309,10 +397,10 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * for a,b,c output will be a/b/c/
-	 * 
-	 * @param dirs
-	 * @return
+	 * for a,b,c output will be a/b/c/.
+	 *
+	 * @param dirs the dirs
+	 * @return the string
 	 */
 	public static String addPathSeperators(String... dirs) {
 		StringBuffer strBuffer = new StringBuffer("");
@@ -323,6 +411,13 @@ public class WorkspaceUtil {
 		return strBuffer.toString();
 	}
 
+	/**
+	 * Delete.
+	 *
+	 * @param resource the resource
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 */
 	public static void delete(IResource resource, IProgressMonitor monitor)
 			throws CoreException {
 		if (resource instanceof IFile)
@@ -336,10 +431,10 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * Right now used for testing purpose
-	 * 
-	 * @param bool
-	 * @throws CoreException
+	 * Right now used for testing purpose.
+	 *
+	 * @param bool the new builds the automatically
+	 * @throws CoreException the core exception
 	 */
 	public static void setBuildAutomatically(boolean bool) throws CoreException {
 		IWorkspaceDescription description = getWorkspace().getDescription();
@@ -348,11 +443,10 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * Right now used for testing purpose
-	 * 
-	 * @param string
-	 *            projectName
-	 * @throws CoreException
+	 * Right now used for testing purpose.
+	 *
+	 * @param projectName the project name
+	 * @throws CoreException the core exception
 	 */
 	public static void deleteProject(String projectName) throws CoreException {
 		IProject project = getWorkspaceRoot().getProject(projectName);
@@ -360,9 +454,11 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * @param resource
-	 *            If the resource doesnt exist thats fin in this case.It will
-	 *            return true is the resource doesnt exist
+	 * Checks if is resource writable.
+	 *
+	 * @param resource If the resource doesnt exist thats fin in this case.It will
+	 * return true is the resource doesnt exist
+	 * @return true, if is resource writable
 	 */
 	public static boolean isResourceWritable(IResource resource) {
 		if (resource.exists()) {// resource exists
@@ -392,8 +488,10 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * @param resource
-	 *            In this case resource should exist
+	 * Checks if is resource modifiable.
+	 *
+	 * @param resource In this case resource should exist
+	 * @return true, if is resource modifiable
 	 */
 	public static boolean isResourceModifiable(IResource resource) {
 		if (resource.exists()) {// resource there
@@ -409,8 +507,10 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * @param resource
-	 *            In this case resource should exist and should be readable
+	 * Checks if is resource readable.
+	 *
+	 * @param resource In this case resource should exist and should be readable
+	 * @return true, if is resource readable
 	 */
 	public static boolean isResourceReadable(IResource resource) {
 		if (resource.exists()) {// resource there
@@ -425,6 +525,8 @@ public class WorkspaceUtil {
 	}
 
 	/**
+	 * Gets the open projects in work space.
+	 *
 	 * @return Only open projects are returned
 	 */
 	public static IProject[] getOpenProjectsInWorkSpace() {
@@ -439,11 +541,12 @@ public class WorkspaceUtil {
 	}
 
 	/**
-	 * @param natures
-	 * @return
-	 * 
+	 * Gets the projects by nature.
+	 *
+	 * @param natureIds the nature ids
+	 * @return the projects by nature
+	 * @throws CoreException the core exception
 	 * Returns the projects with this nature Only open projects are returned
-	 * @throws CoreException
 	 */
 	public static ArrayList<IProject> getProjectsByNature(String... natureIds)
 			throws CoreException {
@@ -466,6 +569,15 @@ public class WorkspaceUtil {
 		return resultProjects;
 	}
 
+	/**
+	 * Creates the empty file.
+	 *
+	 * @param project the project
+	 * @param fileName the file name
+	 * @param monitor the monitor
+	 * @return the i file
+	 * @throws CoreException the core exception
+	 */
 	public static IFile createEmptyFile(IProject project, String fileName,
 			IProgressMonitor monitor) throws CoreException {
 		IFile file = project.getFile(fileName);
@@ -485,6 +597,15 @@ public class WorkspaceUtil {
 		return file;
 	}
 
+	/**
+	 * Gets the files with extensions.
+	 *
+	 * @param folder the folder
+	 * @param checkExistence the check existence
+	 * @param fileExt the file ext
+	 * @return the files with extensions
+	 * @throws CoreException the core exception
+	 */
 	public static List<IFile> getFilesWithExtensions(final IFolder folder,
 			final boolean checkExistence, final String fileExt)
 			throws CoreException {
@@ -511,15 +632,15 @@ public class WorkspaceUtil {
 	/**
 	 * Deletes the contents of the folder. Checks for existence. Does not
 	 * perform a null check. Silently returning for null is not a good idea.
-	 * 
-	 * 
-	 * @param folder
-	 * @throws CoreException,
-	 *             SOANullParameterException
-	 * @throws SOAResourceNotAccessibleException
+	 *
+	 * @param folder the folder
+	 * @param refresh the refresh
+	 * @throws CoreException the core exception
+	 * @throws SOANullParameterException the sOA null parameter exception
+	 * @throws SOAResourceNotAccessibleException the sOA resource not accessible exception
 	 */
 	public static void deleteContents(IFolder folder, boolean refresh)
-			throws CoreException, CoreException, SOANullParameterException,
+			throws CoreException, SOANullParameterException,
 			SOAResourceNotAccessibleException {
 		if (folder == null)
 			throw new SOANullParameterException(0);
@@ -537,11 +658,24 @@ public class WorkspaceUtil {
 			WorkspaceUtil.refresh(folder);
 	}
 
+	/**
+	 * Checks if is dot directory.
+	 *
+	 * @param folder the folder
+	 * @return true, if is dot directory
+	 */
 	public static boolean isDotDirectory(String folder) {
 		return StringUtils.equals(".", folder)
 				|| StringUtils.equals("." + PATH_SEPERATOR, folder);
 	}
 	
+	/**
+	 * Adds the extension if required.
+	 *
+	 * @param path the path
+	 * @param extension the extension
+	 * @return the i path
+	 */
 	public static IPath addExtensionIfRequired(IPath path, String extension) {
 		if (!StringUtils.equals(path.getFileExtension(), extension)) {
 			path.addFileExtension(extension);

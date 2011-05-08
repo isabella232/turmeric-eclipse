@@ -21,19 +21,27 @@ import org.osgi.framework.BundleContext;
 
 
 /**
- * @author yayu
+ * The Class Activator.
  *
+ * @author yayu
  */
 public class Activator extends Plugin {
 	// The plug-in ID
+	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.services";
 
 	// The shared instance
 	private static Activator plugin;
 	private static SOALogger logger = SOALogger.getLogger();
 
+	/** The plugin properties. */
 	protected PropertyResourceBundle pluginProperties;
 
+	/**
+	 * Gets the plugin properties.
+	 *
+	 * @return the plugin properties
+	 */
 	public PropertyResourceBundle getPluginProperties() {
 		if (pluginProperties == null) {
 			try {
@@ -46,13 +54,14 @@ public class Activator extends Plugin {
 	}
 
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public Activator() {
 	}
 
-	/*
-	 * (non-Javadoc)
+	/** 
+	 * 
+	 * {@inheritDoc}
 	 * 
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
@@ -65,8 +74,8 @@ public class Activator extends Plugin {
 		SOALogger.getLogger().info(buf);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * 
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
@@ -76,8 +85,8 @@ public class Activator extends Plugin {
 	}
 
 	/**
-	 * Returns the shared instance
-	 * 
+	 * Returns the shared instance.
+	 *
 	 * @return the shared instance
 	 */
 	public static Activator getDefault() {

@@ -13,8 +13,9 @@ package org.ebayopensource.turmeric.eclipse.exception.resources;
 
 
 /**
- * @author yayu
+ * The Class SOATypeCreationFailedException.
  *
+ * @author yayu
  */
 public class SOATypeCreationFailedException extends
 		SOAResourceCreationException {
@@ -25,15 +26,19 @@ public class SOATypeCreationFailedException extends
 	private static final long serialVersionUID = 201L;
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA type creation failed exception.
+	 *
+	 * @param cause the cause
 	 */
 	public SOATypeCreationFailedException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new sOA type creation failed exception.
+	 *
+	 * @param typeName the type name
+	 * @param cause the cause
 	 */
 	public SOATypeCreationFailedException(String typeName, Throwable cause) {
 		super("Failed to create SOA type->" + typeName, cause);

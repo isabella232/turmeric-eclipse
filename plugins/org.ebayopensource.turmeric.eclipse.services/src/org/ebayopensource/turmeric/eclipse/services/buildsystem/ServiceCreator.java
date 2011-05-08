@@ -34,11 +34,20 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
+ * The Class ServiceCreator.
+ *
  * @author smathew All create wizards are going to hit here after validation
  */
 public class ServiceCreator {
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Creates the service from blank wsdl.
+	 *
+	 * @param paramModel the param model
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createServiceFromBlankWSDL(
 			ServiceFromTemplateWsdlParamModel paramModel,
 			IProgressMonitor monitor) throws Exception {
@@ -56,6 +65,13 @@ public class ServiceCreator {
 
 	}
 
+	/**
+	 * Creates the service from existing wsdl.
+	 *
+	 * @param paramModel the param model
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createServiceFromExistingWSDL(
 			final ServiceFromWsdlParamModel paramModel,
 			final IProgressMonitor monitor) throws Exception {
@@ -71,6 +87,13 @@ public class ServiceCreator {
 
 	}
 
+	/**
+	 * Creates the consumer from existing wsdl.
+	 *
+	 * @param paramModel the param model
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createConsumerFromExistingWSDL(
 			final ConsumerFromWsdlParamModel paramModel,
 			final IProgressMonitor monitor) throws Exception {
@@ -87,6 +110,14 @@ public class ServiceCreator {
 				intfProject, monitor);
 	}
 
+	/**
+	 * Adds the service to consumer from wsdl.
+	 *
+	 * @param paramModel the param model
+	 * @param consumerProject the consumer project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void addServiceToConsumerFromWSDL(
 			final ConsumerFromWsdlParamModel paramModel,
 			SOAConsumerProject consumerProject, final IProgressMonitor monitor)
@@ -148,6 +179,13 @@ public class ServiceCreator {
 
 	}
 
+	/**
+	 * Creates the consumer from java.
+	 *
+	 * @param uiModel the ui model
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createConsumerFromJava(
 			final ConsumerFromJavaParamModel uiModel,
 			final IProgressMonitor monitor) throws Exception {

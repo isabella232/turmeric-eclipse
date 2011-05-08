@@ -12,6 +12,8 @@
 package org.ebayopensource.turmeric.eclipse.registry.exception;
 
 /**
+ * The Class ArtifactValidationException.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -23,29 +25,35 @@ public class ArtifactValidationException extends Exception {
 	private static final long serialVersionUID = 230L;
 
 	/**
-	 * 
+	 * Instantiates a new artifact validation exception.
 	 */
 	public ArtifactValidationException() {
 		super();
 	}
 
 	/**
-	 * @param message
+	 * Instantiates a new artifact validation exception.
+	 *
+	 * @param message the message
 	 */
 	public ArtifactValidationException(String message) {
 		super(message);
 	}
 
 	/**
-	 * @param cause
+	 * Instantiates a new artifact validation exception.
+	 *
+	 * @param cause the cause
 	 */
 	public ArtifactValidationException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new artifact validation exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public ArtifactValidationException(String message, Throwable cause) {
 		super(message, cause);

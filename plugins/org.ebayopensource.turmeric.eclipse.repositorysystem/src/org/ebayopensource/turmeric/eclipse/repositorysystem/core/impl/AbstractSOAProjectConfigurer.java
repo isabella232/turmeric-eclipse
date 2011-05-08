@@ -38,21 +38,22 @@ import org.osgi.framework.Version;
 
 
 /**
- * @author yayu
+ * The Class AbstractSOAProjectConfigurer.
  *
+ * @author yayu
  */
 public abstract class AbstractSOAProjectConfigurer implements
 		ISOAProjectConfigurer {
 
 	/**
-	 * 
+	 * Instantiates a new abstract soa project configurer.
 	 */
 	public AbstractSOAProjectConfigurer() {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#updateProject(org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject, boolean)
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean updateProject(ISOAProject soaProject, boolean updateClasspath, IProgressMonitor monitor)
 			throws Exception {
@@ -116,6 +117,12 @@ public abstract class AbstractSOAProjectConfigurer implements
 		return true;
 	}
 	
+	/**
+	 * Service version changed.
+	 *
+	 * @param serviceName the service name
+	 * @param newServiceVersion the new service version
+	 */
 	protected abstract void serviceVersionChanged(final String serviceName, 
 			final String newServiceVersion);
 
@@ -136,6 +143,9 @@ public abstract class AbstractSOAProjectConfigurer implements
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#postServiceVersionUpdated(org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject, java.lang.String, java.lang.String, boolean, org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
 	public void postServiceVersionUpdated(SOAIntfProject soaIntfProject,
 			String oldVersion, String newVersion, boolean slience,

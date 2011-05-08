@@ -17,10 +17,15 @@ import org.eclipse.wst.wsdl.Definition;
 
 
 /**
- * @author smathew
+ * The Class BindingProcessor.
  *
+ * @author smathew
  */
 public class BindingProcessor implements ICommand {
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean execute(Object parameter, IProgressMonitor monitor) throws CommandFailedException {
 		if (parameter != null && parameter instanceof CommonWSDLProcessorParam) {
 			try {

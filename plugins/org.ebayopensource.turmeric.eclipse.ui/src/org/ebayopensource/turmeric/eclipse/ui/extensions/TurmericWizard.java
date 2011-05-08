@@ -47,6 +47,9 @@ public class TurmericWizard implements ITurmericWizard {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericWizard#isType(java.lang.String)
+	 */
 	@Override
 	public boolean isType(String type) {
 		if (this.type == null) {
@@ -55,11 +58,17 @@ public class TurmericWizard implements ITurmericWizard {
 		return this.type.equals(type);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericWizard#allPages()
+	 */
 	@Override
 	public List<ITurmericWizardPage> allPages() {
 		return pages;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericWizard#hasPages()
+	 */
 	@Override
 	public boolean hasPages() {
 		return !pages.isEmpty();

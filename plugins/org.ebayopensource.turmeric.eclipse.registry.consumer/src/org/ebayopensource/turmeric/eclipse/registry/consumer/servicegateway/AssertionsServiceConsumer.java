@@ -32,17 +32,26 @@ import org.ebayopensource.turmeric.runtime.sif.service.ServiceFactory;
 import org.ebayopensource.turmeric.runtime.sif.service.ServiceInvokerOptions;
 
 /**
- * @author asagarwal
+ * The Class AssertionsServiceConsumer.
  *
+ * @author asagarwal
  */
 public class AssertionsServiceConsumer extends SharedTurmericASV1Consumer {
 	
+	/** The Constant USERNAME. */
 	public final static String USERNAME = "logidex_adm";
+	
+	/** The Constant PASSWORD. */
 	public final static String PASSWORD = "rm@ebay01";
+	
+	/** The Constant ASSERTIONS_LIB. */
 	public final static String ASSERTIONS_LIB = "SystemAssets";
 	
+	/** The HOS t_ url. */
 	public static String HOST_URL = "http://www.example.org/TrumericASV1"; 
 	private static String ASSERTIONS_SERVICE = "TurmericASV1";
+	
+	/** The Constant AUTH_COOKIE. */
 	public static final String AUTH_COOKIE = "X-TURMERIC-SECURITY-COOKIE";
 	private static final String ASSERTIONS_SERVICE_CLIENT_NAME = ASSERTIONS_SERVICE + "Consumer";
 	private static final String DEFAULT_ENVIRONMENT = "production";
@@ -77,9 +86,11 @@ public class AssertionsServiceConsumer extends SharedTurmericASV1Consumer {
 
 	/**
 	 * Static method to get the instance of the <code>AssertionsServiceConsumer</code>.
+	 *
 	 * @param url String URL of the server hosting the service, AssertionsService.
 	 * @return AssertionsServiceConsumer Returns the reference to the service object.
-	 * @throws MalformedURLException
+	 * @throws MalformedURLException the malformed url exception
+	 * @throws ServiceException the service exception
 	 */
 	public static synchronized AssertionsServiceConsumer getInstance(String url) throws MalformedURLException, ServiceException
 	{
@@ -91,6 +102,9 @@ public class AssertionsServiceConsumer extends SharedTurmericASV1Consumer {
 		return fAssertionsServiceConsumer;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.repository.v1.services.assertionsservice.gen.SharedTurmericASV1Consumer#getProxy()
+	 */
 	@Override
 	protected AsyncTurmericASV1 getProxy() throws ServiceException {
 		if (fService == null) {
@@ -130,26 +144,58 @@ public class AssertionsServiceConsumer extends SharedTurmericASV1Consumer {
 		fService=null;
 	}
 
+	/**
+	 * Gets the user name.
+	 *
+	 * @return the user name
+	 */
 	public String getUserName() {
 		return fUserName;
 	}
 
+	/**
+	 * Sets the user name.
+	 *
+	 * @param name the new user name
+	 */
 	public void setUserName(String name) {
 		fUserName = name;
 	}
 
+	/**
+	 * Gets the password.
+	 *
+	 * @return the password
+	 */
 	public String getPassword() {
 		return fPassword;
 	}
 
+	/**
+	 * Sets the password.
+	 *
+	 * @param password the new password
+	 */
 	public void setPassword(String password) {
 		this.fPassword = password;
 	}
 	
+	/**
+	 * Gets the service location.
+	 *
+	 * @return the service location
+	 */
 	public URL getServiceLocation() {
 		return this.fServiceLocation;
 	}
 	
+	/**
+	 * Apply assertion groups.
+	 *
+	 * @param artifactContent the artifact content
+	 * @param artifactType the artifact type
+	 * @return the apply assertion groups response
+	 */
 	public ApplyAssertionGroupsResponse applyAssertionGroups(byte[] artifactContent, String artifactType)
 	{
 		ApplyAssertionGroupsRequest request = new ApplyAssertionGroupsRequest();
@@ -168,10 +214,10 @@ public class AssertionsServiceConsumer extends SharedTurmericASV1Consumer {
 	
 	/**
 	 * Validate external artifact.
-	 * 
-	 * @param artifactContent
-	 * @param artifactType
-	 * @return
+	 *
+	 * @param artifactContent the artifact content
+	 * @param artifactType the artifact type
+	 * @return the validate artifact response
 	 */
 	public ValidateArtifactResponse validateArtifact(byte[] artifactContent, String artifactType)
 	{

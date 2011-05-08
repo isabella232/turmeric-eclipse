@@ -17,25 +17,33 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 
 
 /**
+ * The Interface ISOAErrorLibraryWizardPageProvider.
+ *
  * @author smathew
  * @since 1.0.0
  */
 public interface ISOAErrorLibraryWizardPageProvider {
 	
 	/**
-	 * prevalidate the error library creation
-	 * @return
+	 * prevalidate the error library creation.
+	 *
+	 * @return the i status
 	 */
 	public IStatus preValidate();
 
 	/**
-	 * @param selection
+	 * Gets the wizardpages.
+	 *
+	 * @param selection the selection
 	 * @return the list of all Wizard page instances
 	 */
 	public List<SOABasePage> getWizardpages(IStructuredSelection selection);
 
 	/**
+	 * Perform finish.
+	 *
 	 * @return The UI model for the wizard page
+	 * @throws Exception the exception
 	 */
 	public BaseServiceParamModel performFinish() throws Exception;
 

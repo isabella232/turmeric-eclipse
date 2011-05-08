@@ -18,19 +18,25 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
+ * The Class SOASearchTableContentProvider.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public class SOASearchTableContentProvider implements IStructuredContentProvider{
 	private TableViewer fTableViewer;
 	private SOASearchResult searchResult;
+	
 	/**
-	 * 
+	 * Instantiates a new sOA search table content provider.
 	 */
 	public SOASearchTableContentProvider() {
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof SOASearchResult) {
 			return ((SOASearchResult)inputElement).getElements();
@@ -38,21 +44,32 @@ public class SOASearchTableContentProvider implements IStructuredContentProvider
 		return Collections.EMPTY_LIST.toArray();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void dispose() {
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		fTableViewer = (TableViewer) viewer;
 		searchResult = (SOASearchResult)newInput;
 	}
 	
+	/**
+	 * Clear.
+	 */
 	public void clear() {
 		fTableViewer.refresh();
 	}
 	
 	/**
-	 * Elements Changed
+	 * Elements Changed.
+	 *
+	 * @param updatedElements the updated elements
 	 */
 	public void elementsChanged(Object[] updatedElements) {
 		for (int i = 0; i < updatedElements.length; i++) {

@@ -26,18 +26,22 @@ import org.eclipse.core.resources.IProject;
 
 
 /**
- * @author yayu
+ * The Class SOATypeLibraryProjectResolver.
  *
+ * @author yayu
  */
 public class SOATypeLibraryProjectResolver implements ISOAProjectResolver<SOATypeLibraryProject> {
 
 	/**
-	 * 
+	 * Instantiates a new sOA type library project resolver.
 	 */
 	public SOATypeLibraryProjectResolver() {
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public SOATypeLibraryProject loadProject(
 			SOAProjectEclipseMetadata eclipseMetadata) throws Exception {
 		final SOATypeLibraryMetadata metadata = SOATypeLibraryMetadata.create(
@@ -48,6 +52,13 @@ public class SOATypeLibraryProjectResolver implements ISOAProjectResolver<SOATyp
 		return typeLibProject;
 	}
 	
+	/**
+	 * Load type library model.
+	 *
+	 * @param project the project
+	 * @return the type library param model
+	 * @throws Exception the exception
+	 */
 	public static TypeLibraryParamModel loadTypeLibraryModel(IProject project) throws Exception {
 		TypeLibraryParamModel model = new TypeLibraryParamModel();
 		final IFile propFile = project.getFile(SOAProjectConstants.PROPS_FILE_TYPE_LIBRARY);

@@ -17,27 +17,28 @@ import org.osgi.framework.BundleContext;
 
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the plug-in life cycle.
  */
 public class ErrorLibraryActivator extends AbstractUIPlugin {
 
 	// The plug-in ID
+	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.errorlibrary";
 
+	/** The Constant ICON_PATH. */
 	public static final String ICON_PATH = "icons/";
 	
 	// The shared instance
 	private static ErrorLibraryActivator plugin;
 	
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public ErrorLibraryActivator() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -48,9 +49,8 @@ public class ErrorLibraryActivator extends AbstractUIPlugin {
         SOALogger.getLogger().info(buf);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
@@ -58,7 +58,7 @@ public class ErrorLibraryActivator extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 *
 	 * @return the shared instance
 	 */
@@ -66,6 +66,12 @@ public class ErrorLibraryActivator extends AbstractUIPlugin {
 		return plugin;
 	}
 	
+	/**
+	 * Gets the image from registry.
+	 *
+	 * @param path the path
+	 * @return the image from registry
+	 */
 	public static ImageDescriptor getImageFromRegistry(String path) {
 		if (path == null)
 			return null;

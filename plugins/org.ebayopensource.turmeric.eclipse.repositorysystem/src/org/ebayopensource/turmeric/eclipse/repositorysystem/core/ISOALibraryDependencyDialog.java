@@ -20,19 +20,21 @@ import org.eclipse.swt.widgets.Shell;
 
 
 /**
- * @author yayu
+ * The Interface ISOALibraryDependencyDialog.
  *
+ * @author yayu
  */
 public interface ISOALibraryDependencyDialog {
 	
 	/**
 	 * Open a repository specific library dependencies dialog for choosing library from the underlying repository system.
+	 *
 	 * @param shell The shell to display the dialog. This is to ensure this method is invoked in a UI thread.
 	 * @param soaProject the underlying SOA project
 	 * @param availableLibs pass in current library dependencies
 	 * @param allLibs pass in all available libraries if there is one
 	 * @return The added library or null is none
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public Collection<AssetInfo> open(final Shell shell, final ISOAProject soaProject, 
 			final Set<? extends AssetInfo> availableLibs, final Set<? extends AssetInfo> allLibs) throws Exception;

@@ -13,10 +13,15 @@ import org.eclipse.jface.viewers.LabelProvider;
 
 
 /**
+ * The Class ErrorSelectorElementRenderer.
+ *
  * @author smathew Label Provider for Error selector
  */
 public class ErrorSelectorElementRenderer extends LabelProvider {
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
+	 */
 	@Override
 	public String getText(Object element) {
 		if (element instanceof ISOAError)

@@ -41,8 +41,9 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
- * @author yayu
+ * The Class SOASearchPage.
  *
+ * @author yayu
  */
 public class SOASearchPage extends DialogPage implements ISearchPage {
 	private static final SOALogger logger = SOALogger.getLogger();
@@ -59,29 +60,33 @@ public class SOASearchPage extends DialogPage implements ISearchPage {
 	//private static final List<String> DOMAIN_LIST = new ArrayList<String>();
 	
 	/**
-	 * 
+	 * Instantiates a new sOA search page.
 	 */
 	public SOASearchPage() {
 		super();
 	}
 
 	/**
-	 * @param title
+	 * Instantiates a new sOA search page.
+	 *
+	 * @param title the title
 	 */
 	public SOASearchPage(String title) {
 		super(title);
 	}
 
 	/**
-	 * @param title
-	 * @param image
+	 * Instantiates a new sOA search page.
+	 *
+	 * @param title the title
+	 * @param image the image
 	 */
 	public SOASearchPage(String title, ImageDescriptor image) {
 		super(title, image);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.search.ui.ISearchPage#performAction()
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean performAction() {
 		NewSearchUI.activateSearchResultView();
@@ -93,15 +98,15 @@ public class SOASearchPage extends DialogPage implements ISearchPage {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.search.ui.ISearchPage#setContainer(org.eclipse.search.ui.ISearchPageContainer)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void setContainer(ISearchPageContainer container) {
 		this.searchContainer = container;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);

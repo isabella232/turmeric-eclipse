@@ -20,8 +20,10 @@ public class Messages extends NLS {
 
 	private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.eclipse.repositorysystem.turmeric.resources.messages"; //$NON-NLS-1$
 	
+	/** The ERRO r_ servic e_ alread y_ exist. */
 	public static String ERROR_SERVICE_ALREADY_EXIST;
 	
+	/** The ERRO r_ servic e_ validatio n_ failed. */
 	public static String ERROR_SERVICE_VALIDATION_FAILED;
 	
 	static {

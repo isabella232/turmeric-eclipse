@@ -30,31 +30,73 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.osgi.framework.Version;
 
+/**
+ * The Class EclipseUtil.
+ */
 public class EclipseUtil {
+	
+	/**
+	 * Workspace.
+	 *
+	 * @return the i workspace
+	 */
 	public static IWorkspace workspace() {
 		return ResourcesPlugin.getWorkspace();
 	}
 
+	/**
+	 * Workspace root.
+	 *
+	 * @return the i workspace root
+	 */
 	public static IWorkspaceRoot workspaceRoot() {
 		return workspace().getRoot();
 	}
 
+	/**
+	 * Projects.
+	 *
+	 * @return the i project[]
+	 */
 	public static IProject[] projects() {
 		return workspaceRoot().getProjects();
 	}
 
+	/**
+	 * Gets the project.
+	 *
+	 * @param projectName the project name
+	 * @return the project
+	 */
 	public static IProject getProject(final String projectName) {
 		return workspaceRoot().getProject(projectName);
 	}
 
+	/**
+	 * Project.
+	 *
+	 * @param projectName the project name
+	 * @return the i project
+	 */
 	public static IProject project(final String projectName) {
 		return getProject(projectName);
 	}
 
+	/**
+	 * Gets the eclipse version.
+	 *
+	 * @return the eclipse version
+	 */
 	public static Version getEclipseVersion() {
 		return parseVersion(getProperty("osgi.framework.version"));
 	}
 
+	/**
+	 * Core exception.
+	 *
+	 * @param t the t
+	 * @return the core exception
+	 */
 	public static CoreException coreException(final Throwable t) {
 		if (t instanceof CoreException)
 			return (CoreException) t;
@@ -62,17 +104,34 @@ public class EclipseUtil {
 				defaultString(t.getMessage()), t));
 	}
 
+	/**
+	 * Refresh.
+	 *
+	 * @param resources the resources
+	 */
 	public static void refresh(final IResource... resources) {
 		for (final IResource resource : resources)
 			refresh(resource, null);
 	}
 
+	/**
+	 * Refresh.
+	 *
+	 * @param monitor the monitor
+	 * @param resources the resources
+	 */
 	public static void refresh(final IProgressMonitor monitor,
 			final IResource... resources) {
 		for (final IResource resource : resources)
 			refresh(resource, monitor);
 	}
 
+	/**
+	 * Refresh.
+	 *
+	 * @param resource the resource
+	 * @param progressMonitor the progress monitor
+	 */
 	public static void refresh(final IResource resource,
 			final IProgressMonitor progressMonitor) {
 		if (resource == null)

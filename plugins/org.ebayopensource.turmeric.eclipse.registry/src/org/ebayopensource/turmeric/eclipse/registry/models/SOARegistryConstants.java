@@ -12,6 +12,8 @@
 package org.ebayopensource.turmeric.eclipse.registry.models;
 
 /**
+ * The Class SOARegistryConstants.
+ *
  * @author yayu
  * @since 1.0.0
  */

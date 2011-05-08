@@ -33,13 +33,14 @@ import org.ebayopensource.turmeric.tools.library.TypeDependencyParser;
 import org.osgi.framework.Bundle;
 
 /**
- * @author yayu
+ * The Class TurmericTypeRegistryBridge.
  *
+ * @author yayu
  */
 public class TurmericTypeRegistryBridge extends AbstractMavenTypeRegistryBridge {
 
 	/**
-	 * 
+	 * Instantiates a new turmeric type registry bridge.
 	 */
 	public TurmericTypeRegistryBridge() {
 		super();
@@ -67,40 +68,67 @@ public class TurmericTypeRegistryBridge extends AbstractMavenTypeRegistryBridge 
 		return SOAGlobalRegistryFactory.getSOATypeRegistryInstance();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void processTypeDepXMLFile(String libraryName) throws Exception {
 		TypeDependencyParser.getInstance().processTypeDepXMLFile(libraryName);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public LibraryType createLibraryTypeInstance() {
 		return new LibraryType();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public TypeDependencyType createTypeDependencyTypeInstance() {
 		return new TypeDependencyType();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ReferredType createReferredTypeInstance() {
 		return new ReferredType();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ReferredTypeLibraryType createReferredTypeLibraryTypeInstance() {
 		return new ReferredTypeLibraryType();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public TypeLibraryDependencyType unmarshalTypeLibraryDependencyType(
 			InputStream inputStream) {
 		return JAXB.unmarshal(inputStream, TypeLibraryDependencyType.class);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public TypeLibraryType unmarshalTypeInformationType(InputStream inputStream) {
 		return JAXB.unmarshal(inputStream, TypeLibraryType.class);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void marshalTypeLibraryDependencyType(
 			TypeLibraryDependencyType type, File xmlFile) {
 		JAXB.marshal(type, xmlFile);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public TypeLibraryDependencyType createTypeLibraryDependencyTypeInstance() {
 		return new TypeLibraryDependencyType();
 	}

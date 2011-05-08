@@ -15,17 +15,24 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 
 /**
- * @author smathew
+ * The Class XSDDeltaVisitor.
  *
+ * @author smathew
  */
 public class XSDDeltaVisitor implements IResourceDeltaVisitor {
 
 	private IFile xsdFile = null;
 
+	/**
+	 * Instantiates a new xSD delta visitor.
+	 */
 	public XSDDeltaVisitor() {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean visit(IResourceDelta delta) throws CoreException {
 		if (StringUtils.equalsIgnoreCase(StringUtils.substringAfterLast(delta
 				.getFullPath().toString(), "."), "xsd")) {
@@ -35,6 +42,11 @@ public class XSDDeltaVisitor implements IResourceDeltaVisitor {
 		return true;
 	}
 
+	/**
+	 * Gets the xsd file.
+	 *
+	 * @return the xsd file
+	 */
 	public IFile getXsdFile() {
 		return xsdFile;
 	}

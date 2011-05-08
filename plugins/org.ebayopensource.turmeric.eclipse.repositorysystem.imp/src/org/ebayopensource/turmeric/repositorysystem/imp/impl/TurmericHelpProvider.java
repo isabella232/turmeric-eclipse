@@ -14,8 +14,9 @@ package org.ebayopensource.turmeric.repositorysystem.imp.impl;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 
 /**
- * @author yayu
+ * The Class TurmericHelpProvider.
  *
+ * @author yayu
  */
 public class TurmericHelpProvider implements ISOAHelpProvider {
 	/**
@@ -24,7 +25,7 @@ public class TurmericHelpProvider implements ISOAHelpProvider {
 	static final TurmericHelpProvider INSTANCE = new TurmericHelpProvider();
 
 	/**
-	 * 
+	 * Instantiates a new turmeric help provider.
 	 */
 	public TurmericHelpProvider() {
 		super();

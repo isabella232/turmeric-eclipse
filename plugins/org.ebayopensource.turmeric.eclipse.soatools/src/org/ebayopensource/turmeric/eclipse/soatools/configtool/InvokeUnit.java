@@ -9,6 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.soatools.configtool;
 
 /**
+ * The Class InvokeUnit.
+ *
  * @author  yualiu
  */
 public class InvokeUnit {
@@ -17,6 +19,8 @@ public class InvokeUnit {
 	private boolean addIfNotExist;
 
 	/**
+	 * Gets the attr.
+	 *
 	 * @return the attr
 	 */
 	public String getAttr() {
@@ -24,7 +28,10 @@ public class InvokeUnit {
 	}
 
 	/**
+	 * Sets the attr.
+	 *
 	 * @param attr the attr to set
+	 * @return the invoke unit
 	 */
 	public InvokeUnit setAttr(String attr) {
 		this.attr = attr;
@@ -32,6 +39,8 @@ public class InvokeUnit {
 	}
 
 	/**
+	 * Checks if is adds the if not exist.
+	 *
 	 * @return the addIfNotExist
 	 */
 	public boolean isAddIfNotExist() {
@@ -39,7 +48,10 @@ public class InvokeUnit {
 	}
 
 	/**
+	 * Sets the add if not exist.
+	 *
 	 * @param addIfNotExist the addIfNotExist to set
+	 * @return the invoke unit
 	 */
 	public InvokeUnit setAddIfNotExist(boolean addIfNotExist) {
 		this.addIfNotExist = addIfNotExist;
@@ -47,6 +59,8 @@ public class InvokeUnit {
 	}
 
 	/**
+	 * Gets the path split.
+	 *
 	 * @return the pathSplit
 	 */
 	public String[] getPathSplit() {
@@ -54,8 +68,10 @@ public class InvokeUnit {
 	}
 
 	/**
-	 * @param split
-	 * @return
+	 * Sets the path split.
+	 *
+	 * @param split the split
+	 * @return the invoke unit
 	 */
 	public InvokeUnit setPathSplit(String ... split) {
 		pathSplit = split;
@@ -63,7 +79,9 @@ public class InvokeUnit {
 	}
 
 	/**
-	 * @return
+	 * Gets the x path.
+	 *
+	 * @return the x path
 	 */
 	public String getXPath() {
 		StringBuilder buf = new StringBuilder();
@@ -77,7 +95,9 @@ public class InvokeUnit {
 	}
 
 	/**
-	 * @return
+	 * Gets the leaf name.
+	 *
+	 * @return the leaf name
 	 */
 	public String getLeafName() {		
 		return pathSplit[pathSplit.length - 1];

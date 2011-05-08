@@ -12,8 +12,9 @@
 package org.ebayopensource.turmeric.eclipse.registry.exception;
 
 /**
- * @author yayu
+ * The Class ProviderException.
  *
+ * @author yayu
  */
 public class ProviderException extends Exception {
 
@@ -23,29 +24,35 @@ public class ProviderException extends Exception {
 	private static final long serialVersionUID = 230L;
 
 	/**
-	 * 
+	 * Instantiates a new provider exception.
 	 */
 	public ProviderException() {
 		super();
 	}
 
 	/**
-	 * @param message
+	 * Instantiates a new provider exception.
+	 *
+	 * @param message the message
 	 */
 	public ProviderException(String message) {
 		super(message);
 	}
 
 	/**
-	 * @param cause
+	 * Instantiates a new provider exception.
+	 *
+	 * @param cause the cause
 	 */
 	public ProviderException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new provider exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public ProviderException(String message, Throwable cause) {
 		super(message, cause);

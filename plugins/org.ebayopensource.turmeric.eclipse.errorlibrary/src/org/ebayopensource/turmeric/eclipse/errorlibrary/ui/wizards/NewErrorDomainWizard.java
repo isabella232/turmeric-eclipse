@@ -41,8 +41,9 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
+ * The Class NewErrorDomainWizard.
+ *
  * @author yayu
- * 
  */
 public class NewErrorDomainWizard extends SOABaseWizard {
 	private ISOAErrorLibraryWizardPageProvider wizardProvider;
@@ -50,12 +51,15 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 	private ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 
 	/**
-	 * 
+	 * Instantiates a new new error domain wizard.
 	 */
 	public NewErrorDomainWizard() {
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#preValidate()
+	 */
 	@Override
 	public IStatus preValidate() {
 		// checking if there is a provider
@@ -67,6 +71,9 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 		return Status.OK_STATUS;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#getContentPages()
+	 */
 	@Override
 	public IWizardPage[] getContentPages() {
 		final List<IWizardPage> pages = new ArrayList<IWizardPage>();
@@ -87,6 +94,9 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 		return pages.toArray(new IWizardPage[0]);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#performFinish()
+	 */
 	@Override
 	public boolean performFinish() {
 		if (wizardProvider != null) {

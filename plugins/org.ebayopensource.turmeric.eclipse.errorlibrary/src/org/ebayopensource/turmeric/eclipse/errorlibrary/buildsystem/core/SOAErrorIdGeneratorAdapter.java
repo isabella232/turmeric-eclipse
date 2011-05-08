@@ -17,8 +17,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 /**
- * @author haozhou
+ * The Class SOAErrorIdGeneratorAdapter.
  *
+ * @author haozhou
  */
 public class SOAErrorIdGeneratorAdapter implements IRunnableWithProgress {
 	private String storeLocation;
@@ -26,6 +27,13 @@ public class SOAErrorIdGeneratorAdapter implements IRunnableWithProgress {
 	private String domain;
 	private long errorId;
 	
+	/**
+	 * Instantiates a new sOA error id generator adapter.
+	 *
+	 * @param storeLocation the store location
+	 * @param organizationName the organization name
+	 * @param domain the domain
+	 */
 	public SOAErrorIdGeneratorAdapter(String storeLocation,
 			String organizationName, String domain) {
 		this.storeLocation = storeLocation;
@@ -34,6 +42,11 @@ public class SOAErrorIdGeneratorAdapter implements IRunnableWithProgress {
 	}
 
 	/**
+	 * Run.
+	 *
+	 * @param monitor the monitor
+	 * @throws InvocationTargetException the invocation target exception
+	 * @throws InterruptedException the interrupted exception
 	 * @see org.eclipse.jface.operation.IRunnableWithProgress#run(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
@@ -48,6 +61,11 @@ public class SOAErrorIdGeneratorAdapter implements IRunnableWithProgress {
 		}
 	}
 	
+	/**
+	 * Gets the error id.
+	 *
+	 * @return the error id
+	 */
 	public long getErrorId() {
 		return this.errorId;
 	}

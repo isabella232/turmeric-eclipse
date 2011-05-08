@@ -23,11 +23,15 @@ import org.ebayopensource.turmeric.common.config.TypeDependencyType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 
 /**
+ * The Class TypeLibResolver.
+ *
  * @author smathew
- * 
  */
 public class TypeLibResolver implements URIResolverExtension {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String resolve(IFile file, String baseLocation, String publicId,
 			String systemId) {
 		if (isEbayProtocol(systemId)) {
@@ -83,6 +87,12 @@ public class TypeLibResolver implements URIResolverExtension {
 		return null;
 	}
 
+	/**
+	 * Checks if is ebay protocol.
+	 *
+	 * @param systemId the system id
+	 * @return true, if is ebay protocol
+	 */
 	public boolean isEbayProtocol(String systemId) {
 		if (!StringUtils.isEmpty(systemId)) {
 			return systemId

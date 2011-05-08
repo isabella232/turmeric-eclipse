@@ -9,11 +9,12 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
 
 /**
+ * The Interface ISOAErrUIComp.
+ *
  * @author smathew
  * 
  * Represents an item that can be displayed in the view. View typically has the
  * display name, version and an image Right now we mandate only the display name
- * 
  */
 public interface ISOAErrUIComp {
 

@@ -56,14 +56,31 @@ import org.ebayopensource.turmeric.common.config.LibraryType;
 /*
  * Utilities to be used by TypeLibrary Functional Tests
  */
+/**
+ * The Class TLUtil.
+ */
 public class TLUtil {
 
+	/** The Constant functionDomain. */
 	public static final String functionDomain = "Blogs";
+	
+	/** The Constant MAJOR_VERSION_PREFIX. */
 	public static final String MAJOR_VERSION_PREFIX = "V";
+	
+	/** The Constant SERVICE_MAJOR_VERSION. */
 	public static final String SERVICE_MAJOR_VERSION = "1";
 
 	/*
 	 * TypeLibrary Creation
+	 */
+	/**
+	 * Creates the type library.
+	 *
+	 * @param typeLibraryName the type library name
+	 * @param version the version
+	 * @param category the category
+	 * @param location the location
+	 * @return true, if successful
 	 */
 	public static boolean createTypeLibrary(String typeLibraryName,
 			String version, String category, String location) {
@@ -92,6 +109,16 @@ public class TLUtil {
 		}
 	}
 
+	/**
+	 * Creates the type library in custom ns.
+	 *
+	 * @param typeLibraryName the type library name
+	 * @param version the version
+	 * @param category the category
+	 * @param location the location
+	 * @param customNS the custom ns
+	 * @return true, if successful
+	 */
 	public static boolean createTypeLibraryInCustomNS(String typeLibraryName,
 			String version, String category, String location, String customNS) {
 		try {
@@ -121,6 +148,17 @@ public class TLUtil {
 
 	/*
 	 * Types Creation
+	 */
+	/**
+	 * Creates the type.
+	 *
+	 * @param typeName the type name
+	 * @param typeLibraryName the type library name
+	 * @param parentType the parent type
+	 * @param category the category
+	 * @param templateName the template name
+	 * @param base the base
+	 * @return true, if successful
 	 */
 	public static boolean createType(String typeName, String typeLibraryName,
 			String parentType, SOAXSDTemplateSubType category,
@@ -324,6 +362,18 @@ public class TLUtil {
 	/*
 	 * Types Creation in custom namespace
 	 */
+	/**
+	 * Creates the type in custom ns.
+	 *
+	 * @param typeName the type name
+	 * @param typeLibraryName the type library name
+	 * @param parentType the parent type
+	 * @param category the category
+	 * @param templateName the template name
+	 * @param base the base
+	 * @param customNS the custom ns
+	 * @return true, if successful
+	 */
 	public static boolean createTypeInCustomNS(String typeName,
 			String typeLibraryName, String parentType,
 			SOAXSDTemplateSubType category, String templateName, String base,
@@ -488,6 +538,16 @@ public class TLUtil {
 	/*
 	 * Import Action on xsd and WSDL
 	 */
+	/**
+	 * Import action.
+	 *
+	 * @param importType the import type
+	 * @param projectName the project name
+	 * @param typeName the type name
+	 * @param importTypeName the import type name
+	 * @param importTypeNS the import type ns
+	 * @return true, if successful
+	 */
 	public static boolean importAction(String importType, String projectName,
 			String typeName, String importTypeName, String importTypeNS) {
 		IFile xsdFile, wsdlFile = null;
@@ -575,6 +635,17 @@ public class TLUtil {
 	/*
 	 * Remove Action on XSD and Wsdl
 	 */
+	/**
+	 * Removes the action.
+	 *
+	 * @param removeType the remove type
+	 * @param projectName the project name
+	 * @param typeName the type name
+	 * @param typeLibraryName the type library name
+	 * @param removeTypeName the remove type name
+	 * @param removeTypeNS the remove type ns
+	 * @return true, if successful
+	 */
 	public static boolean removeAction(String removeType, String projectName,
 			String typeName, String typeLibraryName, String removeTypeName, 
 			String removeTypeNS) {
@@ -622,6 +693,14 @@ public class TLUtil {
 		}
 	}
 
+	/**
+	 * Delete action.
+	 *
+	 * @param projectName the project name
+	 * @param typeName the type name
+	 * @param typeNS the type ns
+	 * @throws Exception the exception
+	 */
 	public static void deleteAction(String projectName, String typeName, String typeNS)
 			throws Exception {
 
@@ -652,6 +731,14 @@ public class TLUtil {
 
 	}
 
+	/**
+	 * Update version in wsdl.
+	 *
+	 * @param name the name
+	 * @param typeName the type name
+	 * @param libraryName the library name
+	 * @return true, if successful
+	 */
 	public static boolean updateVersionInWsdl(String name, String typeName,
 			String libraryName) {
 		try {
@@ -708,6 +795,12 @@ public class TLUtil {
 		}
 	}
 
+	/**
+	 * Gets the target namespace.
+	 *
+	 * @param domainClassifier the domain classifier
+	 * @return the target namespace
+	 */
 	public static String getTargetNamespace(String domainClassifier) {
 		return TurmericOrganizationProvider.INSTANCE.generateTypeLibraryTargetNamespace(domainClassifier, 
 				StringUtils.lowerCase(domainClassifier), "1.0.0");

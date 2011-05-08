@@ -13,8 +13,9 @@ package org.ebayopensource.turmeric.eclipse.exception.resources.projects;
 
 
 /**
- * @author yayu
+ * The Class SOAConsumerCreationFailedException.
  *
+ * @author yayu
  */
 public class SOAConsumerCreationFailedException extends
 		SOAProjectCreationFailedException {
@@ -25,15 +26,19 @@ public class SOAConsumerCreationFailedException extends
 	private static final long serialVersionUID = 201L;
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA consumer creation failed exception.
+	 *
+	 * @param cause the cause
 	 */
 	public SOAConsumerCreationFailedException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param projectName
-	 * @param cause
+	 * Instantiates a new sOA consumer creation failed exception.
+	 *
+	 * @param projectName the project name
+	 * @param cause the cause
 	 */
 	public SOAConsumerCreationFailedException(String projectName,
 			Throwable cause) {

@@ -10,7 +10,8 @@ package org.ebayopensource.turmeric.eclipse.registry.consumer.exception;
 
 /**
  * Abstract Registry Exception
- * This is the base class for all exceptions
+ * This is the base class for all exceptions.
+ *
  * @author ramurthy
  */
 
@@ -19,29 +20,35 @@ public abstract class AbstractRegistryException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public AbstractRegistryException() {
 		super();
 	}
 
 	/**
-	 * @param message
+	 * Instantiates a new abstract registry exception.
+	 *
+	 * @param message the message
 	 */
 	public AbstractRegistryException(String message) {
 		super(message);
 	}
 
 	/**
-	 * @param throwable
+	 * Instantiates a new abstract registry exception.
+	 *
+	 * @param throwable the throwable
 	 */
 	public AbstractRegistryException(Throwable throwable) {
 		super(throwable);
 	}
 
 	/**
-	 * @param message
-	 * @param throwable
+	 * Instantiates a new abstract registry exception.
+	 *
+	 * @param message the message
+	 * @param throwable the throwable
 	 */
 	public AbstractRegistryException(String message, Throwable throwable) {
 		super(message, throwable);

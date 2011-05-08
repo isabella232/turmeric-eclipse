@@ -28,26 +28,26 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
+ * The Class ServiceFromExistingInterfaceWizardPage.
+ *
  * @author yayu
  * @deprecated Creating service from existing Java interface is no longer supported.
- *
  */
 public class ServiceFromExistingInterfaceWizardPage extends
 		AbstractNewServiceWizardPage {
 	private Text serviceInterfaceText;
 
 	/**
-	 * @param pageName
-	 * @param title
-	 * @param description
+	 * Instantiates a new service from existing interface wizard page.
+	 *
 	 */
 	public ServiceFromExistingInterfaceWizardPage() {
 		super("newServiceFromExistingInterfaecWizardPage", "New Service From Existing Interface", 
 		"Create a new service from a pre-existing interface.");
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		final Composite container = super.createParentControl(parent,1);
@@ -97,6 +97,9 @@ public class ServiceFromExistingInterfaceWizardPage extends
         return composite;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean dialogChanged() {
 		final boolean result = super.dialogChanged();
 		if (result == false)
@@ -111,12 +114,20 @@ public class ServiceFromExistingInterfaceWizardPage extends
 		return true;
 	}
 	
+	/**
+	 * Gets the interface file.
+	 *
+	 * @return the interface file
+	 */
 	public String getInterfaceFile() {
 		if (serviceInterfaceText != null)
 			return serviceInterfaceText.getText();
 		return null;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()

@@ -29,7 +29,8 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 
 
 /**
- * Artifact Validator
+ * Artifact Validator.
+ *
  * @author ramurthy
  */
 
@@ -37,7 +38,9 @@ public class ArtifactValidator implements IArtifactValidator, IArtifactValidator
 	private static final String VERSION = "2.0.0";
 
 	/**
-	 * Get All Supported Validators
+	 * Get All Supported Validators.
+	 *
+	 * @return the all supported validators
 	 */
 	public List<String> getAllSupportedValidators() {	
 		if (Activator.DEBUG)
@@ -49,7 +52,13 @@ public class ArtifactValidator implements IArtifactValidator, IArtifactValidator
 	}
 	
 	/**
-	 * Validate Artifact
+	 * Validate Artifact.
+	 *
+	 * @param artifactContents the artifact contents
+	 * @param artifactType the artifact type
+	 * @param progressMonitor the progress monitor
+	 * @return the i status
+	 * @throws ArtifactValidationException the artifact validation exception
 	 */
 	public IStatus validateArtifact(byte[] artifactContents, String artifactType, IProgressMonitor progressMonitor)
 			throws ArtifactValidationException {
@@ -87,9 +96,10 @@ public class ArtifactValidator implements IArtifactValidator, IArtifactValidator
 	}
 	
 	/**
-	 * Get Artifact Validation Result Status
-	 * @param artifactValidationResultList
-	 * @return
+	 * Get Artifact Validation Result Status.
+	 *
+	 * @param artifactValidationResultList the artifact validation result list
+	 * @return the artifact validation result status
 	 */
 	public IStatus getArtifactValidationResultStatus(List<ArtifactValidationResult> artifactValidationResultList) {
 		if (Activator.DEBUG)
@@ -133,6 +143,9 @@ public class ArtifactValidator implements IArtifactValidator, IArtifactValidator
 		return SOAMessageUtils.createStatus(IStatus.OK, Activator.PLUGIN_ID, IStatus.OK, "Artifact Validation Result - Success", null, -1);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.registry.intf.IArtifactValidator2#getVersion()
+	 */
 	@Override
 	public String getVersion() {
 		return VERSION;

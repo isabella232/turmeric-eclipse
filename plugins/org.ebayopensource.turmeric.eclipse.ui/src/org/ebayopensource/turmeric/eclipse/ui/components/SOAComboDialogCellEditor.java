@@ -49,15 +49,14 @@ import org.eclipse.swt.widgets.Control;
  */
 public abstract class SOAComboDialogCellEditor extends CellEditor {
 
+    /** The Constant DIALOG_BUTTON_LABEL. */
     public static final String DIALOG_BUTTON_LABEL = "Browse Types...";
     /**
      * The list of items to present in the combo box.
      */
     private String[] items;
 
-    /**
-     * The value;
-     */
+    /** The value;. */
     Object selectedValue;
 
     /**
@@ -70,36 +69,48 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
      */
     private static final int defaultStyle = SWT.READ_ONLY;
 
+    /**
+     * Instantiates a new sOA combo dialog cell editor.
+     */
     public SOAComboDialogCellEditor() {
         super();
         setStyle(defaultStyle);
     }
 
     /**
-     * @param parent
-     * @param items
+     * Instantiates a new sOA combo dialog cell editor.
+     *
+     * @param parent the parent
+     * @param items the items
      */
     public SOAComboDialogCellEditor(Composite parent, String[] items) {
         this(parent, items, defaultStyle);
     }
 
     /**
-     * @param parent
-     * @param items
-     * @param style
+     * Instantiates a new sOA combo dialog cell editor.
+     *
+     * @param parent the parent
+     * @param items the items
+     * @param style the style
      */
     public SOAComboDialogCellEditor(Composite parent, String[] items, int style) {
         super(parent, style);
         setItems(items);
     }
 
+    /**
+     * Gets the item list.
+     *
+     * @return the item list
+     */
     protected List<String> getItemList() {
         return Arrays.asList(getItems());
     }
 
     /**
-     * Returns the list of choices for the combo box
-     * 
+     * Returns the list of choices for the combo box.
+     *
      * @return the list of choices for the combo box
      */
     public String[] getItems() {
@@ -107,10 +118,9 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
     }
 
     /**
-     * Sets the list of choices for the combo box
-     * 
-     * @param items
-     *            the list of choices for the combo box
+     * Sets the list of choices for the combo box.
+     *
+     * @param items the list of choices for the combo box
      */
     public void setItems(String[] items) {
         Assert.isNotNull(items);
@@ -118,9 +128,9 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
         fillcomboBox();
     }
 
-    /*
-     * (non-Javadoc) Method declared on CellEditor.
-     */
+	/**
+	 * {@inheritDoc}
+	 */
     protected Control createControl(Composite parent) {
 
         comboBox = new CCombo(parent, getStyle());
@@ -180,12 +190,17 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
     }
 
     /**
-     * return selected value
+     * return selected value.
+     *
+     * @return the object
      */
     protected Object doGetValue() {
         return selectedValue;
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     protected void doSetFocus() {
         comboBox.setFocus();
     }
@@ -193,6 +208,8 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
     /**
      * if combobox contains no item, set its default width to 60, otherwise, set
      * its mini width to ten characters.
+     *
+     * @return the layout data
      */
     public LayoutData getLayoutData() {
         LayoutData data = super.getLayoutData();
@@ -205,9 +222,9 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
         return data;
     }
 
-    /**
-     * 
-     */
+	/**
+	 * {@inheritDoc}
+	 */
     protected void doSetValue(Object value) {
         Assert.isTrue((comboBox != null) && (value != null));
         int selection = ArrayUtils.indexOf(getItems(), value);
@@ -239,7 +256,7 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
     }
 
     /**
-     * Applies the currently selected value and deactivates the cell editor
+     * Applies the currently selected value and deactivates the cell editor.
      */
     protected void postEditing() {
 
@@ -273,20 +290,26 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
     /**
      * The child class can override this method in the case that the toString()
      * method of the value's class is not implemented properly.
-     * 
-     * @param value
-     * @return
+     *
+     * @param value the value
+     * @return the value text
      */
     protected String getValueText(Object value) {
         return String.valueOf(value);
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     protected void focusLost() {
         if (isActivated()) {
             postEditing();
         }
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     protected void keyReleaseOccured(KeyEvent keyEvent) {
         if (keyEvent.character == '\u001b') { // Escape character
             fireCancelEditor();
@@ -297,9 +320,9 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
 
     /**
      * pop up a dialog when users selected Browse Types...
-     * 
-     * @param cellEditorWindow
-     * @return
+     *
+     * @param cellEditorWindow the cell editor window
+     * @return the object
      */
     protected abstract Object openDialogBox(Control cellEditorWindow);
 }

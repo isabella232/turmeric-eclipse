@@ -19,14 +19,20 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
+ * The Class TypeFilterHonSearch.
+ *
  * @author smathew
- * 
  */
 public class TypeFilterHonSearch extends ViewerFilter {
 
 	private Pattern pattern;
 	private boolean emptyKey = false;
 
+	/**
+	 * Instantiates a new type filter hon search.
+	 *
+	 * @param key the key
+	 */
 	public TypeFilterHonSearch(String key) {
 		emptyKey = StringUtils.isEmpty(key);
 		if (emptyKey == false) {
@@ -40,6 +46,9 @@ public class TypeFilterHonSearch extends ViewerFilter {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+	 */
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
 		if (emptyKey == true) {

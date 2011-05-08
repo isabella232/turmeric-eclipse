@@ -38,8 +38,9 @@ import org.eclipse.core.runtime.Path;
 
 
 /**
- * @author haozhou
+ * The Class PropertiesContentErrorDomainCreator.
  *
+ * @author haozhou
  */
 public class PropertiesContentErrorDomainCreator implements IErrorDomainCreator {
 

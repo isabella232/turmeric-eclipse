@@ -11,25 +11,28 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
 import java.util.Collection;
 
 /**
+ * The Interface ISOAErrRegistry.
+ *
  * @author smathew
  * 
  * Interface that has to be implemented by participant implementation frameworks
  * Implementing classes can be contributed via an extension point to this core
  * error library plugin
- * 
  */
 public interface ISOAErrRegistry {
 
 	/**
 	 * Returns all the libraries in the view/repository This has to be a unique
-	 * set
-	 * 
-	 * @return
+	 * set.
+	 *
+	 * @return the libraries
 	 */
 	public Collection<ISOAErrLibrary> getLibraries();
 	
 	/**
-	 * Refresh the entire registry
+	 * Refresh the entire registry.
+	 *
+	 * @throws Exception the exception
 	 */
 	public void refreshRegistry() throws Exception; 
 

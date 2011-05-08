@@ -9,8 +9,20 @@
 package org.ebayopensource.turmeric.eclipse.utils.collections;
 import java.io.Serializable;
 
+/**
+ * The Interface Transformer.
+ *
+ * @param <T> the generic type
+ */
 public interface Transformer < T >
 extends Serializable
 {
+    
+    /**
+     * Transform.
+     *
+     * @param input the input
+     * @return the t
+     */
     public T transform( final Object input );
 }

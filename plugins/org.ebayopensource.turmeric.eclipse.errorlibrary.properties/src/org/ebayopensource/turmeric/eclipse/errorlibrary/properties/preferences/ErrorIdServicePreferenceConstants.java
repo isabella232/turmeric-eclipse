@@ -9,17 +9,23 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences;
 
 /**
- * Constant definitions for plug-in preferences
+ * Constant definitions for plug-in preferences.
  */
 public class ErrorIdServicePreferenceConstants {
+	
+	/** The Constant HOSTSELECTION. */
 	public static final String HOSTSELECTION = "hostSelection";
 
+	/** The Constant USELOCALHOST. */
 	public static final String USELOCALHOST = "useLocalHost";
 
+	/** The Constant USEREMOTEHOST. */
 	public static final String USEREMOTEHOST = "useRemoteHost";
 
+	/** The Constant REMOTEENDPOINTURL. */
 	public static final String REMOTEENDPOINTURL = "remoteEndPointURL";
 	
+	/** The Constant LOCALFILEPATH. */
 	public static final String LOCALFILEPATH = "localFilePath";
 
 }

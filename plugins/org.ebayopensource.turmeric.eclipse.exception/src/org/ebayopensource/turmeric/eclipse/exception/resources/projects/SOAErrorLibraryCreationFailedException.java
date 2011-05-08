@@ -27,15 +27,19 @@ public class SOAErrorLibraryCreationFailedException extends
 	private static final long serialVersionUID = 211L;
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA error library creation failed exception.
+	 *
+	 * @param cause the cause
 	 */
 	public SOAErrorLibraryCreationFailedException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param projectName
-	 * @param cause
+	 * Instantiates a new sOA error library creation failed exception.
+	 *
+	 * @param projectName the project name
+	 * @param cause the cause
 	 */
 	public SOAErrorLibraryCreationFailedException(String projectName,
 			Throwable cause) {

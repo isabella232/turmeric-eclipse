@@ -45,18 +45,22 @@ import org.maven.ide.eclipse.project.configurator.ProjectConfigurationRequest;
 
 
 /**
- * @author yayu
+ * The Class MavenProjectConfigurator.
  *
+ * @author yayu
  */
 public class MavenProjectConfigurator extends AbstractProjectConfigurator {
 
 	/**
-	 * 
+	 * Instantiates a new maven project configurator.
 	 */
 	public MavenProjectConfigurator() {
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.maven.ide.eclipse.project.configurator.AbstractProjectConfigurator#configure(org.maven.ide.eclipse.project.configurator.ProjectConfigurationRequest, org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
 	public void configure(ProjectConfigurationRequest request,
 			IProgressMonitor monitor) throws CoreException {
@@ -170,7 +174,8 @@ public class MavenProjectConfigurator extends AbstractProjectConfigurator {
 	}
 	
 	/**
-	 * 
+	 * Checks if is valid interface project.
+	 *
 	 * @param project the eclipse project to validate
 	 * @return true if it is a valid interface project
 	 */
@@ -180,7 +185,8 @@ public class MavenProjectConfigurator extends AbstractProjectConfigurator {
 	}
 	
 	/**
-	 * 
+	 * Checks if is valid implementation project.
+	 *
 	 * @param project the implementation project to validate.
 	 * @return true if it is a valid implementation project.
 	 */
@@ -190,7 +196,8 @@ public class MavenProjectConfigurator extends AbstractProjectConfigurator {
 	}
 	
 	/**
-	 * 
+	 * Checks if is valid consumer project.
+	 *
 	 * @param project the consumer project to validate
 	 * @return true if it is a valid consumer project
 	 */
@@ -200,7 +207,8 @@ public class MavenProjectConfigurator extends AbstractProjectConfigurator {
 	}
 	
 	/**
-	 * 
+	 * Checks if is valid type library project.
+	 *
 	 * @param project the project to verify
 	 * @return true if it is a valid type library project
 	 */
@@ -214,7 +222,8 @@ public class MavenProjectConfigurator extends AbstractProjectConfigurator {
 		SOAProjectConstants.FOLDER_META_INF + WorkspaceUtil.PATH_SEPERATOR + "errorlibrary/";
 	
 	/**
-	 * 
+	 * Checks if is valid error library project.
+	 *
 	 * @param project the project to validate
 	 * @return true if it is a valid error library project
 	 */

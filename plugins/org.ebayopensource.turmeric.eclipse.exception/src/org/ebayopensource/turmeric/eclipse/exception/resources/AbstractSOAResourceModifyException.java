@@ -14,16 +14,33 @@ package org.ebayopensource.turmeric.eclipse.exception.resources;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * @author yayu
+ * The Class AbstractSOAResourceModifyException.
  *
+ * @author yayu
  */
 public abstract class AbstractSOAResourceModifyException extends
 InvocationTargetException {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4126266287710422689L;
+
+	/**
+	 * Instantiates a new abstract soa resource modify exception.
+	 *
+	 * @param cause the cause
+	 */
 	public AbstractSOAResourceModifyException(Throwable cause) {
 		super(cause, cause.getLocalizedMessage());
 	}
 	
+	/**
+	 * Instantiates a new abstract soa resource modify exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public AbstractSOAResourceModifyException(String message, Throwable cause) {
 		super(cause, message);
 	}

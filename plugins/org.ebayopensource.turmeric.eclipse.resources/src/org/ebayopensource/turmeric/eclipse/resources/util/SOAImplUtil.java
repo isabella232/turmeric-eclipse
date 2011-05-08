@@ -29,12 +29,20 @@ import org.eclipse.jdt.core.IClasspathEntry;
 
 
 /**
+ * The Class SOAImplUtil.
+ *
  * @author smathew
- * 
  */
 public class SOAImplUtil {
 	private static final SOALogger logger = SOALogger.getLogger();
 	
+	/**
+	 * Gets the service config file.
+	 *
+	 * @param metadata the metadata
+	 * @param serviceName the service name
+	 * @return the service config file
+	 */
 	public static IFile getServiceConfigFile(final SOAProjectEclipseMetadata metadata, final String serviceName) {
 		if (SOALogger.DEBUG)
 			logger.entering(metadata, serviceName);
@@ -44,6 +52,13 @@ public class SOAImplUtil {
 		return result;
 	}
 	
+	/**
+	 * Gets the service config file.
+	 *
+	 * @param project the project
+	 * @param serviceName the service name
+	 * @return the service config file
+	 */
 	public static IFile getServiceConfigFile(final IProject project, final String serviceName) {
 		if (SOALogger.DEBUG)
 			logger.entering(project, serviceName);
@@ -58,6 +73,14 @@ public class SOAImplUtil {
 		return result;
 	}
 
+	/**
+	 * Fill metadata.
+	 *
+	 * @param eclipseMetadata the eclipse metadata
+	 * @return the sOA impl project
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static SOAImplProject fillMetadata(
 			final SOAProjectEclipseMetadata eclipseMetadata)
 			throws IOException, CoreException {
@@ -73,6 +96,14 @@ public class SOAImplUtil {
 		return implProject;
 	}
 	
+	/**
+	 * Load service config.
+	 *
+	 * @param implProject the impl project
+	 * @param serviceName the service name
+	 * @return the sOA impl metadata
+	 * @throws Exception the exception
+	 */
 	public static SOAImplMetadata loadServiceConfig(final IProject implProject, final String serviceName) throws Exception {
 		if (SOALogger.DEBUG)
 			logger.entering(implProject, serviceName);
@@ -91,6 +122,13 @@ public class SOAImplUtil {
 		return result;
 	}
 	
+	/**
+	 * Load service config.
+	 *
+	 * @param implProject the impl project
+	 * @param serviceName the service name
+	 * @throws Exception the exception
+	 */
 	public static void loadServiceConfig(final SOAImplProject implProject, final String serviceName) throws Exception {
 		if (SOALogger.DEBUG)
 			logger.entering(implProject, serviceName);
@@ -108,6 +146,14 @@ public class SOAImplUtil {
 			logger.exiting();
 	}
 
+	/**
+	 * Fill metadata.
+	 *
+	 * @param eclipseMetadata the eclipse metadata
+	 * @param implProject the impl project
+	 * @return the sOA impl project
+	 * @throws Exception the exception
+	 */
 	public static SOAImplProject fillMetadata(
 			final SOAProjectEclipseMetadata eclipseMetadata,
 			final SOAImplProject implProject) throws Exception {
@@ -146,27 +192,64 @@ public class SOAImplUtil {
 
 	}
 
+	/**
+	 * Gets the gen web folder.
+	 *
+	 * @param project the project
+	 * @return the gen web folder
+	 */
 	public static IFolder getGenWebFolder(IProject project) {
 		return project.getFolder(SOAProjectConstants.FOLDER_GEN_WEB_CONTENT);
 	}
 
+	/**
+	 * Gets the temp gen web folder.
+	 *
+	 * @param project the project
+	 * @return the temp gen web folder
+	 */
 	public static IFolder getTempGenWebFolder(IProject project) {
 		return project.getFolder(SOAProjectConstants.TEMP_PREFIX
 				+ SOAProjectConstants.FOLDER_GEN_WEB_CONTENT);
 	}
 
+	/**
+	 * Gets the jar file.
+	 *
+	 * @param project the project
+	 * @return the jar file
+	 */
 	public static IFile getJarFile(IProject project) {
 		return project.getFile(project.getName() + SOAProjectConstants.JAR_EXT);
 	}
 
+	/**
+	 * Gets the war file.
+	 *
+	 * @param implProject the impl project
+	 * @param serviceName the service name
+	 * @return the war file
+	 */
 	public static IFile getWarFile(final IProject implProject, final String serviceName) {
 		return implProject.getFile(serviceName + SOAProjectConstants.WAR_EXT);
 	}
 	
+	/**
+	 * Gets the service impl properties file.
+	 *
+	 * @param implProject the impl project
+	 * @return the service impl properties file
+	 */
 	public static IFile getServiceImplPropertiesFile(IProject implProject){
 		return implProject.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_IMPL);
 	}
 	
+	/**
+	 * Gets the service impl web xml file.
+	 *
+	 * @param implProject the impl project
+	 * @return the service impl web xml file
+	 */
 	public static IFile getServiceImplWebXMLFile(IProject implProject){
 		return implProject.getFile(SOAProjectConstants.FOLDER_GEN_WEB_CONTENT
 				+ SOAProjectConstants.DELIMITER_URL_SLASH

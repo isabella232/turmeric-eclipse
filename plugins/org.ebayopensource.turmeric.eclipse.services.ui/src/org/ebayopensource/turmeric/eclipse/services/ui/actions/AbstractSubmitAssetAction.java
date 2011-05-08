@@ -38,6 +38,8 @@ import org.eclipse.ui.IWorkbenchPart;
 
 
 /**
+ * The Class AbstractSubmitAssetAction.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -46,19 +48,26 @@ public abstract class AbstractSubmitAssetAction implements
 private IStructuredSelection selection;
 	
 	/**
-	 * 
+	 * Instantiates a new abstract submit asset action.
 	 */
 	public AbstractSubmitAssetAction() {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 
 	}
 	
+	/**
+	 * Pre validate.
+	 *
+	 * @param selection the selection
+	 * @return the i status
+	 * @throws CoreException the core exception
+	 */
 	protected IStatus preValidate(IStructuredSelection selection) throws CoreException {
 		if (selection == null)
 			return EclipseMessageUtils.createErrorStatus(SOAMessages.ERR_EMPTY_SELECTION);
@@ -101,8 +110,8 @@ private IStructuredSelection selection;
 		return status;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void run(IAction action) {
 		try {
@@ -145,22 +154,36 @@ private IStructuredSelection selection;
 		}
 	}
 	
+	/**
+	 * Submit asset.
+	 *
+	 * @param action the action
+	 * @param project the project
+	 * @return the i status
+	 * @throws Exception the exception
+	 */
 	public abstract IStatus submitAsset(IAction action, IProject project) throws Exception;
 	
 	/**
-	 * Indicate whether to popup a dialog when the submission succeed
-	 * @return
+	 * Indicate whether to popup a dialog when the submission succeed.
+	 *
+	 * @return true, if successful
 	 */
 	protected boolean needOKDialog() {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
 		this.selection = (IStructuredSelection)selection;
 	}
 
+	/**
+	 * Logger.
+	 *
+	 * @return the sOA logger
+	 */
 	protected abstract SOALogger logger();
 }

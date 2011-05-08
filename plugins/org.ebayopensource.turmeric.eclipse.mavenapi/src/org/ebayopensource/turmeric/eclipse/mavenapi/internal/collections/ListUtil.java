@@ -17,16 +17,33 @@ import java.util.Vector;
 import org.apache.commons.lang.ObjectUtils;
 
 /**
- * 
+ * The Class ListUtil.
+ *
  * @author James Ervin
- * 
  */
 public class ListUtil {
+	
+	/**
+	 * Transformed.
+	 *
+	 * @param <T> the generic type
+	 * @param transformer the transformer
+	 * @param list the list
+	 * @return the list
+	 */
 	public static <T> List<T> transformed(final Transformer<T> transformer,
 			final List<?> list) {
 		return transformed(transformer, list.toArray());
 	}
 
+	/**
+	 * Transformed.
+	 *
+	 * @param <T> the generic type
+	 * @param transformer the transformer
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> transformed(final Transformer<T> transformer,
 			final Object... objects) {
 		final List<T> list = new ArrayList<T>() {
@@ -114,12 +131,26 @@ public class ListUtil {
 		return list;
 	}
 
+	/**
+	 * Array.
+	 *
+	 * @param <T> the generic type
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> array(final T... objects) {
 		final List<T> list = new ArrayList<T>();
 		add(list, objects);
 		return list;
 	}
 
+	/**
+	 * Array.
+	 *
+	 * @param <T> the generic type
+	 * @param collection the collection
+	 * @return the list
+	 */
 	public static <T> List<T> array(final Collection<T> collection) {
 		final List<T> list = new ArrayList<T>();
 		if (collection != null && collection.size() > 0)
@@ -127,12 +158,26 @@ public class ListUtil {
 		return list;
 	}
 
+	/**
+	 * Linked.
+	 *
+	 * @param <T> the generic type
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> linked(final T... objects) {
 		final List<T> list = new LinkedList<T>();
 		add(list, objects);
 		return list;
 	}
 
+	/**
+	 * Linked.
+	 *
+	 * @param <T> the generic type
+	 * @param collection the collection
+	 * @return the list
+	 */
 	public static <T> List<T> linked(final Collection<T> collection) {
 		final List<T> list = new LinkedList<T>();
 		if (collection != null && collection.size() > 0)
@@ -140,18 +185,46 @@ public class ListUtil {
 		return list;
 	}
 
+	/**
+	 * New list.
+	 *
+	 * @param <T> the generic type
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> newList(final T... objects) {
 		return array(objects);
 	}
 
+	/**
+	 * New list.
+	 *
+	 * @param <T> the generic type
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> newList(final Collection<T> objects) {
 		return array(objects);
 	}
 
+	/**
+	 * List.
+	 *
+	 * @param <T> the generic type
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> list(final T... objects) {
 		return array(objects);
 	}
 
+	/**
+	 * List.
+	 *
+	 * @param <T> the generic type
+	 * @param collection the collection
+	 * @return the list
+	 */
 	public static <T> List<T> list(final Collection<T> collection) {
 		final List<T> list = new ArrayList<T>();
 		if (collection != null && collection.size() > 0)
@@ -159,6 +232,14 @@ public class ListUtil {
 		return list;
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param <T> the generic type
+	 * @param list the list
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> add(final List<T> list, final T... objects) {
 		if (objects == null)
 			return list;
@@ -167,6 +248,14 @@ public class ListUtil {
 		return list;
 	}
 
+	/**
+	 * Adds the ignore null.
+	 *
+	 * @param <T> the generic type
+	 * @param list the list
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> addIgnoreNull(final List<T> list,
 			final T... objects) {
 		if (objects == null)
@@ -177,20 +266,51 @@ public class ListUtil {
 		return list;
 	}
 
+	/**
+	 * List add.
+	 *
+	 * @param <T> the generic type
+	 * @param list the list
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> listAdd(final List<T> list, final T... objects) {
 		return add(list, objects);
 	}
 
+	/**
+	 * Removes the.
+	 *
+	 * @param <T> the generic type
+	 * @param list the list
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> remove(final List<T> list, final T... objects) {
 		for (final T object : objects)
 			list.remove(object);
 		return list;
 	}
 
+	/**
+	 * List remove.
+	 *
+	 * @param <T> the generic type
+	 * @param list the list
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> listRemove(final List<T> list, final T... objects) {
 		return remove(list, objects);
 	}
 
+	/**
+	 * Caseless.
+	 *
+	 * @param <E> the element type
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <E extends Object> List<String> caseless(final E... objects) {
 		final Transformer<String> transformer = new Transformer<String>() {
 			private static final long serialVersionUID = 1631027078150099602L;
@@ -202,16 +322,36 @@ public class ListUtil {
 		return transformed(transformer, objects);
 	}
 
+	/**
+	 * Caseless.
+	 *
+	 * @param list the list
+	 * @return the list
+	 */
 	public static List<String> caseless(final List<?> list) {
 		return caseless(list.toArray());
 	}
 
+	/**
+	 * Vector.
+	 *
+	 * @param <T> the generic type
+	 * @param objects the objects
+	 * @return the list
+	 */
 	public static <T> List<T> vector(final T... objects) {
 		final List<T> vector = new Vector<T>();
 		add(vector, objects);
 		return vector;
 	}
 
+	/**
+	 * Vector.
+	 *
+	 * @param <T> the generic type
+	 * @param collection the collection
+	 * @return the list
+	 */
 	public static <T> List<T> vector(final Collection<T> collection) {
 		final List<T> vector = new Vector<T>();
 		if (collection != null && collection.size() > 0)

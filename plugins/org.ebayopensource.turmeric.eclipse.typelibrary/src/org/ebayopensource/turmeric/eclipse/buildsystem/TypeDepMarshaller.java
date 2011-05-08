@@ -49,16 +49,16 @@ public class TypeDepMarshaller {
 	/**
 	 * Wrapper Method. Extract the project, library name and version from the
 	 * parameter model and call the
-	 * 
+	 *
+	 * @param typeLibraryProject -
+	 * Extracts the project name, version etc from this object
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 * @throws JAXBException the jAXB exception
 	 * @see {@link TypeDepMarshaller#createDefaultDepXml(IProject project,
-	 *      String libraryName, String version, IProgressMonitor monitor)}
+	 * String libraryName, String version, IProgressMonitor monitor)}
 	 * 
 	 * method.
-	 * @param typeLibraryProject -
-	 *            Extracts the project name, version etc from this object
-	 * @param monitor
-	 * @throws CoreException
-	 * @throws JAXBException
 	 */
 	public static void createDefaultDepXml(
 			SOATypeLibraryProject typeLibraryProject, IProgressMonitor monitor)
@@ -74,15 +74,15 @@ public class TypeDepMarshaller {
 	/**
 	 * Wrapper Method. Library name is the project name itself. Version is taken
 	 * from the constants file
-	 * 
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 * @throws JAXBException the jAXB exception
 	 * @see {@link TypeDepMarshaller#createDefaultDepXml(IProject project,
-	 *      String libraryName, String version, IProgressMonitor monitor)}
+	 * String libraryName, String version, IProgressMonitor monitor)}
 	 * 
 	 * method.
-	 * @param project
-	 * @param monitor
-	 * @throws CoreException
-	 * @throws JAXBException
 	 */
 	public static void createDefaultDepXml(IProject project,
 			IProgressMonitor monitor) throws CoreException, JAXBException {
@@ -119,10 +119,10 @@ public class TypeDepMarshaller {
 	 * API returns the first level type in the xml. to be precise the first
 	 * level types refers to some other types, They are the referree(the one who
 	 * refers to)
-	 * 
-	 * @param typeLibraryDependencyType
-	 * @param typeName
-	 * @return
+	 *
+	 * @param typeLibraryDependencyType the type library dependency type
+	 * @param typeName the type name
+	 * @return the type entry
 	 */
 	public static TypeDependencyType getTypeEntry(
 			TypeLibraryDependencyType typeLibraryDependencyType, String typeName) {
@@ -138,10 +138,10 @@ public class TypeDepMarshaller {
 	 * Adds an type entry only if it does not exist. Its No operation otherwise.
 	 * Returns true only if it is modified. Remember the return factor does NOT
 	 * indicate the presence of this type.
-	 * 
-	 * @param typeLibraryDependencyType
-	 * @param libraryType
-	 * @return
+	 *
+	 * @param typeLibraryDependencyType the type library dependency type
+	 * @param libraryType the library type
+	 * @return true, if successful
 	 */
 	public static boolean addTypeEntryIfNotExists(
 			TypeLibraryDependencyType typeLibraryDependencyType,
@@ -158,10 +158,10 @@ public class TypeDepMarshaller {
 	 * existing version is not the same. Its No operation otherwise. Returns
 	 * true only if it there was a modification. Remember the return factor does
 	 * NOT indicate the presence of this type.
-	 * 
-	 * @param typeLibraryDependencyType
-	 * @param libraryType
-	 * @return
+	 *
+	 * @param typeLibraryDependencyType the type library dependency type
+	 * @param libraryType the library type
+	 * @return true, if successful
 	 */
 	public static boolean modifyTypeEntry(
 			TypeLibraryDependencyType typeLibraryDependencyType,
@@ -180,11 +180,10 @@ public class TypeDepMarshaller {
 	/**
 	 * Removes the type from the TypeLibraryDependencyType. No operation
 	 * otherwise. Returns true if there was a modification.
-	 * 
-	 * @param typeLibraryDependencyType
-	 * @param typeName
-	 * 
-	 * @return
+	 *
+	 * @param typeLibraryDependencyType the type library dependency type
+	 * @param typeName the type name
+	 * @return true, if successful
 	 */
 	public static boolean removeTypeEntryIfExists(
 			TypeLibraryDependencyType typeLibraryDependencyType, String typeName) {
@@ -203,10 +202,10 @@ public class TypeDepMarshaller {
 	 * found. Note ReferredTypeLibraryType is the type tag under the root tag
 	 * the xml. So this API returns the library referred by the
 	 * typeDependencyType passed.
-	 * 
-	 * @param typeDependencyType
-	 * @param libraryName
-	 * @return
+	 *
+	 * @param typeDependencyType the type dependency type
+	 * @param libraryName the library name
+	 * @return the referred type library
 	 */
 	public static ReferredTypeLibraryType getReferredTypeLibrary(
 			TypeDependencyType typeDependencyType, String libraryName) {
@@ -227,10 +226,10 @@ public class TypeDepMarshaller {
 	 * referred by referredTypeLibraryType among different types. One type might
 	 * depend on many types from the same type library. This API returns the
 	 * type with the specified name
-	 * 
-	 * @param referredTypeLibraryType
-	 * @param typeName
-	 * @return
+	 *
+	 * @param referredTypeLibraryType the referred type library type
+	 * @param typeName the type name
+	 * @return the referred type
 	 */
 	public static ReferredType getReferredType(
 			ReferredTypeLibraryType referredTypeLibraryType, String typeName) {
@@ -246,11 +245,11 @@ public class TypeDepMarshaller {
 	/**
 	 * Name says it all. Unmarshalls the file to a model java object.
 	 * Additionally it refresh the file to make sure that it is in sync
-	 * 
-	 * @param file
-	 * @return
-	 * @throws JAXBException
-	 * @throws CoreException
+	 *
+	 * @param file the file
+	 * @return the type library dependency type
+	 * @throws JAXBException the jAXB exception
+	 * @throws CoreException the core exception
 	 */
 	public static TypeLibraryDependencyType unmarshallIt(IFile file)
 			throws JAXBException, CoreException {
@@ -267,11 +266,11 @@ public class TypeDepMarshaller {
 	/**
 	 * Name says it all. Unmarshalls the file to a model java object.
 	 * Additionally it refresh the file to make sure that it is in sync
-	 * 
-	 * @param file
-	 * @return
-	 * @throws JAXBException
-	 * @throws CoreException
+	 *
+	 * @param inputStream the input stream
+	 * @return the type library dependency type
+	 * @throws JAXBException the jAXB exception
+	 * @throws CoreException the core exception
 	 */
 	public static TypeLibraryDependencyType unmarshallIt(InputStream inputStream)
 			throws JAXBException, CoreException {
@@ -287,11 +286,11 @@ public class TypeDepMarshaller {
 	/**
 	 * Marshalls the java model object back to a file. Write operation.
 	 * Additionally does a refresh
-	 * 
-	 * @param typeLibraryDependencyType
-	 * @param file
-	 * @throws JAXBException
-	 * @throws CoreException
+	 *
+	 * @param typeLibraryDependencyType the type library dependency type
+	 * @param file the file
+	 * @throws JAXBException the jAXB exception
+	 * @throws CoreException the core exception
 	 */
 	public static void marshallIt(
 			TypeLibraryDependencyType typeLibraryDependencyType, IFile file)
@@ -307,10 +306,10 @@ public class TypeDepMarshaller {
 	 * Finds all the types under the specified given TypeDependency Type. All
 	 * means the types under all referred type libraries under the type
 	 * dependency type.
-	 * 
-	 * @param typeDependencyType
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param typeDependencyType the type dependency type
+	 * @return the all referredtypes
+	 * @throws Exception the exception
 	 */
 	public static Set<QName> getAllReferredtypes(
 			TypeDependencyType typeDependencyType) throws Exception {
@@ -340,10 +339,10 @@ public class TypeDepMarshaller {
 	 * the whole type libraries and the types inside it and once it finds a
 	 * matching name, it does not return the type but the library that contains
 	 * the type
-	 * 
-	 * @param typeDependencyType
-	 * @param typeName
-	 * @return
+	 *
+	 * @param typeDependencyType the type dependency type
+	 * @param typeName the type name
+	 * @return the referred parent type library
 	 */
 	public static ReferredTypeLibraryType getReferredParentTypeLibrary(
 			TypeDependencyType typeDependencyType, String typeName) {
@@ -366,8 +365,8 @@ public class TypeDepMarshaller {
 	 * actually even if its removing the libraries, the ultimate effect is that
 	 * all the types under it is also removed. So that why we have kept this
 	 * name.
-	 * 
-	 * @param typeDependencyType
+	 *
+	 * @param typeDependencyType the type dependency type
 	 */
 	public static void removeAllReferredTypes(
 			TypeDependencyType typeDependencyType) {
@@ -383,10 +382,10 @@ public class TypeDepMarshaller {
 	 * missing referred libraries also. The old refTypes is used for finding out
 	 * the version. Basically we don't want to change the version here, we would
 	 * like to keep the old version and thats why we need the old referred types
-	 * 
-	 * @param typeDependencyType
-	 * @param newRefTypes
-	 * @param oldRefTypes
+	 *
+	 * @param typeDependencyType the type dependency type
+	 * @param newRefTypes the new ref types
+	 * @param oldRefTypes the old ref types
 	 */
 	public static void addAllReferredTypes(
 			TypeDependencyType typeDependencyType,
@@ -406,9 +405,9 @@ public class TypeDepMarshaller {
 	 * Gets all referred type libraries in this type dependency xml. Basically
 	 * it scans the xml finds all the types and go inside each type and find all
 	 * the referred type library and returns it,
-	 * 
-	 * @param typeLibraryDependencyType
-	 * @return
+	 *
+	 * @param typeLibraryDependencyType the type library dependency type
+	 * @return the all referred type libraries
 	 */
 	public static Set<String> getAllReferredTypeLibraries(
 			TypeLibraryDependencyType typeLibraryDependencyType) {
@@ -428,10 +427,10 @@ public class TypeDepMarshaller {
 	 * the xml, finds all the types and go inside each type and find all the
 	 * referred type library and goes inside each type library and finds all
 	 * referred types and returns it,
-	 * 
-	 * @param typeLibraryDependencyType
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param typeLibraryDependencyType the type library dependency type
+	 * @return the all referred types
+	 * @throws Exception the exception
 	 */
 	public static Set<QName> getAllReferredTypes(
 			TypeLibraryDependencyType typeLibraryDependencyType)
@@ -459,9 +458,9 @@ public class TypeDepMarshaller {
 	 * the xml, finds all the types and go inside each type and find all the
 	 * referred type library and goes inside each type library and finds all
 	 * referred types and returns it,
-	 * 
-	 * @param typeLibraryDependencyType
-	 * @return
+	 *
+	 * @param typeLibraryDependencyType the type library dependency type
+	 * @return the aLL referred types
 	 */
 	public static Set<ReferredType> getALLReferredTypes(
 			TypeLibraryDependencyType typeLibraryDependencyType) {

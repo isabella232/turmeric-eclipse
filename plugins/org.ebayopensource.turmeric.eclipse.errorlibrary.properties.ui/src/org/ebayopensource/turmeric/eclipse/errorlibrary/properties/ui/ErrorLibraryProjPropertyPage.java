@@ -29,10 +29,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPropertyPage;
 
-
+ 
 /**
- * @author yayu
+ * The Class ErrorLibraryProjPropertyPage.
  *
+ * @author yayu
  */
 public class ErrorLibraryProjPropertyPage extends PreferencePage implements
 IWorkbenchPropertyPage {
@@ -41,13 +42,17 @@ IWorkbenchPropertyPage {
 	 private ISOAProject errorLibProject;
 	 
 	 private Text errorLibVersion;
+	
 	/**
-	 * 
+	 * Instantiates a new error library proj property page.
 	 */
 	public ErrorLibraryProjPropertyPage() {
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	protected Control createContents(Composite parent) {
 		noDefaultAndApplyButton();
@@ -106,11 +111,19 @@ IWorkbenchPropertyPage {
 
         return typeLibraryPropertyGroup;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     * 
+     * Always returns null.
+     */
     public IAdaptable getElement() {
         return null;
     }
     
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.preference.PreferencePage#performOk()
+     */
     @Override
     public boolean performOk() {
         return super.performOk();
@@ -200,6 +213,9 @@ IWorkbenchPropertyPage {
         createLabeledText(group, "Locale:", false, "en");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setElement(IAdaptable element) {
         try {
             if (element.getAdapter(IProject.class) instanceof IProject) {
@@ -220,15 +236,14 @@ IWorkbenchPropertyPage {
         }
     }
 
+    /**
+     * Gets the soa project.
+     *
+     * @return the soa project
+     */
     public ISOAProject getSoaProject() {
         return errorLibProject;
     }
 
-    private void processException(Exception exception) {
-        if (exception != null) {
-            UIUtil.showErrorDialog(exception);
-            SOALogger.getLogger().error(exception);
-        }
-    }
 
 }

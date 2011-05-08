@@ -18,9 +18,9 @@ import org.ebayopensource.turmeric.tools.codegen.ServiceGenerator;
 import org.osgi.framework.Bundle;
 
 /**
- * 
- * @author smatthew
+ * The Class TurmericCodegenProvider.
  *
+ * @author smatthew
  */
 public class TurmericCodegenProvider implements ISOACodegenProvider {
 

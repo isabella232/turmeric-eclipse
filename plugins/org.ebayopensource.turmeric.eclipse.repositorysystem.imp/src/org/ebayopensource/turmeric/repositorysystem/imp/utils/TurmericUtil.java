@@ -23,11 +23,20 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
- * @author haozhou
+ * The Class TurmericUtil.
  *
+ * @author haozhou
  */
 public class TurmericUtil {
 	
+	/**
+	 * Configure error library project.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return the sOA base project
+	 * @throws CoreException the core exception
+	 */
 	public static SOABaseProject configureErrorLibraryProject(final SOABaseProject project, 
     		IProgressMonitor monitor) throws CoreException {
         final List<SOAProjectSourceDirectory> srcDirs = 

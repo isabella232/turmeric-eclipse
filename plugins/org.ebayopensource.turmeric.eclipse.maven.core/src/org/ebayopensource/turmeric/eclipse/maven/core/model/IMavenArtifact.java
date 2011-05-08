@@ -14,16 +14,23 @@ package org.ebayopensource.turmeric.eclipse.maven.core.model;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 
 /**
+ * The Interface IMavenArtifact.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public interface IMavenArtifact extends IAssetInfo {
+	
 	/**
+	 * Sets the group id.
+	 *
 	 * @param groupId the maven group id
 	 */
 	public void setGroupID(String groupId);
 	
 	/**
+	 * Gets the group id.
+	 *
 	 * @return the maven group id
 	 */
 	public String getGroupID();

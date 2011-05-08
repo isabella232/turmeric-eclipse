@@ -53,30 +53,51 @@ import org.eclipse.swt.widgets.Text;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
- * @author yayu
+ * The Class AbstractElementManagementWizardPage.
  *
+ * @author yayu
  */
 public abstract class AbstractElementManagementWizardPage extends SOABasePage {
 //	public static final String NON_EDITABLE_COL_NAME = "";
-	public static final String COLUMN_NAME = "name";
+	/** The Constant COLUMN_NAME. */
+public static final String COLUMN_NAME = "name";
+	
+	/** The Constant COLUMN_TYPE. */
 	public static final String COLUMN_TYPE = "type";
+	
+	/** The Constant COLUMN_OCCUR_MIN. */
 	public static final String COLUMN_OCCUR_MIN = "min_occur";
+	
+	/** The Constant COLUMN_OCCUR_MAX. */
 	public static final String COLUMN_OCCUR_MAX = "max_occur";
+	
+	/** The Constant PARAMETER_COLUMN_PROPERTIES. */
 	public static final String[] PARAMETER_COLUMN_PROPERTIES = 
 	{COLUMN_NAME, COLUMN_TYPE, COLUMN_OCCUR_MIN, COLUMN_OCCUR_MAX};
+	
+	/** The Constant OCCUR_UNBOUNDED. */
 	public static final String OCCUR_UNBOUNDED = "unbounded";	
+	
+	/** The Constant DEFAULT_MAX_OCCURS. */
 	protected static final int DEFAULT_MAX_OCCURS = -1;
 	
+	/** The types viewer. */
 	protected TableButtonPanelViewer typesViewer;
+	
+	/** The elements. */
 	protected List<IParameterElement> elements = new ArrayList<IParameterElement>();
 	
+	/** The param cell editor. */
 	protected CellEditor paramCellEditor;
 	private int minimumRequiredElementNum = 1;
 
 	/**
-	 * @param pageName
-	 * @param title
-	 * @param description
+	 * Instantiates a new abstract element management wizard page.
+	 *
+	 * @param pageName the page name
+	 * @param title the title
+	 * @param description the description
+	 * @param elements the elements
 	 */
 	public AbstractElementManagementWizardPage(String pageName, String title,
 			String description, List<? extends IParameterElement> elements) {
@@ -92,6 +113,15 @@ public abstract class AbstractElementManagementWizardPage extends SOABasePage {
 		}
 	}*/
 
+	/**
+	 * Instantiates a new abstract element management wizard page.
+	 *
+	 * @param pageName the page name
+	 * @param title the title
+	 * @param description the description
+	 * @param elements the elements
+	 * @param minimumRequiredElementNum the minimum required element num
+	 */
 	public AbstractElementManagementWizardPage(String pageName,
 			String title, String description, 
 			List<? extends IParameterElement> elements, int minimumRequiredElementNum) {
@@ -104,10 +134,18 @@ public abstract class AbstractElementManagementWizardPage extends SOABasePage {
 		}
 	}
 
+	/**
+	 * Gets the elements.
+	 *
+	 * @return the elements
+	 */
 	public List<IParameterElement> getElements() {
 		return elements;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		if (super.dialogChanged() == false)
@@ -139,8 +177,8 @@ public abstract class AbstractElementManagementWizardPage extends SOABasePage {
 		return SOAProjectConstants.EMPTY_STRING;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		final Composite container = super.createParentControl(parent, 3);
@@ -380,6 +418,9 @@ public abstract class AbstractElementManagementWizardPage extends SOABasePage {
 		return typesViewer;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
@@ -387,6 +428,12 @@ public abstract class AbstractElementManagementWizardPage extends SOABasePage {
 				ISOAHelpProvider.PAGE_CREATE_SCHEMA_TYPE);
 	}
 
+	/**
+	 * Gets the data type of parameter element.
+	 *
+	 * @param elem the elem
+	 * @return the data type of parameter element
+	 */
 	public static String getDataTypeOfParameterElement(
 			IParameterElement elem) {
 		if (elem != null) {
@@ -399,6 +446,13 @@ public abstract class AbstractElementManagementWizardPage extends SOABasePage {
 		return SOAProjectConstants.EMPTY_STRING;
 	}
 	
+	/**
+	 * Modify data type of parameter element.
+	 *
+	 * @param elem the elem
+	 * @param value the value
+	 * @return true, if successful
+	 */
 	public static boolean modifyDataTypeOfParameterElement(IParameterElement elem, 
 			Object value) {
 		if (value.equals(elem.getDatatype()) == false){
@@ -408,13 +462,41 @@ public abstract class AbstractElementManagementWizardPage extends SOABasePage {
 		return false;
 	}
 	
+	/**
+	 * Gets the selected library types.
+	 *
+	 * @return the selected library types
+	 * @throws Exception the exception
+	 */
 	protected abstract List<LibraryType> getSelectedLibraryTypes() throws Exception;
 	
+	/**
+	 * Open type selector dialog.
+	 *
+	 * @param shell the shell
+	 * @param libTypes the lib types
+	 * @return the object
+	 */
 	protected abstract Object openTypeSelectorDialog(Shell shell, LibraryType[] libTypes);
 	
+	/**
+	 * Creates the new element.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @return the i parameter element
+	 */
 	protected abstract IParameterElement createNewElement(String name, String type);
 	
+	/**
+	 * Adds the pressed.
+	 */
 	protected abstract void addPressed();
 	
+	/**
+	 * Removes the prssed.
+	 *
+	 * @param object the object
+	 */
 	protected abstract void removePrssed(Object object);
 }

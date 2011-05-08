@@ -11,6 +11,8 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
 import java.util.Set;
 
 /**
+ * The Interface ISOAErrDomain.
+ *
  * @author smathew
  * 
  * Represents an error domain object. Typically this class would be implemented
@@ -20,26 +22,31 @@ import java.util.Set;
 public interface ISOAErrDomain extends ISOAErrUIComp{
 
 	/**
-	 * returns all the errors inside a domain
-	 * 
-	 * @return
+	 * returns all the errors inside a domain.
+	 *
+	 * @return the errors
 	 */
 	Set<ISOAError> getErrors();
 
 	/**
-	 * return the organization property for this domain
-	 * 
-	 * @return
+	 * return the organization property for this domain.
+	 *
+	 * @return the organization
 	 */
 	String getOrganization();
 	
 	/**
-	 * return the parent library to which this domain belong to
-	 * 
-	 * @return
+	 * return the parent library to which this domain belong to.
+	 *
+	 * @return the library
 	 */
 	ISOAErrLibrary getLibrary();
 	
+	/**
+	 * Adds the error.
+	 *
+	 * @param error the error
+	 */
 	void addError(ISOAError error);
 	
 

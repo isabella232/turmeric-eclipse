@@ -12,9 +12,10 @@
 package org.ebayopensource.turmeric.eclipse.exception.resources;
 
 /**
+ * The Class SOAErrorDomainCreationFailedException.
+ *
  * @author yayu
  * @since 1.0.0
- *
  */
 public class SOAErrorDomainCreationFailedException extends
 		SOAResourceCreationException {
@@ -25,15 +26,19 @@ public class SOAErrorDomainCreationFailedException extends
 	private static final long serialVersionUID = 22L;
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA error domain creation failed exception.
+	 *
+	 * @param cause the cause
 	 */
 	public SOAErrorDomainCreationFailedException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new sOA error domain creation failed exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public SOAErrorDomainCreationFailedException(String message, Throwable cause) {
 		super("Failed to create SOA error domain->" + message, cause);

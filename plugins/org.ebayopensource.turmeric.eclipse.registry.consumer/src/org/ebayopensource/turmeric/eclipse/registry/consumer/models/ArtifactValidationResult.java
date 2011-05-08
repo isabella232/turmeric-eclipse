@@ -9,7 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.registry.consumer.models;
 
 /**
- * Artifact Validation Result
+ * Artifact Validation Result.
+ *
  * @author ramurthy
  */
 
@@ -25,36 +26,74 @@ public class ArtifactValidationResult {
 	 */
 	private int lineNumber = -1;
 	
+	/**
+	 * Instantiates a new artifact validation result.
+	 */
 	public ArtifactValidationResult() {
 		
 	}
 	
+	/**
+	 * Gets the artifact validation result message.
+	 *
+	 * @return the artifact validation result message
+	 */
 	public String getArtifactValidationResultMessage() {
 		return fArtifactValidationResultMessage;
 	}
 
+	/**
+	 * Sets the artifact validation result message.
+	 *
+	 * @param artifactValidationResultMessage the artifact validation result message
+	 * @return the artifact validation result
+	 */
 	public ArtifactValidationResult setArtifactValidationResultMessage(String artifactValidationResultMessage) {
 		fArtifactValidationResultMessage = artifactValidationResultMessage;
 		return this;
 	}
 	
+	/**
+	 * Gets the assertions severity model.
+	 *
+	 * @return the assertions severity model
+	 */
 	public AssertionsSeverityModel getAssertionsSeverityModel() {
 		return fAssertionSeverityModel;
 	}
 
+	/**
+	 * Sets the assertion severity model.
+	 *
+	 * @param assertionsSeverityModel the assertions severity model
+	 * @return the artifact validation result
+	 */
 	public ArtifactValidationResult setAssertionSeverityModel(AssertionsSeverityModel assertionsSeverityModel) {
 		fAssertionSeverityModel = assertionsSeverityModel;
 		return this;
 	}
 
+	/**
+	 * Gets the line number.
+	 *
+	 * @return the line number
+	 */
 	public int getLineNumber() {
 		return lineNumber;
 	}
 
+	/**
+	 * Sets the line number.
+	 *
+	 * @param lineNumber the new line number
+	 */
 	public void setLineNumber(int lineNumber) {
 		this.lineNumber = lineNumber;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean equals(Object obj) {
 		//we dont count line number
 		if (this == obj)
@@ -69,7 +108,10 @@ public class ArtifactValidationResult {
 			return false;		
 		return true;
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public int hashCode() {
 		//we dont count line number
 		final int prime = 31;

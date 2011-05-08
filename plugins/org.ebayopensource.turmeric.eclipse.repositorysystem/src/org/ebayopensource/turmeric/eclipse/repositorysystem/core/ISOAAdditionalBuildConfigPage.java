@@ -35,8 +35,8 @@ public interface ISOAAdditionalBuildConfigPage extends IWizardPage {
 	 * This user input will not be added to the core model. Even though Core
 	 * model is not aware of the special input this page can always be aware of
 	 * the core model or some of its properties through this formal paramater.
-	 * 
-	 * @param soaParamModel
+	 *
+	 * @param soaParamModel the soa param model
 	 */
 	void performFinish(ISOAServiceParamModel soaParamModel);
 

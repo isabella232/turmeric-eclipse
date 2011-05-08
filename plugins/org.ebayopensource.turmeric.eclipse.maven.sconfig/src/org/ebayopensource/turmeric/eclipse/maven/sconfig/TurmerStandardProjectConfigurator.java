@@ -32,6 +32,9 @@ import org.eclipse.jdt.core.JavaCore;
 import org.maven.ide.eclipse.project.configurator.AbstractProjectConfigurator;
 import org.maven.ide.eclipse.project.configurator.ProjectConfigurationRequest;
 
+/**
+ * The Class TurmerStandardProjectConfigurator.
+ */
 public class TurmerStandardProjectConfigurator extends
 		AbstractProjectConfigurator {
 
@@ -41,10 +44,16 @@ public class TurmerStandardProjectConfigurator extends
 	private static final String GEN_INTERFACE_WSDL = "gen-interface-wsdl";
 	private static final String TURMERIC_MAVEN_PLUGIN = "turmeric-maven-plugin";
 
+	/**
+	 * Instantiates a new turmer standard project configurator.
+	 */
 	public TurmerStandardProjectConfigurator() {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.maven.ide.eclipse.project.configurator.AbstractProjectConfigurator#configure(org.maven.ide.eclipse.project.configurator.ProjectConfigurationRequest, org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
 	public void configure(ProjectConfigurationRequest projRequest,
 			IProgressMonitor monitor) throws CoreException {
@@ -104,6 +113,12 @@ public class TurmerStandardProjectConfigurator extends
 		return false;
 	}
 
+	/**
+	 * Checks if is interface project.
+	 *
+	 * @param projRequest the proj request
+	 * @return true, if is interface project
+	 */
 	public boolean isInterfaceProject(ProjectConfigurationRequest projRequest) {
 
 		return isProjectType(GEN_INTERFACE_WSDL, projRequest);
@@ -130,19 +145,43 @@ public class TurmerStandardProjectConfigurator extends
 		return false;
 	}
 
+	/**
+	 * Checks if is implementation project.
+	 *
+	 * @param projRequest the proj request
+	 * @return true, if is implementation project
+	 */
 	public boolean isImplementationProject(
 			ProjectConfigurationRequest projRequest) {
 		return isProjectType(GEN_IMPLEMENTATION, projRequest);
 	}
 
+	/**
+	 * Checks if is error lib project.
+	 *
+	 * @param projRequest the proj request
+	 * @return true, if is error lib project
+	 */
 	public boolean isErrorLibProject(ProjectConfigurationRequest projRequest) {
 		return isProjectType(GEN_ERRORLIBRARY, projRequest);
 	}
 
+	/**
+	 * Checks if is type lib project.
+	 *
+	 * @param projRequest the proj request
+	 * @return true, if is type lib project
+	 */
 	public boolean isTypeLibProject(ProjectConfigurationRequest projRequest) {
 		return isProjectType(GEN_TYPELIBRARY, projRequest);
 	}
 
+	/**
+	 * Checks if is consumer lib project.
+	 *
+	 * @param projRequest the proj request
+	 * @return true, if is consumer lib project
+	 */
 	public boolean isConsumerLibProject(ProjectConfigurationRequest projRequest) {
 		return isFileAccessible(projRequest.getProject(),
 				SOAProjectConstants.PROPS_FILE_SERVICE_CONSUMER);

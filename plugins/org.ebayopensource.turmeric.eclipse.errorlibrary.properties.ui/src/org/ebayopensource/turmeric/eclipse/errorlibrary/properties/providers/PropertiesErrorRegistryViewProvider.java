@@ -26,8 +26,9 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 
 
 /**
- * @author yayu
+ * The Class PropertiesErrorRegistryViewProvider.
  *
+ * @author yayu
  */
 public class PropertiesErrorRegistryViewProvider implements
 		IErrorRegistryViewProvider {
@@ -35,7 +36,7 @@ public class PropertiesErrorRegistryViewProvider implements
 	private AbstractErrorNodeAction refreshAction;
 
 	/**
-	 * 
+	 * Instantiates a new properties error registry view provider.
 	 */
 	public PropertiesErrorRegistryViewProvider() {
 		super();

@@ -14,6 +14,8 @@ import org.eclipse.wst.wsdl.Definition;
 
 
 /**
+ * The Class CommonWSDLProcessorParam.
+ *
  * @author smathew
  * 
  * This is the common input parameter for all processors except for
@@ -24,33 +26,69 @@ public class CommonWSDLProcessorParam {
 	private ServiceFromTemplateWsdlParamModel inputParamModel;
 	private Definition definition;
 
+	/**
+	 * Instantiates a new common wsdl processor param.
+	 *
+	 * @param inputParamModel the input param model
+	 * @param targetFile the target file
+	 */
 	public CommonWSDLProcessorParam(
 			ServiceFromTemplateWsdlParamModel inputParamModel, IFile targetFile) {
 		this.inputParamModel = inputParamModel;
 		this.targetFile = targetFile;
 	}
 
+	/**
+	 * Gets the input param model.
+	 *
+	 * @return the input param model
+	 */
 	public ServiceFromTemplateWsdlParamModel getInputParamModel() {
 		return inputParamModel;
 	}
 
+	/**
+	 * Sets the input param model.
+	 *
+	 * @param inputParamModel the new input param model
+	 */
 	public void setInputParamModel(
 			ServiceFromTemplateWsdlParamModel inputParamModel) {
 		this.inputParamModel = inputParamModel;
 	}
 
+	/**
+	 * Gets the definition.
+	 *
+	 * @return the definition
+	 */
 	public Definition getDefinition() {
 		return definition;
 	}
 
+	/**
+	 * Sets the definition.
+	 *
+	 * @param definition the new definition
+	 */
 	public void setDefinition(Definition definition) {
 		this.definition = definition;
 	}
 
+	/**
+	 * Gets the target file.
+	 *
+	 * @return the target file
+	 */
 	public IFile getTargetFile() {
 		return targetFile;
 	}
 
+	/**
+	 * Sets the target file.
+	 *
+	 * @param targetFile the new target file
+	 */
 	public void setTargetFile(IFile targetFile) {
 		this.targetFile = targetFile;
 	}

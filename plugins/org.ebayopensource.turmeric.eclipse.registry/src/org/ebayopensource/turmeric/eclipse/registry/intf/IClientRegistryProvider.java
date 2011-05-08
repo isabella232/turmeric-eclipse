@@ -17,25 +17,28 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
- * @author yayu
+ * The Interface IClientRegistryProvider.
  *
+ * @author yayu
  */
 public interface IClientRegistryProvider {
 	
 	/**
 	 * Retrieve the registered client asset detail from the Asset Registry or null if not registered yet.
-	 * @param clientName
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param clientName the client name
+	 * @return the client asset
+	 * @throws ClientProviderException the client provider exception
 	 */
 	public ClientAssetModel getClientAsset(String clientName) throws ClientProviderException;
 	
 	
 	/**
-	 * Submit a SOA client to the Asset Registry
-	 * @param clientModel
-	 * @return
-	 * @throws ClientProviderException
+	 * Submit a SOA client to the Asset Registry.
+	 *
+	 * @param clientModel the client model
+	 * @return the i status
+	 * @throws ClientProviderException the client provider exception
 	 */
 	public IStatus submitNewClientAsset(ClientAssetModel clientModel) throws ClientProviderException;
 

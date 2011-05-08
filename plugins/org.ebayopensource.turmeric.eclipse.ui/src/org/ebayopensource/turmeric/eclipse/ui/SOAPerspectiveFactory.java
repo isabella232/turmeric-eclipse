@@ -18,23 +18,28 @@ import org.eclipse.ui.IPlaceholderFolderLayout;
 import org.eclipse.ui.internal.PageLayout;
 
 /**
- * @author yayu
+ * A factory for creating SOAPerspective objects.
  *
+ * @author yayu
  */
 @SuppressWarnings("restriction")
 public final class SOAPerspectiveFactory extends JavaPerspectiveFactory{
+	
+	/** The Constant VIEWID_GLOBAL_TYPE_REGISTRY. */
 	public static final String VIEWID_GLOBAL_TYPE_REGISTRY = "org.ebayopensource.turmeric.eclipse.typelibrary.registryView";
+	
+	/** The Constant VIEWID_PROPERTY. */
 	public static final String VIEWID_PROPERTY = "org.eclipse.ui.views.PropertySheet";
 	
 	/**
-	 * 
+	 * Instantiates a new sOA perspective factory.
 	 */
 	public SOAPerspectiveFactory() {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui.IPageLayout)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createInitialLayout(IPageLayout layout) {
 		super.createInitialLayout(layout);

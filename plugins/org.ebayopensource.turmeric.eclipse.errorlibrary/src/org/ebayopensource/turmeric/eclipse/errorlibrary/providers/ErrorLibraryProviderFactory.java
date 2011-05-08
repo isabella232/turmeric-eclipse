@@ -37,6 +37,8 @@ import org.eclipse.ui.dialogs.ListDialog;
 
 
 /**
+ * A factory for creating ErrorLibraryProvider objects.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -47,7 +49,10 @@ public final class ErrorLibraryProviderFactory {
 		new LinkedHashMap<String, IErrorLibraryProvider>();
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/** The Constant PROP_KEY_PROVIDER_ID. */
 	public static final String PROP_KEY_PROVIDER_ID = "providerID";
+	
+	/** The Constant PROP_KEY_PROVIDER_IMPLEMENTATION. */
 	public static final String PROP_KEY_PROVIDER_IMPLEMENTATION = "providerImplementation";
 	
 	private static ErrorLibraryProviderFactory factory = new ErrorLibraryProviderFactory();
@@ -59,11 +64,22 @@ public final class ErrorLibraryProviderFactory {
 		super();
 	}
 	
+	/**
+	 * Gets the single instance of ErrorLibraryProviderFactory.
+	 *
+	 * @return single instance of ErrorLibraryProviderFactory
+	 */
 	public static ErrorLibraryProviderFactory getInstance() {
 		return factory;
 	}
 	
 	
+	/**
+	 * Gets the error library providers.
+	 *
+	 * @return the error library providers
+	 * @throws SOAGetErrorLibraryProviderFailedException the sOA get error library provider failed exception
+	 */
 	public List<IErrorLibraryProvider> getErrorLibraryProviders() 
 	throws SOAGetErrorLibraryProviderFailedException{
 		if (errorProviders.isEmpty() == true) {
@@ -96,12 +112,20 @@ public final class ErrorLibraryProviderFactory {
 		return ListUtil.arrayList(errorProviders.values());
 	}
 	
+	/**
+	 * Sets the preferred error library provider id.
+	 *
+	 * @param providerId the new preferred error library provider id
+	 */
 	public void setPreferredErrorLibraryProviderId(String providerId) {
 		preferredProviderID = providerId;
 	}
 
 	/**
+	 * Gets the preferred provider.
+	 *
 	 * @return The preferred error library content provider
+	 * @throws SOAGetErrorLibraryProviderFailedException the sOA get error library provider failed exception
 	 */
 	public IErrorLibraryProvider getPreferredProvider()
 			throws SOAGetErrorLibraryProviderFailedException {

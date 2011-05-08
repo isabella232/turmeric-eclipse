@@ -47,11 +47,9 @@ public class IOUtil {
 	 * incrementally. Basically, here we first create the parent directory and
 	 * then create the child incrementally. It checks for the readability of the
 	 * parent and the validity of the segment before creating every child.
-	 * 
-	 * @param root
-	 *            the File base directory (ignored if null or not readable
-	 * @param segment
-	 *            the String[] of path elements to add to root (ignored if null)
+	 *
+	 * @param root the File base directory (ignored if null or not readable
+	 * @param segments the segments
 	 * @return null if root not readable or File otherwise
 	 */
 	public static File newFile(File root, String... segments) {
@@ -75,14 +73,20 @@ public class IOUtil {
 	/**
 	 * Checks if the directory is readable. Null Safe. Returns true only if the
 	 * file is not null, is a directory , if it exists and if it is readable.
-	 * 
-	 * @param dir
-	 * @return
+	 *
+	 * @param dir the dir
+	 * @return true, if successful
 	 */
 	public static boolean readableDir(File dir) {
 		return null != dir && dir.isDirectory() && dir.canRead();
 	}
 	
+	/**
+	 * Join all.
+	 *
+	 * @param parts the parts
+	 * @return the string
+	 */
 	public static String joinAll(final String... parts) {		
 		final String dirStr = StringUtils.join(Arrays.asList(parts), File.separator);
 		return dirStr;
@@ -96,9 +100,9 @@ public class IOUtil {
 	 * exception and finally checks file existence In any of the case where it
 	 * fails, it will return false. Clients doesnt have to handle null
 	 * explicitly.
-	 * 
-	 * @param url
-	 * @return
+	 *
+	 * @param url the url
+	 * @return true, if successful
 	 */
 	public static boolean validateURL(String url) {
 		if (!StringUtils.isEmpty(url)) {
@@ -118,11 +122,11 @@ public class IOUtil {
 	 * Writes the contents to this file. This is just a convenience wrapper. If
 	 * the file does not exist it will create one and sets the contents.
 	 * Additionally it will close the stream whatever is the case.
-	 * 
-	 * @param contents
-	 * @param file
-	 * @param progressMonitor
-	 * @throws CoreException
+	 *
+	 * @param contents the contents
+	 * @param file the file
+	 * @param progressMonitor the progress monitor
+	 * @throws CoreException the core exception
 	 */
 	public static void writeTo(String contents, final IFile file,
 			IProgressMonitor progressMonitor) throws CoreException {
@@ -148,14 +152,13 @@ public class IOUtil {
 	 * stored somewhere in the file system. But any client who wants to load a
 	 * properties file can use this. There is nothing SOA specific here in this
 	 * API.
-	 * 
-	 * @param enclosedJarFile
-	 * @param jarEntryPath
-	 * @return
-	 * @throws IOException
-	 *             This is a special case where we want the consumers to
-	 *             continue without failures, because most of the cases consumes
-	 *             this in a loop.
+	 *
+	 * @param enclosedJarFile the enclosed jar file
+	 * @param jarEntryPath the jar entry path
+	 * @return the properties
+	 * @throws IOException This is a special case where we want the consumers to
+	 * continue without failures, because most of the cases consumes
+	 * this in a loop.
 	 */
 	public static Properties loadProperties(JarFile enclosedJarFile,
 			String jarEntryPath) throws IOException {
@@ -182,11 +185,11 @@ public class IOUtil {
 	 * SOA Tool Handler will create a non locking URL by setting the caching
 	 * off. There is obviously a performance compromise made here by disabling
 	 * the cache.
-	 * 
-	 * @param jarFileUrl
-	 * @param jarEntryPath
-	 * @return
-	 * @throws IOException
+	 *
+	 * @param jarFileUrl the jar file url
+	 * @param jarEntryPath the jar entry path
+	 * @return the non locking url
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static URL getNonLockingURL(URL jarFileUrl, String jarEntryPath)
 			throws IOException {
@@ -214,11 +217,11 @@ public class IOUtil {
 	 * into the MalformedURLException even if the String can be converted into
 	 * an URL in a different way. This is the standard way of addressing the
 	 * issue.
-	 * 
-	 * @param url
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws UnsupportedEncodingException 
+	 *
+	 * @param url the url
+	 * @return the uRL
+	 * @throws MalformedURLException the malformed url exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public static URL toURL(String url) throws MalformedURLException,
 			UnsupportedEncodingException {
@@ -239,11 +242,9 @@ public class IOUtil {
 	 * Returns an empty list if the directory is null or is not a directory or
 	 * if it is empty. If the dirOrFile is true it will return only the child
 	 * directories else it will return only the file children.
-	 * 
-	 * @param dir
-	 * @param onlyDir
-	 *            return only directories if its true and if its false only
-	 *            files
+	 *
+	 * @param dir the dir
+	 * @param dirOrFile the dir or file
 	 * @return returns the list of file in the directory,
 	 */
 	public static List<File> listFile(File dir, boolean dirOrFile) {

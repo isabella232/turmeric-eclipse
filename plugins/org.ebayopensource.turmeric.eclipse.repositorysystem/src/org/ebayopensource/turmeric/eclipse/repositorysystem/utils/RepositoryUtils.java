@@ -25,6 +25,8 @@ import org.eclipse.core.runtime.CoreException;
 
 
 /**
+ * The Class RepositoryUtils.
+ *
  * @author smathew
  * 
  * Util class for Repo
@@ -35,11 +37,11 @@ public class RepositoryUtils {
 	 * returns the projects which has the nature in the workspace as an
 	 * AssetInfo Collection. If the natures is empty , this api returns all
 	 * projects in workspace
-	 * 
+	 *
+	 * @param natureIds the nature ids
 	 * @return Set
-	 * @throws CoreException
+	 * @throws CoreException the core exception
 	 * @see AssetInfo
-	 * 
 	 */
 	public static Set<AssetInfo> getProjectInfoProjectsFromWorkSpace(
 			String... natureIds) throws CoreException {
@@ -58,6 +60,12 @@ public class RepositoryUtils {
 		return projectSet;
 	}
 
+	/**
+	 * Gets the interface projects from work space.
+	 *
+	 * @return the interface projects from work space
+	 * @throws Exception the exception
+	 */
 	public static Set<ProjectInfo> getInterfaceProjectsFromWorkSpace()
 			throws Exception {
 		Set<ProjectInfo> projectSet = new TreeSet<ProjectInfo>();

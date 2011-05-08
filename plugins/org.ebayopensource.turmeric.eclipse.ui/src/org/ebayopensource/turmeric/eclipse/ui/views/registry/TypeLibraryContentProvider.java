@@ -8,15 +8,12 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
@@ -26,11 +23,16 @@ import org.eclipse.jface.viewers.Viewer;
 import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 
 /**
+ * The Class TypeLibraryContentProvider.
+ *
  * @author smathew
- * 
  */
 public class TypeLibraryContentProvider implements ITreeContentProvider {
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		// this is the root.
 		final List<IRegistryTreeNode> children = new ArrayList<IRegistryTreeNode>();
@@ -64,6 +66,10 @@ public class TypeLibraryContentProvider implements ITreeContentProvider {
 		return children.toArray();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Object getParent(Object element) {
 		if (element instanceof IRegistryTreeNode) {
 			return ((IRegistryTreeNode) element).getParent();
@@ -71,10 +77,18 @@ public class TypeLibraryContentProvider implements ITreeContentProvider {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
+	 */
+	@Override
 	public boolean hasChildren(Object element) {
 		return (element instanceof TypeTreeRoot || element instanceof CategoryTreeNode);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.ITreeContentProvider#getElements(java.lang.Object)
+	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof SOATypeRegistry) {
 			TypeTreeRoot[] typeTreeRoots = new TypeTreeRoot[1];
@@ -84,16 +98,25 @@ public class TypeLibraryContentProvider implements ITreeContentProvider {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
+	 */
+	@Override
 	public void dispose() {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+	 */
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
 	}
 
 	private Predicate getPredicate(final String typeLibraryCategory) {
 		return new Predicate() {
+			@Override
 			public boolean evaluate(Object arg0) {
 				if (arg0 instanceof TypeLibraryType) {
 					return StringUtils.equalsIgnoreCase(

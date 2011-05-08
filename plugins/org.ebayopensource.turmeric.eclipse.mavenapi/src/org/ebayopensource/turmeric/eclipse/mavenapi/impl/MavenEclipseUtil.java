@@ -34,9 +34,9 @@ import org.maven.ide.eclipse.core.IMavenConstants;
 import org.maven.ide.eclipse.index.IndexedArtifactFile;
 
 /**
- * 
+ * The Class MavenEclipseUtil.
+ *
  * @author James Ervin
- * 
  */
 public final class MavenEclipseUtil {
 	/**
@@ -46,10 +46,10 @@ public final class MavenEclipseUtil {
 
 	/**
 	 * Check to see if the project has a maven nature.
-	 * 
+	 *
 	 * @param project an eclipse project
 	 * @return true if the project is a maven project, false otherwise
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public static boolean hasMavenNature(final IProject project)
 			throws CoreException {
@@ -59,9 +59,10 @@ public final class MavenEclipseUtil {
 	}
 
 	/**
-	 * 
+	 * Gets the all maven projects in workspace.
+	 *
 	 * @return a List of projects that are Maven Projects
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public static List<IProject> getAllMavenProjectsInWorkspace()
 			throws CoreException {
@@ -75,6 +76,13 @@ public final class MavenEclipseUtil {
 		return projects;
 	}
 
+	/**
+	 * Read pom.
+	 *
+	 * @param project the project
+	 * @return the model
+	 * @throws CoreException the core exception
+	 */
 	public static Model readPOM(final IProject project) throws CoreException {
 		IFile file = getPomFile(project);
 		file.refreshLocal(IResource.DEPTH_ZERO, null);
@@ -83,6 +91,11 @@ public final class MavenEclipseUtil {
 		return getMavenModelManager().readMavenModel(file);
 	}
 
+	/**
+	 * Gets the all project artifacts in workspace.
+	 *
+	 * @return the all project artifacts in workspace
+	 */
 	public static Map<ArtifactMetadata, IProject> getAllProjectArtifactsInWorkspace() {
 		try {
 			final Map<ArtifactMetadata, IProject> projects = new ConcurrentHashMap<ArtifactMetadata, IProject>();
@@ -99,6 +112,11 @@ public final class MavenEclipseUtil {
 		}
 	}
 
+	/**
+	 * Gets the all project artifact ids in workspace.
+	 *
+	 * @return the all project artifact ids in workspace
+	 */
 	public static Map<String, IProject> getAllProjectArtifactIdsInWorkspace() {
 		final Map<String, IProject> projects = new ConcurrentHashMap<String, IProject>();
 		final Map<ArtifactMetadata, IProject> map = getAllProjectArtifactsInWorkspace();
@@ -111,11 +129,24 @@ public final class MavenEclipseUtil {
 	}
 
 	// -------------------------------------------------------------------------
+	/**
+	 * Gets the pom file.
+	 *
+	 * @param project the project
+	 * @return the pom file
+	 */
 	public static IFile getPomFile(final IProject project) {
 		return project.getProject().getFile(IMavenConstants.POM_FILE_NAME);
 	}
 
 	// -------------------------------------------------------------------------
+	/**
+	 * Artifact.
+	 *
+	 * @param metadata the metadata
+	 * @return the artifact
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static Artifact artifact(final ArtifactMetadata metadata)
 			throws MavenEclipseApiException {
 		if (metadata == null)
@@ -131,12 +162,24 @@ public final class MavenEclipseUtil {
 						metadata.getType(), metadata.getClassifier());
 	}
 
+	/**
+	 * Convert to artifact metadata.
+	 *
+	 * @param pom the pom
+	 * @return the artifact metadata
+	 */
 	public static ArtifactMetadata convertToArtifactMetadata(final Model pom) {
 		return new EclipseArtifactMetadata(pom.getGroupId(),
 				pom.getArtifactId(), pom.getVersion(), pom.getPackaging(),
 				ArtifactScopeEnum.DEFAULT_SCOPE);
 	}
 
+	/**
+	 * Artifact metadata.
+	 *
+	 * @param library the library
+	 * @return the artifact metadata
+	 */
 	public static ArtifactMetadata artifactMetadata(final String library) {
 		final String[] coordinates = StringUtils.split(library,
 				ARTIFACT_METADATA_SEPARATOR);
@@ -161,6 +204,12 @@ public final class MavenEclipseUtil {
 		return metadata;
 	}
 
+	/**
+	 * Artifact metadata.
+	 *
+	 * @param dependency the dependency
+	 * @return the artifact metadata
+	 */
 	public static ArtifactMetadata artifactMetadata(final Dependency dependency) {
 		return new EclipseArtifactMetadata(dependency.getGroupId(),
 				dependency.getArtifactId(), dependency.getVersion(),
@@ -168,6 +217,17 @@ public final class MavenEclipseUtil {
 				dependency.getClassifier(), null, null, true, null);
 	}
 
+	/**
+	 * Artifact metadata.
+	 *
+	 * @param groupID the group id
+	 * @param artifactID the artifact id
+	 * @param version the version
+	 * @param type the type
+	 * @param scope the scope
+	 * @param classifiler the classifiler
+	 * @return the artifact metadata
+	 */
 	public static ArtifactMetadata artifactMetadata(final String groupID,
 			final String artifactID, final String version, final String type,
 			final String scope, final String classifiler) {
@@ -175,6 +235,15 @@ public final class MavenEclipseUtil {
 				scope, classifiler, null, null, true, null);
 	}
 
+	/**
+	 * Artifact metadata.
+	 *
+	 * @param groupID the group id
+	 * @param artifactID the artifact id
+	 * @param version the version
+	 * @param packaging the packaging
+	 * @return the artifact metadata
+	 */
 	public static ArtifactMetadata artifactMetadata(final String groupID,
 			final String artifactID, final String version,
 			final String packaging) {
@@ -182,6 +251,12 @@ public final class MavenEclipseUtil {
 				packaging);
 	}
 
+	/**
+	 * Artifact metadata.
+	 *
+	 * @param artifact the artifact
+	 * @return the artifact metadata
+	 */
 	public static ArtifactMetadata artifactMetadata(final Artifact artifact) {
 		return new EclipseArtifactMetadata(artifact.getGroupId(),
 				artifact.getArtifactId(), artifact.getVersion(),
@@ -189,18 +264,37 @@ public final class MavenEclipseUtil {
 				artifact.getClassifier(), null, null, true, null);
 	}
 
+	/**
+	 * Artifact metadata.
+	 *
+	 * @param model the model
+	 * @return the artifact metadata
+	 */
 	public static ArtifactMetadata artifactMetadata(final Model model) {
 		if (model == null)
 			return null;
 		return artifactMetadata(model.getId());
 	}
 
+	/**
+	 * Artifact metadata.
+	 *
+	 * @param file the file
+	 * @param packaging the packaging
+	 * @return the artifact metadata
+	 */
 	public static ArtifactMetadata artifactMetadata(
 			final IndexedArtifactFile file, final String packaging) {
 		return new EclipseArtifactMetadata(file.group, file.artifact,
 				file.version, packaging, ArtifactScopeEnum.DEFAULT_SCOPE);
 	}
 
+	/**
+	 * Dependency.
+	 *
+	 * @param metadata the metadata
+	 * @return the dependency
+	 */
 	public static Dependency dependency(final ArtifactMetadata metadata) {
 		final Dependency dependency = new Dependency();
 		dependency.setGroupId(metadata.getGroupId());
@@ -215,12 +309,24 @@ public final class MavenEclipseUtil {
 		return dependency;
 	}
 
+	/**
+	 * Dependency.
+	 *
+	 * @param model the model
+	 * @return the dependency
+	 */
 	public static Dependency dependency(final Model model) {
 		if (model == null)
 			return null;
 		return dependency(artifactMetadata(model));
 	}
 
+	/**
+	 * Gets the artifact pom file.
+	 *
+	 * @param artifact the artifact
+	 * @return the artifact pom file
+	 */
 	public static File getArtifactPOMFile(final Artifact artifact) {
 		if (artifact == null)
 			return null;

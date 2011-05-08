@@ -19,22 +19,28 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
+ * The Interface IArtifactValidator.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public interface IArtifactValidator {
 	
-	/** Validate the artifact
-	 * @param artifacts
+	/**
+	 * Validate the artifact.
+	 *
+	 * @param artifacts the artifacts
 	 * @param artifactType the file extension of the artifacts, e.g. wsdl.
-	 * @param monitor
-	 * @return
-	 * @throws ArtifactValidationException
+	 * @param monitor the monitor
+	 * @return the i status
+	 * @throws ArtifactValidationException the artifact validation exception
 	 */
 	public IStatus validateArtifact(byte[] artifacts, String artifactType, 
 			IProgressMonitor monitor) throws ArtifactValidationException;
 
 	/**
+	 * Gets the all supported validators.
+	 *
 	 * @return a list of all supported validators
 	 */
 	public List<String> getAllSupportedValidators();

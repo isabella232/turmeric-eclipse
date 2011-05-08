@@ -17,10 +17,11 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.StructuredViewer;
-import org.eclipse.swt.custom.BusyIndicator;
 
 
 /**
+ * The Class RefreshRegistryAction.
+ *
  * @author smathew
  * @deprecated Use the new RegistryRefreshHandler
  */
@@ -29,6 +30,11 @@ public class RefreshRegistryAction extends Action{
 	private StructuredViewer typeViewer;
 	private static final String TEXT = "Refresh the Type Registry";
 
+	/**
+	 * Instantiates a new refresh registry action.
+	 *
+	 * @param typeLibraryViewer the type library viewer
+	 */
 	public RefreshRegistryAction(StructuredViewer typeLibraryViewer) {
 		super(TEXT, AS_PUSH_BUTTON);
 		this.setToolTipText(TEXT);
@@ -36,10 +42,18 @@ public class RefreshRegistryAction extends Action{
 		this.setImageDescriptor(UIActivator.getImageDescriptor("icons/refresh.gif"));
 	}
 	
+	/**
+	 * Sets the type viewer.
+	 *
+	 * @param typeViewer the new type viewer
+	 */
 	public void setTypeViewer(StructuredViewer typeViewer) {
 		this.typeViewer = typeViewer;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void run() {
 		if (typeLibraryViewer != null) {
 			Job job = new Job("Refresh SOA Typelib Registry") {

@@ -25,6 +25,8 @@ import org.osgi.framework.Version;
 
 
 /**
+ * The Class BasicProcessor.
+ *
  * @author smathew
  * 
  * This class performs the basic common steps required for any wsdl
@@ -34,14 +36,25 @@ private static final SOALogger logger = SOALogger.getLogger();
 	
 	private File targetFile;
 	
+	/**
+	 * Instantiates a new basic processor.
+	 */
 	public BasicProcessor(){
 		this(null);
 	}
 	
+	/**
+	 * Instantiates a new basic processor.
+	 *
+	 * @param tempTargetFile the temp target file
+	 */
 	public BasicProcessor(File tempTargetFile){
 		this.targetFile = tempTargetFile;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean execute(Object parameter, IProgressMonitor monitor) throws CommandFailedException {
 		if (parameter != null && parameter instanceof CommonWSDLProcessorParam) {
 			final CommonWSDLProcessorParam processorModel = (CommonWSDLProcessorParam) parameter;

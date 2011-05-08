@@ -11,31 +11,67 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The Class MapUtil.
+ */
 public class MapUtil
 {
     
+    /**
+     * To array.
+     *
+     * @param <K> the key type
+     * @param <V> the value type
+     * @param map the map
+     * @return the object[]
+     */
     public static < K, V > Object[] toArray( final Map< K, V > map )
     {
         return toArray( map, new Object[ 0 ], false );
     }
+    
+    /**
+     * To array.
+     *
+     * @param <K> the key type
+     * @param <V> the value type
+     * @param map the map
+     * @param ignoreNull the ignore null
+     * @return the object[]
+     */
     public static < K, V > Object[] toArray( final Map< K, V > map,
                                              final boolean ignoreNull )
     {
         return toArray( map, new Object[ 0 ], ignoreNull );
     }
+    
     /**
-     * @param <K>
-     * @param <V>
-     * @param <T> 
-     * @param map
+     * To array.
+     *
+     * @param <K> the key type
+     * @param <V> the value type
+     * @param <T> the generic type
+     * @param map the map
      * @param array this ensures the type of the returned array instance. the passed instances will not be added to the result
-     * @return
+     * @return the t[]
      */
     public static < K, V, T > T[] toArray( final Map< K, V > map, 
                                                 final T[] array )
     {
         return toArray( map, array, false );
     }
+    
+    /**
+     * To array.
+     *
+     * @param <K> the key type
+     * @param <V> the value type
+     * @param <T> the generic type
+     * @param map the map
+     * @param array the array
+     * @param ignoreNull the ignore null
+     * @return the t[]
+     */
     public static < K, V, T > T[] toArray( final Map< K, V > map, 
                                                 final T[] array,
                                                 final boolean ignoreNull )

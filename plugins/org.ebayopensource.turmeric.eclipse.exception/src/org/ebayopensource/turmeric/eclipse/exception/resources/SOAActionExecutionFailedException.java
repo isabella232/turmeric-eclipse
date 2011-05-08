@@ -16,8 +16,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 /**
+ * The Class SOAActionExecutionFailedException.
+ *
  * @author yayu
- * 
  */
 public class SOAActionExecutionFailedException extends CoreException {
 
@@ -27,22 +28,28 @@ public class SOAActionExecutionFailedException extends CoreException {
 	private static final long serialVersionUID = 201L;
 
 	/**
-	 * @param status
+	 * Instantiates a new sOA action execution failed exception.
+	 *
+	 * @param status the status
 	 */
 	public SOAActionExecutionFailedException(IStatus status) {
 		super(status);
 	}
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA action execution failed exception.
+	 *
+	 * @param cause the cause
 	 */
 	public SOAActionExecutionFailedException(Throwable cause) {
 		this(cause.toString(), cause);
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new sOA action execution failed exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public SOAActionExecutionFailedException(String message, Throwable cause) {
 		super(new Status(IStatus.ERROR, "org.ebayopensource.turmeric.eclipse", 0,

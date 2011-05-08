@@ -14,26 +14,33 @@ import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool;
 
 
 /**
+ * The Class PreferenceConstants.
+ *
  * @author smathew
  * 
  * Normal constants file which hold the preference name and default values.
- * 
- * 
  */
 public class PreferenceConstants {
 
+	/** The Constant PREF_REPOSITORY_SYSTEM. */
 	public static final String PREF_REPOSITORY_SYSTEM = "repositorySystem";
 	
+	/** The Constant PREF_ORGANIZATION. */
 	public static final String PREF_ORGANIZATION = "organization";
 
+	/** The Constant _PREF_DEFAULT_REPOSITORY_SYSTEM. */
 	public static final String _PREF_DEFAULT_REPOSITORY_SYSTEM = "Turmeric";
 	
+	/** The Constant PREF_DEFAULT_ORGANIZATION. */
 	public static final String PREF_DEFAULT_ORGANIZATION = 
 		"Others";
+	
+	/** The Constant PREF_DEFAULT_ORGANIZATION_DISPLAY_NAME. */
 	public static final String PREF_DEFAULT_ORGANIZATION_DISPLAY_NAME = 
 		"Default";
 	// there will be new preference field for this which accepts
 	// a new service file
+	/** The Constant PREF_SERVICE_LAYERS. */
 	public static final String PREF_SERVICE_LAYERS = "serviceLayers";
 
 	/**

@@ -11,9 +11,9 @@ package org.ebayopensource.turmeric.eclipse.ui.model.typelib;
 
 
 /**
- * UI Model for Complex Type with Complex Content creation
- * @author ramurthy
+ * UI Model for Complex Type with Complex Content creation.
  *
+ * @author ramurthy
  */
 
 public class ComplexTypeCCParamModel extends ComplexTypeParamModel {

@@ -14,8 +14,9 @@ package org.ebayopensource.turmeric.eclipse.exception.resources;
 import org.eclipse.core.resources.IResource;
 
 /**
- * @author yayu
+ * The Class SOAResourceNotWritableException.
  *
+ * @author yayu
  */
 public class SOAResourceNotWritableException extends
 		AbstractSOAResourceException {
@@ -23,25 +24,31 @@ public class SOAResourceNotWritableException extends
 	private static final long serialVersionUID = 201L;
 
 	/**
-	 * @param message
-	 * @param resource
+	 * Instantiates a new sOA resource not writable exception.
+	 *
+	 * @param message the message
+	 * @param resource the resource
 	 */
 	public SOAResourceNotWritableException(String message, IResource resource) {
 		super(message, resource);
 	}
 
 	/**
-	 * @param resource
-	 * @param cause
+	 * Instantiates a new sOA resource not writable exception.
+	 *
+	 * @param resource the resource
+	 * @param cause the cause
 	 */
 	public SOAResourceNotWritableException(IResource resource, Throwable cause) {
 		super(resource, cause);
 	}
 
 	/**
-	 * @param message
-	 * @param resource
-	 * @param cause
+	 * Instantiates a new sOA resource not writable exception.
+	 *
+	 * @param message the message
+	 * @param resource the resource
+	 * @param cause the cause
 	 */
 	public SOAResourceNotWritableException(String message, IResource resource,
 			Throwable cause) {

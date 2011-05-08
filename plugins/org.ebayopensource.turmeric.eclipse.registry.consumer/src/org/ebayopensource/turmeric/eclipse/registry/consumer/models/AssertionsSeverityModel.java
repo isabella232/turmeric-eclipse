@@ -9,17 +9,28 @@
 package org.ebayopensource.turmeric.eclipse.registry.consumer.models;
 
 /**
- * Assertions Severity Model
+ * Assertions Severity Model.
+ *
  * @author ramurthy
  */
 
 public enum AssertionsSeverityModel {
 
-	 MUST,
-	 SHOULD,
-	 MAY;
+	 /** The MUST. */
+ 	MUST,
+	 
+ 	/** The SHOULD. */
+ 	SHOULD,
+	 
+ 	/** The MAY. */
+ 	MAY;
 
-	 public String value() {
+	 /**
+ 	 * Value.
+ 	 *
+ 	 * @return the string
+ 	 */
+ 	public String value() {
 		 return name();
 	 }
 }

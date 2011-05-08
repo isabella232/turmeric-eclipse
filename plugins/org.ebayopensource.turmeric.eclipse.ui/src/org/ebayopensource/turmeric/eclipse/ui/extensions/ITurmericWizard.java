@@ -11,12 +11,31 @@ package org.ebayopensource.turmeric.eclipse.ui.extensions;
 import java.util.List;
 
 
+/**
+ * The Interface ITurmericWizard.
+ */
 public interface ITurmericWizard {
 
+	/**
+	 * Checks if is type.
+	 *
+	 * @param type the type
+	 * @return true, if is type
+	 */
 	public boolean isType(String type);
 	
+	/**
+	 * All pages.
+	 *
+	 * @return the list
+	 */
 	public List<ITurmericWizardPage> allPages();
 	
+	/**
+	 * Checks for pages.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasPages();
 	
 }

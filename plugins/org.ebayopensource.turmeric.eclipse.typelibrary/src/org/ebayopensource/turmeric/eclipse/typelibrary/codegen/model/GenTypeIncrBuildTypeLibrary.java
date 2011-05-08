@@ -19,11 +19,17 @@ import java.util.Map;
  */
 public class GenTypeIncrBuildTypeLibrary extends BaseTypeLibCodegenModel {
 
+	/**
+	 * Instantiates a new gen type incr build type library.
+	 */
 	public GenTypeIncrBuildTypeLibrary() {
 		super();
 		setGenType(GENTYPE_INCRBUILDTYPELIBRARY);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.BaseTypeLibCodegenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		// happy with BaseTypeLibCodegenModels functionality

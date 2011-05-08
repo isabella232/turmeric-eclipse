@@ -17,13 +17,28 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
- * @author yayu
+ * The Interface IErrorDomainCreator.
  *
+ * @author yayu
  */
 public interface IErrorDomainCreator {
+	
+	/**
+	 * Pre creation.
+	 *
+	 * @param model the model
+	 * @throws SOAErrorDomainCreationFailedException the sOA error domain creation failed exception
+	 */
 	public void preCreation(DomainParamModel model) 
 	throws SOAErrorDomainCreationFailedException;
 	
+	/**
+	 * Post creation.
+	 *
+	 * @param model the model
+	 * @param monitor the monitor
+	 * @throws SOAErrorDomainCreationFailedException the sOA error domain creation failed exception
+	 */
 	public void postCreation(DomainParamModel model,
 			IProgressMonitor monitor) throws SOAErrorDomainCreationFailedException;
 }

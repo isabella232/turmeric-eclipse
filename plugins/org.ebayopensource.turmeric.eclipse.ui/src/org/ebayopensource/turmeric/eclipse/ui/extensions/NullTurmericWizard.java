@@ -19,16 +19,25 @@ import java.util.List;
  */
 public class NullTurmericWizard implements ITurmericWizard {
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericWizard#isType(java.lang.String)
+	 */
 	@Override
 	public boolean isType(String type) {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericWizard#allPages()
+	 */
 	@Override
 	public List<ITurmericWizardPage> allPages() {
 		return Collections.emptyList();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericWizard#hasPages()
+	 */
 	@Override
 	public boolean hasPages() {
 		return false;

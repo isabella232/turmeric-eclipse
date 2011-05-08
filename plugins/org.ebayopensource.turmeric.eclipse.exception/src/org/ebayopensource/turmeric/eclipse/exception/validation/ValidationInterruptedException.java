@@ -23,14 +23,27 @@ public class ValidationInterruptedException extends AbstractSOAException {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Instantiates a new validation interrupted exception.
+	 */
 	public ValidationInterruptedException() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new validation interrupted exception.
+	 *
+	 * @param message the message
+	 */
 	public ValidationInterruptedException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new validation interrupted exception.
+	 *
+	 * @param cause the cause
+	 */
 	public ValidationInterruptedException(Throwable cause) {
 		super(cause);
 	}

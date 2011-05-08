@@ -19,27 +19,26 @@ public interface ISOACodegenProvider {
 
 	/**
 	 * Call codegen of specified system.
-	 * 
-	 * @param parameters
-	 *            coegen parameters
+	 *
+	 * @param parameters coegen parameters
 	 * @return true if success
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public boolean generateCode(String[] parameters) throws Exception;
 
 	/**
 	 * codegen folder. It is different for different codegen system. Opensource
 	 * codegen starts with src.
-	 * 
-	 * @return
+	 *
+	 * @return the gen folder for intf
 	 */
 	public String getGenFolderForIntf();
 
 	/**
 	 * codegen folder. It is different for different codegen system. Opensource
 	 * codegen starts with src.
-	 * 
-	 * @return
+	 *
+	 * @return the gen folder for impl
 	 */
 	public String getGenFolderForImpl();
 

@@ -16,13 +16,34 @@ import java.util.Vector;
 
 import org.apache.commons.lang.ObjectUtils;
 
+/**
+ * The Class ListUtil.
+ */
 public class ListUtil
 {
+    
+    /**
+     * Transformed.
+     *
+     * @param <T> the generic type
+     * @param transformer the transformer
+     * @param list the list
+     * @return the list
+     */
     public static < T > List< T > transformed( final Transformer< T > transformer,
                                                final List< ? > list )
     {
         return transformed( transformer, list.toArray() );
     }
+    
+    /**
+     * Transformed.
+     *
+     * @param <T> the generic type
+     * @param transformer the transformer
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > transformed( final Transformer< T > transformer,
                                                final Object... objects )
     {
@@ -111,20 +132,52 @@ public class ListUtil
             list.add( transformer.transform( object ) );
         return list;
     }
+    
+    /**
+     * Array list.
+     *
+     * @param <T> the generic type
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > arrayList( final T... objects )
     {
         return array( objects );
     }
+    
+    /**
+     * Array list.
+     *
+     * @param <T> the generic type
+     * @param collection the collection
+     * @return the list
+     */
     public static < T > List< T > arrayList( final Collection< T > collection )
     {
         return array( collection );
     }
+    
+    /**
+     * Array.
+     *
+     * @param <T> the generic type
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > array( final T... objects )
     {
         final List< T > list = new ArrayList< T >();
         add( list, objects );
         return list;
     }
+    
+    /**
+     * Array.
+     *
+     * @param <T> the generic type
+     * @param collection the collection
+     * @return the list
+     */
     public static < T > List< T > array( final Collection< T > collection )
     {
         final List< T > list = new ArrayList< T >();
@@ -132,20 +185,52 @@ public class ListUtil
             list.addAll( collection );
         return list;
     }
+    
+    /**
+     * Linked list.
+     *
+     * @param <T> the generic type
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > linkedList( final T... objects )
     {
         return linked( objects );
     }
+    
+    /**
+     * Linked list.
+     *
+     * @param <T> the generic type
+     * @param collection the collection
+     * @return the list
+     */
     public static < T > List< T > linkedList( final Collection< T > collection )
     {
         return linked( collection );
     }
+    
+    /**
+     * Linked.
+     *
+     * @param <T> the generic type
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > linked( final T... objects )
     {
         final List< T > list = new LinkedList< T >();
         add( list, objects );
         return list;
     }
+    
+    /**
+     * Linked.
+     *
+     * @param <T> the generic type
+     * @param collection the collection
+     * @return the list
+     */
     public static < T > List< T > linked( final Collection< T > collection )
     {
         final List< T > list = new LinkedList< T >();
@@ -153,22 +238,62 @@ public class ListUtil
             list.addAll( collection );
         return list;
     }
+    
+    /**
+     * New list.
+     *
+     * @param <T> the generic type
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > newList( final T... objects )
     {
         return list( objects );
     }
+    
+    /**
+     * New list.
+     *
+     * @param <T> the generic type
+     * @param collection the collection
+     * @return the list
+     */
     public static < T > List< T > newList( final Collection< T > collection )
     {
         return list( collection );
     }
+    
+    /**
+     * To list.
+     *
+     * @param <T> the generic type
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > toList( final T... objects )
     {
         return list( objects );
     }
+    
+    /**
+     * List.
+     *
+     * @param <T> the generic type
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > list( final T... objects )
     {
         return array( objects );
     }
+    
+    /**
+     * List.
+     *
+     * @param <T> the generic type
+     * @param collection the collection
+     * @return the list
+     */
     public static < T > List< T > list( final Collection< T > collection )
     {
         final List< T > list = new ArrayList< T >();
@@ -176,6 +301,15 @@ public class ListUtil
             list.addAll( collection );
         return list;
     }
+    
+    /**
+     * Adds the.
+     *
+     * @param <T> the generic type
+     * @param list the list
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > add( final List< T > list,
                                        final T... objects )
     {
@@ -185,6 +319,15 @@ public class ListUtil
             list.add( object );
         return list;
     }
+    
+    /**
+     * Adds the ignore null.
+     *
+     * @param <T> the generic type
+     * @param list the list
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > addIgnoreNull( final List< T > list,
                                                  final T... objects )
     {
@@ -195,11 +338,29 @@ public class ListUtil
                 list.add( object );
         return list;
     }
+    
+    /**
+     * List add.
+     *
+     * @param <T> the generic type
+     * @param list the list
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > listAdd( final List< T > list,
             						       final T... objects )
     {
     	return add( list, objects );
     }
+    
+    /**
+     * Removes the.
+     *
+     * @param <T> the generic type
+     * @param list the list
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > remove( final List< T > list,
                                           final T... objects )
     {
@@ -207,11 +368,28 @@ public class ListUtil
             list.remove( object );
         return list;
     }
+    
+    /**
+     * List remove.
+     *
+     * @param <T> the generic type
+     * @param list the list
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > listRemove( final List< T > list,
                                               final T... objects )
     {
         return remove( list, objects );
     }
+    
+    /**
+     * Caseless.
+     *
+     * @param <E> the element type
+     * @param objects the objects
+     * @return the list
+     */
     public static < E extends Object > List< String > caseless( final E... objects )
     {
         final Transformer< String > transformer = new Transformer< String >()
@@ -224,16 +402,39 @@ public class ListUtil
         };
         return transformed( transformer, objects );
     }
+    
+    /**
+     * Caseless.
+     *
+     * @param list the list
+     * @return the list
+     */
     public static List< String > caseless( final List< ? > list )
     {
         return caseless( list.toArray() );
     }
+    
+    /**
+     * Vector.
+     *
+     * @param <T> the generic type
+     * @param objects the objects
+     * @return the list
+     */
     public static < T > List< T > vector( final T... objects )
     {
         final List< T > vector = new Vector< T >();
         add( vector, objects );
         return vector;
     }
+    
+    /**
+     * Vector.
+     *
+     * @param <T> the generic type
+     * @param collection the collection
+     * @return the list
+     */
     public static < T > List< T > vector( final Collection< T > collection )
     {
         final List< T > vector = new Vector< T >();
@@ -243,15 +444,16 @@ public class ListUtil
     }
     
     /**
-     * Change the position of the given object in the provided list for the 
+     * Change the position of the given object in the provided list for the
      * specified number of positions.
      * 
      * Negative offset means move up, whereas Positive indicates move down.
-     * 
-     * @param list
-     * @param object
-     * @param offset
-     * @return
+     *
+     * @param <T> the generic type
+     * @param list the list
+     * @param object the object
+     * @param offset the offset
+     * @return the list
      */
     public static < T > List< T > changePosition(final List< T > list, 
     		final T object, final int offset) {
@@ -272,11 +474,27 @@ public class ListUtil
     	return list;
     }
     
+    /**
+     * Move one position up.
+     *
+     * @param <T> the generic type
+     * @param list the list
+     * @param object the object
+     * @return the list
+     */
     public static < T > List< T > moveOnePositionUp(final List< T > list, 
     		final T object) {
     	return changePosition(list, object, -1);
     }
     
+    /**
+     * Move one position down.
+     *
+     * @param <T> the generic type
+     * @param list the list
+     * @param object the object
+     * @return the list
+     */
     public static < T > List< T > moveOnePositionDown(final List< T > list, 
     		final T object) {
     	return changePosition(list, object, 1);

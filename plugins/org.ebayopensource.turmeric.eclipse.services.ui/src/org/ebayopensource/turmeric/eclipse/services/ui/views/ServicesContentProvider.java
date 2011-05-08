@@ -19,14 +19,22 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
+ * The Class ServicesContentProvider.
+ *
  * @author smathew
  * 
- *         The content provider for services explorer view
+ * The content provider for services explorer view
  * @see ITreeContentProvider
  */
 public class ServicesContentProvider implements ITreeContentProvider {
+	
+	/** The services. */
 	Object[] services = null;
 
+	/**
+	 * {@inheritDoc}
+	 *  @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
+	 */
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof ProjectInfo) {
 			ProjectInfo projectInfo = (ProjectInfo) parentElement;
@@ -47,14 +55,28 @@ public class ServicesContentProvider implements ITreeContentProvider {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *  @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
+	 */
 	public Object getParent(Object element) {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 *  @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
+	 */
 	public boolean hasChildren(Object element) {
 		return element instanceof ProjectInfo;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 *  @see org.eclipse.jface.viewers.ITreeContentProvider#getElements(java.lang.Object)
+	 */
 	public Object[] getElements(Object inputElement) {
 		try {
 			services = GlobalRepositorySystem.instanceOf()
@@ -66,9 +88,17 @@ public class ServicesContentProvider implements ITreeContentProvider {
 		return services;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
+	 */
 	public void dispose() {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 

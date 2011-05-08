@@ -16,8 +16,9 @@ import org.eclipse.core.resources.IProject;
 
 
 /**
- * @author yayu
+ * The Class SOAConsumeNewServiceFailedException.
  *
+ * @author yayu
  */
 public class SOAConsumeNewServiceFailedException extends
 		SOAResourceModifyFailedException {
@@ -28,23 +29,29 @@ public class SOAConsumeNewServiceFailedException extends
 	private static final long serialVersionUID = 201L;
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA consume new service failed exception.
+	 *
+	 * @param cause the cause
 	 */
 	public SOAConsumeNewServiceFailedException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new sOA consume new service failed exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public SOAConsumeNewServiceFailedException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
 	/**
+	 * Instantiates a new sOA consume new service failed exception.
+	 *
 	 * @param project the implProject
-	 * @param cause
+	 * @param cause the cause
 	 */
 	public SOAConsumeNewServiceFailedException(IProject project,
 			Throwable cause) {

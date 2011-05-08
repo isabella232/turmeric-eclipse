@@ -14,6 +14,8 @@ package org.ebayopensource.turmeric.eclipse.exception.resources.projects;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceCreationException;
 
 /**
+ * The Class SOACreateNewEnvironmentFailedException.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -22,11 +24,22 @@ SOAResourceCreationException {
 
 	private static final long serialVersionUID = 230L;
 
+	/**
+	 * Instantiates a new sOA create new environment failed exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public SOACreateNewEnvironmentFailedException(String message,
 			Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new sOA create new environment failed exception.
+	 *
+	 * @param cause the cause
+	 */
 	public SOACreateNewEnvironmentFailedException(Throwable cause) {
 		super(cause);
 	}

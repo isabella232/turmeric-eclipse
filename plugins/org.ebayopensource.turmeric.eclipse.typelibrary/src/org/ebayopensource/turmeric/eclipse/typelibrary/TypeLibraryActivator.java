@@ -38,41 +38,39 @@ import org.w3c.dom.NodeList;
 
 
 /**
- * The activator class controls the plug-in life cycle
- * 
+ * The activator class controls the plug-in life cycle.
+ *
  * @author smathew
- * 
  */
 public class TypeLibraryActivator extends Plugin {
 
 	// The plug-in ID
+	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.typelibrary";
+	
+	/** The Constant ICON_PATH. */
 	public static final String ICON_PATH = "icons/";
 
 	// The shared instance
 	private static TypeLibraryActivator plugin;
 
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public TypeLibraryActivator() {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
@@ -81,8 +79,8 @@ public class TypeLibraryActivator extends Plugin {
 	}
 
 	/**
-	 * Returns the shared instance
-	 * 
+	 * Returns the shared instance.
+	 *
 	 * @return the shared instance
 	 */
 	public static TypeLibraryActivator getDefault() {
@@ -96,10 +94,10 @@ public class TypeLibraryActivator extends Plugin {
 	 * types and then query the Global registry with the type name and will add
 	 * it to the returned map only if the registry has the type. In short it
 	 * returns all the type library types in the WSDL definition.
-	 * 
-	 * @param definition
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param definition the definition
+	 * @return the type library types
+	 * @throws Exception the exception
 	 */
 	public static Map<LibraryType, XSDTypeDefinition> getTypeLibraryTypes(
 			Definition definition) throws Exception {
@@ -127,6 +125,13 @@ public class TypeLibraryActivator extends Plugin {
 		return allSchemas;
 	}	
 	
+	/**
+	 * Gets the name space.
+	 *
+	 * @param xsdTypeDefinition the xsd type definition
+	 * @return the name space
+	 * @throws SOABadParameterException the sOA bad parameter exception
+	 */
 	public static String getNameSpace(XSDTypeDefinition xsdTypeDefinition)
 			throws SOABadParameterException {
 		for (XSDAnnotation annotation : xsdTypeDefinition.getAnnotations()) {
@@ -162,10 +167,10 @@ public class TypeLibraryActivator extends Plugin {
 	 * protocol. Remember this will not return the normal XSD imports.ie the
 	 * imports without the typelib: protocol. The registry is being queried for
 	 * the type name before adding it to the returned map.
-	 * 
-	 * @param xsdSchema
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param xsdSchema the xsd schema
+	 * @return the all type lib imports
+	 * @throws Exception the exception
 	 */
 	public static Map<LibraryType, XSDSchemaDirective> getAllTypeLibImports(
 			XSDSchema xsdSchema) throws Exception {

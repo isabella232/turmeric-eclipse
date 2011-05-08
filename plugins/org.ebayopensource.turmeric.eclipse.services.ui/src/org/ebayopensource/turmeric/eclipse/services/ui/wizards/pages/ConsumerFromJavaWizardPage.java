@@ -52,8 +52,9 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
+ * The Class ConsumerFromJavaWizardPage.
+ *
  * @author yayu
- * 
  */
 public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 	private AbstractSOAServiceListViewer serviceList;
@@ -65,22 +66,31 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 	private boolean convertExistingJavaProject = false;
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Instantiates a new consumer from java wizard page.
+	 *
+	 * @param selection the selection
+	 */
 	public ConsumerFromJavaWizardPage(IStructuredSelection selection) {
 		super("newSOAClientProjectWizardPage", "New SOA Service Client Wizard",
 				"This wizard creates a new SOA Service Client project.");
 		this.selection = selection;
 	}
 	
+	/**
+	 * Instantiates a new consumer from java wizard page.
+	 *
+	 * @param selection the selection
+	 * @param convertExistingJavaProject the convert existing java project
+	 */
 	public ConsumerFromJavaWizardPage(IStructuredSelection selection,
 			boolean convertExistingJavaProject) {
 		this(selection);
 		this.convertExistingJavaProject = convertExistingJavaProject;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		try {
@@ -100,6 +110,13 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		}
 	}
 	
+	/**
+	 * Creates the consumer id text.
+	 *
+	 * @param parent the parent
+	 * @return the text
+	 * @throws CoreException the core exception
+	 */
 	protected Text createConsumerIDText(Composite parent) throws CoreException {
 		this.consumerID = super.createLabelTextField(parent, "Consumer &ID:", "", modifyListener, 
 				false, true, 
@@ -161,6 +178,12 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 	}
 	
 
+	/**
+	 * Creates the service list.
+	 *
+	 * @param parent the parent
+	 * @throws Exception the exception
+	 */
 	protected void createServiceList(final Composite parent)
 	throws Exception {
 		serviceList = new AbstractSOAServiceListViewer(null, 
@@ -215,6 +238,9 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		serviceList.createControl(parent, items);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected Text createBaseConsumerSource(Composite parent) {
 		//final Text text = super.createBaseConsumerSource(parent);
@@ -251,6 +277,9 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getBaseConsumerSrcDir() {
 		if (this.baseConsumerDirs != null) {
@@ -259,6 +288,9 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		return super.getBaseConsumerSrcDir();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected Control getBaseConsumerSrcControl() {
 		if (this.baseConsumerDirs != null) {
@@ -267,12 +299,18 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		return super.getBaseConsumerSrcControl();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean supportServiceValidation() {
 		//this is only for creating consumer, no need to check service existence.
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		boolean result = super.dialogChanged();
@@ -318,6 +356,9 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		return true;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<ProjectNameControl> getProjectNames() {
 		if (convertExistingJavaProject == true) {
@@ -339,15 +380,28 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		return project;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#getDefaultResourceName()
+	 */
 	@Override
 	public String getDefaultResourceName() {
 		return "";
 	}
 	
+	/**
+	 * Gets the consumer id.
+	 *
+	 * @return the consumer id
+	 */
 	public String getConsumerID() {
 		return super.getTextValue(this.consumerID);
 	}
 	
+	/**
+	 * Gets the client name.
+	 *
+	 * @return the client name
+	 */
 	public String getClientName() {
 		return getResourceName();
 	}
@@ -368,6 +422,11 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		// ISOAInterfaceProject.SERVICE_NAME );
 	}
 
+	/**
+	 * Gets the service list.
+	 *
+	 * @return the service list
+	 */
 	public List<String> getServiceList() {
 		final List<String> result = ListUtil.list();
 		if (this.serviceList != null) {
@@ -379,6 +438,11 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		return result;
 	}
 	
+	/**
+	 * Gets the environments.
+	 *
+	 * @return the environments
+	 */
 	public List<String> getEnvironments() {
 		final List<String> result = ListUtil.list();
 		if (this.serviceList != null) {
@@ -390,6 +454,11 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		return result;
 	}
 	
+	/**
+	 * Gets the help id.
+	 *
+	 * @return the help id
+	 */
 	public int getHelpID() {
 		final int helpID = convertExistingJavaProject ? 
 				ISOAHelpProvider.PAGE_CONSUME_NEW_SERVICE 
@@ -397,6 +466,9 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		return helpID;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		

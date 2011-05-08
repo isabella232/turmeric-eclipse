@@ -32,12 +32,21 @@ import org.ebayopensource.turmeric.runtime.sif.service.ServiceFactory;
 
 
 /**
- * @author yayu
+ * A factory for creating ServiceConsumer objects.
  *
+ * @param <K> the key type
+ * @author yayu
  */
 public class ServiceConsumerFactory<K> {
 	private static final String EIDP_TOKEN = "X-EBAY-EIDP-TOKEN";
 	private static final String EIDP_IDENTITY = "X-EBAY-EIDP-IDENTITY";
+	
+	/**
+	 * Copy token.
+	 *
+	 * @param service the service
+	 * @throws ServiceException the service exception
+	 */
 	protected void copyToken(Service service) throws ServiceException {
 		MessageContext ctx = MessageContextAccessor.getContext();
 		Message msg = ctx.getRequestMessage();
@@ -46,16 +55,28 @@ public class ServiceConsumerFactory<K> {
 		service.setSessionTransportHeader(EIDP_IDENTITY, identity);
 		service.setSessionTransportHeader(EIDP_TOKEN, token);
 	}
+	
+	/**
+	 * Gets the proxy.
+	 *
+	 * @param serviceName the service name
+	 * @return the proxy
+	 * @throws ServiceException the service exception
+	 */
 	protected K getProxy(String serviceName) throws ServiceException {
 		Service service = getService(serviceName);
 		// we should expose CallBack to set headers and token
 		copyToken(service);
 		return service.getProxy();
 	}
+	
 	/**
 	 * Method returns an instance of Service which has been initilized for this
-	 * Consumer
-	 * 
+	 * Consumer.
+	 *
+	 * @param serviceName the service name
+	 * @return the service
+	 * @throws ServiceException the service exception
 	 */
 	public Service getService(String serviceName) throws ServiceException { 
 		//ClientServiceDesc serviceDesc = new ClientServiceDesc(id, serviceQName, config, requestPipeline, responsePipeline, requestDispatcher, responseDispatcher, operations, protocols, bindings, transports, typeMappings, classLoader, g11nOptions, loggingHandlers, serviceInterfaceClass, defRequestDataBinding, defResponseDataBinding, defTransportName, defTransport, defServiceLocationURL, serviceVersion, retryHandler, customErrorResponseAdapter, errorDataProviderClass, cacheProviderClass, autoMarkdownStateFactory, defRestRequestDataBinding, defRestResponseDataBinding, requestHeaderMappings, responseHeaderMappings, serviceLayers, urlPathInfo)
@@ -64,6 +85,14 @@ public class ServiceConsumerFactory<K> {
 		return ServiceFactory.create(serviceName, serviceName, null);
 		//return service;
 	}
+	
+	/**
+	 * Gets the consumer.
+	 *
+	 * @param clazz the clazz
+	 * @param serviceName the service name
+	 * @return the consumer
+	 */
 	@SuppressWarnings("unchecked")
 	public K getConsumer(Class<K> clazz, final String serviceName) {
 		return (K) Proxy.newProxyInstance(
@@ -90,6 +119,11 @@ public class ServiceConsumerFactory<K> {
 		);
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		ServiceConsumerFactory<AsyncTurmericASV1> factory = new ServiceConsumerFactory<AsyncTurmericASV1>();
 		AsyncTurmericASV1 consumer = factory.getConsumer(AsyncTurmericASV1.class, "TurmericASV1");

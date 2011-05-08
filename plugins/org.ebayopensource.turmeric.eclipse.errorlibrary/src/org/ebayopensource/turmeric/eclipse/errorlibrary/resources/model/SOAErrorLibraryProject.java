@@ -27,8 +27,9 @@ import org.eclipse.jdt.core.JavaCore;
 
 
 /**
+ * The Class SOAErrorLibraryProject.
+ *
  * @author yayu
- * 
  */
 public class SOAErrorLibraryProject extends SOABaseProject {
 
@@ -36,7 +37,7 @@ public class SOAErrorLibraryProject extends SOABaseProject {
 	private static ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 
 	/**
-	 * 
+	 * Instantiates a new sOA error library project.
 	 */
 	public SOAErrorLibraryProject() {
 		super();
@@ -50,16 +51,33 @@ public class SOAErrorLibraryProject extends SOABaseProject {
 		addEclipseNature(JavaCore.NATURE_ID);
 	}
 
+	/**
+	 * Sets the error library metadata.
+	 *
+	 * @param metadata the new error library metadata
+	 */
 	public void setErrorLibraryMetadata(SOAErrorLibraryMetadata metadata) {
 		this.setMetadata(metadata);
 	}
 
+	/**
+	 * Gets the error library metadata.
+	 *
+	 * @return the error library metadata
+	 */
 	public SOAErrorLibraryMetadata getErrorLibraryMetadata() {
 		final AbstractSOAMetadata metadata = super.getMetadata();
 		return metadata instanceof SOAErrorLibraryMetadata ? (SOAErrorLibraryMetadata) metadata
 				: null;
 	}
 
+	/**
+	 * Creates the soa project error library.
+	 *
+	 * @param eclipseMetadata the eclipse metadata
+	 * @param metadata the metadata
+	 * @return the sOA error library project
+	 */
 	public static SOAErrorLibraryProject createSOAProjectErrorLibrary(
 			SOAProjectEclipseMetadata eclipseMetadata,
 			SOAErrorLibraryMetadata metadata) {
@@ -69,11 +87,17 @@ public class SOAErrorLibraryProject extends SOABaseProject {
 		return soaErrorLibraryProject;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject#getSOAMetadataClass()
+	 */
 	@Override
 	protected Class<? extends AbstractSOAMetadata> getSOAMetadataClass() {
 		return SOAErrorLibraryMetadata.class;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject#getSourceSubFolders()
+	 */
 	@Override
 	public List<String> getSourceSubFolders() {
 		List<String> srcDirs = new ArrayList<String>();

@@ -42,6 +42,8 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
+ * The Class NewErrorWizard.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -49,6 +51,9 @@ public final class NewErrorWizard extends SOABaseWizard {
 	
 	private ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#preValidate()
+	 */
 	@Override
 	public IStatus preValidate() throws ValidationInterruptedException {
 		// checking for valid providers
@@ -63,10 +68,16 @@ public final class NewErrorWizard extends SOABaseWizard {
 	private ISOAErrorLibraryWizardPageProvider wizardProvider;
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Instantiates a new new error wizard.
+	 */
 	public NewErrorWizard() {
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#getContentPages()
+	 */
 	@Override
 	public IWizardPage[] getContentPages() {
 		final List<IWizardPage> pages = new ArrayList<IWizardPage>();
@@ -86,6 +97,9 @@ public final class NewErrorWizard extends SOABaseWizard {
 		return pages.toArray(new IWizardPage[0]);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#performFinish()
+	 */
 	@Override
 	public boolean performFinish() {
 		if (wizardProvider != null) {

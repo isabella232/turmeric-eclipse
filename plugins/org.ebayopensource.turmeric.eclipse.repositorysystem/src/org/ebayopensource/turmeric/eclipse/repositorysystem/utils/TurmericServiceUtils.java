@@ -15,8 +15,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 
 /**
- * @author yayu
+ * The Class TurmericServiceUtils.
  *
+ * @author yayu
  */
 public final class TurmericServiceUtils {
 
@@ -27,6 +28,9 @@ public final class TurmericServiceUtils {
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException();
@@ -37,10 +41,10 @@ public final class TurmericServiceUtils {
 	 * The evaluation is fully based on the nature. If the project is null or
 	 * not accessible, this will throw an exception and the clients are supposed
 	 * to handle it.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @return true, if is sOA interface project
+	 * @throws CoreException the core exception
 	 */
 	public static boolean isSOAInterfaceProject(final IProject project)
 			throws CoreException {
@@ -54,10 +58,10 @@ public final class TurmericServiceUtils {
 	 * evaluation is fully based on the nature. If the project is null or not
 	 * accessible, this will throw an exception and the clients are supposed to
 	 * handle it.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @return true, if is sOA consumer project
+	 * @throws CoreException the core exception
 	 */
 	public static boolean isSOAConsumerProject(final IProject project)
 			throws CoreException {
@@ -71,10 +75,10 @@ public final class TurmericServiceUtils {
 	 * project, The evaluation is fully based on the nature. If the project is
 	 * null or not accessible, this will throw an exception and the clients are
 	 * supposed to handle it.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @return true, if is sOA impl project
+	 * @throws CoreException the core exception
 	 */
 	public static boolean isSOAImplProject(final IProject project)
 			throws CoreException {
@@ -88,10 +92,10 @@ public final class TurmericServiceUtils {
 	 * The evaluation is fully based on the nature. If the project is null or
 	 * not accessible, this will throw an exception and the clients are supposed
 	 * to handle it.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @return true, if is sOA type library project
+	 * @throws CoreException the core exception
 	 */
 	public static boolean isSOATypeLibraryProject(final IProject project)
 			throws CoreException {
@@ -105,10 +109,10 @@ public final class TurmericServiceUtils {
 	 * project, The evaluation is fully based on the nature. If the project is
 	 * null or not accessible, this will throw an exception and the clients are
 	 * supposed to handle it.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @return true, if is sOA error library project
+	 * @throws CoreException the core exception
 	 */
 	public static boolean isSOAErrorLibraryProject(final IProject project)
 			throws CoreException {
@@ -122,10 +126,10 @@ public final class TurmericServiceUtils {
 	 * or implementation project The evaluation is fully based on the nature. If
 	 * the project is null or not accessible, this will throw an exception and
 	 * the clients are supposed to handle it.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @return true, if is sOA project
+	 * @throws CoreException the core exception
 	 */
 	public static boolean isSOAProject(final IProject project)
 			throws CoreException {

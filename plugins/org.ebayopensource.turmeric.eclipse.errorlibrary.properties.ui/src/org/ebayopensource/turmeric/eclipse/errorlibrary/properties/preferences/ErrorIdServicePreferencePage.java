@@ -18,7 +18,8 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
- * 
+ * The Class ErrorIdServicePreferencePage.
+ *
  * @author yayu
  * @since 1.0
  */

@@ -55,11 +55,17 @@ private CCombo templateFileCombo;
 	
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Instantiates a new service from new wsdl page.
+	 */
 	public ServiceFromNewWSDLPage() {
 		super(SOAConstants.SVC_PAGE_NAME, SOAMessages.NEW_SVC_TITLE,
 				SOAMessages.NEW_SVC_DESC);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage#setVisible(boolean)
+	 */
 	@Override
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
@@ -68,6 +74,9 @@ private CCombo templateFileCombo;
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(final Composite parent) {
 		try {
 			final Composite container = super.createParentControl(parent, 4);
@@ -92,6 +101,9 @@ private CCombo templateFileCombo;
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void targetNamespaceModified(String newNamespace) {
 		super.targetNamespaceModified(newNamespace);
@@ -101,6 +113,9 @@ private CCombo templateFileCombo;
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem
@@ -111,11 +126,20 @@ private CCombo templateFileCombo;
 						ISOAHelpProvider.PAGE_CREATE_SERVICE_FROM_TEMPLATE_WSDL);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#getDefaultTypeNamespace()
+	 */
 	@Override
 	public String getDefaultTypeNamespace() {
 		return populateServiceNamespace();
 	}
 
+	/**
+	 * Adds the template file combo box.
+	 *
+	 * @param parent the parent
+	 * @throws SOAConfigAreaCorruptedException the sOA config area corrupted exception
+	 */
 	protected void addTemplateFileComboBox(final Composite parent)
 			throws SOAConfigAreaCorruptedException {
 		final String org = getOrganizationProvider().getName();
@@ -134,6 +158,9 @@ private CCombo templateFileCombo;
 		}*/
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		if (super.dialogChanged() == false)
@@ -154,6 +181,9 @@ private CCombo templateFileCombo;
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#dialogChanged(boolean)
+	 */
 	@Override
 	public boolean dialogChanged(boolean validateWsdl) {
 		if (super.dialogChanged(validateWsdl) == false)
@@ -162,12 +192,21 @@ private CCombo templateFileCombo;
 		return true;
 	}
 
+	/**
+	 * Gets the template file.
+	 *
+	 * @return the template file
+	 * @throws SOAConfigAreaCorruptedException the sOA config area corrupted exception
+	 */
 	public URL getTemplateFile() throws SOAConfigAreaCorruptedException {
 		final String templateFileName = getTextValue(templateFileCombo);
 		final String org = getOrganizationProvider().getName();
 		return SOAConfigExtensionFactory.getWSDLTemplate(org, templateFileName);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage#getProjectNames()
+	 */
 	@Override
 	public List<ProjectNameControl> getProjectNames() {
 		final List<ProjectNameControl> result = new ArrayList<ProjectNameControl>(2);
@@ -190,6 +229,9 @@ private CCombo templateFileCombo;
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#wsdlChanged(javax.wsdl.Definition)
+	 */
 	@Override
 	public void wsdlChanged(Definition wsdl) {
 

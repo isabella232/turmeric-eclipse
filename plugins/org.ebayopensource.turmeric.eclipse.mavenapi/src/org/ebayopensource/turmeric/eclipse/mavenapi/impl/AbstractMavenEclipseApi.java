@@ -51,9 +51,9 @@ import org.maven.ide.eclipse.repository.IRepository;
 import org.maven.ide.eclipse.repository.IRepositoryRegistry;
 
 /**
- * 
+ * The Class AbstractMavenEclipseApi.
+ *
  * @author <a href="oleg@codehaus.org">Oleg Gusakov</a>
- * 
  */
 public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	// ---------------------------------------------------------------------
@@ -67,10 +67,10 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 
 	/**
 	 * Returns a model of the pom.
-	 * 
+	 *
 	 * @param file the pom file to read
 	 * @return the Maven Model
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public Model parsePom(final IFile file) throws MavenEclipseApiException {
 		try {
@@ -138,8 +138,9 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 
 	/**
 	 * return local repository.
+	 *
 	 * @return the local Repository Artifact
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public ArtifactRepository localRepository() throws MavenEclipseApiException {
 		try {
@@ -174,9 +175,9 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 
 	/**
 	 * The maven implementation that is being used.
-	 * 
+	 *
 	 * @return the maven implementation
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	protected MavenImpl _getEmbedder() throws MavenEclipseApiException {
 		if (embedder == null)
@@ -187,8 +188,9 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 
 	/**
 	 * The maven index manager.
+	 *
 	 * @return see above
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	protected IndexManager _getIndexManager() throws MavenEclipseApiException {
 		return MavenApiHelper.getMavenIndexManager();
@@ -196,10 +198,10 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 
 	/**
 	 * Create an artifact given the metadata.  This populates it into the repository.
-	 * 
+	 *
 	 * @param metadata the artifact metadata to use.
 	 * @return the created artifact.
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public Artifact createArtifact(final ArtifactMetadata metadata)
 			throws MavenEclipseApiException {
@@ -217,9 +219,10 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 
 	/**
 	 * A collection of artifacts.
+	 *
 	 * @param mdColl the artifact metadata collection.
 	 * @return see above
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	protected Collection<Artifact> _toArtifactCollection(
 			final Collection<ArtifactMetadata> mdColl)
@@ -233,7 +236,8 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	}
 
 	/**
-	 * 
+	 * _return findings.
+	 *
 	 * @param findings a Map of String and IndexedArtifact
 	 * @return a collection ofArtifactMetaData that was found.
 	 */
@@ -267,11 +271,12 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	}
 
 	/**
-	 * 
+	 * _find group.
+	 *
 	 * @param indexManager the IndexManager
 	 * @param groupRegEx a regular expression for filtering the group.
 	 * @return a collection of ArtifactMetaData that was found.
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	protected Collection<ArtifactMetadata> _findGroup(
 			final IndexManager indexManager, final String groupRegEx)
@@ -286,11 +291,12 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	}
 
 	/**
-	 * 
+	 * _find artifact.
+	 *
 	 * @param indexManager the IndexManager
 	 * @param query a query string to the repository
 	 * @return a collectin of ArtifactMetadata for items matching the query parameters
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	protected Collection<ArtifactMetadata> _findArtifact(
 			final IndexManager indexManager, final String query)
@@ -306,8 +312,8 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 
 	/**
 	 * Update the maven repository indexes.
-	 * 
-	 * @throws MavenEclipseApiException 
+	 *
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public void refreshAllIndices() throws MavenEclipseApiException {
 		for (IRepository repo : MavenPlugin.getDefault()

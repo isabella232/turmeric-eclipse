@@ -14,10 +14,19 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 
+/**
+ * The Class ProjectUtils.
+ */
 public class ProjectUtils {
 
 	private static final SOALogger logger = SOALogger.getLogger();
 	
+	/**
+	 * Checks if is project good for consumption.
+	 *
+	 * @param projectNames the project names
+	 * @return true, if is project good for consumption
+	 */
 	public static boolean isProjectGoodForConsumption(String... projectNames) {
 
 		if (!ResourcesPlugin.getWorkspace().isAutoBuilding()) {

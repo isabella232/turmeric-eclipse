@@ -27,22 +27,22 @@ import org.eclipse.swt.widgets.Control;
 public class SOACComboControlAdapter implements IControlContentAdapter{
 
 	/**
-	 * 
+	 * Instantiates a new sOAC combo control adapter.
 	 */
 	public SOACComboControlAdapter() {
 		super();
 	}
 
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getControlContents(Control control) {
 		return ((CCombo) control).getText();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.fieldassist.IControlContentAdapter#setControlContents(org.eclipse.swt.widgets.Control,
-	 *      java.lang.String, int)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void setControlContents(Control control, String text,
 			int cursorPosition) {
@@ -51,11 +51,8 @@ public class SOACComboControlAdapter implements IControlContentAdapter{
 		.setSelection(new Point(cursorPosition, cursorPosition));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.fieldassist.IControlContentAdapter#insertControlContents(org.eclipse.swt.widgets.Control,
-	 *      java.lang.String, int)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void insertControlContents(Control control, String text,
 			int cursorPosition) {
@@ -74,19 +71,15 @@ public class SOACComboControlAdapter implements IControlContentAdapter{
 		combo.setSelection(selection);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.fieldassist.IControlContentAdapter#getCursorPosition(org.eclipse.swt.widgets.Control)
+	/**
+	 * {@inheritDoc}
 	 */
 	public int getCursorPosition(Control control) {
 		return ((CCombo) control).getSelection().x;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.fieldassist.IControlContentAdapter#getInsertionBounds(org.eclipse.swt.widgets.Control)
+	/**
+	 * {@inheritDoc}
 	 */
 	public Rectangle getInsertionBounds(Control control) {
 		CCombo combo = (CCombo) control;
@@ -101,11 +94,8 @@ public class SOACComboControlAdapter implements IControlContentAdapter{
 				.getClientArea().y, 1, combo.getClientArea().height);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.fieldassist.IControlContentAdapter#setCursorPosition(org.eclipse.swt.widgets.Control,
-	 *      int)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void setCursorPosition(Control control, int index) {
 		((CCombo) control).setSelection(new Point(index, index));

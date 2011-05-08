@@ -26,13 +26,18 @@ import org.eclipse.core.runtime.Platform;
 
 
 /**
+ * A factory for creating SOAErrContent objects.
+ *
  * @author smathew
- * 
  */
 public class SOAErrContentFactory {
 	private static ISOAErrRegistry soaErrRegistry;
 	private static final SOALogger logger = SOALogger.getLogger();
+	
+	/** The Constant PROP_KEY_PROVIDER_ID. */
 	public static final String PROP_KEY_PROVIDER_ID = "providerID";
+	
+	/** The Constant PROP_KEY_MODEL_PROVIDER. */
 	public static final String PROP_KEY_MODEL_PROVIDER = "errViewModelProvider";
 
 	private SOAErrContentFactory() {
@@ -100,6 +105,12 @@ public class SOAErrContentFactory {
 		return soaErrRegistry;
 	}
 
+	/**
+	 * Gets the provider.
+	 *
+	 * @return the provider
+	 * @throws SOAGetErrorLibraryProviderFailedException the sOA get error library provider failed exception
+	 */
 	public static ISOAErrRegistry getProvider()
 			throws SOAGetErrorLibraryProviderFailedException {
 		return getPreferredProvider();
@@ -108,9 +119,8 @@ public class SOAErrContentFactory {
 	/**
 	 * This should invalidate the current registry object. Implementors should
 	 * expect a call to getLibraries after this call.
-	 * 
-	 * @return
-	 * @throws Exception 
+	 *
+	 * @throws Exception the exception
 	 */
 	public static void invalidateProvider() throws Exception {
 		//soaErrRegistry = null;

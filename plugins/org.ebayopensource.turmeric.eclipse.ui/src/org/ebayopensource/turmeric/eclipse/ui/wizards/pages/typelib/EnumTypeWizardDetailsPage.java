@@ -37,9 +37,9 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
- * Details Page for enum type wizard
- * @author ramurthy
+ * Details Page for enum type wizard.
  *
+ * @author ramurthy
  */
 
 public class EnumTypeWizardDetailsPage extends SOABasePage {
@@ -59,11 +59,17 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 			new ColumnDef(COL_ENUM_DESC, 200, null) // UIActivator.getImageFromRegistry("description.gif")
 	};
 
+	/**
+	 * Instantiates a new enum type wizard details page.
+	 */
 	public EnumTypeWizardDetailsPage() {
 		super("enumTypeWizardDetailsPage", "Add Details",
 				"Add Enum Values and Descriptions");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(Composite parent) {
 		final Composite container = super.createParentControl(parent, 2);
 		createViewer(container);
@@ -73,6 +79,11 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 		dialogChanged();
 	}
 
+	/**
+	 * Creates the viewer.
+	 *
+	 * @param container the container
+	 */
 	public void createViewer(Composite container) {
 		int style = SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL
 				| SWT.FULL_SELECTION;
@@ -138,6 +149,9 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 				new GridData(SWT.FILL, SWT.FILL, true, true));
 	}
 
+	/**
+	 * Initialize cell editors.
+	 */
 	public void initializeCellEditors() {
 		editors = new CellEditor[colDef.length];
 		int i = 0;
@@ -147,12 +161,20 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 		}
 	}
 
+	/**
+	 * Gets the enum table model.
+	 *
+	 * @return the enum table model
+	 */
 	public EnumTableModel[] getEnumTableModel() {
 		EnumTableModel[] enumTableModel = new EnumTableModel[enumHolder.size()];
 		enumTableModel = (EnumTableModel[]) enumHolder.toArray(enumTableModel);
 		return enumTableModel;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
@@ -242,6 +264,9 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		updateStatus(null);
@@ -267,31 +292,53 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 	}
 
 	/**
-	 * Enum Table Model
-	 * 
+	 * Enum Table Model.
 	 */
 	public static class EnumTableModel {
 
 		private String enumValue;
 		private String enumDesc;
 
+		/**
+		 * Gets the enum desc.
+		 *
+		 * @return the enum desc
+		 */
 		public String getEnumDesc() {
 			return enumDesc;
 		}
 
+		/**
+		 * Sets the enum desc.
+		 *
+		 * @param enumDesc the new enum desc
+		 */
 		public void setEnumDesc(String enumDesc) {
 			this.enumDesc = enumDesc;
 		}
 
+		/**
+		 * Gets the enum value.
+		 *
+		 * @return the enum value
+		 */
 		public String getEnumValue() {
 			return enumValue;
 		}
 
+		/**
+		 * Sets the enum value.
+		 *
+		 * @param enumValue the new enum value
+		 */
 		public void setEnumValue(String enumValue) {
 			this.enumValue = enumValue;
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		return SOAProjectConstants.EMPTY_STRING;

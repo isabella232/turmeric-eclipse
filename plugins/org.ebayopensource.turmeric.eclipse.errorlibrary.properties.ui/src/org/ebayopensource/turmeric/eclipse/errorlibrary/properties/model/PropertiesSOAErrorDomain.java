@@ -23,6 +23,8 @@ import org.eclipse.ui.views.properties.PropertyDescriptor;
 
 
 /**
+ * The Class PropertiesSOAErrorDomain.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -35,14 +37,15 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	private String packageName = null;
 	
 	/**
-	 * 
+	 * Instantiates a new properties soa error domain.
 	 */
 	public PropertiesSOAErrorDomain() {
 		super();
 	}
 
 	/**
-	 * 
+	 * Instantiates a new properties soa error domain.
+	 *
 	 * @param library error library
 	 * @param organization organization
 	 * @param name library name
@@ -68,7 +71,8 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	}
 
 	/**
-	 * 
+	 * Sets the library.
+	 *
 	 * @param library error library
 	 */
 	public void setLibrary(ISOAErrLibrary library) {
@@ -83,7 +87,8 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	}
 
 	/**
-	 * 
+	 * Sets the organization.
+	 *
 	 * @param organization organization name
 	 */
 	public void setOrganization(String organization) {
@@ -98,7 +103,8 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	}
 
 	/**
-	 * 
+	 * Sets the name.
+	 *
 	 * @param name error library name
 	 */
 	public void setName(String name) {
@@ -113,7 +119,8 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	}
 
 	/**
-	 * 
+	 * Sets the version.
+	 *
 	 * @param version the version number
 	 */
 	public void setVersion(String version) {
@@ -127,6 +134,9 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 		return errors;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -142,6 +152,9 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -250,7 +263,8 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	}
 
 	/**
-	 * 
+	 * Gets the package name.
+	 *
 	 * @return the package name
 	 */
 	public String getPackageName() {
@@ -258,7 +272,8 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	}
 
 	/**
-	 * 
+	 * Sets the package name.
+	 *
 	 * @param packageName the package name
 	 */
 	public void setPackageName(String packageName) {

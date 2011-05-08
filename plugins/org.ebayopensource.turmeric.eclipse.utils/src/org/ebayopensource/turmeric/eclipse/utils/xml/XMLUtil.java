@@ -27,8 +27,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 /**
- * @author yayu
+ * The Class XMLUtil.
  *
+ * @author yayu
  */
 public final class XMLUtil {
 
@@ -39,6 +40,14 @@ public final class XMLUtil {
 		super();
 	}
 	
+	/**
+	 * Convert xml to string.
+	 *
+	 * @param node the node
+	 * @return the string
+	 * @throws TransformerFactoryConfigurationError the transformer factory configuration error
+	 * @throws TransformerException the transformer exception
+	 */
 	public static String convertXMLToString(final Node node) 
 	throws TransformerFactoryConfigurationError, TransformerException {
 		if (node == null)
@@ -61,6 +70,14 @@ public final class XMLUtil {
 		return sw.toString();
 	}
 	
+	/**
+	 * Write xml.
+	 *
+	 * @param node the node
+	 * @param writer the writer
+	 * @throws TransformerFactoryConfigurationError the transformer factory configuration error
+	 * @throws TransformerException the transformer exception
+	 */
 	public static void writeXML(final Node node, 
 			final Writer writer) 
 	throws TransformerFactoryConfigurationError, TransformerException {

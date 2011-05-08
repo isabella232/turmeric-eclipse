@@ -12,7 +12,8 @@
 package org.ebayopensource.turmeric.eclipse.registry.models;
 
 /**
- * the model for client asset
+ * the model for client asset.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -21,34 +22,63 @@ public class ClientAssetModel {
 	private String consumerId;
 
 	/**
-	 * 
+	 * Instantiates a new client asset model.
 	 */
 	public ClientAssetModel() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new client asset model.
+	 *
+	 * @param clientName the client name
+	 * @param consumerId the consumer id
+	 */
 	public ClientAssetModel(String clientName, String consumerId) {
 		super();
 		this.clientName = clientName;
 		this.consumerId = consumerId;
 	}
 
+	/**
+	 * Gets the client name.
+	 *
+	 * @return the client name
+	 */
 	public String getClientName() {
 		return clientName;
 	}
 
+	/**
+	 * Sets the client name.
+	 *
+	 * @param clientName the new client name
+	 */
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}
 
+	/**
+	 * Gets the consumer id.
+	 *
+	 * @return the consumer id
+	 */
 	public String getConsumerId() {
 		return consumerId;
 	}
 
+	/**
+	 * Sets the consumer id.
+	 *
+	 * @param consumerId the new consumer id
+	 */
 	public void setConsumerId(String consumerId) {
 		this.consumerId = consumerId;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -60,6 +90,9 @@ public class ClientAssetModel {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -82,6 +115,9 @@ public class ClientAssetModel {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		final StringBuffer buf = new StringBuffer();

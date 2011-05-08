@@ -28,13 +28,14 @@ import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
 
 
 /**
- * @author yayu
+ * The Class AbstractMavenTypeRegistryBridge.
  *
+ * @author yayu
  */
 public abstract class AbstractMavenTypeRegistryBridge implements ITypeRegistryBridge {
 
 	/**
-	 * 
+	 * Instantiates a new abstract maven type registry bridge.
 	 */
 	public AbstractMavenTypeRegistryBridge() {
 		super();

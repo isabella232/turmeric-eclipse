@@ -82,10 +82,16 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 	private ServiceFromNewWSDLAddOperationWizardPage addOperationPage = null;
 	private ServiceFromNewWSDLAddBindingWizardPage addBindingPage = null;
 
+	/**
+	 * Instantiates a new service from wsdl wizard.
+	 */
 	public ServiceFromWSDLWizard() {
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean canFinish() {
 		if (chooseWsdlSource == null || serviceFromExsitingWSDL == null
@@ -107,6 +113,9 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean performFinish() {
 		if (SOALogger.DEBUG)
@@ -433,6 +442,9 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IWizardPage getNextPage(IWizardPage page) {
 		if (page instanceof ChooseWSDLSourcePage) {
@@ -458,6 +470,9 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IWizardPage[] getContentPages() {
 		chooseWsdlSource = new ChooseWSDLSourcePage();
@@ -480,11 +495,17 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected Object getCreatingType() {
 		return ISOAPreValidator.SERVICE;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public int getMinimumHeight() {
 		return super.getMinimumHeight() + 50;
 	}

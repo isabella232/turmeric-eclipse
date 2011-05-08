@@ -28,8 +28,9 @@ import org.apache.commons.io.FileUtils;
 import org.osgi.framework.Bundle;
 
 /**
+ * The Class SOAPluginClassLoader.
+ *
  * @author smathew
- * 
  */
 public class SOAPluginClassLoader extends URLClassLoader {
 	private static final URL[] EMPTY_URLS = new URL[0];
@@ -47,6 +48,12 @@ public class SOAPluginClassLoader extends URLClassLoader {
 	private static final Logger logger = Logger
 			.getLogger(SOAPluginClassLoader.class.getName());
 
+	/**
+	 * Instantiates a new sOA plugin class loader.
+	 *
+	 * @param name the name
+	 * @param urls the urls
+	 */
 	public SOAPluginClassLoader(String name, URL[] urls) {
 		super(EMPTY_URLS);
 
@@ -69,6 +76,9 @@ public class SOAPluginClassLoader extends URLClassLoader {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.ClassLoader#loadClass(java.lang.String, boolean)
+	 */
 	@Override
 	protected synchronized Class<?> loadClass(String name, boolean resolve)
 			throws ClassNotFoundException {
@@ -99,6 +109,9 @@ public class SOAPluginClassLoader extends URLClassLoader {
 		return clazz;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
 
 		Class<?> loadedClass = findLoadedClass(name);
@@ -139,6 +152,9 @@ public class SOAPluginClassLoader extends URLClassLoader {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public URL findResource(String resourceName) {
 		//logger.info("resource name in findresource is " + resourceName);
 		try {
@@ -182,23 +198,46 @@ public class SOAPluginClassLoader extends URLClassLoader {
 		return super.findResource(resourceName);
 	}
 
+	/**
+	 * Gets the plugin bundles.
+	 *
+	 * @return the plugin bundles
+	 */
 	public List<Bundle> getPluginBundles() {
 		return pluginBundles;
 	}
 
+	/**
+	 * Sets the plugin bundles.
+	 *
+	 * @param pluginBundles the new plugin bundles
+	 */
 	public void setPluginBundles(List<Bundle> pluginBundles) {
 		this.pluginBundles = pluginBundles;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.net.URLClassLoader#getURLs()
+	 */
 	@Override
 	public URL[] getURLs() {
 		return m_classPathURLs.toArray(new URL[0]);
 	}
 
+	/**
+	 * Gets the m_class path ur ls.
+	 *
+	 * @return the m_class path ur ls
+	 */
 	public Set<URL> getM_classPathURLs() {
 		return m_classPathURLs;
 	}
 
+	/**
+	 * Sets the m_class path ur ls.
+	 *
+	 * @param pathURLs the new m_class path ur ls
+	 */
 	public void setM_classPathURLs(Set<URL> pathURLs) {
 		if (logger.isLoggable(Level.FINE)) {
 			logger.fine("Inside soa plugin loader setM_classPathURLs: " + pathURLs);

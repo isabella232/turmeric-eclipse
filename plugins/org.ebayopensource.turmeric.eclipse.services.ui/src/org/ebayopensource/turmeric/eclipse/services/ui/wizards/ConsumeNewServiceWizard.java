@@ -68,8 +68,9 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.osgi.framework.Version;
 
 /**
+ * The Class ConsumeNewServiceWizard.
+ *
  * @author yayu
- * 
  */
 public class ConsumeNewServiceWizard extends SOABaseWizard {
 	private ConsumeNewServiceWizardPage consumeNewServicePage;
@@ -77,7 +78,7 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * 
+	 * Instantiates a new consume new service wizard.
 	 */
 	public ConsumeNewServiceWizard() {
 		super();
@@ -109,12 +110,18 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 		return new IWizardPage[] { consumeNewServicePage };
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#preValidate()
+	 */
 	@Override
 	public IStatus preValidate() {
 		// bypass the pre validation
 		return Status.OK_STATUS;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#performFinish()
+	 */
 	@Override
 	public boolean performFinish() {
 		try {

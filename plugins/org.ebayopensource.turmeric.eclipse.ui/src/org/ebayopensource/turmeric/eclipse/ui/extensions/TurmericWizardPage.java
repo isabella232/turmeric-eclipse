@@ -36,11 +36,17 @@ public class TurmericWizardPage implements ITurmericWizardPage {
 		id = elem.getAttribute("id");
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericWizardPage#createWizardPage()
+	 */
 	@Override
 	public IWizardPage createWizardPage() {
 		return page;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.extensions.ITurmericWizardPage#getId()
+	 */
 	@Override
 	public String getId() {
 		return id;

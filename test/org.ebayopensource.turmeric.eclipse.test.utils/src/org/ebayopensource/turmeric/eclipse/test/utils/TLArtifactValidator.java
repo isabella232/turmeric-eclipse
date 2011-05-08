@@ -27,12 +27,20 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 
 
+/**
+ * The Class TLArtifactValidator.
+ */
 public class TLArtifactValidator implements IResourceVisitor {
 
 	private String goldCopyDir = null;
 	private Collection<File> files = null;
 	private boolean matches = true;
 
+	/**
+	 * Sets the gold copy root dir.
+	 *
+	 * @param subDir the new gold copy root dir
+	 */
 	@SuppressWarnings("unchecked")
 	public void setGoldCopyRootDir(String subDir) {
 //		goldCopyDir = WsdlUtilTest.getPluginOSPath(Activator.PLUGIN_ID, "test-data/" + subDir);
@@ -51,6 +59,11 @@ public class TLArtifactValidator implements IResourceVisitor {
 
 	}
 
+	/**
+	 * Checks if is matches.
+	 *
+	 * @return true, if is matches
+	 */
 	public boolean isMatches() {
 		if (files.size() > 0) {
 			for (Iterator<File> iterator = files.iterator(); iterator.hasNext();) {
@@ -60,9 +73,11 @@ public class TLArtifactValidator implements IResourceVisitor {
 		}
 		return matches && !files.isEmpty();
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.IResourceVisitor#visit(org.eclipse.core.resources.IResource)
+	
+	/**
+	 * {@inheritDoc}
 	 */
+	
 	public boolean visit(IResource resource) throws CoreException {
 
 		if (!matches) return false;

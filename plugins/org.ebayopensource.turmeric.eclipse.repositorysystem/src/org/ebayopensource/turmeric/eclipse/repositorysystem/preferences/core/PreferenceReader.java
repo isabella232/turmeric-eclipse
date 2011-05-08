@@ -16,12 +16,19 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActi
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 
 /**
+ * The Class PreferenceReader.
+ *
  * @author smathew
  * 
  * Wrapper Reader class to read SOA Repo Preferences
  */
 public class PreferenceReader {
 
+	/**
+	 * Gets the service layer.
+	 *
+	 * @return the service layer
+	 */
 	public static List<String> getServiceLayer() {
 		IEclipsePreferences prefs = RepositorySystemActivator.getDefault().getPreferences();
 		String serviceLayer = prefs.get(PreferenceConstants.PREF_SERVICE_LAYERS,  PreferenceConstants.getDefaultServiceLayers());
@@ -29,11 +36,22 @@ public class PreferenceReader {
 		return Arrays.asList(layers);
 	}
 
+	/**
+	 * Gets the current repository system id.
+	 *
+	 * @return the current repository system id
+	 */
 	public static String getCurrentRepositorySystemId() {
 		IEclipsePreferences prefs = RepositorySystemActivator.getDefault().getPreferences();
 		return prefs.get(PreferenceConstants.PREF_REPOSITORY_SYSTEM, PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM);
 	}
 	
+	/**
+	 * Gets the current organization id.
+	 *
+	 * @param defaultOrgId the default org id
+	 * @return the current organization id
+	 */
 	public static String getCurrentOrganizationId(String defaultOrgId) {
 		IEclipsePreferences prefs = RepositorySystemActivator.getDefault().getPreferences();
 		

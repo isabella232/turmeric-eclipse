@@ -14,10 +14,19 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
- * @author smathew
+ * The Interface ISOACodegenTransformer.
  *
+ * @author smathew
  */
 public interface ISOACodegenTransformer {
 
+	/**
+	 * Transform model.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return the base code gen model
+	 * @throws Exception the exception
+	 */
 	public BaseCodeGenModel transformModel(IProject project, IProgressMonitor monitor) throws Exception;
 }

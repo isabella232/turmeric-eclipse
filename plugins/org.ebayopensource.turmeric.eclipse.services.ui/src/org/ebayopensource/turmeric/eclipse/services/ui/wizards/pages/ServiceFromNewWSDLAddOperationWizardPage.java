@@ -74,14 +74,22 @@ import org.eclipse.swt.widgets.TreeItem;
 
 
 /**
- * @author yayu
+ * The Class ServiceFromNewWSDLAddOperationWizardPage.
  *
+ * @author yayu
  */
 public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 	
+	/** The Constant COLUMN_NAME. */
 	public static final String COLUMN_NAME = "name";
+	
+	/** The Constant COLUMN_INPUT_PARAM. */
 	public static final String COLUMN_INPUT_PARAM = "input_param";
+	
+	/** The Constant COLUMN_OUTPUT_PARAM. */
 	public static final String COLUMN_OUTPUT_PARAM = "output_param";
+	
+	/** The Constant OPERATION_COLUMN_PROPERTIES. */
 	public static final String[] OPERATION_COLUMN_PROPERTIES = 
 	{COLUMN_NAME, COLUMN_INPUT_PARAM, COLUMN_OUTPUT_PARAM};
 	
@@ -96,25 +104,24 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 	
 	
 	/**
-	 * @param pageName
-	 * @param title
-	 * @param description
+	 * Instantiates a new service from new wsdl add operation wizard page.
+	 *
 	 */
 	public ServiceFromNewWSDLAddOperationWizardPage() {
 		super("newSOAServiceProjectFromBlankWSDLAddOperationWizardPage", "Service from Template WSDL - Add Operation", 
 		"Add operations to the template WSDL");
 	}
 
-	/* (non-Javadoc)
-	 * @seeorg.ebayopensource.turmeric.eclipse.ui.SOABasePage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		return SOAProjectConstants.EMPTY_STRING;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		try {
@@ -339,6 +346,9 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 		return null;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
@@ -346,6 +356,9 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 				ISOAHelpProvider.PAGE_CREATE_SERVICE_FROM_TEMPLATE_WSDL);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		if(super.dialogChanged() == false)
@@ -453,6 +466,11 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 		}
 	}
 	
+	/**
+	 * Gets the operations.
+	 *
+	 * @return the operations
+	 */
 	public List<Operation> getOperations() {
 		return operations;
 	}

@@ -22,6 +22,8 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
+ * The Interface IRegistryProvider.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -29,47 +31,56 @@ public interface IRegistryProvider {
 	
 	/**
 	 * check whether the given asset already exist in the repository.
+	 *
 	 * @param assetModel the assert model for checking existence
-	 * @param monitor
-	 * @return 
-	 * @throws ProviderException
+	 * @param monitor the monitor
+	 * @return the i status
+	 * @throws ProviderException the provider exception
 	 */
 	public IStatus assetNameExists(SimpleAssetModel assetModel, 
 			IProgressMonitor monitor) throws ProviderException;
 
 	/**
-	 * Retrieving asset domain namespace values from repository
+	 * Retrieving asset domain namespace values from repository.
+	 *
 	 * @return the list of domain names from Asset Repository, or null if none
-	 * @throws ProviderException
+	 * @throws ProviderException the provider exception
 	 */
 	public List<NameValuePair> getDomainNamespaceValues() throws ProviderException;
 
 	/**
-	 * Submit a new asset to the repository for governance
+	 * Submit a new asset to the repository for governance.
+	 *
 	 * @param assetModel the assert model for submission
-	 * @return
-	 * @throws ProviderException
+	 * @return the i status
+	 * @throws ProviderException the provider exception
 	 */
 	IStatus submitNewAssetForGovernance(SubmitAssetModel assetModel) throws ProviderException;
 	
 	/**
+	 * Submit new version for governance.
+	 *
 	 * @param assetModel the assert model for submission
-	 * @return
-	 * @throws ProviderException
+	 * @return the i status
+	 * @throws ProviderException the provider exception
 	 */
 	IStatus submitNewVersionForGovernance(SubmitAssetModel assetModel) throws ProviderException;
 	
 	/**
+	 * Update existing version for governance.
+	 *
 	 * @param assetModel the assert model for submission
-	 * @return
-	 * @throws ProviderException
+	 * @return the i status
+	 * @throws ProviderException the provider exception
 	 */
 	IStatus updateExistingVersionForGovernance(SubmitAssetModel assetModel) throws ProviderException;
 
 	/**
+	 * Submit new maintenance version.
+	 *
 	 * @param assetModel the assert model for submission
-	 * @return
-	 * @throws ProviderException
+	 * @return the i status
+	 * @throws ProviderException the provider exception
 	 */
 	IStatus submitNewMaintenanceVersion(SubmitAssetModel assetModel) throws ProviderException;
 

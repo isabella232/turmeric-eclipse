@@ -15,9 +15,7 @@ import org.osgi.framework.BundleContext;
 
 
 /**
- * 
- * 
- *
+ * The Class Activator.
  */
 public class Activator extends Plugin {
 

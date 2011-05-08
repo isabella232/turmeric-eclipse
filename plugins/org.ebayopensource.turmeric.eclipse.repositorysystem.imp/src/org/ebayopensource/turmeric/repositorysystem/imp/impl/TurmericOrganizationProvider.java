@@ -43,12 +43,14 @@ import org.eclipse.core.runtime.Status;
 
 
 /**
- * @author yayu
+ * The Class TurmericOrganizationProvider.
  *
+ * @author yayu
  */
 public class TurmericOrganizationProvider implements IMavenOrganizationProvider {
 	private static final SOALogger logger = SOALogger.getLogger();
 	
+	/** The Constant NAME. */
 	public static final String NAME = "Turmeric";
 	
 	private static final Map<SupportedProjectType, String> GROUPID_MAP;
@@ -82,44 +84,48 @@ public class TurmericOrganizationProvider implements IMavenOrganizationProvider 
 		MANAGED_ARTIFACTS = Collections.unmodifiableCollection(list);
 	}
 	
+	/** The Constant INSTANCE. */
 	public static final ISOAOrganizationProvider INSTANCE 
 	= new TurmericOrganizationProvider();
 
 	/**
-	 * 
+	 * Instantiates a new turmeric organization provider.
 	 */
 	public TurmericOrganizationProvider() {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider#getName()
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getName() {
 		return NAME;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider#supportFunctionalDomain()
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean supportFunctionalDomain() {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider#supportAssetRepositoryIntegration()
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean supportAssetRepositoryIntegration() {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider#shouldShowInNamespaceToPackageViewer(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean shouldShowInNamespaceToPackageViewer(String namespace) {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String generateInterfaceClassName(String packageName,
 			String adminName) {
 		if (StringUtils.isBlank(packageName))
@@ -134,6 +140,9 @@ public class TurmericOrganizationProvider implements IMavenOrganizationProvider 
 						.capitalize(serviceName));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String generateServiceNamespace(String domainName,
 			String namespacePart, String serviceVersion) {
 		final StringBuffer buf = new StringBuffer();
@@ -151,7 +160,10 @@ public class TurmericOrganizationProvider implements IMavenOrganizationProvider 
 		buf.append(TurmericConstants.DEFAULT_SERVICE_NAMESPACE_SUFFIX);
 		return buf.toString();
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public String generateTypeLibraryTargetNamespace(
 			String domainName, String namespacePart, String version) {
 		if (StringUtils.isBlank(domainName) || StringUtils.isBlank(namespacePart)) {
@@ -173,6 +185,9 @@ public class TurmericOrganizationProvider implements IMavenOrganizationProvider 
 	}
 	
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getNamespacePartFromTargetNamespace(String targetNamespace) {
 		if (StringUtils.isNotBlank(targetNamespace) && targetNamespace.startsWith(
 				TurmericConstants.DEFAULT_SERVICE_NAMESPACE_PREFIX)) {
@@ -201,6 +216,9 @@ public class TurmericOrganizationProvider implements IMavenOrganizationProvider 
 		return "";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<String> getDefaultDependencies(SupportedProjectType projectType) {
 		List<String> result = Collections.emptyList();
 		if (SupportedProjectType.INTERFACE.equals(projectType)) {
@@ -218,14 +236,17 @@ public class TurmericOrganizationProvider implements IMavenOrganizationProvider 
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<String> getCommonErrorLibraries() {
 		List<String> libs = new ArrayList<String>();
 		libs.add(TurmericConstants.SOA_CLIENT);
 		return libs;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider#getSOAFrameworkLibraryIdentifier(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getSOAFrameworkLibraryIdentifier(SOAFrameworkLibrary soaLibraryName) {
 		if (SOAFrameworkLibrary.SOASERVER.equals(soaLibraryName)) {
@@ -238,24 +259,39 @@ public class TurmericOrganizationProvider implements IMavenOrganizationProvider 
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IStatus preValidateChangeServiceVersion(String oldVersion,
 			String newVersion, String serviceName) throws Exception {
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ArtifactMetadata getParentPom(SupportedProjectType projectType) {
 		//we dont need parent pom for Turmeric yet
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getProjectGroupId(SupportedProjectType projectType) {
 		return GROUPID_MAP.get(projectType);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<String> getAllProjectTypeGroupIds() {
 		return ALL_GROUPIDS;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean supportAssertionServiceIntegration() throws CoreException {
 		return ExtensionPointFactory.isASForWSDLEnabled();
 	}
@@ -281,19 +317,31 @@ public class TurmericOrganizationProvider implements IMavenOrganizationProvider 
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getDisplayName() {
 		return "Default";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getURLPattern(String serviceName, String domainName,
 			int majorVersion) {
 		return new StringBuilder("/").append(serviceName).toString();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getSOAPProtocolProcessorClassName() {
 		return TurmericConstants.PROTOCOL_PROCESSOR_CLASS_NAME_VALUE;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void postAddingServiceToWebProjects(
 			List<IProject> serviceImplProjects, IProject webProject,
 			Model webProjectPom, IProgressMonitor monitor) throws Exception {	

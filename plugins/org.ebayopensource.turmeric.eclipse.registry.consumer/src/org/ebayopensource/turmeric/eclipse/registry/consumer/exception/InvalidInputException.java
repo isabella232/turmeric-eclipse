@@ -10,7 +10,8 @@ package org.ebayopensource.turmeric.eclipse.registry.consumer.exception;
 
 
 /**
- * Invalid Input Exception
+ * Invalid Input Exception.
+ *
  * @author ramurthy
  */
 
@@ -19,29 +20,35 @@ public class InvalidInputException extends AbstractRegistryException {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public InvalidInputException() {
 		super();
 	}
 
 	/**
-	 * @param message
+	 * Instantiates a new invalid input exception.
+	 *
+	 * @param message the message
 	 */
 	public InvalidInputException(String message) {
 		super(message);
 	}
 
 	/**
-	 * @param throwable
+	 * Instantiates a new invalid input exception.
+	 *
+	 * @param throwable the throwable
 	 */
 	public InvalidInputException(Throwable throwable) {
 		super(throwable);
 	}
 
 	/**
-	 * @param message
-	 * @param throwable
+	 * Instantiates a new invalid input exception.
+	 *
+	 * @param message the message
+	 * @param throwable the throwable
 	 */
 	public InvalidInputException(String message, Throwable throwable) {
 		super(message, throwable);

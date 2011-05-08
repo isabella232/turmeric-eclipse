@@ -12,7 +12,22 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDTypeDefinition;
 
+/**
+ * The listener interface for receiving typeViewerDC events.
+ * The class that is interested in processing a typeViewerDC
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addTypeViewerDCListener</code> method. When
+ * the typeViewerDC event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see TypeViewerDCEvent
+ */
 class TypeViewerDCListener implements IDoubleClickListener {
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void doubleClick(DoubleClickEvent event) {
 		if (event.getSelection() instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) event

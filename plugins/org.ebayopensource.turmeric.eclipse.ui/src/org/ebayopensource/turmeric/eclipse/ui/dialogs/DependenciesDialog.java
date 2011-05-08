@@ -45,8 +45,9 @@ import org.eclipse.swt.widgets.Shell;
 
 
 /**
+ * The Class DependenciesDialog.
+ *
  * @author smathew
- * 
  */
 public class DependenciesDialog extends TitleAreaDialog {
 	private final String title;
@@ -60,10 +61,23 @@ public class DependenciesDialog extends TitleAreaDialog {
 	private int helpID = ISOAHelpProvider.WINDOW_DEPENDENCIES;
 	private final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Instantiates a new dependencies dialog.
+	 *
+	 * @param parentShell the parent shell
+	 * @param serviceName the service name
+	 */
 	public DependenciesDialog(final Shell parentShell, final String serviceName) {
 		this(parentShell, serviceName, false);
 	}
 
+	/**
+	 * Instantiates a new dependencies dialog.
+	 *
+	 * @param parentShell the parent shell
+	 * @param serviceName the service name
+	 * @param multiSelect the multi select
+	 */
 	public DependenciesDialog(final Shell parentShell,
 			final String serviceName, final boolean multiSelect) {
 		this(parentShell, "Add a Service Dependency",
@@ -71,17 +85,43 @@ public class DependenciesDialog extends TitleAreaDialog {
 				serviceName, multiSelect);
 	}
 
+	/**
+	 * Instantiates a new dependencies dialog.
+	 *
+	 * @param parentShell the parent shell
+	 * @param title the title
+	 * @param message the message
+	 */
 	public DependenciesDialog(final Shell parentShell, final String title,
 			final String message) {
 		this(parentShell, title, message, null, false);
 	}
 
+	/**
+	 * Instantiates a new dependencies dialog.
+	 *
+	 * @param parentShell the parent shell
+	 * @param title the title
+	 * @param message the message
+	 * @param serviceName the service name
+	 * @param multiSelect the multi select
+	 */
 	public DependenciesDialog(final Shell parentShell, final String title,
 			final String message, final String serviceName,
 			final boolean multiSelect) {
 		this(parentShell, title, message, serviceName, multiSelect, -1);
 	}
 	
+	/**
+	 * Instantiates a new dependencies dialog.
+	 *
+	 * @param parentShell the parent shell
+	 * @param title the title
+	 * @param message the message
+	 * @param serviceName the service name
+	 * @param multiSelect the multi select
+	 * @param helpID the help id
+	 */
 	public DependenciesDialog(final Shell parentShell, final String title,
 			final String message, final String serviceName,
 			final boolean multiSelect, int helpID) {
@@ -94,6 +134,12 @@ public class DependenciesDialog extends TitleAreaDialog {
 			this.helpID = helpID;
 	}
 
+	/**
+	 * Sets the filtered services.
+	 *
+	 * @param services the services
+	 * @return the dependencies dialog
+	 */
 	public DependenciesDialog setFilteredServices(final AssetInfo... services) {
 		filteredServices.clear();
 		for (final AssetInfo service : services)
@@ -101,6 +147,9 @@ public class DependenciesDialog extends TitleAreaDialog {
 		return this;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.TitleAreaDialog#createContents(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	protected Control createContents(final Composite parent) {
 		final Control contents = super.createContents(parent);
@@ -123,6 +172,11 @@ public class DependenciesDialog extends TitleAreaDialog {
 		getButton(IDialogConstants.OK_ID).setEnabled(errorMessage == null);
 	}
 
+	/**
+	 * Gets the content provider.
+	 *
+	 * @return the content provider
+	 */
 	protected IStructuredContentProvider getContentProvider() {
 		return new IStructuredContentProvider() {
 			public Object[] getElements(final Object inputElement) {
@@ -154,6 +208,9 @@ public class DependenciesDialog extends TitleAreaDialog {
 		};
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.TitleAreaDialog#createDialogArea(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	protected Control createDialogArea(final Composite parent) {
 		final Composite composite = (Composite) super.createDialogArea(parent);
@@ -255,6 +312,9 @@ public class DependenciesDialog extends TitleAreaDialog {
 		return composite;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.Dialog#okPressed()
+	 */
 	@Override
 	protected void okPressed() {
 		selected.clear();
@@ -275,17 +335,34 @@ public class DependenciesDialog extends TitleAreaDialog {
 		super.okPressed();
 	}
 
+	/**
+	 * Gets the selected.
+	 *
+	 * @return the selected
+	 */
 	public Set<AssetInfo> getSelected() {
 		return selected;
 	}
 
+	/**
+	 * Gets the first selected.
+	 *
+	 * @return the first selected
+	 */
 	public AssetInfo getFirstSelected() {
 		if (selected == null || selected.size() == 0)
 			return null;
 		return selected.iterator().next();
 	}
 
+	/**
+	 * The Class DependencySorter.
+	 */
 	static class DependencySorter extends ViewerSorter {
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jface.viewers.ViewerComparator#compare(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+		 */
 		@Override
 		public int compare(Viewer viewer, Object e1, Object e2) {
 			if (e1 instanceof AssetInfo && e2 instanceof AssetInfo) {

@@ -21,15 +21,34 @@ import java.util.jar.JarFile;
 import org.apache.xbean.classloader.JarFileUrlConnection;
 
 /**
+ * The Class SOAToolFileUrlHandler.
+ *
  * @author smathew
- * 
  */
 public class SOAToolFileUrlHandler extends URLStreamHandler {
+	
+	/**
+	 * Creates the url.
+	 *
+	 * @param jarFile the jar file
+	 * @param jarEntry the jar entry
+	 * @return the uRL
+	 * @throws MalformedURLException the malformed url exception
+	 */
 	public static URL createUrl(JarFile jarFile, JarEntry jarEntry)
 			throws MalformedURLException {
 		return createUrl(jarFile, jarEntry, new File(jarFile.getName()).toURI().toURL());
 	}
 
+	/**
+	 * Creates the url.
+	 *
+	 * @param jarFile the jar file
+	 * @param jarEntry the jar entry
+	 * @param codeSource the code source
+	 * @return the uRL
+	 * @throws MalformedURLException the malformed url exception
+	 */
 	public static URL createUrl(JarFile jarFile, JarEntry jarEntry,
 			URL codeSource) throws MalformedURLException {
 		SOAToolFileUrlHandler handler = new SOAToolFileUrlHandler(jarFile,
@@ -44,6 +63,12 @@ public class SOAToolFileUrlHandler extends URLStreamHandler {
 	private final JarFile jarFile;
 	private final JarEntry jarEntry;
 
+	/**
+	 * Instantiates a new sOA tool file url handler.
+	 *
+	 * @param jarFile the jar file
+	 * @param jarEntry the jar entry
+	 */
 	public SOAToolFileUrlHandler(JarFile jarFile, JarEntry jarEntry) {
 		if (jarFile == null)
 			throw new NullPointerException("jarFile is null");
@@ -54,12 +79,20 @@ public class SOAToolFileUrlHandler extends URLStreamHandler {
 		this.jarEntry = jarEntry;
 	}
 
+	/**
+	 * Sets the expected url.
+	 *
+	 * @param expectedUrl the new expected url
+	 */
 	public void setExpectedUrl(URL expectedUrl) {
 		if (expectedUrl == null)
 			throw new NullPointerException("expectedUrl is null");
 		this.expectedUrl = expectedUrl;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public URLConnection openConnection(URL url) throws IOException {
 
 		if (expectedUrl == null)

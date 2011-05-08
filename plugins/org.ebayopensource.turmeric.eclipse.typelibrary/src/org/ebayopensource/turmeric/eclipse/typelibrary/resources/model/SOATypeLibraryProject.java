@@ -19,19 +19,26 @@ import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 
 
 /**
+ * The Class SOATypeLibraryProject.
+ *
  * @author smathew
  * 
  * Type Lib Project Model containing both eclipse and type lib metadata
  */
 public class SOATypeLibraryProject extends SOABaseProject {
 
+	/** The metadata. */
 	SOATypeLibraryMetadata metadata;
 
+	/** The Constant SOURCE_DIRECTORIES. */
 	public static final String[] SOURCE_DIRECTORIES = {
 			SOATypeLibraryConstants.FOLDER_GEN_META_SRC,
 			SOATypeLibraryConstants.FOLDER_GEN_SRC,
 			SOATypeLibraryConstants.FOLDER_META_SRC, };
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject#getSourceSubFolders()
+	 */
 	@Override
 	public List<String> getSourceSubFolders() {
 		List<String> subFolders = new ArrayList<String>();
@@ -45,10 +52,20 @@ public class SOATypeLibraryProject extends SOABaseProject {
 		return subFolders;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<String> getSourceDirectoryNames() {
 		return ListUtil.arrayList(SOURCE_DIRECTORIES);
 	}
 
+	/**
+	 * Creates the soa project type library.
+	 *
+	 * @param eclipseMetadata the eclipse metadata
+	 * @param metadata the metadata
+	 * @return the sOA type library project
+	 */
 	public static SOATypeLibraryProject createSOAProjectTypeLibrary(
 			SOAProjectEclipseMetadata eclipseMetadata,
 			SOATypeLibraryMetadata metadata) {
@@ -58,10 +75,20 @@ public class SOATypeLibraryProject extends SOABaseProject {
 		return soaTypeLibraryProject;
 	}
 
+	/**
+	 * Gets the type library metadata.
+	 *
+	 * @return the type library metadata
+	 */
 	public SOATypeLibraryMetadata getTypeLibraryMetadata() {
 		return metadata;
 	}
 
+	/**
+	 * Sets the type library metadata.
+	 *
+	 * @param metadata the new type library metadata
+	 */
 	public void setTypeLibraryMetadata(SOATypeLibraryMetadata metadata) {
 		this.metadata = metadata;
 	}

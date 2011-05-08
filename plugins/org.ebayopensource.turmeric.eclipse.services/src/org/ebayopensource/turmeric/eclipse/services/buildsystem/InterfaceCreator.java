@@ -33,10 +33,20 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
+ * The Class InterfaceCreator.
+ *
  * @author smathew Creates the interface project model
- * 
  */
 public class InterfaceCreator {
+	
+	/**
+	 * Creates the intf model from blank wsdl.
+	 *
+	 * @param paramModel the param model
+	 * @param monitor the monitor
+	 * @return the sOA intf project
+	 * @throws Exception the exception
+	 */
 	public static SOAIntfProject createIntfModelFromBlankWsdl(
 			ServiceFromTemplateWsdlParamModel paramModel,
 			IProgressMonitor monitor) throws Exception {
@@ -63,6 +73,16 @@ public class InterfaceCreator {
 		return intfProject;
 	}
 
+	/**
+	 * Creates the intf project from blank wsdl.
+	 *
+	 * @param intfProject the intf project
+	 * @param implProject the impl project
+	 * @param nameSpace the name space
+	 * @param wsdlTemplateProcessor the wsdl template processor
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createIntfProjectFromBlankWsdl(
 			SOAIntfProject intfProject, SOAImplProject implProject,
 			String nameSpace, WSDLTemplateProcessor wsdlTemplateProcessor,
@@ -102,6 +122,14 @@ public class InterfaceCreator {
 		ProgressUtil.progressOneStep(monitor);*/
 	}
 
+	/**
+	 * Creates the intf model from existing wsdl.
+	 *
+	 * @param paramModel the param model
+	 * @param monitor the monitor
+	 * @return the sOA intf project
+	 * @throws Exception the exception
+	 */
 	public static SOAIntfProject createIntfModelFromExistingWsdl(
 			ServiceFromWsdlParamModel paramModel, IProgressMonitor monitor)
 			throws Exception {
@@ -129,6 +157,15 @@ public class InterfaceCreator {
 		return intfProject;
 	}
 
+	/**
+	 * Creates the intf project from existing wsdl.
+	 *
+	 * @param intfProject the intf project
+	 * @param implProject the impl project
+	 * @param nameSpace the name space
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createIntfProjectFromExistingWsdl(
 			SOAIntfProject intfProject, SOAImplProject implProject,
 			String nameSpace, IProgressMonitor monitor) throws Exception {
@@ -159,6 +196,13 @@ public class InterfaceCreator {
 		ProgressUtil.progressOneStep(monitor);*/
 	}
 
+	/**
+	 * Creates the intf project from existing wsdl.
+	 *
+	 * @param intfProject the intf project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createIntfProjectFromExistingWsdl(
 			SOAIntfProject intfProject, IProgressMonitor monitor)
 			throws Exception {

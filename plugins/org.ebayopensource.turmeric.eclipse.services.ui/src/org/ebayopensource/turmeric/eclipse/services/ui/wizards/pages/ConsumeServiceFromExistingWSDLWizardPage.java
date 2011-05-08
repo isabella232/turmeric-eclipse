@@ -73,8 +73,9 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
+ * The Class ConsumeServiceFromExistingWSDLWizardPage.
+ *
  * @author mzang
- * 
  */
 public class ConsumeServiceFromExistingWSDLWizardPage extends
 		AbstractNewServiceFromWSDLWizardPage {
@@ -89,6 +90,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 
 	private ISOAProject soaPrj;
 
+	/** The client prop editable. */
 	boolean clientPropEditable = false;
 
 	private String consumerIDStr = "";
@@ -97,6 +99,12 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 	private List<String> environments = new ArrayList<String>();
 	private String serviceLayerStr = "";
 
+	/**
+	 * Instantiates a new consume service from existing wsdl wizard page.
+	 *
+	 * @param selection the selection
+	 * @throws Exception the exception
+	 */
 	public ConsumeServiceFromExistingWSDLWizardPage(
 			final IStructuredSelection selection) throws Exception {
 		super(
@@ -141,14 +149,27 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		}
 	}
 
+	/**
+	 * Gets the sOA project.
+	 *
+	 * @return the sOA project
+	 */
 	public ISOAProject getSOAProject() {
 		return soaPrj;
 	}
 
+	/**
+	 * Instantiates a new consume service from existing wsdl wizard page.
+	 *
+	 * @throws Exception the exception
+	 */
 	public ConsumeServiceFromExistingWSDLWizardPage() throws Exception {
 		this(null);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
@@ -157,12 +178,8 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets
-	 * .Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		try {
@@ -236,6 +253,11 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		}
 	}
 	
+	/**
+	 * Reformat service layer.
+	 *
+	 * @param serviceLayer the service layer
+	 */
 	protected void reformatServiceLayer(CCombo serviceLayer) {
 		serviceLayer.removeAll();
 		for (final String layer : SOAServiceUtil
@@ -245,6 +267,13 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		serviceLayer.select(0);
 	}
 
+	/**
+	 * Creates the consumer id text.
+	 *
+	 * @param parent the parent
+	 * @return the text
+	 * @throws CoreException the core exception
+	 */
 	protected Text createConsumerIDText(Composite parent) throws CoreException {
 		this.consumerID = super.createLabelTextField(parent, "Consumer &ID:",
 				"", modifyListener, false, true,
@@ -297,6 +326,12 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		return this.consumerID;
 	}
 
+	/**
+	 * Creates the environment list.
+	 *
+	 * @param parent the parent
+	 * @return the list viewer
+	 */
 	protected ListViewer createEnvironmentList(Composite parent) {
 
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
@@ -371,6 +406,13 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		return envrionmentList;
 	}
 
+	/**
+	 * Creates the service client.
+	 *
+	 * @param parent the parent
+	 * @param clientPropEditable the client prop editable
+	 * @return the text
+	 */
 	protected Text createServiceClient(final Composite parent,
 			final boolean clientPropEditable) {
 		final ModifyListener nsModifyListener = new ModifyListener() {
@@ -391,6 +433,9 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		return serviceClientText;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getDefaultValue(Text text) {
 		if (text == serviceClientText) {
 			if (clientPropEditable == false) {
@@ -405,6 +450,9 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		return super.getDefaultValue(text);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 
@@ -496,6 +544,9 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#wsdlChanged(javax.wsdl.Definition)
+	 */
 	@Override
 	public void wsdlChanged(final Definition wsdl) {
 		final Collection<?> services = wsdl.getServices().values();
@@ -553,6 +604,9 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#targetNamespaceModified(java.lang.String)
+	 */
 	@Override
 	protected void targetNamespaceModified(String newNamespace) {
 		super.targetNamespaceModified(newNamespace);
@@ -593,6 +647,9 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#resetServiceName()
+	 */
 	@Override
 	public void resetServiceName() {
 		super.resetServiceName();
@@ -600,18 +657,36 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			serviceClientText.setText(clientNameStr);
 	}
 
+	/**
+	 * Gets the client name.
+	 *
+	 * @return the client name
+	 */
 	public String getClientName() {
 		return super.getTextValue(this.serviceClientText);
 	}
 
+	/**
+	 * Gets the consumer id.
+	 *
+	 * @return the consumer id
+	 */
 	public String getConsumerId() {
 		return super.getTextValue(this.consumerID);
 	}
 
+	/**
+	 * Gets the environments.
+	 *
+	 * @return the environments
+	 */
 	public List<String> getEnvironments() {
 		return environments;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#getDefaultResourceName()
+	 */
 	@Override
 	public String getDefaultResourceName() {
 		final String defaultName = computeServiceName();
@@ -621,6 +696,9 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			return "";
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()

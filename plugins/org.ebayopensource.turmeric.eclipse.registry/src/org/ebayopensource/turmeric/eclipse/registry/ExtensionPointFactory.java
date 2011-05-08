@@ -29,6 +29,8 @@ import org.eclipse.core.runtime.Platform;
 
 
 /**
+ * A factory for creating ExtensionPoint objects.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -37,12 +39,15 @@ public final class ExtensionPointFactory {
 	private static Map<String, IArtifactValidator> validators;
 	private static IClientRegistryProvider clientRegistryProvider;
 	
+	/** The Constant ID_REGISTRY_PROVIDER. */
 	public static final String ID_REGISTRY_PROVIDER = 
 		RegistryActivator.PLUGIN_ID + ".registryprovider";
 	
+	/** The Constant ID_ARTIFACT_VALIDATOR. */
 	public static final String ID_ARTIFACT_VALIDATOR = 
 		"org.ebayopensource.turmeric.eclipse.external.artifactvalidator";
 	
+	/** The Constant ID_CLIENT_REGISTRY_PROVIDER. */
 	public static final String ID_CLIENT_REGISTRY_PROVIDER = 
 		RegistryActivator.PLUGIN_ID + ".clientregistryprovider";
 	
@@ -53,6 +58,12 @@ public final class ExtensionPointFactory {
 		super();
 	}
 
+	/**
+	 * Gets the sOA registry provider.
+	 *
+	 * @return the sOA registry provider
+	 * @throws CoreException the core exception
+	 */
 	public static IRegistryProvider getSOARegistryProvider() throws CoreException{
 		if (registryProvider == null) {
 			final IExtensionRegistry registry = Platform.getExtensionRegistry();
@@ -73,6 +84,12 @@ public final class ExtensionPointFactory {
 		return registryProvider;
 	}
 	
+	/**
+	 * Gets the artifact validators.
+	 *
+	 * @return the artifact validators
+	 * @throws CoreException the core exception
+	 */
 	public static List<IArtifactValidator> getArtifactValidators() 
 	throws CoreException {
 		if (validators == null) {
@@ -98,8 +115,10 @@ public final class ExtensionPointFactory {
 	}
 	
 	/**
+	 * Checks if is aS for wsdl enabled.
+	 *
 	 * @return true is we should run AS validation or false otherwise.
-	 * @throws CoreException
+	 * @throws CoreException the core exception
 	 */
 	public static boolean isASForWSDLEnabled() throws CoreException {
 		boolean result = false;
@@ -113,6 +132,12 @@ public final class ExtensionPointFactory {
 		return result;
 	}
 	
+	/**
+	 * Gets the sOA client registry provider.
+	 *
+	 * @return the sOA client registry provider
+	 * @throws CoreException the core exception
+	 */
 	public static IClientRegistryProvider getSOAClientRegistryProvider() throws CoreException{
 		if (clientRegistryProvider == null) {
 			final IExtensionRegistry registry = Platform.getExtensionRegistry();

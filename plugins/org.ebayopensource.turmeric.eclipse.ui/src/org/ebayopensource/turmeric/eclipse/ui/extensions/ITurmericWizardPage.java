@@ -10,9 +10,22 @@ package org.ebayopensource.turmeric.eclipse.ui.extensions;
 
 import org.eclipse.jface.wizard.IWizardPage;
 
+/**
+ * The Interface ITurmericWizardPage.
+ */
 public interface ITurmericWizardPage {
 
+	/**
+	 * Creates the wizard page.
+	 *
+	 * @return the i wizard page
+	 */
 	public IWizardPage createWizardPage();
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public String getId();
 }

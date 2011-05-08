@@ -12,17 +12,23 @@
 package org.ebayopensource.turmeric.eclipse.registry.intf;
 
 /**
+ * The Interface IArtifactValidator2.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public interface IArtifactValidator2 {
 	
 	/**
+	 * Gets the version.
+	 *
 	 * @return the version of the underlying IArtifactValidator instance
 	 */
 	public String getVersion();
 	
 	/**
+	 * Checks if is assertion service enabled.
+	 *
 	 * @return whether the assertion service is enabled or not
 	 */
 	public boolean isAssertionServiceEnabled();

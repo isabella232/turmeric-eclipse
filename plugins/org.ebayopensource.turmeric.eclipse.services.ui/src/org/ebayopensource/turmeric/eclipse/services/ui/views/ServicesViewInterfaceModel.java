@@ -13,26 +13,45 @@ import org.ebayopensource.turmeric.eclipse.ui.UIConstants;
 
 
 /**
+ * The Class ServicesViewInterfaceModel.
+ *
  * @author smathew
- * 
  */
 public class ServicesViewInterfaceModel extends ServicesViewBaseModel {
 
 	private String interfaceName;
 
+	/**
+	 * Gets the interface name.
+	 *
+	 * @return the interface name
+	 */
 	public String getInterfaceName() {
 		return interfaceName;
 	}
 
+	/**
+	 * Sets the interface name.
+	 *
+	 * @param interfaceName the new interface name
+	 */
 	public void setInterfaceName(String interfaceName) {
 		this.interfaceName = interfaceName;
 	}
 
+	/**
+	 * Instantiates a new services view interface model.
+	 *
+	 * @param interfaceName the interface name
+	 */
 	public ServicesViewInterfaceModel(String interfaceName) {
 		super();
 		this.interfaceName = interfaceName;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		String[] formattedArray = { UIConstants.SERVICES_VIEW_INTERFACE,
@@ -40,6 +59,11 @@ public class ServicesViewInterfaceModel extends ServicesViewBaseModel {
 		return StringUtils.join(formattedArray);
 	}
 	
+	/**
+	 * Gets the image name.
+	 *
+	 * @return the image name
+	 */
 	public static String getImageName() {
 		return UIConstants.IMAGE_INTERFACE;
 	}

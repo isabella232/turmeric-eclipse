@@ -74,8 +74,9 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
- * @author yayu
+ * The Class ConsumerFromExistingWSDLWizardPage.
  *
+ * @author yayu
  */
 public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWSDLWizardPage{
 	private Text serviceClientText;
@@ -88,6 +89,11 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Instantiates a new consumer from existing wsdl wizard page.
+	 *
+	 * @param selection the selection
+	 */
 	public ConsumerFromExistingWSDLWizardPage(
 			final IStructuredSelection selection) {
 		super(
@@ -96,10 +102,16 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 				"This wizard creates a new SOA Service Consumer from a pre-existing WSDL document.");
 	}
 
+	/**
+	 * Instantiates a new consumer from existing wsdl wizard page.
+	 */
 	public ConsumerFromExistingWSDLWizardPage() {
 		this(null);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
@@ -108,12 +120,8 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets
-	 * .Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		try {
@@ -182,6 +190,13 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		}
 	}
 
+	/**
+	 * Creates the consumer id text.
+	 *
+	 * @param parent the parent
+	 * @return the text
+	 * @throws CoreException the core exception
+	 */
 	protected Text createConsumerIDText(Composite parent) throws CoreException {
 		this.consumerID = super.createLabelTextField(parent, "Consumer &ID:",
 				"", modifyListener, false, true,
@@ -232,6 +247,12 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		return this.consumerID;
 	}
 
+	/**
+	 * Creates the environment list.
+	 *
+	 * @param parent the parent
+	 * @return the list viewer
+	 */
 	protected ListViewer createEnvironmentList(Composite parent) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		group.setText("Environments");
@@ -365,6 +386,13 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		return envrionmentList;
 	}
 
+	/**
+	 * Creates the service client.
+	 *
+	 * @param parent the parent
+	 * @param editable the editable
+	 * @return the text
+	 */
 	protected Text createServiceClient(final Composite parent,
 			final boolean editable) {
 		final ModifyListener nsModifyListener = new ModifyListener() {
@@ -383,6 +411,9 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		return serviceClientText;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getDefaultValue(Text text) {
 		if (text == serviceClientText) {
 			String adminName = getAdminName();
@@ -395,6 +426,9 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		return super.getDefaultValue(text);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected boolean dialogChanged(boolean wsdlChanged) {
 		if (super.dialogChanged(wsdlChanged) == false && isPageComplete() == false){
 			return false;
@@ -402,6 +436,9 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		return dialogChanged();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		
@@ -533,6 +570,9 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void wsdlChanged(final Definition wsdl) {
 		final Collection<?> services = wsdl.getServices().values();
@@ -594,6 +634,9 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void targetNamespaceModified(String newNamespace) {
 		super.targetNamespaceModified(newNamespace);
@@ -634,6 +677,9 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void resetServiceName() {
 		super.resetServiceName();
@@ -641,14 +687,27 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			serviceClientText.setText(DEFAULT_TEXT_VALUE);
 	}
 	
+	/**
+	 * Gets the client name.
+	 *
+	 * @return the client name
+	 */
 	public String getClientName() {
 		return super.getTextValue(this.serviceClientText);
 	}
 	
+	/**
+	 * Gets the consumer id.
+	 *
+	 * @return the consumer id
+	 */
 	public String getConsumerId() {
 		return super.getTextValue(this.consumerID);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<ProjectNameControl> getProjectNames() {
 		final List<ProjectNameControl> result = super.getProjectNames();
@@ -659,10 +718,18 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		return result;
 	}
 	
+	/**
+	 * Gets the environments.
+	 *
+	 * @return the environments
+	 */
 	public List<String> getEnvironments() {
 		return environments;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getDefaultResourceName() {
 		final String defaultName = computeServiceName();
@@ -672,6 +739,9 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			return "";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()

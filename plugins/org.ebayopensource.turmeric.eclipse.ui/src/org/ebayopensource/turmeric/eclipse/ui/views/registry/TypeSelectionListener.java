@@ -36,15 +36,15 @@ public class TypeSelectionListener implements ISelectionChangedListener {
 	/**
 	 * Store the tree viewer that is the library viewer as an instance variable
 	 * for future selection changes from type viewer to type library viewer.
-	 * 
-	 * @param treeViewer
+	 *
+	 * @param treeViewer the tree viewer
 	 */
 	public TypeSelectionListener(TreeViewer treeViewer) {
 		this.treeViewer = treeViewer;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void selectionChanged(SelectionChangedEvent event) {		
 		IStructuredSelection selection = (IStructuredSelection) event

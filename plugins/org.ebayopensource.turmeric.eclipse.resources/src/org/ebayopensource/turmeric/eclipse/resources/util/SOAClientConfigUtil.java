@@ -26,8 +26,9 @@ import org.jdom.Namespace;
 
 
 /**
+ * The Class SOAClientConfigUtil.
+ *
  * @author smathew
- * 
  */
 public class SOAClientConfigUtil {
 
@@ -56,6 +57,14 @@ public class SOAClientConfigUtil {
 	private static final String SOAP12_VERSION = "1.2";
 	private static final String CLASS_NAME = "class-name";
 
+	/**
+	 * Parses the client config.
+	 *
+	 * @param iFile the i file
+	 * @return the sOA client config
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws JDOMException the jDOM exception
+	 */
 	public static SOAClientConfig parseClientConfig(IFile iFile)
 	throws IOException, JDOMException {
 		SOAClientConfig soaClientConfig = new SOAClientConfig();
@@ -156,10 +165,25 @@ public class SOAClientConfigUtil {
 		return serviceName;
 	}
 	
+	/**
+	 * Save.
+	 *
+	 * @param config the config
+	 * @param protocalProcessorClassName the protocal processor class name
+	 * @throws Exception the exception
+	 */
 	public static void save(SOAClientConfig config, String protocalProcessorClassName) throws Exception {
 		save(config, false, protocalProcessorClassName);
 	}
 
+	/**
+	 * Save.
+	 *
+	 * @param config the config
+	 * @param removeDeprecatedElements the remove deprecated elements
+	 * @param protocalProcessorClassName the protocal processor class name
+	 * @throws Exception the exception
+	 */
 	public static void save(SOAClientConfig config, 
 			boolean removeDeprecatedElements, String protocalProcessorClassName) throws Exception {
 		if (!WorkspaceUtil.isResourceWritable(config.getFile())) {

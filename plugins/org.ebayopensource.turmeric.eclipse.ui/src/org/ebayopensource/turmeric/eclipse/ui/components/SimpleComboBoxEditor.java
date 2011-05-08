@@ -19,8 +19,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 /**
+ * The Class SimpleComboBoxEditor.
+ *
  * @author smathew
- * 
  */
 public class SimpleComboBoxEditor extends FieldEditor {
 
@@ -39,6 +40,14 @@ public class SimpleComboBoxEditor extends FieldEditor {
      */
     private String[][] nameValuePairs;
 
+    /**
+     * Instantiates a new simple combo box editor.
+     *
+     * @param name the name
+     * @param labelText the label text
+     * @param entryNamesAndValues the entry names and values
+     * @param parent the parent
+     */
     public SimpleComboBoxEditor(String name, String labelText,
             String[][] entryNamesAndValues, Composite parent) {
         init(name, labelText);
@@ -66,6 +75,9 @@ public class SimpleComboBoxEditor extends FieldEditor {
         return true;
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     protected void adjustForNumColumns(int numColumns) {
         if (numColumns > 1) {
             Control control = getLabelControl();
@@ -84,6 +96,9 @@ public class SimpleComboBoxEditor extends FieldEditor {
         }
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     protected void doFillIntoGrid(Composite parent, int numColumns) {
         int comboC = 1;
         if (numColumns > 1) {
@@ -101,15 +116,24 @@ public class SimpleComboBoxEditor extends FieldEditor {
         control.setFont(parent.getFont());
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     protected void doLoad() {
         selectItemOfValue(getPreferenceStore().getString(getPreferenceName()));
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     protected void doLoadDefault() {
         selectItemOfValue(getPreferenceStore().getDefaultString(
                 getPreferenceName()));
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     protected void doStore() {
         if (selectedValue == null) {
             getPreferenceStore().setToDefault(getPreferenceName());
@@ -118,10 +142,19 @@ public class SimpleComboBoxEditor extends FieldEditor {
         getPreferenceStore().setValue(getPreferenceName(), selectedValue);
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     public int getNumberOfControls() {
         return 2;
     }
 
+    /**
+     * Gets the combo box control.
+     *
+     * @param parent the parent
+     * @return the combo box control
+     */
     public Combo getComboBoxControl(Composite parent) {
         if (itemList == null) {
             itemList = new Combo(parent, SWT.READ_ONLY);

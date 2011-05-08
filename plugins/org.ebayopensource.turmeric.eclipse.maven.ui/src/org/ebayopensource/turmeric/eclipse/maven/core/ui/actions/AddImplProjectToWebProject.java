@@ -62,8 +62,9 @@ import org.maven.ide.eclipse.core.IMavenConstants;
 import org.osgi.framework.Version;
 
 /**
+ * The Class AddImplProjectToWebProject.
+ *
  * @author mzang
- * 
  */
 public class AddImplProjectToWebProject implements IObjectActionDelegate {
 	private IStructuredSelection selection;
@@ -72,17 +73,23 @@ public class AddImplProjectToWebProject implements IObjectActionDelegate {
 	private volatile boolean addParentArtifact = true;
 
 	/**
-	 * 
+	 * Instantiates a new adds the impl project to web project.
 	 */
 	public AddImplProjectToWebProject() {
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 		shell = targetPart.getSite().getShell();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void run(final IAction action) {
 		try {
 			addParentArtifact = true;
@@ -277,6 +284,16 @@ public class AddImplProjectToWebProject implements IObjectActionDelegate {
 		}
 	}
 
+	/**
+	 * Checks if is validated target project.
+	 *
+	 * @param project the project
+	 * @param pom the pom
+	 * @param adminName the admin name
+	 * @return true, if is validated target project
+	 * @throws CoreException the core exception
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public boolean isValidatedTargetProject(IProject project, Model pom, String adminName)
 			throws CoreException, MavenEclipseApiException {
 		if (pom == null) {
@@ -301,16 +318,34 @@ public class AddImplProjectToWebProject implements IObjectActionDelegate {
 		return allServlets.contains(adminName) == false;
 	}
 
+	/**
+	 * Gets the web file from web project.
+	 *
+	 * @param webProject the web project
+	 * @return the web file from web project
+	 */
 	public static IFile getWebFileFromWebProject(IProject webProject) {
 		IFile webXML = webProject.getFile("src/main/webapp/WEB-INF/web.xml");
 		return webXML;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;
 	}
 	
+	/**
+	 * Adds the servlet node to web project.
+	 *
+	 * @param implProj the impl proj
+	 * @param targetWebProject the target web project
+	 * @param pom the pom
+	 * @param addParentArtifact the add parent artifact
+	 * @param monitor the monitor
+	 */
 	public static void addServletNodeToWebProject(SOAImplProject implProj,
 			IProject targetWebProject, Model pom, boolean addParentArtifact,
 			IProgressMonitor monitor) {

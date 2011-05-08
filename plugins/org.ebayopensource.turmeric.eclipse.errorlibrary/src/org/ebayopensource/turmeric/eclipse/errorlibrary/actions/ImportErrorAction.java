@@ -51,11 +51,14 @@ import org.eclipse.ui.IWorkbenchPartSite;
  */
 public class ImportErrorAction extends BaseEditorActionDelegate {
 
+	/**
+	 * Instantiates a new import error action.
+	 */
 	public ImportErrorAction() {
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.actions.ActionDelegate#run(org.eclipse.jface.action.IAction)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void run(IAction action) {
 		try {

@@ -33,8 +33,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
- * @author haozhou
+ * The Class PropertiesContentErrorLibraryCreator.
  *
+ * @author haozhou
  */
 public class PropertiesContentErrorLibraryCreator implements
 		IErrorLibraryCreator {

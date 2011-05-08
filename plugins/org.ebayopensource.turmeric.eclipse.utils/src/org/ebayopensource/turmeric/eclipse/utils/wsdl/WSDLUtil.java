@@ -56,20 +56,37 @@ import org.xml.sax.InputSource;
 
 
 /**
+ * The Class WSDLUtil.
+ *
  * @author yayu
- * 
  */
 public final class WSDLUtil {
+	
+	/** The Constant URL_PREFIX_JAR_FILE. */
 	public static final String URL_PREFIX_JAR_FILE = "jar:file:";
+	
+	/** The Constant JAR_FILE_SEPARATOR. */
 	public static final String JAR_FILE_SEPARATOR = "!" + WorkspaceUtil.PATH_SEPERATOR;
+	
+	/** The Constant ATTR_ID_TARGETNAMESPACE. */
 	public static final String ATTR_ID_TARGETNAMESPACE = "targetNamespace";
+	
+	/** The Constant NAMESPACE_PREFIX_W3ORG. */
 	public static final String NAMESPACE_PREFIX_W3ORG = "http://www.w3.org/";
+	
+	/** The Constant NAMESPACE_PREFIX_XMLSOAP. */
 	public static final String NAMESPACE_PREFIX_XMLSOAP = "http://schemas.xmlsoap.org";
 
 	private WSDLUtil() {
 		super();
 	}
 
+	/**
+	 * To url.
+	 *
+	 * @param file the file
+	 * @return the uRL
+	 */
 	public static URL toURL(final File file) {
 		if (file == null)
 			return null;
@@ -80,6 +97,12 @@ public final class WSDLUtil {
 		}
 	}
 	
+	/**
+	 * Checks if is valid url.
+	 *
+	 * @param url the url
+	 * @return true, if is valid url
+	 */
 	public static boolean isValidURL(final String url) {
 		//return Pattern.matches(VALID_URL_PATTERN, url);
 		if (StringUtils.isBlank(url))
@@ -92,6 +115,12 @@ public final class WSDLUtil {
 		return true;
 	}
 
+	/**
+	 * Validate url.
+	 *
+	 * @param url the url
+	 * @return the string
+	 */
 	public static String validateURL(final String url) {
 		if (StringUtils.isBlank(url))
 			return "url is blank.";
@@ -104,11 +133,11 @@ public final class WSDLUtil {
 	}
 
 	/**
-	 * @param wsdlLocation
-	 *            The fully qualified location of the WSDL file.
+	 * Read wsdl.
+	 *
+	 * @param wsdlLocation The fully qualified location of the WSDL file.
 	 * @return The WSDL definition instance.
-	 * @throws WSDLException
-	 *             If the any errors encountered during the deserialization.
+	 * @throws WSDLException If the any errors encountered during the deserialization.
 	 */
 	public static Definition readWSDL(final String wsdlLocation)
 			throws WSDLException {
@@ -118,9 +147,10 @@ public final class WSDLUtil {
 	
 	/**
 	 * This is intended to be used for wsdl file inside jar file.
-	 * @param wsdlStream
-	 * @return
-	 * @throws WSDLException
+	 *
+	 * @param wsdlStream the wsdl stream
+	 * @return the definition
+	 * @throws WSDLException the wSDL exception
 	 */
 	public static Definition readWSDL(final InputStream wsdlStream)
 	throws WSDLException {
@@ -130,11 +160,12 @@ public final class WSDLUtil {
 	/**
 	 * Reading wsdl from the provided jar file.
 	 * The format for documetn base URI would be "jar:file:[JAR_FILE_LOCATION]!/[WSDL_JAR_ENTRY_PATH]"
-	 * @param file
-	 * @param jarEntryLocation
+	 *
+	 * @param file the file
+	 * @param jarEntryLocation the jar entry location
 	 * @return The instance of WSDL definition, or null is could not read it.
-	 * @throws WSDLException
-	 * @throws IOException
+	 * @throws WSDLException the wSDL exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static Definition readWSDLFromJarFile(final File file, 
 			final String jarEntryLocation)
@@ -156,6 +187,8 @@ public final class WSDLUtil {
 	}
 
 	/**
+	 * Read wsdl.
+	 *
 	 * @param documentBaseURI The parent folder of the wsdl file
 	 * @param wsdlStream The input stream
 	 * @return The WSDL definition instance.
@@ -187,17 +220,25 @@ public final class WSDLUtil {
 	/**
 	 * The use of this method is discouraged, because it will try to read the
 	 * WSDL first, which might cause some performance issues.
-	 * 
-	 * @param wsdl
-	 * @param fileName
-	 * @throws WSDLException
-	 * @throws IOException 
+	 *
+	 * @param wsdl the wsdl
+	 * @param fileName the file name
+	 * @throws WSDLException the wSDL exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static void writeWSDL(final String wsdl, final String fileName)
 			throws WSDLException, IOException {
 		writeWSDL(readWSDL(wsdl), fileName);
 	}
 
+	/**
+	 * Write wsdl.
+	 *
+	 * @param wsdl the wsdl
+	 * @param fileName the file name
+	 * @throws WSDLException the wSDL exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void writeWSDL(final Definition wsdl, final String fileName)
 			throws WSDLException, IOException {
 		writeWSDL(wsdl, fileName, new HashSet<String>());
@@ -390,6 +431,12 @@ public final class WSDLUtil {
 		}
 	}
 	
+	/**
+	 * Gets the service name from wsdl.
+	 *
+	 * @param wsdl the wsdl
+	 * @return the service name from wsdl
+	 */
 	public static String getServiceNameFromWSDL(final Definition wsdl) {
 		if (wsdl != null && wsdl.getServices().isEmpty() == false) {
 			return ((javax.wsdl.Service)wsdl.getServices()
@@ -398,6 +445,12 @@ public final class WSDLUtil {
 		return null;
 	}
 	
+	/**
+	 * Gets the service location from wsdl.
+	 *
+	 * @param wsdl the wsdl
+	 * @return the service location from wsdl
+	 */
 	public static String getServiceLocationFromWSDL(final Definition wsdl) {
 		String serviceLocation = null;
 		if (wsdl != null
@@ -440,27 +493,50 @@ public final class WSDLUtil {
 	}
 
 	/**
-	 * @param location
-	 *            The location of the WSDL file
-	 * @return
-	 * @throws WSDLException
+	 * Gets the target namespace.
+	 *
+	 * @param location The location of the WSDL file
+	 * @return the target namespace
+	 * @throws WSDLException the wSDL exception
 	 */
 	public static String getTargetNamespace(final String location)
 			throws WSDLException {
 		return readWSDL(location).getTargetNamespace();
 	}
 	
+	/**
+	 * Gets the target namespace.
+	 *
+	 * @param wsdl the wsdl
+	 * @return the target namespace
+	 * @throws WSDLException the wSDL exception
+	 */
 	public static String getTargetNamespace(final Definition wsdl)
 	throws WSDLException {
 		return wsdl.getTargetNamespace();
 	}
 
+	/**
+	 * Gets the target namespace.
+	 *
+	 * @param documentBaseURI the document base uri
+	 * @param inpuStream the inpu stream
+	 * @return the target namespace
+	 * @throws WSDLException the wSDL exception
+	 */
 	public static String getTargetNamespace(final String documentBaseURI, final InputStream inpuStream)
 			throws WSDLException {
 		return readWSDL(documentBaseURI, inpuStream).getTargetNamespace();
 	}
 	
 	//Moving util methods from WSDLUtilTest class to here
+	/**
+	 * Gets the plugin os path.
+	 *
+	 * @param pluginId the plugin id
+	 * @param subDirPath the sub dir path
+	 * @return the plugin os path
+	 */
 	public static String getPluginOSPath(String pluginId, String subDirPath) {
 		URL platformContextURL = getPluginOSURL(pluginId, subDirPath);
 		String fullPath = (new File(platformContextURL.getPath())).getAbsolutePath();
@@ -469,6 +545,13 @@ public final class WSDLUtil {
 	}
 
 	
+	/**
+	 * Gets the plugin osurl.
+	 *
+	 * @param pluginId the plugin id
+	 * @param subDirPath the sub dir path
+	 * @return the plugin osurl
+	 */
 	public static URL getPluginOSURL(String pluginId, String subDirPath) {
 		Bundle bundle = Platform.getBundle(pluginId);
 		if (bundle == null) {
@@ -504,8 +587,9 @@ public final class WSDLUtil {
 	}
 	
 	/**
-	 * Known W3 and XMLSOAP namespaces will not be included
-	 * @param wsdl
+	 * Known W3 and XMLSOAP namespaces will not be included.
+	 *
+	 * @param wsdl the wsdl
 	 * @return a list of TargetNamespaces from the schemas including the imported
 	 */
 	public static Collection<String> getAllTargetNamespaces(final Definition wsdl) {

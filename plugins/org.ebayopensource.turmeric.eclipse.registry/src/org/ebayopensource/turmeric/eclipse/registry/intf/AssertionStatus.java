@@ -33,19 +33,38 @@ public class AssertionStatus extends Status implements IValidationStatus {
 	private int lineNumber = -1;
 
 	/**
-	 * @param severity
-	 * @param pluginId
-	 * @param message
+	 * Instantiates a new assertion status.
+	 *
+	 * @param message the message
 	 */
 	public AssertionStatus(String message) {
 		this(message, null);
 	}		
 
+	/**
+	 * Instantiates a new assertion status.
+	 *
+	 * @param severity the severity
+	 * @param pluginId the plugin id
+	 * @param code the code
+	 * @param message the message
+	 * @param exception the exception
+	 */
 	public AssertionStatus(int severity, String pluginId, int code,
 			String message, Throwable exception) {
 		super(severity, pluginId, code, message, exception);
 	}
 	
+	/**
+	 * Instantiates a new assertion status.
+	 *
+	 * @param severity the severity
+	 * @param pluginId the plugin id
+	 * @param code the code
+	 * @param message the message
+	 * @param exception the exception
+	 * @param lineNumber the line number
+	 */
 	public AssertionStatus(int severity, String pluginId, int code,
 			String message, Throwable exception, int lineNumber) {
 		this(severity, pluginId, code, message, exception);
@@ -54,25 +73,33 @@ public class AssertionStatus extends Status implements IValidationStatus {
 
 
 	/**
-	 * @param severity
-	 * @param pluginId
-	 * @param code
-	 * @param message
-	 * @param exception
+	 * Instantiates a new assertion status.
+	 *
+	 * @param message the message
+	 * @param exception the exception
 	 */
 	public AssertionStatus(String message, Throwable exception) {
 		super(IStatus.WARNING, RegistryActivator.PLUGIN_ID, CODE_MAY, message,
 				exception);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public int getLineNumber() {
 		return lineNumber;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setLineNumber(int lineNumber){
 		this.lineNumber = lineNumber;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.core.runtime.Status#toString()
+	 */
 	@Override
 	public String toString() {
 		final StringBuffer buf = new StringBuffer();

@@ -19,6 +19,8 @@ import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 
 
 /**
+ * The Class MavenProjectInfo.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -69,7 +71,8 @@ public class MavenProjectInfo extends ProjectInfo implements IMavenArtifact {
 	}
 	
 	/**
-	 * 
+	 * Gets the service group id.
+	 *
 	 * @return the service group id
 	 */
 	public String getServiceGroupID() {
@@ -77,7 +80,8 @@ public class MavenProjectInfo extends ProjectInfo implements IMavenArtifact {
 	}
 
 	/**
-	 * 
+	 * Sets the service group id.
+	 *
 	 * @param serviceGropuID the service group id
 	 */
 	public void setServiceGroupID(String serviceGropuID) {
@@ -98,22 +102,34 @@ public class MavenProjectInfo extends ProjectInfo implements IMavenArtifact {
 		this.groupID = groupID;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo#getShortDescription()
+	 */
 	@Override
 	public String getShortDescription() {
 		return StringUtil.toString(groupID, 
 				SOAProjectConstants.DELIMITER_SEMICOLON, getName());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo#getDescription()
+	 */
 	@Override
 	public String getDescription() {
 		return MavenCoreUtils.translateLibraryName(groupID, getName(), getVersion());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo#toString()
+	 */
 	@Override
 	public String toString() {
 		return getName();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -123,6 +139,9 @@ public class MavenProjectInfo extends ProjectInfo implements IMavenArtifact {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -144,7 +163,8 @@ public class MavenProjectInfo extends ProjectInfo implements IMavenArtifact {
 	}
 
 	/**
-	 * 
+	 * Translate to e box project info.
+	 *
 	 * @param groupID the group id
 	 * @param projectInfo the ProjectInfo
 	 * @return the maven project info

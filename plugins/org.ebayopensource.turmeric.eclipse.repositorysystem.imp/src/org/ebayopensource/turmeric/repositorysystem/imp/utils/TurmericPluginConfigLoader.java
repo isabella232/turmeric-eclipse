@@ -25,19 +25,37 @@ import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiExc
 
 
 /**
- * @author yayu
+ * The Class TurmericPluginConfigLoader.
  *
+ * @author yayu
  */
 public final class TurmericPluginConfigLoader {
 	private static final Map<String, Model> projectPlugins = new ConcurrentHashMap<String,Model>();
 	
 	
+	/** The Constant PROPS_KEY_PLUGINS. */
 	public static final String PROPS_KEY_PLUGINS = ".pom.xml";
 	
+	/**
+	 * Gets the plugin configurations.
+	 *
+	 * @param projType the proj type
+	 * @return the plugin configurations
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static Model getPluginConfigurations(ProjectType projType) throws IOException, MavenEclipseApiException {
 		return getPluginConfigurations(projType.name().toLowerCase(Locale.US));
 	}
 	
+	/**
+	 * Gets the plugin configurations.
+	 *
+	 * @param projType the proj type
+	 * @return the plugin configurations
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static Model getPluginConfigurations(String projType) throws IOException, MavenEclipseApiException {
 		final String key = projType.toLowerCase(Locale.US) + PROPS_KEY_PLUGINS;
 		if (projectPlugins.containsKey(key) == false) {

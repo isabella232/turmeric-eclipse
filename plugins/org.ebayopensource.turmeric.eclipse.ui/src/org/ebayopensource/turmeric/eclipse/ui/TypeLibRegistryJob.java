@@ -36,6 +36,9 @@ public class TypeLibRegistryJob extends Job {
 		super(name);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
 	protected IStatus run(IProgressMonitor monitor) {
 		monitor.beginTask("Refreshing Registry", 100);

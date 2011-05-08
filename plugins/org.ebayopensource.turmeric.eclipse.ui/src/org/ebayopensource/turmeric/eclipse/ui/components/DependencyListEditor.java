@@ -34,12 +34,15 @@ import org.eclipse.swt.widgets.Control;
 
 
 /**
+ * The Class DependencyListEditor.
+ *
  * @author smathew
  * 
  * List Editor for dependency management UI
- * 
  */
 public class DependencyListEditor extends ListEditor {
+	
+	/** The Constant DEPENDENCY_TYPE_LIBRARY. */
 	public static final String DEPENDENCY_TYPE_LIBRARY = "Library";
 
 	private Composite parentComposite;
@@ -54,11 +57,28 @@ public class DependencyListEditor extends ListEditor {
 
 	private ISOAProject soaProject;
 
+	/**
+	 * Instantiates a new dependency list editor.
+	 *
+	 * @param labelText the label text
+	 * @param composite the composite
+	 * @param libs the libs
+	 * @param dependencyType the dependency type
+	 */
 	public DependencyListEditor(String labelText, Composite composite,
 			Set<? extends AssetInfo> libs, String dependencyType) {
 		this(labelText, composite, libs, null, dependencyType);
 	}
 
+	/**
+	 * Instantiates a new dependency list editor.
+	 *
+	 * @param labelText the label text
+	 * @param parentComposite the parent composite
+	 * @param dependencyLazyLoader the dependency lazy loader
+	 * @param soaProject the soa project
+	 * @param dependencyType the dependency type
+	 */
 	public DependencyListEditor(String labelText, Composite parentComposite,
 			IDependencyLazyLoader dependencyLazyLoader, ISOAProject soaProject,
 			String dependencyType) {
@@ -71,6 +91,15 @@ public class DependencyListEditor extends ListEditor {
 				.getAlreadyAddedLibraries());
 	}
 
+	/**
+	 * Instantiates a new dependency list editor.
+	 *
+	 * @param labelText the label text
+	 * @param composite the composite
+	 * @param libs the libs
+	 * @param alreadyAddedLibraries the already added libraries
+	 * @param dependencyType the dependency type
+	 */
 	public DependencyListEditor(String labelText, Composite composite,
 			Set<? extends AssetInfo> libs,
 			Set<? extends AssetInfo> alreadyAddedLibraries,
@@ -82,6 +111,14 @@ public class DependencyListEditor extends ListEditor {
 		this.dependencyType = dependencyType;
 	}
 
+	/**
+	 * Instantiates a new dependency list editor.
+	 *
+	 * @param labelText the label text
+	 * @param composite the composite
+	 * @param libs the libs
+	 * @param alreadyAddedLibraries the already added libraries
+	 */
 	public DependencyListEditor(String labelText, Composite composite,
 			Set<? extends AssetInfo> libs,
 			Set<? extends AssetInfo> alreadyAddedLibraries) {
@@ -103,6 +140,9 @@ public class DependencyListEditor extends ListEditor {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.ListEditor#doFillIntoGrid(org.eclipse.swt.widgets.Composite, int)
+	 */
 	@Override
 	protected void doFillIntoGrid(final Composite parent, final int numColumns) {
 
@@ -123,6 +163,11 @@ public class DependencyListEditor extends ListEditor {
 		}
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public Set<AssetInfo> getItems() {
 		final Set<AssetInfo> result = new HashSet<AssetInfo>();
 		for (final String item : getListControl(parentComposite).getItems()) {
@@ -133,6 +178,11 @@ public class DependencyListEditor extends ListEditor {
 		return result;
 	}
 
+	/**
+	 * Gets the libraries.
+	 *
+	 * @return the libraries
+	 */
 	public Set<? extends AssetInfo> getLibraries() {
 		if (libraries == null && dependencyLazyLoader != null) {
 			libraries = dependencyLazyLoader.getLibs();
@@ -140,6 +190,9 @@ public class DependencyListEditor extends ListEditor {
 		return libraries;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.ListEditor#getNewInputObject()
+	 */
 	@Override
 	protected String getNewInputObject() {
 		// filtering already added items from the Add dialog
@@ -187,12 +240,18 @@ public class DependencyListEditor extends ListEditor {
 		return libInfo.getDescription();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.ListEditor#parseString(java.lang.String)
+	 */
 	@Override
 	protected String[] parseString(final String stringList) {
 		// we dont need preference related stuff
 		return new String[0];
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.ListEditor#createList(java.lang.String[])
+	 */
 	@Override
 	protected String createList(final String[] items) {
 		// we dont need preference related stuff
@@ -207,17 +266,17 @@ public class DependencyListEditor extends ListEditor {
 
 		/**
 		 * use this method to delegate the load process after the UI controls
-		 * has set up
-		 * 
-		 * @return
+		 * has set up.
+		 *
+		 * @return the libs
 		 */
 		Set<? extends AssetInfo> getLibs();
 
 		/**
 		 * this method is used to init UI controls,be sure to avoid adding
 		 * time-consuming logic here.
-		 * 
-		 * @return
+		 *
+		 * @return the already added libraries
 		 */
 		Set<? extends AssetInfo> getAlreadyAddedLibraries();
 

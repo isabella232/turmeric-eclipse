@@ -28,15 +28,19 @@ import org.eclipse.swt.widgets.Text;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
- * Element Page for complex type wizard
- * 
+ * Element Page for complex type wizard.
+ *
  * @author ramurthy
- * 
  */
 
 public class ComplexTypeWizardElementPage extends
 		AbstractElementManagementWizardPage {
 
+	/**
+	 * Instantiates a new complex type wizard element page.
+	 *
+	 * @param elements the elements
+	 */
 	public ComplexTypeWizardElementPage(
 			List<? extends IParameterElement> elements) {
 		super("complexTypeWizardElementPage",
@@ -44,16 +48,27 @@ public class ComplexTypeWizardElementPage extends
 				"Add Element Name, Type, Min Occurs, Max Occurs", elements, 0);
 	}
 
+	/**
+	 * Gets the element table model.
+	 *
+	 * @return the element table model
+	 */
 	public ElementTableModel[] getElementTableModel() {
 		return elements.toArray(new ElementTableModel[0]);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage#createControl(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 		dialogChanged();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage#dialogChanged()
+	 */
 	@Override
 	public boolean dialogChanged() {
 		if (super.dialogChanged() == false)
@@ -123,8 +138,7 @@ public class ComplexTypeWizardElementPage extends
 	}
 
 	/**
-	 * Element Table Model
-	 * 
+	 * Element Table Model.
 	 */
 
 	public static class ElementTableModel implements IParameterElement {
@@ -134,27 +148,50 @@ public class ComplexTypeWizardElementPage extends
 		private int minOccurs = 0;
 		private int maxOccurs = 1;
 
+		/**
+		 * Instantiates a new element table model.
+		 *
+		 * @param elementName the element name
+		 * @param elementType the element type
+		 */
 		public ElementTableModel(String elementName, String elementType) {
 			this.elementName = elementName;
 			this.elementType = elementType;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public int getMaxOccurs() {
 			return maxOccurs;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public void setMaxOccurs(int maxOccurs) {
 			this.maxOccurs = maxOccurs;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public int getMinOccurs() {
 			return minOccurs;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public void setMinOccurs(int minOccurs) {
 			this.minOccurs = minOccurs;
 		}
 
+		/**
+		 * Gets the element type.
+		 *
+		 * @return the element type
+		 */
 		public String getElementType() {
 			if (elementType instanceof LibraryType) {
 				return ((LibraryType) elementType).getName();
@@ -164,55 +201,99 @@ public class ComplexTypeWizardElementPage extends
 			return null;
 		}
 
+		/**
+		 * Gets the raw element type.
+		 *
+		 * @return the raw element type
+		 */
 		public Object getRawElementType() {
 			return elementType;
 		}
 
+		/**
+		 * Gets the element name.
+		 *
+		 * @return the element name
+		 */
 		public String getElementName() {
 			return elementName;
 		}
 
+		/**
+		 * Sets the element type.
+		 *
+		 * @param elementType the new element type
+		 */
 		public void setElementType(Object elementType) {
 			this.elementType = elementType;
 		}
 
+		/**
+		 * Sets the element name.
+		 *
+		 * @param name the new element name
+		 */
 		public void setElementName(String name) {
 			this.elementName = name;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public Object getDatatype() {
 			return elementType;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public String getName() {
 			return elementName;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public void setDatatype(Object datatype) {
 			setElementType(datatype);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public void setName(String name) {
 			this.elementName = name;
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		return SOAProjectConstants.EMPTY_STRING;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage#addPressed()
+	 */
 	@Override
 	protected void addPressed() {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage#createNewElement(java.lang.String, java.lang.String)
+	 */
 	@Override
 	protected IParameterElement createNewElement(String name, String type) {
 		ElementTableModel model = new ElementTableModel(name, type);
 		return model;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected Object openTypeSelectorDialog(Shell shell, LibraryType[] libTypes) {
 		TypeSelector typeSelector = new TypeSelector(shell, "Select Type",
 				libTypes, "New Project");
@@ -222,10 +303,16 @@ public class ComplexTypeWizardElementPage extends
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected List<LibraryType> getSelectedLibraryTypes() throws Exception {
 		return SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getAllTypes();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage#removePrssed(java.lang.Object)
+	 */
 	@Override
 	protected void removePrssed(Object object) {
 

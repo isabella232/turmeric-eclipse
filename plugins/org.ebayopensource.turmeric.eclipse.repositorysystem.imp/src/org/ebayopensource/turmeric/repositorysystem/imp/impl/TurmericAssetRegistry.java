@@ -48,13 +48,14 @@ import org.eclipse.core.runtime.IPath;
 
 
 /**
- * @author yayu
+ * The Class TurmericAssetRegistry.
  *
+ * @author yayu
  */
 public class TurmericAssetRegistry implements ISOAAssetRegistry {
 
 	/**
-	 * 
+	 * Instantiates a new turmeric asset registry.
 	 */
 	public TurmericAssetRegistry() {
 		super();

@@ -14,8 +14,9 @@ package org.ebayopensource.turmeric.eclipse.exception.resources.projects;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceCreationException;
 
 /**
- * @author yayu
+ * The Class SOAProjectCreationFailedException.
  *
+ * @author yayu
  */
 public class SOAProjectCreationFailedException extends
 SOAResourceCreationException {
@@ -23,20 +24,31 @@ SOAResourceCreationException {
 	private static final long serialVersionUID = 201L;
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA project creation failed exception.
+	 *
+	 * @param cause the cause
 	 */
 	public SOAProjectCreationFailedException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param serviceName
-	 * @param cause
+	 * Instantiates a new sOA project creation failed exception.
+	 *
+	 * @param projectName the project name
+	 * @param cause the cause
 	 */
 	public SOAProjectCreationFailedException(String projectName, Throwable cause) {
 		this("SOA project", projectName, cause);
 	}
 	
+	/**
+	 * Instantiates a new sOA project creation failed exception.
+	 *
+	 * @param projectType the project type
+	 * @param projectName the project name
+	 * @param cause the cause
+	 */
 	protected SOAProjectCreationFailedException(String projectType, 
 			String projectName, Throwable cause) {
 		super("Failed to create " + projectType + "->" + projectName, cause);

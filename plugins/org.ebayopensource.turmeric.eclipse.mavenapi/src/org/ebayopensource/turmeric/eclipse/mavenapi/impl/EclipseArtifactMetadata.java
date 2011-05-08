@@ -13,14 +13,13 @@ import org.apache.maven.artifact.ArtifactScopeEnum;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
 
 /**
- * 
- * 
- *
+ * The Class EclipseArtifactMetadata.
  */
 public class EclipseArtifactMetadata extends ArtifactMetadata {
 
 	/**
-	 * 
+	 * Instantiates a new eclipse artifact metadata.
+	 *
 	 * @param af the Artifact
 	 */
 	public EclipseArtifactMetadata(Artifact af) {
@@ -28,7 +27,8 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 	}
 
 	/**
-	 * 
+	 * Instantiates a new eclipse artifact metadata.
+	 *
 	 * @param groupId groupid
 	 * @param name name
 	 * @param version version
@@ -36,7 +36,7 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 	 * @param artifactScope scope
 	 * @param classifier classifier
 	 * @param artifactUri location of the artifact
-	 * @param why 
+	 * @param why the why
 	 * @param resolved resolved or not
 	 * @param error error state
 	 */
@@ -48,7 +48,8 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 	}
 
 	/**
-	 * 
+	 * Instantiates a new eclipse artifact metadata.
+	 *
 	 * @param groupId gropid
 	 * @param name name
 	 * @param version version
@@ -65,7 +66,8 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 	}
 
 	/**
-	 * 
+	 * Instantiates a new eclipse artifact metadata.
+	 *
 	 * @param groupId groupid
 	 * @param name name
 	 * @param version version
@@ -79,7 +81,8 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 	}
 
 	/**
-	 * 
+	 * Instantiates a new eclipse artifact metadata.
+	 *
 	 * @param groupId groupid
 	 * @param name name
 	 * @param version version
@@ -92,7 +95,8 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 	}
 
 	/**
-	 * 
+	 * Instantiates a new eclipse artifact metadata.
+	 *
 	 * @param groupId groupid
 	 * @param name name
 	 * @param version version
@@ -100,7 +104,7 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 	 * @param scopeString artifact scope
 	 * @param classifier the maven classifer
 	 * @param artifactUri the artificat location
-	 * @param why 
+	 * @param why the why
 	 * @param resolved whether the items is to be resolved or not
 	 * @param error error status
 	 */
@@ -112,7 +116,8 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 	}
 
 	/**
-	 * 
+	 * Instantiates a new eclipse artifact metadata.
+	 *
 	 * @param groupId group id
 	 * @param name name
 	 * @param version version
@@ -124,7 +129,8 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 	}
 
 	/**
-	 * 
+	 * Instantiates a new eclipse artifact metadata.
+	 *
 	 * @param groupId group id
 	 * @param name name
 	 * @param version version
@@ -134,13 +140,17 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 	}
 
 	/**
-	 * 
+	 * Instantiates a new eclipse artifact metadata.
+	 *
 	 * @param name the artifact name
 	 */
 	public EclipseArtifactMetadata(String name) {
 		super(name);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.maven.repository.metadata.ArtifactMetadata#toString()
+	 */
 	@Override
 	public String toString() {
 		final StringBuffer buf = new StringBuffer();

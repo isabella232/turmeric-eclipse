@@ -16,6 +16,8 @@ import org.eclipse.core.resources.IResource;
 
 
 /**
+ * The Class SOARemoveEnvironmentFailedException.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -25,23 +27,29 @@ public class SOARemoveEnvironmentFailedException extends
 	private static final long serialVersionUID = 230L;
 
 	/**
-	 * @param cause
+	 * Instantiates a new sOA remove environment failed exception.
+	 *
+	 * @param cause the cause
 	 */
 	public SOARemoveEnvironmentFailedException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new sOA remove environment failed exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public SOARemoveEnvironmentFailedException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
 	/**
-	 * @param resource
-	 * @param cause
+	 * Instantiates a new sOA remove environment failed exception.
+	 *
+	 * @param resource the resource
+	 * @param cause the cause
 	 */
 	public SOARemoveEnvironmentFailedException(IResource resource,
 			Throwable cause) {

@@ -19,8 +19,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
- * @author yayu
+ * The Class ErrorDomainCreator.
  *
+ * @author yayu
  */
 public class ErrorDomainCreator {
 
@@ -34,6 +35,13 @@ public class ErrorDomainCreator {
 		super();
 	}
 	
+	/**
+	 * Creates the error domain.
+	 *
+	 * @param model the model
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createErrorDomain(DomainParamModel model,
 			IProgressMonitor monitor) throws Exception {
 		final IProject project = WorkspaceUtil.getProject(model.getErrorLibrary());

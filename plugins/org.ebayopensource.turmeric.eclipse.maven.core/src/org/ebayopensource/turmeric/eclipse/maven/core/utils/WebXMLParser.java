@@ -34,18 +34,22 @@ import org.jdom.JDOMException;
 import org.jdom.Namespace;
 
 /**
- * 
+ * The Class WebXMLParser.
+ *
  * @author mzang
- * 
  */
 public class WebXMLParser {
 
+	/** The Constant SERVLET_NODE. */
 	public static final String SERVLET_NODE = "servlet";
 
+	/** The Constant SERVLET_NAME_NODE. */
 	public static final String SERVLET_NAME_NODE = "servlet-name";
 
+	/** The Constant SERVLET_MAPPING_NODE. */
 	public static final String SERVLET_MAPPING_NODE = "servlet-mapping";
 
+	/** The Constant URL_PATTERN_NODE. */
 	public static final String URL_PATTERN_NODE = "url-pattern";
 
 	// template related variables
@@ -55,6 +59,15 @@ public class WebXMLParser {
 
 	private static final String URL_PATTERN_KEY = "urlPattern";
 
+	/**
+	 * Gets the source document.
+	 *
+	 * @param adminName the admin name
+	 * @param namespacePart the namespace part
+	 * @param majorVersion the major version
+	 * @return the source document
+	 * @throws Exception the exception
+	 */
 	public static Document getSourceDocument(String adminName,
 			String namespacePart, int majorVersion) throws Exception {
 
@@ -90,6 +103,17 @@ public class WebXMLParser {
 		return sourceDoc;
 	}
 
+	/**
+	 * Adds the servlet elements to web xml.
+	 *
+	 * @param sourceDoc the source doc
+	 * @param target the target
+	 * @param targetFile the target file
+	 * @return true, if successful
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws JDOMException the jDOM exception
+	 */
 	public static boolean addServletElementsToWebXML(Document sourceDoc,
 			InputStream target, IFile targetFile) throws CoreException,
 			IOException, JDOMException {
@@ -104,6 +128,15 @@ public class WebXMLParser {
 		return true;
 	}
 	
+	/**
+	 * Adds the servlet elements.
+	 *
+	 * @param sourceDoc the source doc
+	 * @param target the target
+	 * @return the document
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws JDOMException the jDOM exception
+	 */
 	public static Document addServletElements(Document sourceDoc,
 			InputStream target) throws IOException, JDOMException{
 		Document targetDoc = null;
@@ -206,6 +239,12 @@ public class WebXMLParser {
 		current.setText(value);
 	}
 
+	/**
+	 * Gets the servlet names.
+	 *
+	 * @param source the source
+	 * @return the servlet names
+	 */
 	@SuppressWarnings("unchecked")
 	public static List<String> getServletNames(InputStream source) {
 		List<String> servletNames = new ArrayList<String>();

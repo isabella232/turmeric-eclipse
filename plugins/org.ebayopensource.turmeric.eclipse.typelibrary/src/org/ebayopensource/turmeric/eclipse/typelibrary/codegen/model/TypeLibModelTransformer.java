@@ -37,10 +37,10 @@ public class TypeLibModelTransformer {
 	/**
 	 * Extracts the information from this project and builds the model out from
 	 * it. Sets the project root library name and xjc class path
-	 * 
-	 * @param project
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @return the base type lib codegen model
+	 * @throws Exception the exception
 	 */
 	public static BaseTypeLibCodegenModel buildBaseTypeLibModel(IProject project)
 			throws Exception {
@@ -56,12 +56,12 @@ public class TypeLibModelTransformer {
 	 * Builds a specialized model from the base model and the given project. The
 	 * delta is used to decide if the returned model is a clean build model or
 	 * an incremental model. Also it is used to find the modified xsd.
-	 * 
-	 * @param baseTypeLibCodegenModel
-	 * @param project
-	 * @param delta
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param baseTypeLibCodegenModel the base type lib codegen model
+	 * @param project the project
+	 * @param delta the delta
+	 * @return the base type lib codegen model
+	 * @throws Exception the exception
 	 */
 	public static BaseTypeLibCodegenModel transformToGenTypeIncrOrCleanBuildTypeLibrary(
 			BaseTypeLibCodegenModel baseTypeLibCodegenModel, IProject project,

@@ -18,21 +18,22 @@ import org.eclipse.core.runtime.IStatus;
 
 
 /**
- * @author yayu
+ * The Class TurmericPreValidator.
  *
+ * @author yayu
  */
 public class TurmericPreValidator extends AbstractSOAValidator implements
 		ISOAPreValidator {
 
 	/**
-	 * 
+	 * Instantiates a new turmeric pre validator.
 	 */
 	public TurmericPreValidator() {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.validator.core.ISOAPreValidator#validateProjectCreation(java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	public IStatus validateProjectCreation(Object obj)
 			throws ValidationInterruptedException {

@@ -20,28 +20,31 @@ import org.osgi.framework.BundleContext;
 
 
 /**
- * @author yayu
+ * The Class Activator.
  *
+ * @author yayu
  */
 public class Activator extends AbstractUIPlugin {
+	
+	/** The DEBUG. */
 	public static boolean DEBUG;
 	
 
 	// The plug-in ID
+	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.registry.consumer";
 
 	// The shared instance
 	private static Activator plugin;
 	
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public Activator() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -50,9 +53,8 @@ public class Activator extends AbstractUIPlugin {
 				Platform.getDebugOption(PLUGIN_ID + "/debug"));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
@@ -60,7 +62,7 @@ public class Activator extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 *
 	 * @return the shared instance
 	 */
@@ -70,8 +72,8 @@ public class Activator extends AbstractUIPlugin {
 	
 	/**
 	 * Convenient method for logging to the platform.
-	 * 
-	 * @param e
+	 *
+	 * @param e the e
 	 */
 	public void log(Exception e) {
 		getLog().log(
@@ -81,13 +83,19 @@ public class Activator extends AbstractUIPlugin {
 
 	/**
 	 * Convenient method for logging to the platform.
-	 * 
-	 * @param msg
+	 *
+	 * @param msg the msg
 	 */
 	public void log(String msg) {
 		getLog().log(new Status(Status.INFO, PLUGIN_ID, msg));
 	}
 	
+	/**
+	 * Log argument message.
+	 *
+	 * @param msg the msg
+	 * @param args the args
+	 */
 	public void logArgumentMessage(String msg, Object... args) {
 		log(Messages.formatString(msg, args));
 	}

@@ -21,15 +21,20 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
- * @author yayu
+ * The Class AbstractSelectionSourceWizardPage.
  *
+ * @author yayu
  */
 public abstract class AbstractSelectionSourceWizardPage extends SOABasePage {
 	private Button firstChoice = null;
 	private Button secondChoice = null;
 	
 	/**
-	 * @param pageName
+	 * Instantiates a new abstract selection source wizard page.
+	 *
+	 * @param pageName the page name
+	 * @param title the title
+	 * @param description the description
 	 */
 	public AbstractSelectionSourceWizardPage(String pageName, String title, String description) {
 		super(pageName);
@@ -58,18 +63,38 @@ public abstract class AbstractSelectionSourceWizardPage extends SOABasePage {
 						getHelpContextID());
 	}
 	
+	/**
+	 * Gets the first choice name.
+	 *
+	 * @return the first choice name
+	 */
 	protected String getFirstChoiceName() {
 		return "First Choice";
 	}
 	
+	/**
+	 * Gets the second choice name.
+	 *
+	 * @return the second choice name
+	 */
 	protected String getSecondChoiceName() {
 		return "Second Choice";
 	}
 	
+	/**
+	 * Checks if is first choice selected.
+	 *
+	 * @return true, if is first choice selected
+	 */
 	public boolean isFirstChoiceSelected() {
 		return firstChoice.getSelection();
 	}
 	
+	/**
+	 * Checks if is second choice selected.
+	 *
+	 * @return true, if is second choice selected
+	 */
 	public boolean isSecondChoiceSelected() {
 		return secondChoice.getSelection();
 	}

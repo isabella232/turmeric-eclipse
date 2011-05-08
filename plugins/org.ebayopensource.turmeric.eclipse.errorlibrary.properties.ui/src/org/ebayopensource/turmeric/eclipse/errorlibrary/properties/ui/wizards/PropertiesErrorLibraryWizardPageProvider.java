@@ -25,6 +25,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 
 
 /**
+ * The Class PropertiesErrorLibraryWizardPageProvider.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -34,7 +36,7 @@ public class PropertiesErrorLibraryWizardPageProvider implements
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * 
+	 * Instantiates a new properties error library wizard page provider.
 	 */
 	public PropertiesErrorLibraryWizardPageProvider() {
 		super();

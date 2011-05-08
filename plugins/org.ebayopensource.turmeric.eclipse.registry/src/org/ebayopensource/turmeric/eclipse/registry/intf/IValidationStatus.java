@@ -17,19 +17,27 @@ package org.ebayopensource.turmeric.eclipse.registry.intf;
  */
 public interface IValidationStatus {
 	
-	/**
-	 * indicates a suggestion to the user
-	 */
+	/** indicates a suggestion to the user. */
 	public static final int CODE_MAY = 100;
 	
 	/**
 	 * if AR login failed, the returned status should be IStatus.WARNING and the
-	 * getCode method should return CODE_LOGIN_FAILURE
+	 * getCode method should return CODE_LOGIN_FAILURE.
 	 */
 	public static final int CODE_LOGIN_FAILURE = 102;
 	
+	/**
+	 * Gets the line number.
+	 *
+	 * @return the line number
+	 */
 	public int getLineNumber();
 
+	/**
+	 * Sets the line number.
+	 *
+	 * @param lineNumber the new line number
+	 */
 	public void setLineNumber(int lineNumber);
 
 }

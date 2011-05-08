@@ -9,23 +9,31 @@
 package org.ebayopensource.turmeric.eclipse.template.wsdl.util;
 
 /**
- * @author smathew
+ * The Class ServiceTemplateConstants.
  *
+ * @author smathew
  */
 public class ServiceTemplateConstants {
 
+	/** The Constant DEFAULT_PORT_NAME. */
 	public static final String DEFAULT_PORT_NAME = "NewPort";
 	
+	/** The Constant REQUEST. */
 	public static final String REQUEST = "Request";
 	
+	/** The Constant RESPONSE. */
 	public static final String RESPONSE = "Response";
 	
+	/** The Constant DEFAULT_PART_NAME. */
 	public static final String DEFAULT_PART_NAME = "params";
 	
+	/** The Constant DEFAULT_BINDING_NAME. */
 	public static final String DEFAULT_BINDING_NAME = "NewBinding";
 	
+	/** The Constant TAG_DOCUMENTATION_ELEMENT. */
 	public static final String TAG_DOCUMENTATION_ELEMENT = "wsdl:documentation";
 	
+	/** The Constant DEFAULT_DOCUMENT_TEXT. */
 	public static final String DEFAULT_DOCUMENT_TEXT = "Documentation goes here.";
 	
 }

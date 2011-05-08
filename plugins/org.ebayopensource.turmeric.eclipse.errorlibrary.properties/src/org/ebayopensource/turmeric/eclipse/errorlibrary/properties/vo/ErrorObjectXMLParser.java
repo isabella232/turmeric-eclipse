@@ -28,10 +28,20 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+/**
+ * The Class ErrorObjectXMLParser.
+ */
 public class ErrorObjectXMLParser {
 	private static final String NAMESPACE_COMMON_CONFIG = "http://www.ebayopensource.org/turmeric/common/config";
 	private static final Namespace defaultNamespace = Namespace.getNamespace(NAMESPACE_COMMON_CONFIG);
 	
+	/**
+	 * Convert error bundle.
+	 *
+	 * @param vo the vo
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static String convertErrorBundle(SOAErrorBundleVO vo) throws IOException {
 		Document doc = new Document();
 		Element bundle = new Element(ErrorObjectXMLConstants.ELEM_BUNDLE);
@@ -62,6 +72,15 @@ public class ErrorObjectXMLParser {
 		return output.outputString(doc);
 	}
 	
+	/**
+	 * Gets the error bundle.
+	 *
+	 * @param project the project
+	 * @return the error bundle
+	 * @throws JDOMException the jDOM exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static List<SOAErrorBundleVO> getErrorBundle(IProject project) throws JDOMException, IOException, CoreException {
 		List<SOAErrorBundleVO> result = new ArrayList<SOAErrorBundleVO>();
 		if (project != null) {
@@ -85,6 +104,14 @@ public class ErrorObjectXMLParser {
 		return project.getFile(PropertiesSOAConstants.FOLDER_ERROR_DOMAIN + "/" + domain + "/" + PropertiesSOAConstants.FILE_ERROR_DATA);
 	}
 
+	/**
+	 * Gets the error bundle.
+	 *
+	 * @param input the input
+	 * @return the error bundle
+	 * @throws JDOMException the jDOM exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static SOAErrorBundleVO getErrorBundle(InputStream input)
 			throws JDOMException, IOException {
 		SOAErrorBundleVO result = new SOAErrorBundleVO();

@@ -40,6 +40,8 @@ import org.eclipse.core.runtime.CoreException;
 
 
 /**
+ * The Class SOAServiceUtil.
+ *
  * @author smathew
  * 
  * Utility class for processing project properties The Project does not carry
@@ -48,12 +50,19 @@ import org.eclipse.core.runtime.CoreException;
  * this class is based on the properties file. It handles all SOA interface,
  * implementation and consumer projects. Any new utility for these projects
  * should be added here.
- * 
  */
 public class SOAServiceUtil {
 
 	private static final SOALogger logger = SOALogger.getLogger();
 	
+	/**
+	 * Compute admin name.
+	 *
+	 * @param serviceName the service name
+	 * @param domainClassifier the domain classifier
+	 * @param serviceVersion the service version
+	 * @return the string
+	 */
 	public static String computeAdminName(String serviceName, String domainClassifier, 
 			String serviceVersion) {
 		if (StringUtils.isEmpty(serviceName))
@@ -71,12 +80,25 @@ public class SOAServiceUtil {
 		return result.toString();
 	}
 	
+	/**
+	 * Generate interface class name.
+	 *
+	 * @param adminName the admin name
+	 * @param servicePackageName the service package name
+	 * @return the string
+	 */
 	public static String generateInterfaceClassName(String adminName, 
 			String servicePackageName) {
 		return StringUtils.isBlank(servicePackageName) ? adminName
 				: servicePackageName + SOAProjectConstants.CLASS_NAME_SEPARATOR + adminName;
 	}
 	
+	/**
+	 * Generate package name prefix.
+	 *
+	 * @param targetNamespace the target namespace
+	 * @return the string
+	 */
 	public static String generatePackageNamePrefix(String targetNamespace) {
 		if (StringUtils.isNotBlank(targetNamespace)) {
 			return ConfigTool.getDefaultPackageNameFromNamespace(targetNamespace);
@@ -84,6 +106,13 @@ public class SOAServiceUtil {
 		return "";
 	}
 	
+	/**
+	 * Generate service package name.
+	 *
+	 * @param serviceName the service name
+	 * @param packageNamePrefix the package name prefix
+	 * @return the string
+	 */
 	public static String generateServicePackageName(String serviceName, String packageNamePrefix) {
 		if (StringUtils.isBlank(serviceName))
 			return StringUtil.toString(packageNamePrefix);
@@ -92,11 +121,27 @@ public class SOAServiceUtil {
 						.toLowerCase(Locale.US));
 	}
 	
+	/**
+	 * Generate service impl class name.
+	 *
+	 * @param serviceName the service name
+	 * @param adminName the admin name
+	 * @param targetNamespace the target namespace
+	 * @return the string
+	 */
 	public static String generateServiceImplClassName(String serviceName,String adminName, String targetNamespace) {
 		return generateServiceImplPackageName(serviceName, adminName,
 				generatePackageNamePrefix(targetNamespace));
 	}
 
+	/**
+	 * Generate service impl package name.
+	 *
+	 * @param serviceName the service name
+	 * @param adminName the admin name
+	 * @param packageNamePrefix the package name prefix
+	 * @return the string
+	 */
 	public static String generateServiceImplPackageName(String serviceName, String adminName, String packageNamePrefix) {
 		if (StringUtils.isBlank(packageNamePrefix))
 			return "";
@@ -119,11 +164,10 @@ public class SOAServiceUtil {
 	 * look for the WSDL in the designated location if the project is created
 	 * from WSDL. Remember Now SOA supports only services from WSDL. After the
 	 * above mentioned checks it calls the method
-	 * 
+	 *
+	 * @param project the project
+	 * @return the wsdl file
 	 * @link {@link SOAServiceUtil}{@link #getWsdlFile(IProject, String)}
-	 * 
-	 * @param project
-	 * @return
 	 */
 	public static IFile getWsdlFile(SOAIntfProject project) {
 		if (SOALogger.DEBUG)
@@ -149,11 +193,10 @@ public class SOAServiceUtil {
 	 * Wrapper over the linked method. Does not check if the service was created
 	 * from WSDL or java. Client to check it. First it find out the project in
 	 * the work space with the given name and will invoke the linked method.
-	 * 
+	 *
+	 * @param serviceName the service name
+	 * @return the wsdl file
 	 * @link {@link SOAServiceUtil}{@link #getWsdlFile(IProject, String)}
-	 * 
-	 * @param serviceName
-	 * @return
 	 */
 	public static IFile getWsdlFile(String serviceName) {
 		if (SOALogger.DEBUG)
@@ -172,10 +215,10 @@ public class SOAServiceUtil {
 	 * except for the location. If the project is null and is not accessible
 	 * this will return null, so that way it is null safe but clients are
 	 * supposed to handle the null graciously.
-	 * 
-	 * @param project
-	 * @param serviceName
-	 * @return
+	 *
+	 * @param project the project
+	 * @param serviceName the service name
+	 * @return the wsdl file
 	 */
 	public static IFile getWsdlFile(final IProject project,
 			final String serviceName) {
@@ -196,6 +239,12 @@ public class SOAServiceUtil {
 		}
 	}
 
+	/**
+	 * Gets the sOA eclipse metadata.
+	 *
+	 * @param project the project
+	 * @return the sOA eclipse metadata
+	 */
 	public static SOAProjectEclipseMetadata getSOAEclipseMetadata(
 			IProject project) {
 		return SOAProjectEclipseMetadata.create(project.getName(), project
@@ -210,10 +259,11 @@ public class SOAServiceUtil {
 	 * projects, the service configuration might not be loaded properly, because
 	 * the interface project name is missing. In such a case, please load the
 	 * service configuration yourself.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param natureId the nature id
+	 * @return the iSOA project
+	 * @throws Exception the exception
 	 */
 	public static ISOAProject loadSOAProject(final IProject project, 
 			String natureId)
@@ -243,13 +293,12 @@ public class SOAServiceUtil {
 	/**
 	 * Loads SOAIntfMedata from service_intf_project.properties. Pure Wrapper
 	 * over the linked method.
-	 * 
+	 *
+	 * @param metadata the metadata
+	 * @return the sOA intf metadata
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 * @see {@link SOAServiceUtil}{@link #getSOAIntfMetadata(SOAProjectEclipseMetadata, SOAIntfMetadata)}
-	 * 
-	 * @param metadata
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
 	 */
 	public static SOAIntfMetadata getSOAIntfMetadata(
 			SOAProjectEclipseMetadata metadata) throws IOException,
@@ -264,12 +313,12 @@ public class SOAServiceUtil {
 	 * It does not fail with an invalid properties file meaning an absence of a
 	 * property will not cause this function to fail, It just makes the
 	 * corresponding property empty.
-	 * 
-	 * @param metadata
-	 * @param intfMetadata
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
+	 *
+	 * @param metadata the metadata
+	 * @param intfMetadata the intf metadata
+	 * @return the sOA intf metadata
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static SOAIntfMetadata getSOAIntfMetadata(
 			SOAProjectEclipseMetadata metadata, SOAIntfMetadata intfMetadata)
@@ -352,14 +401,12 @@ public class SOAServiceUtil {
 	/**
 	 * Loads meta data from service_impl_project.properties Pure Wrapper over
 	 * the linked method.
-	 * 
+	 *
+	 * @param metadata the metadata
+	 * @return the sOA impl metadata
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 * @see {@link SOAServiceUtil}{@link #getSOAImplMetadata(IProject))}
-	 * 
-	 * 
-	 * @param metadata
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
 	 */
 	public static SOAImplMetadata getSOAImplMetadata(
 			SOAProjectEclipseMetadata metadata) throws IOException,
@@ -380,11 +427,11 @@ public class SOAServiceUtil {
 	 * It does not fail with an invalid properties file meaning an absence of a
 	 * property will not cause this function to fail, It just makes the
 	 * corresponding property empty.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @return the sOA impl metadata
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static SOAImplMetadata getSOAImplMetadata(final IProject project)
 			throws IOException, CoreException {
@@ -433,14 +480,12 @@ public class SOAServiceUtil {
 	 * This function creates the SOA related meta data for the given project
 	 * from service_consumer_project.properties. Pure Wrapper over the linked
 	 * method.
-	 * 
+	 *
+	 * @param metadata the metadata
+	 * @return the sOA consumer metadata
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException Suresh changed this
 	 * @see {@link SOAServiceUtil}{@link #getSOAConsumerMetadata(IProject))}
-	 * 
-	 * @param metadata
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
-	 *             Suresh changed this
 	 */
 	public static SOAConsumerMetadata getSOAConsumerMetadata(
 			SOAProjectEclipseMetadata metadata) throws IOException,
@@ -461,11 +506,11 @@ public class SOAServiceUtil {
 	 * not fail with an invalid properties file meaning an absence of a property
 	 * will not cause this function to fail, It just makes the corresponding
 	 * property empty.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @return the sOA consumer metadata
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static SOAConsumerMetadata getSOAConsumerMetadata(
 			final IProject project) throws IOException, CoreException {
@@ -509,11 +554,11 @@ public class SOAServiceUtil {
 	 * Returns true if the given project has one of the natures passed. Not null
 	 * safe. If the project is not accessible, the API will fail and clients are
 	 * supposed to handle it.
-	 * 
-	 * @param project
-	 * @param natureIDs
-	 * @return
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @param natureIDs the nature i ds
+	 * @return true, if successful
+	 * @throws CoreException the core exception
 	 */
 	public static boolean hasNatures(final IProject project,
 			final String... natureIDs) throws CoreException {
@@ -528,9 +573,9 @@ public class SOAServiceUtil {
 	/**
 	 * Checks if the given string is a valid service layer string, Now two
 	 * checks are performed, empty and non numeric.
-	 * 
-	 * @param layer
-	 * @return
+	 *
+	 * @param layer the layer
+	 * @return true, if is valid service layer
 	 */
 	public static boolean isValidServiceLayer(final String layer) {
 		return StringUtils.isNotBlank(layer)
@@ -541,12 +586,11 @@ public class SOAServiceUtil {
 	 * It first use the string based non SOA specific basic validation and it it
 	 * passes then it will do the domain specific validation using the linked
 	 * method for both the layers passed.
-	 * 
+	 *
+	 * @param layer the layer
+	 * @param dependencyLayer the dependency layer
+	 * @return true, if successful
 	 * @see SOAServiceUtil#validateServiceLayer(ServiceLayer, ServiceLayer)
-	 * 
-	 * @param layer
-	 * @param dependencyLayer
-	 * @return
 	 */
 	public static boolean validateServiceLayer(final String layer,
 			final String dependencyLayer) {
@@ -561,10 +605,10 @@ public class SOAServiceUtil {
 	 * Does the SOA specific service layer validation specified in the SOA ERD.
 	 * The API is null safe and returns false if any of the layer passed is
 	 * null.
-	 * 
-	 * @param layer
-	 * @param dependencyLayer
-	 * @return
+	 *
+	 * @param layer the layer
+	 * @param dependencyLayer the dependency layer
+	 * @return true, if successful
 	 */
 	public static boolean validateServiceLayer(final ServiceLayer layer,
 			final ServiceLayer dependencyLayer) {
@@ -596,11 +640,12 @@ public class SOAServiceUtil {
 	 * both implementation projects and consumer projects. The meta data object
 	 * will have the directory name and it makes an eclipse API call on the
 	 * project.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws IOException
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @param projectType the project type
+	 * @return the base consumer folder
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
 	 */
 	public static IFolder getBaseConsumerFolder(final IProject project, 
 			SupportedProjectType projectType)
@@ -621,6 +666,12 @@ public class SOAServiceUtil {
 		return project.getFolder(SOAProjectConstants.FOLDER_SRC);
 	}
 	
+	/**
+	 * Gets the invokeable service layer.
+	 *
+	 * @param layerName the layer name
+	 * @return the invokeable service layer
+	 */
 	public static List<String> getInvokeableServiceLayer(String layerName){
 		List<String> layers = new ArrayList<String>();
 		ServiceLayer layer = ServiceLayer.value(layerName);
@@ -641,9 +692,10 @@ public class SOAServiceUtil {
 	}
 	
 	/**
-	 * Get the major version of the given service version
-	 * @param version
-	 * @return
+	 * Get the major version of the given service version.
+	 *
+	 * @param version the version
+	 * @return the service major version
 	 */
 	public static String getServiceMajorVersion(String version) {
 		if (StringUtils.isBlank(version))

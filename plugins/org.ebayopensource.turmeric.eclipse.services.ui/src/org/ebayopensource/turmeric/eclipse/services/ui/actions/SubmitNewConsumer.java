@@ -37,6 +37,8 @@ import org.eclipse.ui.IWorkbenchPart;
 
 
 /**
+ * The Class SubmitNewConsumer.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -46,16 +48,24 @@ public class SubmitNewConsumer implements IObjectActionDelegate {
 	private IStructuredSelection selection;
 	
 	/**
-	 * 
+	 * Instantiates a new submit new consumer.
 	 */
 	public SubmitNewConsumer() {
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
+	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
+	 */
 	public void run(IAction action) {
 		try {
 			if (SOALogger.DEBUG)
@@ -94,6 +104,13 @@ public class SubmitNewConsumer implements IObjectActionDelegate {
 		}
 	}
 	
+	/**
+	 * Pre validate.
+	 *
+	 * @param selection the selection
+	 * @return the i status
+	 * @throws CoreException the core exception
+	 */
 	protected IStatus preValidate(IStructuredSelection selection) throws CoreException {
 		if (selection == null)
 			return EclipseMessageUtils.createErrorStatus(SOAMessages.ERR_EMPTY_SELECTION);
@@ -133,6 +150,10 @@ public class SubmitNewConsumer implements IObjectActionDelegate {
 		return status;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *  @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
+	 */
 	public void selectionChanged(IAction action, ISelection selection) {
 		this.selection = (IStructuredSelection)selection;
 	}

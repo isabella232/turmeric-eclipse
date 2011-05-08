@@ -19,20 +19,36 @@ import org.eclipse.swt.widgets.Composite;
 
 
 /**
- * General Page for complex type wizard
- * @author ramurthy
+ * General Page for complex type wizard.
  *
+ * @author ramurthy
  */
 public class ComplexTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 
+	/**
+	 * Instantiates a new complex type wizard general page.
+	 *
+	 * @param typeLibName the type lib name
+	 */
 	public ComplexTypeWizardGeneralPage(String typeLibName) {
 		super("complexTypeWizardGeneralPage", "Create Complex Type", "Create a new complex type", typeLibName);
 	}
 	
+	/**
+	 * Instantiates a new complex type wizard general page.
+	 *
+	 * @param typeLibName the type lib name
+	 * @param wizardPageName the wizard page name
+	 * @param title the title
+	 * @param description the description
+	 */
 	public ComplexTypeWizardGeneralPage(String typeLibName, String wizardPageName, String title, String description) {
 		super(typeLibName, wizardPageName, title, description);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(Composite parent) {
 		try {
 			super.createControl(parent, false);
@@ -45,14 +61,25 @@ public class ComplexTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 		}
 	}
 	
+	/**
+	 * Adds the components.
+	 */
 	protected void addComponents() {
 		
 	}
 	
+	/**
+	 * Gets the base type.
+	 *
+	 * @return the base type
+	 */
 	protected String getBaseType() {
 		return "&Extension Type:";
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	protected Map<String, URL> getTemplateTypes() {
 		return getTemplateTypeNames(SOAXSDTemplateSubType.COMPLEX);
 	}

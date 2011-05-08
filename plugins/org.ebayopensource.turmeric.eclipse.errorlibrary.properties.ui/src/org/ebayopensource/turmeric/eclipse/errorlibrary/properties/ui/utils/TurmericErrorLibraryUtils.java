@@ -53,8 +53,9 @@ import org.jdom.JDOMException;
 
 
 /**
- * @author yayu
+ * The Class TurmericErrorLibraryUtils.
  *
+ * @author yayu
  */
 public final class TurmericErrorLibraryUtils {
 	private static final MessageFormat errorPropsFormat = new MessageFormat(PropertiesSOAConstants.PROPS_FILE_DEFAULT_ERROR_PROPERTIES);
@@ -66,17 +67,38 @@ public final class TurmericErrorLibraryUtils {
 		super();
 	}
 	
+	/**
+	 * Gets the domain list props file.
+	 *
+	 * @param project the project
+	 * @return the domain list props file
+	 */
 	public static IFile getDomainListPropsFile(IProject project) {
 		return project.getFile(PropertiesSOAConstants.FOLDER_ERROR_DOMAIN + "/"
 				+ project.getName() + "/"
 				+ PropertiesSOAConstants.PROPS_FILE_ERROR_LIBRARY_PROJECT);
 	}
 	
+	/**
+	 * Gets the error props file.
+	 *
+	 * @param project the project
+	 * @param domainName the domain name
+	 * @return the error props file
+	 * @throws CoreException the core exception
+	 */
 	public static IFile getErrorPropsFile(IProject project, String domainName) throws CoreException {
 		IFolder domainFolder = getErrorDomainFolder(project, domainName);
 		return getErrorPropsFile(domainFolder);
 	}
 	
+	/**
+	 * Gets the error props file.
+	 *
+	 * @param domainFolder the domain folder
+	 * @return the error props file
+	 * @throws CoreException the core exception
+	 */
 	public static IFile getErrorPropsFile(IFolder domainFolder) throws CoreException {
 		IFile defaultFile = getErrorPropsFile(domainFolder, PropertiesSOAConstants.DEFAULT_LOCALE);
 		IFile noSuffixFile = domainFolder.getFile(PropertiesSOAConstants.PROPS_FILE_NO_LOCALE);
@@ -97,16 +119,38 @@ public final class TurmericErrorLibraryUtils {
 		return null;
 	}
 	
+	/**
+	 * Gets the error props file.
+	 *
+	 * @param project the project
+	 * @param domainName the domain name
+	 * @param locale the locale
+	 * @return the error props file
+	 */
 	public static IFile getErrorPropsFile(IProject project, String domainName, String locale) {
 		IFolder domainFolder = getErrorDomainFolder(project, domainName);
 		return getErrorPropsFile(domainFolder, locale);
 	}
 	
+	/**
+	 * Gets the error props file.
+	 *
+	 * @param domainFolder the domain folder
+	 * @param locale the locale
+	 * @return the error props file
+	 */
 	public static IFile getErrorPropsFile(IFolder domainFolder, String locale) {
 		String propsFilename = errorPropsFormat.format(new Object[]{locale});
 		return domainFolder.getFile(propsFilename);
 	}
 	
+	/**
+	 * Gets the all error domains.
+	 *
+	 * @param project the project
+	 * @return the all error domains
+	 * @throws CoreException the core exception
+	 */
 	public static Collection<String> getAllErrorDomains(IProject project) throws CoreException {
 		final Collection<String> domains = new ArrayList<String>();
 		if (project != null && project.isAccessible() == true) {
@@ -127,10 +171,24 @@ public final class TurmericErrorLibraryUtils {
 		return domains;
 	}
 	
+	/**
+	 * Gets the error domain folder.
+	 *
+	 * @param project the project
+	 * @param errorDomainName the error domain name
+	 * @return the error domain folder
+	 */
 	public static IFolder getErrorDomainFolder(IProject project, String errorDomainName) {
 		return project.getFolder(PropertiesSOAConstants.FOLDER_ERROR_DOMAIN).getFolder(errorDomainName);
 	}
 	
+	/**
+	 * Load error library.
+	 *
+	 * @param assetInfo the asset info
+	 * @return the iSOA err library
+	 * @throws Exception the exception
+	 */
 	public static ISOAErrLibrary loadErrorLibrary(AssetInfo assetInfo) 
 	throws Exception {
 		ISOAErrLibrary result = null;
@@ -275,6 +333,15 @@ public final class TurmericErrorLibraryUtils {
 		throw new CloneNotSupportedException();
 	}
 	
+	/**
+	 * Adds the domain list props.
+	 *
+	 * @param project the project
+	 * @param domainName the domain name
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void addDomainListProps(IProject project, String domainName, IProgressMonitor monitor) throws CoreException, IOException {
 		IFile file = TurmericErrorLibraryUtils.getDomainListPropsFile(project);
 		OutputStream output = new ByteArrayOutputStream();
@@ -308,6 +375,14 @@ public final class TurmericErrorLibraryUtils {
 		}
 	}
 	
+	/**
+	 * Removes the domain from props.
+	 *
+	 * @param project the project
+	 * @param domainName the domain name
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static void removeDomainFromProps(IProject project, String domainName)
 			throws IOException, CoreException {
 		IFile file = TurmericErrorLibraryUtils.getDomainListPropsFile(project);
@@ -335,6 +410,15 @@ public final class TurmericErrorLibraryUtils {
 		}
 	}
 	
+	/**
+	 * Removes the error from xml data.
+	 *
+	 * @param domainFolder the domain folder
+	 * @param error the error
+	 * @throws CoreException the core exception
+	 * @throws JDOMException the jDOM exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void removeErrorFromXmlData(IFolder domainFolder, ISOAError error) throws CoreException, JDOMException, IOException {
 		IFile dataFile = domainFolder.getFile(PropertiesSOAConstants.FILE_ERROR_DATA);
 		if (dataFile.isAccessible()) {
@@ -360,6 +444,14 @@ public final class TurmericErrorLibraryUtils {
 		}
 	}
 	
+	/**
+	 * Removes the error from props file.
+	 *
+	 * @param domainFolder the domain folder
+	 * @param error the error
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void removeErrorFromPropsFile(IFolder domainFolder, ISOAError error) throws CoreException, IOException {
 		IFile propsFile = getErrorPropsFile(domainFolder);
 		if (propsFile != null && propsFile.isAccessible()) {
@@ -380,6 +472,14 @@ public final class TurmericErrorLibraryUtils {
 		}
 	}
 	
+	/**
+	 * Adds the error to props file.
+	 *
+	 * @param domainFolder the domain folder
+	 * @param model the model
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void addErrorToPropsFile(IFolder domainFolder, ErrorParamModel model) throws CoreException, IOException {
 		IFile propsFile = getErrorPropsFile(domainFolder);
 		if (propsFile != null && propsFile.isAccessible()) {

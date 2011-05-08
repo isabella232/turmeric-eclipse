@@ -32,18 +32,19 @@ import org.eclipse.core.runtime.CoreException;
 
 
 /**
+ * The Class ErrorLibraryUtil.
+ *
  * @author smathew Standard Utility Class for Error Library. Contains mainly
- *         helper methods for the registry.
- * 
+ * helper methods for the registry.
  */
 public class ErrorLibraryUtil {
 
 	/**
 	 * Lists all the errors in this registry. Regardless of the library it
 	 * belongs to. Not null safe.
-	 * 
-	 * @param errorRegistry
-	 * @return
+	 *
+	 * @param errorRegistry the error registry
+	 * @return the all errors
 	 */
 	public static List<ISOAError> getAllErrors(ISOAErrRegistry errorRegistry) {
 		ArrayList<ISOAError> errors = new ArrayList<ISOAError>();
@@ -57,9 +58,9 @@ public class ErrorLibraryUtil {
 
 	/**
 	 * Lists all the errors in a library. Not null safe.
-	 * 
-	 * @param errorLibrary
-	 * @return
+	 *
+	 * @param errorLibrary the error library
+	 * @return the all errors
 	 */
 	public static List<ISOAError> getAllErrors(ISOAErrLibrary errorLibrary) {
 		ArrayList<ISOAError> errors = new ArrayList<ISOAError>();
@@ -73,11 +74,12 @@ public class ErrorLibraryUtil {
 	 * Returns the code snippet corresponding to the type of project being
 	 * passed. Once the run time adds a new constructor for key, we might need
 	 * to change it to accomodate it. Not null safe
-	 * 
-	 * @param project
-	 * @return
-	 * @throws SOAOperationNotAvailableException 
-	 * @throws CoreException 
+	 *
+	 * @param project the project
+	 * @param error the error
+	 * @return the import source
+	 * @throws SOAOperationNotAvailableException the sOA operation not available exception
+	 * @throws CoreException the core exception
 	 */
 	public static String getImportSource(IProject project, ISOAError error)
 			throws SOAOperationNotAvailableException, CoreException {
@@ -95,6 +97,12 @@ public class ErrorLibraryUtil {
 		return "";
 	}
 	
+	/**
+	 * Gets the error library central location.
+	 *
+	 * @return the error library central location
+	 * @throws SOAFileNotWritableException the sOA file not writable exception
+	 */
 	public static String getErrorLibraryCentralLocation() throws SOAFileNotWritableException {
 		if (SOAErrorLibraryConstants.errorLibraryCentralLocation == null) {
 			try {

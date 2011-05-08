@@ -27,6 +27,8 @@ import org.eclipse.swt.widgets.Composite;
 
 
 /**
+ * The Class NewPropertiesContentErrorLibraryWizardPage.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -72,7 +74,8 @@ public class NewPropertiesContentErrorLibraryWizardPage extends
 	}
 
 	/**
-	 * 
+	 * Creates the locale combo.
+	 *
 	 * @param basePage the base SOA Page
 	 * @param parent the parent composite
 	 * @return A CCombo object with Locale information.
@@ -118,6 +121,9 @@ public class NewPropertiesContentErrorLibraryWizardPage extends
 		return result.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		if (super.dialogChanged() == false) {
@@ -133,7 +139,8 @@ public class NewPropertiesContentErrorLibraryWizardPage extends
 	}
 
 	/**
-	 * 
+	 * Gets the project name prefix.
+	 *
 	 * @return the project name prefix
 	 */
 	public String getProjectNamePrefix() {

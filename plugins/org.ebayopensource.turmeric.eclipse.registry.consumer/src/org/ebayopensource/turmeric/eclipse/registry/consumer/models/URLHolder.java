@@ -9,7 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.registry.consumer.models;
 
 /**
- * URL Holder
+ * URL Holder.
+ *
  * @author ramurthy
  */
 
@@ -21,6 +22,11 @@ public class URLHolder {
 	private String fAssertionsServiceURL = null;
 	private static boolean fValid;
 	
+	/**
+	 * Gets the uRL holder instance.
+	 *
+	 * @return the uRL holder instance
+	 */
 	public static synchronized URLHolder getURLHolderInstance() {
 		if (fURLHolder == null && !fValid) {
 			fURLHolder = new URLHolder();
@@ -29,22 +35,45 @@ public class URLHolder {
 		return fURLHolder;
 	}
 	
+	/**
+	 * Sets the repo service url.
+	 *
+	 * @param repoServiceURL the new repo service url
+	 */
 	public void setRepoServiceURL(String repoServiceURL) {
 		fRepoServiceURL = repoServiceURL;
 	}
 	
+	/**
+	 * Sets the repo metadata service url.
+	 *
+	 * @param repoMetadataServiceURL the new repo metadata service url
+	 */
 	public void setRepoMetadataServiceURL(String repoMetadataServiceURL) {
 		fRepoMetadataServiceURL = repoMetadataServiceURL;
 	}
 
+	/**
+	 * Gets the repo service url.
+	 *
+	 * @return the repo service url
+	 */
 	public String getRepoServiceURL() {
 		return fRepoServiceURL;
 	}
 
+	/**
+	 * Gets the repo metadata service url.
+	 *
+	 * @return the repo metadata service url
+	 */
 	public String getRepoMetadataServiceURL() {
 		return fRepoMetadataServiceURL;
 	}
 	
+	/**
+	 * Invalidate url holder.
+	 */
 	public void invalidateURLHolder() {
 		if (fValid) {
 			fURLHolder = null;
@@ -52,10 +81,20 @@ public class URLHolder {
 		}
 	}
 
+	/**
+	 * Gets the assertions service url.
+	 *
+	 * @return the assertions service url
+	 */
 	public String getAssertionsServiceURL() {
 		return fAssertionsServiceURL;
 	}
 
+	/**
+	 * Sets the assertions service url.
+	 *
+	 * @param assertionsServiceURL the new assertions service url
+	 */
 	public void setAssertionsServiceURL(String assertionsServiceURL) {
 		fAssertionsServiceURL = assertionsServiceURL;
 	}

@@ -27,10 +27,9 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**
- * Removing all gen folders for the selected project
- * 
+ * Removing all gen folders for the selected project.
+ *
  * @author yayu
- * 
  */
 public class ChangeServiceVersion implements IObjectActionDelegate {
 	private IStructuredSelection selection;
@@ -38,17 +37,23 @@ public class ChangeServiceVersion implements IObjectActionDelegate {
 	private Shell shell;
 
 	/**
-	 * 
+	 * Instantiates a new change service version.
 	 */
 	public ChangeServiceVersion() {
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 		shell = targetPart.getSite().getShell();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void run(final IAction action) {
 		try {
 			if (SOALogger.DEBUG)
@@ -81,6 +86,9 @@ public class ChangeServiceVersion implements IObjectActionDelegate {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

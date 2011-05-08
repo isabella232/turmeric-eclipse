@@ -18,20 +18,21 @@ import org.eclipse.core.resources.IProject;
 
 
 /**
- * @author yayu
+ * The Class SOAErrorLibraryProjectResolver.
  *
+ * @author yayu
  */
 public class SOAErrorLibraryProjectResolver implements ISOAProjectResolver<SOAErrorLibraryProject> {
 
 	/**
-	 * 
+	 * Instantiates a new sOA error library project resolver.
 	 */
 	public SOAErrorLibraryProjectResolver() {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.resources.model.ISOAProjectResolver#loadProject(org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata)
+	/**
+	 * {@inheritDoc}
 	 */
 	public SOAErrorLibraryProject loadProject(SOAProjectEclipseMetadata eclipseMetadata)
 			throws Exception {
@@ -43,6 +44,12 @@ public class SOAErrorLibraryProjectResolver implements ISOAProjectResolver<SOAEr
 		return errorLibProject;
 	}
 
+	/**
+	 * Load error lib model.
+	 *
+	 * @param project the project
+	 * @return the error library param model
+	 */
 	public static ErrorLibraryParamModel loadErrorLibModel(IProject project) {
 		final ErrorLibraryParamModel model = new ErrorLibraryParamModel();
 		model.setProjectName(project.getName());

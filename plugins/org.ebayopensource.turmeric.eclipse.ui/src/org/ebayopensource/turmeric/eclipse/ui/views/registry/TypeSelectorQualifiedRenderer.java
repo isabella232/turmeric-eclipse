@@ -13,10 +13,15 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
+ * The Class TypeSelectorQualifiedRenderer.
+ *
  * @author smathew The qualified renderer for the type selector
  */
 public class TypeSelectorQualifiedRenderer extends LabelProvider {
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
+	 */
 	@Override
 	public String getText(Object element) {
 		if (element instanceof LibraryType

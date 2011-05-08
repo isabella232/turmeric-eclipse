@@ -55,21 +55,24 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
- * @author yayu
+ * The Class ServiceFromNewWSDLAddBindingWizardPage.
  *
+ * @author yayu
  */
 public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 
 	private TableButtonPanelViewer bindingViewer;
 	
+	/** The Constant COLUMN_TYPE. */
 	public static final String COLUMN_TYPE = "type";
+	
+	/** The Constant BINDING_COLUMN_PROPERTIES. */
 	public static final String[] BINDING_COLUMN_PROPERTIES = {COLUMN_TYPE};
 	private Set<Binding> bindings = new LinkedHashSet<Binding>();
 
 	/**
-	 * @param pageName
-	 * @param title
-	 * @param description
+	 * Instantiates a new service from new wsdl add binding wizard page.
+	 *
 	 */
 	public ServiceFromNewWSDLAddBindingWizardPage() {
 		super("newSOAServiceProjectFromBlankWSDLAddBindingWizardPage", "Service from Template WSDL - Add Binding", 
@@ -84,8 +87,8 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 		return SOAProjectConstants.EMPTY_STRING;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void createControl(Composite parent) {
 		final Composite container = super.createParentControl(parent, 3);
@@ -250,6 +253,9 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 		bindingViewer.setInput(getInputObject());
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		if(super.dialogChanged() == false)
@@ -274,6 +280,11 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 		return true;
 	}
 
+	/**
+	 * Gets the bindings.
+	 *
+	 * @return the bindings
+	 */
 	public Set<Binding> getBindings() {
 		return bindings;
 	}
@@ -300,6 +311,9 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 		return bindings;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()

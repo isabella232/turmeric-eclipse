@@ -27,6 +27,8 @@ import org.eclipse.search.ui.text.Match;
 
 
 /**
+ * The Class SOASearchQuery.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -42,12 +44,20 @@ public class SOASearchQuery implements ISearchQuery{
 	private String serviceDomain;
 
 	/**
-	 * 
+	 * Instantiates a new sOA search query.
 	 */
 	public SOASearchQuery() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new sOA search query.
+	 *
+	 * @param searchBuildSystem the search build system
+	 * @param serviceName the service name
+	 * @param serviceLayer the service layer
+	 * @param serviceDomain the service domain
+	 */
 	public SOASearchQuery(boolean searchBuildSystem, String serviceName,
 			String serviceLayer, String serviceDomain) {
 		super();
@@ -57,42 +67,84 @@ public class SOASearchQuery implements ISearchQuery{
 		this.serviceDomain = serviceDomain;
 	}
 
+	/**
+	 * Gets the service name.
+	 *
+	 * @return the service name
+	 */
 	public String getServiceName() {
 		return serviceName;
 	}
 
+	/**
+	 * Sets the service name.
+	 *
+	 * @param serviceName the new service name
+	 */
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
 
+	/**
+	 * Gets the service layer.
+	 *
+	 * @return the service layer
+	 */
 	public String getServiceLayer() {
 		return serviceLayer;
 	}
 
+	/**
+	 * Sets the service layer.
+	 *
+	 * @param serviceLayer the new service layer
+	 */
 	public void setServiceLayer(String serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}
 
+	/**
+	 * Gets the service domain.
+	 *
+	 * @return the service domain
+	 */
 	public String getServiceDomain() {
 		return serviceDomain;
 	}
 
+	/**
+	 * Sets the service domain.
+	 *
+	 * @param serviceDomain the new service domain
+	 */
 	public void setServiceDomain(String serviceDomain) {
 		this.serviceDomain = serviceDomain;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean canRerun() {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean canRunInBackground() {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getLabel() {
 		return "Searching for SOA Services";
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public String toString() {
 		StringBuffer buf = new StringBuffer();
 		if (StringUtils.isNotBlank(serviceName)) {
@@ -115,6 +167,9 @@ public class SOASearchQuery implements ISearchQuery{
 		return buf.toString();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ISearchResult getSearchResult() {
 		if (searchResult == null) {
 			searchResult = new SOASearchResult(this);
@@ -122,14 +177,27 @@ public class SOASearchQuery implements ISearchQuery{
 		return searchResult;
 	}
 
+	/**
+	 * Checks if is search build system.
+	 *
+	 * @return true, if is search build system
+	 */
 	public boolean isSearchBuildSystem() {
 		return searchBuildSystem;
 	}
 
+	/**
+	 * Sets the search build system.
+	 *
+	 * @param searchBuildSystem the new search build system
+	 */
 	public void setSearchBuildSystem(boolean searchBuildSystem) {
 		this.searchBuildSystem = searchBuildSystem;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IStatus run(IProgressMonitor monitor)
 			throws OperationCanceledException {
 		monitor.beginTask("Searching for SOA Services...", IProgressMonitor.UNKNOWN);

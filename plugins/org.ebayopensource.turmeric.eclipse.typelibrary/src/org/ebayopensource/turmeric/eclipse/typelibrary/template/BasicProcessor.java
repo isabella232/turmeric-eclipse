@@ -19,12 +19,17 @@ import org.eclipse.xsd.XSDTypeDefinition;
 
 
 /**
+ * The Class BasicProcessor.
+ *
  * @author smathew
  * 
  * This class performs the basic common steps required for any xsd
  */
 public class BasicProcessor implements ICommand {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean execute(Object parameter, IProgressMonitor monitor) throws CommandFailedException {
 		if (parameter != null && parameter instanceof CommonXSDProcessorParam) {
 			CommonXSDProcessorParam templateProcessorParam = (CommonXSDProcessorParam) parameter;

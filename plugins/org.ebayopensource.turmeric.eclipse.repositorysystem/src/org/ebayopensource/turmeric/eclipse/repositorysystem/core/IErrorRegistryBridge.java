@@ -20,45 +20,51 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
+ * The Interface IErrorRegistryBridge.
+ *
  * @author smathew
- * 
  */
 public interface IErrorRegistryBridge {
 
 	/**
+	 * Gets the error libs.
+	 *
 	 * @return all error libraries for the underlying system
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public Set<AssetInfo> getErrorLibs() throws Exception;
 	
 	/**
 	 * get the error lib view root, create the view dir structure if required.
-	 * @param project
-	 * @param folders folders to be created under the error lib view root
-	 * @param monitor
-	 * @return
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return the error library view root
+	 * @throws CoreException the core exception
 	 */
 	public File getErrorLibraryViewRoot(IProject project, 
 			IProgressMonitor monitor) throws CoreException;
 	
 	/**
-	 * Create specific artifacts for the underlying system
-	 * @param project
-	 * @param monitor
-	 * @throws CoreException
-	 * @throws AbstractSOAException
-	 * @throws IOException
+	 * Create specific artifacts for the underlying system.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 * @throws AbstractSOAException the abstract soa exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void createPlatformSpecificArtifacts(IProject project, IProgressMonitor monitor) 
 	throws CoreException, AbstractSOAException, IOException;
 	
 	/**
-	 * @param storeLocation
-	 * @param organization
-	 * @param domain
+	 * Next error id.
+	 *
+	 * @param storeLocation the store location
+	 * @param organization the organization
+	 * @param domain the domain
 	 * @return a new Error ID for the given options
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public long nextErrorId(String storeLocation, String organization, 
 			String domain) throws Exception;

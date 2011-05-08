@@ -14,23 +14,28 @@ package org.ebayopensource.turmeric.eclipse.exception.resources;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * @author yayu
+ * The Class SOAInvocationException.
  *
+ * @author yayu
  */
 public class SOAInvocationException extends InvocationTargetException {
 
 	private static final long serialVersionUID = 210L;
 
 	/**
-	 * @param target
+	 * Instantiates a new sOA invocation exception.
+	 *
+	 * @param target the target
 	 */
 	public SOAInvocationException(Throwable target) {
 		super(target, target.getLocalizedMessage());
 	}
 
 	/**
-	 * @param target
-	 * @param s
+	 * Instantiates a new sOA invocation exception.
+	 *
+	 * @param target the target
+	 * @param s the s
 	 */
 	public SOAInvocationException(Throwable target, String s) {
 		super(target, s);

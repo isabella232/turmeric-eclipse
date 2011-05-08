@@ -22,6 +22,8 @@ import org.eclipse.jface.action.IAction;
 
 
 /**
+ * The Class SubmitNewServiceVersion.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -29,18 +31,24 @@ public class SubmitNewServiceVersion extends AbstractSubmitAssetAction {
 	private static final SOALogger logger = SOALogger.getLogger();
 	
 	/**
-	 * 
+	 * Instantiates a new submit new service version.
 	 */
 	public SubmitNewServiceVersion() {
 		super();
 	}
 
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.services.ui.actions.AbstractSubmitAssetAction#logger()
+	 */
 	@Override
 	protected SOALogger logger() {
 		return logger;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.services.ui.actions.AbstractSubmitAssetAction#submitAsset(org.eclipse.jface.action.IAction, org.eclipse.core.resources.IProject)
+	 */
 	@Override
 	public IStatus submitAsset(IAction action, IProject project)
 			throws Exception {

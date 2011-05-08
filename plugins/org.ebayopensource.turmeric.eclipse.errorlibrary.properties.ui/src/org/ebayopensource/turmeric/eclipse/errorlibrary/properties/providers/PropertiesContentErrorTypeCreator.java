@@ -32,8 +32,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
- * @author haozhou
+ * The Class PropertiesContentErrorTypeCreator.
  *
+ * @author haozhou
  */
 public class PropertiesContentErrorTypeCreator implements IErrorTypeCreator {
 

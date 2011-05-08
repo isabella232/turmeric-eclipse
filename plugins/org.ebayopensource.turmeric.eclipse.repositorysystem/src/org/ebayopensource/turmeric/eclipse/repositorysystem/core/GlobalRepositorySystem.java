@@ -27,16 +27,18 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 
 
 /**
+ * The Class GlobalRepositorySystem.
+ *
  * @author smathew
  * 
  * This is the Global access point for all other systems to query and set the
  * repo systems. The extension point are processed and are kept inside a local
  * storage and the processing happens only once per plugin activation
  * @see ISOARepositorySystem
- * 
  */
 public class GlobalRepositorySystem {
 
+	/** The available repository systems. */
 	List<ISOARepositorySystem> availableRepositorySystems;
 
 	private ISOARepositorySystem activeRepositorySystem = null;
@@ -87,10 +89,20 @@ public class GlobalRepositorySystem {
 
 	}
 
+	/**
+	 * Instance of.
+	 *
+	 * @return the global repository system
+	 */
 	public static GlobalRepositorySystem instanceOf() {
 		return globalRepositorySystem;
 	}
 
+	/**
+	 * Gets the active repository system.
+	 *
+	 * @return the active repository system
+	 */
 	public ISOARepositorySystem getActiveRepositorySystem() {
 		if (activeRepositorySystem == null) {
 			final String systemID = PreferenceReader.getCurrentRepositorySystemId();
@@ -101,25 +113,40 @@ public class GlobalRepositorySystem {
 		return activeRepositorySystem;
 	}
 
+	/**
+	 * Sets the active repository system.
+	 *
+	 * @param activeRepositorySystem the new active repository system
+	 */
 	public void setActiveRepositorySystem(
 			ISOARepositorySystem activeRepositorySystem) {
 		this.activeRepositorySystem = activeRepositorySystem;
 	}
 
+	/**
+	 * Gets the available repository systems.
+	 *
+	 * @return the available repository systems
+	 */
 	public List<ISOARepositorySystem> getAvailableRepositorySystems() {
 		return availableRepositorySystems;
 	}
 
+	/**
+	 * Sets the available repository systems.
+	 *
+	 * @param availableRepositorySystems the new available repository systems
+	 */
 	public void setAvailableRepositorySystems(
 			List<ISOARepositorySystem> availableRepositorySystems) {
 		this.availableRepositorySystems = availableRepositorySystems;
 	}
 
 	/**
-	 * Not a null safe method
-	 * 
-	 * @param id
-	 * @return
+	 * Not a null safe method.
+	 *
+	 * @param id the id
+	 * @return the repository system
 	 */
 	public ISOARepositorySystem getRepositorySystem(String id) {
 		for (ISOARepositorySystem system : availableRepositorySystems) {

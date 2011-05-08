@@ -19,13 +19,20 @@ import org.jdom.JDOMException;
 import org.jdom.Namespace;
 
 /**
- * @author yualiu
+ * The Class XMLHelper.
  *
+ * @author yualiu
  */
 public class XMLHelper {
 	private InputStream input;
 	private Document document;
 
+	/**
+	 * Instantiates a new xML helper.
+	 *
+	 * @param input the input
+	 * @throws XMLOperationException the xML operation exception
+	 */
 	public XMLHelper(InputStream input) throws XMLOperationException{
 		this.input = input;
 		load();
@@ -41,6 +48,13 @@ public class XMLHelper {
 		}
 	}
 
+	/**
+	 * Replace.
+	 *
+	 * @param value the value
+	 * @param iu the iu
+	 * @throws XMLOperationException the xML operation exception
+	 */
 	public void replace(String value, InvokeUnit iu) throws XMLOperationException {
 		Element ele = getElement(iu);
 		if(null == ele){
@@ -57,6 +71,13 @@ public class XMLHelper {
 		}
 	}
 
+	/**
+	 * Replace.
+	 *
+	 * @param value the value
+	 * @param iu the iu
+	 * @throws XMLOperationException the xML operation exception
+	 */
 	public void replace(Element value, InvokeUnit iu) throws XMLOperationException {
 		Element parent = getElement(iu);
 		if(null == parent){
@@ -72,6 +93,13 @@ public class XMLHelper {
 
 	}
 
+	/**
+	 * Removes the.
+	 *
+	 * @param iu the iu
+	 * @return true, if successful
+	 * @throws XMLOperationException the xML operation exception
+	 */
 	public boolean remove(InvokeUnit iu) throws XMLOperationException {
 		Element parent = getElement(iu);
 		if(null == parent){
@@ -83,6 +111,12 @@ public class XMLHelper {
 		return removed;
 	}
 
+	/**
+	 * Gets the element.
+	 *
+	 * @param iu the iu
+	 * @return the element
+	 */
 	public Element getElement(InvokeUnit iu) {
 		Element root = document.getRootElement();
 		Namespace namespace = root.getNamespace();
@@ -124,6 +158,12 @@ public class XMLHelper {
 		throw new XMLOperationException("Element " + iu.getXPath() + " is eixsting");
 	}
 
+	/**
+	 * Save.
+	 *
+	 * @param file the file
+	 * @throws XMLOperationException the xML operation exception
+	 */
 	public void save(IFile file) throws XMLOperationException {
 		try {
 			JDOMUtil.outputDocument(document, file);

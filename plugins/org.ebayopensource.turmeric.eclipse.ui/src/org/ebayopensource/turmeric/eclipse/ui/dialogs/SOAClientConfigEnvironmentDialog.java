@@ -54,8 +54,14 @@ import org.eclipse.swt.widgets.Shell;
  * @since 1.0.0
  */
 public class SOAClientConfigEnvironmentDialog extends TitleAreaDialog {
+	
+	/** The Constant TITLE. */
 	public static final String TITLE = "Manage Client Config Environments";
+	
+	/** The Constant MESSAGE. */
 	public static final String MESSAGE = "Add new client config environments";
+	
+	/** The Constant MESSAGE_EXISTING_ENV. */
 	public static final String MESSAGE_EXISTING_ENV = MESSAGE + " and choose an existing environment for a copy.";
 	
 	private int helpID = ISOAHelpProvider.WINDOW_DEPENDENCIES;
@@ -70,7 +76,9 @@ public class SOAClientConfigEnvironmentDialog extends TitleAreaDialog {
 	private List<String> existingEnvironments;
 	
 	/**
-	 * @param parentShell
+	 * Instantiates a new sOA client config environment dialog.
+	 *
+	 * @param parentShell the parent shell
 	 * @param currentEnvs the list of environments of the consumer projects
 	 * @param existingEnvs the list of existing environments that already available
 	 */
@@ -83,6 +91,9 @@ public class SOAClientConfigEnvironmentDialog extends TitleAreaDialog {
 		existingEnvironments = existingEnvs;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.TitleAreaDialog#createContents(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	protected Control createContents(final Composite parent) {
 		final Control contents = super.createContents(parent);
@@ -97,6 +108,9 @@ public class SOAClientConfigEnvironmentDialog extends TitleAreaDialog {
 		return contents;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.TitleAreaDialog#createDialogArea(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	protected Control createDialogArea(final Composite parent) {
 		final Composite comp = (Composite) super.createDialogArea(parent);
@@ -171,6 +185,9 @@ public class SOAClientConfigEnvironmentDialog extends TitleAreaDialog {
 		return composite;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.Dialog#create()
+	 */
 	@Override
 	public void create() {
 		super.create();
@@ -217,14 +234,27 @@ public class SOAClientConfigEnvironmentDialog extends TitleAreaDialog {
 		updateStatus(null);
 	}
 
+	/**
+	 * Gets the environment name.
+	 *
+	 * @return the environment name
+	 */
 	public String getEnvironmentName() {
 		return environmentName;
 	}
 
+	/**
+	 * Gets the clone environment.
+	 *
+	 * @return the clone environment
+	 */
 	public EnvironmentItem getCloneEnvironment() {
 		return cloneEnvironment;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.Dialog#okPressed()
+	 */
 	@Override
 	protected void okPressed() {
 		environmentName = environmentText.getText();

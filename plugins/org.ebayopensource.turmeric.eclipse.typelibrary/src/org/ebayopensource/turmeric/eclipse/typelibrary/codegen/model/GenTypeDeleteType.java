@@ -20,12 +20,18 @@ import java.util.Map;
  */
 public class GenTypeDeleteType extends BaseTypeLibCodegenModel {
 
+	/**
+	 * Instantiates a new gen type delete type.
+	 */
 	public GenTypeDeleteType() {
 		super();
 		setGenType(GENTYPE_DELETETYPE);
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.BaseTypeLibCodegenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		// happy with BaseTypeLibCodegenModels functionality

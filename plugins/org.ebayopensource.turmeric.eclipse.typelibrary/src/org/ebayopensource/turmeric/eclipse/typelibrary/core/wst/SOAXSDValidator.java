@@ -25,11 +25,15 @@ import org.eclipse.wst.xsd.core.internal.validation.eclipse.XSDValidator;
 
 
 /**
+ * The Class SOAXSDValidator.
+ *
  * @author smathew
- * 
  */
 public class SOAXSDValidator extends AbstractSOAValidator {
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.validator.core.AbstractSOAValidator#validate(java.lang.Object)
+	 */
 	@SuppressWarnings("restriction")
 	@Override
 	public IStatus validate(Object obj) throws ValidationInterruptedException {
@@ -68,6 +72,11 @@ public class SOAXSDValidator extends AbstractSOAValidator {
 		return status;
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 
 	}

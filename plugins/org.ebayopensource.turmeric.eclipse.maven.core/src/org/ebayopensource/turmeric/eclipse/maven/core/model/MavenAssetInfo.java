@@ -18,6 +18,8 @@ import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 
 
 /**
+ * The Class MavenAssetInfo.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -25,7 +27,8 @@ public class MavenAssetInfo extends AssetInfo implements IMavenArtifact{
 	private String groupID;
 	
 	/**
-	 * 
+	 * Instantiates a new maven asset info.
+	 *
 	 * @param groupID the maven group id
 	 * @param name the asset name
 	 * @param version the version number
@@ -54,27 +57,42 @@ public class MavenAssetInfo extends AssetInfo implements IMavenArtifact{
 		this.groupID = groupID;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo#getShortDescription()
+	 */
 	@Override
 	public String getShortDescription() {
 		return StringUtil.toString(groupID, 
 				SOAProjectConstants.DELIMITER_SEMICOLON, getName());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo#getDescription()
+	 */
 	@Override
 	public String getDescription() {
 		return MavenCoreUtils.translateLibraryName(groupID, getName(), getVersion());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo#toString()
+	 */
 	@Override
 	public String toString() {
 		return getDescription();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo#getUniqueID()
+	 */
 	@Override
 	public String getUniqueID() {
 		return getDescription();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -84,6 +102,9 @@ public class MavenAssetInfo extends AssetInfo implements IMavenArtifact{
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

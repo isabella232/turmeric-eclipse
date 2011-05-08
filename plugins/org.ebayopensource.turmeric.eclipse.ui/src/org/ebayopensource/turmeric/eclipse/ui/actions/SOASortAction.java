@@ -16,11 +16,12 @@ import org.eclipse.jface.viewers.ViewerComparator;
 
 
 /**
+ * The Class SOASortAction.
+ *
  * @author yayu
  * 
  * This is the standard Sort action. Uses the default comparator. The gif is
  * also standard sort gif.
- * 
  */
 public abstract class SOASortAction extends Action {
 	private boolean fSorted;
@@ -29,6 +30,12 @@ public abstract class SOASortAction extends Action {
 
 	private ViewerComparator fComparator;
 
+	/**
+	 * Instantiates a new sOA sort action.
+	 *
+	 * @param viewer the viewer
+	 * @param sorter the sorter
+	 */
 	public SOASortAction(StructuredViewer viewer, ViewerComparator sorter) {
 		super("", IAction.AS_CHECK_BOX);
 		setText(getTitle());
@@ -54,10 +61,8 @@ public abstract class SOASortAction extends Action {
 		setChecked(fSorted);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.action.Action#run()
+	/**
+	 * {@inheritDoc}
 	 */
 	public void run() {
 		// Toggle sorting on/off
@@ -76,16 +81,16 @@ public abstract class SOASortAction extends Action {
 	}
 
 	/**
-	 * This is the Text shown in the action
-	 * 
-	 * @return
+	 * This is the Text shown in the action.
+	 *
+	 * @return the title
 	 */
 	public abstract String getTitle();
 
 	/**
-	 * This is the tool tip for action
-	 * 
-	 * @return
+	 * This is the tool tip for action.
+	 *
+	 * @return the tool tip
 	 */
 	public abstract String getToolTip();
 

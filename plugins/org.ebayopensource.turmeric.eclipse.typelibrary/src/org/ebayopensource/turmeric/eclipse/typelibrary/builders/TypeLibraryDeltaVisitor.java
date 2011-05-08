@@ -35,18 +35,29 @@ public class TypeLibraryDeltaVisitor implements IResourceDeltaVisitor {
 	private ArrayList<IFile> modifiedXSdList = new ArrayList<IFile>();
 	private ArrayList<IFile> deletedXSDList = new ArrayList<IFile>();
 
+	/**
+	 * Instantiates a new type library delta visitor.
+	 *
+	 * @param project the project
+	 */
 	public TypeLibraryDeltaVisitor(IProject project) {
 		this.project = project;
 	}
 
+	/**
+	 * Instantiates a new type library delta visitor.
+	 */
 	public TypeLibraryDeltaVisitor() {
 	}
 
-	/*
+	/**
 	 * Visits the delta, finds out if there are modified XSDs and returns true
 	 * if delta is not over. In addition it populates the deleted xsd files and
-	 * modified xsd files list. (non-Javadoc)
-	 * 
+	 * modified xsd files list.
+	 *
+	 * @param delta the delta
+	 * @return true, if successful
+	 * @throws CoreException the core exception
 	 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
 	 */
 	public boolean visit(IResourceDelta delta) throws CoreException {
@@ -84,24 +95,32 @@ public class TypeLibraryDeltaVisitor implements IResourceDeltaVisitor {
 		return true;
 	}
 	
+	/**
+	 * Gets the deleted project.
+	 *
+	 * @return the deleted project
+	 */
 	public List<IProject> getDeletedProject() {
 		return deletedTypeLibProjects;
 	}
 
 	/**
+	 * Gets the modified xsds.
+	 *
 	 * @return list of deleted XSDs. See visit method
 	 * @see {@link TypeLibraryDeltaVisitor#visit(IResourceDelta)} to see how
-	 *      this is populated
-	 * @return
+	 * this is populated
 	 */
 	public ArrayList<IFile> getModifiedXsds() {
 		return modifiedXSdList;
 	}
 
 	/**
+	 * Gets the deleted xsd list.
+	 *
 	 * @return list of deleted XSDs. See visit method
 	 * @see {@link TypeLibraryDeltaVisitor#visit(IResourceDelta)}to see how
-	 *      this is populated
+	 * this is populated
 	 */
 	public ArrayList<IFile> getDeletedXSDList() {
 		return deletedXSDList;

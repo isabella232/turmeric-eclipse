@@ -52,12 +52,12 @@ public class TypeLibraryBuilderUtils {
 	/**
 	 * Wrapper API for TypeLibraryDeltaVisitor pattern. Returns all the XSDs
 	 * which has been modified according to the delta
-	 * 
+	 *
 	 * @param delta -
-	 *            resource delta
-	 * @param project
+	 * resource delta
+	 * @param project the project
 	 * @return list of modified xsds.
-	 * @throws CoreException
+	 * @throws CoreException the core exception
 	 */
 	public static List<IFile> getModifiedXsds(IResourceDelta delta,
 			IProject project) throws CoreException {
@@ -70,11 +70,11 @@ public class TypeLibraryBuilderUtils {
 	/**
 	 * Examine if the project is not null, accessible, has type lib nature. It
 	 * also examines the readability and writability aspect.
-	 * 
+	 *
 	 * @param project -
-	 *            the project to be examined.
-	 * @return
-	 * @throws Exception
+	 * the project to be examined.
+	 * @return the i status
+	 * @throws Exception the exception
 	 */
 	public static IStatus checkProjectHealth(final IProject project)
 			throws Exception {
@@ -117,14 +117,14 @@ public class TypeLibraryBuilderUtils {
 
 	/**
 	 * Validate the xsd for any wtp validation issues.
-	 * 
+	 *
 	 * @param project -
-	 *            the parent project
+	 * the parent project
 	 * @param complainAboutMissingXSDs -
-	 *            if this is true if there is a missing xsd file( opposed to the
-	 *            type info x),
-	 * @return
-	 * @throws Exception
+	 * if this is true if there is a missing xsd file( opposed to the
+	 * type info x),
+	 * @return the multi status
+	 * @throws Exception the exception
 	 */
 	public static MultiStatus validateXSDS(IProject project,
 			boolean complainAboutMissingXSDs) throws Exception {
@@ -153,15 +153,14 @@ public class TypeLibraryBuilderUtils {
 	}
 
 	/**
-	 * 
 	 * Checks an interface project's health against soa standards. We might have
 	 * to move it to interface package. but a small problem is that this checks
 	 * mainly for the type library dependency feature prerequisites. WSDL should
 	 * be there, Type Dependency file should be there. Nature should be correct.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @return the i status
+	 * @throws Exception the exception
 	 */
 	public static IStatus checkProjectHealthForIntfProject(
 			final IProject project) throws Exception {
@@ -231,10 +230,10 @@ public class TypeLibraryBuilderUtils {
 	 * the class path. This is to make sure that the latest XSDs and xml
 	 * modified by the user are present in the class path and not the stale old
 	 * output xsds and xmls.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @return the codegen invoker
+	 * @throws Exception the exception
 	 */
 	public static CodegenInvoker initForTypeLib(IProject project)
 			throws Exception {

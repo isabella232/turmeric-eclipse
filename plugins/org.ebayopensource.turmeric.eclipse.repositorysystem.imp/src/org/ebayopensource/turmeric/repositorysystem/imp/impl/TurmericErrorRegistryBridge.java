@@ -32,13 +32,14 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
- * @author yayu
+ * The Class TurmericErrorRegistryBridge.
  *
+ * @author yayu
  */
 public class TurmericErrorRegistryBridge implements IErrorRegistryBridge {
 
 	/**
-	 * 
+	 * Instantiates a new turmeric error registry bridge.
 	 */
 	public TurmericErrorRegistryBridge() {
 		super();
@@ -78,6 +79,9 @@ public class TurmericErrorRegistryBridge implements IErrorRegistryBridge {
 		creator.createPlatformSpecificArtifacts(project, SOAMavenConstants.FOLDER_SRC_MAIN_RESOURCES, monitor);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public long nextErrorId(String storeLocation, String organization,
 			String domain) throws Exception {
 		ErrorIdGenerator generator = null;

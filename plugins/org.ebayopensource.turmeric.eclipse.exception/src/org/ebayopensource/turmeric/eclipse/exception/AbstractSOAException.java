@@ -12,40 +12,55 @@
 package org.ebayopensource.turmeric.eclipse.exception;
 
 /**
+ * The Class AbstractSOAException.
+ *
  * @author yayu
- * 
  */
 public abstract class AbstractSOAException extends Exception {
 
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 5961214511800810906L;
+
+	/**
+	 * Instantiates a new abstract soa exception.
+	 */
 	public AbstractSOAException() {
 		super();
 	}
 
 	/**
-	 * @param message
+	 * Instantiates a new abstract soa exception.
+	 *
+	 * @param message the message
 	 */
 	public AbstractSOAException(String message) {
 		super(message);
 	}
 
 	/**
-	 * @param cause
+	 * Instantiates a new abstract soa exception.
+	 *
+	 * @param cause the cause
 	 */
 	public AbstractSOAException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new abstract soa exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public AbstractSOAException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Throwable#getMessage()
+	 */
 	@Override
 	public String getMessage() {
 		//We dont want to see "Null" in any dialog

@@ -26,11 +26,9 @@ public class AssertionsSeverityModelComparator implements Comparator<ArtifactVal
 	 * Compare the two objects to determine
 	 * the relative ordering.
 	 *
-	 * @param		o1	an Object to compare
-	 * @param		o2	an Object to compare
-	 * @return		
-	 *
-	 * @exception	ClassCastException when objects are not the correct type
+	 * @param o1 the o1
+	 * @param o2 the o2
+	 * @return the int
 	 */
 	public int compare(ArtifactValidationResult o1, ArtifactValidationResult o2) {
 		return o1.getAssertionsSeverityModel().ordinal() - o2.getAssertionsSeverityModel().ordinal();

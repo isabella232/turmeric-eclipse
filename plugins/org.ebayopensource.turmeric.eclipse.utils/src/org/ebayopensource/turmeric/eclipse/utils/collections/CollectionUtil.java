@@ -13,15 +13,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * The Class CollectionUtil.
+ *
  * @author smathew
- * 
  */
 public class CollectionUtil {
 
 	/**
-	 * @param <T>
-	 * @param set1
-	 * @param set2
+	 * Intersection.
+	 *
+	 * @param <T> the generic type
+	 * @param set1 the set1
+	 * @param set2 the set2
 	 * @return Uses the intersection paradigm. Non destructive
 	 */
 	public static <T> Set<T> intersection(Set<T> set1, Set<T> set2) {
@@ -31,9 +34,11 @@ public class CollectionUtil {
 	}
 
 	/**
-	 * @param <T>
-	 * @param set1
-	 * @param set2
+	 * Two way diff.
+	 *
+	 * @param <T> the generic type
+	 * @param set1 the set1
+	 * @param set2 the set2
 	 * @return Uses the diff paradigm. Non destructive set1-set2+set2-set1
 	 */
 	public static <T> Set<T> twoWayDiff(Set<T> set1, Set<T> set2) {
@@ -46,9 +51,11 @@ public class CollectionUtil {
 	}
 
 	/**
-	 * @param <T>
-	 * @param set1
-	 * @param set2
+	 * One way diff.
+	 *
+	 * @param <T> the generic type
+	 * @param set1 the set1
+	 * @param set2 the set2
 	 * @return Uses the diff paradigm. Non destructive set1 - set2
 	 */
 	public static <T> Set<T> oneWayDiff(Set<T> set1, Set<T> set2) {
@@ -58,9 +65,11 @@ public class CollectionUtil {
 	}
 
 	/**
-	 * @param <T>
-	 * @param collection
-	 * @return
+	 * Checks if is empty.
+	 *
+	 * @param <T> the generic type
+	 * @param collection the collection
+	 * @return true, if is empty
 	 * Null safe
 	 * False if the collection passed in is null
 	 */

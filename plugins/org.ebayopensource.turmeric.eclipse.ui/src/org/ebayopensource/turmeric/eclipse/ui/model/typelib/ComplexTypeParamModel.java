@@ -21,10 +21,20 @@ import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeW
 public class ComplexTypeParamModel extends TypeParamModel {
 	private ComplexTypeWizardElementPage.ElementTableModel[] elementTableModel;
 
+	/**
+	 * Gets the element table model.
+	 *
+	 * @return the element table model
+	 */
 	public ComplexTypeWizardElementPage.ElementTableModel[] getElementTableModel() {
 		return elementTableModel;
 	}
 
+	/**
+	 * Sets the element table model.
+	 *
+	 * @param elementTableModel the new element table model
+	 */
 	public void setElementTableModel(ComplexTypeWizardElementPage.ElementTableModel[] elementTableModel) {
 		this.elementTableModel = elementTableModel;
 	}

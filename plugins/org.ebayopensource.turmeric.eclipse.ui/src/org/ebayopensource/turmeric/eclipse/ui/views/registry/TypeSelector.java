@@ -18,6 +18,8 @@ import org.eclipse.ui.dialogs.TwoPaneElementSelector;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
+ * The Class TypeSelector.
+ *
  * @author smathew
  * 
  * The selection dialog for adding types
@@ -26,6 +28,9 @@ public class TypeSelector extends TwoPaneElementSelector {
 
 	private ArrayList<LibraryType> selectedTypes = new ArrayList<LibraryType>();
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.dialogs.TwoPaneElementSelector#computeResult()
+	 */
 	@Override
 	protected void computeResult() {
 		super.computeResult();
@@ -43,6 +48,15 @@ public class TypeSelector extends TwoPaneElementSelector {
 
 	}
 
+	/**
+	 * Instantiates a new type selector.
+	 *
+	 * @param parent the parent
+	 * @param title the title
+	 * @param libraryTpes the library tpes
+	 * @param projectName the project name
+	 * @param curTypeName the cur type name
+	 */
 	public TypeSelector(Shell parent, String title, LibraryType libraryTpes[],
 			String projectName, String curTypeName) {
 		super(parent, new TypeSelectorElementRenderer(),
@@ -56,11 +70,28 @@ public class TypeSelector extends TwoPaneElementSelector {
 		}
 	}
 
+	/**
+	 * Instantiates a new type selector.
+	 *
+	 * @param parent the parent
+	 * @param title the title
+	 * @param libraryTpes the library tpes
+	 * @param projectName the project name
+	 */
 	public TypeSelector(Shell parent, String title, LibraryType libraryTpes[],
 			String projectName) {
 		this(parent, title, libraryTpes, projectName, "");
 	}
 
+	/**
+	 * Instantiates a new type selector.
+	 *
+	 * @param parent the parent
+	 * @param title the title
+	 * @param libraryTpes the library tpes
+	 * @param projectName the project name
+	 * @param renderer the renderer
+	 */
 	public TypeSelector(Shell parent, String title, LibraryType libraryTpes[],
 			String projectName, TypeSelectorElementRenderer renderer) {
 		super(parent, renderer, new TypeSelectorQualifiedRenderer());
@@ -73,6 +104,11 @@ public class TypeSelector extends TwoPaneElementSelector {
 		}
 	}
 
+	/**
+	 * Gets the selected types.
+	 *
+	 * @return the selected types
+	 */
 	public ArrayList<LibraryType> getSelectedTypes() {
 		if (selectedTypes == null) {
 			selectedTypes = new ArrayList<LibraryType>();
@@ -80,6 +116,11 @@ public class TypeSelector extends TwoPaneElementSelector {
 		return selectedTypes;
 	}
 
+	/**
+	 * Sets the selected types.
+	 *
+	 * @param selectedTypes the new selected types
+	 */
 	public void setSelectedTypes(ArrayList<LibraryType> selectedTypes) {
 		this.selectedTypes = selectedTypes;
 	}

@@ -19,14 +19,15 @@ import org.maven.ide.eclipse.internal.embedder.MavenImpl;
 import org.maven.ide.eclipse.project.MavenProjectManager;
 
 /**
- * 
+ * The Class MavenApiHelper.
+ *
  * @author <a href="oleg@codehaus.org">Oleg Gusakov</a>
- * 
  */
 public class MavenApiHelper {
 
 	/**
-	 * 
+	 * Gets the maven index manager.
+	 *
 	 * @return the IndexManager
 	 */
 	public static IndexManager getMavenIndexManager() {
@@ -34,7 +35,8 @@ public class MavenApiHelper {
 	}
 
 	/**
-	 * 
+	 * Gets the maven project manager.
+	 *
 	 * @return the maven ProjectManager
 	 */
 	public static MavenProjectManager getMavenProjectManager() {
@@ -42,7 +44,8 @@ public class MavenApiHelper {
 	}
 
 	/**
-	 * 
+	 * Gets the maven model manager.
+	 *
 	 * @return the maven model manager
 	 */
 	public static MavenModelManager getMavenModelManager() {
@@ -50,9 +53,10 @@ public class MavenApiHelper {
 	}
 
 	/**
-	 * 
+	 * Gets the maven embedder.
+	 *
 	 * @return the maven implementation that is being used
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public static MavenImpl getMavenEmbedder() throws MavenEclipseApiException {
 		IMaven embedder = MavenPlugin.getDefault().getMaven();
@@ -63,9 +67,10 @@ public class MavenApiHelper {
 	}
 	
 	/**
-	 * 
+	 * Gets the repository system.
+	 *
 	 * @return the maven repository system
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public static RepositorySystem getRepositorySystem() throws MavenEclipseApiException {
 		try {

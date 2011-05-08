@@ -42,21 +42,21 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
 
 /**
- * @author yayu
+ * The Class AbstractNewErrorResourceWizardPage.
  *
+ * @author yayu
  */
 public abstract class AbstractNewErrorResourceWizardPage extends 
 AbstractSOAResourceWizardPage {
 	private IStructuredSelection selection;
 	
-	/**
-	 * 
-	 */
+	/** The error lib text. */
 	protected Text errorLibText;
 	
 
 	/**
-	 * 
+	 * Instantiates a new abstract new error resource wizard page.
+	 *
 	 * @param pageName the Page Name
 	 * @param title the Title
 	 * @param description description
@@ -69,10 +69,11 @@ AbstractSOAResourceWizardPage {
 	}
 
 	/**
-	 * 
+	 * Creates the error library selector.
+	 *
 	 * @param parent the parent composite
 	 * @return a new Text object
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	protected Text createErrorLibrarySelector(Composite parent) throws CoreException {
 		new Label(parent, SWT.LEFT).setText(SOAMessages.TEXT_NAME_ERROR_LIBRARY);
@@ -146,6 +147,9 @@ AbstractSOAResourceWizardPage {
 		return errorLibText;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		if( super.dialogChanged() == false)
@@ -160,12 +164,13 @@ AbstractSOAResourceWizardPage {
 	}
 
 	/**
-	 * 
+	 * Error library changed.
 	 */
 	protected abstract void errorLibraryChanged();
 	
 	/**
-	 * 
+	 * Gets the error library.
+	 *
 	 * @return the text value of the Error Library.
 	 */
 	public String getErrorLibrary() {

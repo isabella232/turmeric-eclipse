@@ -36,12 +36,13 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.osgi.framework.Bundle;
 
 /**
+ * The Class SOAGlobalRegistryAdapter.
+ *
  * @author smathew
  * 
  * This class adapts the SOA Registry from Tools to Plugin.
  * 
  * The changes to SOA Tools API should only affect this class.
- * 
  */
 public class SOAGlobalRegistryAdapter {
 
@@ -60,15 +61,20 @@ public class SOAGlobalRegistryAdapter {
 	 * Returns the global singleton instance representing a type registry. A
 	 * progress monitor would be displayed if called from a UI thread Otherwise
 	 * this willbe a silent operation
-	 * 
-	 * @return
-	 * @throws Exception
+	 *
+	 * @return single instance of SOAGlobalRegistryAdapter
 	 */
 	
 	public static SOAGlobalRegistryAdapter getInstance() {
 		return registryAdapter;
 	}
 	
+	/**
+	 * Gets the global registry.
+	 *
+	 * @return the global registry
+	 * @throws Exception the exception
+	 */
 	public SOATypeRegistry getGlobalRegistry() throws Exception {
 		if (soaTypeRegistry == null) {
 			long startTime = System.currentTimeMillis();
@@ -109,9 +115,9 @@ public class SOAGlobalRegistryAdapter {
 	 * This API takes the typeLibrary names, find the location out, build a
 	 * class loader and pass the type lib names to codegen to populate the
 	 * registry.
-	 * 
-	 * @param typelibNames
-	 * @throws Exception
+	 *
+	 * @param typelibNames the typelib names
+	 * @throws Exception the exception
 	 */
 	public void populateRegistry(String... typelibNames)
 			throws Exception {
@@ -157,9 +163,9 @@ public class SOAGlobalRegistryAdapter {
 	}
 
 	/**
-	 * Sets up the classpath based on the repo system jar info and lib info
-	 * 
-	 * @throws MalformedURLException
+	 * Sets up the classpath based on the repo system jar info and lib info.
+	 *
+	 * @throws Exception the exception
 	 */
 	public void init() throws Exception {
 		typeLibNamesForSOATools = new HashSet<String>();
@@ -186,6 +192,13 @@ public class SOAGlobalRegistryAdapter {
 		populateClassLoader();
 	}
 	
+	/**
+	 * Refresh type dependency in soa type registry.
+	 *
+	 * @param typeLibraryName the type library name
+	 * @throws CoreException the core exception
+	 * @throws Exception the exception
+	 */
 	public void refreshTypeDependencyInSOATypeRegistry(String typeLibraryName) throws CoreException, Exception{
 		populateClassLoader();
 		ClassLoader current = Thread.currentThread().getContextClassLoader();
@@ -226,6 +239,12 @@ public class SOAGlobalRegistryAdapter {
 
 	}
 	
+	/**
+	 * Adds the type to registry.
+	 *
+	 * @param libraryType the library type
+	 * @throws Exception the exception
+	 */
 	public void addTypeToRegistry(LibraryType libraryType) throws Exception {
 		populateClassLoader();
 		ClassLoader current = Thread.currentThread().getContextClassLoader();

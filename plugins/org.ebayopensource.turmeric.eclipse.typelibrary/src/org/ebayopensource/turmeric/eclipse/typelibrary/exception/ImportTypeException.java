@@ -9,7 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.exception;
 
 /**
- * 
+ * The Class ImportTypeException.
+ *
  * @author mzang
  * @since 1.0.0
  */
@@ -17,14 +18,30 @@ public class ImportTypeException extends Exception {
 
 	private static final long serialVersionUID = 260L;
 
+	/**
+	 * Instantiates a new import type exception.
+	 *
+	 * @param message the message
+	 */
 	public ImportTypeException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new import type exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public ImportTypeException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new import type exception.
+	 *
+	 * @param cause the cause
+	 */
 	public ImportTypeException(Throwable cause) {
 		super(cause);
 	}

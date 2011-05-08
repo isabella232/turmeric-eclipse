@@ -13,7 +13,8 @@ import org.ebayopensource.turmeric.eclipse.registry.consumer.models.URLHolder;
 
 
 /**
- * Gateway to the methods of the registry service through a consumer
+ * Gateway to the methods of the registry service through a consumer.
+ *
  * @author ramurthy
  */
 
@@ -23,8 +24,9 @@ public class RegistryServiceGateway {
 	
 	/**
 	 * Returns the handler for Assertions Service Consumer.
-	 * @return
-	 * @throws AssertionsServiceException 
+	 *
+	 * @return the assertions service consumer
+	 * @throws AssertionsServiceException the assertions service exception
 	 */
 	public static AssertionsServiceConsumer getAssertionsServiceConsumer() throws AssertionsServiceException {
 		try {	

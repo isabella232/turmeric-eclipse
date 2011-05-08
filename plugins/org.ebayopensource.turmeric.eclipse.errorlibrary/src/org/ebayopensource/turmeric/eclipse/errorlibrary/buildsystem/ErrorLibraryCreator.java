@@ -32,14 +32,22 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
- * @author yayu
+ * The Class ErrorLibraryCreator.
  *
+ * @author yayu
  */
 public class ErrorLibraryCreator {
 
 
 	private static ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 	
+	/**
+	 * Creates the error library.
+	 *
+	 * @param model the model
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createErrorLibrary(ErrorLibraryParamModel model,
 			IProgressMonitor monitor) throws Exception {
 		// Eclipse Metadata

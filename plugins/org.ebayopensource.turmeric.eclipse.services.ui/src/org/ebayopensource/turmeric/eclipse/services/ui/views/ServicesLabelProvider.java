@@ -17,12 +17,17 @@ import org.eclipse.swt.graphics.Image;
 
 
 /**
+ * The Class ServicesLabelProvider.
+ *
  * @author smathew The Label provider for services explorer view
  * @see ILabelProvider
  */
 public class ServicesLabelProvider implements ILabelProvider {
 	private static String DEFAULT_IMAGE = UIConstants.IMAGE_ECLIPSE;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Image getImage(Object element) {
 		String imageName = DEFAULT_IMAGE;
 		if (element instanceof ServicesViewInterfaceModel) {
@@ -36,6 +41,9 @@ public class ServicesLabelProvider implements ILabelProvider {
 		return UIActivator.getImageFromRegistry(imageName);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getText(Object element) {
 		if (element instanceof ProjectInfo)
 			return ((ProjectInfo) element).getName();
@@ -44,19 +52,37 @@ public class ServicesLabelProvider implements ILabelProvider {
 		return "";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void addListener(ILabelProviderListener listener) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void dispose() {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void removeListener(ILabelProviderListener listener) {
 	}
 
+	/**
+	 * Gets the icon.
+	 *
+	 * @param name the name
+	 * @return the icon
+	 */
 	public static Image getIcon(final String name) {
 		final Image image = UIActivator.getImageFromRegistry(name);
 		if (image != null)

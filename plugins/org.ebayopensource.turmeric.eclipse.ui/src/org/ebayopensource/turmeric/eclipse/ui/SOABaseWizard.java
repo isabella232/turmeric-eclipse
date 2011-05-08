@@ -30,8 +30,10 @@ import org.eclipse.ui.progress.UIJob;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 
 /**
+ * The Class SOABaseWizard.
+ *
  * @author smathew This is the base class for all new SOA wizards that are
- *         contributed to creation wizards extension point
+ * contributed to creation wizards extension point
  */
 public abstract class SOABaseWizard extends Wizard implements INewWizard,
 		IExecutableExtension {
@@ -39,27 +41,45 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 	private static final int MIN_WIDTH = 600;
 	private static final int MIN_HEIGHT = 600;
 
+	/**
+	 * Instantiates a new sOA base wizard.
+	 */
 	public SOABaseWizard() {
 		super();
 		setNeedsProgressMonitor(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
+	 */
 	@Override
 	public boolean performFinish() {
 		return false;
 	}
 
+	/** The config. */
 	protected IConfigurationElement fConfig;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setInitializationData(IConfigurationElement config,
 			String propertyName, Object data) throws CoreException {
 		fConfig = config;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public final void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.selection = selection;
 	}
 
+	/**
+	 * Gets the selection.
+	 *
+	 * @return the selection
+	 */
 	public IStructuredSelection getSelection() {
 		return selection;
 	}
@@ -102,6 +122,12 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 		super.addPages();
 	}
 
+	/**
+	 * Pre validate.
+	 *
+	 * @return the i status
+	 * @throws ValidationInterruptedException the validation interrupted exception
+	 */
 	public IStatus preValidate() throws ValidationInterruptedException {
 		ISOARepositorySystem activeRepositorySystem = GlobalRepositorySystem
 				.instanceOf().getActiveRepositorySystem();
@@ -109,27 +135,49 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 		return validator.validateProjectCreation(getCreatingType());
 	}
 
+	/**
+	 * Gets the creating type.
+	 *
+	 * @return the creating type
+	 */
 	protected Object getCreatingType() {
 		return ISOAPreValidator.OTHERS;
 	}
 
 	/**
+	 * Gets the content pages.
+	 *
 	 * @return Since addPages are overriden Here is the place for implemntors to
-	 *         supply their wizard pages except for error pages, everything goes
-	 *         by base wizard alogorithm for navigation. ie it goes by array
-	 *         index
+	 * supply their wizard pages except for error pages, everything goes
+	 * by base wizard alogorithm for navigation. ie it goes by array
+	 * index
 	 */
 	public abstract IWizardPage[] getContentPages();
 
+	/**
+	 * Gets the minimum width.
+	 *
+	 * @return the minimum width
+	 */
 	public int getMinimumWidth() {
 		return MIN_WIDTH;
 	}
 
+	/**
+	 * Gets the minimum height.
+	 *
+	 * @return the minimum height
+	 */
 	public int getMinimumHeight() {
 		return MIN_HEIGHT;
 	}
 
 	// Center the active shell
+	/**
+	 * Sets the shell at center.
+	 *
+	 * @param activeShell the new shell at center
+	 */
 	public void setShellAtCenter(Shell activeShell) {
 		Rectangle rect = activeShell.getDisplay().getPrimaryMonitor()
 				.getBounds();
@@ -142,6 +190,9 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 		activeShell.setBounds(left, top, getMinimumWidth(), getMinimumHeight());
 	}
 
+	/**
+	 * Change perspective.
+	 */
 	protected void changePerspective() {
 		UIJob fNotifierJob = new UIJob("Change to Turmeric Development Perspective") {
 			public IStatus runInUIThread(IProgressMonitor monitor) {

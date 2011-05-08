@@ -51,8 +51,9 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.osgi.framework.Version;
 
 /**
+ * The Class ChangeServiceVersionDialog.
+ *
  * @author yayu
- * 
  */
 public class ChangeServiceVersionDialog extends TitleAreaDialog {
 	
@@ -77,7 +78,10 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 	private String oldVersionStr;
 	
 	/**
-	 * @param parentShell
+	 * Instantiates a new change service version dialog.
+	 *
+	 * @param parentShell the parent shell
+	 * @param intfProject the intf project
 	 */
 	public ChangeServiceVersionDialog(Shell parentShell,
 			SOAIntfProject intfProject) {
@@ -288,6 +292,9 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 		validateNewVersionText();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.Dialog#okPressed()
+	 */
 	@Override
 	protected void okPressed() {
 		final String newVersionStr = newVersionText.getText();

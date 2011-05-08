@@ -32,24 +32,51 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
+ * The Class AbstractSOAResourceWizardPage.
+ *
  * @author yayu
- * 
  */
 public abstract class AbstractSOAResourceWizardPage extends SOABasePage {
 	private Label resourceNameLabel;
 	private Text resourceNameText;
+	
+	/** The resource name control decoration. */
 	protected ControlDecoration resourceNameControlDecoration;
+	
+	/** The resource version text. */
 	protected Text resourceVersionText;
 
+	/**
+	 * Instantiates a new abstract soa resource wizard page.
+	 *
+	 * @param pageName the page name
+	 * @param title the title
+	 * @param description the description
+	 */
 	public AbstractSOAResourceWizardPage(String pageName, String title,
 			String description) {
 		super(pageName, title, description);
 	}
 
+	/**
+	 * Instantiates a new abstract soa resource wizard page.
+	 *
+	 * @param pageName the page name
+	 */
 	public AbstractSOAResourceWizardPage(String pageName) {
 		super(pageName);
 	}
 	
+	/**
+	 * Creates the resource name control.
+	 *
+	 * @param composite the composite
+	 * @param labelText the label text
+	 * @param modifyListener the modify listener
+	 * @param editable the editable
+	 * @param tooltip the tooltip
+	 * @return the text
+	 */
 	protected Text createResourceNameControl(final Composite composite,
 			final String labelText, final ModifyListener modifyListener,
 			boolean editable, final String tooltip) {
@@ -57,6 +84,17 @@ public abstract class AbstractSOAResourceWizardPage extends SOABasePage {
 				editable, true, tooltip);
 	}
 
+	/**
+	 * Creates the resource name control.
+	 *
+	 * @param composite the composite
+	 * @param labelText the label text
+	 * @param modifyListener the modify listener
+	 * @param editable the editable
+	 * @param needEmptyLabel the need empty label
+	 * @param tooltip the tooltip
+	 * @return the text
+	 */
 	protected Text createResourceNameControl(final Composite composite,
 			final String labelText, final ModifyListener modifyListener,
 			boolean editable, final boolean needEmptyLabel, final String tooltip) {
@@ -81,6 +119,15 @@ public abstract class AbstractSOAResourceWizardPage extends SOABasePage {
 		return resourceNameText;
 	}
 
+	/**
+	 * Creates the resource version control.
+	 *
+	 * @param composite the composite
+	 * @param labelText the label text
+	 * @param modifyListener the modify listener
+	 * @param tooltip the tooltip
+	 * @return the text
+	 */
 	protected Text createResourceVersionControl(final Composite composite,
 			final String labelText, ModifyListener modifyListener, 
 			final String tooltip) {
@@ -91,6 +138,9 @@ public abstract class AbstractSOAResourceWizardPage extends SOABasePage {
 		return resourceVersionText;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		if (text == null)
@@ -102,12 +152,25 @@ public abstract class AbstractSOAResourceWizardPage extends SOABasePage {
 		return DEFAULT_TEXT_VALUE;
 	}
 
+	/**
+	 * Gets the default resource name.
+	 *
+	 * @return the default resource name
+	 */
 	public abstract String getDefaultResourceName();
 
+	/**
+	 * Gets the resource name text.
+	 *
+	 * @return the resource name text
+	 */
 	public Text getResourceNameText() {
 		return this.resourceNameText;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		if (super.dialogChanged() == false)
@@ -170,6 +233,15 @@ public abstract class AbstractSOAResourceWizardPage extends SOABasePage {
 		return true;
 	}
 	
+	/**
+	 * Validate name.
+	 *
+	 * @param control the control
+	 * @param name the name
+	 * @param pattern the pattern
+	 * @param errorMessage the error message
+	 * @return true, if successful
+	 */
 	protected boolean validateName(Control control, 
 			String name, String pattern, String errorMessage) {
 		final InputObject inputObject = new InputObject(name,
@@ -186,10 +258,20 @@ public abstract class AbstractSOAResourceWizardPage extends SOABasePage {
 		return true;
 	}
 
+	/**
+	 * Gets the resource name.
+	 *
+	 * @return the resource name
+	 */
 	public String getResourceName() {
 		return getTextValue(this.resourceNameText);
 	}
 
+	/**
+	 * Gets the resource version.
+	 *
+	 * @return the resource version
+	 */
 	public String getResourceVersion() {
 		return getTextValue(this.resourceVersionText);
 	}

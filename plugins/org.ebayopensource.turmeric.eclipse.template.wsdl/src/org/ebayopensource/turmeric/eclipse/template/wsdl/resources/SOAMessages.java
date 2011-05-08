@@ -22,10 +22,16 @@ public class SOAMessages extends NLS {
 	
 	
 	
+	/** The IMPOR t_ err. */
 	public static String IMPORT_ERR;
 
+	/** The INPU t_ err. */
 	public static String INPUT_ERR;
+	
+	/** The O p_ err. */
 	public static String OP_ERR;
+	
+	/** The TYP e_ no t_ found. */
 	public static String TYPE_NOT_FOUND;
 	
 	static {

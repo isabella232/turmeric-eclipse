@@ -39,9 +39,9 @@ import org.eclipse.ui.IWorkbenchPart;
 
 
 /**
- * Removing all gen folders for the selected project
- * @author yayu
+ * Removing all gen folders for the selected project.
  *
+ * @author yayu
  */
 public class CleanProject implements IObjectActionDelegate{
 	private IStructuredSelection selection;
@@ -49,17 +49,27 @@ public class CleanProject implements IObjectActionDelegate{
 	private Shell shell;
 	
 	/**
-	 * 
+	 * Instantiates a new clean project.
 	 */
 	public CleanProject() {
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
+	 */
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 		shell = targetPart.getSite().getShell();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 *  @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
+	 */
 	public void run(final IAction action) {
 		try {
 			if (SOALogger.DEBUG)
@@ -118,6 +128,10 @@ public class CleanProject implements IObjectActionDelegate{
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
+	 */
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

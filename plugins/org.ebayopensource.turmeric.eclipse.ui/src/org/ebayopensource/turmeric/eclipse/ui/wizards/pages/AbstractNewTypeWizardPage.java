@@ -67,6 +67,8 @@ import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.w3c.dom.Element;
 
 /**
+ * The Class AbstractNewTypeWizardPage.
+ *
  * @author yayu
  */
 public abstract class AbstractNewTypeWizardPage extends
@@ -79,15 +81,23 @@ public abstract class AbstractNewTypeWizardPage extends
 	private Text parentTypeText;
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/** The container. */
 	protected Composite container;
+	
+	/** The doc text. */
 	protected Text docText;
+	
+	/** The base type comp. */
 	protected CCombo baseTypeComp;
 	private String currentTemplate;
 
 	/**
-	 * @param pageName
-	 * @param title
-	 * @param description
+	 * Instantiates a new abstract new type wizard page.
+	 *
+	 * @param pageName the page name
+	 * @param title the title
+	 * @param description the description
+	 * @param typeLibName the type lib name
 	 */
 	public AbstractNewTypeWizardPage(String pageName, String title,
 			String description, String typeLibName) {
@@ -95,16 +105,32 @@ public abstract class AbstractNewTypeWizardPage extends
 		this.typeLibName = typeLibName;
 	}
 
+	/**
+	 * Instantiates a new abstract new type wizard page.
+	 *
+	 * @param pageName the page name
+	 * @param title the title
+	 * @param description the description
+	 */
 	public AbstractNewTypeWizardPage(String pageName, String title,
 			String description) {
 		super(pageName, title, description);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage#getDefaultResourceName()
+	 */
 	@Override
 	public String getDefaultResourceName() {
 		return SOATypeLibraryConstants.DEFAULT_TYPE_NAME;
 	}
 
+	/**
+	 * Creates the template combo.
+	 *
+	 * @param container the container
+	 * @return the c combo
+	 */
 	protected CCombo createTemplateCombo(Composite container) {
 		final Map<String, URL> templateTypes = getTemplateTypes();
 		templateCombo = super.createCCombo(container, "&Template:", false,
@@ -125,6 +151,11 @@ public abstract class AbstractNewTypeWizardPage extends
 		return templateCombo;
 	}
 
+	/**
+	 * Load documentation from template.
+	 *
+	 * @throws Exception the exception
+	 */
 	protected void loadDocumentationFromTemplate() throws Exception {
 		if (docText != null && templateCombo != null) {
 			final String templateFileName = templateCombo.getText();
@@ -173,6 +204,12 @@ public abstract class AbstractNewTypeWizardPage extends
 
 	}	
 
+	/**
+	 * Creates the control.
+	 *
+	 * @param parent the parent
+	 * @param validateNow the validate now
+	 */
 	public void createControl(Composite parent, boolean validateNow) {
 		try {
 			container = super.createParentControl(parent, 4);
@@ -194,10 +231,19 @@ public abstract class AbstractNewTypeWizardPage extends
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(Composite parent) {
 		createControl(parent, true);
 	}
 
+	/**
+	 * Adds the type library name.
+	 *
+	 * @param parentComposite the parent composite
+	 * @return the text
+	 */
 	protected Text addTypeLibraryName(Composite parentComposite) {
 		new Label(parentComposite, SWT.LEFT).setText("&Type Library:");
 		typeLibraryNameText = new Text(parentComposite, SWT.BORDER);
@@ -277,6 +323,9 @@ public abstract class AbstractNewTypeWizardPage extends
 		return typeLibraryNameText;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		boolean result = super.dialogChanged();
@@ -350,6 +399,11 @@ public abstract class AbstractNewTypeWizardPage extends
 		return result;
 	}
 
+	/**
+	 * Gets the namespace value.
+	 *
+	 * @return the namespace value
+	 */
 	public String getNamespaceValue() {
 		return getTextValue(namespaceText);
 	}
@@ -367,28 +421,61 @@ public abstract class AbstractNewTypeWizardPage extends
 			namespaceText.setText(typeLibraryType.getLibraryNamespace());
 	}
 
+	/**
+	 * Gets the type library name.
+	 *
+	 * @return the type library name
+	 */
 	public String getTypeLibraryName() {
 		return getTextValue(typeLibraryNameText);
 	}
 
+	/**
+	 * Gets the parent type.
+	 *
+	 * @return the parent type
+	 */
 	public String getParentType() {
 		return getTextValue(parentTypeText);
 	}
 
+	/**
+	 * Gets the template types.
+	 *
+	 * @return the template types
+	 */
 	protected abstract Map<String, URL> getTemplateTypes();
 
+	/**
+	 * Gets the name value.
+	 *
+	 * @return the name value
+	 */
 	public String getNameValue() {
 		return getResourceName();
 	}
 
+	/**
+	 * Gets the version value.
+	 *
+	 * @return the version value
+	 */
 	public String getVersionValue() {
 		return getResourceVersion();
 	}
 
+	/**
+	 * Gets the template value.
+	 *
+	 * @return the template value
+	 */
 	public String getTemplateValue() {
 		return getTextValue(this.templateCombo);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
@@ -396,12 +483,24 @@ public abstract class AbstractNewTypeWizardPage extends
 						ISOAHelpProvider.PAGE_CREATE_SCHEMA_TYPE);
 	}
 
+	/**
+	 * Adds the namespace.
+	 *
+	 * @param composite the composite
+	 * @return the text
+	 */
 	public Text addNamespace(Composite composite) {
 		return namespaceText = createLabelTextField(composite, "&Namespace:",
 				TypeLibraryConstants.TYPE_INFORMATION_NAMESPACE,
 				modifyListener, true, false, "the namespace of the new schema type");
 	}
 
+	/**
+	 * Creates the type combo.
+	 *
+	 * @param parent the parent
+	 * @param typeLabel the type label
+	 */
 	protected void createTypeCombo(Composite parent, String typeLabel) {
 		baseTypeComp = createCCombo(parent, typeLabel, false,
 				SOATypeLibraryConstants.SCHEMA_DATA_TYPES, 
@@ -411,6 +510,12 @@ public abstract class AbstractNewTypeWizardPage extends
 				SWT.COLOR_WHITE));
 	}
 
+	/**
+	 * Creates the documentation text.
+	 *
+	 * @param parent the parent
+	 * @throws Exception the exception
+	 */
 	protected void createDocumentationText(Composite parent) throws Exception {
 		docText = createLabelTextField(parent, "&Documentation:",
 				SOAProjectConstants.EMPTY_STRING, modifyListener, true, true,
@@ -424,15 +529,31 @@ public abstract class AbstractNewTypeWizardPage extends
 		}
 	}
 
+	/**
+	 * Gets the doc text.
+	 *
+	 * @return the doc text
+	 */
 	public String getDocText() {
 		return StringUtils.replace(docText.getText(), docText
 				.getLineDelimiter(), "");
 	}
 
+	/**
+	 * Gets the raw base type.
+	 *
+	 * @return the raw base type
+	 */
 	public Object getRawBaseType() {
 		return getTextValue(this.baseTypeComp);
 	}
 
+	/**
+	 * Truncate xsd extension.
+	 *
+	 * @param templateTypeValues the template type values
+	 * @return the map
+	 */
 	protected Map<String, File> truncateXSDExtension(
 			Map<String, File> templateTypeValues) {
 		if (templateTypeValues == null)
@@ -451,6 +572,12 @@ public abstract class AbstractNewTypeWizardPage extends
 		return truncatedTemplateTypeValues;
 	}
 
+	/**
+	 * Gets the template type names.
+	 *
+	 * @param subType the sub type
+	 * @return the template type names
+	 */
 	protected Map<String, URL> getTemplateTypeNames(
 			SOAXSDTemplateSubType subType) {
 		final List<SOAConfigTemplate> templateTypes = UIActivator

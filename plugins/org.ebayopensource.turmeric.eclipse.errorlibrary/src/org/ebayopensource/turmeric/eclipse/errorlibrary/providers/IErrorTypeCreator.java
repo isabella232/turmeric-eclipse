@@ -17,23 +17,28 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
+ * The Interface IErrorTypeCreator.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public interface IErrorTypeCreator {
+	
 	/**
 	 * Any works before the creation.
-	 * @param model
-	 * @throws SOAErrorCreationFailedException
+	 *
+	 * @param model the model
+	 * @throws SOAErrorCreationFailedException the sOA error creation failed exception
 	 */
 	public void preCreation(ErrorParamModel model)
 			throws SOAErrorCreationFailedException;
 
 	/**
 	 * Any necessary works after the creation.
-	 * @param model
-	 * @param monitor
-	 * @throws SOAErrorCreationFailedException
+	 *
+	 * @param model the model
+	 * @param monitor the monitor
+	 * @throws SOAErrorCreationFailedException the sOA error creation failed exception
 	 */
 	public void postCreation(ErrorParamModel model, IProgressMonitor monitor)
 			throws SOAErrorCreationFailedException;

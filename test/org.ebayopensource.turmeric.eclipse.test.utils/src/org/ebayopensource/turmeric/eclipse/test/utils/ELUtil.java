@@ -24,12 +24,22 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 //import com.ebay.tools.soa.errorlibrary.utils.SOAErrorLibraryConstants;
 
 /**
- * @author shrao
+ * The Class ELUtil.
  *
+ * @author shrao
  */
 public class ELUtil {
 	/*
 	 * ErrorLibrary Creation
+	 */
+	/**
+	 * Creates the error library.
+	 *
+	 * @param errorLibraryName the error library name
+	 * @param contentRepoRoot the content repo root
+	 * @param locale the locale
+	 * @param location the location
+	 * @return true, if successful
 	 */
 	public static boolean createErrorLibrary(String errorLibraryName,
 			String contentRepoRoot, String locale, String location) {
@@ -58,6 +68,16 @@ public class ELUtil {
 	/*
 	 * Error Domain Creation
 	 */
+	/**
+	 * Creates the error domain.
+	 *
+	 * @param domainName the domain name
+	 * @param errorLibraryName the error library name
+	 * @param contentRepoRoot the content repo root
+	 * @param locale the locale
+	 * @param organization the organization
+	 * @return true, if successful
+	 */
 	public static boolean createErrorDomain(String domainName, String errorLibraryName,
 			String contentRepoRoot, String locale, String organization) {
 		try {
@@ -80,6 +100,22 @@ public class ELUtil {
 
 	/*
 	 * Error Type Creation
+	 */
+	/**
+	 * Creates the error type.
+	 *
+	 * @param nID the n id
+	 * @param errorID the error id
+	 * @param domainName the domain name
+	 * @param category the category
+	 * @param name the name
+	 * @param organization the organization
+	 * @param severity the severity
+	 * @param message the message
+	 * @param resolution the resolution
+	 * @param errorLibraryName the error library name
+	 * @param subdomain the subdomain
+	 * @return true, if successful
 	 */
 	public static boolean createErrorType(long nID, String errorID, String domainName,
 	String category, String name, String organization, String severity,	String message,

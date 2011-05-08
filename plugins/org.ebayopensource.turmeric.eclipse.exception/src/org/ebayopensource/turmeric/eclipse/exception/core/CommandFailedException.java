@@ -20,18 +20,37 @@ public class CommandFailedException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Instantiates a new command failed exception.
+	 */
 	public CommandFailedException() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new command failed exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public CommandFailedException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new command failed exception.
+	 *
+	 * @param message the message
+	 */
 	public CommandFailedException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new command failed exception.
+	 *
+	 * @param cause the cause
+	 */
 	public CommandFailedException(Throwable cause) {
 		super(cause);
 	}

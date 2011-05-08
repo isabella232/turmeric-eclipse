@@ -12,21 +12,32 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 
 /**
- * make the platform specific project health check
- * @author yayu
+ * make the platform specific project health check.
  *
+ * @author yayu
  */
 public interface IProjectHealthChecker {
 
 	/**
-	 * Check the project health for the underlying system
-	 * @param project
+	 * Check the project health for the underlying system.
+	 *
+	 * @param project the project
 	 * @return OK for no issue found or WARN/ERROR otherwise
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public IStatus checkProjectHealth(final IProject project) throws Exception;
 	
+	/**
+	 * Gets the warning message intf project structure old.
+	 *
+	 * @return the warning message intf project structure old
+	 */
 	public String getWarningMessageIntfProjectStructureOld();
 	
+	/**
+	 * Gets the warning message consume project structure old.
+	 *
+	 * @return the warning message consume project structure old
+	 */
 	public String getWarningMessageConsumeProjectStructureOld();
 }

@@ -9,9 +9,9 @@
 package org.ebayopensource.turmeric.eclipse.mavenapi.internal.util;
 
 /**
- * 
- * @author James Ervin</a>
- * 
+ * The Class ThrowableUtil.
+ *
+ * @author James Ervin
  */
 
 public class ThrowableUtil {
@@ -23,6 +23,12 @@ public class ThrowableUtil {
 		return isAdaptedToRuntimeException(throwable.getCause());
 	}
 
+	/**
+	 * Adapt to runtime exception.
+	 *
+	 * @param throwable the throwable
+	 * @return the runtime exception
+	 */
 	public static RuntimeException adaptToRuntimeException(
 			final Throwable throwable) {
 		if (throwable == null)

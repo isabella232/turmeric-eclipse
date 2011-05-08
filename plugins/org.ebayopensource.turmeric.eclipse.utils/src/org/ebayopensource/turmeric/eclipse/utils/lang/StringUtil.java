@@ -23,9 +23,8 @@ import org.apache.commons.lang.StringUtils;
  * 
  */
 public class StringUtil {
-	/**
-	 * The end of line
-	 */
+	
+	/** The end of line. */
 	public static final String EOL;
 	static {
 		String eol = "\n";
@@ -35,12 +34,10 @@ public class StringUtil {
 
 	/**
 	 * Remove the first occurrence of the giving string.
-	 * 
-	 * @param string
-	 *            The string to be removed from
-	 * @param remove
-	 *            The string to be removed
-	 * @return
+	 *
+	 * @param string The string to be removed from
+	 * @param remove The string to be removed
+	 * @return the string
 	 */
 	public static String removeFirst(final String string, final String remove) {
 		return StringUtils.replace(string, remove, "", 1);
@@ -48,12 +45,10 @@ public class StringUtil {
 
 	/**
 	 * Join the objects using the given delimiter.
-	 * 
-	 * @param objects
-	 *            the objects
-	 * @param delimiter
-	 *            the delimiter
-	 * @return
+	 *
+	 * @param objects the objects
+	 * @param delimiter the delimiter
+	 * @return the string
 	 */
 	public static String join(final Collection<? extends Object> objects,
 			final String delimiter) {
@@ -62,9 +57,9 @@ public class StringUtil {
 	}
 
 	/**
-	 * 
-	 * @param strings
-	 *            the String... elements to copy if not null
+	 * Copy non nulls.
+	 *
+	 * @param strings the String... elements to copy if not null
 	 * @return non-null String[] of non-null elements from input strings
 	 */
 	public static String[] copyNonNulls(final String... strings) {
@@ -75,12 +70,11 @@ public class StringUtil {
 	}
 
 	/**
-	 * Chop
-	 * 
-	 * @param i
-	 * @param input
-	 * @param length
-	 * @param result
+	 * Chop.
+	 *
+	 * @param input the input
+	 * @param length the length
+	 * @param result the result
 	 */
 	public static void lineate(String input, int length, StringBuilder result) {
 		int start = 0;
@@ -102,6 +96,14 @@ public class StringUtil {
 		}
 	}
 
+	/**
+	 * Next whitespace after.
+	 *
+	 * @param error the error
+	 * @param start the start
+	 * @param lineLength the line length
+	 * @return the int
+	 */
 	static int nextWhitespaceAfter(String error, int start, int lineLength) {
 		final int LENGTH = error.length();
 		if ((null == error) || (start >= LENGTH)) {
@@ -120,6 +122,10 @@ public class StringUtil {
 	/**
 	 * This method will prepend the prefix to the string arg iff prefix is not
 	 * already there at the beginning.
+	 *
+	 * @param prefix the prefix
+	 * @param string the string
+	 * @return the string
 	 */
 	public static String prefix(final String prefix, final String string) {
 		if (StringUtils.isEmpty(prefix))
@@ -132,6 +138,10 @@ public class StringUtil {
 	/**
 	 * This method will postfix the postfix to the string arg iff prefix is not
 	 * already there at the end.
+	 *
+	 * @param string the string
+	 * @param postfix the postfix
+	 * @return the string
 	 */
 	public static String postfix(final String string, final String postfix) {
 		if (StringUtils.isEmpty(postfix))
@@ -141,6 +151,14 @@ public class StringUtil {
 		return StringUtils.defaultString(string) + postfix;
 	}
 
+	/**
+	 * Bracket.
+	 *
+	 * @param prefix the prefix
+	 * @param string the string
+	 * @param postfix the postfix
+	 * @return the string
+	 */
 	public static String bracket(final String prefix, final String string,
 			final String postfix) {
 		return postfix(prefix(prefix, string), postfix);
@@ -148,10 +166,11 @@ public class StringUtil {
 
 	/**
 	 * <p>
-	 * </p>
-	 * 
-	 * @param messages
+	 * </p>.
+	 *
+	 * @param messages the messages
 	 * @return A String to represent the message
+	 * @throws IllegalArgumentException the illegal argument exception
 	 */
 	public static String toString(Object... messages)
 			throws IllegalArgumentException {
@@ -167,11 +186,12 @@ public class StringUtil {
 	
 	/**
 	 * Format the given message with the provided arguments.
+	 *
+	 * @param message the message
+	 * @param args the args
+	 * @return the string
+	 * @throws IllegalArgumentException the illegal argument exception
 	 * @see java.text.MessageFormat
-	 * @param message
-	 * @param args
-	 * @return
-	 * @throws IllegalArgumentException
 	 */
 	public static String formatString(String message, Object... args)
 	throws IllegalArgumentException {
@@ -182,9 +202,11 @@ public class StringUtil {
 	}
 
 	/**
-	 * @param str1
-	 * @param str2
-	 * @return
+	 * Broad equals.
+	 *
+	 * @param str1 the str1
+	 * @param str2 the str2
+	 * @return true, if successful
 	 * trims, ignores the case and null safe
 	 */
 	public static boolean broadEquals(String str1, String str2) {

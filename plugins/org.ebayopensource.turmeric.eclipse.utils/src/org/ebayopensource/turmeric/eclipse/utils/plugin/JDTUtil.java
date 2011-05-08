@@ -46,7 +46,9 @@ import org.osgi.framework.Constants;
 
 
 /**
- * @author smathew 
+ * The Class JDTUtil.
+ *
+ * @author smathew
  * 
  * Utility for JDT related functions
  */
@@ -56,14 +58,18 @@ public class JDTUtil {
 	 */
 	@SuppressWarnings("restriction")
 	private static final String COMPILER_OPTIONS_VERSION_1_4 = "1.4";
+	
+	/** The Constant DEFAULT_COMPILER_VERSION. */
 	public static final String DEFAULT_COMPILER_VERSION = "1.6";
+	
+	/** The Constant DOT. */
 	public static final String DOT = ".";
 
 	/**
-	 * Pure Wrapper Call
-	 * 
-	 * @param name
-	 * @return
+	 * Pure Wrapper Call.
+	 *
+	 * @param name the name
+	 * @return the i status
 	 */
 	public static IStatus validateIdentifier(String name) {
 		return JavaConventions.validateIdentifier(name, 
@@ -75,11 +81,10 @@ public class JDTUtil {
 	 * Pure Wrapper Call to
 	 * This validates a type name ie Whatever compiler takes.
 	 * eg: a. is not valid.
-	 * 	   a is valid
-	 * 
-	 * @param typeName
-	 * @return
-	 * 
+	 * a is valid
+	 *
+	 * @param typeName the type name
+	 * @return the i status
 	 */
 	public static IStatus validateJavaTypeName(String typeName) {
 		return JavaConventions.validateJavaTypeName(typeName, 
@@ -87,7 +92,9 @@ public class JDTUtil {
 	}
 	
 	/**
-	 * @param methodName
+	 * Validate method name.
+	 *
+	 * @param methodName the method name
 	 * @return True if the method name is valid
 	 */
 	public static IStatus validateMethodName(String methodName) {
@@ -96,9 +103,10 @@ public class JDTUtil {
 	}
 	
 	/**
-	 * 
-	 * @param packageName
-	 * @return
+	 * Validate pacakge name.
+	 *
+	 * @param packageName the package name
+	 * @return the i status
 	 */
 	public static IStatus validatePacakgeName(String packageName) {
 		return JavaConventions.validatePackageName(packageName, 
@@ -109,9 +117,13 @@ public class JDTUtil {
 	 * Adds the java support to eclipse project.
 	 * ie soa nature is added here.
 	 * Class Path container related linking etc..
-	 * @param project
-	 * @param sourceDirectories
-	 * @throws CoreException
+	 *
+	 * @param project the project
+	 * @param sourceDirectories the source directories
+	 * @param defaultCompilerLevel the default compiler level
+	 * @param outputLocation the output location
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
 	 */
 	public static void addJavaSupport(IProject project,
 			List<String> sourceDirectories, String defaultCompilerLevel,
@@ -201,10 +213,12 @@ public class JDTUtil {
 	}
 	
 	/**
+	 * Resolve classpath to ur ls.
+	 *
 	 * @param bundle The plugin bundle to load jars
 	 * @param project The underlying SOA project
-	 * @return All jars in the runtime classpath of the provided bundle. 
-	 * @throws Exception 
+	 * @return All jars in the runtime classpath of the provided bundle.
+	 * @throws Exception the exception
 	 */
 	public static Set<URL> resolveClasspathToURLs(final Bundle bundle, final IProject project) 
 	throws Exception{
@@ -236,10 +250,11 @@ public class JDTUtil {
 
 	/**
 	 * Resolves the projects class path container entries
-	 * Explodes the container out and return a Set of URL Path
-	 * @param project
-	 * @return
-	 * @throws Exception
+	 * Explodes the container out and return a Set of URL Path.
+	 *
+	 * @param project the project
+	 * @return the sets the
+	 * @throws Exception the exception
 	 */
 	public static Set<URL> resolveClasspathToURLs(final IProject project)
 			throws Exception {
@@ -287,6 +302,15 @@ public class JDTUtil {
 		}
 	}
 	
+	/**
+	 * Adds the natures.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @param projectNatures the project natures
+	 * @return true, if successful
+	 * @throws CoreException the core exception
+	 */
 	public static boolean addNatures(final IProject project, 
 			final IProgressMonitor monitor, String... projectNatures)
 			throws CoreException {
@@ -312,6 +336,14 @@ public class JDTUtil {
 		return false;
 	}
 
+	/**
+	 * Adds the java nature.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws CoreException the core exception
+	 */
 	public static boolean addJavaNature(final IProject project, 
 			final IProgressMonitor monitor)
 			throws CoreException {
@@ -319,17 +351,26 @@ public class JDTUtil {
 	}
 
 	/**
-	 * 
-	 * @param project
-	 * @param readFromDisk
-	 * @return
-	 * @throws JavaModelException
+	 * Raw classpath.
+	 *
+	 * @param project the project
+	 * @param readFromDisk the read from disk
+	 * @return the list
+	 * @throws JavaModelException the java model exception
 	 */
 	public static List<IClasspathEntry> rawClasspath(final IProject project,
 			final boolean readFromDisk) throws JavaModelException {
 		return rawClasspath(JavaCore.create(project), readFromDisk);
 	}
 
+	/**
+	 * Raw classpath.
+	 *
+	 * @param project the project
+	 * @param readFromDisk the read from disk
+	 * @return the list
+	 * @throws JavaModelException the java model exception
+	 */
 	public static List<IClasspathEntry> rawClasspath(
 			final IJavaProject project, final boolean readFromDisk)
 			throws JavaModelException {
@@ -346,16 +387,36 @@ public class JDTUtil {
 		return entries;
 	}
 	
+	/**
+	 * Checks if is classpath container.
+	 *
+	 * @param entry the entry
+	 * @param path the path
+	 * @return true, if is classpath container
+	 */
 	public static boolean isClasspathContainer(final IClasspathEntry entry, 
 			final String path) {
 		return entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER
 		&& (path.equals(entry.getPath().segment(0)));
 	}
 	
+	/**
+	 * Checks if is jRE classpath container.
+	 *
+	 * @param entry the entry
+	 * @return true, if is jRE classpath container
+	 */
 	public static boolean isJREClasspathContainer(final IClasspathEntry entry) {
 		return isClasspathContainer(entry, JavaRuntime.JRE_CONTAINER);
 	}
 	
+	/**
+	 * Gets the bundle info.
+	 *
+	 * @param bundle the bundle
+	 * @param needDetail the need detail
+	 * @return the bundle info
+	 */
 	public static String getBundleInfo(final Bundle bundle, final boolean needDetail) {
 		final StringBuffer buf = new StringBuffer();
         if (bundle != null)
@@ -383,6 +444,14 @@ public class JDTUtil {
         return buf.toString();
 	}
 
+	/**
+	 * Generate qualified class name using path seperator.
+	 *
+	 * @param classNameForPkg the class name for pkg
+	 * @param pkgPrefix the pkg prefix
+	 * @param genClassName the gen class name
+	 * @return the string
+	 */
 	public static String generateQualifiedClassNameUsingPathSeperator(
 			String classNameForPkg, 
 			String pkgPrefix, 
@@ -401,7 +470,15 @@ public class JDTUtil {
 		return genPkgName + WorkspaceUtil.PATH_SEPERATOR + genClassName;
 	}
 	
-	 public static PropertyResourceBundle getPluginProperties(
+	 /**
+ 	 * Gets the plugin properties.
+ 	 *
+ 	 * @param bundle the bundle
+ 	 * @param fileName the file name
+ 	 * @return the plugin properties
+ 	 * @throws IOException Signals that an I/O exception has occurred.
+ 	 */
+ 	public static PropertyResourceBundle getPluginProperties(
 	    		final Bundle bundle, String fileName)
 	    throws IOException{
 	    	PropertyResourceBundle pluginProperties;
@@ -419,12 +496,25 @@ public class JDTUtil {
 	    }
 	
 
+    /**
+     * Gets the plugin properties.
+     *
+     * @param bundle the bundle
+     * @return the plugin properties
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public static PropertyResourceBundle getPluginProperties(
     		final Bundle bundle)
     throws IOException{
     	return getPluginProperties(bundle, null);
     }
     
+    /**
+     * Gets the source directories.
+     *
+     * @param project the project
+     * @return the source directories
+     */
     public static List<IPath> getSourceDirectories(final IProject project) {
     	final IJavaProject jProject = JavaCore.create(project);
 		final List<IPath> srcEntries = new ArrayList<IPath>();
@@ -436,6 +526,12 @@ public class JDTUtil {
 		return srcEntries;
     }
     
+    /**
+     * Convert class name to file path.
+     *
+     * @param className the class name
+     * @return the i path
+     */
     public static IPath convertClassNameToFilePath(String className) {
     	if (className == null)
     		return null;

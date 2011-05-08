@@ -23,10 +23,11 @@ public class VersionUtil {
 	/**
 	 * if version 1 is greater than version 2 the a positive integer is
 	 * returned. is both are equal then 0 otherwise a negative value
-	 * 
-	 * @param version1
-	 * @param version2
-	 * @return
+	 *
+	 * @param strVersion1 the str version1
+	 * @param strVersion2 the str version2
+	 * @return the int
+	 * @throws NumberFormatException the number format exception
 	 */
 	public static int compare(String strVersion1, String strVersion2)
 			throws NumberFormatException {
@@ -51,6 +52,13 @@ public class VersionUtil {
 		return version1.compareTo(version2);
 	}
 	
+	/**
+	 * Gets the version.
+	 *
+	 * @param version the version
+	 * @return the version
+	 * @throws Exception the exception
+	 */
 	public static Version getVersion(Object version) throws Exception{
 		Version ver = null;
 

@@ -25,8 +25,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 
 
 /**
- * @author yayu
+ * The Class PropertiesDomainWizardPageProvider.
  *
+ * @author yayu
  */
 public class PropertiesDomainWizardPageProvider implements
 		ISOAErrorLibraryWizardPageProvider {
@@ -34,7 +35,7 @@ public class PropertiesDomainWizardPageProvider implements
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * 
+	 * Instantiates a new properties domain wizard page provider.
 	 */
 	public PropertiesDomainWizardPageProvider() {
 		super();

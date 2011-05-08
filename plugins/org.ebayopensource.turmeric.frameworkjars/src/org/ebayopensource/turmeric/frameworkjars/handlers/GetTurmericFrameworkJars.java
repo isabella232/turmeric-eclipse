@@ -32,6 +32,10 @@ public class GetTurmericFrameworkJars extends AbstractHandler {
 	/**
 	 * the command has been executed, so extract extract the needed information
 	 * from the application context.
+	 *
+	 * @param event the event
+	 * @return the object
+	 * @throws ExecutionException the execution exception
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);

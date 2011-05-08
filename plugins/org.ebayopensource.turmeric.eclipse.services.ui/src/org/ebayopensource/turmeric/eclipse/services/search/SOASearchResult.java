@@ -22,44 +22,56 @@ import org.eclipse.search.ui.text.Match;
 
 
 /**
- * @author yayu
+ * The Class SOASearchResult.
  *
+ * @author yayu
  */
 public class SOASearchResult extends AbstractTextSearchResult implements IFileMatchAdapter {
 	private SOASearchQuery searchQuery;
 	private static final Match[] NO_MATCHES= new Match[0];
 
+	/**
+	 * Instantiates a new sOA search result.
+	 *
+	 * @param searchQuery the search query
+	 */
 	public SOASearchResult(SOASearchQuery searchQuery) {
 		super();
 		this.searchQuery = searchQuery;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ImageDescriptor getImageDescriptor() {
 		return Activator.imageDescriptorFromPlugin(Activator.PLUGIN_ID, 
 				"icons/script_obj.gif");
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.search.ui.ISearchResult#getLabel()
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getLabel() {
 		return toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.search.ui.ISearchResult#getQuery()
+	/**
+	 * {@inheritDoc}
 	 */
 	public ISearchQuery getQuery() {
 		return searchQuery;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.search.ui.ISearchResult#getTooltip()
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getTooltip() {
 		return null;
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public String toString() {
 		final StringBuffer result = new StringBuffer();
 		result.append("'");
@@ -77,25 +89,44 @@ public class SOASearchResult extends AbstractTextSearchResult implements IFileMa
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.search.ui.text.AbstractTextSearchResult#getFileMatchAdapter()
+	 */
 	@Override
 	public IFileMatchAdapter getFileMatchAdapter() {
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Match[] computeContainedMatches(AbstractTextSearchResult result,
 			IFile file) {
 		return NO_MATCHES;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public IFile getFile(Object element) {
 		return null;
 	}
 	
+	/**
+	 * The Class SOASearchResultService.
+	 */
 	public static class SOASearchResultService {
 		private String serviceName;
 		private String serviceLayer;
 		private String serviceVersion;
 		
+		/**
+		 * Instantiates a new sOA search result service.
+		 *
+		 * @param serviceName the service name
+		 * @param serviceLayer the service layer
+		 * @param serviceVersion the service version
+		 */
 		public SOASearchResultService(String serviceName, String serviceLayer,
 				String serviceVersion) {
 			super();
@@ -104,30 +135,63 @@ public class SOASearchResult extends AbstractTextSearchResult implements IFileMa
 			this.serviceVersion = serviceVersion;
 		}
 
+		/**
+		 * Gets the service name.
+		 *
+		 * @return the service name
+		 */
 		public String getServiceName() {
 			return serviceName;
 		}
 
+		/**
+		 * Sets the service name.
+		 *
+		 * @param serviceName the new service name
+		 */
 		public void setServiceName(String serviceName) {
 			this.serviceName = serviceName;
 		}
 
+		/**
+		 * Gets the service layer.
+		 *
+		 * @return the service layer
+		 */
 		public String getServiceLayer() {
 			return serviceLayer;
 		}
 
+		/**
+		 * Sets the service layer.
+		 *
+		 * @param serviceLayer the new service layer
+		 */
 		public void setServiceLayer(String serviceLayer) {
 			this.serviceLayer = serviceLayer;
 		}
 
+		/**
+		 * Gets the service version.
+		 *
+		 * @return the service version
+		 */
 		public String getServiceVersion() {
 			return serviceVersion;
 		}
 
+		/**
+		 * Sets the service version.
+		 *
+		 * @param serviceVersion the new service version
+		 */
 		public void setServiceVersion(String serviceVersion) {
 			this.serviceVersion = serviceVersion;
 		}
 		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#hashCode()
+		 */
 		@Override
 		public int hashCode() {
 			final int prime = 31;
@@ -142,6 +206,9 @@ public class SOASearchResult extends AbstractTextSearchResult implements IFileMa
 			return result;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
@@ -169,6 +236,10 @@ public class SOASearchResult extends AbstractTextSearchResult implements IFileMa
 			return true;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
+		@Override
 		public String toString() {
 			StringBuffer buf = new StringBuffer();
 			buf.append("Service Name: ");

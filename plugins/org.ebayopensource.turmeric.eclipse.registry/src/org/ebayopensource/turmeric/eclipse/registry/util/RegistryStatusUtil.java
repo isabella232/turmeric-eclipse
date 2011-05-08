@@ -12,8 +12,17 @@ import org.ebayopensource.turmeric.eclipse.registry.intf.IValidationStatus;
 import org.eclipse.core.runtime.IStatus;
 
 
+/**
+ * The Class RegistryStatusUtil.
+ */
 public class RegistryStatusUtil {
 
+	/**
+	 * Checks if is login fail status.
+	 *
+	 * @param status the status
+	 * @return true, if is login fail status
+	 */
 	public static boolean isLoginFailStatus(IStatus status) {
 		return (IStatus.WARNING == status.getSeverity())
 				&& (IValidationStatus.CODE_LOGIN_FAILURE == status.getCode());

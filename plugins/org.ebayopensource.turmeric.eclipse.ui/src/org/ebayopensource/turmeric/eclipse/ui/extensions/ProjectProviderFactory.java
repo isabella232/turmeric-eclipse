@@ -19,18 +19,29 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 
 
+/**
+ * A factory for creating ProjectProvider objects.
+ */
 public class ProjectProviderFactory {
 	
 	private static final String PROVIDER_NAME = "provider";
 	private static final String PROJECT_WIZARD_PROVIDER_ID = "org.ebayopensource.turmeric.eclipse.ui.projectWizardProvider";
 	private IExtensionPoint extensionPoint;
 
+	/**
+	 * Instantiates a new project provider factory.
+	 */
 	public ProjectProviderFactory() {
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
 		extensionPoint  = registry.getExtensionPoint(PROJECT_WIZARD_PROVIDER_ID);
 
 	}
 		
+	/**
+	 * Creates a new ProjectProvider object.
+	 *
+	 * @return the collection< i turmeric provider>
+	 */
 	public Collection<ITurmericProvider>createProviders() {
 		IExtension[] extensions = extensionPoint.getExtensions();
 		ArrayList<ITurmericProvider> providers = new ArrayList<ITurmericProvider>();

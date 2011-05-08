@@ -50,8 +50,9 @@ import org.maven.ide.eclipse.ui.dialogs.MavenRepositorySearchDialog;
 
 
 /**
- * @author yayu
+ * The Class CopyLibraryDialog.
  *
+ * @author yayu
  */
 public class CopyLibraryDialog extends TitleAreaDialog {
 	private Text libraryText;
@@ -59,7 +60,9 @@ public class CopyLibraryDialog extends TitleAreaDialog {
 	private ArtifactMetadata metadata = null;
 
 	/**
-	 * @param shell
+	 * Instantiates a new copy library dialog.
+	 *
+	 * @param shell the shell
 	 */
 	public CopyLibraryDialog(Shell shell) {
 		super(shell);
@@ -88,6 +91,12 @@ public class CopyLibraryDialog extends TitleAreaDialog {
 		return control;
 	}
 	
+	/**
+	 * Adds the library chooser.
+	 *
+	 * @param parentComposite the parent composite
+	 * @return the composite
+	 */
 	protected Composite addLibraryChooser(Composite parentComposite) {
 		parentComposite = new Composite(parentComposite, SWT.NONE);
         GridLayout layout = new GridLayout(4, false);
@@ -136,6 +145,12 @@ public class CopyLibraryDialog extends TitleAreaDialog {
 		return parentComposite;
 	}
 	
+	/**
+	 * Adds the destination chooser.
+	 *
+	 * @param parentComposite the parent composite
+	 * @return the composite
+	 */
 	protected Composite addDestinationChooser(Composite parentComposite) {
 		parentComposite = new Composite(parentComposite, SWT.NONE);
         GridLayout layout = new GridLayout(4, false);

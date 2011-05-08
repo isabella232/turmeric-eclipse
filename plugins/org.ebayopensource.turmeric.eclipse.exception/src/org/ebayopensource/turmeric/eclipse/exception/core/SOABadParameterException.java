@@ -21,18 +21,37 @@ import org.ebayopensource.turmeric.eclipse.exception.AbstractSOAException;
  */
 public class SOABadParameterException extends AbstractSOAException {
 
+	/**
+	 * Instantiates a new sOA bad parameter exception.
+	 */
 	public SOABadParameterException() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new sOA bad parameter exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public SOABadParameterException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new sOA bad parameter exception.
+	 *
+	 * @param message the message
+	 */
 	public SOABadParameterException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new sOA bad parameter exception.
+	 *
+	 * @param cause the cause
+	 */
 	public SOABadParameterException(Throwable cause) {
 		super(cause);
 	}

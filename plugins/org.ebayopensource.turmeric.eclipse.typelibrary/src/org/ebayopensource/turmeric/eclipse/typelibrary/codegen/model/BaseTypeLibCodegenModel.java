@@ -28,6 +28,9 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
 
 public class BaseTypeLibCodegenModel extends BaseCodeGenModel {
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		final Map<String, String> result = new ConcurrentHashMap<String, String>();
@@ -82,50 +85,110 @@ public class BaseTypeLibCodegenModel extends BaseCodeGenModel {
 
 	private String libNamespace;
 
+	/**
+	 * Gets the types.
+	 *
+	 * @return the types
+	 */
 	public ArrayList<String> getTypes() {
 		return types;
 	}
 
+	/**
+	 * Sets the types.
+	 *
+	 * @param types the new types
+	 */
 	public void setTypes(ArrayList<String> types) {
 		this.types = types;
 	}
 
+	/**
+	 * Gets the library name.
+	 *
+	 * @return the library name
+	 */
 	public String getLibraryName() {
 		return libraryName;
 	}
 
+	/**
+	 * Sets the library name.
+	 *
+	 * @param libraryName the new library name
+	 */
 	public void setLibraryName(String libraryName) {
 		this.libraryName = libraryName;
 	}
 
+	/**
+	 * Gets the library version.
+	 *
+	 * @return the library version
+	 */
 	public String getLibraryVersion() {
 		return libraryVersion;
 	}
 
+	/**
+	 * Sets the library version.
+	 *
+	 * @param libraryVersion the new library version
+	 */
 	public void setLibraryVersion(String libraryVersion) {
 		this.libraryVersion = libraryVersion;
 	}
 
+	/**
+	 * Gets the library category.
+	 *
+	 * @return the library category
+	 */
 	public String getLibraryCategory() {
 		return libraryCategory;
 	}
 
+	/**
+	 * Sets the library category.
+	 *
+	 * @param libraryCategory the new library category
+	 */
 	public void setLibraryCategory(String libraryCategory) {
 		this.libraryCategory = libraryCategory;
 	}
 
+	/**
+	 * Gets the xjc class path.
+	 *
+	 * @return the xjc class path
+	 */
 	public String getXjcClassPath() {
 		return xjcClassPath;
 	}
 
+	/**
+	 * Sets the xjc class path.
+	 *
+	 * @param xjcClassPath the new xjc class path
+	 */
 	public void setXjcClassPath(String xjcClassPath) {
 		this.xjcClassPath = xjcClassPath;
 	}
 
+	/**
+	 * Gets the lib namespace.
+	 *
+	 * @return the lib namespace
+	 */
 	public String getLibNamespace() {
 		return libNamespace;
 	}
 
+	/**
+	 * Sets the lib namespace.
+	 *
+	 * @param libNamespace the new lib namespace
+	 */
 	public void setLibNamespace(String libNamespace) {
 		this.libNamespace = libNamespace;
 	}

@@ -15,6 +15,7 @@ package org.ebayopensource.turmeric.eclipse.ui.resources;
  */
 public class SOAConstants {
 
+	/** The Constant WORKSPACE_ROOT. */
 	public static final String WORKSPACE_ROOT = "WORKSPACE_ROOT";
 	
 }

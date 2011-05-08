@@ -28,8 +28,9 @@ import org.eclipse.core.runtime.MultiStatus;
 
 
 /**
+ * The Class MarkerUtil.
+ *
  * @author yayu
- * 
  */
 public final class MarkerUtil {
 	/**
@@ -53,10 +54,10 @@ public final class MarkerUtil {
 
 	/**
 	 * Finds the SOA Error Markers given an IResource.
-	 * 
+	 *
 	 * @param resource the resource to check
 	 * @return An array of IMarkers that were found.  May be null or empty if nothing is found.
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public static IMarker[] findSOAErrorMarkers(IResource resource)
 	throws CoreException {
@@ -72,9 +73,10 @@ public final class MarkerUtil {
 
 	/**
 	 * Finds the SOA Problem Markers given a resource.
+	 *
 	 * @param resource the resource to search
 	 * @return an array of IMarker entries. May be null or empty if noting is found.
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public static IMarker[] findSOAProblemMarkers(IResource resource)
 	throws CoreException {
@@ -84,11 +86,11 @@ public final class MarkerUtil {
 
 	/**
 	 * Finds markers given a resource and type.
-	 * 
-	 * @param resource the resource 
+	 *
+	 * @param resource the resource
 	 * @param type the type of markert to find
 	 * @return An array of IMarkers that where found. May be empty or null if no markers found.
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public static IMarker[] findMarkers(IResource resource, String type)
 	throws CoreException {
@@ -96,15 +98,23 @@ public final class MarkerUtil {
 	}
 
 	/**
-	 * 
+	 * Clean soa problem markers.
+	 *
 	 * @param resource the resource
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public static void cleanSOAProblemMarkers(IResource resource)
 	throws CoreException {
 		cleanMarkers(resource, SOA_PROBLEM_MARKER_ID);
 	}
 
+	/**
+	 * Clean markers.
+	 *
+	 * @param resource the resource
+	 * @param type the type
+	 * @throws CoreException the core exception
+	 */
 	public static void cleanMarkers(IResource resource, String type)
 	throws CoreException {
 		if (resource == null) {
@@ -130,12 +140,28 @@ public final class MarkerUtil {
 		}
 	}
 
+	/**
+	 * Creates the soa problem marker.
+	 *
+	 * @param thrown the thrown
+	 * @param resource the resource
+	 * @return the i marker[]
+	 * @throws CoreException the core exception
+	 */
 	public static IMarker[] createSOAProblemMarker(Throwable thrown,
 			IResource resource) throws CoreException {
 		return createMarker(EclipseMessageUtils.createErrorStatus(thrown),
 				resource, SOA_PROBLEM_MARKER_ID);
 	}
 
+	/**
+	 * Creates the soa problem marker recursive.
+	 *
+	 * @param status the status
+	 * @param project the project
+	 * @return the i marker[]
+	 * @throws CoreException the core exception
+	 */
 	public static IMarker[] createSOAProblemMarkerRecursive(IStatus status,
 			IProject project) throws CoreException {
 		ArrayList<IMarker> markersList = new ArrayList<IMarker>();
@@ -157,11 +183,28 @@ public final class MarkerUtil {
 		return markersList.toArray(new IMarker[0]);
 	}
 
+	/**
+	 * Creates the soa problem marker.
+	 *
+	 * @param status the status
+	 * @param resource the resource
+	 * @return the i marker[]
+	 * @throws CoreException the core exception
+	 */
 	public static IMarker[] createSOAProblemMarker(IStatus status,
 			IResource resource) throws CoreException {
 		return createMarker(status, resource, SOA_PROBLEM_MARKER_ID);
 	}
 
+	/**
+	 * Creates the marker.
+	 *
+	 * @param status the status
+	 * @param resource the resource
+	 * @param type the type
+	 * @return the i marker[]
+	 * @throws CoreException the core exception
+	 */
 	public static IMarker[] createMarker(IStatus status, IResource resource,
 			String type) throws CoreException {
 		if (status == null || resource == null || status.isOK()) {
@@ -240,6 +283,15 @@ public final class MarkerUtil {
 		return result;
 	}
 
+	/**
+	 * Creates the wsdl marker.
+	 *
+	 * @param wsdlFile the wsdl file
+	 * @param prefix the prefix
+	 * @param problem the problem
+	 * @param lineNumber the line number
+	 * @throws CoreException the core exception
+	 */
 	public static void createWSDLMarker(IResource wsdlFile, String prefix,
 			IStatus problem, int lineNumber) throws CoreException {
 		if(wsdlFile == null){
@@ -254,6 +306,12 @@ public final class MarkerUtil {
 		}
 	}
 
+	/**
+	 * Clean wsdl markers.
+	 *
+	 * @param wsdlFile the wsdl file
+	 * @throws CoreException the core exception
+	 */
 	public static void cleanWSDLMarkers(IResource wsdlFile)
 	throws CoreException {
 		cleanMarkers(wsdlFile, WSDL_PROBLEM_MARKER_ID);

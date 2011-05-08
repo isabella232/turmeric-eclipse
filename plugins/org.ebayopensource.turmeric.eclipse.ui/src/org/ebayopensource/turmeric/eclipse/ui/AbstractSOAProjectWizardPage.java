@@ -57,8 +57,9 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
+ * The Class AbstractSOAProjectWizardPage.
+ *
  * @author yayu
- * 
  */
 public abstract class AbstractSOAProjectWizardPage extends
 AbstractSOAResourceWizardPage {
@@ -66,7 +67,11 @@ AbstractSOAResourceWizardPage {
 	private Text workspaceRootText;
 	private Button workspaceRootBrowseButton;
 	private Button workspaceRootOverrideButton;
+	
+	/** The service domain list. */
 	protected CCombo serviceDomainList;
+	
+	/** The domain classifier list. */
 	protected CCombo domainClassifierList;
 	
 	private ModifyListener domainListModifyListener;
@@ -74,12 +79,17 @@ AbstractSOAResourceWizardPage {
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * @param pageName
+	 * Instantiates a new abstract soa project wizard page.
+	 *
+	 * @param pageName the page name
 	 */
 	public AbstractSOAProjectWizardPage(String pageName) {
 		super(pageName);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+	 */
 	@Override
 	public void setVisible(boolean visible) {
 		if (visible == true) {
@@ -118,9 +128,11 @@ AbstractSOAResourceWizardPage {
 	}
 
 	/**
-	 * @param pageName
-	 * @param title
-	 * @param description
+	 * Instantiates a new abstract soa project wizard page.
+	 *
+	 * @param pageName the page name
+	 * @param title the title
+	 * @param description the description
 	 */
 	public AbstractSOAProjectWizardPage(String pageName, String title,
 			String description) {
@@ -129,6 +141,12 @@ AbstractSOAResourceWizardPage {
 	
 	
 
+	/**
+	 * Adds the workspace root chooser.
+	 *
+	 * @param parentComposite the parent composite
+	 * @return the composite
+	 */
 	protected Composite addWorkspaceRootChooser(final Composite parentComposite) {
 		final ISOARootLocator locator = GlobalRepositorySystem.instanceOf()
 				.getActiveRepositorySystem().getSOARootLocator();
@@ -225,14 +243,34 @@ AbstractSOAResourceWizardPage {
 		return parentComposite;
 	}
 
+	/**
+	 * Gets the workspace root text.
+	 *
+	 * @return the workspace root text
+	 */
 	protected Text getWorkspaceRootText() {
 		return workspaceRootText;
 	}
 	
+	/**
+	 * Adds the service domain list.
+	 *
+	 * @param composite the composite
+	 * @return the c combo
+	 * @throws Exception the exception
+	 */
 	protected CCombo addServiceDomainList(final Composite composite) throws Exception{
 		return addServiceDomainList(composite, true);
 	}
 	
+	/**
+	 * Adds the service domain list.
+	 *
+	 * @param composite the composite
+	 * @param enabled the enabled
+	 * @return the c combo
+	 * @throws Exception the exception
+	 */
 	protected CCombo addServiceDomainList(final Composite composite, 
 			boolean enabled) throws Exception{
 		ISOAOrganizationProvider provider = 
@@ -297,6 +335,9 @@ AbstractSOAResourceWizardPage {
 		return serviceDomainList;
 	}
 	
+	/**
+	 * Domain classifier changed.
+	 */
 	protected void domainClassifierChanged() {
 	}
 	
@@ -328,6 +369,9 @@ AbstractSOAResourceWizardPage {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		if (super.dialogChanged() == false)
@@ -405,6 +449,14 @@ AbstractSOAResourceWizardPage {
 		return true;
 	}
 
+	/**
+	 * Validate project.
+	 *
+	 * @param activeRepositorySystem the active repository system
+	 * @param parentFolderName the parent folder name
+	 * @param projectNames the project names
+	 * @return the i status
+	 */
 	protected IStatus validateProject(
 			ISOARepositorySystem activeRepositorySystem,
 			final String parentFolderName, String... projectNames) {
@@ -448,6 +500,11 @@ AbstractSOAResourceWizardPage {
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * Checks if is override project root directory.
+	 *
+	 * @return true, if is override project root directory
+	 */
 	public boolean isOverrideProjectRootDirectory() {
 		if (workspaceRootOverrideButton == null
 				|| !workspaceRootOverrideButton.isEnabled())
@@ -455,6 +512,11 @@ AbstractSOAResourceWizardPage {
 		return workspaceRootOverrideButton.getSelection();
 	}
 
+	/**
+	 * Gets the project root directory.
+	 *
+	 * @return the project root directory
+	 */
 	public String getProjectRootDirectory() {
 		return getTextValue(workspaceRootText);
 	}
@@ -471,14 +533,27 @@ AbstractSOAResourceWizardPage {
 		return result;
 	}
 	
+	/**
+	 * Gets the service domain.
+	 *
+	 * @return the service domain
+	 */
 	public String getServiceDomain() {
 		return getTextValue(this.serviceDomainList);
 	}
 	
+	/**
+	 * Gets the domain classifier.
+	 *
+	 * @return the domain classifier
+	 */
 	public String getDomainClassifier() {
 		return getTextValue(this.domainClassifierList);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		if (text == null)
@@ -492,12 +567,29 @@ AbstractSOAResourceWizardPage {
 		return super.getDefaultValue(text);
 	}
 	
+	/**
+	 * The Class ProjectNameControl.
+	 */
 	public static class ProjectNameControl {
 		private String projectName;
 		private List<Control> controls = new ArrayList<Control>(3);
+		
+		/**
+		 * Instantiates a new project name control.
+		 *
+		 * @param projectName the project name
+		 * @param controls the controls
+		 */
 		public ProjectNameControl(String projectName, Control... controls) {
 			this(projectName, controls != null ? Arrays.asList(controls) : null);
 		}
+		
+		/**
+		 * Instantiates a new project name control.
+		 *
+		 * @param projectName the project name
+		 * @param controls the controls
+		 */
 		public ProjectNameControl(String projectName, List<Control> controls) {
 			super();
 			this.projectName = projectName;
@@ -506,9 +598,20 @@ AbstractSOAResourceWizardPage {
 			}
 		}
 		
+		/**
+		 * Gets the project name.
+		 *
+		 * @return the project name
+		 */
 		public String getProjectName() {
 			return projectName;
 		}
+		
+		/**
+		 * Gets the controls.
+		 *
+		 * @return the controls
+		 */
 		public List<Control> getControls() {
 			return controls;
 		}

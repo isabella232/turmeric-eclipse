@@ -17,13 +17,21 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
- * @author yayu
+ * The Class ErrorTypeCreator.
  *
+ * @author yayu
  */
 public final class ErrorTypeCreator {
 
 	private static ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 	
+	/**
+	 * Creates the error type.
+	 *
+	 * @param model the model
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createErrorType(ErrorParamModel model,
 			IProgressMonitor monitor) throws Exception {
 		factory.getPreferredProvider().getErrorTypeCreator()

@@ -41,58 +41,116 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 /**
+ * The Class AbstractNewServiceWizardPage.
+ *
  * @author yayu
- * 
  */
 public abstract class AbstractNewServiceWizardPage extends
 		AbstractSOAProjectWizardPage {
 	// controls
+	/** The service package text. */
 	protected Text servicePackageText;
+	
+	/** The service implementation text. */
 	protected Text serviceImplementationText;
+	
+	/** The type namespace text. */
 	protected Text typeNamespaceText;
 	private Button typeFoldingButton;
 	private Text baseConsumerSrcText;
+	
+	/** The admin name text. */
 	protected Text adminNameText;
+	
+	/** The override admin name button. */
 	protected Button overrideAdminNameButton;
+	
+	/** The override type ns button. */
 	protected Button overrideTypeNSButton;
+	
+	/** The override service package button. */
 	protected Button overrideServicePackageButton;
+	
+	/** The override service implementation button. */
 	protected Button overrideServiceImplementationButton;
 	private CCombo serviceLayer;
 
 	/**
-	 * @param pageName
+	 * Instantiates a new abstract new service wizard page.
+	 *
+	 * @param pageName the page name
+	 * @param title the title
+	 * @param description the description
 	 */
 	public AbstractNewServiceWizardPage(String pageName, String title,
 			String description) {
 		super(pageName, title, description);
 	}
 
+	/**
+	 * Gets the default service impl name.
+	 *
+	 * @return the default service impl name
+	 */
 	public String getDefaultServiceImplName() {
 		return getDefaultServiceImplName(getDefaultIMplPackageNamePrefix());
 	}
 
+	/**
+	 * Gets the default service impl name.
+	 *
+	 * @param packageName the package name
+	 * @return the default service impl name
+	 */
 	public String getDefaultServiceImplName(final String packageName) {
 
 		return SOAServiceUtil.generateServiceImplPackageName(
 				getPublicServiceName(), getAdminName(), packageName);
 	}
 
+	/**
+	 * Gets the default i mpl package name prefix.
+	 *
+	 * @return the default i mpl package name prefix
+	 */
 	protected String getDefaultIMplPackageNamePrefix() {
 		return "";
 	}
 
+	/**
+	 * Gets the default service package name.
+	 *
+	 * @return the default service package name
+	 */
 	public String getDefaultServicePackageName() {
 		return generateServicePackageName(getDefaultServicePackageNamePrefix());
 	}
 
+	/**
+	 * Gets the default service package name prefix.
+	 *
+	 * @return the default service package name prefix
+	 */
 	protected String getDefaultServicePackageNamePrefix() {
 		return "";
 	}
 
+	/**
+	 * Gets the default service package name.
+	 *
+	 * @param packageName the package name
+	 * @return the default service package name
+	 */
 	public String getDefaultServicePackageName(final String packageName) {
 		return generateServicePackageName(packageName);
 	}
 
+	/**
+	 * Generate service package name.
+	 *
+	 * @param packageName the package name
+	 * @return the string
+	 */
 	public String generateServicePackageName(final String packageName) {
 		return SOAServiceUtil.generateServicePackageName(
 				getPublicServiceName(), packageName);
@@ -108,6 +166,9 @@ public abstract class AbstractNewServiceWizardPage extends
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected boolean dialogChanged() {
 		if (super.dialogChanged() == false)
 			return false;
@@ -226,20 +287,32 @@ public abstract class AbstractNewServiceWizardPage extends
 		return true;
 	}
 
+	/**
+	 * Gets the base consumer src control.
+	 *
+	 * @return the base consumer src control
+	 */
 	protected Control getBaseConsumerSrcControl() {
 		return this.baseConsumerSrcText;
 	}
 
 	/**
-	 * this field is disabled by default
-	 * 
-	 * @param parent
-	 * @return
+	 * this field is disabled by default.
+	 *
+	 * @param parent the parent
+	 * @return the text
 	 */
 	protected Text addAdminName(final Composite parent) {
 		return addAdminName(parent, false);
 	}
 
+	/**
+	 * Adds the admin name.
+	 *
+	 * @param composite the composite
+	 * @param editable the editable
+	 * @return the text
+	 */
 	protected Text addAdminName(final Composite composite, boolean editable) {
 		final String labelText = "&Admin Name:";
 		final String tooltip = "the admin or interface project name of the new service";
@@ -273,6 +346,12 @@ public abstract class AbstractNewServiceWizardPage extends
 		return adminNameText;
 	}
 
+	/**
+	 * Adds the type namespace.
+	 *
+	 * @param composite the composite
+	 * @return the text
+	 */
 	protected Text addTypeNamespace(final Composite composite) {
 		typeNamespaceText = super.createLabelTextField(composite,
 				"Common Type &NS:", getDefaultTypeNamespace(), modifyListener,
@@ -282,6 +361,12 @@ public abstract class AbstractNewServiceWizardPage extends
 		return typeNamespaceText;
 	}
 
+	/**
+	 * Adds the type folding.
+	 *
+	 * @param composite the composite
+	 * @return the button
+	 */
 	protected Button addTypeFolding(final Composite composite) {
 		typeFoldingButton = createButton(
 				composite,
@@ -304,6 +389,12 @@ public abstract class AbstractNewServiceWizardPage extends
 		return typeFoldingButton;
 	}
 
+	/**
+	 * Adds the service package.
+	 *
+	 * @param composite the composite
+	 * @return the text
+	 */
 	protected Text addServicePackage(final Composite composite) {
 		servicePackageText = createLabelTextField(composite,
 				"Interface &Package:", getDefaultServicePackageName(),
@@ -315,6 +406,11 @@ public abstract class AbstractNewServiceWizardPage extends
 		return servicePackageText;
 	}
 
+	/**
+	 * Adds the service impl.
+	 *
+	 * @param composite the composite
+	 */
 	protected void addServiceImpl(final Composite composite) {
 		serviceImplementationText = createLabelTextField(composite,
 				"Impl &Class:", getDefaultServiceImplName(), modifyListener,
@@ -324,6 +420,12 @@ public abstract class AbstractNewServiceWizardPage extends
 				serviceImplementationText, null);
 	}
 
+	/**
+	 * Creates the base consumer source.
+	 *
+	 * @param parent the parent
+	 * @return the text
+	 */
 	protected Text createBaseConsumerSource(final Composite parent) {
 		baseConsumerSrcText = super.createLabelTextField(parent,
 				"BaseCons&umer Source Dir:", SOAProjectConstants.FOLDER_SRC,
@@ -332,12 +434,24 @@ public abstract class AbstractNewServiceWizardPage extends
 		return baseConsumerSrcText;
 	}
 
+	/**
+	 * Adds the service version.
+	 *
+	 * @param composite the composite
+	 * @return the text
+	 */
 	protected Text addServiceVersion(final Composite composite) {
 		return super.createResourceVersionControl(composite,
 				"Service &Version:", modifyListener,
 				"the version of the service");
 	}
 
+	/**
+	 * Adds the service layer.
+	 *
+	 * @param composite the composite
+	 * @return the c combo
+	 */
 	protected CCombo addServiceLayer(final Composite composite) {
 
 		final Label label = new Label(composite, SWT.NULL);
@@ -355,20 +469,38 @@ public abstract class AbstractNewServiceWizardPage extends
 		return serviceLayer;
 	}
 
+	/**
+	 * Gets the service package.
+	 *
+	 * @return the service package
+	 */
 	public String getServicePackage() {
 		if (overrideServicePackageButton != null)
 			return servicePackageText.getText();
 		return getDefaultServicePackageName();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getDefaultResourceName() {
 		return "NewService";
 	}
 
+	/**
+	 * Gets the default type namespace.
+	 *
+	 * @return the default type namespace
+	 */
 	public String getDefaultTypeNamespace() {
 		return "";
 	}
 
+	/**
+	 * Gets the service impl.
+	 *
+	 * @return the service impl
+	 */
 	protected String getServiceImpl() {
 		if (overrideServiceImplementationButton != null)
 			return serviceImplementationText.getText();
@@ -378,38 +510,78 @@ public abstract class AbstractNewServiceWizardPage extends
 		return getDefaultServiceImplName();
 	}
 
+	/**
+	 * Gets the base consumer src dir.
+	 *
+	 * @return the base consumer src dir
+	 */
 	public String getBaseConsumerSrcDir() {
 		return getTextValue(baseConsumerSrcText);
 	}
 
+	/**
+	 * Gets the admin name.
+	 *
+	 * @return the admin name
+	 */
 	public String getAdminName() {
 		return getTextValue(getResourceNameText());
 	}
 
+	/**
+	 * Gets the public service name.
+	 *
+	 * @return the public service name
+	 */
 	public String getPublicServiceName() {
 		return "";
 	}
 
+	/**
+	 * Gets the service version.
+	 *
+	 * @return the service version
+	 */
 	public String getServiceVersion() {
 		return getResourceVersion();
 	}
 
+	/**
+	 * Gets the service layer.
+	 *
+	 * @return the service layer
+	 */
 	public String getServiceLayer() {
 		return getTextValue(serviceLayer);
 	}
 
+	/**
+	 * Sets the service implementation.
+	 *
+	 * @param serviceImpl the new service implementation
+	 */
 	protected void setServiceImplementation(final String serviceImpl) {
 		if (serviceImplementationText != null && serviceImpl != null) {
 			serviceImplementationText.setText(serviceImpl);
 		}
 	}
 
+	/**
+	 * Sets the service package.
+	 *
+	 * @param servicePacakge the new service package
+	 */
 	protected void setServicePackage(final String servicePacakge) {
 		if (servicePackageText != null && servicePacakge != null) {
 			servicePackageText.setText(servicePacakge);
 		}
 	}
 
+	/**
+	 * Sets the service name.
+	 *
+	 * @param serviceName the new service name
+	 */
 	protected void setServiceName(final String serviceName) {
 		if (getResourceNameText() != null && serviceName != null) {
 			getResourceNameText().setText(serviceName);
@@ -417,33 +589,63 @@ public abstract class AbstractNewServiceWizardPage extends
 		}
 	}
 
+	/**
+	 * Sets the base consumer dir.
+	 *
+	 * @param baseConsumerDir the new base consumer dir
+	 */
 	protected void setBaseConsumerDir(final String baseConsumerDir) {
 		if (baseConsumerSrcText != null && baseConsumerDir != null) {
 			baseConsumerSrcText.setText(baseConsumerDir);
 		}
 	}
 
+	/**
+	 * Sets the type namespace.
+	 *
+	 * @param typeNamespace the new type namespace
+	 */
 	protected void setTypeNamespace(final String typeNamespace) {
 		if (typeNamespaceText != null && typeNamespace != null) {
 			typeNamespaceText.setText(typeNamespace);
 		}
 	}
 
+	/**
+	 * Sets the type folding.
+	 *
+	 * @param typeFolding the new type folding
+	 */
 	protected void setTypeFolding(final boolean typeFolding) {
 		if (typeFoldingButton != null) {
 			typeFoldingButton.setSelection(typeFolding);
 		}
 	}
 
+	/**
+	 * Sets the base consumer dir text editable.
+	 *
+	 * @param editable the new base consumer dir text editable
+	 */
 	protected void setBaseConsumerDirTextEditable(final boolean editable) {
 		if (baseConsumerSrcText != null)
 			baseConsumerSrcText.setEditable(editable);
 	}
 
+	/**
+	 * Gets the type namespace.
+	 *
+	 * @return the type namespace
+	 */
 	public String getTypeNamespace() {
 		return getTextValue(typeNamespaceText);
 	}
 
+	/**
+	 * Gets the type folding.
+	 *
+	 * @return the type folding
+	 */
 	public boolean getTypeFolding() {
 		if (typeFoldingButton != null) {
 			return typeFoldingButton.getSelection();
@@ -452,6 +654,9 @@ public abstract class AbstractNewServiceWizardPage extends
 		return true;
 	}
 
+	/**
+	 * Reset service name.
+	 */
 	public void resetServiceName() {
 		if (getResourceNameText() != null)
 			getResourceNameText().setText(DEFAULT_TEXT_VALUE);
@@ -461,10 +666,18 @@ public abstract class AbstractNewServiceWizardPage extends
 			serviceImplementationText.setText(DEFAULT_TEXT_VALUE);
 	}
 
+	/**
+	 * Gets the fully qualified service implementation.
+	 *
+	 * @return the fully qualified service implementation
+	 */
 	public String getFullyQualifiedServiceImplementation() {
 		return getServiceImpl();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		if (text == this.servicePackageText)

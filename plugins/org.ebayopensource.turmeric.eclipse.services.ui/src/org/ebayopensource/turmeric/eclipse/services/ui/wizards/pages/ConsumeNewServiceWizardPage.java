@@ -61,8 +61,9 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
- * @author yayu
+ * The Class ConsumeNewServiceWizardPage.
  *
+ * @author yayu
  */
 public class ConsumeNewServiceWizardPage extends SOABasePage {
 	private AbstractSOAServiceListViewer serviceList;
@@ -78,6 +79,11 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
     private Button retrieveConsumerIDBtn;
     private static final SOALogger logger = SOALogger.getLogger();
     
+	/**
+	 * Instantiates a new consume new service wizard page.
+	 *
+	 * @param project the project
+	 */
 	public ConsumeNewServiceWizardPage(final IProject project) {
 		super("consumeNewServiceWizardPage");
 		setTitle("Set Up Consumer Configurations");
@@ -85,6 +91,9 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 		this.project = project;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(Composite parent) {
 		try {
 			Composite composite = new Composite(parent, SWT.NONE);
@@ -132,6 +141,13 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 				parent, getHelpContextID());
 	}
 	
+	/**
+	 * Creates the client name text.
+	 *
+	 * @param parent the parent
+	 * @param defaultValue the default value
+	 * @return the text
+	 */
 	protected Text createClientNameText(Composite parent, String defaultValue) {
 		this.clientName = super.createLabelTextField(parent, "Client &Name:", 
 				defaultValue, modifyListener, 
@@ -140,6 +156,14 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 		return clientName;
 	}
 	
+	/**
+	 * Creates the consumer id text.
+	 *
+	 * @param parent the parent
+	 * @param defaultValue the default value
+	 * @return the text
+	 * @throws CoreException the core exception
+	 */
 	protected Text createConsumerIDText(Composite parent, String defaultValue) throws CoreException {
 		this.consumerId = super.createLabelTextField(parent, "Consumer &ID:", 
 				defaultValue, modifyListener, false, false,
@@ -210,6 +234,13 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 		}
 	}
 	
+	/**
+	 * Creates the service list.
+	 *
+	 * @param parent the parent
+	 * @return the composite
+	 * @throws Exception the exception
+	 */
 	protected Composite createServiceList(Composite parent) throws Exception {
 		final Map<String, AssetInfo> dependencies = new ConcurrentHashMap<String, AssetInfo>();
 		for (final AssetInfo info : GlobalRepositorySystem.instanceOf()
@@ -273,12 +304,18 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 	
 	/**
 	 * Key is the description of the AssetInfo instance.
-	 * @return
+	 *
+	 * @return the added services info
 	 */
 	public Set<AssetInfo> getAddedServicesInfo() {
 		return addedServices;
 	}
 	
+	/**
+	 * Gets the services.
+	 *
+	 * @return the services
+	 */
 	public Set<AssetInfo> getServices() {
 		final Set<AssetInfo> services = new LinkedHashSet<AssetInfo>();
 		if (this.serviceList != null) {
@@ -294,6 +331,9 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 		return services;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	protected boolean dialogChanged() {
 		super.dialogChanged();
 		boolean pageComplete = false;
@@ -394,20 +434,40 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 		return true;
 	}
 	
+	/**
+	 * Gets the client name.
+	 *
+	 * @return the client name
+	 */
 	public String getClientName() {
 		return this.clientName.getText();
 	}
 	
+	/**
+	 * Gets the consumer id.
+	 *
+	 * @return the consumer id
+	 */
 	public String getConsumerId() {
 		return this.consumerId.getText();
 	}
 	
+	/**
+	 * Checks if is consumer id editable.
+	 *
+	 * @return true, if is consumer id editable
+	 */
 	public boolean isConsumerIdEditable() {
 		return this.consumerId.getEditable();
 	}
 	
 	/*
 	 * Non destructive calculation
+	 */
+	/**
+	 * Gets the removed services.
+	 *
+	 * @return the removed services
 	 */
 	public Set<AssetInfo> getRemovedServices() {
 		Set<AssetInfo> existingLibrariesSet = SetUtil.linkedSet(existingServices);
@@ -417,6 +477,11 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 		return existingLibrariesSet;
 	}
 
+	/**
+	 * Gets the added services.
+	 *
+	 * @return the added services
+	 */
 	public Set<AssetInfo> getAddedServices() {
 		Set<AssetInfo> newLibrariesSet = getServices();
 		newLibrariesSet.removeAll(existingServices);
@@ -424,6 +489,11 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 		return newLibrariesSet;
 	}
 	
+	/**
+	 * Gets the environments.
+	 *
+	 * @return the environments
+	 */
 	public Set<String> getEnvironments() {
 		final Set<String> environments = new LinkedHashSet<String>();
 		if (this.serviceList != null) {
@@ -434,21 +504,37 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 		return environments;
 	}
 	
+	/**
+	 * Gets the added environments.
+	 *
+	 * @return the added environments
+	 */
 	public Map<String, EnvironmentItem> getAddedEnvironments() {
 		return addedEnvironments;
 	}
 	
+	/**
+	 * Gets the removed environments.
+	 *
+	 * @return the removed environments
+	 */
 	public Set<String> getRemovedEnvironments() {
 		Set<String> envs = SetUtil.hashSet(existingEnvironments);
 		envs.removeAll(getEnvironments());
 		return envs;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		return "";
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()

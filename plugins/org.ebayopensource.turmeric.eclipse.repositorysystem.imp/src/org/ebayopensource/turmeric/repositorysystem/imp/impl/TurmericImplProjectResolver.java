@@ -15,14 +15,15 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 
 /**
- * @author yayu
+ * The Class TurmericImplProjectResolver.
  *
+ * @author yayu
  */
 public class TurmericImplProjectResolver extends
 		DefaultImplementationProjectResolver {
 
 	/**
-	 * 
+	 * Instantiates a new turmeric impl project resolver.
 	 */
 	public TurmericImplProjectResolver() {
 		super();

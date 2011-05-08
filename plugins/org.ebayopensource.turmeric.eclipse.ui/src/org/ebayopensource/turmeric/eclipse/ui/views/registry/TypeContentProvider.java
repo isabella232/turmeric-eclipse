@@ -17,11 +17,15 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
+ * The Class TypeContentProvider.
+ *
  * @author smathew
- * 
  */
 public class TypeContentProvider extends ArrayContentProvider {
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.ArrayContentProvider#getElements(java.lang.Object)
+	 */
 	@Override
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof SOATypeRegistry) {

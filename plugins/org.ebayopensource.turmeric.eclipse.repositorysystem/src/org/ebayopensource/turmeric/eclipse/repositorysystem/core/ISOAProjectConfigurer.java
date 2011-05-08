@@ -25,6 +25,8 @@ import org.eclipse.jdt.core.IJavaProject;
 
 
 /**
+ * The Interface ISOAProjectConfigurer.
+ *
  * @author smathew
  * 
  * This is a confusing interface. Keeping it here since it was there already.
@@ -35,10 +37,11 @@ public interface ISOAProjectConfigurer {
 
 	/**
 	 * Make appropriate projet nature changes for the underlying repo system.
-	 * @param project
-	 * @param projectNature
+	 *
+	 * @param project the project
+	 * @param projectNature the project nature
 	 * @return whether need to actuall do the configuration
-	 * @throws CoreException
+	 * @throws CoreException the core exception
 	 */
 	public boolean configureProjectNature(IProject project, 
 			IProjectNature projectNature) throws CoreException;
@@ -48,118 +51,155 @@ public interface ISOAProjectConfigurer {
 	 * given resource's parent if it is located in a subfolder of the Repository
 	 * Root. This method returns null if the location is outside the Repository
 	 * Root.
+	 *
+	 * @param projectLocation the project location
+	 * @return the repository path
 	 */
 	public IPath getRepositoryPath(final IPath projectLocation);
 
 	/**
-	 * @param intfProject
-	 * @param implProject
-	 * @param monitor
-	 * @throws Exception
+	 * Initialize project.
+	 *
+	 * @param intfProject the intf project
+	 * @param implProject the impl project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public void initializeProject(SOAIntfProject intfProject,SOAImplProject implProject, IProgressMonitor monitor) throws Exception;
 	
 	/**
-	 * @param intfProject
-	 * @param monitor
-	 * @throws Exception
+	 * Initialize project.
+	 *
+	 * @param intfProject the intf project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public void initializeProject(SOAIntfProject intfProject, IProgressMonitor monitor) throws Exception;
 	
 	/**
-	 * @param implProject
-	 * @param monitor
-	 * @throws Exception
+	 * Initialize project.
+	 *
+	 * @param implProject the impl project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public void initializeProject(SOAImplProject implProject, IProgressMonitor monitor) throws Exception;
 	
 	/**
-	 * @param consumerProject
+	 * Initialize project.
+	 *
+	 * @param consumerProject the consumer project
 	 * @param serviceVersion The version of the consuming service
-	 * @param convertingJavaProject whether it is converting Java project, 
+	 * @param convertingJavaProject whether it is converting Java project,
 	 * and thus no need to create platform specific metadata if already exist
-	 * @param monitor
-	 * @throws Exception
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public void initializeProject(SOAConsumerProject consumerProject, String serviceVersion, 
 			boolean convertingJavaProject, IProgressMonitor monitor) throws Exception;
 	
 	/**
-	 * @param typeLibProject
-	 * @param version
-	 * @param monitor
-	 * @throws Exception
+	 * Initialize type lib project.
+	 *
+	 * @param typeLibProject the type lib project
+	 * @param version the version
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public void initializeTypeLibProject(SOABaseProject typeLibProject, String version, IProgressMonitor monitor) throws Exception;
 	
 	/**
-	 * Initialize the Error Library project
-	 * @param errorLibProject
-	 * @param version
-	 * @param monitor
-	 * @throws Exception
+	 * Initialize the Error Library project.
+	 *
+	 * @param errorLibProject the error lib project
+	 * @param version the version
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public void initializeErrorLibProject(SOABaseProject errorLibProject, String version, IProgressMonitor monitor) throws Exception;
 	
 	/**
-	 * this is equivalent to updateProject(soaProject, true);
-	 * @param soaProject
-	 * @return
-	 * @throws Exception
+	 * this is equivalent to updateProject(soaProject, true);.
+	 *
+	 * @param soaProject the soa project
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public boolean updateProject(ISOAProject soaProject, IProgressMonitor monitor) throws Exception;
 	
 	/**
-	 * @param soaProject
-	 * @param updateClasspath
-	 * @param monitor
-	 * @return
-	 * @throws Exception
+	 * Update project.
+	 *
+	 * @param soaProject the soa project
+	 * @param updateClasspath the update classpath
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public boolean updateProject(ISOAProject soaProject, boolean updateClasspath, IProgressMonitor monitor) throws Exception;
 	
 	/**
-	 * @param projectName
-	 * @param dependentProjectName
+	 * Adds the dependency.
+	 *
+	 * @param projectName the project name
+	 * @param dependentProjectName the dependent project name
 	 * @param type - One of the Type in AssetInfo TYPE_PROJECT etc
-	 * @param add = true, remove = false
-	 * @return
-	 * @throws Exception
+	 * @param addRemove the add remove
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public boolean addDependency(String projectName, String dependentProjectName, String type,boolean addRemove, IProgressMonitor monitor) throws Exception;
 	
 	/**
-	 * @param projectName
-	 * @param dependentLibraries
-	 * @param monitor
-	 * @return
-	 * @throws Exception
+	 * Adds the dependencies.
+	 *
+	 * @param projectName the project name
+	 * @param dependentLibraries the dependent libraries
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public boolean addDependencies(String projectName, List<AssetInfo> dependentLibraries, IProgressMonitor monitor) throws Exception;
 	
+	/**
+	 * Removes the dependencies.
+	 *
+	 * @param projectName the project name
+	 * @param dependentLibraries the dependent libraries
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
+	 */
 	public boolean removeDependencies(String projectName, List<AssetInfo> dependentLibraries, IProgressMonitor monitor) throws Exception;
 	
 	/**
-	 * For adding a type library dependency
-	 * @param projectName
-	 * @param dependentProjectName
+	 * For adding a type library dependency.
+	 *
+	 * @param projectName the project name
+	 * @param dependentProjectName the dependent project name
 	 * @param type - One of the Type in AssetInfo TYPE_PROJECT etc
-	 * @param add = true, remove = false
-	 * @return
-	 * @throws Exception
+	 * @param addRemove the add remove
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public boolean addTypeLibraryDependency(String projectName, String dependentProjectName, String type,boolean addRemove, IProgressMonitor monitor) throws Exception;
 	
 	/**
-	 * add the linked resources to the given SOA project
-	 * @param project
+	 * add the linked resources to the given SOA project.
+	 *
+	 * @param project the project
 	 */
 	public void addProjectLinkedResources(SOABaseProject project);
 	
 	/**
-	 * Add build system specific classpath container to the given project
-	 * @param javaProject
-	 * @param monitor
+	 * Add build system specific classpath container to the given project.
+	 *
+	 * @param javaProject the java project
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
 	 */
 	public void addBuildSystemClasspathContainer(IJavaProject javaProject,
 			IProgressMonitor monitor) throws CoreException;
@@ -169,17 +209,13 @@ public interface ISOAProjectConfigurer {
 	 * v3 build if it is v3 mode. Notify users before doing it. Library Catalog
 	 * version need to be synchronized before doing a v3 build. It is
 	 * cancelable.
-	 * 
-	 * @param soaIntfProject
-	 *            the interface project that need to be updated
-	 * @param oldVersion
-	 *            service old version
-	 * @param newVersion
-	 *            service new version.
-	 * @param forceBuild
-	 *            just for the repos that need build after version change.
-	 * @param monitor
-	 *            the progress monitor
+	 *
+	 * @param soaIntfProject the interface project that need to be updated
+	 * @param oldVersion service old version
+	 * @param newVersion service new version.
+	 * @param silence the silence
+	 * @param monitor the progress monitor
+	 * @throws Exception the exception
 	 */
 	public void postServiceVersionUpdated(SOAIntfProject soaIntfProject,
 			String oldVersion, String newVersion, boolean silence, IProgressMonitor monitor)

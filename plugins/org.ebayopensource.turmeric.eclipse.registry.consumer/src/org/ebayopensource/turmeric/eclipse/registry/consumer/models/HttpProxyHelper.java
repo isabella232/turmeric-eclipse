@@ -9,10 +9,19 @@
 package org.ebayopensource.turmeric.eclipse.registry.consumer.models;
 
 
+/**
+ * The Class HttpProxyHelper.
+ */
 public class HttpProxyHelper {
 	private static String REPOSITORY_SERVICE = "RepositoryService";
 	private static String REPOSITORYMETADATA_SERVICE = "RepositoryMetadataService";
 
+	/**
+	 * Sets the http proxy.
+	 *
+	 * @param proxyHost the proxy host
+	 * @param proxyPort the proxy port
+	 */
 	public static void setHttpProxy(String proxyHost, String proxyPort) {
 		//set proxy settings in Gateway.
 		setHttpProxySettings(proxyHost, proxyPort, true);

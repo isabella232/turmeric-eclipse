@@ -21,6 +21,9 @@ import org.ebayopensource.turmeric.common.config.LibraryType;
  */
 public class TypeSelectorElementRenderer extends LabelProvider {
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
+	 */
 	@Override
 	public String getText(Object element) {
 		String retStr = "";

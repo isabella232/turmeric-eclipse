@@ -20,10 +20,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
  */
 public class AssertionServicePreferenceInitializer extends AbstractPreferenceInitializer {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences()
+	/**
+	 * {@inheritDoc}
 	 */
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
@@ -35,6 +33,11 @@ public class AssertionServicePreferenceInitializer extends AbstractPreferenceIni
 				AssertionsServiceConsumer.HOST_URL);
 	}
 	
+	/**
+	 * Gets the assertion service endpoint.
+	 *
+	 * @return the assertion service endpoint
+	 */
 	public static String getAssertionServiceEndpoint() {
 		return Activator.getDefault().getPreferenceStore().getString(
 				AssertionServicePreferenceConstants.URL_AS_ENDPOINT);

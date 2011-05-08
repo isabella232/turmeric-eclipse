@@ -55,6 +55,9 @@ public class ErrorlibraryPropertiesUIActivator extends AbstractUIPlugin {
 	
 	private InstanceScope scope = new InstanceScope();
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#getPreferenceStore()
+	 */
 	@Override
 	public IPreferenceStore getPreferenceStore() {
 		String pluginId = Activator.PLUGIN_ID;
@@ -64,7 +67,8 @@ public class ErrorlibraryPropertiesUIActivator extends AbstractUIPlugin {
 	}
 	
 	/**
-	 * 
+	 * Use local host.
+	 *
 	 * @return whether to use Local Host or not.
 	 */
 	public boolean useLocalHost() {
@@ -73,7 +77,8 @@ public class ErrorlibraryPropertiesUIActivator extends AbstractUIPlugin {
 	}
 
 	/**
-	 * 
+	 * Gets the error id service endpoint.
+	 *
 	 * @return the endpoint for the error id service
 	 */
 	public String getErrorIdServiceEndpoint() {

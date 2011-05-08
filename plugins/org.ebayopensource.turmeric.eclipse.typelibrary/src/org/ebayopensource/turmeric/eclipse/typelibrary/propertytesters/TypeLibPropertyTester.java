@@ -14,14 +14,19 @@ import org.eclipse.core.expressions.PropertyTester;
 
 
 /**
- * @author smathew
+ * The Class TypeLibPropertyTester.
  *
+ * @author smathew
  */
 public class TypeLibPropertyTester extends PropertyTester {
 	
+	/** The Constant IS_CREATE_TYPE_ENABLED. */
 	public static final String IS_CREATE_TYPE_ENABLED = "isCreateTypeEnabled";
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean test(final Object receiver, final String property,
 			final Object[] args, final Object expectedValue) {
 		try {

@@ -19,16 +19,24 @@ import org.eclipse.swt.widgets.Composite;
 
 
 /**
- * General Page for simple type wizard
- * @author ramurthy
+ * General Page for simple type wizard.
  *
+ * @author ramurthy
  */
 public class SimpleTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 	
+	/**
+	 * Instantiates a new simple type wizard general page.
+	 *
+	 * @param typeLibName the type lib name
+	 */
 	public SimpleTypeWizardGeneralPage(String typeLibName) {
 		super("simpleTypeWizardGeneralPage", "Create Simple Type", "Create a new simple type", typeLibName);		
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(Composite parent) {
 		try {
 			super.createControl(parent, false);
@@ -41,6 +49,9 @@ public class SimpleTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	protected Map<String, URL> getTemplateTypes() {
 		return getTemplateTypeNames(SOAXSDTemplateSubType.SIMPLE);
 	}

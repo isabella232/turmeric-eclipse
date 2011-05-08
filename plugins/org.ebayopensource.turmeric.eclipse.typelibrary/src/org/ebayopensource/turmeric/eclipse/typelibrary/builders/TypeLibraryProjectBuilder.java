@@ -35,6 +35,8 @@ import org.eclipse.core.runtime.IStatus;
  * @author smathew
  */
 public class TypeLibraryProjectBuilder extends AbstractSOAProjectBuilder {
+	
+	/** The Constant BUILDER_ID. */
 	public static final String BUILDER_ID = TypeLibraryActivator.PLUGIN_ID
 			+ ".TypeLibraryProjectBuilder";
 	//private static final SOALogger logger = SOALogger.getLogger();

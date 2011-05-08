@@ -20,11 +20,20 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
+ * The Class ProjectUtil.
+ *
  * @author smathew
- * 
  */
 public class ProjectUtil {
 
+	/**
+	 * Adds the nature.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @param natureIDs the nature i ds
+	 * @throws CoreException the core exception
+	 */
 	public static void addNature(IProject project, IProgressMonitor monitor, 
 			final String... natureIDs)
 	throws CoreException {
@@ -50,6 +59,14 @@ public class ProjectUtil {
 		}
 	}
 	
+	/**
+	 * Removes the natures.
+	 *
+	 * @param project the project
+	 * @param monitor the monitor
+	 * @param natureIDs the nature i ds
+	 * @throws CoreException the core exception
+	 */
 	public static void removeNatures(IProject project, IProgressMonitor monitor, 
 			final String... natureIDs) 
 	throws CoreException {

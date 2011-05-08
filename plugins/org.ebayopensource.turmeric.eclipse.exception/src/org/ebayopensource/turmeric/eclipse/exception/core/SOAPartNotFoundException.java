@@ -22,8 +22,14 @@ public class SOAPartNotFoundException extends AbstractSOAException{
 
 	private static final long serialVersionUID = 1L;
 	
+	/** The default msg. */
 	public String defaultMsg = SOAMessages.PART_NOT_FOUND;
 	
+	/**
+	 * Instantiates a new sOA part not found exception.
+	 *
+	 * @param message the message
+	 */
 	public SOAPartNotFoundException(String message) {
 		super(message);		
 	}

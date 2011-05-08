@@ -11,17 +11,19 @@ package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 import org.eclipse.core.runtime.IPath;
 
 /**
+ * The Interface ISOARootLocator.
+ *
  * @author smathew
  * 
  * This interface is for the repos to implement and decide whether the project
  * root directory should be overriden. Used by Creator wizards lie
  * ServiceFromNewWSDLWizardPage
- * 
- * 
  */
 public interface ISOARootLocator {
 
 	/**
+	 * Gets the root.
+	 *
 	 * @return path to the root. This is the repo root.
 	 */
 	public IPath getRoot();
@@ -30,12 +32,16 @@ public interface ISOARootLocator {
 	 * This method was written for V3 Build projects, where by default we want
 	 * to override the project root directory. For all other build systems, this
 	 * returns false.
+	 *
+	 * @return true, if successful
 	 */
 	public boolean shouldOverrideProjectRootDirectory();
 
 	/**
 	 * This method returns the default value for the project directory location
 	 * in the wizards. eg:AbstractSOAProjectWizardPage
+	 *
+	 * @return the default project location
 	 */
 	public String getDefaultProjectLocation();
 }

@@ -37,11 +37,8 @@ public class OperationsProcessor implements ICommand {
 
 	private Definition definition;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ebayopensource.turmeric.eclipse.core.ICommand#execute(java.lang.Object,
-	 *      org.eclipse.core.runtime.IProgressMonitor)
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean execute(Object parameter, IProgressMonitor monitor)
 			throws CommandFailedException {

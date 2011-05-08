@@ -13,29 +13,53 @@ import org.ebayopensource.turmeric.eclipse.ui.UIConstants;
 
 
 /**
+ * The Class ServicesViewLayerModel.
+ *
  * @author smathew
- * 
  */
 public class ServicesViewLayerModel extends ServicesViewBaseModel {
 	private String layer;
 
+	/**
+	 * Instantiates a new services view layer model.
+	 *
+	 * @param layer the layer
+	 */
 	public ServicesViewLayerModel(String layer) {
 		super();
 		this.layer = layer;
 	}
 
+	/**
+	 * Gets the layer.
+	 *
+	 * @return the layer
+	 */
 	public String getLayer() {
 		return layer;
 	}
 
+	/**
+	 * Sets the layer.
+	 *
+	 * @param layer the new layer
+	 */
 	public void setLayer(String layer) {
 		this.layer = layer;
 	}
 
+	/**
+	 * Gets the image name.
+	 *
+	 * @return the image name
+	 */
 	public static String getImageName() {
 		return UIConstants.IMAGE_LABEL;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		String[] formattedArray = { UIConstants.SERVICES_VIEW_LAYER,

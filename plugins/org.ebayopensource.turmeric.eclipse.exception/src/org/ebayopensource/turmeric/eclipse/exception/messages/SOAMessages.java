@@ -13,8 +13,8 @@ import org.eclipse.osgi.util.NLS;
 
 
 /**
- * Standard messages class for Exception framework
- * 
+ * Standard messages class for Exception framework.
+ *
  * @author smathew
  * @author yayu
  */
@@ -22,6 +22,7 @@ public class SOAMessages extends NLS {
 	private static final String BUNDLE_NAME = "org.ebayopensource.turmeric.eclipse.exception.messages.messages"; //$NON-NLS-1$
 	
 
+	/** The PAR t_ no t_ found. */
 	public static String PART_NOT_FOUND;
 
 	static {

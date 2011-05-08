@@ -16,17 +16,24 @@ import org.eclipse.core.resources.IFile;
 import org.jdom.Element;
 
 /**
- * @author yualiu
+ * The Class ServiceConfigXmlHelper.
  *
+ * @author yualiu
  */
 public class ServiceConfigXmlHelper {
-	/**
-	 * 
-	 */
+	
+	/** The Constant SERVICE_NAME. */
 	public final static String SERVICE_NAME = "service-name";
 	private static final String SERVICE_INTERFACE_CLASS_NAME = "service-interface-class-name";
 	private static final String SERVICE_IMPL_CLASS_NAME = "service-impl-class-name";
 	
+	/**
+	 * Parses the service config.
+	 *
+	 * @param input the input
+	 * @return the service config
+	 * @throws Exception the exception
+	 */
 	public ServiceConfig parseServiceConfig(InputStream input) throws Exception {
 		XMLHelper helper = new XMLHelper(input);
 		
@@ -54,8 +61,12 @@ public class ServiceConfigXmlHelper {
 	}
 
 	/**
-	 * @param helper
-	 * @param serviceConfig
+	 * Sets the service implementation name.
+	 *
+	 * @param input the input
+	 * @param svcImplName the svc impl name
+	 * @param file the file
+	 * @throws Exception the exception
 	 */
 	public void setServiceImplementationName(InputStream input, String svcImplName, IFile file) throws Exception {
 		XMLHelper helper = new XMLHelper(input);

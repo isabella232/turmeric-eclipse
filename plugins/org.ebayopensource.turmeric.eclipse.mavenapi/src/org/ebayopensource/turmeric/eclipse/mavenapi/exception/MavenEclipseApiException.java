@@ -9,9 +9,9 @@
 package org.ebayopensource.turmeric.eclipse.mavenapi.exception;
 
 /**
- * 
+ * The Class MavenEclipseApiException.
+ *
  * @author yayu
- * 
  */
 public class MavenEclipseApiException extends Exception {
 
@@ -21,14 +21,15 @@ public class MavenEclipseApiException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 *  
+	 * Instantiates a new maven eclipse api exception.
 	 */
 	public MavenEclipseApiException() {
 		super();
 	}
 
 	/**
-	 * 
+	 * Instantiates a new maven eclipse api exception.
+	 *
 	 * @param message Message for the exception
 	 */
 	public MavenEclipseApiException(String message) {
@@ -36,7 +37,8 @@ public class MavenEclipseApiException extends Exception {
 	}
 
 	/**
-	 * 
+	 * Instantiates a new maven eclipse api exception.
+	 *
 	 * @param cause the cause of the exception
 	 */
 	public MavenEclipseApiException(Throwable cause) {
@@ -45,7 +47,8 @@ public class MavenEclipseApiException extends Exception {
 
 	
 	/**
-	 * 
+	 * Instantiates a new maven eclipse api exception.
+	 *
 	 * @param message the message for the exception
 	 * @param cause  the cause of the exception
 	 */

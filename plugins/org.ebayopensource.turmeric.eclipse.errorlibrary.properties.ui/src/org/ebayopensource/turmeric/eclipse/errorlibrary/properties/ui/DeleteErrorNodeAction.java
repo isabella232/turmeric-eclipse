@@ -29,20 +29,25 @@ import org.eclipse.jface.viewers.StructuredViewer;
 
 
 /**
- * @author yayu
+ * The Class DeleteErrorNodeAction.
  *
+ * @author yayu
  */
 public class DeleteErrorNodeAction extends AbstractErrorNodeAction {
 
 
 	/**
-	 * 
+	 * Instantiates a new delete error node action.
+	 *
 	 * @param viewer a structured viewer
 	 */
 	public DeleteErrorNodeAction(StructuredViewer viewer) {
 		super(SOAMessages.ACTION_TEXT_DELETE, viewer);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.AbstractErrorNodeAction#preValidation()
+	 */
 	@Override
 	protected IStatus preValidation() {
 		IStatus status = super.preValidation();
@@ -96,6 +101,9 @@ public class DeleteErrorNodeAction extends AbstractErrorNodeAction {
 
 
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.AbstractErrorNodeAction#execute(org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrUIComp)
+	 */
 	@Override
 	public IStatus execute(ISOAErrUIComp selectedErrorNode) throws Exception {
 		if (MessageDialog.openConfirm(UIUtil.getActiveShell(), "Confirmation", 

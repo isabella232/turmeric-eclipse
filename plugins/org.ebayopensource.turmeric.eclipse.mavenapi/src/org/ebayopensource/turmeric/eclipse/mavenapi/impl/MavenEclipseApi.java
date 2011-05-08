@@ -61,9 +61,9 @@ import org.maven.ide.eclipse.repository.IRepositoryRegistry;
 import org.sonatype.nexus.index.ArtifactInfo;
 
 /**
- * 
+ * The Class MavenEclipseApi.
+ *
  * @author <a href="oleg@codehaus.org">Oleg Gusakov</a>
- * 
  */
 public class MavenEclipseApi extends AbstractMavenEclipseApi {
 
@@ -314,10 +314,10 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 
 	/**
 	 * according to name,to search artifact. It supports wildcard.
-	 * 
+	 *
 	 * @param name the name, may include wild cards.
 	 * @return a Collection of Artifacts that matched the query.
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public Collection<Artifact> findArtifactByName(String name)
 			throws MavenEclipseApiException {
@@ -335,12 +335,12 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	/**
 	 * according to artifact name,group and repository url ,to search artifact.
 	 * It supports wildcard.
-	 * 
+	 *
 	 * @param name the artifact name, can include wildcards
 	 * @param group the group id, can include wildcards
 	 * @param repositoryUrl a repository url location
 	 * @return a collection of artifacts that matched the query
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public Collection<Artifact> findArtifactByNameAndGroupAndRepositoryUrl(
 			String name, String group, String repositoryUrl)

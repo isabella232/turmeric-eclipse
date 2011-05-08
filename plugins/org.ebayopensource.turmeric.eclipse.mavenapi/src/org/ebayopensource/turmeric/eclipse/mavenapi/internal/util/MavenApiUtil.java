@@ -27,6 +27,8 @@ import org.apache.maven.repository.metadata.MetadataTreeNode;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
 
 /**
+ * The Class MavenApiUtil.
+ *
  * @author bishen
  */
 public final class MavenApiUtil {
@@ -37,13 +39,13 @@ public final class MavenApiUtil {
 	/**
 	 * Tries to resolve the given {@code ArtifactMetadata}s in the given
 	 * local/remote repositories and returns the resolved {@code Artifact}s.
-	 * 
-	 * @param embedder
-	 * @param mdCollection
-	 * @param localRepository
-	 * @param remoteRepositories
-	 * @return
-	 * @throws MavenEclipseApiException 
+	 *
+	 * @param embedder the embedder
+	 * @param mdCollection the md collection
+	 * @param localRepository the local repository
+	 * @param remoteRepositories the remote repositories
+	 * @return the list
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public static List<Artifact> resolveArtifacts(RepositorySystem embedder, List<ArtifactMetadata> mdCollection,
 			ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories) throws MavenEclipseApiException {
@@ -70,13 +72,13 @@ public final class MavenApiUtil {
 	/**
 	 * Tries to resolve the given artifact in the given local/remote
 	 * repositories.
-	 * 
-	 * @param embedder
-	 * @param artifact
-	 * @param localRepository
-	 * @param remoteRepositories
-	 * @return
-	 * @throws MavenEclipseApiException 
+	 *
+	 * @param embedder the embedder
+	 * @param artifact the artifact
+	 * @param localRepository the local repository
+	 * @param remoteRepositories the remote repositories
+	 * @return the artifact resolution result
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public static ArtifactResolutionResult resolveArtifact(RepositorySystem embedder,
 			Artifact artifact, ArtifactRepository localRepository,
@@ -88,14 +90,14 @@ public final class MavenApiUtil {
 	/**
 	 * Tries to resolve the given artifact in the given local/remote
 	 * repositories.
-	 * 
-	 * @param embedder
-	 * @param artifact
-	 * @param localRepository
-	 * @param remoteRepositories
-	 * @param resolveDependencies
-	 * @return
-	 * @throws MavenEclipseApiException 
+	 *
+	 * @param embedder the embedder
+	 * @param artifact the artifact
+	 * @param localRepository the local repository
+	 * @param remoteRepositories the remote repositories
+	 * @param resolveDependencies the resolve dependencies
+	 * @return the artifact resolution result
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public static ArtifactResolutionResult resolveArtifact(RepositorySystem embedder,
 			Artifact artifact, ArtifactRepository localRepository,
@@ -115,14 +117,14 @@ public final class MavenApiUtil {
 	}
 
 	/**
-	 * Tries to resolve a metadata tree based on the given
+	 * Tries to resolve a metadata tree based on the given.
+	 *
+	 * @param embedder the embedder
+	 * @param req the req
+	 * @return the metadata resolution result
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 * {@code MetadataResolutionRequest} and embed it in a
 	 * {@code MetadataResolutionResult}.
-	 * 
-	 * @param embedder
-	 * @param req
-	 * @return
-	 * @throws MavenEclipseApiException
 	 */
 	public static MetadataResolutionResult resolveMetadata(RepositorySystem embedder,
 			MetadataResolutionRequest req) throws MavenEclipseApiException {

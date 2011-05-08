@@ -15,20 +15,28 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 
 
 /**
- * @author yayu
+ * The Class TurmericErrorLibraryProjectNature.
  *
+ * @author yayu
  */
 public class TurmericErrorLibraryProjectNature extends AbstractSOANature{
+	
+	/** The Constant NATURE_ID. */
 	public static final String NATURE_ID = 
 		Activator.PLUGIN_ID + ".ErrorLibraryProjectNature";
 	
+	/**
+	 * Gets the nature id.
+	 *
+	 * @return the nature id
+	 */
 	public static String getNatureId() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 		.getProjectNatureId(SupportedProjectType.ERROR_LIBRARY);
 	}
 	
 	/**
-	 * 
+	 * Instantiates a new turmeric error library project nature.
 	 */
 	public TurmericErrorLibraryProjectNature() {
 		super();

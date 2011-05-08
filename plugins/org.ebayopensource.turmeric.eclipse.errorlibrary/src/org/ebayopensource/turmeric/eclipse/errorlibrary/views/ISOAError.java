@@ -17,51 +17,51 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
 public interface ISOAError extends ISOAErrUIComp {
 
 	/**
-	 * Returns the unique id of the error
-	 * 
-	 * @return
+	 * Returns the unique id of the error.
+	 *
+	 * @return the id
 	 */
 	String getId();
 
 	/**
-	 * Returns the category of the error
-	 * 
-	 * @return
+	 * Returns the category of the error.
+	 *
+	 * @return the category
 	 */
 	String getCategory();
 
 	/**
-	 * Returns the sub domain of the error
-	 * 
-	 * @return
+	 * Returns the sub domain of the error.
+	 *
+	 * @return the sub domain
 	 */
 	String getSubDomain();
 
 	/**
-	 * Returns the severity of the error
-	 * 
-	 * @return
+	 * Returns the severity of the error.
+	 *
+	 * @return the severity
 	 */
 	String getSeverity();
 
 	/**
-	 * Returns the user readable message
-	 * 
-	 * @return
+	 * Returns the user readable message.
+	 *
+	 * @return the message
 	 */
 	String getMessage();
 
 	/**
-	 * Returns the user readable resolution
-	 * 
-	 * @return
+	 * Returns the user readable resolution.
+	 *
+	 * @return the resolution
 	 */
 	String getResolution();
 
 	/**
-	 * return the parent domain to which this error belong to
-	 * 
-	 * @return
+	 * return the parent domain to which this error belong to.
+	 *
+	 * @return the domain
 	 */
 	ISOAErrDomain getDomain();
 

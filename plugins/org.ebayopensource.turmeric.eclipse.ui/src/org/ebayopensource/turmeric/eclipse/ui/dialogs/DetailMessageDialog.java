@@ -13,12 +13,23 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * The Class DetailMessageDialog.
+ */
 public class DetailMessageDialog extends TrayDialog {
 
 	private String title;
 
 	private String message;
 
+	/**
+	 * Instantiates a new detail message dialog.
+	 *
+	 * @param shell the shell
+	 * @param title the title
+	 * @param message the message
+	 * @param block the block
+	 */
 	public DetailMessageDialog(Shell shell, String title, String message,
 			boolean block) {
 		super(shell);
@@ -28,6 +39,9 @@ public class DetailMessageDialog extends TrayDialog {
 		this.setHelpAvailable(false);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected Point getInitialSize() {
 		Point p = super.getInitialSize();
 		p.x = 500;
@@ -35,6 +49,9 @@ public class DetailMessageDialog extends TrayDialog {
 		return p;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.Dialog#createDialogArea(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
@@ -68,6 +85,9 @@ public class DetailMessageDialog extends TrayDialog {
 		return parent;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.TrayDialog#createButtonBar(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	protected Control createButtonBar(Composite parent) {
 		Control control = super.createButtonBar(parent);
@@ -78,6 +98,9 @@ public class DetailMessageDialog extends TrayDialog {
 		return control;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected boolean isResizable() {
 		return true;
 	}

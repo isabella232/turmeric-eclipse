@@ -41,10 +41,10 @@ public class JDOMUtil {
 	/**
 	 * Saves the parameter document to the given file. Client should handle the
 	 * exception. Not null safe.
-	 * 
-	 * @param document
-	 * @param file
-	 * @throws Exception
+	 *
+	 * @param document the document
+	 * @param file the file
+	 * @throws Exception the exception
 	 */
 	public static void outputDocument(final Document document, final IFile file)
 			throws Exception {
@@ -63,13 +63,12 @@ public class JDOMUtil {
 	/**
 	 * Wrapper over the linked method read xml. Convenience method to avoid type
 	 * casting from the client side.
-	 * 
+	 *
+	 * @param file the file
+	 * @return the element
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws JDOMException the jDOM exception
 	 * @see {@link JDOMUtil#readXML(File)}
-	 * 
-	 * @param file
-	 * @return
-	 * @throws IOException
-	 * @throws JDOMException
 	 */
 	public static Element readXMLFile(final File file) throws IOException,
 			JDOMException {
@@ -79,12 +78,12 @@ public class JDOMUtil {
 	/**
 	 * Wrapper over the linked method read xml. This API is for eclipse specific
 	 * clients.
-	 * 
+	 *
+	 * @param path the path
+	 * @return the element
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws JDOMException the jDOM exception
 	 * @see {@link JDOMUtil#readXML(File)}
-	 * @param path
-	 * @return
-	 * @throws IOException
-	 * @throws JDOMException
 	 */
 	public static Element readXMLFile(final IPath path) throws IOException,
 			JDOMException {
@@ -94,11 +93,11 @@ public class JDOMUtil {
 	/**
 	 * The real :) file read method used by the above wrappers. Uses the usual
 	 * SAX builder
-	 * 
-	 * @param file
-	 * @return
-	 * @throws IOException
-	 * @throws JDOMException
+	 *
+	 * @param file the file
+	 * @return the document
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws JDOMException the jDOM exception
 	 */
 	public static Document readXML(final File file) throws IOException,
 			JDOMException {
@@ -112,6 +111,14 @@ public class JDOMUtil {
 		}
 	}
 	
+	/**
+	 * Read xml.
+	 *
+	 * @param ins the ins
+	 * @return the document
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws JDOMException the jDOM exception
+	 */
 	public static Document readXML(final InputStream ins) throws IOException, 
 	JDOMException {
 		try {
@@ -125,9 +132,9 @@ public class JDOMUtil {
 	/**
 	 * Converts a JDOM document to String. Note: JDOM document is not a w3c
 	 * document.
-	 * 
-	 * @param document
-	 * @return
+	 *
+	 * @param document the document
+	 * @return the string
 	 */
 	public static String convertXMLToString(final Document document) {
 		final XMLOutputter outputter = new XMLOutputter(Format
@@ -138,9 +145,9 @@ public class JDOMUtil {
 	/**
 	 * Converts a JDOM element to String. Note: JDOM element is not a w3c
 	 * element.
-	 * 
-	 * @param element
-	 * @return
+	 *
+	 * @param element the element
+	 * @return the string
 	 */
 	public static String convertXMLToString(final Element element) {
 		final XMLOutputter outputter = new XMLOutputter(Format
@@ -150,9 +157,9 @@ public class JDOMUtil {
 
 	/**
 	 * Converts a w3c document to JDOM one. Uses the DOM builder.
-	 * 
-	 * @param domDoc
-	 * @return
+	 *
+	 * @param domDoc the dom doc
+	 * @return the org.jdom. document
 	 */
 	public static org.jdom.Document convertToJDom(org.w3c.dom.Document domDoc) {
 		DOMBuilder builder = new DOMBuilder();

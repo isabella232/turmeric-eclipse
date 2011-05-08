@@ -36,8 +36,18 @@ import org.eclipse.swt.widgets.Text;
  * 
  */
 public class SOATextPage extends WizardPage {
+	
+	/** The messages. */
 	protected final List<String> messages;
 
+	/**
+	 * Instantiates a new sOA text page.
+	 *
+	 * @param name the name
+	 * @param title the title
+	 * @param description the description
+	 * @param model the model
+	 */
 	public SOATextPage(String name, String title, String description,
 			IStatus model) {
 		super(name);
@@ -58,6 +68,14 @@ public class SOATextPage extends WizardPage {
 		}
 	}
 
+	/**
+	 * Instantiates a new sOA text page.
+	 *
+	 * @param name the name
+	 * @param title the title
+	 * @param description the description
+	 * @param messages the messages
+	 */
 	public SOATextPage(String name, String title, String description,
 			List<String> messages) {
 		super(name);
@@ -70,6 +88,9 @@ public class SOATextPage extends WizardPage {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(final Composite parent) {
 		final Composite container = new Composite(parent, SWT.NONE);
 		container.setLayout(new GridLayout(1, true));
@@ -83,7 +104,9 @@ public class SOATextPage extends WizardPage {
 	}
 
 	/**
-	 * This implementation returns false
+	 * This implementation returns false.
+	 *
+	 * @return true, if successful
 	 */
 	@Override
 	public boolean canFlipToNextPage() {
@@ -91,7 +114,9 @@ public class SOATextPage extends WizardPage {
 	}
 
 	/**
-	 * This implementation returns false
+	 * This implementation returns false.
+	 *
+	 * @return true, if is page complete
 	 */
 	@Override
 	public boolean isPageComplete() {

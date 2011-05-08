@@ -79,6 +79,8 @@ import org.maven.ide.eclipse.embedder.ArtifactRef;
 import org.maven.ide.eclipse.project.IMavenProjectFacade;
 
 /**
+ * The Class MavenCoreUtils.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -88,7 +90,8 @@ public class MavenCoreUtils {
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * 
+	 * Maven eclipse api.
+	 *
 	 * @return an instance of the MavenEclipseAPI.
 	 */
 	public static IMavenEclipseApi mavenEclipseAPI() {
@@ -96,11 +99,12 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * 
+	 * Configure as standard maven project.
+	 *
 	 * @param project a soa base project
 	 * @param monitor an eclipse progress monitor
 	 * @return a configured SOABaseProject
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public static SOABaseProject configureAsStandardMavenProject(
 			final SOABaseProject project, IProgressMonitor monitor)
@@ -130,7 +134,8 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * 
+	 * Gets the artifact keys.
+	 *
 	 * @param mavenProject a maven project
 	 * @return a set of ArtifactKeys
 	 */
@@ -163,10 +168,10 @@ public class MavenCoreUtils {
 
 	/**
 	 * we only check for the existence of interface projects.
-	 * 
+	 *
 	 * @param serviceNames an Array of strings that contain service names
 	 * @return an boolean arry of results for the service names
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static boolean[] serviceExists(final String... serviceNames)
 			throws Exception {
@@ -192,10 +197,11 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * 
+	 * Checks if is type library exist.
+	 *
 	 * @param typeLibName type library names
 	 * @return true if the type library exists
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static boolean isTypeLibraryExist(final String typeLibName)
 			throws Exception {
@@ -218,10 +224,11 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * 
-	 * @param libs a list of libraries 
+	 * Artifact metadata.
+	 *
+	 * @param libs a list of libraries
 	 * @return a set of ArtifactMetadata for the libraries
-	 * @throws MavenEclipseApiException 
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public static Set<ArtifactMetadata> artifactMetadata(
 			final Collection<String> libs) throws MavenEclipseApiException {
@@ -248,6 +255,8 @@ public class MavenCoreUtils {
 	}
 
 	/**
+	 * Library name.
+	 *
 	 * @param artifact artifact meta data
 	 * @return The full library name in Maven format
 	 */
@@ -258,7 +267,8 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * 
+	 * Library name.
+	 *
 	 * @param artifact the artifact name
 	 * @return the libary name
 	 */
@@ -269,6 +279,8 @@ public class MavenCoreUtils {
 	}
 
 	/**
+	 * Library name.
+	 *
 	 * @param project the maven project
 	 * @return The full library name for the given Maven project
 	 */
@@ -286,10 +298,11 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * 
-	 * @param metadata
-	 * @return
-	 * @throws MavenEclipseApiException
+	 * Gets the library.
+	 *
+	 * @param metadata the metadata
+	 * @return the library
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public static MavenProject getLibrary(final ArtifactMetadata metadata)
 			throws MavenEclipseApiException {
@@ -302,6 +315,12 @@ public class MavenCoreUtils {
 		return result;
 	}
 
+	/**
+	 * Translate to asset info.
+	 *
+	 * @param dependency the dependency
+	 * @return the asset info
+	 */
 	public static AssetInfo translateToAssetInfo(final Dependency dependency) {
 		if (SOALogger.DEBUG)
 			logger.entering(dependency);
@@ -350,6 +369,14 @@ public class MavenCoreUtils {
 		return assetInfo;
 	}
 
+	/**
+	 * Gets the latest artifact.
+	 *
+	 * @param groupID the group id
+	 * @param artifactID the artifact id
+	 * @return the latest artifact
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static Artifact getLatestArtifact(final String groupID,
 			final String artifactID) throws MavenEclipseApiException {
 		Artifact result = null;
@@ -383,6 +410,15 @@ public class MavenCoreUtils {
 		return result;
 	}
 
+	/**
+	 * Gets the library version.
+	 *
+	 * @param groupID the group id
+	 * @param artifactID the artifact id
+	 * @param defaultVersion the default version
+	 * @return the library version
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static String getLibraryVersion(final String groupID,
 			final String artifactID, final String defaultVersion)
 			throws MavenEclipseApiException {
@@ -407,6 +443,13 @@ public class MavenCoreUtils {
 		return version;
 	}
 
+	/**
+	 * Gets the library identifier.
+	 *
+	 * @param libName the lib name
+	 * @return the library identifier
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static ArtifactMetadata getLibraryIdentifier(final String libName)
 			throws MavenEclipseApiException {
 		ArtifactMetadata result = null;
@@ -443,6 +486,13 @@ public class MavenCoreUtils {
 	 * Object[] )libNames ).toArray( new String[ 0 ] ); }
 	 */
 
+	/**
+	 * Gets the asset location.
+	 *
+	 * @param projectName the project name
+	 * @return the asset location
+	 * @throws Exception the exception
+	 */
 	public static String getAssetLocation(String projectName) throws Exception {
 		if (StringUtils.isNotEmpty(projectName)) {
 			final IProject project = WorkspaceUtil.getProject(projectName);
@@ -470,6 +520,13 @@ public class MavenCoreUtils {
 		return null;
 	}
 
+	/**
+	 * Gets the service jar location.
+	 *
+	 * @param serviceName the service name
+	 * @return the service jar location
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static IPath getServiceJarLocation(final String serviceName)
 			throws MavenEclipseApiException {
 		return getArtifactJarLocation(getMavenOrgProviderInstance()
@@ -477,18 +534,27 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * Get the jar location for the latest versoin of the artifact
-	 * 
-	 * @param groupID
-	 * @param artifactName
-	 * @return
-	 * @throws MavenEclipseApiException
+	 * Get the jar location for the latest versoin of the artifact.
+	 *
+	 * @param groupID the group id
+	 * @param artifactName the artifact name
+	 * @return the artifact jar location
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public static IPath getArtifactJarLocation(final String groupID,
 			final String artifactName) throws MavenEclipseApiException {
 		return getArtifactJarLocation(groupID, artifactName, null);
 	}
 
+	/**
+	 * Gets the artifact jar location.
+	 *
+	 * @param groupID the group id
+	 * @param artifactName the artifact name
+	 * @param version the version
+	 * @return the artifact jar location
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static IPath getArtifactJarLocation(final String groupID,
 			final String artifactName, final String version)
 			throws MavenEclipseApiException {
@@ -514,12 +580,12 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * Convert the given instance of IProject into a MavenProject instance
-	 * 
-	 * @param project
-	 * @return
-	 * @throws CoreException
-	 * @throws MavenEclipseApiException
+	 * Convert the given instance of IProject into a MavenProject instance.
+	 *
+	 * @param project the project
+	 * @return the maven project
+	 * @throws CoreException the core exception
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public static MavenProject getMavenProject(final IProject project)
 			throws CoreException, MavenEclipseApiException {
@@ -542,6 +608,12 @@ public class MavenCoreUtils {
 		}
 	}
 
+	/**
+	 * Gets the all type libraries.
+	 *
+	 * @return the all type libraries
+	 * @throws Exception the exception
+	 */
 	public static Set<AssetInfo> getAllTypeLibraries() throws Exception {
 		return getAllLibraries(getMavenOrgProviderInstance()
 				.getProjectGroupId(SupportedProjectType.TYPE_LIBRARY));
@@ -565,11 +637,23 @@ public class MavenCoreUtils {
 		return result;
 	}
 
+	/**
+	 * Gets the all error libraries.
+	 *
+	 * @return the all error libraries
+	 * @throws Exception the exception
+	 */
 	public static Set<AssetInfo> getAllErrorLibraries() throws Exception {
 		return getAllLibraries(getMavenOrgProviderInstance().getProjectGroupId(
 				SupportedProjectType.ERROR_LIBRARY));
 	}
 
+	/**
+	 * Gets the all services in local repository.
+	 *
+	 * @return the all services in local repository
+	 * @throws Exception the exception
+	 */
 	public static Set<? extends AssetInfo> getAllServicesInLocalRepository()
 			throws Exception {
 		final Set<AssetInfo> services = SetUtil.linkedSet();
@@ -589,6 +673,13 @@ public class MavenCoreUtils {
 		return services;
 	}
 
+	/**
+	 * Transform to asset info.
+	 *
+	 * @param mProject the m project
+	 * @return the asset info
+	 * @throws Exception the exception
+	 */
 	public static AssetInfo transformToAssetInfo(final MavenProject mProject)
 			throws Exception {
 		if (mProject != null) {
@@ -628,10 +719,12 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * @param mProject
-	 * @param jarEntryPath
+	 * Gets the input stream from jar.
+	 *
+	 * @param mProject the m project
+	 * @param jarEntryPath the jar entry path
 	 * @return The input stream for the specified jar entry
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static InputStream getInputStreamFromJar(
 			final MavenProject mProject, final String jarEntryPath)
@@ -781,6 +874,14 @@ public class MavenCoreUtils {
 		return projectInfo;
 	}
 
+	/**
+	 * Find dependency.
+	 *
+	 * @param groupID the group id
+	 * @param artifactID the artifact id
+	 * @param pom the pom
+	 * @return the dependency
+	 */
 	public static Dependency findDependency(final String groupID,
 			final String artifactID, final Model pom) {
 		for (final Object obj : pom.getDependencies()) {
@@ -796,12 +897,12 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * use jar as the library type
-	 * 
-	 * @param groupID
-	 * @param artifactID
-	 * @param version
-	 * @return
+	 * use jar as the library type.
+	 *
+	 * @param groupID the group id
+	 * @param artifactID the artifact id
+	 * @param version the version
+	 * @return the string
 	 */
 	public static String translateLibraryName(final String groupID,
 			final String artifactID, final String version) {
@@ -809,12 +910,25 @@ public class MavenCoreUtils {
 				SOAMavenConstants.MAVEN_PACKAGING_JAR, version);
 	}
 
+	/**
+	 * Translate library name.
+	 *
+	 * @param dependency the dependency
+	 * @return the string
+	 */
 	public static String translateLibraryName(final Dependency dependency) {
 		return translateLibraryName(dependency.getGroupId(),
 				dependency.getArtifactId(), dependency.getType(),
 				dependency.getVersion());
 	}
 
+	/**
+	 * Translate interface library name.
+	 *
+	 * @param serviceName the service name
+	 * @param serviceVersion the service version
+	 * @return the string
+	 */
 	public static String translateInterfaceLibraryName(
 			final String serviceName, final String serviceVersion) {
 		return translateLibraryName(getMavenOrgProviderInstance()
@@ -822,6 +936,15 @@ public class MavenCoreUtils {
 				serviceName, serviceVersion);
 	}
 
+	/**
+	 * Translate library name.
+	 *
+	 * @param groupID the group id
+	 * @param artifactID the artifact id
+	 * @param libraryType the library type
+	 * @param version the version
+	 * @return the string
+	 */
 	public static String translateLibraryName(final String groupID,
 			final String artifactID, final String libraryType,
 			final String version) {
@@ -839,6 +962,13 @@ public class MavenCoreUtils {
 		return buf.toString();
 	}
 
+	/**
+	 * Gets the interface project info.
+	 *
+	 * @param intfProject the intf project
+	 * @return the interface project info
+	 * @throws Exception the exception
+	 */
 	public static MavenProjectInfo getInterfaceProjectInfo(
 			final IProject intfProject) throws Exception {
 		final Model pom = MavenEclipseUtil.readPOM(intfProject);
@@ -885,6 +1015,14 @@ public class MavenCoreUtils {
 		return result;
 	}
 
+	/**
+	 * Gets the implementation project info.
+	 *
+	 * @param implProject the impl project
+	 * @return the implementation project info
+	 * @throws CoreException the core exception
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static MavenProjectInfo getImplementationProjectInfo(
 			final IProject implProject) throws CoreException,
 			MavenEclipseApiException {
@@ -895,6 +1033,14 @@ public class MavenCoreUtils {
 				pom.getProperties(), pom);
 	}
 
+	/**
+	 * Gets the consumer project info.
+	 *
+	 * @param consumerProject the consumer project
+	 * @return the consumer project info
+	 * @throws CoreException the core exception
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static MavenProjectInfo getConsumerProjectInfo(
 			final IProject consumerProject) throws CoreException,
 			MavenEclipseApiException {
@@ -941,6 +1087,14 @@ public class MavenCoreUtils {
 		return projectInfo;
 	}
 
+	/**
+	 * Gets the type library project info.
+	 *
+	 * @param typelibProject the typelib project
+	 * @return the type library project info
+	 * @throws CoreException the core exception
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static MavenProjectInfo getTypeLibraryProjectInfo(
 			final IProject typelibProject) throws CoreException,
 			MavenEclipseApiException {
@@ -950,6 +1104,14 @@ public class MavenCoreUtils {
 						SupportedProjectType.TYPE_LIBRARY));
 	}
 
+	/**
+	 * Gets the error library project info.
+	 *
+	 * @param typelibProject the typelib project
+	 * @return the error library project info
+	 * @throws CoreException the core exception
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static MavenProjectInfo getErrorLibraryProjectInfo(
 			final IProject typelibProject) throws CoreException,
 			MavenEclipseApiException {
@@ -1044,6 +1206,13 @@ public class MavenCoreUtils {
 		return result;
 	}
 
+	/**
+	 * Gets the project info.
+	 *
+	 * @param projectName the project name
+	 * @return the project info
+	 * @throws Exception the exception
+	 */
 	public static MavenProjectInfo getProjectInfo(final String projectName)
 			throws Exception {
 		final IProject project = WorkspaceUtil.getProject(projectName);
@@ -1083,6 +1252,15 @@ public class MavenCoreUtils {
 		return null;
 	}
 
+	/**
+	 * Gets the project info.
+	 *
+	 * @param groupID the group id
+	 * @param projectName the project name
+	 * @param version the version
+	 * @return the project info
+	 * @throws Exception the exception
+	 */
 	public static MavenProjectInfo getProjectInfo(final String groupID,
 			final String projectName, final String version) throws Exception {
 		final String libVersion = version != null ? version : MavenCoreUtils
@@ -1115,6 +1293,13 @@ public class MavenCoreUtils {
 		return null;
 	}
 
+	/**
+	 * Gets the project info.
+	 *
+	 * @param soaProject the soa project
+	 * @return the project info
+	 * @throws Exception the exception
+	 */
 	public static MavenProjectInfo getProjectInfo(final IProject soaProject)
 			throws Exception {
 		if (TurmericServiceUtils.isSOAInterfaceProject(soaProject)) {
@@ -1132,6 +1317,14 @@ public class MavenCoreUtils {
 		return null;
 	}
 
+	/**
+	 * Gets the dependencies.
+	 *
+	 * @param projectName the project name
+	 * @return the dependencies
+	 * @throws CoreException the core exception
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static List<AssetInfo> getDependencies(final String projectName)
 			throws CoreException, MavenEclipseApiException {
 		final List<AssetInfo> result = new ArrayList<AssetInfo>();
@@ -1231,6 +1424,14 @@ public class MavenCoreUtils {
 		return true;
 	}
 
+	/**
+	 * Update project info.
+	 *
+	 * @param soaProject the soa project
+	 * @return true, if successful
+	 * @throws CoreException the core exception
+	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 */
 	public static boolean updateProjectInfo(final ISOAProject soaProject)
 			throws CoreException, MavenEclipseApiException {
 		final Model pom = MavenEclipseUtil.readPOM(soaProject.getProject());
@@ -1248,10 +1449,11 @@ public class MavenCoreUtils {
 
 
 	/**
-	 * @param pom
-	 * @param serviceName
-	 * @param addRemove
-	 *            Add=true, Remove=false
+	 * Modify required services.
+	 *
+	 * @param pom the pom
+	 * @param serviceName the service name
+	 * @param addRemove Add=true, Remove=false
 	 */
 	public static void modifyRequiredServices(final Model pom,
 			final String serviceName, final boolean addRemove) {
@@ -1272,6 +1474,15 @@ public class MavenCoreUtils {
 						SOAProjectConstants.DELIMITER_COMMA));
 	}
 
+	/**
+	 * Update maven classpath container.
+	 *
+	 * @param project the project
+	 * @param dependentName the dependent name
+	 * @param type the type
+	 * @throws CoreException the core exception
+	 * @throws InterruptedException the interrupted exception
+	 */
 	public static void updateMavenClasspathContainer(final IProject project,
 			final String dependentName, final String type)
 			throws CoreException, InterruptedException {
@@ -1330,6 +1541,13 @@ public class MavenCoreUtils {
 		}
 	}
 
+	/**
+	 * Gets the maven2 classpath container.
+	 *
+	 * @param project the project
+	 * @return the maven2 classpath container
+	 * @throws JavaModelException the java model exception
+	 */
 	public static IClasspathContainer getMaven2ClasspathContainer(
 			IJavaProject project) throws JavaModelException {
 		IClasspathEntry[] entries = project.getRawClasspath();
@@ -1343,6 +1561,12 @@ public class MavenCoreUtils {
 		return null;
 	}
 
+	/**
+	 * Checks if is maven2 classpath container.
+	 *
+	 * @param containerPath the container path
+	 * @return true, if is maven2 classpath container
+	 */
 	public static boolean isMaven2ClasspathContainer(IPath containerPath) {
 		return containerPath != null
 				&& containerPath.segmentCount() > 0

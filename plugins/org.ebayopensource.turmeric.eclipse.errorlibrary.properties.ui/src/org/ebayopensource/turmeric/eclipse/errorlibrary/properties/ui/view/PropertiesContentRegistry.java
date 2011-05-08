@@ -18,15 +18,16 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrRegistry;
 
 
 /**
- * @author yayu
+ * The Class PropertiesContentRegistry.
  *
+ * @author yayu
  */
 public class PropertiesContentRegistry implements ISOAErrRegistry {
 	private static final SOALogger logger = SOALogger.getLogger();
 	
 
 	/**
-	 * 
+	 * Instantiates a new properties content registry.
 	 */
 	public PropertiesContentRegistry() {
 		super();

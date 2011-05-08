@@ -30,17 +30,23 @@ import org.eclipse.swt.widgets.Composite;
 
 
 /**
+ * The Class DependenciesWizardPage.
+ *
  * @author smathew
  * 
  * The project and library dependency page This page is used for both project
  * and library dependency
- * 
  */
 public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 	private DependencyListEditor projectsEditor;
 
 	private DependencyListEditor libraryEditor;
 
+	/**
+	 * Instantiates a new dependencies wizard page.
+	 *
+	 * @param projectType the project type
+	 */
 	public DependenciesWizardPage(final String projectType) {
 		super("newSOAServiceProjectDependenciesWizardPage");
 		setTitle(projectType + " Dependencies");
@@ -48,6 +54,9 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 				+ projectType + " Project.");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(final Composite parent) {
 
 		//Set<AssetInfo> libraries = new TreeSet<AssetInfo>();
@@ -98,6 +107,11 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 				.getHelpProvider().getHelpContextID(ISOAHelpProvider.PAGE_SERVICE_DEPENDENCIES));
 	}
 
+	/**
+	 * Gets the libraries.
+	 *
+	 * @return the libraries
+	 */
 	public Set<String> getLibraries() {
 		Set<String> result = new HashSet<String>();
 		for (final AssetInfo info : libraryEditor.getItems()) {
@@ -106,6 +120,11 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 		return result;
 	}
 
+	/**
+	 * Gets the projects.
+	 *
+	 * @return the projects
+	 */
 	public Set<String> getProjects() {
 		Set<String> result = new HashSet<String>();
 		for (final AssetInfo info : projectsEditor.getItems()) {

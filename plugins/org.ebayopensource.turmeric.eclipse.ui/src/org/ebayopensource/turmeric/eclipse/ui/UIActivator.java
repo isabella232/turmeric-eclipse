@@ -42,20 +42,29 @@ import org.osgi.framework.BundleContext;
 
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the plug-in life cycle.
  */
 public class UIActivator extends AbstractUIPlugin {
 
 	// The plug-in ID
+	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.ui";
+	
+	/** The Constant ICON_PATH. */
 	public static final String ICON_PATH = "icons/";
 
 	// The shared instance
 	private static UIActivator plugin;
 	private static SOALogger logger = SOALogger.getLogger();
 
+	/** The plugin properties. */
 	protected PropertyResourceBundle pluginProperties;
 
+	/**
+	 * Gets the plugin properties.
+	 *
+	 * @return the plugin properties
+	 */
 	public PropertyResourceBundle getPluginProperties() {
 		if (pluginProperties == null) {
 			try {
@@ -68,15 +77,13 @@ public class UIActivator extends AbstractUIPlugin {
 	}
 
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public UIActivator() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -115,10 +122,8 @@ public class UIActivator extends AbstractUIPlugin {
 	}	
 	
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
@@ -126,8 +131,8 @@ public class UIActivator extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the shared instance
-	 * 
+	 * Returns the shared instance.
+	 *
 	 * @return the shared instance
 	 */
 	public static UIActivator getDefault() {
@@ -159,6 +164,14 @@ public class UIActivator extends AbstractUIPlugin {
 		}
 	}*/
 	
+	/**
+	 * Gets the image from registry.
+	 *
+	 * @param uiPlugin the ui plugin
+	 * @param iconPathRoot the icon path root
+	 * @param path the path
+	 * @return the image from registry
+	 */
 	public static Image getImageFromRegistry(AbstractUIPlugin uiPlugin, 
 			String iconPathRoot, String path) {
 		if (path == null)
@@ -181,25 +194,45 @@ public class UIActivator extends AbstractUIPlugin {
 		
 	}
 
+	/**
+	 * Gets the image from registry.
+	 *
+	 * @param path the path
+	 * @return the image from registry
+	 */
 	public static Image getImageFromRegistry(String path) {
 		return getImageFromRegistry(getDefault(), ICON_PATH, path);
 	}
 	
+	/**
+	 * Gets the image descriptor.
+	 *
+	 * @param pluginID the plugin id
+	 * @param path the path
+	 * @return the image descriptor
+	 */
 	public static ImageDescriptor getImageDescriptor(String pluginID, 
 			final String path) {
 		ImageDescriptor descriptor = imageDescriptorFromPlugin(pluginID, path);
 		return descriptor;
 	}
 
+	/**
+	 * Gets the image descriptor.
+	 *
+	 * @param path the path
+	 * @return the image descriptor
+	 */
 	public static ImageDescriptor getImageDescriptor(final String path) {
 		return getImageDescriptor(PLUGIN_ID, path);
 	}
 	
 	/**
-	 * @return
-	 * 
-	 *         Parses the global config categories the format is CATEGORIES =
-	 *         {COMMON, DOMAIN, SERVICE}
+	 * Gets the categories.
+	 *
+	 * @return the categories
+	 * Parses the global config categories the format is CATEGORIES =
+	 * {COMMON, DOMAIN, SERVICE}
 	 */
 	public static List<String> getCategories() {
 		List<String> categories = new ArrayList<String>();
@@ -217,6 +250,14 @@ public class UIActivator extends AbstractUIPlugin {
 		return categories;
 	}	
 	
+	/**
+	 * Gets the xSD.
+	 *
+	 * @param libraryName the library name
+	 * @param typeName the type name
+	 * @return the xSD
+	 * @throws Exception the exception
+	 */
 	public static URL getXSD(String libraryName, String typeName)
 			throws Exception {
 		String jarLocation = GlobalRepositorySystem.instanceOf()
@@ -246,20 +287,34 @@ public class UIActivator extends AbstractUIPlugin {
 		}
 	}
 	
+	/**
+	 * Gets the xSD.
+	 *
+	 * @param libType the lib type
+	 * @return the xSD
+	 * @throws Exception the exception
+	 */
 	public static URL getXSD(LibraryType libType) throws Exception {
 		return getXSD(libType.getLibraryInfo().getLibraryName(),
 				libType.getName());
 	}
 	
+	/**
+	 * Gets the name space.
+	 *
+	 * @param projectName the project name
+	 * @return the name space
+	 * @throws Exception the exception
+	 */
 	public static String getNameSpace(String projectName) throws Exception {
 		return SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
 				.getTypeLibrary(projectName).getLibraryNamespace();
 	}
 	
 	/**
-	 * Get all template Category files
-	 * 
-	 * @return
+	 * Get all template Category files.
+	 *
+	 * @return the template category files
 	 */
 	public static Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> getTemplateCategoryFiles() {
 		try {
@@ -274,9 +329,10 @@ public class UIActivator extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Get files inside a template category
-	 * 
-	 * @return
+	 * Get files inside a template category.
+	 *
+	 * @param subType the sub type
+	 * @return the files
 	 */
 	public static List<SOAConfigTemplate> getFiles(SOAXSDTemplateSubType subType) {
 		Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> templates = getTemplateCategoryFiles();

@@ -27,10 +27,22 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
+ * The Class ImplementationCreator.
+ *
  * @author smathew
  * Creates the implementation project model
  */
 public class ImplementationCreator {
+	
+	/**
+	 * Creates the impl model from blank wsdl.
+	 *
+	 * @param paramModel the param model
+	 * @param interfaceProject the interface project
+	 * @param monitor the monitor
+	 * @return the sOA impl project
+	 * @throws Exception the exception
+	 */
 	public static SOAImplProject createImplModelFromBlankWsdl(
 			ServiceFromWsdlParamModel paramModel,
 			SOAIntfProject interfaceProject, IProgressMonitor monitor)
@@ -64,6 +76,14 @@ public class ImplementationCreator {
 		return implProject;
 	}
 
+	/**
+	 * Creates the impl project from blank wsdl.
+	 *
+	 * @param implProject the impl project
+	 * @param intfProject the intf project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createImplProjectFromBlankWsdl(
 			SOAImplProject implProject, SOAIntfProject intfProject,
 			IProgressMonitor monitor) throws Exception {
@@ -88,6 +108,15 @@ public class ImplementationCreator {
 		ProgressUtil.progressOneStep(monitor);
 	}
 	
+	/**
+	 * Creates the impl model from existing wsdl.
+	 *
+	 * @param paramModel the param model
+	 * @param interfaceProject the interface project
+	 * @param monitor the monitor
+	 * @return the sOA impl project
+	 * @throws Exception the exception
+	 */
 	public static SOAImplProject createImplModelFromExistingWsdl(
 			ServiceFromWsdlParamModel paramModel,
 			SOAIntfProject interfaceProject, IProgressMonitor monitor)
@@ -116,6 +145,14 @@ public class ImplementationCreator {
 		return implProject;
 	}
 
+	/**
+	 * Creates the impl project from existing wsdl.
+	 *
+	 * @param implProject the impl project
+	 * @param intfProject the intf project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createImplProjectFromExistingWsdl(
 			SOAImplProject implProject, SOAIntfProject intfProject,
 			IProgressMonitor monitor) throws Exception {

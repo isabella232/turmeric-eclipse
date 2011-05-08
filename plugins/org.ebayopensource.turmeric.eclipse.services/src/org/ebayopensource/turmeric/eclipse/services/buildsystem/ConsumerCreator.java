@@ -41,8 +41,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
+ * The Class ConsumerCreator.
+ *
  * @author yayu
- * 
  */
 public class ConsumerCreator {
 	private static final SOALogger logger = SOALogger.getLogger();
@@ -54,6 +55,15 @@ public class ConsumerCreator {
 		super();
 	}
 
+	/**
+	 * Creates the consumer model from existing wsdl.
+	 *
+	 * @param paramModel the param model
+	 * @param interfaceProject the interface project
+	 * @param monitor the monitor
+	 * @return the sOA consumer project
+	 * @throws Exception the exception
+	 */
 	public static SOAConsumerProject createConsumerModelFromExistingWsdl(
 			ConsumerFromWsdlParamModel paramModel,
 			SOAIntfProject interfaceProject, IProgressMonitor monitor)
@@ -95,6 +105,14 @@ public class ConsumerCreator {
 		return consumerProject;
 	}
 
+	/**
+	 * Creates the consumer project from existing wsdl.
+	 *
+	 * @param consumerProject the consumer project
+	 * @param intfProject the intf project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createConsumerProjectFromExistingWsdl(
 			SOAConsumerProject consumerProject, SOAIntfProject intfProject,
 			IProgressMonitor monitor) throws Exception {
@@ -123,6 +141,14 @@ public class ConsumerCreator {
 	}
 
 
+	/**
+	 * Creates the consumer model from java.
+	 *
+	 * @param uiModel the ui model
+	 * @param monitor the monitor
+	 * @return the sOA consumer project
+	 * @throws Exception the exception
+	 */
 	public static SOAConsumerProject createConsumerModelFromJava(
 			ConsumerFromJavaParamModel uiModel, IProgressMonitor monitor) 
 	throws Exception{
@@ -187,6 +213,14 @@ public class ConsumerCreator {
 		return consumerProject;
 	}
 
+	/**
+	 * Creates the consumer project from java.
+	 *
+	 * @param consumerProject the consumer project
+	 * @param convertJavaProject the convert java project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createConsumerProjectFromJava(
 			SOAConsumerProject consumerProject, boolean convertJavaProject, 
 			IProgressMonitor monitor)

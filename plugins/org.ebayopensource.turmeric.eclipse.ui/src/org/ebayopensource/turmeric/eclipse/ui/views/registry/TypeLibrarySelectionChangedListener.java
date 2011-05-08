@@ -15,8 +15,15 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
 
 /**
+ * The listener interface for receiving typeLibrarySelectionChanged events.
+ * The class that is interested in processing a typeLibrarySelectionChanged
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addTypeLibrarySelectionChangedListener</code> method. When
+ * the typeLibrarySelectionChanged event occurs, that object's appropriate
+ * method is invoked.
+ *
  * @author smathew
- * 
  */
 public class TypeLibrarySelectionChangedListener implements
 		ISelectionChangedListener {
@@ -24,10 +31,18 @@ public class TypeLibrarySelectionChangedListener implements
 
 	private TableViewer typeViewer;
 
+	/**
+	 * Instantiates a new type library selection changed listener.
+	 *
+	 * @param typeViewer the type viewer
+	 */
 	public TypeLibrarySelectionChangedListener(TableViewer typeViewer) {
 		this.typeViewer = typeViewer;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void selectionChanged(SelectionChangedEvent event) {
 		if (event != null && event.getSelection() instanceof TreeSelection) {
 			TreeSelection selection = (TreeSelection) event.getSelection();

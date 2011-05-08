@@ -40,6 +40,8 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 
 /**
+ * The Class NewPropertiesContentErrorWizardPage.
+ *
  * @author yayu
  * @since 1.0.0
  */
@@ -57,7 +59,8 @@ public final class NewPropertiesContentErrorWizardPage extends
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * 
+	 * Instantiates a new new properties content error wizard page.
+	 *
 	 * @param selection A structured selection object
 	 */
 	public NewPropertiesContentErrorWizardPage(IStructuredSelection selection) {
@@ -66,6 +69,9 @@ public final class NewPropertiesContentErrorWizardPage extends
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage#getDefaultResourceName()
+	 */
 	@Override
 	public String getDefaultResourceName() {
 		return PropertiesSOAConstants.DEFAULT_ERROR_NAME;
@@ -156,6 +162,9 @@ public final class NewPropertiesContentErrorWizardPage extends
 		setOrganization();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.wizards.AbstractNewErrorResourceWizardPage#dialogChanged()
+	 */
 	@Override
 	protected boolean dialogChanged() {
 		if (super.dialogChanged() == false)
@@ -238,9 +247,10 @@ public final class NewPropertiesContentErrorWizardPage extends
 	}
 
 	/**
-	 * 
+	 * Gets the error id.
+	 *
 	 * @return  the Error id as a long
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public long getErrorID() throws Exception {
 		return ErrorParamModel.generateErrorID(
@@ -249,7 +259,8 @@ public final class NewPropertiesContentErrorWizardPage extends
 	}
 
 	/**
-	 * 
+	 * Gets the domain.
+	 *
 	 * @return the Domain name
 	 */
 	public String getDomain() {
@@ -257,7 +268,8 @@ public final class NewPropertiesContentErrorWizardPage extends
 	}
 
 	/**
-	 * 
+	 * Gets the category.
+	 *
 	 * @return the category
 	 */
 	public String getCategory() {
@@ -265,7 +277,8 @@ public final class NewPropertiesContentErrorWizardPage extends
 	}
 
 	/**
-	 * 
+	 * Gets the organization.
+	 *
 	 * @return the organizations
 	 */
 	public String getOrganization() {
@@ -273,7 +286,8 @@ public final class NewPropertiesContentErrorWizardPage extends
 	}
 
 	/**
-	 * 
+	 * Gets the severity.
+	 *
 	 * @return the severity
 	 */
 	public String getSeverity() {
@@ -281,7 +295,8 @@ public final class NewPropertiesContentErrorWizardPage extends
 	}
 
 	/**
-	 * 
+	 * Gets the content error message.
+	 *
 	 * @return the error message
 	 */
 	public String getContentErrorMessage() {
@@ -289,7 +304,8 @@ public final class NewPropertiesContentErrorWizardPage extends
 	}
 
 	/**
-	 * 
+	 * Gets the sub domain.
+	 *
 	 * @return the Sub Domain
 	 */
 	public String getSubDomain() {
@@ -297,7 +313,8 @@ public final class NewPropertiesContentErrorWizardPage extends
 	}
 
 	/**
-	 * 
+	 * Gets the resolution.
+	 *
 	 * @return the resolution
 	 */
 	public String getResolution() {
@@ -305,7 +322,8 @@ public final class NewPropertiesContentErrorWizardPage extends
 	}
 
 	/**
-	 * 
+	 * Gets the error name.
+	 *
 	 * @return the error name
 	 */
 	public String getErrorName() {

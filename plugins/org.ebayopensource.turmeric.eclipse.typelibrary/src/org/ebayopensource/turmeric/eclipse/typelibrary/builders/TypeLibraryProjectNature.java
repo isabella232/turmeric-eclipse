@@ -15,20 +15,31 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
 
 
 /**
+ * The Class TypeLibraryProjectNature.
+ *
  * @author smathew
  * 
  * Type Lib nature
  */
 public class TypeLibraryProjectNature extends AbstractSOANature {
 
+	/** The Constant NATURE_ID. */
 	public static final String NATURE_ID = TypeLibraryActivator.PLUGIN_ID
 			+ ".TypeLibraryProjectNature";
 	
+	/**
+	 * Gets the type library nature id.
+	 *
+	 * @return the type library nature id
+	 */
 	public static String getTypeLibraryNatureId() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 		.getProjectNatureId(SupportedProjectType.TYPE_LIBRARY);
 	}
 
+	/**
+	 * Instantiates a new type library project nature.
+	 */
 	public TypeLibraryProjectNature() {
 		super();
 	}

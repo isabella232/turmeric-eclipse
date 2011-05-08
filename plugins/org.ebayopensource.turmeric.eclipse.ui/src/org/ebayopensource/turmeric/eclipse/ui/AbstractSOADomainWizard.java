@@ -28,14 +28,22 @@ import org.ebayopensource.turmeric.eclipse.ui.util.SOADomainUtil;
  */
 public abstract class AbstractSOADomainWizard extends SOABaseWizard {
 	private static final SOALogger logger = SOALogger.getLogger();
+	
+	/** The domain list. */
 	protected final Map<String, List<String>> domainList = new LinkedHashMap<String, List<String>>();
+	
 	/**
-	 * 
+	 * Instantiates a new abstract soa domain wizard.
 	 */
 	public AbstractSOADomainWizard() {
 		super();
 	}
 
+	/**
+	 * Inits the domain list.
+	 *
+	 * @throws Exception the exception
+	 */
 	protected void initDomainList() throws Exception {
 		final ISOAOrganizationProvider orgProvider = GlobalRepositorySystem.instanceOf()
 		.getActiveRepositorySystem()
@@ -49,6 +57,12 @@ public abstract class AbstractSOADomainWizard extends SOABaseWizard {
 		domainList.putAll(SOADomainUtil.getRegisteredDomains());
 	}
 
+	/**
+	 * Gets the domain list.
+	 *
+	 * @return the domain list
+	 * @throws Exception the exception
+	 */
 	public Map<String, List<String>> getDomainList() throws Exception {
 		if (domainList.isEmpty()) {
 			initDomainList();
