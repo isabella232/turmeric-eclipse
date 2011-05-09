@@ -26,14 +26,18 @@ import org.eclipse.xsd.util.XSDSchemaBuildingTools;
 
 
 /**
+ * The Class EnumTypeProcessor.
+ *
  * @author smathew
  * 
  * 
  * performs Enum Specific processing: Add enum values, Add enum doc
- * 
  */
 public class EnumTypeProcessor implements ICommand {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean execute(Object object, IProgressMonitor monitor) throws CommandFailedException {
 		CommonXSDProcessorParam processorInput = (CommonXSDProcessorParam) object;
 

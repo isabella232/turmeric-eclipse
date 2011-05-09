@@ -13,20 +13,20 @@ package org.ebayopensource.turmeric.eclipse.resources.model;
 
 
 /**
- * 
+ * The Interface ISOAProjectResolver.
+ *
+ * @param <P> the generic type
  * @author yayu
  * @since 1.0.0
- *
- * @param <P>
  */
 public interface ISOAProjectResolver<P extends ISOAProject> {
 	
 	/**
 	 * Load the SOA project instance.
-	 *  
-	 * @param eclipseMetadata 
+	 *
+	 * @param eclipseMetadata the eclipse metadata
 	 * @return an ISOAProject
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public P loadProject(SOAProjectEclipseMetadata eclipseMetadata) throws Exception;
 }

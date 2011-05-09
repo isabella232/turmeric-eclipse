@@ -22,11 +22,17 @@ import org.eclipse.xsd.XSDTypeDefinition;
 
 
 /**
+ * The Class ComplexTypeProcessor.
+ *
  * @author smathew
  * 
  * Processor for Complex Type
  */
 public class ComplexTypeProcessor implements ICommand {
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean execute(Object object, IProgressMonitor monitor)
 			throws CommandFailedException {
 		CommonXSDProcessorParam processorInput = (CommonXSDProcessorParam) object;

@@ -20,13 +20,14 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
 
 
 /**
+ * The Class AssetInfo.
+ *
  * @author smathew
  * 
  * This is the wrapper class for holding the project depndencies. This has been
  * made generic to hold both project and library depndency. The type defines
  * whether its a library or project. Used mainly by the create wizards and the
  * properties windows
- * 
  */
 public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 
@@ -41,31 +42,35 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	// can be project or library. Enum avoided.
 	private String type;
 
+	
 	/**
-	 * 
-	 * @param name 
-	 * @param type 
+	 * Instantiates a new asset info.
+	 *
+	 * @param name the name
+	 * @param type the type
 	 */
 	public AssetInfo(final String name, final String type) {
 		this(name, "", "", type);
 	}
 
 	/**
-	 * 
-	 * @param name 
-	 * @param version 
-	 * @param dir 
+	 * Instantiates a new asset info.
+	 *
+	 * @param name the name
+	 * @param version the version
+	 * @param dir the dir
 	 */
 	public AssetInfo(final String name, final String version, final String dir) {
 		this(name, version, dir, null);
 	}
 
 	/**
-	 * 
-	 * @param name 
-	 * @param version 
-	 * @param dir 
-	 * @param type 
+	 * Instantiates a new asset info.
+	 *
+	 * @param name the name
+	 * @param version the version
+	 * @param dir the dir
+	 * @param type the type
 	 */
 	public AssetInfo(final String name, final String version, final String dir,
 			final String type) {
@@ -74,12 +79,13 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	}
 
 	/**
-	 * 
-	 * @param name 
-	 * @param version 
-	 * @param dir 
-	 * @param serviceLayer 
-	 * @param type 
+	 * Instantiates a new asset info.
+	 *
+	 * @param name the name
+	 * @param version the version
+	 * @param dir the dir
+	 * @param serviceLayer the service layer
+	 * @param type the type
 	 */
 	public AssetInfo(String name, String version, String dir,
 			String serviceLayer, String type) {
@@ -91,16 +97,20 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	}
 	
 	/**
-	 * 
-	 * @param name 
-	 * @param version 
-	 * @param type 
+	 * Creates the asset info with version.
+	 *
+	 * @param name the name
+	 * @param version the version
+	 * @param type the type
 	 * @return returns an instance of an Asset with version and type.
 	 */
 	public static AssetInfo createAssetInfoWithVersion(String name, String version, String type) {
 		return new AssetInfo(name, version, "", type);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -110,6 +120,9 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -133,7 +146,8 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	}
 
 	/**
-	 * 
+	 * Gets the dir.
+	 *
 	 * @return the directory as a string
 	 */
 	public String getDir() {
@@ -196,7 +210,8 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	}
 	
 	/**
-	 * 
+	 * Sets the type.
+	 *
 	 * @param type The name of the type.
 	 */
 	public void setType(String type) {
@@ -204,7 +219,8 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	}
 
 	/**
-	 * 
+	 * Gets the jar names.
+	 *
 	 * @return A List of String objects that contain the jar names
 	 */
 	public List<String> getJarNames() {
@@ -212,7 +228,8 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	}
 
 	/**
-	 * 
+	 * Sets the jar names.
+	 *
 	 * @param jarNames A List of String objects with jarnames
 	 */
 	public void setJarNames(List<String> jarNames) {

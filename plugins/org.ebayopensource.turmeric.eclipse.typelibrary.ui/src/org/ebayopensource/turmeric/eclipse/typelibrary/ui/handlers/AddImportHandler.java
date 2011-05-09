@@ -37,6 +37,9 @@ public class AddImportHandler extends AbstractHandler {
 	private SOALogger logger = SOALogger.getLogger();
 	
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
+	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchPage page = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();

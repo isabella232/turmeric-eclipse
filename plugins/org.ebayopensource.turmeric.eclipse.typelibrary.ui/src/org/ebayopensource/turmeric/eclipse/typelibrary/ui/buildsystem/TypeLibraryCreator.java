@@ -39,6 +39,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
  */
 public class TypeLibraryCreator {
 
+	/**
+	 * Creates the type library.
+	 *
+	 * @param model the model
+	 * @param monitor the monitor
+	 * @throws Exception the exception
+	 */
 	public static void createTypeLibrary(TypeLibraryParamModel model,
 			IProgressMonitor monitor) throws Exception {
 

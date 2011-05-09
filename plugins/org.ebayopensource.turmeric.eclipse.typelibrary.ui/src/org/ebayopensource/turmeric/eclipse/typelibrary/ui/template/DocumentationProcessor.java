@@ -19,12 +19,17 @@ import org.eclipse.xsd.XSDTypeDefinition;
 
 
 /**
+ * The Class DocumentationProcessor.
+ *
  * @author smathew
  * 
  * Add the documentation to the XSD
  */
 public class DocumentationProcessor implements ICommand {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean execute(Object object, IProgressMonitor monitor) throws CommandFailedException {
 
 		CommonXSDProcessorParam processorInput = (CommonXSDProcessorParam) object;

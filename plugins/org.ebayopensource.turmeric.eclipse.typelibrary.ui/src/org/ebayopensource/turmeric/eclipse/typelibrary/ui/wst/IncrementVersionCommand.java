@@ -29,6 +29,8 @@ import org.osgi.framework.Version;
 
 
 /**
+ * The Class IncrementVersionCommand.
+ *
  * @author smathew T
  * 
  * 
@@ -39,10 +41,19 @@ import org.osgi.framework.Version;
 public class IncrementVersionCommand extends AbastractTypeLibraryAtion {
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Sets the active part.
+	 *
+	 * @param action the action
+	 * @param targetPart the target part
+	 */
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void run(final IAction action) {
 		try {
 			if (WTPTypeLibUtil.validateEditorForContextMenus(editorPart)) {
@@ -126,6 +137,11 @@ public class IncrementVersionCommand extends AbastractTypeLibraryAtion {
 
 	}
 
+	/**
+	 * Show common error dialog.
+	 *
+	 * @param exception the exception
+	 */
 	public void showCommonErrorDialog(Exception exception) {
 		if (exception == null) {
 			UIUtil

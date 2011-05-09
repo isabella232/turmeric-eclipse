@@ -40,12 +40,11 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
  * A field editor for an enumeration type preference. The choices are presented
  * as a list of radio buttons.
  * 
- * <yayu>I made some modification so that it could support sub field editor for
- * each option.</yayu>
- * 
  * @author yayu
  */
 public class CustomRadioGroupFieldEditor extends FieldEditor {
+	
+	/** The Constant SUB_VALUE. */
 	public static final String SUB_VALUE = "field_editor_sub_value";//$NON-NLS-1$
 
 	private String[][] labelsAndValues;
@@ -76,6 +75,16 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 
 	private Map<String, List<Button>> subButtons = new ConcurrentHashMap<String, List<Button>>();
 
+	/**
+	 * Instantiates a new custom radio group field editor.
+	 *
+	 * @param name the name
+	 * @param labelText the label text
+	 * @param numColumns the num columns
+	 * @param labelAndValues the label and values
+	 * @param organizations the organizations
+	 * @param parent the parent
+	 */
 	public CustomRadioGroupFieldEditor(String name, String labelText,
 			int numColumns, String[][] labelAndValues,
 			Map<String, Map<String, String>> organizations, Composite parent) {
@@ -83,6 +92,17 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 				parent, false);
 	}
 
+	/**
+	 * Instantiates a new custom radio group field editor.
+	 *
+	 * @param name the name
+	 * @param labelText the label text
+	 * @param numColumns the num columns
+	 * @param labelAndValues the label and values
+	 * @param organizations the organizations
+	 * @param parent the parent
+	 * @param useGroup the use group
+	 */
 	public CustomRadioGroupFieldEditor(String name, String labelText,
 			int numColumns, String[][] labelAndValues,
 			Map<String, Map<String, String>> organizations, Composite parent,
@@ -100,6 +120,9 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 		createControl(parent);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void doLoad() {
 		String value = getPreferenceStore().getString(getPreferenceName());
@@ -109,6 +132,9 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 				getPreferenceStore().getString(getSubPreferenceName()));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void doLoadDefault() {
 		String value = getPreferenceStore().getDefaultString(
@@ -118,10 +144,18 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 				getPreferenceStore().getDefaultString(getSubPreferenceName()));
 	}
 
+	/**
+	 * Gets the sub preference name.
+	 *
+	 * @return the sub preference name
+	 */
 	public String getSubPreferenceName() {
 		return subPreferenceName;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void doStore() {
 		if (value == null) {
@@ -139,6 +173,9 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 		getPreferenceStore().setValue(getSubPreferenceName(), subValue);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int getNumberOfControls() {
 		return 1;
@@ -171,6 +208,9 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected void adjustForNumColumns(int numColumns) {
 		Control control = getLabelControl();
 		if (control != null) {
@@ -192,6 +232,9 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void doFillIntoGrid(Composite parent, int numColumns) {
 		if (useGroup == true) {
@@ -212,6 +255,12 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 
 	}
 
+	/**
+	 * Gets the radio box control.
+	 *
+	 * @param parent the parent
+	 * @return the radio box control
+	 */
 	public Composite getRadioBoxControl(Composite parent) {
 		if (chooseArea != null) {
 			checkParent(chooseArea, parent);
@@ -322,6 +371,13 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 		updateSubValue(id, "");
 	}
 
+	/**
+	 * Creates the choice sub field editor.
+	 *
+	 * @param parent the parent
+	 * @param radioBtn the radio btn
+	 * @return the field editor
+	 */
 	protected FieldEditor createChoiceSubFieldEditor(final Composite parent,
 			final Button radioBtn) {
 
@@ -410,6 +466,9 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 		return;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setEnabled(boolean enabled, Composite parent) {
 		if (useGroup == false) {
 			super.setEnabled(enabled, parent);

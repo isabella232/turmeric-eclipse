@@ -58,16 +58,18 @@ import freemarker.template.Template;
  * @author smathew
  */
 public class TypeCreator {
+	
+	/** The Constant logger. */
 	protected static final SOALogger logger = SOALogger.getLogger();
 
 	/**
 	 * Creates the type. Performs file creation, process the template, calls
 	 * code generation, refresh the registry and opens the created file in an
 	 * editor.
-	 * 
-	 * @param typeParamModel
-	 * @param monitor
-	 * @throws Exception
+	 *
+	 * @param typeParamModel the type param model
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public static void createType(TypeParamModel typeParamModel,
 			IProgressMonitor monitor) throws Exception {
@@ -111,10 +113,10 @@ public class TypeCreator {
 	 * Creates the type. Performs file creation, process the template, calls
 	 * code generation, refresh the registry and opens the created file in an
 	 * editor.
-	 * 
-	 * @param typeParamModel
-	 * @param monitor
-	 * @throws Exception
+	 *
+	 * @param typeParamModel the type param model
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	public static void createType(CommonTypeProp typeParamModel,
 			IProgressMonitor monitor) throws Exception {
@@ -142,6 +144,14 @@ public class TypeCreator {
         IOUtil.writeTo(writer.toString(), xsdFile, monitor);
 	}
 
+	/**
+	 * Call codegen.
+	 *
+	 * @param project the project
+	 * @param typeLibName the type lib name
+	 * @param typeName the type name
+	 * @throws Exception the exception
+	 */
 	public static void callCodegen(IProject project, String typeLibName,
 			String typeName) throws Exception {
 		GenTypeAddType genTypeAddType = new GenTypeAddType();
@@ -171,14 +181,15 @@ public class TypeCreator {
 	}
 
 	/**
-	 * 
 	 * Updates the type registry and opens the xsd in an editor.
-	 * 
-	 * @param typeName
-	 * @param version
-	 * @param typeLibName
-	 * @param xsdFile
-	 * @throws Exception
+	 *
+	 * @param typeName the type name
+	 * @param version the version
+	 * @param typeLibName the type lib name
+	 * @param xsdFile the xsd file
+	 * @param refreshSOATypeRegistry the refresh soa type registry
+	 * @param openXSDEditor the open xsd editor
+	 * @throws Exception the exception
 	 */
 	public static void postProcessTypeCreation(String typeName,
 			String version, String typeLibName, IFile xsdFile, boolean refreshSOATypeRegistry, boolean openXSDEditor) throws Exception {
@@ -207,14 +218,13 @@ public class TypeCreator {
 	}
 	
 	/**
-	 * 
 	 * Updates the type registry and opens the xsd in an editor.
-	 * 
-	 * @param typeName
-	 * @param version
-	 * @param typeLibName
-	 * @param xsdFile
-	 * @throws Exception
+	 *
+	 * @param typeName the type name
+	 * @param version the version
+	 * @param typeLibName the type lib name
+	 * @param xsdFile the xsd file
+	 * @throws Exception the exception
 	 */
 	public static void postProcessTypeCreation(String typeName,
 			String version, String typeLibName, IFile xsdFile) throws Exception {

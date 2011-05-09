@@ -119,6 +119,9 @@ public final class XSDUtils {
 
 	private LibraryType[] allTypes;
 
+	/**
+	 * Instantiates a new xSD utils.
+	 */
 	public XSDUtils() {
 		List<LibraryType> allTypesList;
 		try {
@@ -132,19 +135,24 @@ public final class XSDUtils {
 
 	}
 
+	/**
+	 * Gets the single instance of XSDUtils.
+	 *
+	 * @return single instance of XSDUtils
+	 */
 	public static XSDUtils getInstance() {
 		return new XSDUtils();
 	}
 
 	/**
 	 * file must be WSDL file or XSD file.
-	 * 
-	 * @param wsdl
-	 * @return
-	 * @throws ImportTypeException
-	 * @throws IOException
-	 * @throws FileNotFoundException
-	 * @throws WSDLException
+	 *
+	 * @param sourceFilePath the source file path
+	 * @return the list
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ImportTypeException the import type exception
+	 * @throws WSDLException the wSDL exception
 	 */
 	public List<ImportTypeModel> extractTypeDefinitionFromFile(
 			String sourceFilePath) throws FileNotFoundException, IOException,
@@ -387,6 +395,13 @@ public final class XSDUtils {
 		return importModel;
 	}
 
+	/**
+	 * Gets the data type.
+	 *
+	 * @param schema the schema
+	 * @param typeName the type name
+	 * @return the data type
+	 */
 	public Object getDataType(XSDSchema schema, String typeName) {
 		String[] names = typeName.split(SOATypeLibraryConstants.COLON);
 		if (names.length != 2) {
@@ -657,11 +672,11 @@ public final class XSDUtils {
 	/**
 	 * create TypeParamModel instances from stream. Stream should be a XSD
 	 * format content.
-	 * 
-	 * @param inputStream
-	 * @return
-	 * @throws IOException
-	 * @throws ImportTypeException
+	 *
+	 * @param inputStream the input stream
+	 * @return the list
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ImportTypeException the import type exception
 	 */
 	public List<ImportTypeModel> extractTypeDefFromStreamUsingDOM(
 			InputStream inputStream) throws IOException, ImportTypeException {
@@ -713,11 +728,9 @@ public final class XSDUtils {
 	/**
 	 * create TypeParamModel instances from stream. Stream should be a XSD
 	 * format content.
-	 * 
-	 * @param inputStream
-	 * @return
-	 * @throws IOException
-	 * @throws ImportTypeException
+	 *
+	 * @param inputStream the input stream
+	 * @return the list
 	 */
 	public List<CommonTypeProp> extractTypeDefFromStreamUsingStream(
 			InputStream inputStream) {

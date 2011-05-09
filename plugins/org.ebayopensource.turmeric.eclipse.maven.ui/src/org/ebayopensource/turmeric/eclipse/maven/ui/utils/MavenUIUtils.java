@@ -25,8 +25,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * 
- * 
+ * The Class MavenUIUtils.
+ *
  * @since 1.0
  */
 public class MavenUIUtils {
@@ -35,14 +35,14 @@ public class MavenUIUtils {
 
 	/**
 	 * Adds a dependency to a project.
-	 * 
+	 *
 	 * @param project the eclipse project
 	 * @param dependentLibraries dependency libraries to add
 	 * @param addRemove  add = true, remove = false
 	 * @param monitor an eclipse progress monitor
 	 * @return returns true or false if the operation succeeded.
-	 * @throws CoreException 
-	 * @throws MavenEclipseApiException 
+	 * @throws CoreException the core exception
+	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public static boolean addDependency(final IProject project,
 			Map<String, String> dependentLibraries, final boolean addRemove,

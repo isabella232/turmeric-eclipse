@@ -12,13 +12,14 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 
 /**
- * @author yayu
+ * The Class DefaultConsumerProjectResolver.
  *
+ * @author yayu
  */
 public class DefaultConsumerProjectResolver implements ISOAProjectResolver<SOAConsumerProject> {
 
 	/**
-	 * 
+	 * Instantiates a new default consumer project resolver.
 	 */
 	public DefaultConsumerProjectResolver() {
 		super();

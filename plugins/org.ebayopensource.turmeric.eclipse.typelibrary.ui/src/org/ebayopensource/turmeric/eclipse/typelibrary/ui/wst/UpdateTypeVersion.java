@@ -55,13 +55,14 @@ import org.ebayopensource.turmeric.common.config.LibraryType;
  */
 public class UpdateTypeVersion extends AbastractTypeLibraryAtion {
 
+	/**
+	 * Instantiates a new update type version.
+	 */
 	public UpdateTypeVersion() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.actions.ActionDelegate#run(org.eclipse.jface.action.IAction)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void run(IAction action) {
 		try {
@@ -110,12 +111,12 @@ public class UpdateTypeVersion extends AbastractTypeLibraryAtion {
 	 * Deletes the selected types from the WSDL and then pulls it from the type
 	 * library registry. It also updates the type dependency.xml with the latest
 	 * versions being used.
-	 * 
-	 * @param selectedTypes
-	 * @param definition
-	 * @param importedTypesMap
-	 * @param project
-	 * @throws Exception
+	 *
+	 * @param selectedTypes the selected types
+	 * @param definition the definition
+	 * @param importedTypesMap the imported types map
+	 * @param project the project
+	 * @throws Exception the exception
 	 */
 	public void modifyWSDL(ArrayList<LibraryType> selectedTypes,
 			Definition definition,
@@ -154,16 +155,27 @@ public class UpdateTypeVersion extends AbastractTypeLibraryAtion {
 	}
 
 
+	/**
+	 * The Class CustomTypeSelectorRenderer.
+	 */
 	static class CustomTypeSelectorRenderer extends TypeSelectorElementRenderer {
 		private Set<LibraryType> newTypes;
 		private Image image = null;
 
+		/**
+		 * Instantiates a new custom type selector renderer.
+		 *
+		 * @param newTypes the new types
+		 */
 		public CustomTypeSelectorRenderer(Set<LibraryType> newTypes) {
 			image = TypeLibraryUIActivator.getImageFromRegistry("icons/new.gif")
 					.createImage();
 			this.newTypes = newTypes;
 		}
 
+		/* (non-Javadoc)
+		 * @see org.eclipse.jface.viewers.LabelProvider#getImage(java.lang.Object)
+		 */
 		@Override
 		public Image getImage(Object element) {
 			if (newTypes.contains(element)) {
@@ -172,6 +184,9 @@ public class UpdateTypeVersion extends AbastractTypeLibraryAtion {
 			return null;
 		}
 
+		/* (non-Javadoc)
+		 * @see org.eclipse.jface.viewers.BaseLabelProvider#dispose()
+		 */
 		@Override
 		public void dispose() {
 			if (image != null)

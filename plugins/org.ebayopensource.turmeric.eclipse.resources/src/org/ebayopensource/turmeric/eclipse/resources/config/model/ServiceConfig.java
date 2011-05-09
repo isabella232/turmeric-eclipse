@@ -9,8 +9,9 @@
 package org.ebayopensource.turmeric.eclipse.resources.config.model;
 
 /**
- * @author smathew
+ * The Class ServiceConfig.
  *
+ * @author smathew
  */
 public class ServiceConfig {
 	
@@ -116,7 +117,8 @@ public class ServiceConfig {
 	
 	
 	/**
-	 * 
+	 * Gets the protocol processor name.
+	 *
 	 * @return the ProtocolProcessorName as a string
 	 */
 	public String getProtocolProcessorName() {
@@ -124,7 +126,8 @@ public class ServiceConfig {
 	}
 	
 	/**
-	 * 
+	 * Sets the protocol processor name.
+	 *
 	 * @param protocolProcessorName the name of the protocol processor.
 	 */
 	public void setProtocolProcessorName(String protocolProcessorName) {
@@ -132,7 +135,8 @@ public class ServiceConfig {
 	}
 	
 	/**
-	 * 
+	 * Gets the protocol processor version.
+	 *
 	 * @return The protocol processor version.
 	 */
 	public String getProtocolProcessorVersion() {
@@ -140,7 +144,8 @@ public class ServiceConfig {
 	}
 	
 	/**
-	 * 
+	 * Sets the protocol processor version.
+	 *
 	 * @param protocolProcessorVersion the version number for the protocol processor
 	 */
 	public void setProtocolProcessorVersion(String protocolProcessorVersion) {
@@ -148,7 +153,8 @@ public class ServiceConfig {
 	}
 	
 	/**
-	 * 
+	 * Gets the transport header name.
+	 *
 	 * @return the transport header name.
 	 */
 	public String getTransportHeaderName() {
@@ -156,7 +162,8 @@ public class ServiceConfig {
 	}
 	
 	/**
-	 * 
+	 * Sets the transport header name.
+	 *
 	 * @param transportHeaderName the transport header name as a string.
 	 */
 	public void setTransportHeaderName(String transportHeaderName) {
@@ -164,7 +171,8 @@ public class ServiceConfig {
 	}
 	
 	/**
-	 * 
+	 * Gets the transport header data.
+	 *
 	 * @return the transport header data as a string.
 	 */
 	public String getTransportHeaderData() {
@@ -172,16 +180,17 @@ public class ServiceConfig {
 	}
 	
 	/**
-	 * 
+	 * Sets the transport header data.
+	 *
 	 * @param transportHeaderData the transport header data as a string.
-	 * 
 	 */
 	public void setTransportHeaderData(String transportHeaderData) {
 		this.transportHeaderData = transportHeaderData;
 	}
 	
 	/**
-	 * 
+	 * Gets the protocol processor class name.
+	 *
 	 * @return the protocol processor classname as a string.
 	 */
 	public String getProtocolProcessorClassName() {
@@ -189,7 +198,8 @@ public class ServiceConfig {
 	}
 	
 	/**
-	 * 
+	 * Sets the protocol processor class name.
+	 *
 	 * @param protocolProcessorClassName the protocol processor classname as a string.
 	 */
 	public void setProtocolProcessorClassName(String protocolProcessorClassName) {

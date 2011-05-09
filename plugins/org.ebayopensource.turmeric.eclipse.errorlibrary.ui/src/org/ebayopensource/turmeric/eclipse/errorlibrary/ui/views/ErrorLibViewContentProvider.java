@@ -17,11 +17,15 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
+ * The Class ErrorLibViewContentProvider.
+ *
  * @author smathew
- * 
  */
 public class ErrorLibViewContentProvider implements ITreeContentProvider {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Object[] getChildren(Object parentElement) {
 		// this is the root.
 		if (parentElement instanceof ISOAErrLibrary) {
@@ -40,14 +44,23 @@ public class ErrorLibViewContentProvider implements ITreeContentProvider {
 		return Collections.EMPTY_LIST.toArray();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Object getParent(Object element) {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean hasChildren(Object element) {
 		return element instanceof ISOAErrLibrary || element instanceof ISOAErrDomain;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof ISOAErrRegistry) {
 			final ISOAErrRegistry registry = (ISOAErrRegistry)inputElement;
@@ -56,10 +69,16 @@ public class ErrorLibViewContentProvider implements ITreeContentProvider {
 		return Collections.EMPTY_LIST.toArray();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void dispose() {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
 	}

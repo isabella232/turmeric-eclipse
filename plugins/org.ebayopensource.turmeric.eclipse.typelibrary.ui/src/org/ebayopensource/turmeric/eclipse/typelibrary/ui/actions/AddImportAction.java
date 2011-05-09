@@ -27,24 +27,27 @@ import org.eclipse.xsd.XSDSchema;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
+ * The Class AddImportAction.
+ *
  * @author smathew
  * 
  * The Add Import Action for the type viewer. This action appears in the Types
  * Registry View
- * 
  * @deprecated Use AddImportHandler and the commands/handler framework instead.
  */
 public class AddImportAction extends Action {
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/** The type viewer. */
 	public TypeViewer typeViewer = null;
 
+	/** The Constant MISSING_EDITOR_ERR_MSG. */
 	public static final String MISSING_EDITOR_ERR_MSG = "The plugin could not find the right editor to import. Please open the XSD/WSDL document in a XSD/WTP editor and try again. ";
 
 	/**
-	 * The constructor stores the type Viewer
-	 * 
-	 * @param typeViewer
+	 * The constructor stores the type Viewer.
+	 *
+	 * @param typeViewer the type viewer
 	 */
 	public AddImportAction(TypeViewer typeViewer) {
 		this.typeViewer = typeViewer;

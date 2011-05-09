@@ -37,6 +37,8 @@ import org.eclipse.xsd.XSDSchema;
 
 
 /**
+ * The Class ActionUtil.
+ *
  * @author smathew
  * 
  * 
@@ -46,18 +48,16 @@ import org.eclipse.xsd.XSDSchema;
 public class ActionUtil {
 
 	/**
-	 * 
 	 * Validates the given editor and the adapted object. In Type Lib context
 	 * these are the checks performed Editor should have either a wsdl or xsd
 	 * file. Adapted object should either be an XSD Model object or WSDL Model
 	 * object
-	 * 
-	 * @param editorPart2
-	 * @param adaptedObject
-	 *            either XSD Schema or WSDL Definiton
+	 *
+	 * @param editorPart2 the editor part2
+	 * @param adaptedObject either XSD Schema or WSDL Definiton
 	 * @return false if the file extension of the editor part's file is not XSD
-	 *         or WSDL input or the adapted object is not XSD or WSDL Model
-	 * @throws ValidationInterruptedException 
+	 * or WSDL input or the adapted object is not XSD or WSDL Model
+	 * @throws ValidationInterruptedException the validation interrupted exception
 	 */
 	public static boolean validateEditor(IEditorPart editorPart2,
 			Object adaptedObject) throws ValidationInterruptedException {
@@ -139,6 +139,14 @@ public class ActionUtil {
 		return resources;
 	}
 	
+	/**
+	 * Validate type dependency and project config file.
+	 *
+	 * @param project the project
+	 * @param additionalWritableFiles the additional writable files
+	 * @return the i status
+	 * @throws ValidationInterruptedException the validation interrupted exception
+	 */
 	public static IStatus validateTypeDependencyAndProjectConfigFile(
 			final IProject project, final IFile... additionalWritableFiles) 
 	throws ValidationInterruptedException {
@@ -149,12 +157,13 @@ public class ActionUtil {
 	 * validates the type lib project for the readability/writability aspect of
 	 * some of the config files. The list of the config files are computed by
 	 * the above API
-	 * 
+	 *
+	 * @param project the project
+	 * @param validateProjectConfigFile the validate project config file
+	 * @param additionalWritableFiles the additional writable files
+	 * @return the i status
+	 * @throws ValidationInterruptedException the validation interrupted exception
 	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.actions.ActionUtil#getTypeLibraryResources
-	 * 
-	 * @param project
-	 * @return
-	 * @throws ValidationInterruptedException 
 	 */
 	public static IStatus validateTypeDependencyAndProjectConfigFile(
 			final IProject project, final boolean validateProjectConfigFile, 

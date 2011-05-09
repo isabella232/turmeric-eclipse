@@ -18,20 +18,33 @@ import org.eclipse.jface.viewers.ViewerComparator;
 
 
 /**
+ * The Class SortRegistry.
+ *
  * @author yayu
- * 
  */
 public class SortRegistry extends SOASortAction {
 
+	/**
+	 * Instantiates a new sort registry.
+	 *
+	 * @param viewer the viewer
+	 * @param sorter the sorter
+	 */
 	public SortRegistry(StructuredViewer viewer, ViewerComparator sorter) {
 		super(viewer, sorter);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.actions.SOASortAction#getTitle()
+	 */
 	@Override
 	public String getTitle() {
 		return SOAMessages.UI_SORT_ERROR;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.actions.SOASortAction#getToolTip()
+	 */
 	@Override
 	public String getToolTip() {
 		return SOAMessages.UI_SORT_ERROR;

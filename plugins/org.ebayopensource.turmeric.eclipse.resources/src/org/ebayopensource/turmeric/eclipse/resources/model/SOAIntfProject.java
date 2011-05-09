@@ -17,6 +17,8 @@ import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 
 
 /**
+ * The Class SOAIntfProject.
+ *
  * @author smathew
  * Intf Project model
  */
@@ -63,10 +65,11 @@ public class SOAIntfProject extends SOABaseProject {
 
 	/**
 	 * Creates an instance of a SOA interface project.
+	 *
 	 * @param metadata the SOAIntfMetadata
 	 * @param soaEclipseMetadata the Eclipse metadata
 	 * @return an instance of a SOAIntfProject
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static SOAIntfProject create(final SOAIntfMetadata metadata,
 			SOAProjectEclipseMetadata soaEclipseMetadata) throws Exception {
@@ -76,12 +79,18 @@ public class SOAIntfProject extends SOABaseProject {
 		return intfProject;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject#getMetadata()
+	 */
 	@Override
 	public SOAIntfMetadata getMetadata() {
 		final AbstractSOAMetadata metadata = super.getMetadata();
 		return metadata instanceof SOAIntfMetadata ? (SOAIntfMetadata)metadata : null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject#getSOAMetadataClass()
+	 */
 	@Override
 	protected Class<? extends AbstractSOAMetadata> getSOAMetadataClass() {
 		return SOAIntfMetadata.class;

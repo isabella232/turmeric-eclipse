@@ -27,10 +27,9 @@ import org.eclipse.swt.widgets.Text;
 
 
 /**
- * Type Selection Page
- * 
+ * Type Selection Page.
+ *
  * @author ramurthy
- * 
  */
 
 public class TypeSelectionWizardPage extends SOABasePage {
@@ -40,10 +39,18 @@ public class TypeSelectionWizardPage extends SOABasePage {
 	private static Map<SOAXSDTemplateSubType, String> templateCategoryMap;
 
 
+	/**
+	 * Instantiates a new type selection wizard page.
+	 */
 	public TypeSelectionWizardPage() {
 		super("typeSelectionWizardPage", "Type Selection", "Select a type");
 	}
 
+	/**
+	 * Gets the selected type name.
+	 *
+	 * @return the selected type name
+	 */
 	public String getSelectedTypeName() {
 		for (int i = 0; i < typeButtons.size(); i++) {
 			if (typeButtons.get(i).getSelection())
@@ -52,6 +59,11 @@ public class TypeSelectionWizardPage extends SOABasePage {
 		return null;
 	}
 	
+	/**
+	 * Gets the selected type.
+	 *
+	 * @return the selected type
+	 */
 	public Object getSelectedType() {
 		for (int i = 0; i < typeButtons.size(); i++) {
 			if (typeButtons.get(i).getSelection())
@@ -60,6 +72,9 @@ public class TypeSelectionWizardPage extends SOABasePage {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void createControl(Composite parent) {
 		container = new Composite(parent, SWT.NONE);
 		container.setLayout(new GridLayout(1, true));
@@ -81,26 +96,54 @@ public class TypeSelectionWizardPage extends SOABasePage {
 		UIUtil.getHelpSystem().setHelp(container, getHelpContextID());
 	}
 
+	/**
+	 * Checks if is simple type.
+	 *
+	 * @return true, if is simple type
+	 */
 	public boolean isSimpleType() {
 		return SOAXSDTemplateSubType.SIMPLE.equals(getSelectedType());
 	}
 
+	/**
+	 * Checks if is enum type.
+	 *
+	 * @return true, if is enum type
+	 */
 	public boolean isEnumType() {
 		return SOAXSDTemplateSubType.ENUM.equals(getSelectedType());
 	}
 
+	/**
+	 * Checks if is complex type.
+	 *
+	 * @return true, if is complex type
+	 */
 	public boolean isComplexType() {
 		return SOAXSDTemplateSubType.COMPLEX.equals(getSelectedType());
 	}
 
+	/**
+	 * Checks if is complex sc type.
+	 *
+	 * @return true, if is complex sc type
+	 */
 	public boolean isComplexSCType() {
 		return SOAXSDTemplateSubType.COMPLEX_SIMPLECONTENT.equals(getSelectedType());
 	}
 
+	/**
+	 * Checks if is complex cc type.
+	 *
+	 * @return true, if is complex cc type
+	 */
 	public boolean isComplexCCType() {
 		return SOAXSDTemplateSubType.COMPLEX_COMPLEXCONTENT.equals(getSelectedType());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
@@ -108,6 +151,9 @@ public class TypeSelectionWizardPage extends SOABasePage {
 						ISOAHelpProvider.PAGE_CREATE_SCHEMA_TYPE);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		return SOAProjectConstants.EMPTY_STRING;

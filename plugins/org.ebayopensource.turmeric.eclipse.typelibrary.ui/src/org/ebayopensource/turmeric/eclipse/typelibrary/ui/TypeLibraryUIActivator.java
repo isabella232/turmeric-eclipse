@@ -52,12 +52,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the plug-in life cycle.
  */
 public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 	// The plug-in ID
+	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.typelibrary.ui"; //$NON-NLS-1$
+	
+	/** The Constant ICON_PATH. */
 	public static final String ICON_PATH = "icons/";
 
 	// The shared instance
@@ -66,14 +69,13 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 	private TypeLibMoveDeleteHook typeLibMoveDeleteHook;
 	
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public TypeLibraryUIActivator() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -88,9 +90,8 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void stop(BundleContext context) throws Exception {
 		if (typeLibMoveDeleteHook != null)
@@ -101,7 +102,7 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 *
 	 * @return the shared instance
 	 */
@@ -109,6 +110,17 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		return plugin;
 	}
 	
+	/**
+	 * Adds the element declaration.
+	 *
+	 * @param complexTypeDefinition the complex type definition
+	 * @param model the model
+	 * @param elementName the element name
+	 * @param elementType the element type
+	 * @param minOccurs the min occurs
+	 * @param maxOccurs the max occurs
+	 * @throws CommandFailedException the command failed exception
+	 */
 	public static void addElementDeclaration(
 			XSDComplexTypeDefinition complexTypeDefinition,
 			ComplexTypeParamModel model, String elementName,
@@ -145,6 +157,15 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 					.getTypeLibraryName());
 	}
 	
+	/**
+	 * Creates the xsd element declaration.
+	 *
+	 * @param strName the str name
+	 * @param strType the str type
+	 * @param minOccurs the min occurs
+	 * @param maxOccurs the max occurs
+	 * @return the xSD particle
+	 */
 	public static XSDParticle createXSDElementDeclaration(String strName,
 			String strType, int minOccurs, int maxOccurs) {
 
@@ -170,9 +191,19 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		return particle;
 	}
 	
+	/** The Constant NO_OCCURS. */
 	public static final int NO_OCCURS = -2;
+	
+	/** The Constant UNBOUND. */
 	public static final int UNBOUND= -1;
 	
+	/**
+	 * Gets the prefix.
+	 *
+	 * @param schema the schema
+	 * @param nameSpace the name space
+	 * @return the prefix
+	 */
 	public static String getPrefix(XSDSchema schema, String nameSpace) {		
 		Map<String, String> qNamesMap = schema.getQNamePrefixToNamespaceMap();
 		if (qNamesMap.containsValue(nameSpace)) {
@@ -196,6 +227,12 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		return prefix + SOATypeLibraryConstants.COLON;
 	}
 	
+	/**
+	 * Gets the model group.
+	 *
+	 * @param cType the c type
+	 * @return the model group
+	 */
 	public static XSDModelGroup getModelGroup(XSDComplexTypeDefinition cType) {
 		XSDParticle particle = null;
 		XSDComplexTypeContent xsdComplexTypeContent = cType.getContent();
@@ -224,6 +261,16 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		return group;
 	}
 	
+	/**
+	 * Adds the attribute declarations.
+	 *
+	 * @param complexTypeDefinition the complex type definition
+	 * @param model the model
+	 * @param attrName the attr name
+	 * @param attrType the attr type
+	 * @param attrDoc the attr doc
+	 * @throws CommandFailedException the command failed exception
+	 */
 	public static void addAttributeDeclarations(
 			XSDComplexTypeDefinition complexTypeDefinition,
 			ComplexTypeSCParamModel model, String attrName, Object attrType,
@@ -280,6 +327,12 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		return attributeUse;
 	}
 	
+	/**
+	 * Adds the documentation.
+	 *
+	 * @param component the component
+	 * @param docText the doc text
+	 */
 	public static void addDocumentation(XSDConcreteComponent component,
 			String docText) {
 		XSDAnnotation xsdAnnotation = XSDCommonUIUtils.getInputXSDAnnotation(
@@ -338,6 +391,11 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		formatChild(xsdAnnotation.getElement());
 	}
 	
+	/**
+	 * Format child.
+	 *
+	 * @param child the child
+	 */
 	public static void formatChild(Element child) {
 		if (child instanceof IDOMNode) {
 			IDOMModel model = ((IDOMNode) child).getModel();
@@ -351,6 +409,14 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		}
 	}
 
+	/**
+	 * Format contents.
+	 *
+	 * @param contents the contents
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static String formatContents(String contents) throws IOException,
 			CoreException {
 		FormatProcessorXML formatProcessor = new FormatProcessorXML();
@@ -388,6 +454,16 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		}
 	}
 	
+	/**
+	 * Sets the base type for complex types.
+	 *
+	 * @param complexTypeDefinition the complex type definition
+	 * @param baseType the base type
+	 * @param typeName the type name
+	 * @param typeLibraryName the type library name
+	 * @param version the version
+	 * @throws CommandFailedException the command failed exception
+	 */
 	public static void setBaseTypeForComplexTypes(
 			XSDComplexTypeDefinition complexTypeDefinition, Object baseType,
 			String typeName, String typeLibraryName, String version)
@@ -426,6 +502,12 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 	}
 	
 
+	/**
+	 * Gets the image from registry.
+	 *
+	 * @param path the path
+	 * @return the image from registry
+	 */
 	public static ImageDescriptor getImageFromRegistry(String path) {
 		if (path == null)
 			return null;
@@ -447,6 +529,12 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		return image;
 	}
 
+	/**
+	 * Gets the image descriptor.
+	 *
+	 * @param path the path
+	 * @return the image descriptor
+	 */
 	public static ImageDescriptor getImageDescriptor(final String path) {
 		ImageDescriptor descriptor = imageDescriptorFromPlugin(PLUGIN_ID, path);
 		return descriptor;

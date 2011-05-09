@@ -15,8 +15,10 @@ import org.eclipse.core.runtime.Path;
 
 
 /**
+ * The Class SOAProjectEclipseMetadata.
+ *
  * @author smathew
- *  Eclipse related information eg: Project
+ * Eclipse related information eg: Project
  */
 public class SOAProjectEclipseMetadata {
 
@@ -54,7 +56,8 @@ public class SOAProjectEclipseMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the project name.
+	 *
 	 * @return the project name
 	 */
 	public String getProjectName() {
@@ -62,7 +65,8 @@ public class SOAProjectEclipseMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the project name.
+	 *
 	 * @param name the project name
 	 */
 	public void setProjectName(String name) {
@@ -70,7 +74,8 @@ public class SOAProjectEclipseMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the workspace location.
+	 *
 	 * @return the workspace location as an IPath
 	 */
 	public IPath getWorkspaceLocation() {
@@ -78,7 +83,8 @@ public class SOAProjectEclipseMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the workspace location.
+	 *
 	 * @param projectLocation a project location
 	 */
 	public void setWorkspaceLocation(IPath projectLocation) {
@@ -86,7 +92,8 @@ public class SOAProjectEclipseMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the project.
+	 *
 	 * @return an IProject
 	 */
 	public IProject getProject() {

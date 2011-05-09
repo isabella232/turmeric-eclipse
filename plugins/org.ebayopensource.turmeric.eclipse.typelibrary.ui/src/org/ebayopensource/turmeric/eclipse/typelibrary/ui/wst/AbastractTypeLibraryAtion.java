@@ -24,23 +24,39 @@ import org.eclipse.ui.IFileEditorInput;
 
 
 /**
- * @author yayu
+ * The Class AbastractTypeLibraryAtion.
  *
+ * @author yayu
  */
 public abstract class AbastractTypeLibraryAtion extends
 		BaseEditorActionDelegate {
 
 	/**
-	 * 
+	 * Instantiates a new abastract type library ation.
 	 */
 	public AbastractTypeLibraryAtion() {
 		super();
 	}
 	
+	/**
+	 * Do validation.
+	 *
+	 * @return true, if successful
+	 * @throws ValidationInterruptedException the validation interrupted exception
+	 * @throws CoreException the core exception
+	 */
 	protected boolean doValidation() throws ValidationInterruptedException, CoreException {
 		return doValidation(true);
 	}
 	
+	/**
+	 * Do validation.
+	 *
+	 * @param validateProjectConfigFile the validate project config file
+	 * @return true, if successful
+	 * @throws ValidationInterruptedException the validation interrupted exception
+	 * @throws CoreException the core exception
+	 */
 	protected boolean doValidation(boolean validateProjectConfigFile) 
 	throws ValidationInterruptedException, CoreException {
 		if (editorPart != null && editorPart.getEditorInput() instanceof IFileEditorInput) {

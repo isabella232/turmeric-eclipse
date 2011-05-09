@@ -16,28 +16,47 @@ import org.eclipse.swt.graphics.Image;
 
 
 /**
+ * The Class ErrorLibViewLabelProvider.
+ *
  * @author smathew
- * 
  */
 public class ErrorLibViewLabelProvider implements ILabelProvider {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void addListener(ILabelProviderListener listener) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void dispose() {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void removeListener(ILabelProviderListener listener) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Image getImage(Object element) {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getText(Object element) {
 		if (element instanceof ISOAErrUIComp) {
 			return ((ISOAErrUIComp) element).getName();

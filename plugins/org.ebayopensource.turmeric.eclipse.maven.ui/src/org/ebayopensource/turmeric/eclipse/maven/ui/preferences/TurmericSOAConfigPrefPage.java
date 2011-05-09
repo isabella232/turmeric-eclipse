@@ -38,8 +38,9 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
- * @author yayu
+ * The Class TurmericSOAConfigPrefPage.
  *
+ * @author yayu
  */
 public class TurmericSOAConfigPrefPage extends FieldEditorPreferencePage implements
 IWorkbenchPreferencePage {
@@ -48,18 +49,25 @@ IWorkbenchPreferencePage {
 	private StringFieldEditor preferredVerEditor;
 
 	/**
-	 * @param title
+	 * Instantiates a new turmeric soa config pref page.
+	 *
 	 */
 	public TurmericSOAConfigPrefPage() {
 		super("Turmeric SOA Configurations", FieldEditorPreferencePage.GRID);
 		this.setPreferenceStore(TurmericSOAConfigPrefInitializer.getPreferenceStore());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
+	 */
 	@Override
 	public void init(IWorkbench workbench) {
 		this.workbench = workbench;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#createFieldEditors()
+	 */
 	@Override
 	protected void createFieldEditors() {
 		final IPreferenceStore prefStore = TurmericSOAConfigPrefInitializer.getPreferenceStore();

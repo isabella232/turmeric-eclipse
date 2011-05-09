@@ -34,6 +34,8 @@ import org.eclipse.xsd.XSDSchema;
 
 
 /**
+ * The Class XSDTemplateProcessor.
+ *
  * @author smathew
  * 
  * 
@@ -42,6 +44,15 @@ import org.eclipse.xsd.XSDSchema;
  */
 public class XSDTemplateProcessor {
 
+	/**
+	 * Process.
+	 *
+	 * @param typeParamModel the type param model
+	 * @param destinationFile the destination file
+	 * @param monitor the monitor
+	 * @throws CommandFailedException the command failed exception
+	 * @throws ValidationInterruptedException the validation interrupted exception
+	 */
 	public void process(TypeParamModel typeParamModel, IFile destinationFile,
 			IProgressMonitor monitor) throws CommandFailedException, ValidationInterruptedException {
 		CommonXSDProcessorParam commonXSDTemplateProcessorParam = new CommonXSDProcessorParam(

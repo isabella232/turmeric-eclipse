@@ -17,12 +17,18 @@ import org.eclipse.swt.custom.BusyIndicator;
 
 
 /**
+ * The Class RefreshErrRegistry.
+ *
  * @author smathew
- * 
  */
 public class RefreshErrRegistry extends Action {
 	private StructuredViewer typeLibraryViewer;
 
+	/**
+	 * Instantiates a new refresh err registry.
+	 *
+	 * @param typeLibraryViewer the type library viewer
+	 */
 	public RefreshErrRegistry(StructuredViewer typeLibraryViewer) {
 		super(TEXT, AS_PUSH_BUTTON);
 		this.setToolTipText(TEXT);
@@ -31,6 +37,9 @@ public class RefreshErrRegistry extends Action {
 				.getImageFromRegistry("icons/refresh.gif"));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void run() {
 		if (typeLibraryViewer != null) {
 			final Runnable runnable = new Runnable() {

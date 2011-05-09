@@ -31,17 +31,24 @@ import org.eclipse.ui.IWorkbenchPart;
 
 
 /**
+ * The Class ConfigureLibrary.
+ *
  * @author mzang
- * 
  */
 public class ConfigureLibrary implements IObjectActionDelegate {
     private IStructuredSelection selection;
     private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * {@inheritDoc}
+	 */
     public void setActivePart(final IAction action,
             final IWorkbenchPart targetPart) {
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     public void run(final IAction action) {
         if (SOALogger.DEBUG)
             logger.entering(action, selection);
@@ -104,6 +111,9 @@ public class ConfigureLibrary implements IObjectActionDelegate {
         }
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     public void selectionChanged(final IAction action,
             final ISelection selection) {
         this.selection = (IStructuredSelection) selection;

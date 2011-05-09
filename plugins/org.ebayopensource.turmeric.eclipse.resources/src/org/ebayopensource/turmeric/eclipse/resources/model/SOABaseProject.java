@@ -20,8 +20,9 @@ import org.eclipse.core.runtime.IPath;
 
 
 /**
- * @author smathew
+ * The Class SOABaseProject.
  *
+ * @author smathew
  */
 public abstract class SOABaseProject implements ISOAProject{
 
@@ -44,7 +45,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	private final List<ProjectLinkedResource> linkedResources = new ArrayList<ProjectLinkedResource>(3);
 	
 	/**
-	 * 
+	 * Instantiates a new sOA base project.
 	 */
 	protected SOABaseProject() {
 		super();
@@ -80,7 +81,8 @@ public abstract class SOABaseProject implements ISOAProject{
 	}
 	
 	/**
-	 * 
+	 * Gets the eclipse natures.
+	 *
 	 * @return A List of Eclipse Natures as String
 	 */
 	public List<String> getEclipseNatures() {
@@ -88,8 +90,9 @@ public abstract class SOABaseProject implements ISOAProject{
 	}
 	
 	/**
-	 * 
-	 * @param eclipseNature 
+	 * Adds the eclipse nature.
+	 *
+	 * @param eclipseNature the eclipse nature
 	 * @return whether the addition was successful or not.
 	 */
 	public boolean addEclipseNature(String eclipseNature) {
@@ -97,7 +100,8 @@ public abstract class SOABaseProject implements ISOAProject{
 	}
 	
 	/**
-	 * 
+	 * Gets the linked resources.
+	 *
 	 * @return A list ofProjectLinkedResource objects
 	 */
 	public List<ProjectLinkedResource> getLinkedResources() {
@@ -105,8 +109,9 @@ public abstract class SOABaseProject implements ISOAProject{
 	}
 	
 	/**
-	 * 
-	 * @param linkedResource 
+	 * Adds the project linked resource.
+	 *
+	 * @param linkedResource the linked resource
 	 * @return whether the resources were added successfully or not
 	 */
 	public boolean addProjectLinkedResource(ProjectLinkedResource linkedResource) {
@@ -114,7 +119,8 @@ public abstract class SOABaseProject implements ISOAProject{
 	}
 
 	/**
-	 * 
+	 * Gets the soa metadata class.
+	 *
 	 * @return a SOAMetadata class
 	 */
 	protected Class<? extends AbstractSOAMetadata> getSOAMetadataClass() {
@@ -129,8 +135,9 @@ public abstract class SOABaseProject implements ISOAProject{
 	}
 
 	/**
-	 * 
-	 * @param repositoryPath 
+	 * Sets the repository path.
+	 *
+	 * @param repositoryPath the new repository path
 	 */
 	public void setRepositoryPath(IPath repositoryPath) {
 		this.repositoryPath = repositoryPath;
@@ -187,8 +194,9 @@ public abstract class SOABaseProject implements ISOAProject{
 
 
 	/**
-	 * 
-	 * @return a list of output directories 
+	 * Gets the output directory.
+	 *
+	 * @return a list of output directories
 	 */
 	public static List<String> getOutputDirectory() {
 		final List<String> outPutArrayList = new ArrayList<String>();
@@ -212,7 +220,8 @@ public abstract class SOABaseProject implements ISOAProject{
 	}
 
 	/**
-	 * 
+	 * Gets the source sub folders.
+	 *
 	 * @return A List of source sub folders
 	 */
 	public abstract List<String> getSourceSubFolders() ;
@@ -225,7 +234,8 @@ public abstract class SOABaseProject implements ISOAProject{
 	}
 	
 	/**
-	 * 
+	 * Gets the raw output folder.
+	 *
 	 * @return the output folder name
 	 */
 	public String getRawOutputFolder() {
@@ -248,19 +258,14 @@ public abstract class SOABaseProject implements ISOAProject{
 	}
 	
 	/**
-	 * 
-	 * 
-	 *
+	 * The Class ProjectLinkedResource.
 	 */
 	public static class ProjectLinkedResource {
-		/**
-		 * 
-		 */
+		
+		/** The Constant LINK_TYPE_RESOURCE. */
 		public static final int LINK_TYPE_RESOURCE = 1;
 		
-		/**
-		 * 
-		 */
+		/** The Constant LINK_TYPE_FOLDER. */
 		public static final int LINK_TYPE_FOLDER = 2;
 		
 		private String name;
@@ -268,10 +273,11 @@ public abstract class SOABaseProject implements ISOAProject{
 		private String location;
 		
 		/**
-		 * 
-		 * @param name 
-		 * @param type 
-		 * @param location 
+		 * Instantiates a new project linked resource.
+		 *
+		 * @param name the name
+		 * @param type the type
+		 * @param location the location
 		 */
 		public ProjectLinkedResource(String name, int type, String location) {
 			super();
@@ -281,16 +287,18 @@ public abstract class SOABaseProject implements ISOAProject{
 		}
 		
 		/**
-		 * 
-		 * @param name 
-		 * @param location 
+		 * Instantiates a new project linked resource.
+		 *
+		 * @param name the name
+		 * @param location the location
 		 */
 		public ProjectLinkedResource(String name, String location) {
 			this(name, LINK_TYPE_RESOURCE, location);
 		}
 
 		/**
-		 * 
+		 * Gets the name.
+		 *
 		 * @return the Linked Resource Name
 		 */
 		public String getName() {
@@ -298,15 +306,17 @@ public abstract class SOABaseProject implements ISOAProject{
 		}
 
 		/**
-		 * 
-		 * @param name 
+		 * Sets the name.
+		 *
+		 * @param name the new name
 		 */
 		public void setName(String name) {
 			this.name = name;
 		}
 
 		/**
-		 * 
+		 * Gets the type.
+		 *
 		 * @return the type
 		 */
 		public int getType() {
@@ -314,15 +324,17 @@ public abstract class SOABaseProject implements ISOAProject{
 		}
 
 		/**
-		 * 
-		 * @param type 
+		 * Sets the type.
+		 *
+		 * @param type the new type
 		 */
 		public void setType(int type) {
 			this.type = type;
 		}
 
 		/**
-		 * 
+		 * Gets the location.
+		 *
 		 * @return the location
 		 */
 		public String getLocation() {
@@ -330,8 +342,9 @@ public abstract class SOABaseProject implements ISOAProject{
 		}
 
 		/**
-		 * 
-		 * @param location 
+		 * Sets the location.
+		 *
+		 * @param location the new location
 		 */
 		public void setLocation(String location) {
 			this.location = location;

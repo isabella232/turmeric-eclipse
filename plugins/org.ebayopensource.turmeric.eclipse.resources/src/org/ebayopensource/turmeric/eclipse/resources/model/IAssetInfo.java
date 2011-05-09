@@ -12,28 +12,23 @@
 package org.ebayopensource.turmeric.eclipse.resources.model;
 
 /**
+ * The Interface IAssetInfo.
+ *
  * @author yayu
  * @since 1.0.0
  */
 public interface IAssetInfo {
-	/**
-	 * 
-	 */
+	
+	/** The Constant TYPE_PROJECT. */
 	public static final String TYPE_PROJECT = "Project";
 	
-	/**
-	 * 
-	 */
+	/** The Constant TYPE_LIBRARY. */
 	public static final String TYPE_LIBRARY = "Library";
 	
-	/**
-	 * 
-	 */
+	/** The Constant TYPE_SERVICE_PROJECT. */
 	public static final String TYPE_SERVICE_PROJECT = "Project_Service";
 	
-	/**
-	 * 
-	 */
+	/** The Constant TYPE_SERVICE_LIBRARY. */
 	public static final String TYPE_SERVICE_LIBRARY = "Library_Service";
 
 	/**

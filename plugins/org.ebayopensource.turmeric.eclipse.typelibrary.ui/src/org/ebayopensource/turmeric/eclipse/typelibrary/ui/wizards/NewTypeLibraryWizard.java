@@ -31,24 +31,35 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
+ * The Class NewTypeLibraryWizard.
+ *
  * @author yayu
- * 
  */
 public class NewTypeLibraryWizard extends AbstractTypeLibraryWizard {
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	private NewTypeLibraryWizardPage typeLibWizardPage;
 
+	/**
+	 * Gets the type lib wizard page.
+	 *
+	 * @return the type lib wizard page
+	 */
 	public NewTypeLibraryWizardPage getTypeLibWizardPage() {
 		return typeLibWizardPage;
 	}
 
+	/**
+	 * Sets the type lib wizard page.
+	 *
+	 * @param typeLibWizardPage the new type lib wizard page
+	 */
 	public void setTypeLibWizardPage(NewTypeLibraryWizardPage typeLibWizardPage) {
 		this.typeLibWizardPage = typeLibWizardPage;
 	}
 
 	/**
-	 * 
+	 * Instantiates a new new type library wizard.
 	 */
 	public NewTypeLibraryWizard() {
 		super();
@@ -65,6 +76,9 @@ public class NewTypeLibraryWizard extends AbstractTypeLibraryWizard {
 		return new IWizardPage[] { typeLibWizardPage };
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#performFinish()
+	 */
 	@Override
 	public boolean performFinish() {
 		try {

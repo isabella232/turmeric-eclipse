@@ -11,6 +11,8 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.ui.views;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrUIComp;
 
 /**
+ * The Class AbstractErrUIComp.
+ *
  * @author smathew
  * 
  * This is a tricky class. We have some empty implementation for UI Comp
@@ -22,17 +24,29 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrUIComp;
  */
 public abstract class AbstractErrUIComp implements ISOAErrUIComp {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getName() {
 		return "";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getVersion() {
 		return "";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public abstract boolean equals(Object object);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public abstract int hashCode();
 }

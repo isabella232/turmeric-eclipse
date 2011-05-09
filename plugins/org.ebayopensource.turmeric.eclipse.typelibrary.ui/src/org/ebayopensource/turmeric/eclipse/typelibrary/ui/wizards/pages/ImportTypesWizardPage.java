@@ -91,6 +91,9 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
+/**
+ * The Class ImportTypesWizardPage.
+ */
 public class ImportTypesWizardPage extends SOABasePage {
 	private String typeFile;
 	private IProject targetTLPrj;
@@ -102,11 +105,23 @@ public class ImportTypesWizardPage extends SOABasePage {
 	private Text typeLibraryProjTxt;
 	private Text typeNamespaceTxt;
 	private Composite typeLibrarySelectCmp;
+	
+	/** The sorter. */
 	final TypeSorter sorter = new TypeSorter();
 	private Action viewTypeContentAction;
 
 	private String globalErrMsg = null;
 
+	/**
+	 * Instantiates a new import types wizard page.
+	 *
+	 * @param pageName the page name
+	 * @param title the title
+	 * @param description the description
+	 * @param tableTitle the table title
+	 * @param targetProject the target project
+	 * @param sourceFile the source file
+	 */
 	public ImportTypesWizardPage(String pageName, String title,
 			String description, String tableTitle, IProject targetProject,
 			String sourceFile) {
@@ -116,6 +131,9 @@ public class ImportTypesWizardPage extends SOABasePage {
 		typeTable = new TypeTable(tableTitle, true);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
+	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem
@@ -126,11 +144,17 @@ public class ImportTypesWizardPage extends SOABasePage {
 						ISOAHelpProvider.HELPID_SCHEMA_TYPES_IMPORTEXPORT_WIZARD_MARKETPLACE_ID);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getDefaultValue(org.eclipse.swt.widgets.Text)
+	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		return "";
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	public void createControl(Composite parent) {
 		Composite container = super.createParentControl(parent, 3);
@@ -167,6 +191,11 @@ public class ImportTypesWizardPage extends SOABasePage {
 		}
 	}
 
+	/**
+	 * Load types from file.
+	 *
+	 * @return the collection
+	 */
 	public Collection<TypeModel> loadTypesFromFile() {
 		Collection<TypeModel> types = null;
 		try {
@@ -294,10 +323,20 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 	}
 
+	/**
+	 * Need new type library creation.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean needNewTypeLibraryCreation() {
 		return newProjBtn.getSelection() == true;
 	}
 
+	/**
+	 * Use exist project.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean useExistProject() {
 		return existProjBtn.getSelection() == true;
 	}
@@ -464,10 +503,16 @@ public class ImportTypesWizardPage extends SOABasePage {
 		updateProjectAndNamepsace();
 	}
 
+	/**
+	 * Source file updated.
+	 */
 	public void sourceFileUpdated() {
 		this.validateAll();
 	}
 
+	/**
+	 * Target type library updated.
+	 */
 	public void targetTypeLibraryUpdated() {
 		this.validateAll();
 	}
@@ -522,14 +567,29 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 	}
 
+	/**
+	 * Gets the selected type library name.
+	 *
+	 * @return the selected type library name
+	 */
 	public String getSelectedTypeLibraryName() {
 		return typeLibraryProjTxt.getText();
 	}
 
+	/**
+	 * Gets the namespace.
+	 *
+	 * @return the namespace
+	 */
 	public String getNamespace() {
 		return typeNamespaceTxt.getText();
 	}
 
+	/**
+	 * Gets the selected type models.
+	 *
+	 * @return the selected type models
+	 */
 	public List<TypeModel> getSelectedTypeModels() {
 		List<TypeModel> models = getSelectedTypeImportModels();
 		List<TypeModel> typeModels = new ArrayList<TypeModel>();
@@ -541,6 +601,11 @@ public class ImportTypesWizardPage extends SOABasePage {
 		return typeModels;
 	}
 
+	/**
+	 * Gets the selected type import models.
+	 *
+	 * @return the selected type import models
+	 */
 	public List<TypeModel> getSelectedTypeImportModels() {
 		return typeTable.getSelectedType();
 	}
@@ -580,6 +645,9 @@ public class ImportTypesWizardPage extends SOABasePage {
 	private static final Image DOCUMENTATION_COL = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/documentation_col.gif").createImage();
 
+	/**
+	 * The Class TypeTable.
+	 */
 	class TypeTable {
 		private List<TypeModel> typeList = new ArrayList<TypeModel>();
 
@@ -596,11 +664,22 @@ public class ImportTypesWizardPage extends SOABasePage {
 		private String groupTitle;
 		private boolean showNS;
 
+		/**
+		 * Instantiates a new type table.
+		 *
+		 * @param groupTitle the group title
+		 * @param showNS the show ns
+		 */
 		public TypeTable(String groupTitle, boolean showNS) {
 			this.groupTitle = groupTitle;
 			this.showNS = showNS;
 		}
 
+		/**
+		 * Gets the selected type.
+		 *
+		 * @return the selected type
+		 */
 		public List<TypeModel> getSelectedType() {
 			List<TypeModel> selectedTypeList = new ArrayList<TypeModel>();
 			for (TypeModel type : typeList) {
@@ -622,6 +701,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 			return selections;
 		}
 
+		/**
+		 * Creates the type table.
+		 *
+		 * @param parent the parent
+		 * @return the composite
+		 */
 		public Composite createTypeTable(Composite parent) {
 			Composite tableComposite = new Composite(parent, SWT.NONE);
 			tableComposite.setLayout(new GridLayout(1, false));
@@ -862,11 +947,19 @@ public class ImportTypesWizardPage extends SOABasePage {
 			dialog.open();
 		}
 
+		/**
+		 * The Class GetTypeContentRunnable.
+		 */
 		class GetTypeContentRunnable implements IRunnableWithProgress {
 			private List<TypeModel> types;
 
 			private String content;
 
+			/**
+			 * Instantiates a new gets the type content runnable.
+			 *
+			 * @param types the types
+			 */
 			public GetTypeContentRunnable(List<TypeModel> types) {
 				this.types = types;
 			}
@@ -874,15 +967,16 @@ public class ImportTypesWizardPage extends SOABasePage {
 			/**
 			 * this must be done in current thread to make sure the return
 			 * values is correct.
-			 * 
-			 * @return
-			 * 
-			 * @return
+			 *
+			 * @return the types content
 			 */
 			public String getTypesContent() {
 				return content;
 			}
 
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.operation.IRunnableWithProgress#run(org.eclipse.core.runtime.IProgressMonitor)
+			 */
 			@Override
 			public void run(IProgressMonitor monitor)
 					throws InvocationTargetException, InterruptedException {
@@ -955,6 +1049,13 @@ public class ImportTypesWizardPage extends SOABasePage {
 			dialog.open();
 		}
 
+		/**
+		 * Procee type error report.
+		 *
+		 * @param content the content
+		 * @param model the model
+		 * @return true, if successful
+		 */
 		protected boolean proceeTypeErrorReport(StringBuilder content,
 				TypeModel model) {
 			boolean hasError = model.hasError();
@@ -1006,10 +1107,20 @@ public class ImportTypesWizardPage extends SOABasePage {
 			}
 		}
 
+		/**
+		 * Gets the table.
+		 *
+		 * @return the table
+		 */
 		public Table getTable() {
 			return typeTable;
 		}
 
+		/**
+		 * Update table content.
+		 *
+		 * @param types the types
+		 */
 		public void updateTableContent(Collection<TypeModel> types) {
 			typeList.clear();
 			typeList.addAll(types);
@@ -1017,6 +1128,11 @@ public class ImportTypesWizardPage extends SOABasePage {
 			this.refreshTypeTable(true);
 		}
 
+		/**
+		 * Gets the types.
+		 *
+		 * @return the types
+		 */
 		public List<TypeModel> getTypes() {
 			return typeList;
 		}
@@ -1040,18 +1156,30 @@ public class ImportTypesWizardPage extends SOABasePage {
 			refreshTypeTable(false);
 		}
 
+		/**
+		 * The Class TypeContentProvider.
+		 */
 		class TypeContentProvider implements IStructuredContentProvider {
 
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
+			 */
 			@Override
 			public Object[] getElements(Object inputElement) {
 				return typeList.toArray();
 			}
 
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
+			 */
 			@Override
 			public void dispose() {
 
 			}
 
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+			 */
 			@Override
 			public void inputChanged(Viewer viewer, Object oldInput,
 					Object newInput) {
@@ -1060,9 +1188,15 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 		}
 
+		/**
+		 * The Class TypeLabelProvider.
+		 */
 		class TypeLabelProvider extends LabelProvider implements
 				ITableLabelProvider {
 
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
+			 */
 			@Override
 			public Image getColumnImage(Object element, int columnIndex) {
 
@@ -1090,6 +1224,9 @@ public class ImportTypesWizardPage extends SOABasePage {
 				}
 			}
 
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
+			 */
 			@Override
 			public String getColumnText(Object element, int columnIndex) {
 				if (element == null) {
@@ -1116,8 +1253,14 @@ public class ImportTypesWizardPage extends SOABasePage {
 			}
 		}
 
+		/**
+		 * The Class TypeModifier.
+		 */
 		class TypeModifier implements ICellModifier {
 
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.viewers.ICellModifier#canModify(java.lang.Object, java.lang.String)
+			 */
 			@Override
 			public boolean canModify(Object element, String property) {
 				if (property == null
@@ -1131,6 +1274,9 @@ public class ImportTypesWizardPage extends SOABasePage {
 				return true;
 			}
 
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.viewers.ICellModifier#getValue(java.lang.Object, java.lang.String)
+			 */
 			@Override
 			public Object getValue(Object element, String property) {
 				if (property == null
@@ -1178,6 +1324,9 @@ public class ImportTypesWizardPage extends SOABasePage {
 				}
 			}
 
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.viewers.ICellModifier#modify(java.lang.Object, java.lang.String, java.lang.Object)
+			 */
 			@Override
 			public void modify(Object element, String property, Object value) {
 				if (property == null || element == null) {
@@ -1207,6 +1356,13 @@ public class ImportTypesWizardPage extends SOABasePage {
 			}
 		}
 
+		/**
+		 * Validate name.
+		 *
+		 * @param typeName the type name
+		 * @param errorMessage the error message
+		 * @return the i status
+		 */
 		protected IStatus validateName(String typeName, String errorMessage) {
 			final InputObject inputObject = new InputObject(typeName,
 					RegExConstants.PROJECT_NAME_EXP, errorMessage);
@@ -1228,6 +1384,11 @@ public class ImportTypesWizardPage extends SOABasePage {
 			}
 		}
 
+		/**
+		 * Validate selected types.
+		 *
+		 * @return the string
+		 */
 		public String validateSelectedTypes() {
 
 			// clean all errors
@@ -1403,21 +1564,36 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 	}
 
+	/**
+	 * The Class TypeSorter.
+	 */
 	static class TypeSorter extends ViewerSorter {
 
 		private int columnIndex;
 		private int direction = SWT.UP;
 
+		/**
+		 * Instantiates a new type sorter.
+		 */
 		public TypeSorter() {
 			this.columnIndex = 0;
 			direction = SWT.UP;
 		}
 
+		/**
+		 * Sets the sort parameters.
+		 *
+		 * @param column the column
+		 * @param direction the direction
+		 */
 		public void setSortParameters(int column, int direction) {
 			columnIndex = column;
 			this.direction = direction;
 		}
 
+		/* (non-Javadoc)
+		 * @see org.eclipse.jface.viewers.ViewerComparator#compare(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+		 */
 		@Override
 		public int compare(Viewer viewer, Object e1, Object e2) {
 			TypeModel p1 = (TypeModel) e1;
@@ -1454,12 +1630,20 @@ public class ImportTypesWizardPage extends SOABasePage {
 	}
 
 }
-
+/**
+ * 
+ * 
+ *
+ */
 class ReloadTypesRunnable implements IRunnableWithProgress {
 	private String path;
 	private Collection<TypeModel> types;
 	private Map<String, TypeModel> referedTypes;
 
+	/**
+	 * 
+	 * @param path the path
+	 */
 	public ReloadTypesRunnable(String path) {
 		this.path = path;
 	}
@@ -1468,12 +1652,16 @@ class ReloadTypesRunnable implements IRunnableWithProgress {
 	 * this must be done in current thread to make sure the return values is
 	 * correct.
 	 * 
-	 * @return
+	 * @return a collection of type model
 	 */
 	public Collection<TypeModel> getTypes() {
 		return types;
 	}
 
+	/**
+	 * 
+	 * @return a map of strings and type models
+	 */
 	public Map<String, TypeModel> getReferedTypes() {
 		return referedTypes;
 	}

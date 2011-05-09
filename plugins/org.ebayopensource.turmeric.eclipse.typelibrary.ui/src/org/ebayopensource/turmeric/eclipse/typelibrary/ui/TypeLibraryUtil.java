@@ -98,16 +98,18 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 /**
+ * The Class TypeLibraryUtil.
+ *
  * @author smathew
  * 
- *         Util class for Type Lib
+ * Util class for Type Lib
  */
 public class TypeLibraryUtil {
 
 	/**
-	 * Get Template Category Map
-	 * 
-	 * @return
+	 * Get Template Category Map.
+	 *
+	 * @return the template category map
 	 */
 	public static Map<SOAXSDTemplateSubType, String> getTemplateCategoryMap() {
 		Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> templateCategoryFiles = UIActivator.getTemplateCategoryFiles();
@@ -138,11 +140,13 @@ public class TypeLibraryUtil {
 
 
 	/**
-	 * @param typeName
-	 * @return
-	 * 
-	 *         Answers the file location relative to the project structure. In
-	 *         short project.getFile() with this output should return the file.
+	 * Gets the xsd file location.
+	 *
+	 * @param typeName the type name
+	 * @param project the project
+	 * @return the xsd file location
+	 * Answers the file location relative to the project structure. In
+	 * short project.getFile() with this output should return the file.
 	 */
 	public static String getXsdFileLocation(String typeName, IProject project) {
 		String retValue = "";
@@ -165,9 +169,9 @@ public class TypeLibraryUtil {
 	/**
 	 * Just appending the extn to the XSD name. Extn names could be changed :)),
 	 * You never know. This is just a dumb helper
-	 * 
-	 * @param typeName
-	 * @return
+	 *
+	 * @param typeName the type name
+	 * @return the xsd file name from type name
 	 */
 	public static String getXsdFileNameFromTypeName(String typeName) {
 		String retValue = typeName;
@@ -180,9 +184,9 @@ public class TypeLibraryUtil {
 	/**
 	 * Just taking out the extn from the file name. Extn names could be changed
 	 * :)), You never know. This is just a dumb helper
-	 * 
-	 * @param typeName
-	 * @return
+	 *
+	 * @param fileName the file name
+	 * @return the xsd type name from file name
 	 */
 	public static String getXsdTypeNameFromFileName(String fileName) {
 		String retValue = fileName;
@@ -195,9 +199,9 @@ public class TypeLibraryUtil {
 
 	/**
 	 * Adding the TypeLibProtocal to the name for the xsd entry.
-	 * 
-	 * @param typeName
-	 * @return
+	 *
+	 * @param type the type
+	 * @return the protocol string
 	 */
 	public static String getProtocolString(LibraryType type) {
 		String retValue = null;
@@ -214,11 +218,12 @@ public class TypeLibraryUtil {
 
 	/**
 	 * Adding the TypeLibProtocal to the name for the xsd entry.
-	 * 
-	 * @param typeName
-	 * @return
-	 * @throws CoreException
-	 * @throws IOException
+	 *
+	 * @param typeLibName the type lib name
+	 * @param baseLocation the base location
+	 * @return the dependency stream
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static InputStream getDependencyStream(String typeLibName,
 			String baseLocation) throws CoreException, IOException {
@@ -256,6 +261,15 @@ public class TypeLibraryUtil {
 						+ typeLibName + " and base location " + baseLocation);
 	}
 
+	/**
+	 * Gets the library type.
+	 *
+	 * @param name the name
+	 * @param version the version
+	 * @param libInfo the lib info
+	 * @return the library type
+	 * @throws Exception the exception
+	 */
 	public static LibraryType getLibraryType(String name, String version,
 			TypeLibraryType libInfo) throws Exception {
 		SOATypeRegistry typeRegistry = GlobalRepositorySystem.instanceOf()
@@ -273,11 +287,26 @@ public class TypeLibraryUtil {
 		return libraryType;
 	}
 
+	/**
+	 * Gets the xSD.
+	 *
+	 * @param libType the lib type
+	 * @return the xSD
+	 * @throws Exception the exception
+	 */
 	public static URL getXSD(LibraryType libType) throws Exception {
 		return getXSD(libType.getLibraryInfo().getLibraryName(), libType
 				.getName());
 	}
 
+	/**
+	 * Gets the xSD.
+	 *
+	 * @param libraryName the library name
+	 * @param typeName the type name
+	 * @return the xSD
+	 * @throws Exception the exception
+	 */
 	public static URL getXSD(String libraryName, String typeName)
 			throws Exception {
 		String jarLocation = GlobalRepositorySystem.instanceOf()
@@ -309,6 +338,12 @@ public class TypeLibraryUtil {
 		}
 	}
 
+	/**
+	 * Gets the type name from protocol string.
+	 *
+	 * @param typeLibString the type lib string
+	 * @return the type name from protocol string
+	 */
 	public static String getTypeNameFromProtocolString(String typeLibString) {
 		String retValue = null;
 		if (!StringUtils.isEmpty(typeLibString)
@@ -327,6 +362,12 @@ public class TypeLibraryUtil {
 
 	}
 
+	/**
+	 * Gets the library name from protocol string.
+	 *
+	 * @param typeLibString the type lib string
+	 * @return the library name from protocol string
+	 */
 	public static String getLibraryNameFromProtocolString(String typeLibString) {
 		String retValue = null;
 		if (!StringUtils.isEmpty(typeLibString)
@@ -346,11 +387,23 @@ public class TypeLibraryUtil {
 				SOATypeLibraryConstants.PROTOCOL_DELIMITER) == 2;
 	}
 
+	/**
+	 * Gets the type name from xsd schema location.
+	 *
+	 * @param schemaLocation the schema location
+	 * @return the type name from xsd schema location
+	 */
 	public static String getTypeNameFromXSDSchemaLocation(String schemaLocation) {
 		return getXsdTypeNameFromFileName(StringUtils.substringAfterLast(
 				schemaLocation, "/"));
 	}
 
+	/**
+	 * Creates the library type.
+	 *
+	 * @param typeName the type name
+	 * @return the library type
+	 */
 	public static LibraryType createLibraryType(String typeName) {
 		LibraryType libraryType = GlobalRepositorySystem.instanceOf()
 				.getActiveRepositorySystem().getTypeRegistryBridge()
@@ -360,6 +413,12 @@ public class TypeLibraryUtil {
 		return libraryType;
 	}
 
+	/**
+	 * Gets the type information file.
+	 *
+	 * @param project the project
+	 * @return the type information file
+	 */
 	public static IFile getTypeInformationFile(IProject project) {
 		return project
 				.getFile(SOATypeLibraryConstants.FOLDER_GEN_META_SRC_META_INF
@@ -369,6 +428,13 @@ public class TypeLibraryUtil {
 
 	}
 
+	/**
+	 * Gets the type library type.
+	 *
+	 * @param project the project
+	 * @return the type library type
+	 * @throws CoreException the core exception
+	 */
 	public static TypeLibraryType getTypeLibraryType(IProject project)
 			throws CoreException {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
@@ -377,6 +443,14 @@ public class TypeLibraryUtil {
 
 	}
 
+	/**
+	 * Gets the all xsd files.
+	 *
+	 * @param project the project
+	 * @param checkExistance the check existance
+	 * @return the all xsd files
+	 * @throws Exception the exception
+	 */
 	public static List<IFile> getAllXsdFiles(IProject project,
 			boolean checkExistance) throws Exception {
 		List<IFile> files = null;
@@ -397,6 +471,12 @@ public class TypeLibraryUtil {
 		return files;
 	}
 
+	/**
+	 * Gets the drag n drop string.
+	 *
+	 * @param type the type
+	 * @return the drag n drop string
+	 */
 	public static String getDragNDropString(LibraryType type) {
 		String retValue = "";
 		IEditorPart editorPart = UIUtil.getActiveEditor();
@@ -456,9 +536,9 @@ public class TypeLibraryUtil {
 	/**
 	 * This is just for WTP WSDL and XSD editors. Dont get confused and use it
 	 * for generic pruposes.
-	 * 
-	 * @param editorPart
-	 * @return
+	 *
+	 * @param editorPart the editor part
+	 * @return the adapter class from wtp editors
 	 */
 	public static Object getAdapterClassFromWTPEditors(IEditorPart editorPart) {
 		Object retValue = null;
@@ -504,9 +584,9 @@ public class TypeLibraryUtil {
 	/**
 	 * This is just for WTP WSDL and XSD editors. Dont get confused and use it
 	 * for generic pruposes.
-	 * 
-	 * @param editorPart
-	 * @return
+	 *
+	 * @param editorPart the editor part
+	 * @return the formatter
 	 */
 	public static ITextOperationTarget getFormatter(IEditorPart editorPart) {
 		ITextOperationTarget retValue = null;
@@ -536,12 +616,26 @@ public class TypeLibraryUtil {
 		return retValue;
 	}
 
+	/**
+	 * Parses the schema.
+	 *
+	 * @param url the url
+	 * @return the xSD schema
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static XSDSchema parseSchema(URL url) throws IOException {
 		InputStream inputStream = null;
 		inputStream = url.openStream();
 		return parseSchema(inputStream);
 	}
 
+	/**
+	 * Parses the schema.
+	 *
+	 * @param inputStream the input stream
+	 * @return the xSD schema
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static XSDSchema parseSchema(InputStream inputStream)
 			throws IOException {
 		try {
@@ -554,6 +648,13 @@ public class TypeLibraryUtil {
 		}
 	}
 
+	/**
+	 * Checks if is valid xsd file.
+	 *
+	 * @param fileObject the file object
+	 * @return true, if is valid xsd file
+	 * @throws CoreException the core exception
+	 */
 	public static boolean isValidXSDFile(Object fileObject)
 			throws CoreException {
 		IFile file = null;
@@ -570,6 +671,13 @@ public class TypeLibraryUtil {
 						TypeLibraryProjectNature.getTypeLibraryNatureId());
 	}
 
+	/**
+	 * Checks if is valid xsd file deleted.
+	 *
+	 * @param fileObject the file object
+	 * @return true, if is valid xsd file deleted
+	 * @throws CoreException the core exception
+	 */
 	public static boolean isValidXSDFileDeleted(Object fileObject)
 			throws CoreException {
 		IFile file = null;
@@ -586,6 +694,13 @@ public class TypeLibraryUtil {
 						TypeLibraryProjectNature.getTypeLibraryNatureId());
 	}
 
+	/**
+	 * Checks if is valid xsd file modified.
+	 *
+	 * @param fileObject the file object
+	 * @return true, if is valid xsd file modified
+	 * @throws CoreException the core exception
+	 */
 	public static boolean isValidXSDFileModified(Object fileObject)
 			throws CoreException {
 		IFile file = null;
@@ -602,6 +717,15 @@ public class TypeLibraryUtil {
 						TypeLibraryProjectNature.getTypeLibraryNatureId());
 	}
 
+	/**
+	 * Gets the project name from wtp base location.
+	 *
+	 * @param baseLocationStr the base location str
+	 * @return the project name from wtp base location
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the sAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static String getProjectNameFromWTPBaseLocation(
 			String baseLocationStr) throws ParserConfigurationException,
 			SAXException, IOException {
@@ -667,6 +791,12 @@ public class TypeLibraryUtil {
 		return typeLibName;
 	}
 
+	/**
+	 * Checks if is new style base location.
+	 *
+	 * @param baseLocationStr the base location str
+	 * @return true, if is new style base location
+	 */
 	public static boolean isNewStyleBaseLocation(String baseLocationStr) {
 		return !(StringUtils.countMatches(
 				StringUtils.substringAfterLast(baseLocationStr,
@@ -674,6 +804,12 @@ public class TypeLibraryUtil {
 				WorkspaceUtil.PATH_SEPERATOR) == 1);
 	}
 
+	/**
+	 * Gets the type name from wtp base location.
+	 *
+	 * @param baseLocationStr the base location str
+	 * @return the type name from wtp base location
+	 */
 	public static String getTypeNameFromWTPBaseLocation(String baseLocationStr) {
 		IPath path = new Path(baseLocationStr);
 		// removing meta-src/types/abcd.xsd
@@ -681,11 +817,12 @@ public class TypeLibraryUtil {
 	}
 
 	/**
-	 * 
-	 * @param category
-	 * @param type
-	 * @return
-	 * @throws IOException
+	 * Gets the template stream.
+	 *
+	 * @param category the category
+	 * @param type the type
+	 * @return the template stream
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static InputStream getTemplateStream(SOAXSDTemplateSubType category,
 			String type) throws IOException {
@@ -700,26 +837,60 @@ public class TypeLibraryUtil {
 		return null;
 	}
 
+	/**
+	 * To library type.
+	 *
+	 * @param qname the qname
+	 * @return the library type
+	 * @throws Exception the exception
+	 */
 	public static LibraryType toLibraryType(QName qname) throws Exception {
 		return SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
 				.getType(qname);
 	}
 
+	/**
+	 * To q name.
+	 *
+	 * @param libraryType the library type
+	 * @return the q name
+	 * @throws Exception the exception
+	 */
 	public static QName toQName(LibraryType libraryType) throws Exception {
 		return new QName(getNameSpace(libraryType), libraryType.getName());
 	}
 
+	/**
+	 * Gets the name space.
+	 *
+	 * @param libraryType the library type
+	 * @return the name space
+	 */
 	public static String getNameSpace(LibraryType libraryType) {
 		return !StringUtils.isEmpty(libraryType.getNamespace()) ? libraryType
 				.getNamespace() : libraryType.getLibraryInfo()
 				.getLibraryNamespace();
 	}
 
+	/**
+	 * Gets the name space.
+	 *
+	 * @param projectName the project name
+	 * @return the name space
+	 * @throws Exception the exception
+	 */
 	public static String getNameSpace(String projectName) throws Exception {
 		return SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
 				.getTypeLibrary(projectName).getLibraryNamespace();
 	}
 
+	/**
+	 * To q name.
+	 *
+	 * @param typeFile the type file
+	 * @return the q name
+	 * @throws Exception the exception
+	 */
 	public static QName toQName(IFile typeFile) throws Exception {
 		String typeLibraryNameSpace = SOAGlobalRegistryAdapter.getInstance()
 				.getGlobalRegistry().getTypeLibrary(
@@ -732,9 +903,10 @@ public class TypeLibraryUtil {
 	/**
 	 * Old type library project (in workspace) has the dir structure
 	 * meta-src\types\<xsd> and the new one has
-	 * meta-src\types\<typeLibName>\<xsd>
-	 * 
-	 * @return
+	 * meta-src\types\<typeLibName>\<xsd>.
+	 *
+	 * @param project the project
+	 * @return true, if is new typ library
 	 */
 	public static boolean isNewTypLibrary(IProject project) {
 		return project.getFolder(
@@ -745,11 +917,12 @@ public class TypeLibraryUtil {
 
 	/**
 	 * Old type library jar(NOT in workspace) has the dir structure \types\<xsd>
-	 * and the new one has meta-src\types\<typeLibName>\<xsd>
-	 * 
-	 * @return
-	 * @throws IOException
-	 * @throws URISyntaxException
+	 * and the new one has meta-src\types\<typeLibName>\<xsd>.
+	 *
+	 * @param jarURL the jar url
+	 * @param projectName the project name
+	 * @return true, if is new typ library
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static boolean isNewTypLibrary(URL jarURL, String projectName)
 			throws IOException {
@@ -764,8 +937,11 @@ public class TypeLibraryUtil {
 	/**
 	 * check if version update is needed. Then update type library version in
 	 * property file, rebuild, update version in dependency XML.
-	 * 
-	 * @throws Exception
+	 *
+	 * @param newVersion the new version
+	 * @param typelibProject the typelib project
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	// mzang 2010-4-22 modify library version. not used yet
 	public static void updateTypeLibraryVersion(String newVersion,
@@ -833,6 +1009,13 @@ public class TypeLibraryUtil {
 		}
 	}
 
+	/**
+	 * Import types to type library saxp.
+	 *
+	 * @param types the types
+	 * @param tlProjectName the tl project name
+	 * @param monitor the monitor
+	 */
 	public static void importTypesToTypeLibrarySAXP(List<TypeModel> types,
 			String tlProjectName, IProgressMonitor monitor) {
 		try {
@@ -890,6 +1073,13 @@ public class TypeLibraryUtil {
 
 	}
 
+	/**
+	 * Import types to type library.
+	 *
+	 * @param types the types
+	 * @param tlProjectName the tl project name
+	 * @param monitor the monitor
+	 */
 	public static void importTypesToTypeLibrary(List<ImportTypeModel> types,
 			String tlProjectName, IProgressMonitor monitor) {
 		List<ImportTypeModel> allResolvedModel = new ArrayList<ImportTypeModel>();
@@ -1013,6 +1203,11 @@ public class TypeLibraryUtil {
 
 	}
 
+	/**
+	 * Refresh type dependency in soa type registry.
+	 *
+	 * @param typeLibraryName the type library name
+	 */
 	public static void refreshTypeDependencyInSOATypeRegistry(
 			String typeLibraryName) {
 		try {
@@ -1025,6 +1220,7 @@ public class TypeLibraryUtil {
 
 	// copied from
 	// TypeLibraryProjectPropertiesGenerator.TYPE_LIB_PRJ_PROPERTIES_FILE_NAME
+	/** The Constant TYPE_LIB_PRJ_PROPERTIES_FILE_NAME. */
 	public static final String TYPE_LIB_PRJ_PROPERTIES_FILE_NAME = "type_library_project.properties";
 	private static final String COMMENT = "*** Generated file, any changes will be lost upon regeneration ***";
 

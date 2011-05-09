@@ -12,13 +12,14 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 
 /**
- * @author yayu
+ * The Class DefaultInterfaceProjectResolver.
  *
+ * @author yayu
  */
 public class DefaultInterfaceProjectResolver implements ISOAProjectResolver<SOAIntfProject> {
 
 	/**
-	 * 
+	 * Instantiates a new default interface project resolver.
 	 */
 	public DefaultInterfaceProjectResolver() {
 		super();

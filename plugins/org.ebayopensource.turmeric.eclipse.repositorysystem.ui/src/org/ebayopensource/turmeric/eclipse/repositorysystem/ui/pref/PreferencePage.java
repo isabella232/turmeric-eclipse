@@ -39,6 +39,8 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 
 /**
+ * The Class PreferencePage.
+ *
  * @author smathew
  * 
  * Displays the Preference page for the repo. All contributed repos will be
@@ -50,6 +52,9 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 		IWorkbenchPreferencePage {
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Instantiates a new preference page.
+	 */
 	public PreferencePage() {
 		super(GRID);
 		setPreferenceStore(RepositorySystemUIActivator.getDefault().getPreferenceStore());
@@ -57,6 +62,9 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 	}
 
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void createFieldEditors() {
 		final List<ISOARepositorySystem> reposList = GlobalRepositorySystem
@@ -192,6 +200,9 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void init(IWorkbench workbench) {
 		// nothing here for now
 

@@ -21,8 +21,9 @@ import org.eclipse.core.resources.IFolder;
 
 
 /**
+ * The Class SOAImplProject.
+ *
  * @author smathew
- * 
  */
 public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerProject{
 
@@ -56,11 +57,11 @@ public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerPr
 
 	/**
 	 * Creates an instance of the SOAImplProject.  This probably should be a constructor.
-	 * 
+	 *
 	 * @param implMetadata implementation meta data
 	 * @param eclipseMetadata eclipse meta data
 	 * @return an instance of SOAImplProject
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static SOAImplProject create(SOAImplMetadata implMetadata,
 			SOAProjectEclipseMetadata eclipseMetadata) throws Exception{
@@ -70,17 +71,26 @@ public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerPr
 		return implProject;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject#getMetadata()
+	 */
 	@Override
 	public SOAImplMetadata getMetadata() {
 		final AbstractSOAMetadata metadata = super.getMetadata();
 		return metadata instanceof SOAImplMetadata ? (SOAImplMetadata)metadata : null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject#getSOAMetadataClass()
+	 */
 	@Override
 	protected Class<? extends AbstractSOAMetadata> getSOAMetadataClass() {
 		return SOAImplMetadata.class;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject#getSourceSubFolders()
+	 */
 	@Override
 	public List<String> getSourceSubFolders() {
 		List<String> subFolders = new ArrayList<String>();
@@ -92,7 +102,8 @@ public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerPr
 	}
 
 	/**
-	 * 
+	 * Gets the service config file.
+	 *
 	 * @return the service configuration file as an IFile
 	 */
 	public IFile getServiceConfigFile() {
@@ -101,13 +112,17 @@ public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerPr
 	}
 
 	/**
-	 * 
+	 * Gets the impl project properties file.
+	 *
 	 * @return the implementation project properties file as an IFile
 	 */
 	public IFile getImplProjectPropertiesFile() {
 		return getProject().getFile(SOAProjectConstants.PROPS_FILE_SERVICE_IMPL);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject#getSourceDirectoryNames()
+	 */
 	@Override
 	public List<String> getSourceDirectoryNames() {
 		final List<String> result = ListUtil.arrayList(SOURCE_DIRECTORIES);
@@ -122,7 +137,8 @@ public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerPr
 	}
 
 	/**
-	 * 
+	 * Gets the web content root.
+	 *
 	 * @return the IFolder that contains the web content root
 	 */
 	public IFolder getWebContentRoot() {

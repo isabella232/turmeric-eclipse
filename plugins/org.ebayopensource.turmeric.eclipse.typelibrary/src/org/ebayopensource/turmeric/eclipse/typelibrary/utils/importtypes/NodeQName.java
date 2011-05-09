@@ -29,6 +29,14 @@ public class NodeQName {
 
 }
 
+/**
+ * 
+ * 
+ *
+ */
 enum NS {
+	/**
+	 * 
+	 */
 	WSDL, SCHEMA, OTHER
 }

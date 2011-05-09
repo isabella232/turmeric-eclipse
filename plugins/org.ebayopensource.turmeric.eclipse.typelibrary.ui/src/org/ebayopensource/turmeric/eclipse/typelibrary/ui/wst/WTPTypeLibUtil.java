@@ -75,11 +75,11 @@ public class WTPTypeLibUtil {
 	 * in the the registry. Basically if Type A has version 1.0.0 in type
 	 * dependency XML and the type information XML file inside the type library
 	 * that holds Type A has version greater than 1.0.0.
-	 * 
-	 * @param allSchemas
-	 * @param project
-	 * @return
-	 * @throws Exception 
+	 *
+	 * @param allSchemas the all schemas
+	 * @param project the project
+	 * @return the updated schemas
+	 * @throws Exception the exception
 	 */
 	public static Map<LibraryType, XSDTypeDefinition> getUpdatedSchemas(
 			Map<LibraryType, XSDTypeDefinition> allSchemas, IProject project)
@@ -143,9 +143,9 @@ public class WTPTypeLibUtil {
 	/**
 	 * Making sure that this is a WTP editor and is a candidate for SOA to add
 	 * their context menus.
-	 * 
-	 * @param editorPart
-	 * @return
+	 *
+	 * @param editorPart the editor part
+	 * @return true, if successful
 	 */
 	public static boolean validateEditorForContextMenus(Object editorPart) {
 		return (editorPart != null && (editorPart instanceof StructuredTextEditor || editorPart instanceof CommonMultiPageEditor));
@@ -156,10 +156,10 @@ public class WTPTypeLibUtil {
 	 * just modifies the WTP EMF model. Returns true if the type was found in
 	 * the definition and was successfully removed, Otherwise returns false.
 	 * Editor will be dirty after successful execution of this operation.
-	 * 
-	 * @param definition
-	 * @param qname
-	 * @return
+	 *
+	 * @param definition the definition
+	 * @param qname the qname
+	 * @return true, if successful
 	 */
 	public static boolean removeType(Definition definition, QName qname) {
 		if (hasSchema(definition, qname.getNamespaceURI())) {
@@ -187,11 +187,12 @@ public class WTPTypeLibUtil {
 	 * release and we want to minimize the impact. We have to refactor it out
 	 * after the release. Basically this API delays the imports till the end of
 	 * the execution
-	 * 
-	 * @param impTypeSet
-	 * @param definition
-	 * @param typeFolding
-	 * @throws Exception
+	 *
+	 * @param impTypeSet the imp type set
+	 * @param addditionalImpTypeSet the addditional imp type set
+	 * @param definition the definition
+	 * @param typeFolding the type folding
+	 * @throws Exception the exception
 	 */
 	public static void wrapImport(Set<LibraryType> impTypeSet,
 			Set<LibraryType> addditionalImpTypeSet, Definition definition,
@@ -318,16 +319,18 @@ public class WTPTypeLibUtil {
 	 * for duplicate boolean is true the operation will become a no operation if
 	 * the type is already in-lined. Uses internally the
 	 * AddXSDTypeDefinitionCommand from WTP.
-	 * 
-	 * @param libraryType
-	 * @param definition
+	 *
+	 * @param libraryType the library type
+	 * @param definition the definition
 	 * @param checkForDuplicates -
-	 *            If true, this function will execute a duplicate check and will
-	 *            return silently without doing anything if the type already
-	 *            exists in the definition passed.
-	 * @throws MalformedURLException
-	 * @throws IOException
-	 * @throws Exception
+	 * If true, this function will execute a duplicate check and will
+	 * return silently without doing anything if the type already
+	 * exists in the definition passed.
+	 * @param typeFolding the type folding
+	 * @return the i status
+	 * @throws MalformedURLException the malformed url exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws Exception the exception
 	 */
 	public static IStatus inlineType(LibraryType libraryType,
 			Definition definition, boolean checkForDuplicates,
@@ -499,6 +502,13 @@ public class WTPTypeLibUtil {
 		return false;
 	}
 	
+	/**
+	 * Removes the inline type from wsdl definition.
+	 *
+	 * @param definition the definition
+	 * @param selectedType the selected type
+	 * @param importedTypesMap the imported types map
+	 */
 	public static void removeInlineTypeFromWSDLDefinition(Definition definition,
 			LibraryType selectedType,
 			Map<LibraryType, XSDTypeDefinition> importedTypesMap) {

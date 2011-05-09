@@ -58,10 +58,9 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
- * Wizard for selection of types
- * 
+ * Wizard for selection of types.
+ *
  * @author ramurthy
- * 
  */
 
 public class TypeSelectionWizard extends SOABaseWizard {
@@ -141,6 +140,9 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		return pages.toArray(new IWizardPage[pages.size()]);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.wizard.Wizard#getNextPage(org.eclipse.jface.wizard.IWizardPage)
+	 */
 	@Override
 	public IWizardPage getNextPage(IWizardPage page) {
 		// logic for finding out the next page
@@ -169,6 +171,12 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		return null;
 	}
 
+	/**
+	 * Sets the selected project name.
+	 *
+	 * @param selection the new selected project name
+	 * @throws CoreException the core exception
+	 */
 	protected void setSelectedProjectName(IStructuredSelection selection)
 			throws CoreException {
 		if (selection != null) {
@@ -185,6 +193,9 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.wizard.Wizard#canFinish()
+	 */
 	@Override
 	public boolean canFinish() {
 		// if pre-build validation fails, then typeSelectionWizardPage doesn't
@@ -218,6 +229,9 @@ public class TypeSelectionWizard extends SOABaseWizard {
 
 	private TypeParamModel paramModel = null;
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#performFinish()
+	 */
 	@Override
 	public boolean performFinish() {
 		try {
@@ -359,6 +373,14 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		}
 	}
 
+	/**
+	 * Creates the simple type.
+	 *
+	 * @param startTime the start time
+	 * @param monitor the monitor
+	 * @return the simple type param model
+	 * @throws Exception the exception
+	 */
 	public SimpleTypeParamModel createSimpleType(long startTime,
 			IProgressMonitor monitor) throws Exception {
 		SimpleTypeParamModel paramModel = new SimpleTypeParamModel();
@@ -382,6 +404,14 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		return paramModel;
 	}
 
+	/**
+	 * Creates the enum type.
+	 *
+	 * @param startTime the start time
+	 * @param monitor the monitor
+	 * @return the enum type param model
+	 * @throws Exception the exception
+	 */
 	public EnumTypeParamModel createEnumType(long startTime,
 			IProgressMonitor monitor) throws Exception {
 		EnumTypeParamModel paramModel = new EnumTypeParamModel();
@@ -406,6 +436,14 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		return paramModel;
 	}
 
+	/**
+	 * Creates the complex type.
+	 *
+	 * @param startTime the start time
+	 * @param monitor the monitor
+	 * @return the complex type param model
+	 * @throws Exception the exception
+	 */
 	public ComplexTypeParamModel createComplexType(long startTime,
 			IProgressMonitor monitor) throws Exception {
 		ComplexTypeParamModel paramModel = new ComplexTypeParamModel();
@@ -431,6 +469,14 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		return paramModel;
 	}
 
+	/**
+	 * Creates the complex sc type.
+	 *
+	 * @param startTime the start time
+	 * @param monitor the monitor
+	 * @return the complex type sc param model
+	 * @throws Exception the exception
+	 */
 	public ComplexTypeSCParamModel createComplexSCType(long startTime,
 			IProgressMonitor monitor) throws Exception {
 		ComplexTypeSCParamModel paramModel = new ComplexTypeSCParamModel();
@@ -461,6 +507,14 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		return paramModel;
 	}
 
+	/**
+	 * Creates the complex cc type.
+	 *
+	 * @param startTime the start time
+	 * @param monitor the monitor
+	 * @return the complex type cc param model
+	 * @throws Exception the exception
+	 */
 	public ComplexTypeCCParamModel createComplexCCType(long startTime,
 			IProgressMonitor monitor) throws Exception {
 		ComplexTypeCCParamModel paramModel = new ComplexTypeCCParamModel();
@@ -492,6 +546,9 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		return paramModel;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#preValidate()
+	 */
 	@Override
 	public IStatus preValidate() {
 		return Status.OK_STATUS;

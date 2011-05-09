@@ -90,10 +90,11 @@ public class WTPCopyUtil {
 	 * or if it is not accessible. Clients are supposed to validate the
 	 * parameters or react to the exception and show it to the user
 	 * meaningfully.
-	 * 
-	 * @param dstSchema
-	 * @param srcType
-	 * @throws SOABadParameterException
+	 *
+	 * @param dstSchema the dst schema
+	 * @param srcType the src type
+	 * @param typeFolding the type folding
+	 * @throws SOABadParameterException the sOA bad parameter exception
 	 */
 	public static void copy(XSDSchema dstSchema, LibraryType srcType,
 			boolean typeFolding) throws SOABadParameterException {
@@ -125,6 +126,14 @@ public class WTPCopyUtil {
 		transformQNamePrefix(dstSchema, srcSchema, typeFolding);
 	}
 
+	/**
+	 * Transform q name prefix.
+	 *
+	 * @param dstSchema the dst schema
+	 * @param srcSchema the src schema
+	 * @param typeFolding the type folding
+	 * @throws SOABadParameterException the sOA bad parameter exception
+	 */
 	public static void transformQNamePrefix(XSDSchema dstSchema,
 			XSDSchema srcSchema, boolean typeFolding)
 			throws SOABadParameterException {
@@ -221,6 +230,12 @@ public class WTPCopyUtil {
 		}
 	}
 
+	/**
+	 * Adds the annotation.
+	 *
+	 * @param typeDefinition the type definition
+	 * @param libraryType the library type
+	 */
 	public static void addAnnotation(XSDTypeDefinition typeDefinition,
 			LibraryType libraryType) {
 
@@ -240,6 +255,12 @@ public class WTPCopyUtil {
 
 	}
 
+	/**
+	 * Fill app info.
+	 *
+	 * @param appInfoElement the app info element
+	 * @param libraryType the library type
+	 */
 	public static void fillAppInfo(Element appInfoElement,
 			LibraryType libraryType) {
 		NodeList children = appInfoElement.getChildNodes();

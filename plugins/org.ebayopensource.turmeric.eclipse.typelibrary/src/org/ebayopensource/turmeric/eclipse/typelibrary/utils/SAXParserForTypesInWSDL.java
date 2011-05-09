@@ -30,6 +30,9 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 
 enum SchemaProcessStage {
+	/**
+	 * 
+	 */
 	NotStart, Processing, Processed
 }
 

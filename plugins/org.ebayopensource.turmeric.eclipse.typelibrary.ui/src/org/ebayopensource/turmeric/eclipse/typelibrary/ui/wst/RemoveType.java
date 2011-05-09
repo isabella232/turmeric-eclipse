@@ -39,6 +39,8 @@ import org.eclipse.xsd.XSDSchemaDirective;
 import org.eclipse.xsd.XSDTypeDefinition;
 
 /**
+ * The Class RemoveType.
+ *
  * @author smathew
  * 
  * Cleanly removes an XSD Types. Removes the type info entry and typ dep entry
@@ -46,9 +48,15 @@ import org.eclipse.xsd.XSDTypeDefinition;
  */
 public class RemoveType extends AbastractTypeLibraryAtion {
 
+	/**
+	 * Instantiates a new removes the type.
+	 */
 	public RemoveType() {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void run(IAction action) {
 		
 		UIJob removeType = new UIJob("Remove Type...") {
@@ -154,6 +162,15 @@ public class RemoveType extends AbastractTypeLibraryAtion {
 		removeType.schedule();
 	}
 
+	/**
+	 * Modify wsdl.
+	 *
+	 * @param selectedTypes the selected types
+	 * @param definition the definition
+	 * @param importedTypesMap the imported types map
+	 * @param project the project
+	 * @throws Exception the exception
+	 */
 	public void modifyWSDL(ArrayList<LibraryType> selectedTypes,
 			Definition definition,
 			Map<LibraryType, XSDTypeDefinition> importedTypesMap,
@@ -170,6 +187,17 @@ public class RemoveType extends AbastractTypeLibraryAtion {
 		WorkspaceUtil.refresh(project);
 	}
 
+	/**
+	 * Modify xsd.
+	 *
+	 * @param selectedTypes the selected types
+	 * @param parentXSDSchema the parent xsd schema
+	 * @param importedTypesMap the imported types map
+	 * @param project the project
+	 * @param parentXSDfFile the parent xs df file
+	 * @return the i status
+	 * @throws Exception the exception
+	 */
 	public IStatus modifyXSD(ArrayList<LibraryType> selectedTypes,
 			XSDSchema parentXSDSchema,
 			Map<LibraryType, XSDSchemaDirective> importedTypesMap,

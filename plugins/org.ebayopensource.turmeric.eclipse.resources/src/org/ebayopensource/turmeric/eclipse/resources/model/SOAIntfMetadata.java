@@ -56,16 +56,11 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	 * This is called from the UI processors. Since we have the user entered
 	 * information at the creation flow the UI object is passed and is converted
 	 * to this intermediate object for the rest of the processing logic.
-	 * 
-	 * @param serviceName
-	 * @param serviceVersion
-	 * @param serviceInterface
-	 * @param serviceLayer
-	 * @param wsdlURL
-	 * @param paramModel 
+	 *
+	 * @param paramModel the param model
 	 * @return This has been made a static factory to enable object pooling and
-	 *         controlled creation.
-	 * @throws WSDLException 
+	 * controlled creation.
+	 * @throws WSDLException the wSDL exception
 	 */
 	public static SOAIntfMetadata create(ServiceFromWsdlParamModel paramModel)
 			throws WSDLException {
@@ -131,7 +126,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the metadata version.
+	 *
 	 * @return the meta data version
 	 */
 	public String getMetadataVersion() {
@@ -139,7 +135,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the metadata version.
+	 *
 	 * @param metadataVersion the meta data version in major.minor format.
 	 */
 	public void setMetadataVersion(String metadataVersion) {
@@ -148,7 +145,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the public service name.
+	 *
 	 * @return the public service name
 	 */
 	public String getPublicServiceName() {
@@ -156,7 +154,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the public service name.
+	 *
 	 * @param publicServiceName the public service name
 	 */
 	public void setPublicServiceName(String publicServiceName) {
@@ -164,7 +163,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the service domain name.
+	 *
 	 * @return the service domain name
 	 */
 	public String getServiceDomainName() {
@@ -172,7 +172,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the service domain name.
+	 *
 	 * @param serviceDomainName the service domain name
 	 */
 	public void setServiceDomainName(String serviceDomainName) {
@@ -180,7 +181,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the type namespace.
+	 *
 	 * @return the type namespace
 	 */
 	public String getTypeNamespace() {
@@ -188,7 +190,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the type namespace.
+	 *
 	 * @param typeNamespace the type namespace
 	 */
 	public void setTypeNamespace(String typeNamespace) {
@@ -196,7 +199,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the type folding.
+	 *
 	 * @return Is type folding enabled?
 	 */
 	public boolean getTypeFolding() {
@@ -204,7 +208,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the type folding.
+	 *
 	 * @param typeFolding Should type folding be enabled.
 	 */
 	public void setTypeFolding(boolean typeFolding) {
@@ -212,7 +217,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the imlementation project name.
+	 *
 	 * @return implementation project name
 	 */
 	public String getImlementationProjectName() {
@@ -220,7 +226,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the imlementation project name.
+	 *
 	 * @param imlementationProjectName implementation project name
 	 */
 	public void setImlementationProjectName(String imlementationProjectName) {
@@ -235,7 +242,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the service name.
+	 *
 	 * @return the service name
 	 */
 	public String getServiceName() {
@@ -243,7 +251,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the service name.
+	 *
 	 * @param serviceName the service name
 	 */
 	public void setServiceName(String serviceName) {
@@ -251,7 +260,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the service namespace part.
+	 *
 	 * @return the service namespace part
 	 */
 	public String getServiceNamespacePart() {
@@ -259,7 +269,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the service namespace part.
+	 *
 	 * @param serviceNamespacePart the service namespace part
 	 */
 	public void setServiceNamespacePart(String serviceNamespacePart) {
@@ -267,7 +278,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the service version.
+	 *
 	 * @return the service version
 	 */
 	public String getServiceVersion() {
@@ -275,7 +287,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the service version.
+	 *
 	 * @param serviceVersion the service version
 	 */
 	public void setServiceVersion(String serviceVersion) {
@@ -283,7 +296,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the service interface.
+	 *
 	 * @return the service interface
 	 */
 	public String getServiceInterface() {
@@ -291,7 +305,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the service interface.
+	 *
 	 * @param serviceInterface the service interface
 	 */
 	public void setServiceInterface(String serviceInterface) {
@@ -299,7 +314,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the service layer.
+	 *
 	 * @return the service layer
 	 */
 	public String getServiceLayer() {
@@ -307,7 +323,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the service layer.
+	 *
 	 * @param serviceLayer the service layer
 	 */
 	public void setServiceLayer(String serviceLayer) {
@@ -315,7 +332,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the source type.
+	 *
 	 * @return the interface source type
 	 */
 	public SOAProjectConstants.InterfaceSourceType getSourceType() {
@@ -323,7 +341,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the source type.
+	 *
 	 * @param sourceType the source type
 	 */
 	public void setSourceType(SOAProjectConstants.InterfaceSourceType sourceType) {
@@ -331,7 +350,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the service location.
+	 *
 	 * @return service location
 	 */
 	public String getServiceLocation() {
@@ -339,7 +359,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the service location.
+	 *
 	 * @param serviceLocation the service location
 	 */
 	public void setServiceLocation(String serviceLocation) {
@@ -347,7 +368,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the original wsdl url.
+	 *
 	 * @return the location of the original WSDL
 	 */
 	public URL getOriginalWSDLUrl() {
@@ -355,7 +377,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the original wsdl url.
+	 *
 	 * @param originalWSDLUrl the location of the original wsdl.
 	 */
 	public void setOriginalWSDLUrl(URL originalWSDLUrl) {
@@ -363,7 +386,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the wsdl source type.
+	 *
 	 * @return the wsdl source type
 	 */
 	public SOAProjectConstants.InterfaceWsdlSourceType getWsdlSourceType() {
@@ -371,7 +395,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the wsdl source type.
+	 *
 	 * @param wsdlSourceType the wsdl source type
 	 */
 	public void setWsdlSourceType(
@@ -380,7 +405,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the target namespace.
+	 *
 	 * @return the target namespace
 	 */
 	public String getTargetNamespace() {
@@ -388,7 +414,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the target namespace.
+	 *
 	 * @param targetNamespace the target namespace
 	 */
 	public void setTargetNamespace(String targetNamespace) {
@@ -396,7 +423,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Gets the namespace to package mappings.
+	 *
 	 * @return A map of namespaces to package mappings
 	 */
 	public Map<String, String> getNamespaceToPackageMappings() {
@@ -404,7 +432,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	/**
-	 * 
+	 * Sets the namespace to package mappings.
+	 *
 	 * @param namespaceToPackageMappings a Map of namespaces to package mappings
 	 */
 	public void setNamespaceToPackageMappings(

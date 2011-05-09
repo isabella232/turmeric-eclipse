@@ -27,6 +27,8 @@ import org.eclipse.ui.progress.UIJob;
 
 
 /**
+ * The Class CreateNewTypeAction.
+ *
  * @author smathew
  * 
  * "Create Type" action in the context menu of the viewer
@@ -39,16 +41,16 @@ public class CreateNewTypeAction implements IObjectActionDelegate {
 	private IStructuredSelection selection;
 	private static final SOALogger logger = SOALogger.getLogger();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.ui.IWorkbenchPart)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void run(final IAction action) {
 		if (SOALogger.DEBUG)
 			logger.entering(action, selection);
@@ -91,6 +93,9 @@ public class CreateNewTypeAction implements IObjectActionDelegate {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

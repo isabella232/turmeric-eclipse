@@ -50,8 +50,9 @@ import org.osgi.framework.Version;
 
 
 /**
+ * The Class TypeLibraryProjPropertyPage.
+ *
  * @author mzang
- * 
  */
 
 public class TypeLibraryProjPropertyPage extends PreferencePage implements
@@ -64,6 +65,9 @@ public class TypeLibraryProjPropertyPage extends PreferencePage implements
 
     private Text typeLibraryVersion;
 
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)
+     */
     @Override
     protected Control createContents(Composite parent) {
         noDefaultAndApplyButton();
@@ -124,17 +128,23 @@ public class TypeLibraryProjPropertyPage extends PreferencePage implements
         return typeLibraryPropertyGroup;
     }
 
-    /*
-     * @see PreferencePage#createControl(Composite)
-     */
+	/**
+	 * {@inheritDoc}
+	 */
     public void createControl(Composite parent) {
         super.createControl(parent);
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     public IAdaptable getElement() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.preference.PreferencePage#performOk()
+     */
     @Override
     public boolean performOk() {
 		try {
@@ -273,6 +283,9 @@ public class TypeLibraryProjPropertyPage extends PreferencePage implements
         createLabeledText(group, "Namespace:", false, model.getNamespace());
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     public void setElement(IAdaptable element) {
         try {
             if (element.getAdapter(IProject.class) instanceof IProject) {
@@ -293,6 +306,11 @@ public class TypeLibraryProjPropertyPage extends PreferencePage implements
         }
     }
 
+    /**
+     * Gets the soa project.
+     *
+     * @return the soa project
+     */
     public ISOAProject getSoaProject() {
         return typelibProject;
     }

@@ -46,9 +46,19 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.UIJob;
 import org.osgi.framework.Version;
 
+/**
+ * The Class ActionUtil.
+ */
 public class ActionUtil {
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Submit new client to soa registry.
+	 *
+	 * @param project the project
+	 * @return the i status
+	 * @throws Exception the exception
+	 */
 	public static IStatus submitNewClientToSOARegistry(IProject project)
 			throws Exception {
 		final IClientRegistryProvider regProvider = ExtensionPointFactory
@@ -76,9 +86,9 @@ public class ActionUtil {
 	/**
 	 * submit new service from menu item. it will submit a service version to
 	 * AR. This is the start of submit version to AR
-	 * 
-	 * @param project
-	 * @return
+	 *
+	 * @param project the project
+	 * @return the i status
 	 */
 	public static IStatus submitNewAssetToSOARegistry(IProject project) {
 
@@ -105,6 +115,13 @@ public class ActionUtil {
 
 	}
 
+	/**
+	 * Gets the asset model.
+	 *
+	 * @param project the project
+	 * @return the asset model
+	 * @throws Exception the exception
+	 */
 	public static SubmitAssetModel getAssetModel(IProject project)
 			throws Exception {
 		if (project == null
@@ -146,6 +163,12 @@ public class ActionUtil {
 		return model;
 	}
 
+	/**
+	 * Update existing asset version to soa registry.
+	 *
+	 * @param project the project
+	 * @return the i status
+	 */
 	public static IStatus updateExistingAssetVersionToSOARegistry(
 			IProject project) {
 		IRegistryProvider regProvider;
@@ -173,10 +196,10 @@ public class ActionUtil {
 
 	/**
 	 * submit a new minor version to AR.
-	 * 
-	 * @param project
-	 * @param newVersion
-	 * @return
+	 *
+	 * @param project the project
+	 * @param newVersion the new version
+	 * @return the i status
 	 */
 	public static IStatus submitNewVersionAssetToSOARegistry(IProject project,
 			String newVersion) {
@@ -241,10 +264,11 @@ public class ActionUtil {
 	 * Submite a service maintenance version. For Backward Compatibility, using
 	 * reflect to call new added method. Show error message if method not found
 	 * and notify users to update to latest version.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param newVersion the new version
+	 * @return the i status
+	 * @throws Exception the exception
 	 */
 	public static IStatus submitServiceMaintenanceVersion(IProject project,
 			String newVersion) throws Exception {
@@ -279,6 +303,16 @@ public class ActionUtil {
 	}
 	
 
+	/**
+	 * Submit version to asset repository.
+	 *
+	 * @param newVersion the new version
+	 * @param oldVersion the old version
+	 * @param svcIntfName the svc intf name
+	 * @param monitor the monitor
+	 * @return the i status
+	 * @throws Exception the exception
+	 */
 	public static IStatus submitVersionToAssetRepository(Object newVersion,
 			Object oldVersion, String svcIntfName, IProgressMonitor monitor)
 			throws Exception {
@@ -375,17 +409,13 @@ public class ActionUtil {
 	 * click menu.
 	 * 
 	 * This method is meant to be invoked in the UI thread.
-	 * 
-	 * @param soaIntfProject
-	 *            the interface project that need to be updated
-	 * @param oldVersion
-	 *            service old version
-	 * @param newVersion
-	 *            service new version.
-	 * @param silence
-	 *            just for the repos that need build after version change.
-	 * @param monitor
-	 *            the progress monitor
+	 *
+	 * @param soaIntfProject the interface project that need to be updated
+	 * @param oldVersion service old version
+	 * @param newVersion service new version.
+	 * @param silence just for the repos that need build after version change.
+	 * @param monitor the progress monitor
+	 * @throws Exception the exception
 	 */
 	public static void updateInterfaceProjectVersion(final SOAIntfProject soaIntfProject,
 			String oldVersion, String newVersion, boolean silence, IProgressMonitor monitor) throws Exception{

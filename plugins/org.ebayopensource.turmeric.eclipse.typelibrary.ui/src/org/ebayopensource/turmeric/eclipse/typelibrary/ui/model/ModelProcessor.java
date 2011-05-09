@@ -23,12 +23,17 @@ import org.eclipse.xsd.util.XSDParser;
 
 
 /**
+ * The Class ModelProcessor.
+ *
  * @author smathew
  * 
  * Builds a model out from Schema
  */
 public class ModelProcessor implements ICommand {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean execute(Object object, IProgressMonitor monitor) throws CommandFailedException {
 		if (object == null
 				|| !(object instanceof CommonXSDProcessorParam)) {

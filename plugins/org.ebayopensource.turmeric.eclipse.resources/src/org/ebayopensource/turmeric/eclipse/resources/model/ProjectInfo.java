@@ -19,8 +19,9 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
 
 
 /**
- * @author yayu
+ * The Class ProjectInfo.
  *
+ * @author yayu
  */
 public class ProjectInfo extends AssetInfo {
 
@@ -32,21 +33,23 @@ public class ProjectInfo extends AssetInfo {
 	private Set<String> requiredServices = new TreeSet<String>();
 	
 	/**
-	 * 
-	 * @param name 
-	 * @param version 
-	 * @param dir 
-	 * @param serviceLayer 
+	 * Instantiates a new project info.
+	 *
+	 * @param name the name
+	 * @param version the version
+	 * @param dir the dir
+	 * @param serviceLayer the service layer
 	 */
 	public ProjectInfo(String name, String version, String dir, String serviceLayer) {
 		this(name, version, dir, serviceLayer, AssetInfo.TYPE_PROJECT);
 	}
 	
 	/**
-	 * 
-	 * @param name 
-	 * @param version 
-	 * @param dir 
+	 * Instantiates a new project info.
+	 *
+	 * @param name the name
+	 * @param version the version
+	 * @param dir the dir
 	 */
 	public ProjectInfo(String name, String version, String dir) {
 		this(name, version, dir, SOAProjectConstants.ServiceLayer.UNKNOWN.toString(), 
@@ -54,12 +57,13 @@ public class ProjectInfo extends AssetInfo {
 	}
 	
 	/**
-	 * 
-	 * @param name 
-	 * @param version 
-	 * @param dir 
-	 * @param serviceLayer 
-	 * @param type 
+	 * Instantiates a new project info.
+	 *
+	 * @param name the name
+	 * @param version the version
+	 * @param dir the dir
+	 * @param serviceLayer the service layer
+	 * @param type the type
 	 */
 	public ProjectInfo(String name, String version, String dir, 
 			String serviceLayer, String type) {
@@ -68,7 +72,8 @@ public class ProjectInfo extends AssetInfo {
 	}
 	
 	/**
-	 * 
+	 * Gets the required services.
+	 *
 	 * @return A set of required services
 	 */
 	public Set<String> getRequiredServices() {
@@ -76,7 +81,8 @@ public class ProjectInfo extends AssetInfo {
 	}
 
 	/**
-	 * 
+	 * Gets the interface project name.
+	 *
 	 * @return interface project name
 	 */
 	public String getInterfaceProjectName() {
@@ -84,15 +90,17 @@ public class ProjectInfo extends AssetInfo {
 	}
 
 	/**
-	 * 
-	 * @param interfaceProjectName 
+	 * Sets the interface project name.
+	 *
+	 * @param interfaceProjectName the new interface project name
 	 */
 	public void setInterfaceProjectName(String interfaceProjectName) {
 		this.interfaceProjectName = interfaceProjectName;
 	}
 
 	/**
-	 * 
+	 * Gets the implementation project name.
+	 *
 	 * @return Implementation project name
 	 */
 	public String getImplementationProjectName() {
@@ -100,31 +108,35 @@ public class ProjectInfo extends AssetInfo {
 	}
 
 	/**
-	 * 
-	 * @param implementationProjectName 
+	 * Sets the implementation project name.
+	 *
+	 * @param implementationProjectName the new implementation project name
 	 */
 	public void setImplementationProjectName(String implementationProjectName) {
 		this.implementationProjectName = implementationProjectName;
 	}
 
 	/**
-	 * 
-	 * @param requiredLibraries 
+	 * Sets the required libraries.
+	 *
+	 * @param requiredLibraries the new required libraries
 	 */
 	public void setRequiredLibraries(Set<String> requiredLibraries) {
 		this.requiredLibraries = requiredLibraries;
 	}
 
 	/**
-	 * 
-	 * @param requiredProjects 
+	 * Sets the required projects.
+	 *
+	 * @param requiredProjects the new required projects
 	 */
 	public void setRequiredProjects(Set<String> requiredProjects) {
 		this.requiredProjects = requiredProjects;
 	}
 
 	/**
-	 * 
+	 * Gets the required projects.
+	 *
 	 * @return A Set of required projects.
 	 */
 	public Set<String> getRequiredProjects() {
@@ -132,7 +144,8 @@ public class ProjectInfo extends AssetInfo {
 	}
 
 	/**
-	 * 
+	 * Gets the required libraries.
+	 *
 	 * @return a Set of required libraries
 	 */
 	public Set<String> getRequiredLibraries() {
@@ -140,7 +153,8 @@ public class ProjectInfo extends AssetInfo {
 	}
 
 	/**
-	 * 
+	 * Gets the service layer.
+	 *
 	 * @return Service layer
 	 */
 	public String getServiceLayer() {

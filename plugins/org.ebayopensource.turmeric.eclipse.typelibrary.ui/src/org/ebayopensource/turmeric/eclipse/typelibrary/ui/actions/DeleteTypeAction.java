@@ -47,6 +47,8 @@ import org.eclipse.ui.progress.IProgressConstants;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
+ * The Class DeleteTypeAction.
+ *
  * @author smathew
  * 
  * Delete Action in the context menu. This menu is an Object Delegate and would
@@ -60,20 +62,15 @@ public class DeleteTypeAction implements IObjectActionDelegate {
 	private IStructuredSelection selection;
 	private static final SOALogger logger = SOALogger.getLogger();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.ui.IWorkbenchPart)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void run(final IAction action) {
 		if (SOALogger.DEBUG)
@@ -149,11 +146,8 @@ public class DeleteTypeAction implements IObjectActionDelegate {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.jface.viewers.ISelection)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
@@ -161,10 +155,11 @@ public class DeleteTypeAction implements IObjectActionDelegate {
 	}
 
 	/**
-	 * @param file
-	 * @throws CoreException
-	 * @throws Exception
-	 * This is being used from the test apis. So please dont make it private
+	 * Execute type deletion task.
+	 *
+	 * @param file the file
+	 * @throws CoreException the core exception
+	 * @throws Exception This is being used from the test apis. So please dont make it private
 	 */
 	public static void executeTypeDeletionTask(final IFile file) throws CoreException, Exception {
 

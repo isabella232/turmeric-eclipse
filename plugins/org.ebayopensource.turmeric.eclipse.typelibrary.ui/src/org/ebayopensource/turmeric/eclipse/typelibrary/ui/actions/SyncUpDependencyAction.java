@@ -32,6 +32,8 @@ import org.eclipse.ui.IWorkbenchPart;
 
 
 /**
+ * The Class SyncUpDependencyAction.
+ *
  * @author smathew
  * 
  * Sync Dep Action in the context menu.

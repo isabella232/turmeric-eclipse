@@ -50,16 +50,19 @@ import org.eclipse.ui.part.ViewPart;
 
 
 /**
+ * The Class ErrorRegistryView.
+ *
  * @author smathew
- * 
  */
 public class ErrorRegistryView extends ViewPart {
 
 	private static final SOALogger logger = SOALogger.getLogger();
 	private TreeViewer errorLibraryViewer;
 	private Text searchError;
-	//private ErrorSelectionListener errorSelectionListener;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void createPartControl(Composite parent) {
 		final FormToolkit toolkit = new FormToolkit(parent.getDisplay());
@@ -190,10 +193,16 @@ public class ErrorRegistryView extends ViewPart {
 		return StringUtils.contains(str.toUpperCase(), searchStr.toUpperCase());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setFocus() {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void dispose() {
 		super.dispose();
@@ -247,7 +256,22 @@ public class ErrorRegistryView extends ViewPart {
 		}
 	}
 
+	/**
+	 * The listener interface for receiving regModify events.
+	 * The class that is interested in processing a regModify
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addRegModifyListener</code> method. When
+	 * the regModify event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see RegModifyEvent
+	 */
 	class RegModifyListener implements ModifyListener {
+		
+		/**
+		 * {@inheritDoc}
+		 */
 		public void modifyText(ModifyEvent e) {
 			if (e.getSource() instanceof Text) {
 				if (errorLibraryViewer != null) {

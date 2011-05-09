@@ -35,15 +35,28 @@ import org.eclipse.swt.dnd.DragSourceListener;
  * 
  */
 public class ErrorViewerDragListener implements DragSourceListener {
+	
+	/** The error viewer. */
 	TreeViewer errorViewer = null;
 
+	/**
+	 * Instantiates a new error viewer drag listener.
+	 *
+	 * @param errorViewer the error viewer
+	 */
 	public ErrorViewerDragListener(TreeViewer errorViewer) {
 		this.errorViewer = errorViewer;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void dragFinished(DragSourceEvent event) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void dragSetData(DragSourceEvent event) {
 		try {
 			event.data = getDndString();
@@ -87,6 +100,9 @@ public class ErrorViewerDragListener implements DragSourceListener {
 		return retValueBuffer.toString();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void dragStart(DragSourceEvent event) {
 	}
 

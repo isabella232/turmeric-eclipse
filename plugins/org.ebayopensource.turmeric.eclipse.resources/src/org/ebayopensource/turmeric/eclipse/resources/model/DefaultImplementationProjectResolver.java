@@ -17,15 +17,16 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 
 /**
- * @author yayu
+ * The Class DefaultImplementationProjectResolver.
  *
+ * @author yayu
  */
 public abstract class DefaultImplementationProjectResolver implements
 		ISOAProjectResolver<SOAImplProject> {
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * 
+	 * Instantiates a new default implementation project resolver.
 	 */
 	public DefaultImplementationProjectResolver() {
 		super();
@@ -66,10 +67,11 @@ public abstract class DefaultImplementationProjectResolver implements
 	}
 	
 	/**
-	 * 
-	 * @param project 
+	 * Checks if is consumer project.
+	 *
+	 * @param project the project
 	 * @return true if the given project is also a consumer project
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public abstract boolean isConsumerProject(IProject project) throws CoreException;
 

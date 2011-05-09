@@ -11,6 +11,8 @@ package org.ebayopensource.turmeric.eclipse.resources.ui.model;
 import java.util.List;
 
 /**
+ * The Class ConsumerFromJavaParamModel.
+ *
  * @author smathew
  * UI Model for Consumer from java FLow
  */
@@ -25,14 +27,15 @@ public class ConsumerFromJavaParamModel {
 	private boolean convertingJavaProject = false;
 	
 	/**
-	 * 
+	 * Instantiates a new consumer from java param model.
 	 */
 	public ConsumerFromJavaParamModel() {
 		super();
 	}
 
 	/**
-	 * 
+	 * Gets the parent directory.
+	 *
 	 * @return the parent directory
 	 */
 	public String getParentDirectory() {
@@ -40,7 +43,8 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Sets the parent directory.
+	 *
 	 * @param parentDirectory parent directory
 	 */
 	public void setParentDirectory(String parentDirectory) {
@@ -48,7 +52,8 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Gets the consumer id.
+	 *
 	 * @return the consumer id
 	 */
 	public String getConsumerId() {
@@ -56,7 +61,8 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Sets the consumer id.
+	 *
 	 * @param consumerId the consumer id
 	 */
 	public void setConsumerId(String consumerId) {
@@ -64,7 +70,8 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Gets the base consumer src dir.
+	 *
 	 * @return the base consumer source directory
 	 */
 	public String getBaseConsumerSrcDir() {
@@ -72,7 +79,8 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Sets the base consumer src dir.
+	 *
 	 * @param baseConsumerSrcDir the base consumer source directory
 	 */
 	public void setBaseConsumerSrcDir(String baseConsumerSrcDir) {
@@ -80,7 +88,8 @@ public class ConsumerFromJavaParamModel {
 	}
 	
 	/**
-	 * 
+	 * Gets the service names.
+	 *
 	 * @return the service name
 	 */
 
@@ -89,7 +98,8 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Gets the client name.
+	 *
 	 * @return the client name
 	 */
 	public String getClientName() {
@@ -97,7 +107,8 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Sets the client name.
+	 *
 	 * @param clientName the client name
 	 */
 	public void setClientName(String clientName) {
@@ -105,7 +116,8 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Gets the environments.
+	 *
 	 * @return the deployment environments
 	 */
 	public List<String> getEnvironments() {
@@ -113,7 +125,8 @@ public class ConsumerFromJavaParamModel {
 	}
 	
 	/**
-	 * 
+	 * Adds the environment.
+	 *
 	 * @param environment a deployment environment
 	 * @return whether the enviroment was added successfully
 	 */
@@ -122,7 +135,8 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Sets the environments.
+	 *
 	 * @param environments a List of deployment environments
 	 */
 	public void setEnvironments(List<String> environments) {
@@ -130,7 +144,8 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Sets the service names.
+	 *
 	 * @param serviceNames a List of service names
 	 */
 	public void setServiceNames(List<String> serviceNames) {
@@ -138,7 +153,8 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Checks if is converting java project.
+	 *
 	 * @return whether the project is being converted or not.
 	 */
 	public boolean isConvertingJavaProject() {
@@ -146,13 +162,17 @@ public class ConsumerFromJavaParamModel {
 	}
 
 	/**
-	 * 
+	 * Sets the converting java project.
+	 *
 	 * @param convertingJavaProject sets the status of the conversion
 	 */
 	public void setConvertingJavaProject(boolean convertingJavaProject) {
 		this.convertingJavaProject = convertingJavaProject;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -174,6 +194,9 @@ public class ConsumerFromJavaParamModel {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

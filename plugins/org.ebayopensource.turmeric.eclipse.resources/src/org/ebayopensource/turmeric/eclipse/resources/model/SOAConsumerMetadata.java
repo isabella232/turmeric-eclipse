@@ -21,8 +21,9 @@ import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 
 
 /**
- * @author yayu
+ * The Class SOAConsumerMetadata.
  *
+ * @author yayu
  */
 public class SOAConsumerMetadata extends AbstractSOAMetadata{
 
@@ -39,16 +40,17 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	private List<String> environments = new ArrayList<String>();
 	
 	/**
-	 * 
+	 * Instantiates a new sOA consumer metadata.
 	 */
 	public SOAConsumerMetadata() {
 		super();
 	}
 	
 	/**
-	 * 
-	 * @param clientName 
-	 * @param baseConsumerSrcDir 
+	 * Creates the.
+	 *
+	 * @param clientName the client name
+	 * @param baseConsumerSrcDir the base consumer src dir
 	 * @return the created SOAConsumerMetadata instance
 	 */
 	
@@ -60,8 +62,9 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * 
-	 * @param paramModel 
+	 * Creates the.
+	 *
+	 * @param paramModel the param model
 	 * @return the created SOAConsumerMetaData instance
 	 */
 	public static SOAConsumerMetadata create(ConsumerFromWsdlParamModel paramModel) {
@@ -76,8 +79,9 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 	
 	/**
-	 * 
-	 * @param paramModel 
+	 * Creates the.
+	 *
+	 * @param paramModel the param model
 	 * @return the created SOAConsumerMetadata instance
 	 */
 	public static SOAConsumerMetadata create(ConsumerFromJavaParamModel paramModel) {
@@ -99,7 +103,8 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * 
+	 * Gets the client name.
+	 *
 	 * @return the client name
 	 */
 	public String getClientName() {
@@ -107,15 +112,17 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * 
-	 * @param clientName 
+	 * Sets the client name.
+	 *
+	 * @param clientName the new client name
 	 */
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}
 
 	/**
-	 * 
+	 * Gets the consumer id.
+	 *
 	 * @return the Consumer Id
 	 */
 	public String getConsumerId() {
@@ -123,7 +130,8 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * 
+	 * Sets the consumer id.
+	 *
 	 * @param consumerId the consumer id
 	 */
 	public void setConsumerId(String consumerId) {
@@ -131,7 +139,8 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * 
+	 * Gets the base consumer src dir.
+	 *
 	 * @return the base consumer src directory
 	 */
 	public String getBaseConsumerSrcDir() {
@@ -139,15 +148,17 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * 
-	 * @param baseConsumerSrcDir 
+	 * Sets the base consumer src dir.
+	 *
+	 * @param baseConsumerSrcDir the new base consumer src dir
 	 */
 	public void setBaseConsumerSrcDir(String baseConsumerSrcDir) {
 		this.baseConsumerSrcDir = baseConsumerSrcDir;
 	}
 
 	/**
-	 * 
+	 * Gets the service names.
+	 *
 	 * @return a list of service names
 	 */
 	public List<String> getServiceNames() {
@@ -155,15 +166,17 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * 
-	 * @param serviceNames 
+	 * Sets the service names.
+	 *
+	 * @param serviceNames the new service names
 	 */
 	public void setServiceNames(List<String> serviceNames) {
 		this.serviceNames = serviceNames;
 	}
 
 	/**
-	 * 
+	 * Gets the environments.
+	 *
 	 * @return A list of environements
 	 */
 	public List<String> getEnvironments() {
@@ -171,15 +184,17 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * 
-	 * @param environments 
+	 * Sets the environments.
+	 *
+	 * @param environments the new environments
 	 */
 	public void setEnvironments(List<String> environments) {
 		this.environments = environments;
 	}
 
 	/**
-	 * 
+	 * Gets the source type.
+	 *
 	 * @return a Consumer Source Type
 	 */
 	public SOAProjectConstants.ConsumerSourceType getSourceType() {
@@ -187,15 +202,17 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * 
-	 * @param sourceType 
+	 * Sets the source type.
+	 *
+	 * @param sourceType the new source type
 	 */
 	public void setSourceType(SOAProjectConstants.ConsumerSourceType sourceType) {
 		this.sourceType = sourceType;
 	}
 
 	/**
-	 * 
+	 * Gets the env mapper.
+	 *
 	 * @return the environment mapper name
 	 */
 	public String getEnvMapper() {
@@ -203,8 +220,9 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * 
-	 * @param envMapper 
+	 * Sets the env mapper.
+	 *
+	 * @param envMapper the new env mapper
 	 */
 	public void setEnvMapper(String envMapper) {
 		this.envMapper = envMapper;

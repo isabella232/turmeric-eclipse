@@ -31,17 +31,30 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-
+/**
+ * 
+ * 
+ *
+ */
 enum ParseStatus {
+	/**
+	 * Proccesing Type.
+	 */
 	ProcessingType, ProcessingCommon, ProcessingIgnore
 }
 
+/**
+ * The Class XSDTypeParser.
+ */
 public class XSDTypeParser extends DefaultHandler {
 
+	/** The Constant typeNameMarker. */
 	public static final String typeNameMarker = "TypeName";
 
+	/** The Constant namespaceMarker. */
 	public static final String namespaceMarker = "Namespace";
 
+	/** The Constant documentMarker. */
 	public static final String documentMarker = "Document";
 
 	private CommonTypeProp current = null;
@@ -79,6 +92,7 @@ public class XSDTypeParser extends DefaultHandler {
 
 	}
 
+	/** The status. */
 	ParseStatus status = ParseStatus.ProcessingCommon;
 
 	private String targetNamespace = null;
@@ -91,6 +105,11 @@ public class XSDTypeParser extends DefaultHandler {
 
 	private String schemaEnd = null;
 
+	/**
+	 * Instantiates a new xSD type parser.
+	 *
+	 * @param xsdStream the xsd stream
+	 */
 	public XSDTypeParser(InputStream xsdStream) {
 		try {
 			SAXParserFactory saxfac = SAXParserFactory.newInstance();
@@ -156,6 +175,9 @@ public class XSDTypeParser extends DefaultHandler {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
+	 */
 	@Override
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {
@@ -172,6 +194,9 @@ public class XSDTypeParser extends DefaultHandler {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
@@ -215,6 +240,9 @@ public class XSDTypeParser extends DefaultHandler {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
+	 */
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
@@ -274,10 +302,20 @@ public class XSDTypeParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * Gets the all types.
+	 *
+	 * @return the all types
+	 */
 	public List<CommonTypeProp> getAllTypes() {
 		return allTypes;
 	}
 
+	/**
+	 * Sets the all types.
+	 *
+	 * @param allTypes the new all types
+	 */
 	public void setAllTypes(List<CommonTypeProp> allTypes) {
 		this.allTypes = allTypes;
 	}

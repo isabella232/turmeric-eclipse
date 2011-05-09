@@ -24,9 +24,15 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
+/**
+ * The Class ImportTypesWizard.
+ */
 public class ImportTypesWizard extends AbstractTypeLibraryWizard {
 
+	/** The Constant IMPORT_MODE. */
 	public static final int IMPORT_MODE = 0;
+	
+	/** The Constant EXPORT_MODE. */
 	public static final int EXPORT_MODE = 1;
 
 	private static String[][] DIALOG_LABELS = new String[2][];
@@ -43,6 +49,13 @@ public class ImportTypesWizard extends AbstractTypeLibraryWizard {
 	private String sourceFile;
 	private int mode;
 
+	/**
+	 * Instantiates a new import types wizard.
+	 *
+	 * @param typeLibProj the type lib proj
+	 * @param sourceFile the source file
+	 * @param mode the mode
+	 */
 	public ImportTypesWizard(IProject typeLibProj, String sourceFile, int mode) {
 		this.typeLibProj = typeLibProj;
 		this.sourceFile = sourceFile;
@@ -58,6 +71,9 @@ public class ImportTypesWizard extends AbstractTypeLibraryWizard {
 		return new IWizardPage[] { typeSelectPage, createTLProjectPage };
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean canFinish() {
 		if (getContainer().getCurrentPage() == typeSelectPage) {
 			return typeSelectPage.needNewTypeLibraryCreation() == false
@@ -86,6 +102,9 @@ public class ImportTypesWizard extends AbstractTypeLibraryWizard {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#performFinish()
+	 */
 	@Override
 	public boolean performFinish() {
 

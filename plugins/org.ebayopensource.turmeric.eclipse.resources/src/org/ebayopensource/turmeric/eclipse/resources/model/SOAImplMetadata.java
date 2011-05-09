@@ -15,8 +15,9 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
 
 
 /**
+ * The Class SOAImplMetadata.
+ *
  * @author smathew
- * 
  */
 public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceConfig{
 	
@@ -32,7 +33,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	private String messageProtocol;
 
 	/**
-	 * 
+	 * Creates the.
+	 *
 	 * @param paramModel parameter model from Wsdl
 	 * @param intfData interface data
 	 * @return an instance of SOAImplMetadata
@@ -75,7 +77,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 	
 	/**
-	 * 
+	 * Gets the intf metadata.
+	 *
 	 * @return returns and instance of SOAIntfMetadata
 	 */
 	public SOAIntfMetadata getIntfMetadata() {
@@ -85,7 +88,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 
 	/**
-	 * 
+	 * Sets the intf metadata.
+	 *
 	 * @param intfMetadata the interface metadata
 	 */
 	public void setIntfMetadata(SOAIntfMetadata intfMetadata) {
@@ -93,7 +97,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 
 	/**
-	 * 
+	 * Gets the service impl project name.
+	 *
 	 * @return the service implementation project name
 	 */
 	public String getServiceImplProjectName() {
@@ -101,7 +106,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 
 	/**
-	 * 
+	 * Sets the service impl project name.
+	 *
 	 * @param serviceImplName the name of the service implementation project
 	 */
 	public void setServiceImplProjectName(String serviceImplName) {
@@ -110,7 +116,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 
 
 	/**
-	 * 
+	 * Gets the impl version.
+	 *
 	 * @return the implementation version
 	 */
 	public String getImplVersion() {
@@ -118,7 +125,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 
 	/**
-	 * 
+	 * Sets the impl version.
+	 *
 	 * @param implVersion the implementation version
 	 */
 	public void setImplVersion(String implVersion) {
@@ -126,7 +134,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 	
 	/**
-	 * 
+	 * Gets the target namespace.
+	 *
 	 * @return the target namespace
 	 */
 	public String getTargetNamespace() {
@@ -134,7 +143,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 	
 	/**
-	 * 
+	 * Gets the fully qualified service name.
+	 *
 	 * @return the fully qualifies service name
 	 */
 	public String getFullyQualifiedServiceName() {
@@ -142,7 +152,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 	
 	/**
-	 * 
+	 * Gets the supported version.
+	 *
 	 * @return the supported version
 	 */
 	public String getSupportedVersion() {
@@ -150,7 +161,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 	
 	/**
-	 * 
+	 * Gets the group.
+	 *
 	 * @return the group
 	 */
 	public String getGroup() {
@@ -158,7 +170,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 	
 	/**
-	 * 
+	 * Gets the service name.
+	 *
 	 * @return the service name
 	 */
 	public String getServiceName() {
@@ -166,7 +179,8 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 	
 	/**
-	 * 
+	 * Gets the service interface class name.
+	 *
 	 * @return the service interface class name
 	 */
 	public String getServiceInterfaceClassName() {

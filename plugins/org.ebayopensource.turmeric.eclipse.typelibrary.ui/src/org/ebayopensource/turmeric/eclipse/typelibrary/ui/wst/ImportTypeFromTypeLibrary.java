@@ -78,13 +78,17 @@ import org.eclipse.xsd.XSDSchema;
 public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * Instantiates a new import type from type library.
+	 */
 	public ImportTypeFromTypeLibrary() {
 	}
 
-	/*
+	/**
 	 * The import action on the WTP Editor. This is for both XSD and WSDL
 	 * editors. Call back from eclipse.
-	 * 
+	 *
+	 * @param action the action
 	 * @see
 	 * org.eclipse.ui.actions.ActionDelegate#run(org.eclipse.jface.action.IAction
 	 * )
@@ -216,6 +220,8 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 	 * Shows the common Error dialog in case of import failures. Most of these
 	 * failures are due to stale registry or invalid XSD opened up outside the
 	 * work space etc. Thats why we show this common error in most cases.
+	 *
+	 * @param t the t
 	 */
 	public static void showCommonErrorDialog(Throwable t) {
 		String msg = SOAMessages.OP_ERR_DETAILS;
@@ -227,6 +233,14 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 
 	}
 
+	/**
+	 * Perform import tasks for xsd editor.
+	 *
+	 * @param parentXSDSchema the parent xsd schema
+	 * @param selectedTypes the selected types
+	 * @param selectedFile the selected file
+	 * @throws Exception the exception
+	 */
 	public static void performImportTasksForXSDEditor(
 			XSDSchema parentXSDSchema, LibraryType selectedTypes[],
 			IFile selectedFile) throws Exception {
@@ -264,12 +278,11 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 	 * we only add it to the type dependency file. When in-lining types in the
 	 * WSDL the dependent types are also found out and in-lined to form a stand
 	 * alone WSDL.
-	 * 
-	 * 
-	 * @param definition
-	 * @param selectedTypes
-	 * @param selectedFile
-	 * @throws Exception
+	 *
+	 * @param definition the definition
+	 * @param selectedTypes the selected types
+	 * @param selectedFile the selected file
+	 * @throws Exception the exception
 	 */
 	public static void performInlineOperationsForWSDLEditor(
 			Definition definition, LibraryType selectedTypes[],
@@ -332,6 +345,13 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 		}
 	}
 
+	/**
+	 * Validate selected type for import.
+	 *
+	 * @param selectedTypes the selected types
+	 * @param parentFile the parent file
+	 * @return true, if successful
+	 */
 	public static boolean validateSelectedTypeForImport(
 			LibraryType[] selectedTypes, IFile parentFile) {
 
@@ -362,6 +382,15 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 		return true;
 	}
 
+	/**
+	 * Validate duplicate imports.
+	 *
+	 * @param selectedTypes the selected types
+	 * @param selectedFile the selected file
+	 * @param schema the schema
+	 * @return true, if successful
+	 * @throws Exception the exception
+	 */
 	public static boolean validateDuplicateImports(LibraryType[] selectedTypes,
 			IFile selectedFile, Object schema) throws Exception {
 		IProject intfProject = selectedFile.getProject();

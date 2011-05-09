@@ -22,59 +22,62 @@ import org.jdom.Document;
 
 
 /**
- * @author yayu
+ * The Interface ISOAConsumerProject.
  *
+ * @author yayu
  */
 public interface ISOAConsumerProject extends ISOAProject {
 
-	/**
-	 * 
-	 */
+	/** The Constant META_SRC_GLOBAL_ClIENT_CONFIG. */
 	public static final String META_SRC_GLOBAL_ClIENT_CONFIG = SOAProjectConstants.META_SRC_META_INF
 	+ "/soa/client/config/GlobalClientConfig.xml";
 	
-	/**
-	 * 
-	 */
+	/** The Constant FILE_ClIENT_CONFIG. */
 	public static final String FILE_ClIENT_CONFIG = "ClientConfig.xml";
 
 	/**
-	 * 
+	 * Gets the required services.
+	 *
 	 * @return A Map of String and SOAIntfMetadata
 	 */
 	public Map<String, SOAIntfMetadata> getRequiredServices();
 	
 	/**
-	 * 
+	 * Sets the required services.
+	 *
 	 * @param requiredServices A Map of String and SOAIntfMetadata
 	 */
 	public void setRequiredServices(Map<String, SOAIntfMetadata> requiredServices);
 	
 	/**
-	 * 
+	 * Gets the client configs.
+	 *
 	 * @return a Map of SOAClientEnvironment and SOAClientConfig objects.
 	 */
 	public Map<SOAClientEnvironment, SOAClientConfig> getClientConfigs();
 
 	/**
-	 * 
+	 * Sets the client configs.
+	 *
 	 * @param clientConfigs a Map of SOAClientEnvironment and SOAClientConfig objects.
 	 */
 	public void setClientConfigs(Map<SOAClientEnvironment, SOAClientConfig> clientConfigs);
 	
 	/**
-	 * 
+	 * Gets the client config files.
+	 *
 	 * @return a Map of client Config files.
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public Map<SOAClientEnvironment, IFile> getClientConfigFiles() throws CoreException;
 	
 	/**
-	 * 
-	 * @param clientEnv 
+	 * Gets the client config file.
+	 *
+	 * @param clientEnv the client env
 	 * @return an IFile that represents a clientConfigFile location.
-	 * @throws CoreException 
-	 * @throws IOException 
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public IFile getClientConfigFile(final SOAClientEnvironment clientEnv) throws CoreException, IOException;
 	
@@ -99,7 +102,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the environment.
+		 *
 		 * @return the environment name as a string
 		 */
 		public String getEnvironment() {
@@ -107,7 +111,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the service name.
+		 *
 		 * @return the service name as a string
 		 */
 		public String getServiceName() {
@@ -123,13 +128,17 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 *  
+		 * Sets the service name.
+		 *
 		 * @param serviceName the service name
 		 */
 		public void setServiceName(String serviceName) {
 			this.serviceName = serviceName;
 		}
 		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#hashCode()
+		 */
 		@Override
 		public int hashCode() {
 			final int prime = 31;
@@ -140,6 +149,10 @@ public interface ISOAConsumerProject extends ISOAProject {
 					+ ((serviceName == null) ? 0 : serviceName.hashCode());
 			return result;
 		}
+		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
@@ -290,6 +303,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
+		 * Gets the group.
 		 *
 		 * @return the group name
 		 */
@@ -298,6 +312,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
+		 * Gets the service name.
 		 *
 		 * @return the service name
 		 */
@@ -306,7 +321,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the service interface class name.
+		 *
 		 * @return the service interface class name
 		 */
 		public String getServiceInterfaceClassName() {
@@ -314,7 +330,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the service location.
+		 *
 		 * @return the location of the service
 		 */
 		public String getServiceLocation() {
@@ -322,7 +339,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the wsdl location.
+		 *
 		 * @return the wsdl location
 		 */
 		public String getWsdlLocation() {
@@ -330,7 +348,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the target namespace.
+		 *
 		 * @return the target namespace
 		 */
 		public String getTargetNamespace() {
@@ -338,7 +357,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the fully qualified service name.
+		 *
 		 * @return the fully qualified service name
 		 */
 		public String getFullyQualifiedServiceName() {
@@ -346,7 +366,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the service binding.
+		 *
 		 * @return the service binding
 		 */
 		public String getServiceBinding() {
@@ -354,7 +375,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the invocation use case.
+		 *
 		 * @return the invocation use case
 		 */
 		public String getInvocationUseCase() {
@@ -362,7 +384,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the request data binding.
+		 *
 		 * @return the data binding request
 		 */
 		public String getRequestDataBinding() {
@@ -370,7 +393,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the response data binding.
+		 *
 		 * @return The data binding response
 		 */
 		public String getResponseDataBinding() {
@@ -378,7 +402,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the consumer id.
+		 *
 		 * @return the consumer id
 		 */
 		public String getConsumerId() {
@@ -386,7 +411,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the message protocol.
+		 *
 		 * @return the message protocol
 		 */
 		public String getMessageProtocol() {
@@ -394,7 +420,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the document.
+		 *
 		 * @return A JDOM Document object
 		 */
 		public Document getDocument() {
@@ -402,7 +429,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Sets the document.
+		 *
 		 * @param document A JDOM Document
 		 */
 		public void setDocument(Document document) {
@@ -410,7 +438,8 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Gets the file.
+		 *
 		 * @return the file as an IFile
 		 */
 		public IFile getFile() {
@@ -418,13 +447,17 @@ public interface ISOAConsumerProject extends ISOAProject {
 		}
 		
 		/**
-		 * 
+		 * Sets the file.
+		 *
 		 * @param file set the file using an IFile
 		 */
 		public void setFile(IFile file) {
 			this.file = file;
 		}
 		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
 		@Override
 		public String toString() {
 			if (getFile() != null) {

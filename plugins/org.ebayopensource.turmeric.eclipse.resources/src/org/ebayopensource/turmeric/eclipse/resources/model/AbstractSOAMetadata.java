@@ -13,13 +13,14 @@ package org.ebayopensource.turmeric.eclipse.resources.model;
 
 
 /**
- * @author yayu
+ * The Class AbstractSOAMetadata.
  *
+ * @author yayu
  */
 public abstract class AbstractSOAMetadata {
 
 	/**
-	 * 
+	 * Instantiates a new abstract soa metadata.
 	 */
 	public AbstractSOAMetadata() {
 		super();
@@ -28,9 +29,10 @@ public abstract class AbstractSOAMetadata {
 //	public abstract IFile getMetadataFile();
 	
 	/**
-	 * 
-	 * @return the MetaDataFileName as a string.
-	 */
+ * Gets the metadata file name.
+ *
+ * @return the MetaDataFileName as a string.
+ */
 	public abstract String getMetadataFileName();
 
 }

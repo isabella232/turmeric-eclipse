@@ -13,12 +13,23 @@ import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 
 /**
+ * The listener interface for receiving preference events.
+ * The class that is interested in processing a preference
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addPreferenceListener</code> method. When
+ * the preference event occurs, that object's appropriate
+ * method is invoked.
+ *
  * @author smathew
  * 
  * This class is not used now. Place holder for future use
  */
 public class PreferenceListener implements IPropertyChangeListener {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void propertyChange(PropertyChangeEvent event) {
 		if (event.getProperty().equals(
 				PreferenceConstants.PREF_REPOSITORY_SYSTEM)) {

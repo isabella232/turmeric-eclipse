@@ -32,14 +32,22 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
+ * The Class TypeLibMoveDeleteHook.
+ *
  * @author smathew This is the move delete hook for XSD modification We wont
- *         allow to people to delete an XSd referred by some other XSD
+ * allow to people to delete an XSd referred by some other XSD
  */
 public class TypeLibMoveDeleteHook implements IResourceChangeListener {
 
+	/**
+	 * Instantiates a new type lib move delete hook.
+	 */
 	public TypeLibMoveDeleteHook() {
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
+	 */
 	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		if (IResourceChangeEvent.POST_CHANGE == event.getType()) {

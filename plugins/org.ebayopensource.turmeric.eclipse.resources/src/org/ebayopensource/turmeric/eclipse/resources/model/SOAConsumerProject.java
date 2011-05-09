@@ -23,8 +23,9 @@ import org.eclipse.core.runtime.CoreException;
 
 
 /**
- * @author yayu
+ * The Class SOAConsumerProject.
  *
+ * @author yayu
  */
 public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerProject{
 	/**
@@ -34,25 +35,17 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 		SOAProjectConstants.FOLDER_SRC,
 		SOAProjectConstants.FOLDER_META_SRC };
 	
-	/**
-	 * 
-	 */
+	/** The Constant FOLDER_CLIENT. */
 	public static final String FOLDER_CLIENT = "/soa/client/";
 	
-	/**
-	 * 
-	 */
+	/** The Constant FOLDER_CLIENT_CONFIG. */
 	public static final String FOLDER_CLIENT_CONFIG = FOLDER_CLIENT + "config/";
 	
-	/**
-	 * 
-	 */
+	/** The Constant FOLDER_META_SRC_ClIENT. */
 	public static final String FOLDER_META_SRC_ClIENT = SOAProjectConstants.META_SRC_META_INF
 	+ FOLDER_CLIENT;
 	
-	/**
-	 * 
-	 */
+	/** The Constant META_SRC_ClIENT_CONFIG. */
 	public static final String META_SRC_ClIENT_CONFIG = SOAProjectConstants.META_SRC_META_INF
 	+ FOLDER_CLIENT_CONFIG;
 	
@@ -60,18 +53,19 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
     private Map<SOAClientEnvironment, SOAClientConfig> clientConfigs = new TreeMap<SOAClientEnvironment, SOAClientConfig>();
 
     /**
-     * 
+     * Instantiates a new sOA consumer project.
      */
 	public SOAConsumerProject() {
 		super();
 	}
     
 	/**
-	 * 
+	 * Creates the.
+	 *
 	 * @param consumerMetadata the consumer Meta Data
 	 * @param eclipseMetadata  the eclispe meta data
 	 * @return an instance of SOAConsumerProject
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static SOAConsumerProject create(SOAConsumerMetadata consumerMetadata,
 			SOAProjectEclipseMetadata eclipseMetadata) throws Exception{
@@ -81,12 +75,18 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 		return consumerProject;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject#getMetadata()
+	 */
 	@Override
 	public SOAConsumerMetadata getMetadata() {
 		final AbstractSOAMetadata metadata = super.getMetadata();
 		return metadata instanceof SOAConsumerMetadata ? (SOAConsumerMetadata)metadata : null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject#getSOAMetadataClass()
+	 */
 	@Override
 	protected Class<? extends AbstractSOAMetadata> getSOAMetadataClass() {
 		return SOAConsumerMetadata.class;
@@ -129,6 +129,9 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 		return getProject().getFile(ISOAConsumerProject.META_SRC_GLOBAL_ClIENT_CONFIG);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject#getSourceSubFolders()
+	 */
 	@Override
 	public List<String> getSourceSubFolders() {
 		List<String> subFolders = new ArrayList<String>();
@@ -168,7 +171,8 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 	}
 	
 	/**
-	 * 
+	 * Adds the client config.
+	 *
 	 * @param envName environment name
 	 * @param clientConfig the client configuration file.
 	 */

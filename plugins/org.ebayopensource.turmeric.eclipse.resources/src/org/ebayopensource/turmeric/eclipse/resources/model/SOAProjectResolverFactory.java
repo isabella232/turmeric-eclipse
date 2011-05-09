@@ -25,8 +25,9 @@ import org.eclipse.core.runtime.Platform;
 
 
 /**
- * @author yayu
+ * A factory for creating SOAProjectResolver objects.
  *
+ * @author yayu
  */
 public final class SOAProjectResolverFactory {
 	/**
@@ -57,7 +58,8 @@ public final class SOAProjectResolverFactory {
 	}
 	
 	/**
-	 * 
+	 * Gets the sOA project resolver.
+	 *
 	 * @param projectNature project nature
 	 * @return an ISOAProjectResolver
 	 */

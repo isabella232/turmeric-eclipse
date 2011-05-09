@@ -36,12 +36,16 @@ import org.eclipse.xsd.XSDSchema;
  */
 public class FileProcessor implements ICommand {
 
-	/*
+	/**
 	 * This is where the save logic resides. The parameter should be the file
-	 * processor parameter for this API to react. (non-Javadoc)
-	 * 
+	 * processor parameter for this API to react.
+	 *
+	 * @param object the object
+	 * @param monitor the monitor
+	 * @return true, if successful
+	 * @throws CommandFailedException the command failed exception
 	 * @see org.ebayopensource.turmeric.eclipse.core.ICommand#execute(java.lang.Object,
-	 *      org.eclipse.core.runtime.IProgressMonitor)
+	 * org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public boolean execute(Object object, IProgressMonitor monitor)
 			throws CommandFailedException {
@@ -81,22 +85,48 @@ public class FileProcessor implements ICommand {
 		private XSDSchema inputSchema;
 		private IFile outputFile;
 
+		/**
+		 * Gets the input schema.
+		 *
+		 * @return the input schema
+		 */
 		public XSDSchema getInputSchema() {
 			return inputSchema;
 		}
 
+		/**
+		 * Sets the input schema.
+		 *
+		 * @param inputSchema the new input schema
+		 */
 		public void setInputSchema(XSDSchema inputSchema) {
 			this.inputSchema = inputSchema;
 		}
 
+		/**
+		 * Gets the output file.
+		 *
+		 * @return the output file
+		 */
 		public IFile getOutputFile() {
 			return outputFile;
 		}
 
+		/**
+		 * Sets the output file.
+		 *
+		 * @param outputFile the new output file
+		 */
 		public void setOutputFile(IFile outputFile) {
 			this.outputFile = outputFile;
 		}
 
+		/**
+		 * Instantiates a new file processor param.
+		 *
+		 * @param inputSchema the input schema
+		 * @param outputFile the output file
+		 */
 		public FileProcessorParam(XSDSchema inputSchema, IFile outputFile) {
 			super();
 			this.inputSchema = inputSchema;

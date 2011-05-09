@@ -23,12 +23,17 @@ import org.eclipse.xsd.XSDTypeDefinition;
 
 
 /**
+ * The Class SimpleTypeProcessor.
+ *
  * @author smathew
  * 
  * Simple Type specific things are handled in this class
  */
 public class SimpleTypeProcessor implements ICommand {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean execute(Object object, IProgressMonitor monitor)
 			throws CommandFailedException {
 
