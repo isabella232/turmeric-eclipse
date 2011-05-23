@@ -26,6 +26,7 @@ public class ErrLibComparator implements Comparator<ISOAError> {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public int compare(ISOAError o1, ISOAError o2) {
 		return StringUtils.defaultString(o1.getName()).compareTo(
 				StringUtils.defaultString(o2.getName()));

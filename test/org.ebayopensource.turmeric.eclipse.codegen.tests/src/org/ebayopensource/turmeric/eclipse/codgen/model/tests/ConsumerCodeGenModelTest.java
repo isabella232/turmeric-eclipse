@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.ConsumerCodeGenModel;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,40 +36,40 @@ public class ConsumerCodeGenModelTest {
 	@Test
 	public void testGetCodeGenOptionsNullClientName() throws Exception {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(ConsumerCodeGenModel.PARAM_CN));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_CN));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsClientName() throws Exception {
 		model.setClientName("Nermal");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(ConsumerCodeGenModel.PARAM_CN));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_CN));
 	}
 	
 	@Test
 	public void testGetCodeGenOtionsConsumerIdNull() throws Exception {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(ConsumerCodeGenModel.PARAM_CONSUMER_ID));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_CONSUMER_ID));
 	}
 
 	@Test
 	public void testGetCodeGenOptionsConsumerID() throws Exception {
 		model.setConsumerId("http://www.example.com/");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(ConsumerCodeGenModel.PARAM_CONSUMER_ID));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_CONSUMER_ID));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsBlankConfigGroup() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(ConsumerCodeGenModel.PARAM_CCGN));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_CCGN));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsConfigGroup() {
 		model.setClientConfigGroup("ClientConfig");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(ConsumerCodeGenModel.PARAM_CCGN));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_CCGN));
 	}
 	
 }

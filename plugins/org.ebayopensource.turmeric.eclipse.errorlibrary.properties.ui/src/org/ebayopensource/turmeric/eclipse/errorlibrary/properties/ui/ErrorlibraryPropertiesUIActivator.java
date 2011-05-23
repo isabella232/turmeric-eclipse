@@ -30,6 +30,7 @@ public class ErrorlibraryPropertiesUIActivator extends AbstractUIPlugin {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
@@ -38,6 +39,7 @@ public class ErrorlibraryPropertiesUIActivator extends AbstractUIPlugin {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);

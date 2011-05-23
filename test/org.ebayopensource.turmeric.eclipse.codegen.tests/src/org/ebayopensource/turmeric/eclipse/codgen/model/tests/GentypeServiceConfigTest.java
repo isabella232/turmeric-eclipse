@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeServiceConfig;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,19 +35,19 @@ public class GentypeServiceConfigTest {
 	@Test
 	public void testGetCodeGenOptionsServiceConfigGroupNull() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeServiceConfig.PARAM_SCGN));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_SCGN));
 	}
 
 	@Test
 	public void testGetCodeGenOptionsServiceConfigGroup() {
 		model.setServiceConfigGroup("ServiceConfigGroup");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeServiceConfig.PARAM_SCGN));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SCGN));
 	}
 	
 	@Test
 	public void testGenTypeServiceConfig() {
-		assertEquals(GenTypeServiceConfig.GENTYPE_SERVER_CONFIG, model.getGenType());
+		assertEquals(BaseCodeGenModel.GENTYPE_SERVER_CONFIG, model.getGenType());
 	}
 
 }

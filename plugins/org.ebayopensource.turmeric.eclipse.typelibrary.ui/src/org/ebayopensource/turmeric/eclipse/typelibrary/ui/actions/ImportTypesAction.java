@@ -48,6 +48,7 @@ public class ImportTypesAction implements IObjectActionDelegate,
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 
 	}
@@ -55,6 +56,7 @@ public class ImportTypesAction implements IObjectActionDelegate,
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void run(IAction action) {
 
 		if (SOALogger.DEBUG)
@@ -89,6 +91,7 @@ public class ImportTypesAction implements IObjectActionDelegate,
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		if (selection == null
 				|| (selection instanceof IStructuredSelection) == false) {
@@ -114,6 +117,7 @@ public class ImportTypesAction implements IObjectActionDelegate,
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		if (targetEditor == null) {
 			return;

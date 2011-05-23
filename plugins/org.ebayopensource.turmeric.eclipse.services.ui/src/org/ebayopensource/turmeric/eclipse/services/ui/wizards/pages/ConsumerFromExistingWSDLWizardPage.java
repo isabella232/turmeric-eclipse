@@ -123,6 +123,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		try {
 			final Composite container = super.createParentControl(parent, 4);
@@ -233,6 +234,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 
 			final Text text = getResourceNameText();
 			text.addModifyListener(new ModifyListener() {
+				@Override
 				public void modifyText(ModifyEvent e) {
 					retrieveConsumerIDBtn.setEnabled(StringUtils
 							.isNotBlank(getResourceName()));
@@ -266,14 +268,17 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 
 		envrionmentList.setContentProvider(new IStructuredContentProvider() {
 
+			@Override
 			public Object[] getElements(Object inputElement) {
 				return environments.toArray();
 			}
 
+			@Override
 			public void dispose() {
 				
 			}
 
+			@Override
 			public void inputChanged(Viewer viewer, Object oldInput,
 					Object newInput) {
 			
@@ -282,26 +287,32 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		});
 		envrionmentList.setLabelProvider(new ILabelProvider() {
 
+			@Override
 			public Image getImage(Object element) {
 				return null;
 			}
 
+			@Override
 			public String getText(Object element) {
 				return String.valueOf(element);
 			}
 
+			@Override
 			public void addListener(ILabelProviderListener listener) {
 				
 			}
 
+			@Override
 			public void dispose() {
 				
 			}
 
+			@Override
 			public boolean isLabelProperty(Object element, String property) {
 				return false;
 			}
 
+			@Override
 			public void removeListener(ILabelProviderListener listener) {
 				
 			}
@@ -321,6 +332,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			public void widgetSelected(SelectionEvent e) {
 				final IInputValidator validator = new IInputValidator() {
 
+					@Override
 					public String isValid(String newText) {
 						if (StringUtils.isBlank(newText)) {
 							return "Error: Environment name must not be empty";
@@ -375,6 +387,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		});
 		envrionmentList.addSelectionChangedListener(new ISelectionChangedListener() {
 
+			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				removeBtn.setEnabled(envrionmentList.getSelection()
 						.isEmpty() == false);
@@ -396,6 +409,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	protected Text createServiceClient(final Composite parent,
 			final boolean editable) {
 		final ModifyListener nsModifyListener = new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
@@ -414,6 +428,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getDefaultValue(Text text) {
 		if (text == serviceClientText) {
 			String adminName = getAdminName();
@@ -429,6 +444,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected boolean dialogChanged(boolean wsdlChanged) {
 		if (super.dialogChanged(wsdlChanged) == false && isPageComplete() == false){
 			return false;
@@ -563,7 +579,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		if (StringUtils.isNotEmpty(getResourceName())
 				&& Character.isLowerCase(getResourceName().charAt(0))) {
 			updatePageStatus(getResourceNameText(), EclipseMessageUtils
-					.createStatus(SOAMessages.SVCNAME_ERR, Status.WARNING));
+					.createStatus(SOAMessages.SVCNAME_ERR, IStatus.WARNING));
 			return true;
 		}
 

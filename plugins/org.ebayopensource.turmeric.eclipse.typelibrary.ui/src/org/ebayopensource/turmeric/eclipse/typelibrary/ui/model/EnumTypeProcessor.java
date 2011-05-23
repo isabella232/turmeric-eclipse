@@ -38,10 +38,11 @@ public class EnumTypeProcessor implements ICommand {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean execute(Object object, IProgressMonitor monitor) throws CommandFailedException {
 		CommonXSDProcessorParam processorInput = (CommonXSDProcessorParam) object;
 
-		XSDTypeDefinition typeDefinition = (XSDTypeDefinition) processorInput
+		XSDTypeDefinition typeDefinition = processorInput
 				.getOutPutSchema().getTypeDefinitions().get(0);
 
 		TypeParamModel typeParamModel = processorInput.getInputTypeParamModel();

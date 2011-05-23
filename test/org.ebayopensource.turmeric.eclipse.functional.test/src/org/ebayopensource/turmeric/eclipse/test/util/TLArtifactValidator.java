@@ -97,6 +97,7 @@ public class TLArtifactValidator implements IResourceVisitor {
 	 * org.eclipse.core.resources.IResourceVisitor#visit(org.eclipse.core.resources
 	 * .IResource)
 	 */
+	@Override
 	public boolean visit(IResource resource) throws CoreException {
 
 		if (!matches)

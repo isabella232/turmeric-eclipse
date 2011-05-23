@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeUnitTest;
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeWebXml;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,19 +37,19 @@ public class GenTypeWebXmlTest {
 	@Test
 	public void testGetCodeGenOptionsDefaults() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeWebXml.PARAM_MDEST));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_MDEST));
 	}
 
 	@Test
 	public void testGetCodeGenOptionsMetaDir() {
 		model.setMetaDir("META-INF");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeWebXml.PARAM_MDEST));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_MDEST));
 	}
 	
 	@Test
 	public void testGenTypeUnitTest() {
-		assertEquals(GenTypeUnitTest.GENTYPE_WEB_XML, model.getGenType());
+		assertEquals(BaseCodeGenModel.GENTYPE_WEB_XML, model.getGenType());
 	}
 
 }

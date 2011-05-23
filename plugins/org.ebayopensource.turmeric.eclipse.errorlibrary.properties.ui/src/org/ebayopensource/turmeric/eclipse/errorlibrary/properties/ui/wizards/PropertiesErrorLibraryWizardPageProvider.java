@@ -45,6 +45,7 @@ public class PropertiesErrorLibraryWizardPageProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IStatus preValidate() {
 		return Status.OK_STATUS;
 	}
@@ -52,6 +53,7 @@ public class PropertiesErrorLibraryWizardPageProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<SOABasePage> getWizardpages(IStructuredSelection selection) {
 		final List<SOABasePage> pages = new ArrayList<SOABasePage>(1);
 		propPage = new NewPropertiesContentErrorLibraryWizardPage();
@@ -62,6 +64,7 @@ public class PropertiesErrorLibraryWizardPageProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public ErrorLibraryParamModel performFinish() {
 		if (SOALogger.DEBUG)
 			logger.entering();

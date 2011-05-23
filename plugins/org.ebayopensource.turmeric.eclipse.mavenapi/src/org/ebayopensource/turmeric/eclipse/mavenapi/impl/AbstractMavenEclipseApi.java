@@ -60,6 +60,7 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Model parsePom(final IProject project)
 			throws MavenEclipseApiException {
 		return parsePom(getPomFile(project));
@@ -83,6 +84,7 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Model parsePom(final InputStream ins)
 			throws MavenEclipseApiException {
 		try {
@@ -97,9 +99,11 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void writePom(final IFile file, final Model model)
 			throws MavenEclipseApiException {
 		final IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+			@Override
 			public void run(final IProgressMonitor monitor)
 					throws CoreException {
 				FileOutputStream writer = null;
@@ -125,6 +129,7 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void writePom(final OutputStream output, final Model model)
 	throws MavenEclipseApiException {
 		try {
@@ -153,6 +158,7 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Artifact resolveArtifact(final Artifact artifact)
 			throws MavenEclipseApiException {
 		if (artifact == null || artifact.isResolved())

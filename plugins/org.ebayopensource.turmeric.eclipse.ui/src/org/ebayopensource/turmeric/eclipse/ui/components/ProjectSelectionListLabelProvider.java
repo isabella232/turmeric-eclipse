@@ -23,6 +23,7 @@ public class ProjectSelectionListLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Image getImage(Object element) {
 		return null;
 	}
@@ -30,6 +31,7 @@ public class ProjectSelectionListLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getText(Object element) {
 		if (element instanceof IProject) {
 			return ((IProject) element).getName();
@@ -40,6 +42,7 @@ public class ProjectSelectionListLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void addListener(ILabelProviderListener listener) {
 
 	}
@@ -47,6 +50,7 @@ public class ProjectSelectionListLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void dispose() {
 
 	}
@@ -54,6 +58,7 @@ public class ProjectSelectionListLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
@@ -61,6 +66,7 @@ public class ProjectSelectionListLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void removeListener(ILabelProviderListener listener) {
 	}
 

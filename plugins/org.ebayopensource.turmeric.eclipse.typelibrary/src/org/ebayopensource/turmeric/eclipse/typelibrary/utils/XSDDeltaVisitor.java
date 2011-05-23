@@ -33,6 +33,7 @@ public class XSDDeltaVisitor implements IResourceDeltaVisitor {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean visit(IResourceDelta delta) throws CoreException {
 		if (StringUtils.equalsIgnoreCase(StringUtils.substringAfterLast(delta
 				.getFullPath().toString(), "."), "xsd")) {

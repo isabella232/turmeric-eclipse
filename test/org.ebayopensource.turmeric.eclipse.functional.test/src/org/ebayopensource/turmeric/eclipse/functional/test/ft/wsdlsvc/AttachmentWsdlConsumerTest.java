@@ -73,6 +73,7 @@ public class AttachmentWsdlConsumerTest extends AbstractTestCase {
 		zip.extract(dataDirectory+"/AttachmentWsdlConsumerTest.zip",dataDirectory +"/extractedData");
 		
 	}
+	@Override
 	@Before
 	public void setUpBeforeClass() throws Exception {
 		

@@ -95,6 +95,7 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Map<String, SOAIntfMetadata> getRequiredServices() {
 		return requiredServices;
 	}
@@ -102,6 +103,7 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setRequiredServices(Map<String, SOAIntfMetadata> requiredServices) {
 		this.requiredServices = requiredServices;
 	}
@@ -109,6 +111,7 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Map<SOAClientEnvironment, IFile> getClientConfigFiles() throws CoreException {
 		return SOAConsumerUtil.getClientConfigFiles(getProject());
 	}
@@ -116,6 +119,7 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IFile getClientConfigFile(final SOAClientEnvironment clientEnv) throws CoreException, IOException {
 		return SOAConsumerUtil.getClientConfig(getProject(), clientEnv.getEnvironment()
 				, clientEnv.getServiceName());
@@ -143,6 +147,7 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<String> getSourceDirectoryNames() {
 		final List<String> result = ListUtil.arrayList(SOURCE_DIRECTORIES);
 		if (getMetadata() != null) {
@@ -158,6 +163,7 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Map<SOAClientEnvironment, SOAClientConfig> getClientConfigs() {
 		return clientConfigs;
 	}
@@ -165,6 +171,7 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setClientConfigs(Map<SOAClientEnvironment, SOAClientConfig> clientConfigs) {
 		if (clientConfigs != null)
 			this.clientConfigs = clientConfigs;

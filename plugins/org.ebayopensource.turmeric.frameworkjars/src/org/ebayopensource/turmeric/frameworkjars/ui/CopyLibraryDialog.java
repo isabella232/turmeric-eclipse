@@ -118,10 +118,12 @@ public class CopyLibraryDialog extends TitleAreaDialog {
 		browseBtn.setText("&Search...");
 		
 		final SelectionListener workspaceBrowseListener = new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final MavenRepositorySearchDialog dialog = new MavenRepositorySearchDialog( 
 						getShell(), "Select Library to copy:", 
@@ -173,10 +175,12 @@ public class CopyLibraryDialog extends TitleAreaDialog {
 		browseBtn.setText("&Browse...");
 		final String filterPath = null;
 		final SelectionListener workspaceBrowseListener = new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final DirectoryDialog dialog = new DirectoryDialog(getShell(),
 						SWT.PUSH);
@@ -231,6 +235,7 @@ public class CopyLibraryDialog extends TitleAreaDialog {
 		final String destination = this.destinationText.getText();
 		final IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
+			@Override
 			public void run(IProgressMonitor monitor)
 					throws InvocationTargetException,
 					InterruptedException {

@@ -11,8 +11,7 @@ package org.ebayopensource.turmeric.eclipse.codgen.model.tests;
 import static org.junit.Assert.*;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeRequestDispatcher;
-import org.junit.After;
-import org.junit.Before;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.Test;
 
 
@@ -22,7 +21,7 @@ public class GenTypeRequestDispatcherTest {
 	@Test
 	public void testGenTypeRequestDispatcher() {
 		GenTypeRequestDispatcher model = new GenTypeRequestDispatcher();
-		assertEquals(GenTypeRequestDispatcher.GENTYPE_DISPATCHER, model.getGenType());
+		assertEquals(BaseCodeGenModel.GENTYPE_DISPATCHER, model.getGenType());
 	}
 
 }

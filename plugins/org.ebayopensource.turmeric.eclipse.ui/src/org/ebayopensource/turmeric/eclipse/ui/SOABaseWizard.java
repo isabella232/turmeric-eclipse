@@ -63,6 +63,7 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setInitializationData(IConfigurationElement config,
 			String propertyName, Object data) throws CoreException {
 		fConfig = config;
@@ -71,6 +72,7 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public final void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.selection = selection;
 	}
@@ -195,6 +197,7 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 	 */
 	protected void changePerspective() {
 		UIJob fNotifierJob = new UIJob("Change to Turmeric Development Perspective") {
+			@Override
 			public IStatus runInUIThread(IProgressMonitor monitor) {
 				BasicNewProjectResourceWizard.updatePerspective(fConfig);
 				return Status.OK_STATUS;

@@ -64,6 +64,7 @@ public class UpdateTypeVersion extends AbastractTypeLibraryAtion {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void run(IAction action) {
 		try {
 			if (WTPTypeLibUtil.validateEditorForContextMenus(editorPart)) {

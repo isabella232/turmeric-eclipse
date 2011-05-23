@@ -39,6 +39,7 @@ import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTempla
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplMetadata;
@@ -241,6 +242,7 @@ public class ServicesUtil {
 		final StringBuffer errSb = new StringBuffer(1024);
 		streamProxy.getOutputStreamMonitor().addListener(new IStreamListener() {
 
+			@Override
 			public void streamAppended(String text, IStreamMonitor monitor) {
 				outSb.append(text);
 
@@ -248,6 +250,7 @@ public class ServicesUtil {
 		});
 		streamProxy.getErrorStreamMonitor().addListener(new IStreamListener() {
 
+			@Override
 			public void streamAppended(String text, IStreamMonitor monitor) {
 				errSb.append(text);
 
@@ -355,7 +358,7 @@ public class ServicesUtil {
 					.getActiveRepositorySystem()
 					.getProjectConfigurer()
 					.addDependency(consProject.getName(), serviceName + "Impl",
-							AssetInfo.TYPE_PROJECT, true,
+							IAssetInfo.TYPE_PROJECT, true,
 							ProgressUtil.getDefaultMonitor(null));
 
 			GlobalRepositorySystem
@@ -363,7 +366,7 @@ public class ServicesUtil {
 					.getActiveRepositorySystem()
 					.getProjectConfigurer()
 					.addDependency(consProject.getName(), "SOAServer",
-							AssetInfo.TYPE_LIBRARY, true,
+							IAssetInfo.TYPE_LIBRARY, true,
 							ProgressUtil.getDefaultMonitor(null));
 
 			WorkspaceUtil.refresh(consProject);
@@ -556,7 +559,7 @@ public class ServicesUtil {
 				.getProject(name));
 		consumerMetadata = SOAServiceUtil
 				.getSOAImplMetadata(soaEclipseMetadata);
-		consumerProject = SOAImplProject.create(consumerMetadata,
+		consumerProject = SOAConsumerProject.create(consumerMetadata,
 				soaEclipseMetadata);
 		return consumerProject;
 	}

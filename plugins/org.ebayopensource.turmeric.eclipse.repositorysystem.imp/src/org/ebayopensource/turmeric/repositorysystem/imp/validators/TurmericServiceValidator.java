@@ -42,6 +42,7 @@ public class TurmericServiceValidator extends AbstractSOAValidator {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IStatus validate(Object obj) throws ValidationInterruptedException {
 		IStatus status = super.validate(obj);
 		if (status.isOK()) {

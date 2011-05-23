@@ -46,6 +46,7 @@ public class MavenLibraryDependencyDialog implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Collection<AssetInfo> open(Shell shell, ISOAProject soaProject,
 			Set<? extends AssetInfo> availableLibs,
 			Set<? extends AssetInfo> allLibs) throws Exception {

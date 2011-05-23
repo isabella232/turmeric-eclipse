@@ -54,6 +54,7 @@ public class IncrementVersionCommand extends AbastractTypeLibraryAtion {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void run(final IAction action) {
 		try {
 			if (WTPTypeLibUtil.validateEditorForContextMenus(editorPart)) {
@@ -93,6 +94,7 @@ public class IncrementVersionCommand extends AbastractTypeLibraryAtion {
 							.defaultString(schema.getVersion()));
 
 			IInputValidator inputValidator = new IInputValidator() {
+				@Override
 				public String isValid(String newText) {
 					try {
 						if (new Version(newText).compareTo(oldVersion) <= 0) {

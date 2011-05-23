@@ -59,6 +59,7 @@ public class DomainParamModel extends BaseServiceParamModel {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean validate() {
 		return true;
 	}

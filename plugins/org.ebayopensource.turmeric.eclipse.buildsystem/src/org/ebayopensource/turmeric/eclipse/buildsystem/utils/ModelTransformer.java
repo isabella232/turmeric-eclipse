@@ -235,7 +235,7 @@ public class ModelTransformer {
 			genTypeConsumer.setServiceLocation(serviceData
 					.get(BaseCodeGenModel.PARAM_SL));
 		}
-		genTypeConsumer.setRequiredServices(((ConsumerCodeGenModel) model)
+		genTypeConsumer.setRequiredServices(model
 				.getRequiredServices());
 		return genTypeConsumer;
 	}

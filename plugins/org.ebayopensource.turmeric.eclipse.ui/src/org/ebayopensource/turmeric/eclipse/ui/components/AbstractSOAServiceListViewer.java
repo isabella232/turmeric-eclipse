@@ -126,10 +126,12 @@ public abstract class AbstractSOAServiceListViewer {
 		final Tree tree = serviceList.getTree();
 		
 		tree.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Object obj = getSelectedObject();
 				boolean selectEnv = obj instanceof EnvironmentItem;
@@ -193,10 +195,12 @@ public abstract class AbstractSOAServiceListViewer {
 		addServiceButton.setText("&Add Service...");
 		
 		final SelectionListener selectionListener = new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				if (serviceList.getTree().getItemCount() == 0) {
 					MessageDialog.openError(UIUtil.getActiveShell(), 
@@ -213,6 +217,7 @@ public abstract class AbstractSOAServiceListViewer {
 						final IStructuredContentProvider delegate = super
 								.getContentProvider();
 						final IStructuredContentProvider provider = new IStructuredContentProvider() {
+							@Override
 							public Object[] getElements(
 									final Object inputElement) {
 								
@@ -282,10 +287,12 @@ public abstract class AbstractSOAServiceListViewer {
 								return result.toArray();
 							}
 
+							@Override
 							public void dispose() {
 								delegate.dispose();
 							}
 
+							@Override
 							public void inputChanged(final Viewer viewer,
 									final Object oldInput, final Object newInput) {
 								delegate.inputChanged(viewer, oldInput,
@@ -321,6 +328,7 @@ public abstract class AbstractSOAServiceListViewer {
 				dialog.setFilteredServices(filteredServices.toArray(new AssetInfo[0]));
 				final List<Integer> statuses = new ArrayList<Integer>(1);
 				final Runnable runnable = new Runnable() {
+					@Override
 					public void run() {
 						statuses.add(dialog.open());
 					}
@@ -352,10 +360,12 @@ public abstract class AbstractSOAServiceListViewer {
 		removeServiceButton.setText("&Remove Service");
 		removeServiceButton.setEnabled(false);
 		final SelectionListener removeListener = new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final List<EnvironmentItem> infos = getServiceInfoList();
 				final Object selectedService = getSelectedObject();

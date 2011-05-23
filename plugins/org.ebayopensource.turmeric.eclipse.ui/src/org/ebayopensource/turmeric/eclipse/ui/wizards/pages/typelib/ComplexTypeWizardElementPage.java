@@ -162,6 +162,7 @@ public class ComplexTypeWizardElementPage extends
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public int getMaxOccurs() {
 			return maxOccurs;
 		}
@@ -169,6 +170,7 @@ public class ComplexTypeWizardElementPage extends
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setMaxOccurs(int maxOccurs) {
 			this.maxOccurs = maxOccurs;
 		}
@@ -176,6 +178,7 @@ public class ComplexTypeWizardElementPage extends
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public int getMinOccurs() {
 			return minOccurs;
 		}
@@ -183,6 +186,7 @@ public class ComplexTypeWizardElementPage extends
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setMinOccurs(int minOccurs) {
 			this.minOccurs = minOccurs;
 		}
@@ -240,6 +244,7 @@ public class ComplexTypeWizardElementPage extends
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public Object getDatatype() {
 			return elementType;
 		}
@@ -247,6 +252,7 @@ public class ComplexTypeWizardElementPage extends
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public String getName() {
 			return elementName;
 		}
@@ -254,6 +260,7 @@ public class ComplexTypeWizardElementPage extends
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setDatatype(Object datatype) {
 			setElementType(datatype);
 		}
@@ -261,6 +268,7 @@ public class ComplexTypeWizardElementPage extends
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setName(String name) {
 			this.elementName = name;
 		}
@@ -294,6 +302,7 @@ public class ComplexTypeWizardElementPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected Object openTypeSelectorDialog(Shell shell, LibraryType[] libTypes) {
 		TypeSelector typeSelector = new TypeSelector(shell, "Select Type",
 				libTypes, "New Project");
@@ -306,6 +315,7 @@ public class ComplexTypeWizardElementPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected List<LibraryType> getSelectedLibraryTypes() throws Exception {
 		return SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getAllTypes();
 	}

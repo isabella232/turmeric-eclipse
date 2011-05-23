@@ -41,6 +41,7 @@ import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFrom
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLPage;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.processors.WSDLTemplateProcessor;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
+import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.ui.actions.SOAStatusReportingRunnable;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
@@ -130,7 +131,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		final String workspaceRootDirectory = wizardPage
 				.getProjectRootDirectory();
 		if (overrideWorkspaceRoot)
-			ServiceFromNewWSDLPage.saveWorkspaceRoot(workspaceRootDirectory);
+			SOABasePage.saveWorkspaceRoot(workspaceRootDirectory);
 
 		final String adminName = wizardPage.getAdminName();
 		final String servicePackage = wizardPage.getServicePackage();
@@ -506,6 +507,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public int getMinimumHeight() {
 		return super.getMinimumHeight() + 50;
 	}

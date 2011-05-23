@@ -374,6 +374,7 @@ public class ActionUtil {
 
 		Collections.sort(wsdlValidators, new Comparator<IArtifactValidator>() {
 
+			@Override
 			public int compare(IArtifactValidator v1, IArtifactValidator v2) {
 				if (v1 instanceof IArtifactValidator2
 						&& v2 instanceof IArtifactValidator2) {

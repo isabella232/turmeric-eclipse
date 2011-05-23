@@ -11,7 +11,6 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.ui.views;
 import java.util.Iterator;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.core.exception.SOAExceptionHandler;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.ErrorLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAError;
@@ -51,12 +50,14 @@ public class ErrorViewerDragListener implements DragSourceListener {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void dragFinished(DragSourceEvent event) {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void dragSetData(DragSourceEvent event) {
 		try {
 			event.data = getDndString();
@@ -103,6 +104,7 @@ public class ErrorViewerDragListener implements DragSourceListener {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void dragStart(DragSourceEvent event) {
 	}
 

@@ -172,6 +172,7 @@ ServiceFromWsdlParamModel {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public boolean validate() {
 			return true;
 		}
@@ -308,6 +309,7 @@ ServiceFromWsdlParamModel {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public String getName() {
 			return name;
 		}
@@ -315,6 +317,7 @@ ServiceFromWsdlParamModel {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setName(String name) {
 			this.name = name;
 		}
@@ -322,6 +325,7 @@ ServiceFromWsdlParamModel {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public Object getDatatype() {
 			return datatype;
 		}
@@ -329,6 +333,7 @@ ServiceFromWsdlParamModel {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setDatatype(Object datatype) {
 			this.datatype = datatype;
 		}
@@ -336,6 +341,7 @@ ServiceFromWsdlParamModel {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public int getMinOccurs() {
 			return minOccurs;
 		}
@@ -343,6 +349,7 @@ ServiceFromWsdlParamModel {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setMinOccurs(int minOccurs) throws IllegalArgumentException {
 			if (minOccurs < 0)
 				throw new IllegalArgumentException(
@@ -359,6 +366,7 @@ ServiceFromWsdlParamModel {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public int getMaxOccurs() {
 			return maxOccurs;
 		}
@@ -366,6 +374,7 @@ ServiceFromWsdlParamModel {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setMaxOccurs(int maxOccurs) throws IllegalArgumentException {
 			if (maxOccurs >= 0 && maxOccurs < minOccurs)
 				throw new IllegalArgumentException(

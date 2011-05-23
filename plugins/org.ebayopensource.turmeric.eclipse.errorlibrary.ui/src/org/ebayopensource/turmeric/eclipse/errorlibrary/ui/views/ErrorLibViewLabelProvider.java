@@ -25,18 +25,21 @@ public class ErrorLibViewLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void addListener(ILabelProviderListener listener) {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void dispose() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
@@ -44,12 +47,14 @@ public class ErrorLibViewLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void removeListener(ILabelProviderListener listener) {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Image getImage(Object element) {
 		return null;
 	}
@@ -57,6 +62,7 @@ public class ErrorLibViewLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getText(Object element) {
 		if (element instanceof ISOAErrUIComp) {
 			return ((ISOAErrUIComp) element).getName();

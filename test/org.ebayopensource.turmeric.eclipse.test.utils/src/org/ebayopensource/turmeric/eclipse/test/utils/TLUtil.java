@@ -27,7 +27,6 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.ui.buildsystem.TypeLibrar
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.ImportTypeFromTypeLibrary;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.RemoveType;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.UpdateTypeVersion;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.WTPTypeLibUtil;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeSCParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.EnumTypeParamModel;

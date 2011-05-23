@@ -99,6 +99,7 @@ public class SOAIntfProject extends SOABaseProject {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<String> getSourceSubFolders() {
 		List<String> subFolders = new ArrayList<String>();
 		//subFolders.add(GEN_META_SRC_CLIENT_CONFIG);
@@ -115,6 +116,7 @@ public class SOAIntfProject extends SOABaseProject {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<String> getSourceDirectoryNames() {
 		return ListUtil.arrayList(SOURCE_DIRECTORIES);
 	}

@@ -90,6 +90,7 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		final Composite container = super.createParentControl(parent, 3);
 		createBindingViewer(container);
@@ -150,6 +151,7 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 		
 		bindingViewer.setContentProvider(new IStructuredContentProvider(){
 
+			@Override
 			public Object[] getElements(Object inputElement) {
 				if (inputElement instanceof Collection<?>) {
 					return ((Collection<?>)inputElement).toArray();
@@ -157,10 +159,12 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 				return Collections.EMPTY_LIST.toArray();
 			}
 
+			@Override
 			public void dispose() {
 				
 			}
 
+			@Override
 			public void inputChanged(Viewer viewer, Object oldInput,
 					Object newInput) {
 
@@ -170,10 +174,12 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 		
 		bindingViewer.setLabelProvider(new ITableLabelProvider() {
 
+			@Override
 			public Image getColumnImage(Object element, int columnIndex) {
 				return null;
 			}
 
+			@Override
 			public String getColumnText(Object element, int columnIndex) {
 				if (element instanceof Binding) {
 					final Binding binding = (Binding)element;
@@ -185,18 +191,22 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 				return SOAProjectConstants.EMPTY_STRING;
 			}
 
+			@Override
 			public void addListener(ILabelProviderListener listener) {
 				
 			}
 
+			@Override
 			public void dispose() {
 				
 			}
 
+			@Override
 			public boolean isLabelProperty(Object element, String property) {
 				return false;
 			}
 
+			@Override
 			public void removeListener(ILabelProviderListener listener) {
 				
 			}
@@ -206,10 +216,12 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 		bindingViewer.setColumnProperties(BINDING_COLUMN_PROPERTIES);
 		bindingViewer.setCellModifier(new ICellModifier() {
 
+			@Override
 			public boolean canModify(Object element, String property) {
 				return true;
 			}
 
+			@Override
 			public Object getValue(Object element, String property) {
 				if (element instanceof Binding) {
 					final Binding binding = (Binding) element;
@@ -220,6 +232,7 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 				return SOAProjectConstants.EMPTY_STRING;
 			}
 
+			@Override
 			public void modify(Object element, String property, Object value) {
 				if (element instanceof TableItem) {
 					final TableItem item = (TableItem)element;

@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAErrorDomainCreationFailedException;
-import org.eclipse.core.runtime.*;
 
 
 

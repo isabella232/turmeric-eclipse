@@ -118,6 +118,7 @@ public class ErrorRegistryView extends ViewPart {
 		errorLibraryViewer.setLabelProvider(new ErrorLibViewLabelProvider());
 		errorLibraryViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			
+			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				IViewPart view = UIUtil.getActivePage().findView(SOAPerspectiveFactory.VIEWID_PROPERTY);
 				if (view == null) {
@@ -272,6 +273,7 @@ public class ErrorRegistryView extends ViewPart {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void modifyText(ModifyEvent e) {
 			if (e.getSource() instanceof Text) {
 				if (errorLibraryViewer != null) {

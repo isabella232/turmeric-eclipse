@@ -14,6 +14,7 @@ package org.ebayopensource.turmeric.eclipse.maven.core.model;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 
@@ -66,7 +67,7 @@ public class MavenProjectInfo extends ProjectInfo implements IMavenArtifact {
 	 * @param version the version
 	 */
 	public MavenProjectInfo(String groupID, String name, String version) {
-		super(name, version, "", "", AssetInfo.TYPE_PROJECT);
+		super(name, version, "", "", IAssetInfo.TYPE_PROJECT);
 		this.groupID = groupID;
 	}
 	
@@ -91,6 +92,7 @@ public class MavenProjectInfo extends ProjectInfo implements IMavenArtifact {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getGroupID() {
 		return groupID;
 	}
@@ -98,6 +100,7 @@ public class MavenProjectInfo extends ProjectInfo implements IMavenArtifact {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setGroupID(String groupID) {
 		this.groupID = groupID;
 	}

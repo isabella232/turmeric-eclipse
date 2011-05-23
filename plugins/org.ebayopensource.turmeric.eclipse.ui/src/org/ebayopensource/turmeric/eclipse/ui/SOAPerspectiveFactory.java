@@ -41,6 +41,7 @@ public final class SOAPerspectiveFactory extends JavaPerspectiveFactory{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createInitialLayout(IPageLayout layout) {
 		super.createInitialLayout(layout);
 		if (layout instanceof PageLayout) {			

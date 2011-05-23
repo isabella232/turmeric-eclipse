@@ -35,6 +35,7 @@ public class SOASearchTableLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
 		return null;
 	}
@@ -42,6 +43,7 @@ public class SOASearchTableLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		if (element instanceof SOASearchResultService) {
 			final SOASearchResultService service = (SOASearchResultService) element;
@@ -60,6 +62,7 @@ public class SOASearchTableLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void addListener(ILabelProviderListener listener) {
 
 	}
@@ -67,6 +70,7 @@ public class SOASearchTableLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void dispose() {
 
 	}
@@ -74,6 +78,7 @@ public class SOASearchTableLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
@@ -81,6 +86,7 @@ public class SOASearchTableLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void removeListener(ILabelProviderListener listener) {
 
 	}

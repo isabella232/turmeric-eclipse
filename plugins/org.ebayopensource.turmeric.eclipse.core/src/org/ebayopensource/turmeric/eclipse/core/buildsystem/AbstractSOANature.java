@@ -18,8 +18,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 
 
 /**
@@ -35,6 +33,7 @@ public abstract class AbstractSOANature implements IProjectNature {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void configure() throws CoreException {
 		final IProjectDescription desc = project.getDescription();
 		ICommand[] commands = desc.getBuildSpec();
@@ -52,6 +51,7 @@ public abstract class AbstractSOANature implements IProjectNature {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void deconfigure() throws CoreException {
 		final IProjectDescription description = getProject().getDescription();
 		final ICommand[] commands = description.getBuildSpec();
@@ -61,6 +61,7 @@ public abstract class AbstractSOANature implements IProjectNature {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IProject getProject() {
 		return project;
 	}
@@ -68,6 +69,7 @@ public abstract class AbstractSOANature implements IProjectNature {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setProject(final IProject soaProject) {
 		this.project = soaProject;
 	}

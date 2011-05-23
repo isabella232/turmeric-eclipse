@@ -63,6 +63,7 @@ public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorAction
 	 * {@inheritDoc}
 	 * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
 	 */
+	@Override
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 	}
@@ -71,6 +72,7 @@ public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorAction
 	 * {@inheritDoc}
 	 * @see org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action.IAction, org.eclipse.ui.IEditorPart)
 	 */
+	@Override
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		this.targetEditor = targetEditor;
 	}
@@ -123,6 +125,7 @@ public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorAction
 	 * 
 	 *  @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(final IAction action) {
 		if (SOALogger.DEBUG)
 			logger.entering(action, selection);
@@ -174,6 +177,7 @@ public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorAction
 			final IProgressService ps = wb.getProgressService();
 			ps.run(false, false, new IRunnableWithProgress() {
 
+				@Override
 				public void run(IProgressMonitor monitor)
 						throws InvocationTargetException, InterruptedException {
 					try {
@@ -271,6 +275,7 @@ public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorAction
 	 * {@inheritDoc}
 	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

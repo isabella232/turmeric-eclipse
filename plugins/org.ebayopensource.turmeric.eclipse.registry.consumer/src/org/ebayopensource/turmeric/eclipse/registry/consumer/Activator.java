@@ -12,6 +12,7 @@
 package org.ebayopensource.turmeric.eclipse.registry.consumer;
 
 import org.ebayopensource.turmeric.eclipse.registry.consumer.resources.Messages;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -46,6 +47,7 @@ public class Activator extends AbstractUIPlugin {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
@@ -56,6 +58,7 @@ public class Activator extends AbstractUIPlugin {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
@@ -77,7 +80,7 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void log(Exception e) {
 		getLog().log(
-				new Status(Status.ERROR, PLUGIN_ID,
+				new Status(IStatus.ERROR, PLUGIN_ID,
 						e.getLocalizedMessage(), e));
 	}
 
@@ -87,7 +90,7 @@ public class Activator extends AbstractUIPlugin {
 	 * @param msg the msg
 	 */
 	public void log(String msg) {
-		getLog().log(new Status(Status.INFO, PLUGIN_ID, msg));
+		getLog().log(new Status(IStatus.INFO, PLUGIN_ID, msg));
 	}
 	
 	/**

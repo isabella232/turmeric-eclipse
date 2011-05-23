@@ -43,6 +43,7 @@ public class TypeLibrarySelectionChangedListener implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
 		if (event != null && event.getSelection() instanceof TreeSelection) {
 			TreeSelection selection = (TreeSelection) event.getSelection();

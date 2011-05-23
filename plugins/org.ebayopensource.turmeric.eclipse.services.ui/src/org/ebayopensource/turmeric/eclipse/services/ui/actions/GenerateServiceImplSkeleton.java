@@ -43,6 +43,7 @@ import org.eclipse.ui.IWorkbenchPart;
  * @author smathew
  * @deprecated
  */
+@Deprecated
 public class GenerateServiceImplSkeleton implements IObjectActionDelegate {
 	private IStructuredSelection selection;
 	private static final SOALogger logger = SOALogger.getLogger();
@@ -51,6 +52,7 @@ public class GenerateServiceImplSkeleton implements IObjectActionDelegate {
 	 * {@inheritDoc}
 	 *  @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
 	 */
+	@Override
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 	}
@@ -59,6 +61,7 @@ public class GenerateServiceImplSkeleton implements IObjectActionDelegate {
 	 * {@inheritDoc}
 	 *  @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(final IAction action) {
 		try {
 			if (SOALogger.DEBUG)
@@ -113,10 +116,12 @@ public class GenerateServiceImplSkeleton implements IObjectActionDelegate {
 
 			WorkspaceJob buildJob = new WorkspaceJob(
 					"Building Service Impl Skeleton for " + project.getName()) {
+				@Override
 				public boolean belongsTo(Object family) {
 					return false;
 				}
 
+				@Override
 				public IStatus runInWorkspace(IProgressMonitor monitor)
 						throws CoreException {
 					try {
@@ -155,6 +160,7 @@ public class GenerateServiceImplSkeleton implements IObjectActionDelegate {
 	 * {@inheritDoc}
 	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

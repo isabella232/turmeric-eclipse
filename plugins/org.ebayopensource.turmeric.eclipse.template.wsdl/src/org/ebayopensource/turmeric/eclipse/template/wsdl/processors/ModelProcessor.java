@@ -52,6 +52,7 @@ public class ModelProcessor implements ICommand {
 	 * {@inheritDoc}
 	 */
 
+	@Override
 	public boolean execute(Object parameter, IProgressMonitor monitor)
 			throws CommandFailedException {
 		if (parameter != null && parameter instanceof CommonWSDLProcessorParam) {

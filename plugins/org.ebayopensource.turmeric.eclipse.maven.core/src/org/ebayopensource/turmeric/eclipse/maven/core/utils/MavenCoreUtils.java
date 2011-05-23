@@ -46,6 +46,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizatio
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject.SOAProjectSourceDirectory;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject;
@@ -335,34 +336,34 @@ public class MavenCoreUtils {
 				logger.debug("Project is accessible->", project);
 			assetInfo = new MavenProjectInfo(dependency.getGroupId(),
 					dependency.getArtifactId(), dependency.getVersion(), "",
-					AssetInfo.TYPE_PROJECT);
+					IAssetInfo.TYPE_PROJECT);
 		} else if (getMavenOrgProviderInstance().getProjectGroupId(
 				SupportedProjectType.INTERFACE).equals(groupID)) {
 			// service library
 			assetInfo = new MavenAssetInfo(dependency.getGroupId(),
 					dependency.getArtifactId(), dependency.getVersion(), "",
-					ServiceLayer.COMMON.name(), AssetInfo.TYPE_SERVICE_LIBRARY);
+					ServiceLayer.COMMON.name(), IAssetInfo.TYPE_SERVICE_LIBRARY);
 		} else if (getMavenOrgProviderInstance().getProjectGroupId(
 				SupportedProjectType.IMPL).equals(groupID)) {
 			// project
 			assetInfo = new MavenAssetInfo(dependency.getGroupId(),
 					dependency.getArtifactId(), dependency.getVersion(), "",
-					null, AssetInfo.TYPE_PROJECT);
+					null, IAssetInfo.TYPE_PROJECT);
 		} else if (getMavenOrgProviderInstance().getProjectGroupId(
 				SupportedProjectType.CONSUMER).equals(groupID)) {
 			// project
 			assetInfo = new MavenAssetInfo(dependency.getGroupId(),
 					dependency.getArtifactId(), dependency.getVersion(), "",
-					null, AssetInfo.TYPE_PROJECT);
+					null, IAssetInfo.TYPE_PROJECT);
 		} else if (SOAMavenConstants.SOA_FRAMEWORK_GROUPID.equals(groupID)) {
 			// library
 			assetInfo = new MavenAssetInfo(dependency.getGroupId(),
 					dependency.getArtifactId(), dependency.getVersion(), "",
-					null, AssetInfo.TYPE_LIBRARY);
+					null, IAssetInfo.TYPE_LIBRARY);
 		} else {
 			assetInfo = new MavenAssetInfo(dependency.getGroupId(),
 					dependency.getArtifactId(), dependency.getVersion(), "",
-					null, AssetInfo.TYPE_LIBRARY);
+					null, IAssetInfo.TYPE_LIBRARY);
 		}
 		if (SOALogger.DEBUG)
 			logger.exiting(assetInfo);
@@ -396,7 +397,7 @@ public class MavenCoreUtils {
 			}
 		}
 		
-		for (final Artifact artifact : ((IMavenEclipseApi) mavenEclipseAPI())
+		for (final Artifact artifact : mavenEclipseAPI()
 				.findArtifactByNameAndGroup(artifactID, groupID)) {
 			if (artifact != null
 					&& StringUtils.equals(artifact.getGroupId(), groupID)
@@ -815,7 +816,7 @@ public class MavenCoreUtils {
 				.getParent() : "";
 		final MavenAssetInfo assetInfo = new MavenAssetInfo(
 				mProject.getGroupId(), mProject.getArtifactId(),
-				mProject.getVersion(), dir, null, AssetInfo.TYPE_LIBRARY);
+				mProject.getVersion(), dir, null, IAssetInfo.TYPE_LIBRARY);
 		if (jarFile != null && StringUtils.isNotBlank(dir))
 			assetInfo.setJarNames(ListUtil.array(jarFile.getName()));
 		return assetInfo;
@@ -1009,7 +1010,7 @@ public class MavenCoreUtils {
 			result = new MavenProjectInfo(getMavenOrgProviderInstance()
 					.getProjectGroupId(SupportedProjectType.INTERFACE),
 					serviceName, serviceVersion, serviceLayer);
-			result.setType(AssetInfo.TYPE_SERVICE_LIBRARY);
+			result.setType(IAssetInfo.TYPE_SERVICE_LIBRARY);
 			result.setInterfaceProjectName(serviceName);
 		}
 		return result;
@@ -1139,7 +1140,7 @@ public class MavenCoreUtils {
 					result.add(new MavenAssetInfo(dependency.getGroupId(),
 							dependency.getArtifactId(),
 							dependency.getVersion(), "", null,
-							AssetInfo.TYPE_SERVICE_LIBRARY));
+							IAssetInfo.TYPE_SERVICE_LIBRARY));
 				} else {
 					final String fullLibName = MavenCoreUtils
 							.translateLibraryName(dependency);
@@ -1163,7 +1164,7 @@ public class MavenCoreUtils {
 						result.add(new MavenAssetInfo(dependency.getGroupId(),
 								dependency.getArtifactId(), dependency
 										.getVersion(), "", null,
-								AssetInfo.TYPE_SERVICE_LIBRARY));
+								IAssetInfo.TYPE_SERVICE_LIBRARY));
 					} else if (getMavenOrgProviderInstance().getProjectGroupId(
 							SupportedProjectType.IMPL).equals(groupID)) {
 						// project
@@ -1191,14 +1192,14 @@ public class MavenCoreUtils {
 						result.add(new MavenAssetInfo(dependency.getGroupId(),
 								dependency.getArtifactId(), dependency
 										.getVersion(), "", null,
-								AssetInfo.TYPE_LIBRARY));
+								IAssetInfo.TYPE_LIBRARY));
 					} else {
 						if (projectInfo != null)
 							projectInfo.getRequiredLibraries().add(fullLibName);
 						result.add(new MavenAssetInfo(dependency.getGroupId(),
 								dependency.getArtifactId(), dependency
 										.getVersion(), "", null,
-								AssetInfo.TYPE_LIBRARY));
+								IAssetInfo.TYPE_LIBRARY));
 					}
 				}
 			}
@@ -1504,7 +1505,7 @@ public class MavenCoreUtils {
 			// available in the classpath
 			String tlGroupId = getMavenOrgProviderInstance().getProjectGroupId(
 					SupportedProjectType.TYPE_LIBRARY);
-			if (AssetInfo.TYPE_SERVICE_LIBRARY.equals(type)) {
+			if (IAssetInfo.TYPE_SERVICE_LIBRARY.equals(type)) {
 				waitForClasspathContainerToUpdate(getMavenOrgProviderInstance()
 						.getProjectGroupId(SupportedProjectType.INTERFACE),
 						javaProject, dependentName);

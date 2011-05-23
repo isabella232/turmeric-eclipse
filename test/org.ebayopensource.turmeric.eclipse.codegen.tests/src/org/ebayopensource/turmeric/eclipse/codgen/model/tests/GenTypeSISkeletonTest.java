@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeSISkeleton;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,23 +36,23 @@ public class GenTypeSISkeletonTest {
 	@Test
 	public void testGetCodeGenOptions() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_GENTYPE));
-		assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_NAMESPACE));
-		assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_INTERFACE));
-		assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_SERVICE_NAME));
-		assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_SCV));
-		assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_SRC));
-		assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_DEST));
-		assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_BIN));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_GENTYPE));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_NAMESPACE));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_INTERFACE));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SERVICE_NAME));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SCV));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SRC));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_DEST));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_BIN));
 		//the SICN will not be available if service impl class name is missing from ServiceConfig.xml file
 		//assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_SICN));
-		assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_GSS));
-		assertFalse(map.containsKey(GenTypeSISkeleton.PARAM_OWIC));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_GSS));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_OWIC));
 	}
 
 	@Test
 	public void testGenTypeSISkeleton() {
-		assertEquals(GenTypeSISkeleton.GENTYPE_SISKELETON, model.getGenType());
+		assertEquals(BaseCodeGenModel.GENTYPE_SISKELETON, model.getGenType());
 	}
 
 	@Test
@@ -59,7 +60,7 @@ public class GenTypeSISkeletonTest {
 		model.setOverwriteImplClass(true);
 		assertTrue(model.isOverwriteImplClass());
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_OWIC));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_OWIC));
 	}
 
 	@Test

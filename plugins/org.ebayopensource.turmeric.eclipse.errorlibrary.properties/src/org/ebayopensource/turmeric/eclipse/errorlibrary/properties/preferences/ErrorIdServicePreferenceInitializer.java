@@ -26,6 +26,7 @@ public class ErrorIdServicePreferenceInitializer extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void initializeDefaultPreferences() {
 		String symbolicName = Activator.getDefault().getBundle().getSymbolicName();
 		IEclipsePreferences node = new DefaultScope().getNode(symbolicName);

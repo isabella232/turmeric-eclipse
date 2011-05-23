@@ -30,6 +30,7 @@ public class BasicProcessor implements ICommand {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean execute(Object parameter, IProgressMonitor monitor) throws CommandFailedException {
 		if (parameter != null && parameter instanceof CommonXSDProcessorParam) {
 			CommonXSDProcessorParam templateProcessorParam = (CommonXSDProcessorParam) parameter;
@@ -49,7 +50,7 @@ public class BasicProcessor implements ICommand {
 			if (!(xsdSchema.getTypeDefinitions().get(0) instanceof XSDTypeDefinition))
 				throw new CommandFailedException(
 						"Type Definition couldnt be retrieved from the template");
-			XSDTypeDefinition xsdTypeDefinition = (XSDTypeDefinition) xsdSchema
+			XSDTypeDefinition xsdTypeDefinition = xsdSchema
 					.getTypeDefinitions().get(0);
 			if (xsdTypeDefinition == null)
 				throw new CommandFailedException("The template is corrupted.");

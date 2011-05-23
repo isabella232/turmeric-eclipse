@@ -60,6 +60,7 @@ public class CleanProject implements IObjectActionDelegate{
 	 * 
 	 * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
 	 */
+	@Override
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 		shell = targetPart.getSite().getShell();
@@ -70,6 +71,7 @@ public class CleanProject implements IObjectActionDelegate{
 	 * 
 	 *  @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(final IAction action) {
 		try {
 			if (SOALogger.DEBUG)
@@ -89,10 +91,12 @@ public class CleanProject implements IObjectActionDelegate{
 				
 				WorkspaceJob buildJob = new WorkspaceJob("Cleaning Project for "
 						+ project.getName()) {
+					@Override
 					public boolean belongsTo(Object family) {
 						return false;
 					}
 
+					@Override
 					public IStatus runInWorkspace(IProgressMonitor monitor)
 							throws CoreException {
 						monitor.beginTask(getName(), ProgressUtil.PROGRESS_STEP * 10);
@@ -132,6 +136,7 @@ public class CleanProject implements IObjectActionDelegate{
 	 * {@inheritDoc}
 	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

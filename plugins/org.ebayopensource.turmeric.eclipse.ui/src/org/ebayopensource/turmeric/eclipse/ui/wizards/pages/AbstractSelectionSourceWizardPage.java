@@ -45,6 +45,7 @@ public abstract class AbstractSelectionSourceWizardPage extends SOABasePage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		final Composite container = new Composite(parent, SWT.NONE);
 		container.setLayout(new GridLayout(1, true));
@@ -102,6 +103,7 @@ public abstract class AbstractSelectionSourceWizardPage extends SOABasePage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getDefaultValue(Text text) {
 		return "";
 	}

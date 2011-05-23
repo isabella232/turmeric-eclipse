@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeServiceFromWSDLImpl;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,27 +35,27 @@ public class GenTypeServiceFromWSDLImplTest {
 	@Test
 	public void testGetCodeGenOptions() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue("Missing GenType Key.", map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_GENTYPE));
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_NAMESPACE));
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_PR));
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_INTERFACE));
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_SERVICE_NAME));
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_SCV));
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_SRC));
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_DEST));
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_BIN));
+		assertTrue("Missing GenType Key.", map.containsKey(BaseCodeGenModel.PARAM_GENTYPE));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_NAMESPACE));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_PR));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_INTERFACE));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SERVICE_NAME));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SCV));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SRC));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_DEST));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_BIN));
 		//the SICN will not be available if service impl class name is missing from ServiceConfig.xml file
 		//assertTrue(map.containsKey(GenTypeSISkeleton.PARAM_SICN));
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_CN));
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_GT));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_CN));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_GT));
 		
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsAdminNull() throws Exception {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_ADMIN_NAME));
-		assertFalse(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_ENVIRONMENT));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_ADMIN_NAME));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_ENVIRONMENT));
 	}
 
 	@Test
@@ -62,8 +63,8 @@ public class GenTypeServiceFromWSDLImplTest {
 		model.setAdminName("AdminName");
 		model.setServiceName("ServiceName");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_ADMIN_NAME));
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_ENVIRONMENT));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_ADMIN_NAME));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_ENVIRONMENT));
 	}
 	
 	@Test
@@ -71,26 +72,26 @@ public class GenTypeServiceFromWSDLImplTest {
 		model.setAdminName("AdminName");
 		model.setServiceName("AdminName");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_ADMIN_NAME));
-		assertFalse(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_ENVIRONMENT));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_ADMIN_NAME));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_ENVIRONMENT));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsServiceConfigGroupBlank() throws Exception {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_SCGN));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_SCGN));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsServiceConfigGroup() throws Exception {
 		model.setServiceConfigGroup("ServiceConfigGroup");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeServiceFromWSDLImpl.PARAM_SCGN));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SCGN));
 	}
 	
 	@Test
 	public void testGenTypeServiceFromWSDLImpl() {
-		assertEquals(GenTypeServiceFromWSDLImpl.GENTYPE_SERVICE_FROM_WSDL_IMPL, model.getGenType());
+		assertEquals(BaseCodeGenModel.GENTYPE_SERVICE_FROM_WSDL_IMPL, model.getGenType());
 	}
 
 }

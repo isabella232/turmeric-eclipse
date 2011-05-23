@@ -34,6 +34,7 @@ public class SOAErrorLibraryProjectResolver implements ISOAProjectResolver<SOAEr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public SOAErrorLibraryProject loadProject(SOAProjectEclipseMetadata eclipseMetadata)
 			throws Exception {
 		final SOAErrorLibraryMetadata metadata = SOAErrorLibraryMetadata.create(

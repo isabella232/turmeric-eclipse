@@ -260,6 +260,7 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer#updateProject(org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject, boolean)
 	 */
+	@Override
 	public boolean updateProject(ISOAProject soaProject, boolean updateClasspath, IProgressMonitor monitor)
 			throws Exception {
 		boolean result = super.updateProject(soaProject, updateClasspath, monitor);
@@ -386,6 +387,7 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.impl.AbstractSOAProjectConfigurer#serviceVersionChanged(java.lang.String, java.lang.String)
 	 */
+	@Override
 	protected void serviceVersionChanged(String serviceName,
 			String newServiceVersion) {
 		//do nothing here

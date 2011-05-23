@@ -107,7 +107,7 @@ public final class SOALogger extends Logger{
 			String localConfigFile =  new StringBuilder().append(
                     System.getProperty("user.home")).append(File.separator) //$NON-NLS-1$
                     .append(".turmeric").append(File.separator).append( //$NON-NLS-1$
-                    		FILENAME_LOGGING_PROPERTIES).toString(); //$NON-NLS-1$
+                    		FILENAME_LOGGING_PROPERTIES).toString(); 
 			File configFile = new File(localConfigFile);
 			if (configFile.exists() == false) {
 				OutputStream output = null;

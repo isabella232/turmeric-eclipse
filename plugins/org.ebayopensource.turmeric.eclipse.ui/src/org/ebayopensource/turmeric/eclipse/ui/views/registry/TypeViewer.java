@@ -11,28 +11,15 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 //import org.ebayopensource.turmeric.eclipse.typelibrary.actions.AddImportAction;
 import org.ebayopensource.turmeric.eclipse.core.compare.LibraryTypeComparator;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
-import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
-import org.ebayopensource.turmeric.eclipse.utils.xml.XMLUtil;
-import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ColumnLayoutData;
 import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.xsd.XSDSchema;
-import org.eclipse.xsd.XSDTypeDefinition;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * This is the right side Type Viewer. Displays all types corresponding to the
@@ -85,6 +72,7 @@ public class TypeViewer extends TableViewer {
 			tc.setText(columnHeaders[i]);
 
 			tc.addSelectionListener(new SelectionAdapter() {
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					if (e.getSource() instanceof TableColumn) {
 						TableColumn tableColumn = (TableColumn) e.getSource();

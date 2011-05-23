@@ -100,10 +100,12 @@ AbstractSOAResourceWizardPage {
 		selectErrorLibBtn.setAlignment(SWT.LEFT);
 		selectErrorLibBtn.setText(SOAMessages.BUTTON_NAME_BROWSE);
 		final SelectionListener typeLibNameBrowseListener = new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				ElementListSelectionDialog selectionDialog = new ElementListSelectionDialog(
 						getShell(), new ProjectSelectionListLabelProvider()) {

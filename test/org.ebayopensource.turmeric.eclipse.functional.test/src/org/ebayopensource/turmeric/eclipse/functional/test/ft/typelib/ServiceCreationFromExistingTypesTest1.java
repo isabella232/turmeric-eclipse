@@ -33,7 +33,6 @@ import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFro
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFromWsdlTest;
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceSetupCleanupValidate;
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseApi;
-import org.ebayopensource.turmeric.eclipse.mavenapi.intf.IMavenEclipseApi;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;

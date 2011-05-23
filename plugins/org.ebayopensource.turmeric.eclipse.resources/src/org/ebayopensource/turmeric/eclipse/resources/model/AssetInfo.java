@@ -158,6 +158,7 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	 * {@inheritDoc}
 	 * 
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -165,6 +166,7 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -172,6 +174,7 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getDescription() {
 		if (TYPE_LIBRARY.equals(getType()))
 			return getName() + VERSION_PREFIX + getVersion();
@@ -181,6 +184,7 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String toString() {
 		return getName();
 	}
@@ -188,6 +192,7 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public int compareTo(final AssetInfo info) {
 		if (ObjectUtils.equals(info, this))
 			return 0;
@@ -205,6 +210,7 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getType() {
 		return type;
 	}
@@ -239,6 +245,7 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getUniqueID() {
 		return this.name;
 	}
@@ -248,6 +255,7 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	 * 
 	 * @return The short description of the AssetInfo instance.
 	 */
+	@Override
 	public String getShortDescription() {
 		return getName();
 	}

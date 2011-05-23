@@ -42,6 +42,7 @@ public class DetailMessageDialog extends TrayDialog {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected Point getInitialSize() {
 		Point p = super.getInitialSize();
 		p.x = 500;
@@ -101,6 +102,7 @@ public class DetailMessageDialog extends TrayDialog {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected boolean isResizable() {
 		return true;
 	}

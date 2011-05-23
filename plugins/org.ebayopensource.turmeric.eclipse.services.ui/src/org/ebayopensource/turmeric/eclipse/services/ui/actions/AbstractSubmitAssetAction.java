@@ -57,6 +57,7 @@ private IStructuredSelection selection;
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 
 	}
@@ -113,6 +114,7 @@ private IStructuredSelection selection;
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void run(IAction action) {
 		try {
 			if (SOALogger.DEBUG)
@@ -176,6 +178,7 @@ private IStructuredSelection selection;
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		this.selection = (IStructuredSelection)selection;
 	}

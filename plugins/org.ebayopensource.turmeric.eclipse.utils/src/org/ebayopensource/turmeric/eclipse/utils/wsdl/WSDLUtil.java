@@ -320,7 +320,7 @@ public final class WSDLUtil {
 		// if there are any schema imports, we should be able to handle it
 		if (wsdl.getImports() != null && wsdl.getImports().isEmpty() == false) {
 			handleImports(
-					(Collection<List<Import>>) wsdl.getImports().values(),
+					wsdl.getImports().values(),
 					parentFolder, processedSchemas, streamsToCopy);
 		}
 		if (wsdl.getTypes() != null) {

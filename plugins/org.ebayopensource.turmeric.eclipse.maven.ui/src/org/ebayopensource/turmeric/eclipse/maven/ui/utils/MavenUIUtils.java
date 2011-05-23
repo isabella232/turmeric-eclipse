@@ -14,6 +14,7 @@ import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseUtil;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
@@ -57,7 +58,7 @@ public class MavenUIUtils {
 
 		for (String dependentName : dependentLibraries.keySet()) {
 			final String type = dependentLibraries.get(dependentName);
-			if (StringUtils.equals(type, AssetInfo.TYPE_SERVICE_LIBRARY)) {
+			if (StringUtils.equals(type, IAssetInfo.TYPE_SERVICE_LIBRARY)) {
 				// service dependency
 				String groupId = MavenCoreUtils.getMavenOrgProviderInstance()
 						.getProjectGroupId(SupportedProjectType.INTERFACE);
@@ -67,7 +68,7 @@ public class MavenUIUtils {
 				final String fullLibName = MavenCoreUtils.translateLibraryName(
 						groupId, dependentName, libVersion);
 				metadata = MavenCoreUtils.getLibraryIdentifier(fullLibName);
-			} else if (StringUtils.equals(type, AssetInfo.TYPE_PROJECT)) {
+			} else if (StringUtils.equals(type, IAssetInfo.TYPE_PROJECT)) {
 				final IProject dependentProject = WorkspaceUtil
 						.getProject(dependentName);
 				if (dependentProject != null && dependentProject.isAccessible()) {
@@ -84,7 +85,7 @@ public class MavenUIUtils {
 							dependentName);
 					metadata = MavenEclipseUtil.artifactMetadata(dependentName);
 				}
-			} else if (StringUtils.equals(type, AssetInfo.TYPE_LIBRARY)) {
+			} else if (StringUtils.equals(type, IAssetInfo.TYPE_LIBRARY)) {
 				metadata = MavenCoreUtils.getLibraryIdentifier(dependentName);
 				if (metadata == null
 						&& WorkspaceUtil.getProject(dependentName)
@@ -137,7 +138,7 @@ public class MavenUIUtils {
 				pom.removeDependency(dependency);
 			}
 
-			if (StringUtils.equals(type, AssetInfo.TYPE_SERVICE_LIBRARY)) {
+			if (StringUtils.equals(type, IAssetInfo.TYPE_SERVICE_LIBRARY)) {
 				MavenCoreUtils.modifyRequiredServices(pom, dependentName, addRemove);
 			}
 		}

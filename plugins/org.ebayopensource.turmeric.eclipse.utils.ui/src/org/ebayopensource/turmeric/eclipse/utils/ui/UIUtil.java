@@ -193,6 +193,7 @@ public class UIUtil {
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		final WorkBenchWindowWrapper windowWrapper = new WorkBenchWindowWrapper();
 		workbench.getDisplay().syncExec(new Runnable() {
+			@Override
 			public void run() {
 				IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
 				windowWrapper.setWorkbenchWindow(window);
@@ -266,6 +267,7 @@ public class UIUtil {
 	public static void openPropertyPage(final IAdaptable adaptable,
 			final String pageID) {
 		final Runnable runnable = new Runnable() {
+			@Override
 			public void run() {
 				PreferencesUtil.createPropertyDialogOn(
 						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
@@ -291,6 +293,7 @@ public class UIUtil {
 			final String noLabel) {
 		final boolean[] returnValue = new boolean[1];
 		final Runnable runnable = new Runnable() {
+			@Override
 			public void run() {
 				MessageDialog dialog = new MessageDialog(getWorkbench()
 						.getActiveWorkbenchWindow().getShell(),
@@ -316,6 +319,7 @@ public class UIUtil {
 			final String message, final int type) {
 		final boolean[] returnValue = new boolean[1];
 		final Runnable runnable = new Runnable() {
+			@Override
 			public void run() {
 				MessageDialog dialog = new MessageDialog(getWorkbench()
 						.getActiveWorkbenchWindow().getShell(),
@@ -391,6 +395,7 @@ public class UIUtil {
 			final Throwable exception) {
 		final Runnable runnable = new Runnable() {
 
+			@Override
 			public void run() {
 				IStatus status = null;
 				if (exception == null) {
@@ -817,6 +822,7 @@ public class UIUtil {
 			}
 			final List<T> sink = new ArrayList<T>();
 			final Runnable wrapper = new Runnable() {
+				@Override
 				public void run() {
 					syncExec();
 					sink.add(returnValue);
@@ -840,6 +846,7 @@ public class UIUtil {
 			}
 			final List<T> sink = new ArrayList<T>();
 			final Runnable wrapper = new Runnable() {
+				@Override
 				public void run() {
 					asyncExec();
 					sink.add(returnValue);
@@ -950,6 +957,7 @@ public class UIUtil {
 		if (workbenchWindow != null) {
 
 			workbench.getDisplay().syncExec(new Runnable() {
+				@Override
 				public void run() {
 					IWorkbenchPage workbenchPage = workbenchWindow
 							.getActivePage();
@@ -981,6 +989,7 @@ public class UIUtil {
 		if (activePage != null) {
 
 			workbench.getDisplay().syncExec(new Runnable() {
+				@Override
 				public void run() {
 					IEditorPart editorPart = activePage.getActiveEditor();
 					editorWrapper.setEditorPart(editorPart);

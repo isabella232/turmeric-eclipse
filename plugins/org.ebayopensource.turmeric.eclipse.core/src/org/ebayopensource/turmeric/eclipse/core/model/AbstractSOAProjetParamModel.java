@@ -96,6 +96,7 @@ public abstract class AbstractSOAProjetParamModel extends BaseServiceParamModel 
 	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.core.model.ISOAServiceParamModel#validate()
 	 */
+	@Override
 	public boolean validate() {
 		return true;
 	}

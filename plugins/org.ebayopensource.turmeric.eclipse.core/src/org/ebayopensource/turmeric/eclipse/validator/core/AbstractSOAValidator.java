@@ -39,6 +39,7 @@ public abstract class AbstractSOAValidator implements ISOAValidator{
 	 * @throws ValidationInterruptedException the validation interrupted exception
 	 * @see org.ebayopensource.turmeric.eclipse.validator.core.ISOAValidator#validate(java.lang.Object)
 	 */
+	@Override
 	public IStatus validate(Object obj) throws ValidationInterruptedException{
 		if (obj == null) {
 			return getBasicStatusModel("The validation object specified is null.");

@@ -39,6 +39,7 @@ public abstract class SOAStatusReportingRunnable implements IRunnableWithProgres
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public final void run(IProgressMonitor monitor) throws InvocationTargetException,
 			InterruptedException {
 		try {

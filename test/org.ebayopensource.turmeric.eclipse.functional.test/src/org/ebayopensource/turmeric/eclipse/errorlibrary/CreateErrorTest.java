@@ -8,8 +8,6 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.errorlibrary;
 
-import java.util.Random;
-
 import junit.framework.Assert;
 
 import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.ErrorDomainCreator;
@@ -28,7 +26,6 @@ import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 

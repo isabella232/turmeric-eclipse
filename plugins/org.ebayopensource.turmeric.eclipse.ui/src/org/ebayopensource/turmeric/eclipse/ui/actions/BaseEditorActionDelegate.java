@@ -36,12 +36,14 @@ public abstract class BaseEditorActionDelegate extends ActionDelegate implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		editorPart = targetEditor;
 	}

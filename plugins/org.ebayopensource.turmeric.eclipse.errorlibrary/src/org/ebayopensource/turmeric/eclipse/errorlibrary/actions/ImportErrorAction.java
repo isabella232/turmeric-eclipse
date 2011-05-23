@@ -22,6 +22,7 @@ import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAOpera
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.ui.actions.BaseEditorActionDelegate;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
@@ -60,6 +61,7 @@ public class ImportErrorAction extends BaseEditorActionDelegate {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void run(IAction action) {
 		try {
 			ErrorSelector errorSelector = new ErrorSelector(UIUtil
@@ -96,12 +98,12 @@ public class ImportErrorAction extends BaseEditorActionDelegate {
 						for (String libName : commonLibraries) {
 							projectConfigurer.addDependency(
 									getSelectedProject().getName(), libName,
-									AssetInfo.TYPE_LIBRARY, true,
+									IAssetInfo.TYPE_LIBRARY, true,
 									ProgressUtil.getDefaultMonitor(null));
 						}
 						projectConfigurer.addDependency(getSelectedProject()
 								.getName(), error.getDomain().getLibrary()
-								.getName(), AssetInfo.TYPE_LIBRARY, true,
+								.getName(), IAssetInfo.TYPE_LIBRARY, true,
 								ProgressUtil.getDefaultMonitor(null));
 					} catch (Exception e) {
 						SOAExceptionHandler.silentHandleException(e);

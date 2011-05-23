@@ -75,6 +75,7 @@ public class DialogMonitorJob extends Thread {
 			if (isSyncMode) {
 				m_display.syncExec(new Runnable() {
 
+					@Override
 					public void run() {
 						processDialog();
 					}
@@ -84,6 +85,7 @@ public class DialogMonitorJob extends Thread {
 			} else {
 				m_display.asyncExec(new Runnable() {
 
+					@Override
 					public void run() {
 						processDialog();
 					}

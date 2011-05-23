@@ -88,6 +88,7 @@ public class ErrorParamModel extends BaseServiceParamModel {
 	 * This currently always returns true.
 	 * 
 	 */
+	@Override
 	public boolean validate() {
 		return true;
 	}

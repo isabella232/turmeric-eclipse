@@ -19,6 +19,7 @@ import org.eclipse.search.ui.text.AbstractTextSearchResult;
 import org.eclipse.search.ui.text.IEditorMatchAdapter;
 import org.eclipse.search.ui.text.IFileMatchAdapter;
 import org.eclipse.search.ui.text.Match;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 
 /**
@@ -43,14 +44,16 @@ public class SOASearchResult extends AbstractTextSearchResult implements IFileMa
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public ImageDescriptor getImageDescriptor() {
-		return Activator.imageDescriptorFromPlugin(Activator.PLUGIN_ID, 
+		return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, 
 				"icons/script_obj.gif");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getLabel() {
 		return toString();
 	}
@@ -58,6 +61,7 @@ public class SOASearchResult extends AbstractTextSearchResult implements IFileMa
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public ISearchQuery getQuery() {
 		return searchQuery;
 	}
@@ -65,6 +69,7 @@ public class SOASearchResult extends AbstractTextSearchResult implements IFileMa
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getTooltip() {
 		return null;
 	}
@@ -72,6 +77,7 @@ public class SOASearchResult extends AbstractTextSearchResult implements IFileMa
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String toString() {
 		final StringBuffer result = new StringBuffer();
 		result.append("'");
@@ -100,6 +106,7 @@ public class SOASearchResult extends AbstractTextSearchResult implements IFileMa
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Match[] computeContainedMatches(AbstractTextSearchResult result,
 			IFile file) {
 		return NO_MATCHES;
@@ -108,6 +115,7 @@ public class SOASearchResult extends AbstractTextSearchResult implements IFileMa
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IFile getFile(Object element) {
 		return null;
 	}

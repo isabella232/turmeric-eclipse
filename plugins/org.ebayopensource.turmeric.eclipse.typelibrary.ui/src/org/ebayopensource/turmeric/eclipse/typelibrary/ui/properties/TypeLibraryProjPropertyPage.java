@@ -131,14 +131,16 @@ public class TypeLibraryProjPropertyPage extends PreferencePage implements
 	/**
 	 * {@inheritDoc}
 	 */
-    public void createControl(Composite parent) {
+    @Override
+	public void createControl(Composite parent) {
         super.createControl(parent);
     }
 
 	/**
 	 * {@inheritDoc}
 	 */
-    public IAdaptable getElement() {
+    @Override
+	public IAdaptable getElement() {
         return null;
     }
 
@@ -220,7 +222,8 @@ public class TypeLibraryProjPropertyPage extends PreferencePage implements
                 "Type Library Version:", editable, model.getVersion());
         this.typeLibraryVersion.addModifyListener(new ModifyListener() {
 
-            public void modifyText(ModifyEvent e) {
+            @Override
+			public void modifyText(ModifyEvent e) {
                 try {
                     validateTypeLibraryProperties();
                 } catch (ValidationInterruptedException e1) {
@@ -286,7 +289,8 @@ public class TypeLibraryProjPropertyPage extends PreferencePage implements
 	/**
 	 * {@inheritDoc}
 	 */
-    public void setElement(IAdaptable element) {
+    @Override
+	public void setElement(IAdaptable element) {
         try {
             if (element.getAdapter(IProject.class) instanceof IProject) {
                 IProject project = (IProject) element

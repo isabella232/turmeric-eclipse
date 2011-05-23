@@ -42,6 +42,7 @@ public class SOATypeLibraryProjectResolver implements ISOAProjectResolver<SOATyp
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public SOATypeLibraryProject loadProject(
 			SOAProjectEclipseMetadata eclipseMetadata) throws Exception {
 		final SOATypeLibraryMetadata metadata = SOATypeLibraryMetadata.create(

@@ -179,6 +179,7 @@ public class DependenciesDialog extends TitleAreaDialog {
 	 */
 	protected IStructuredContentProvider getContentProvider() {
 		return new IStructuredContentProvider() {
+			@Override
 			public Object[] getElements(final Object inputElement) {
 				if (!(inputElement instanceof IWorkspaceRoot))
 					return null;
@@ -199,9 +200,11 @@ public class DependenciesDialog extends TitleAreaDialog {
 				return services != null ? services.toArray() : Collections.EMPTY_LIST.toArray();
 			}
 
+			@Override
 			public void dispose() {
 			}
 
+			@Override
 			public void inputChanged(final Viewer viewer,
 					final Object oldInput, final Object newInput) {
 			}
@@ -244,14 +247,17 @@ public class DependenciesDialog extends TitleAreaDialog {
 				return null;
 			}
 
+			@Override
 			public void dispose() {
 			}
 
+			@Override
 			public Image getColumnImage(final Object element,
 					final int columnIndex) {
 				return null;
 			}
 
+			@Override
 			public String getColumnText(final Object element,
 					final int columnIndex) {
 				if (element instanceof AssetInfo) {
@@ -270,14 +276,17 @@ public class DependenciesDialog extends TitleAreaDialog {
 				return "";
 			}
 
+			@Override
 			public void addListener(final ILabelProviderListener listener) {
 			}
 
+			@Override
 			public boolean isLabelProperty(final Object element,
 					final String property) {
 				return false;
 			}
 
+			@Override
 			public void removeListener(final ILabelProviderListener listener) {
 			}
 		};
@@ -305,6 +314,7 @@ public class DependenciesDialog extends TitleAreaDialog {
 		viewer.addFilter(filter);
 		viewer.setInput(WorkspaceUtil.getWorkspaceRoot());
 		viewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				validate();
 			}

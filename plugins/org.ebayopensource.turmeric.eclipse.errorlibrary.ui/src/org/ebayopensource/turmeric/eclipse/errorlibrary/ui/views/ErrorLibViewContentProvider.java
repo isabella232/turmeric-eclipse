@@ -26,6 +26,7 @@ public class ErrorLibViewContentProvider implements ITreeContentProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		// this is the root.
 		if (parentElement instanceof ISOAErrLibrary) {
@@ -47,6 +48,7 @@ public class ErrorLibViewContentProvider implements ITreeContentProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object getParent(Object element) {
 		return null;
 	}
@@ -54,6 +56,7 @@ public class ErrorLibViewContentProvider implements ITreeContentProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean hasChildren(Object element) {
 		return element instanceof ISOAErrLibrary || element instanceof ISOAErrDomain;
 	}
@@ -61,6 +64,7 @@ public class ErrorLibViewContentProvider implements ITreeContentProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof ISOAErrRegistry) {
 			final ISOAErrRegistry registry = (ISOAErrRegistry)inputElement;
@@ -72,6 +76,7 @@ public class ErrorLibViewContentProvider implements ITreeContentProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void dispose() {
 
 	}
@@ -79,6 +84,7 @@ public class ErrorLibViewContentProvider implements ITreeContentProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
 	}

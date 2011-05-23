@@ -325,7 +325,7 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 					// version.
 					ActionUtil
 							.updateInterfaceProjectVersion(
-									(SOAIntfProject) intfProject,
+									intfProject,
 									oldVersionStr, newVersionStr, false, monitor);
 
 				} catch (Exception e) {

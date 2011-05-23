@@ -19,6 +19,7 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.EnvironmentItem;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -75,18 +76,22 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 	protected void addContentProvider() {
 		setContentProvider(new ITreeContentProvider() {
 
+			@Override
 			public Object[] getChildren(Object parentElement) {
 				return getElements(parentElement);
 			}
 
+			@Override
 			public Object getParent(Object element) {
 				return null;
 			}
 
+			@Override
 			public boolean hasChildren(Object element) {
 				return element instanceof EnvironmentItem;
 			}
 
+			@Override
 			public Object[] getElements(Object inputElement) {
 				if (inputElement instanceof Collection<?>) {
 					return ((Collection<?>)inputElement).toArray();
@@ -99,10 +104,12 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 				return Collections.EMPTY_LIST.toArray();
 			}
 
+			@Override
 			public void dispose() {
 				
 			}
 
+			@Override
 			public void inputChanged(Viewer viewer, Object oldInput,
 					Object newInput) {
 				
@@ -116,11 +123,13 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 	protected void addLabelProvider() {
 		setLabelProvider(new ITableLabelProvider() {
 
+			@Override
 			public Image getColumnImage(Object element, int columnIndex) {
 				
 				return null;
 			}
 
+			@Override
 			public String getColumnText(Object element, int columnIndex) {
 				if (element instanceof AssetInfo) {
 					if (columnIndex == 1)
@@ -137,18 +146,22 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 				return SOAProjectConstants.EMPTY_STRING;
 			}
 
+			@Override
 			public void addListener(ILabelProviderListener listener) {
 				
 			}
 
+			@Override
 			public void dispose() {
 				
 			}
 
+			@Override
 			public boolean isLabelProperty(Object element, String property) {
 				return false;
 			}
 
+			@Override
 			public void removeListener(ILabelProviderListener listener) {
 				
 			}
@@ -159,7 +172,7 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 	 * Inits the.
 	 */
 	protected void init() {
-		setAutoExpandLevel(TreeViewer.ALL_LEVELS);
+		setAutoExpandLevel(AbstractTreeViewer.ALL_LEVELS);
 		addContentProvider();
 		addLabelProvider();
 		createColumns();

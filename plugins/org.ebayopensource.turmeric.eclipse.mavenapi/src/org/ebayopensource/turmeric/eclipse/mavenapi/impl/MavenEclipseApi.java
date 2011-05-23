@@ -34,7 +34,6 @@ import org.apache.maven.model.Plugin;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
-import org.apache.maven.repository.metadata.MetadataTreeNode;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
 import org.ebayopensource.turmeric.eclipse.mavenapi.request.AbstractProjectMavenizationRequest;
 import org.ebayopensource.turmeric.eclipse.mavenapi.request.ProjectMavenizationRequest;
@@ -240,6 +239,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IProject mavenizeProject(final ProjectMavenizationRequest req,
 			IProgressMonitor monitor) throws MavenEclipseApiException {
 		Model model = generateModel(req, monitor);
@@ -250,6 +250,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Artifact resolveArtifact(final ArtifactMetadata metadata)
 			throws MavenEclipseApiException {
 		if (metadata == null)
@@ -261,6 +262,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Collection<Artifact> findGroup(final String groupRegEx)
 			throws MavenEclipseApiException {
 		return _toArtifactCollection(_findGroup(_getIndexManager(), groupRegEx));
@@ -269,6 +271,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Collection<Artifact> findArtifact(final String query)
 			throws MavenEclipseApiException {
 		return _toArtifactCollection(_findArtifact(_getIndexManager(), query));
@@ -277,6 +280,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<Artifact> resolveArtifactAsClasspath(
 			final ArtifactMetadata metadata) throws MavenEclipseApiException {
 		return super.resolveArtifactAsClasspath(_getEmbedder(), metadata);
@@ -285,6 +289,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public MavenProject resolveArtifactAsProject(final Artifact artifact)
 			throws MavenEclipseApiException {
 		if (artifact == null)
@@ -327,6 +332,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Collection<Artifact> findArtifactByNameAndGroup(String name,
 			String group) throws MavenEclipseApiException {
 		return findArtifactByNameAndGroupAndRepositoryUrl(name, group, "");
@@ -348,7 +354,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 		Collection<ArtifactMetadata> ams = null;
 		try {
 			BooleanQuery bq = new BooleanQuery();
-			bq.setMaxClauseCount(Integer.MAX_VALUE);
+			BooleanQuery.setMaxClauseCount(Integer.MAX_VALUE);
 			Query query = null;
 			if (StringUtils.isNotBlank(name)) {
 				bq.add(new WildcardQuery(new Term(ArtifactInfo.ARTIFACT_ID,
@@ -379,6 +385,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IProject mavenizeProject(AbstractProjectMavenizationRequest req,
 			IProgressMonitor monitor) throws MavenEclipseApiException {
 		if (req instanceof ProjectMavenizationRequest) {

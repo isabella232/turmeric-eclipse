@@ -80,6 +80,7 @@ public final class NewPropertiesContentErrorWizardPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		try {
 			final Composite container = super.createParentControl(parent, 4);
@@ -117,6 +118,7 @@ public final class NewPropertiesContentErrorWizardPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected void errorLibraryChanged() {
 		populateDomainCombo();
 	}

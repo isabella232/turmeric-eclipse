@@ -25,6 +25,7 @@ import org.ebayopensource.turmeric.eclipse.validator.utils.ValidateUtil;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.fieldassist.AutoCompleteField;
 import org.eclipse.jface.fieldassist.ComboContentAdapter;
 import org.eclipse.jface.fieldassist.ControlDecoration;
@@ -183,24 +184,24 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	 */
 	public void updatePageStatus(final IStatus status, Control... controls) {
 		String message = null;
-		int messageType = WizardPage.NONE;
+		int messageType = IMessageProvider.NONE;
 		if (status != null) {
 			switch (status.getSeverity()) {
 			case IStatus.WARNING:
-				messageType = WizardPage.WARNING;
+				messageType = IMessageProvider.WARNING;
 				break;
 			case IStatus.INFO:
-				messageType = WizardPage.INFORMATION;
+				messageType = IMessageProvider.INFORMATION;
 				break;
 			case IStatus.ERROR:
-				messageType = WizardPage.ERROR;
+				messageType = IMessageProvider.ERROR;
 				break;
 			}
 			if (status != null) {
 				message = ValidateUtil.getBasicFormattedUIErrorMessage(status);
 			}
 		}
-		if (messageType == WizardPage.ERROR) {
+		if (messageType == IMessageProvider.ERROR) {
 			setErrorMessage(message);
 			updateStatus(message, controls);
 		} else {
@@ -310,6 +311,7 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 		eComposite.setLayoutData(data);
 		eComposite.setText("Advanced");
 		eComposite.addExpansionListener(new ExpansionAdapter() {
+			@Override
 			public void expansionStateChanged(ExpansionEvent e) {
 				Shell shell = parent.getShell();
 				Point minSize = shell.getMinimumSize();
@@ -493,10 +495,12 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 		overrideButton.setSelection(false);
 		if (listener == null) {
 			final SelectionListener overrideInterfaceListener = new SelectionListener() {
+				@Override
 				public void widgetDefaultSelected(final SelectionEvent e) {
 					widgetSelected(e);
 				}
 
+				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					if (overrideButton.getSelection()) {
 						relatedText.setEnabled(true);
@@ -520,6 +524,7 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void addControlDecoration(Control control, ControlDecoration controlDecoration) {
 		if (control != null && controlDecoration != null
 				&& controlDecoration.getControl() == control) {
@@ -663,6 +668,7 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 
 	/** The modify listener. */
 	protected final ModifyListener modifyListener = new ModifyListener() {
+		@Override
 		public void modifyText(final ModifyEvent e) {
 			if (e != null && e.getSource() instanceof Control) {
 				// we only do validation if the current control has user focus

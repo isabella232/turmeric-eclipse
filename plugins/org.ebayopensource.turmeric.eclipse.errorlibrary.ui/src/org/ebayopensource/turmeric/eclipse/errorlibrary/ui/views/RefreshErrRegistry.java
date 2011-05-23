@@ -40,9 +40,11 @@ public class RefreshErrRegistry extends Action {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void run() {
 		if (typeLibraryViewer != null) {
 			final Runnable runnable = new Runnable() {
+				@Override
 				public void run() {
 					try {
 						SOAErrContentFactory.invalidateProvider();

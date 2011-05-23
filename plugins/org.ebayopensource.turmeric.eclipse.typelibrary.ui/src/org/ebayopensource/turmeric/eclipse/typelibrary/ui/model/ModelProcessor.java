@@ -34,6 +34,7 @@ public class ModelProcessor implements ICommand {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean execute(Object object, IProgressMonitor monitor) throws CommandFailedException {
 		if (object == null
 				|| !(object instanceof CommonXSDProcessorParam)) {

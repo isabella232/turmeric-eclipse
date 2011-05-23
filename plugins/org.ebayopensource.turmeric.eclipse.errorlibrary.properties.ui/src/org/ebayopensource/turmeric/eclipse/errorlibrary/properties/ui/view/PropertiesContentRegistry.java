@@ -36,6 +36,7 @@ public class PropertiesContentRegistry implements ISOAErrRegistry {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Collection<ISOAErrLibrary> getLibraries() {
 		try {
 			return TurmericErrorRegistry.getErrorLibraries();
@@ -48,6 +49,7 @@ public class PropertiesContentRegistry implements ISOAErrRegistry {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean importError() {
 		return false;
 	}
@@ -55,6 +57,7 @@ public class PropertiesContentRegistry implements ISOAErrRegistry {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void refreshRegistry() throws Exception {
 		TurmericErrorRegistry.refresh();
 		

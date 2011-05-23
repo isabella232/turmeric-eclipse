@@ -72,6 +72,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getMetadataFileName() {
 		return SOAProjectConstants.PROPS_FILE_SERVICE_IMPL;
 	}
@@ -190,6 +191,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getServiceImplClassName() {
 		return serviceImplClassName;
 	}
@@ -197,6 +199,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setSupportedVersion(String supportedVersion) {
 		this.supportedVersion = supportedVersion;
 	}
@@ -204,6 +207,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setGroup(String group) {
 		this.group = group;
 	}
@@ -211,6 +215,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setTargetNamespace(String targetNamespace) {
 		this.targetNamespace = targetNamespace;
 	}
@@ -218,6 +223,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setServiceName(String serviceName) {
 		getIntfMetadata().setServiceName(serviceName);
 	}
@@ -225,6 +231,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setFullyQualifiedServiceName(String fullyQualifiedServiceName) {
 		this.fullyQualifiedServiceName = fullyQualifiedServiceName;
 	}
@@ -232,6 +239,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setServiceInterfaceClassName(String serviceInterfaceClassName) {
 		getIntfMetadata().setServiceInterface(serviceInterfaceClassName);
 	}
@@ -239,6 +247,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setServiceImplClassName(String serviceImplClassName) {
 		this.serviceImplClassName = serviceImplClassName;
 	}
@@ -246,6 +255,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getMessageProtocol() {
 		return messageProtocol;
 	}
@@ -253,6 +263,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setMessageProtocol(String messageProtocol) {
 		this.messageProtocol = messageProtocol;
 	}

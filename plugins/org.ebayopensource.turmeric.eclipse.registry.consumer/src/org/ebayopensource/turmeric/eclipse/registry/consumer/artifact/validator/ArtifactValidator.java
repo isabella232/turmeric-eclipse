@@ -42,6 +42,7 @@ public class ArtifactValidator implements IArtifactValidator, IArtifactValidator
 	 *
 	 * @return the all supported validators
 	 */
+	@Override
 	public List<String> getAllSupportedValidators() {	
 		if (Activator.DEBUG)
 			Activator.getDefault().logArgumentMessage(Messages.METHOD_START, "getAllSupportedValidators");
@@ -60,6 +61,7 @@ public class ArtifactValidator implements IArtifactValidator, IArtifactValidator
 	 * @return the i status
 	 * @throws ArtifactValidationException the artifact validation exception
 	 */
+	@Override
 	public IStatus validateArtifact(byte[] artifactContents, String artifactType, IProgressMonitor progressMonitor)
 			throws ArtifactValidationException {
 		if (Activator.DEBUG)
@@ -125,7 +127,7 @@ public class ArtifactValidator implements IArtifactValidator, IArtifactValidator
 					Activator.getDefault().logArgumentMessage(Messages.VALIDATION_RESULT_MUST, artifactValidationResult.getArtifactValidationResultMessage());
 				}
 			}
-			IStatus multiStatus = SOAMessageUtils.createMultiStatus(Activator.PLUGIN_ID, 0, (IStatus [])statusList.toArray(new IStatus[0]), 
+			IStatus multiStatus = SOAMessageUtils.createMultiStatus(Activator.PLUGIN_ID, 0, statusList.toArray(new IStatus[0]), 
 					"", null);
 			String validationResultMessage = "";
 			if (multiStatus.getSeverity() == IStatus.ERROR) 
@@ -135,7 +137,7 @@ public class ArtifactValidator implements IArtifactValidator, IArtifactValidator
 			
 			if (Activator.DEBUG)
 				Activator.getDefault().logArgumentMessage(Messages.VALIDATION_RESULT_METHOD_END, validationResultMessage, "getArtifactValidationResultStatus");
-			return SOAMessageUtils.createMultiStatus(Activator.PLUGIN_ID, 0, (IStatus [])statusList.toArray(new IStatus[0]), 
+			return SOAMessageUtils.createMultiStatus(Activator.PLUGIN_ID, 0, statusList.toArray(new IStatus[0]), 
 					validationResultMessage, null);
 		}		
 		if (Activator.DEBUG)

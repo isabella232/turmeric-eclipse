@@ -71,6 +71,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getCategory() {
 		return category;
 	}
@@ -87,6 +88,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public ISOAErrDomain getDomain() {
 		return domain;
 	}
@@ -103,6 +105,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -119,6 +122,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}
@@ -135,6 +139,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -151,6 +156,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getResolution() {
 		return resolution;
 	}
@@ -167,6 +173,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getSeverity() {
 		return severity;
 	}
@@ -183,6 +190,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getSubDomain() {
 		return subDomain;
 	}
@@ -270,6 +278,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object getEditableValue() {
 		return this;
 	}
@@ -277,6 +286,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		List<IPropertyDescriptor> descriptors = new ArrayList<IPropertyDescriptor>();
 		descriptors.add(new PropertyDescriptor("id", SOAMessages.PROP_KEY_ERROR_ID));
@@ -292,6 +302,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object getPropertyValue(Object id) {
 		if (id.equals("name")) {
 			return this.name;
@@ -314,6 +325,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean isPropertySet(Object id) {
 		return id.equals("name") || id.equals("id") || id.equals("subdomain")
 		 || id.equals("message") || id.equals("resolution") || id.equals("category")
@@ -323,6 +335,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void resetPropertyValue(Object id) {
 		
 	}
@@ -330,6 +343,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setPropertyValue(Object id, Object value) {
 		
 	}
@@ -337,6 +351,7 @@ public class PropertiesSOAError implements ISOAError, IPropertySource {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getVersion() {
 		return null;
 	}

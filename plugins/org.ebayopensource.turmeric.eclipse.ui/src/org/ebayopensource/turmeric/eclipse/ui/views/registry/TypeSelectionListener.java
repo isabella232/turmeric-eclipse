@@ -46,6 +46,7 @@ public class TypeSelectionListener implements ISelectionChangedListener {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void selectionChanged(SelectionChangedEvent event) {		
 		IStructuredSelection selection = (IStructuredSelection) event
 				.getSelection();

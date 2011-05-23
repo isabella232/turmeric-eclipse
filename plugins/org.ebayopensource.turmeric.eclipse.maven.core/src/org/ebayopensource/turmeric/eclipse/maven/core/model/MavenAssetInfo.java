@@ -46,6 +46,7 @@ public class MavenAssetInfo extends AssetInfo implements IMavenArtifact{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getGroupID() {
 		return groupID;
 	}
@@ -53,6 +54,7 @@ public class MavenAssetInfo extends AssetInfo implements IMavenArtifact{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setGroupID(String groupID) {
 		this.groupID = groupID;
 	}

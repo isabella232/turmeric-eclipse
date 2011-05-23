@@ -198,10 +198,12 @@ AbstractSOAResourceWizardPage {
 		workspaceRootBrowseButton
 				.setEnabled(shouldOverrideProjectRootDirectory);
 		final SelectionListener workspaceBrowseListener = new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final String dirName = UIUtil.directoryDialog(
 						"Select Target Directory for Project:", rootLocation);
@@ -215,10 +217,12 @@ AbstractSOAResourceWizardPage {
 
 		// workspace root override button
 		final SelectionListener overrideWorkspaceListener = new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				if (workspaceRootOverrideButton.getSelection() == false) {
 					workspaceRootText.setEditable(false);
@@ -287,6 +291,7 @@ AbstractSOAResourceWizardPage {
 				.getSystemColor(SWT.COLOR_LIST_BACKGROUND));
 		this.serviceDomainList.setEnabled(enabled);
 		domainListModifyListener = new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				populiateClassifierList();
 				if (modifyListener != null)
@@ -296,6 +301,7 @@ AbstractSOAResourceWizardPage {
 		};
 		
 		serviceDomainList.addListener(SWT.DefaultSelection, new Listener() {
+			@Override
 			public void handleEvent(Event e) {
 				domainListModifyListener.modifyText(new ModifyEvent(e));
 			}
@@ -325,6 +331,7 @@ AbstractSOAResourceWizardPage {
 				"the namespace part of the selected functional domain");
 		domainClassifierModifyListener = new ModifyListener() {
 
+			@Override
 			public void modifyText(ModifyEvent e) {
 				domainClassifierChanged();
 			}

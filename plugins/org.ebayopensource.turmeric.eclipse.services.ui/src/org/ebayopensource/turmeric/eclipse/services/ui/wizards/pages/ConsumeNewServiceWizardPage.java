@@ -94,6 +94,7 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		try {
 			Composite composite = new Composite(parent, SWT.NONE);
@@ -211,6 +212,7 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 			});
 			
 			this.clientName.addModifyListener(new ModifyListener() {
+				@Override
 				public void modifyText(ModifyEvent e) {
 					try {
 						setRetrieveConsumerIDEnabled();
@@ -334,6 +336,7 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected boolean dialogChanged() {
 		super.dialogChanged();
 		boolean pageComplete = false;

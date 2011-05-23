@@ -8,7 +8,6 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.typelib;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
@@ -20,8 +19,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.junit.Assume.*;
-
 import org.ebayopensource.turmeric.common.config.TypeInformationType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 

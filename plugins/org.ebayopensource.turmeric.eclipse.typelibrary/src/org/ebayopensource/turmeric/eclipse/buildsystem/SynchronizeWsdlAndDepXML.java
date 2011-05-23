@@ -21,6 +21,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
@@ -403,12 +404,12 @@ public class SynchronizeWsdlAndDepXML {
 				String projectName = project.getName();
 				for (String addedLibrary : addedLibraries) {
 					projectConfigurer.addTypeLibraryDependency(projectName,
-							addedLibrary, AssetInfo.TYPE_LIBRARY, true,
+							addedLibrary, IAssetInfo.TYPE_LIBRARY, true,
 							monitor);
 				}
 				for (String removedLibrary : removedLibraries) {
 					projectConfigurer.addTypeLibraryDependency(projectName,
-							removedLibrary, AssetInfo.TYPE_LIBRARY, false,
+							removedLibrary, IAssetInfo.TYPE_LIBRARY, false,
 							monitor);
 				}
 				BuildSystemUtil.updateSOAClasspathContainer(project);

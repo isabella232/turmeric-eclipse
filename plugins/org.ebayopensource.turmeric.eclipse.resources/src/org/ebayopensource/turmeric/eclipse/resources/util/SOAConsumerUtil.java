@@ -364,7 +364,7 @@ public final class SOAConsumerUtil {
 
 		if (serviceNames != null) {
 			if (consumerProject instanceof SOAConsumerProject) {
-				((SOAConsumerProject) consumerProject).getMetadata()
+				consumerProject.getMetadata()
 						.setServiceNames(serviceNames);
 			}
 
@@ -399,6 +399,7 @@ public final class SOAConsumerUtil {
 	 * does not have environment in the path. Please use another overloaded
 	 * version which has environmentName as input option.
 	 */
+	@Deprecated
 	public static IFile getClientConfig(final IProject project,
 			final String serviceName) throws CoreException, IOException {
 		return getClientConfig(project, null, serviceName);
@@ -1016,6 +1017,7 @@ public final class SOAConsumerUtil {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public String toString() {
 			return this.name;
 		}

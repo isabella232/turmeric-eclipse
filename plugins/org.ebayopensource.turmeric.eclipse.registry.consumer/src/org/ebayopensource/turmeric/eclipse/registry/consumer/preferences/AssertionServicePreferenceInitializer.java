@@ -23,6 +23,7 @@ public class AssertionServicePreferenceInitializer extends AbstractPreferenceIni
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		store.setDefault(AssertionServicePreferenceConstants.ENABLE_ASSERTION_SERVICE,

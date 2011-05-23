@@ -273,6 +273,7 @@ public interface ISOAProject {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public int compareTo(SOAProjectSourceDirectory o) {
 			if (o != null && o.location != null) {
 				o.location.compareToIgnoreCase(this.location);

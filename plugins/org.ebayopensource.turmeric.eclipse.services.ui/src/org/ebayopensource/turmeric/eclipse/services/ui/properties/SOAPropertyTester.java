@@ -28,6 +28,7 @@ public class SOAPropertyTester extends PropertyTester {
 	 * {@inheritDoc}
 	 * @see org.eclipse.core.expressions.IPropertyTester#test(java.lang.Object, java.lang.String, java.lang.Object[], java.lang.Object)
 	 */
+	@Override
 	public boolean test(final Object receiver, final String property,
 			final Object[] args, final Object expectedValue) {
 		try {

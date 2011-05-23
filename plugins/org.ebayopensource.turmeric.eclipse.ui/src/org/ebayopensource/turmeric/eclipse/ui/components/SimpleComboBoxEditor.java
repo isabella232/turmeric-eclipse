@@ -78,7 +78,8 @@ public class SimpleComboBoxEditor extends FieldEditor {
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void adjustForNumColumns(int numColumns) {
+    @Override
+	protected void adjustForNumColumns(int numColumns) {
         if (numColumns > 1) {
             Control control = getLabelControl();
             int left = numColumns;
@@ -99,7 +100,8 @@ public class SimpleComboBoxEditor extends FieldEditor {
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void doFillIntoGrid(Composite parent, int numColumns) {
+    @Override
+	protected void doFillIntoGrid(Composite parent, int numColumns) {
         int comboC = 1;
         if (numColumns > 1) {
             comboC = numColumns - 1;
@@ -119,14 +121,16 @@ public class SimpleComboBoxEditor extends FieldEditor {
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void doLoad() {
+    @Override
+	protected void doLoad() {
         selectItemOfValue(getPreferenceStore().getString(getPreferenceName()));
     }
 
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void doLoadDefault() {
+    @Override
+	protected void doLoadDefault() {
         selectItemOfValue(getPreferenceStore().getDefaultString(
                 getPreferenceName()));
     }
@@ -134,7 +138,8 @@ public class SimpleComboBoxEditor extends FieldEditor {
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void doStore() {
+    @Override
+	protected void doStore() {
         if (selectedValue == null) {
             getPreferenceStore().setToDefault(getPreferenceName());
             return;
@@ -145,7 +150,8 @@ public class SimpleComboBoxEditor extends FieldEditor {
 	/**
 	 * {@inheritDoc}
 	 */
-    public int getNumberOfControls() {
+    @Override
+	public int getNumberOfControls() {
         return 2;
     }
 
@@ -164,7 +170,8 @@ public class SimpleComboBoxEditor extends FieldEditor {
             }
 
             itemList.addSelectionListener(new SelectionAdapter() {
-                public void widgetSelected(SelectionEvent evt) {
+                @Override
+				public void widgetSelected(SelectionEvent evt) {
                     String oldValue = selectedValue;
                     String name = itemList.getText();
                     selectedValue = getSelectedItemValue(name);

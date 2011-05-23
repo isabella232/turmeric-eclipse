@@ -57,6 +57,7 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(final Composite parent) {
 
 		//Set<AssetInfo> libraries = new TreeSet<AssetInfo>();
@@ -79,10 +80,12 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 		setControl(container);
 		
 		IDependencyLazyLoader dependencyLazyLoader = new IDependencyLazyLoader() {		
+			@Override
 			public Set<? extends AssetInfo> getAlreadyAddedLibraries() {
 				return null;
 			}
 
+			@Override
 			public Set<? extends AssetInfo> getLibs() {
 
 				try {

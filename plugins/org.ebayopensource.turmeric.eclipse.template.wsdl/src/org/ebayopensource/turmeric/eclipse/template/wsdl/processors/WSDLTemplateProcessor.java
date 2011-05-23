@@ -181,6 +181,7 @@ public class WSDLTemplateProcessor {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void finalize() throws CommandFailedException {
 		if (WorkspaceUtil.getWorkspace().isAutoBuilding() == false) {
 			try {

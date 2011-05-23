@@ -37,6 +37,7 @@ public class SOASearchTableContentProvider implements IStructuredContentProvider
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof SOASearchResult) {
 			return ((SOASearchResult)inputElement).getElements();
@@ -47,6 +48,7 @@ public class SOASearchTableContentProvider implements IStructuredContentProvider
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void dispose() {
 		
 	}
@@ -54,6 +56,7 @@ public class SOASearchTableContentProvider implements IStructuredContentProvider
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		fTableViewer = (TableViewer) viewer;
 		searchResult = (SOASearchResult)newInput;

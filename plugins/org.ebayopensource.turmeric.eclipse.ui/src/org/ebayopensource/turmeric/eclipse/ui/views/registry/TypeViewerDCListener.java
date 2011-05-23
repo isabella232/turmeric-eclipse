@@ -28,6 +28,7 @@ class TypeViewerDCListener implements IDoubleClickListener {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void doubleClick(DoubleClickEvent event) {
 		if (event.getSelection() instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) event
@@ -39,7 +40,7 @@ class TypeViewerDCListener implements IDoubleClickListener {
 				try {
 					xsdSchema = TurmericCoreActivator.parseSchema(UIActivator
 							.getXSD(selectedLibraryType));
-					XSDTypeDefinition typeDef = (XSDTypeDefinition) xsdSchema
+					XSDTypeDefinition typeDef = xsdSchema
 							.getTypeDefinitions().get(0);
 
 					MessageDialog.openInformation(UIUtil.getActiveShell(),

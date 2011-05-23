@@ -178,6 +178,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public int compareTo(SOAClientEnvironment o) {
 			if (o != null) {
 				return environment.compareTo(o.environment);
@@ -212,6 +213,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc}  
 		 */
+		@Override
 		public void setTargetNamespace(String targetNamespace) {
 			this.targetNamespace = targetNamespace;
 		}
@@ -219,6 +221,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc} 
 		 */
+		@Override
 		public void setServiceName(String serviceName) {
 			this.serviceName = serviceName;
 		}
@@ -226,6 +229,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc} 
 		 */
+		@Override
 		public void setFullyQualifiedServiceName(String fullyQualifiedServiceName) {
 			this.fullyQualifiedServiceName = fullyQualifiedServiceName;
 		}
@@ -233,6 +237,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc} 
 		 */
+		@Override
 		public void setGroup(String group) {
 			this.group = group;
 		}
@@ -241,6 +246,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		 * {@inheritDoc} 
 		 * 
 		 */
+		@Override
 		public void setConsumerId(String consumerId) {
 			this.consumerId = consumerId;
 		}
@@ -248,6 +254,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setServiceInterfaceClassName(String serviceInterfaceClassName) {
 			this.serviceInterfaceClassName = serviceInterfaceClassName;
 		}
@@ -255,6 +262,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setServiceLocation(String serviceLocation) {
 			this.serviceLocation = serviceLocation;
 		}
@@ -262,6 +270,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setWsdlLocation(String wsdlLocation) {
 			this.wsdlLocation = wsdlLocation;
 		}
@@ -269,6 +278,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setServiceBinding(String serviceBinding) {
 			this.serviceBinding = serviceBinding;
 		}
@@ -276,6 +286,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setInvocationUseCase(String invocationUseCase) {
 			this.invocationUseCase = invocationUseCase;
 		}
@@ -283,6 +294,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setRequestDataBinding(String requestDataBinding) {
 			this.requestDataBinding = requestDataBinding;
 		}
@@ -290,6 +302,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setResponseDataBinding(String responseDataBinding) {
 			this.responseDataBinding = responseDataBinding;
 		}
@@ -298,6 +311,7 @@ public interface ISOAConsumerProject extends ISOAProject {
 		 * {@inheritDoc}
 		 * 
 		 */
+		@Override
 		public void setMessageProtocol(String messageProtocol) {
 			this.messageProtocol = messageProtocol;
 		}

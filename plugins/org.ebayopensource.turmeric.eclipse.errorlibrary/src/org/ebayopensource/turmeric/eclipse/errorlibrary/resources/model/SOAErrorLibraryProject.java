@@ -112,6 +112,7 @@ public class SOAErrorLibraryProject extends SOABaseProject {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<String> getSourceDirectoryNames() {
 		List<String> srcDirs = new ArrayList<String>();
 		for (SOAProjectSourceDirectory dir : getSourceDirectories()) {

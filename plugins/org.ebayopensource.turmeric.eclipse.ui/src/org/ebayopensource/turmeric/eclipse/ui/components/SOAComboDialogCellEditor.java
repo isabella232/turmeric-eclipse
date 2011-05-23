@@ -131,14 +131,16 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
 	/**
 	 * {@inheritDoc}
 	 */
-    protected Control createControl(Composite parent) {
+    @Override
+	protected Control createControl(Composite parent) {
 
         comboBox = new CCombo(parent, getStyle());
         comboBox.setFont(parent.getFont());
         fillcomboBox();
 
         comboBox.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
+            @Override
+			public void keyPressed(KeyEvent e) {
                 keyReleaseOccured(e);
             }
         });
@@ -151,7 +153,8 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
              * editor). Then combo will lose focus and the focus lost event will
              * be triggered.
              */
-            public void widgetDefaultSelected(SelectionEvent event) {
+            @Override
+			public void widgetDefaultSelected(SelectionEvent event) {
                 Object newValue = comboBox.getText();
                 Composite parent = comboBox.getParent();
                 if (DIALOG_BUTTON_LABEL.equals(newValue)
@@ -161,7 +164,8 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
                 }
             }
 
-            public void widgetSelected(SelectionEvent event) {
+            @Override
+			public void widgetSelected(SelectionEvent event) {
                 Object newValue = comboBox.getText();
                 Composite parent = comboBox.getParent();
                 if (DIALOG_BUTTON_LABEL.equals(newValue)
@@ -173,7 +177,8 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
         });
 
         comboBox.addTraverseListener(new TraverseListener() {
-            public void keyTraversed(TraverseEvent e) {
+            @Override
+			public void keyTraversed(TraverseEvent e) {
                 if (e.detail == SWT.TRAVERSE_ESCAPE
                         || e.detail == SWT.TRAVERSE_RETURN) {
                     e.doit = false;
@@ -182,7 +187,8 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
         });
 
         comboBox.addFocusListener(new FocusAdapter() {
-            public void focusLost(FocusEvent e) {
+            @Override
+			public void focusLost(FocusEvent e) {
                 SOAComboDialogCellEditor.this.focusLost();
             }
         });
@@ -194,14 +200,16 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
      *
      * @return the object
      */
-    protected Object doGetValue() {
+    @Override
+	protected Object doGetValue() {
         return selectedValue;
     }
 
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void doSetFocus() {
+    @Override
+	protected void doSetFocus() {
         comboBox.setFocus();
     }
 
@@ -211,7 +219,8 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
      *
      * @return the layout data
      */
-    public LayoutData getLayoutData() {
+    @Override
+	public LayoutData getLayoutData() {
         LayoutData data = super.getLayoutData();
         data.minimumWidth = 60;
         if ((comboBox != null) && (comboBox.isDisposed() == false)) {
@@ -225,7 +234,8 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void doSetValue(Object value) {
+    @Override
+	protected void doSetValue(Object value) {
         Assert.isTrue((comboBox != null) && (value != null));
         int selection = ArrayUtils.indexOf(getItems(), value);
         if (selection < 0) {
@@ -301,7 +311,8 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void focusLost() {
+    @Override
+	protected void focusLost() {
         if (isActivated()) {
             postEditing();
         }
@@ -310,7 +321,8 @@ public abstract class SOAComboDialogCellEditor extends CellEditor {
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void keyReleaseOccured(KeyEvent keyEvent) {
+    @Override
+	protected void keyReleaseOccured(KeyEvent keyEvent) {
         if (keyEvent.character == '\u001b') { // Escape character
             fireCancelEditor();
         } else if (keyEvent.character == '\t') { // tab key

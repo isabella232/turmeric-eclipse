@@ -25,6 +25,7 @@ public class SortRegistryHandler extends AbstractHandler {
 	 * This sets the state of the comparator for the view for sorting puproses.
 	 * 
 	 */
+	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchPage page = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
 		IViewPart viewPart = page.findView(RegistryView.VIEW_ID);

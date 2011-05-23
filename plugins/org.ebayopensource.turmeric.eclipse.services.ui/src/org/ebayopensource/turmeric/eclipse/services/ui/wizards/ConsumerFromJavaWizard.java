@@ -23,6 +23,7 @@ import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaPa
 import org.ebayopensource.turmeric.eclipse.services.buildsystem.ServiceCreator;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ConsumerFromJavaWizardPage;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLPage;
+import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.ProjectUtils;
@@ -102,7 +103,7 @@ public class ConsumerFromJavaWizard extends SOABaseWizard {
 			final String workspaceRootDirectory = newConsumerPage
 					.getProjectRootDirectory();
 			if (overrideWorkspaceRoot)
-				ServiceFromNewWSDLPage
+				SOABasePage
 						.saveWorkspaceRoot(workspaceRootDirectory);
 
 			final ConsumerFromJavaParamModel uiModel = createModel(clientProjectName);

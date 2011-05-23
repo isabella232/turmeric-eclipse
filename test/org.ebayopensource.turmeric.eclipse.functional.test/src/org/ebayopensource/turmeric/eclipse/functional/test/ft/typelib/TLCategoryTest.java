@@ -19,7 +19,6 @@ import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import org.ebayopensource.turmeric.common.config.TypeLibraryType;

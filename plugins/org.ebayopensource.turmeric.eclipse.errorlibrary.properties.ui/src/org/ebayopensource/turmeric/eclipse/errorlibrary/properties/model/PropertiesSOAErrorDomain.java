@@ -66,6 +66,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public ISOAErrLibrary getLibrary() {
 		return library;
 	}
@@ -82,6 +83,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getOrganization() {
 		return organization;
 	}
@@ -98,6 +100,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -114,6 +117,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -130,6 +134,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Set<ISOAError> getErrors() {
 		return errors;
 	}
@@ -200,6 +205,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object getEditableValue() {
 		return this;
 	}
@@ -207,6 +213,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		List<IPropertyDescriptor> descriptors = new ArrayList<IPropertyDescriptor>();
 		IPropertyDescriptor descriptor = new PropertyDescriptor("name", "Name");
@@ -221,6 +228,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object getPropertyValue(Object id) {
 		if (id.equals("name")) {
 			return this.name;
@@ -237,6 +245,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean isPropertySet(Object id) {
 		return id.equals("name") || id.equals("version") || id.equals("organization");
 	}
@@ -244,6 +253,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void resetPropertyValue(Object id) {
 		
 	}
@@ -251,6 +261,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setPropertyValue(Object id, Object value) {
 		
 	}
@@ -258,6 +269,7 @@ public class PropertiesSOAErrorDomain implements ISOAErrDomain, IPropertySource 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void addError(ISOAError error) {
 		errors.add(error);
 	}

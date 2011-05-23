@@ -79,6 +79,7 @@ public class ServiceFromBlankWsdlTest extends AbstractTestCase {
 		
 	}
 	
+	@Override
 	@Before
 	public  void setUpBeforeClass() throws Exception {
 	

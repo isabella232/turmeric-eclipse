@@ -28,6 +28,7 @@ public class LibraryTypeComparator implements Comparator<LibraryType>,
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public int compare(LibraryType o1, LibraryType o2) {
 		if (o1 == null && o2 == null)
 			return 0;

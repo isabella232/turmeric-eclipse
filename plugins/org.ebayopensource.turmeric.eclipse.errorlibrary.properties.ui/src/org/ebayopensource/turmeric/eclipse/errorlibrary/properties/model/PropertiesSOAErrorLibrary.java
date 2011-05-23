@@ -55,6 +55,7 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Set<ISOAErrDomain> getDomains() {
 		return domains;
 	}
@@ -90,6 +91,7 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -97,6 +99,7 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -150,6 +153,7 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object getEditableValue() {
 		return this;
 	}
@@ -157,6 +161,7 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		List<IPropertyDescriptor> descriptors = new ArrayList<IPropertyDescriptor>();
 		descriptors.add(new PropertyDescriptor("name", SOAMessages.PROP_KEY_NAME));
@@ -168,6 +173,7 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object getPropertyValue(Object id) {
 		if (id.equals("name")) {
 			return this.name;
@@ -182,6 +188,7 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean isPropertySet(Object id) {
 		return id.equals("name") || id.equals("version");
 	}
@@ -189,6 +196,7 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void resetPropertyValue(Object id) {
 		
 	}
@@ -196,6 +204,7 @@ public class PropertiesSOAErrorLibrary implements ISOAErrLibrary, IPropertySourc
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setPropertyValue(Object id, Object value) {
 		
 	}

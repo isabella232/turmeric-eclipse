@@ -13,14 +13,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.ui.RepositorySystemUIActivator;
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.preferences.IScopeContext;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.FieldEditor;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -34,7 +30,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 /**
  * A field editor for an enumeration type preference. The choices are presented
@@ -211,6 +206,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected void adjustForNumColumns(int numColumns) {
 		Control control = getLabelControl();
 		if (control != null) {
@@ -352,6 +348,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 			}
 		}
 		chooseArea.addDisposeListener(new DisposeListener() {
+			@Override
 			public void widgetDisposed(DisposeEvent event) {
 				chooseArea = null;
 				radioButtons = null;
@@ -469,6 +466,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setEnabled(boolean enabled, Composite parent) {
 		if (useGroup == false) {
 			super.setEnabled(enabled, parent);

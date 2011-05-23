@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeServiceMetadataProps;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,23 +35,23 @@ public class GenTypeServiceMetadataPropsTest {
 	@Test
 	public void testGetCodeGenOptions() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_GENTYPE));
-		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_INTERFACE));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_GENTYPE));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_INTERFACE));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsNulls() throws Exception {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeServiceMetadataProps.PARAM_ADMIN_NAME));
-		assertFalse(map.containsKey(GenTypeServiceMetadataProps.PARAM_NAMESPACE));
-		assertFalse(map.containsKey(GenTypeServiceMetadataProps.PARAM_SERVICE_LAYER_FILE));
-		assertFalse(map.containsKey(GenTypeServiceMetadataProps.PARAM_PR));
-		assertFalse(map.containsKey(GenTypeServiceMetadataProps.PARAM_SCV));
-		assertFalse(map.containsKey(GenTypeServiceMetadataProps.PARAM_SICN));
-		assertFalse(map.containsKey(GenTypeServiceMetadataProps.PARAM_SLAYER));
-		assertFalse(map.containsKey(GenTypeServiceMetadataProps.PARAM_WSDL));
-		assertFalse(map.containsKey(GenTypeServiceMetadataProps.PARAM_GIP));
-		assertFalse(map.containsKey(GenTypeServiceMetadataProps.PARAM_SLAYER));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_ADMIN_NAME));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_NAMESPACE));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_SERVICE_LAYER_FILE));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_PR));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_SCV));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_SICN));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_SLAYER));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_WSDL));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_GIP));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_SLAYER));
 	}
 
 	@Test
@@ -65,21 +66,21 @@ public class GenTypeServiceMetadataPropsTest {
 		model.setOriginalWsdlUrl("http://www.example.com/WSDL.wsdl");
 		model.setServiceInterface("org.ebayopensouce.package.ServiceInterface");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_ADMIN_NAME));
-		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_NAMESPACE));
-		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_SERVICE_LAYER_FILE));
-		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_PR));
-		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_SCV));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_ADMIN_NAME));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_NAMESPACE));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SERVICE_LAYER_FILE));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_PR));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SCV));
 //		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_SICN));
-		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_SLAYER));
-		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_WSDL));
-		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_GIP));
-		assertTrue(map.containsKey(GenTypeServiceMetadataProps.PARAM_GIN));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SLAYER));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_WSDL));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_GIP));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_GIN));
 	}
 	
 	@Test
 	public void testGenTypeServiceMetadataProps() {
-		assertEquals(GenTypeServiceMetadataProps.GENTYPE_SERVICE_METADATA_PROPS, model.getGenType());
+		assertEquals(BaseCodeGenModel.GENTYPE_SERVICE_METADATA_PROPS, model.getGenType());
 	}
 
 }

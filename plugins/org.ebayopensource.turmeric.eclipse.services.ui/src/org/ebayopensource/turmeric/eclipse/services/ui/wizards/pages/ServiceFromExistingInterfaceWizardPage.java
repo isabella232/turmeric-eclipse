@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Text;
  * @author yayu
  * @deprecated Creating service from existing Java interface is no longer supported.
  */
+@Deprecated
 public class ServiceFromExistingInterfaceWizardPage extends
 		AbstractNewServiceWizardPage {
 	private Text serviceInterfaceText;
@@ -49,6 +50,7 @@ public class ServiceFromExistingInterfaceWizardPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		final Composite container = super.createParentControl(parent,1);
         addWorkspaceRootChooser(container);
@@ -79,11 +81,13 @@ public class ServiceFromExistingInterfaceWizardPage extends
         browseButton.setSelection( false );    
         final SelectionListener selectionListener = new SelectionListener()
         {
-            public void widgetDefaultSelected( final SelectionEvent e )
+            @Override
+			public void widgetDefaultSelected( final SelectionEvent e )
             {
                 widgetSelected( e );
             }
-            public void widgetSelected( final SelectionEvent e )
+            @Override
+			public void widgetSelected( final SelectionEvent e )
             {
                 final String fileName = UIUtil.fileDialog( "Select Interface File", "*.java" );
                 if( StringUtils.isBlank( fileName ) )
@@ -100,6 +104,7 @@ public class ServiceFromExistingInterfaceWizardPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean dialogChanged() {
 		final boolean result = super.dialogChanged();
 		if (result == false)

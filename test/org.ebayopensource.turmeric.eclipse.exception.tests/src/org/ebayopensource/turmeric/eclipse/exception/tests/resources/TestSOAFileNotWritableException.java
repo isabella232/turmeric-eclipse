@@ -15,7 +15,6 @@ import java.net.URL;
 
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAFileNotWritableException;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.osgi.framework.internal.protocol.NullURLStreamHandlerService;
 import org.junit.Before;
 import org.junit.Test;
 import org.osgi.framework.Bundle;

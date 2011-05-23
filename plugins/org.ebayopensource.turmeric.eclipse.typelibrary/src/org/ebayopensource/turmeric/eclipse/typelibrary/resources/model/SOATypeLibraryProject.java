@@ -55,6 +55,7 @@ public class SOATypeLibraryProject extends SOABaseProject {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<String> getSourceDirectoryNames() {
 		return ListUtil.arrayList(SOURCE_DIRECTORIES);
 	}

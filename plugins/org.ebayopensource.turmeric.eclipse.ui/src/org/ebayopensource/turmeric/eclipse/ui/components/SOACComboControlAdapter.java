@@ -37,6 +37,7 @@ public class SOACComboControlAdapter implements IControlContentAdapter{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getControlContents(Control control) {
 		return ((CCombo) control).getText();
 	}
@@ -44,6 +45,7 @@ public class SOACComboControlAdapter implements IControlContentAdapter{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setControlContents(Control control, String text,
 			int cursorPosition) {
 		((CCombo) control).setText(text);
@@ -54,6 +56,7 @@ public class SOACComboControlAdapter implements IControlContentAdapter{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void insertControlContents(Control control, String text,
 			int cursorPosition) {
 		CCombo combo = (CCombo) control;
@@ -74,6 +77,7 @@ public class SOACComboControlAdapter implements IControlContentAdapter{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public int getCursorPosition(Control control) {
 		return ((CCombo) control).getSelection().x;
 	}
@@ -81,6 +85,7 @@ public class SOACComboControlAdapter implements IControlContentAdapter{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Rectangle getInsertionBounds(Control control) {
 		CCombo combo = (CCombo) control;
 		int position = combo.getSelection().y;
@@ -97,6 +102,7 @@ public class SOACComboControlAdapter implements IControlContentAdapter{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setCursorPosition(Control control, int index) {
 		((CCombo) control).setSelection(new Point(index, index));
 	}

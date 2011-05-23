@@ -205,11 +205,11 @@ public class TestEclipseMessageUtils {
 	 */
 	@Test
 	public void testSeverityLabel() {
-		Assert.assertNotNull(EclipseMessageUtils.severityLabel(Status.OK));
-		Assert.assertNotNull(EclipseMessageUtils.severityLabel(Status.CANCEL));
-		Assert.assertNotNull(EclipseMessageUtils.severityLabel(Status.WARNING));
-		Assert.assertNotNull(EclipseMessageUtils.severityLabel(Status.INFO));
-		Assert.assertNotNull(EclipseMessageUtils.severityLabel(Status.ERROR));
+		Assert.assertNotNull(EclipseMessageUtils.severityLabel(IStatus.OK));
+		Assert.assertNotNull(EclipseMessageUtils.severityLabel(IStatus.CANCEL));
+		Assert.assertNotNull(EclipseMessageUtils.severityLabel(IStatus.WARNING));
+		Assert.assertNotNull(EclipseMessageUtils.severityLabel(IStatus.INFO));
+		Assert.assertNotNull(EclipseMessageUtils.severityLabel(IStatus.ERROR));
 	}
 
 }

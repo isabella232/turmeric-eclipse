@@ -64,6 +64,7 @@ public abstract class SOASortAction extends Action {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void run() {
 		// Toggle sorting on/off
 		if (fSorted) {

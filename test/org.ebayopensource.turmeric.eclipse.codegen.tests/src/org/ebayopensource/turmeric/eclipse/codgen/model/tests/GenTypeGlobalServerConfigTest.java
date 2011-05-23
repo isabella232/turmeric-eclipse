@@ -11,6 +11,7 @@ package org.ebayopensource.turmeric.eclipse.codgen.model.tests;
 import static org.junit.Assert.*;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeGlobalServerConfig;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.Test;
 
 
@@ -20,7 +21,7 @@ public class GenTypeGlobalServerConfigTest {
 	@Test
 	public void testGenTypeGlobalServerConfig() {
 		GenTypeGlobalServerConfig model = new GenTypeGlobalServerConfig();
-		assertEquals(GenTypeGlobalServerConfig.GENTYPE_GLOBAL_SERVER_CONFIG, model.getGenType());
+		assertEquals(BaseCodeGenModel.GENTYPE_GLOBAL_SERVER_CONFIG, model.getGenType());
 	}
 
 

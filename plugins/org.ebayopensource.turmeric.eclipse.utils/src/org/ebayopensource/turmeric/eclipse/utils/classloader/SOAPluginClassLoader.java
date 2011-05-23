@@ -36,6 +36,7 @@ public class SOAPluginClassLoader extends URLClassLoader {
 	private static final URL[] EMPTY_URLS = new URL[0];
 	private static final Comparator<URL> URL_COMPARATOR = new Comparator<URL>() {
 
+		@Override
 		public int compare(URL o1, URL o2) {
 			return (o1 != null && o2 != null) ? o1.toString().compareTo(
 					o2.toString()) : 0;
@@ -112,6 +113,7 @@ public class SOAPluginClassLoader extends URLClassLoader {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
 
 		Class<?> loadedClass = findLoadedClass(name);
@@ -155,6 +157,7 @@ public class SOAPluginClassLoader extends URLClassLoader {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public URL findResource(String resourceName) {
 		//logger.info("resource name in findresource is " + resourceName);
 		try {

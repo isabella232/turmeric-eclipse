@@ -30,6 +30,7 @@ public class PreferenceListener implements IPropertyChangeListener {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		if (event.getProperty().equals(
 				PreferenceConstants.PREF_REPOSITORY_SYSTEM)) {

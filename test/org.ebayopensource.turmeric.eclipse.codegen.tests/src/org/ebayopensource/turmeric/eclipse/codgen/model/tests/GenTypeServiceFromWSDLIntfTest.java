@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeServiceFromWSDLImpl;
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeServiceFromWSDLIntf;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class GenTypeServiceFromWSDLIntfTest {
 
 	@Test
 	public void testGenTypeServiceFromWSDLIntf() {
-		assertEquals(GenTypeServiceFromWSDLImpl.GENTYPE_SERVICE_FROM_WSDL_INTF, model.getGenType());
+		assertEquals(BaseCodeGenModel.GENTYPE_SERVICE_FROM_WSDL_INTF, model.getGenType());
 	}
 
 }

@@ -43,6 +43,7 @@ public class WsdlUtilTest extends AbstractTestCase {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Override
 	@Before
 	public  void setUpBeforeClass() throws Exception {
 	
@@ -60,6 +61,7 @@ public class WsdlUtilTest extends AbstractTestCase {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Override
 	@After
 	public  void tearDownAfterClass() throws Exception {
 	

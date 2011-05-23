@@ -9,17 +9,12 @@
 package org.ebayopensource.turmeric.eclipse.repositorysystem;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.mavenapi.MavenApiPlugin;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.maven.ide.eclipse.MavenPlugin;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.service.prefs.BackingStoreException;
 
 
 /**
@@ -44,6 +39,7 @@ public class RepositorySystemActivator extends Plugin {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
@@ -59,6 +55,7 @@ public class RepositorySystemActivator extends Plugin {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);

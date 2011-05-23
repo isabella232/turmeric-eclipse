@@ -49,6 +49,7 @@ public class ComplexTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		try {
 			super.createControl(parent, false);
@@ -80,6 +81,7 @@ public class ComplexTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected Map<String, URL> getTemplateTypes() {
 		return getTemplateTypeNames(SOAXSDTemplateSubType.COMPLEX);
 	}

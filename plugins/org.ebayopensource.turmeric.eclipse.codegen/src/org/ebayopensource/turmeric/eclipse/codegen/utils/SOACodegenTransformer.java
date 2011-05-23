@@ -53,6 +53,7 @@ public class SOACodegenTransformer implements ISOACodegenTransformer {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public BaseCodeGenModel transformModel(IProject project,
 			final IProgressMonitor monitor) throws Exception {
 		BaseCodeGenModel model = new BaseCodeGenModel();

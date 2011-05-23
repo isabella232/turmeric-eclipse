@@ -25,6 +25,7 @@ public class TypeLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
 		return null;
 	}
@@ -32,6 +33,7 @@ public class TypeLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		if (element instanceof LibraryType) {
 			LibraryType libType = (LibraryType) element;
@@ -48,6 +50,7 @@ public class TypeLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void addListener(ILabelProviderListener listener) {
 
 	}
@@ -55,6 +58,7 @@ public class TypeLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void dispose() {
 
 	}
@@ -62,6 +66,7 @@ public class TypeLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
@@ -69,6 +74,7 @@ public class TypeLabelProvider implements ITableLabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void removeListener(ILabelProviderListener listener) {
 
 	}

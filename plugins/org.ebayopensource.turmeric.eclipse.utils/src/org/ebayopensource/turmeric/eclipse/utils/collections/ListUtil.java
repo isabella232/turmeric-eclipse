@@ -395,7 +395,8 @@ public class ListUtil
         final Transformer< String > transformer = new Transformer< String >()
         {
             private static final long serialVersionUID = 1631027078150099602L;
-            public String transform( final Object input )
+            @Override
+			public String transform( final Object input )
             {
                 return ObjectUtils.toString( input ).toLowerCase();
             }

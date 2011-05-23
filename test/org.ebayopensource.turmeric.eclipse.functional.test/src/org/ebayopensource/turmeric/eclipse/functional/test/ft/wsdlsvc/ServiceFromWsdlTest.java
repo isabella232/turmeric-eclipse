@@ -76,6 +76,7 @@ public class ServiceFromWsdlTest extends AbstractTestCase {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Override
 	@Before
 	public  void setUpBeforeClass() throws Exception {
 	

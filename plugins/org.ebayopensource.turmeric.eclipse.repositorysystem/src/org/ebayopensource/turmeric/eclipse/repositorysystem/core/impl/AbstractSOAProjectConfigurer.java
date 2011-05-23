@@ -55,6 +55,7 @@ public abstract class AbstractSOAProjectConfigurer implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean updateProject(ISOAProject soaProject, boolean updateClasspath, IProgressMonitor monitor)
 			throws Exception {
 		boolean result = false;

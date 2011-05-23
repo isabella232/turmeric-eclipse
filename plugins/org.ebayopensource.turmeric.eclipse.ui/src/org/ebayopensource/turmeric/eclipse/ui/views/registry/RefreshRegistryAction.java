@@ -25,6 +25,7 @@ import org.eclipse.jface.viewers.StructuredViewer;
  * @author smathew
  * @deprecated Use the new RegistryRefreshHandler
  */
+@Deprecated
 public class RefreshRegistryAction extends Action{
 	private StructuredViewer typeLibraryViewer;
 	private StructuredViewer typeViewer;
@@ -54,6 +55,7 @@ public class RefreshRegistryAction extends Action{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void run() {
 		if (typeLibraryViewer != null) {
 			Job job = new Job("Refresh SOA Typelib Registry") {

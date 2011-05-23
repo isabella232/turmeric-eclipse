@@ -12,9 +12,6 @@ import org.ebayopensource.turmeric.eclipse.buildsystem.utils.PropertiesUtil;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
@@ -35,6 +32,7 @@ public class ServicesContentProvider implements ITreeContentProvider {
 	 * {@inheritDoc}
 	 *  @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
 	 */
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof ProjectInfo) {
 			ProjectInfo projectInfo = (ProjectInfo) parentElement;
@@ -59,6 +57,7 @@ public class ServicesContentProvider implements ITreeContentProvider {
 	 * {@inheritDoc}
 	 *  @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
 	 */
+	@Override
 	public Object getParent(Object element) {
 		return null;
 	}
@@ -68,6 +67,7 @@ public class ServicesContentProvider implements ITreeContentProvider {
 	 * 
 	 *  @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
 	 */
+	@Override
 	public boolean hasChildren(Object element) {
 		return element instanceof ProjectInfo;
 	}
@@ -77,6 +77,7 @@ public class ServicesContentProvider implements ITreeContentProvider {
 	 * 
 	 *  @see org.eclipse.jface.viewers.ITreeContentProvider#getElements(java.lang.Object)
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		try {
 			services = GlobalRepositorySystem.instanceOf()
@@ -93,12 +94,14 @@ public class ServicesContentProvider implements ITreeContentProvider {
 	 * 
 	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
 	 */
+	@Override
 	public void dispose() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 

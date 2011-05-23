@@ -42,14 +42,16 @@ public class ConfigureLibrary implements IObjectActionDelegate {
 	/**
 	 * {@inheritDoc}
 	 */
-    public void setActivePart(final IAction action,
+    @Override
+	public void setActivePart(final IAction action,
             final IWorkbenchPart targetPart) {
     }
 
 	/**
 	 * {@inheritDoc}
 	 */
-    public void run(final IAction action) {
+    @Override
+	public void run(final IAction action) {
         if (SOALogger.DEBUG)
             logger.entering(action, selection);
         try {
@@ -114,7 +116,8 @@ public class ConfigureLibrary implements IObjectActionDelegate {
 	/**
 	 * {@inheritDoc}
 	 */
-    public void selectionChanged(final IAction action,
+    @Override
+	public void selectionChanged(final IAction action,
             final ISelection selection) {
         this.selection = (IStructuredSelection) selection;
     }

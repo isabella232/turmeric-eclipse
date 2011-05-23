@@ -73,6 +73,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		try {
 			final Composite container = super.createParentControl(parent, 4);
@@ -87,6 +88,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 
 			final ModifyListener mListener = new ModifyListener() {
 
+				@Override
 				public void modifyText(ModifyEvent e) {
 					if (domainClassifierList != null)
 						domainClassifierChanged();
@@ -296,6 +298,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 		final String namespace = populateTypeLibraryTargetNamespace();
 
 		final ModifyListener nsModifyListener = new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}

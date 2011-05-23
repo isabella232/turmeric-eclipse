@@ -70,6 +70,7 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		final Composite container = super.createParentControl(parent, 2);
 		createViewer(container);
@@ -168,7 +169,7 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 	 */
 	public EnumTableModel[] getEnumTableModel() {
 		EnumTableModel[] enumTableModel = new EnumTableModel[enumHolder.size()];
-		enumTableModel = (EnumTableModel[]) enumHolder.toArray(enumTableModel);
+		enumTableModel = enumHolder.toArray(enumTableModel);
 		return enumTableModel;
 	}
 
@@ -189,10 +190,12 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 	private static class EnumTableLabelProvider extends LabelProvider implements
 			ITableLabelProvider {
 
+		@Override
 		public Image getColumnImage(Object element, int columnIndex) {
 			return null;
 		}
 
+		@Override
 		public String getColumnText(Object element, int columnIndex) {
 			EnumTableModel enumTableModel = null;
 			if (element instanceof EnumTableModel)
@@ -222,6 +225,7 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 			this.viewer = viewer;
 		}
 
+		@Override
 		public boolean canModify(Object element, String property) {
 			int colIndex = viewer.getColumnNames().indexOf(property);
 			if (colIndex == 0)
@@ -229,19 +233,21 @@ public class EnumTypeWizardDetailsPage extends SOABasePage {
 			return true;
 		}
 
+		@Override
 		public Object getValue(Object element, String property) {
 			EnumTableModel model = (EnumTableModel) element;
 			int colIndex = viewer.getColumnNames().indexOf(property);
 			switch (colIndex) {
 			case 1:
-				return (Object) model.getEnumValue();
+				return model.getEnumValue();
 			case 2:
-				return (Object) model.getEnumDesc();
+				return model.getEnumDesc();
 			default:
 				return null;
 			}
 		}
 
+		@Override
 		public void modify(Object element, String property, Object value) {
 			if (element instanceof Item) {
 				element = ((Item) element).getData();

@@ -92,6 +92,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		final Composite container = super.createParentControl(parent, 2);
 		createViewer(container);
@@ -100,6 +101,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		attribViewer.setCellModifier(new AttribTableCellModifier(attribViewer));
 		attribViewer
 				.addSelectionChangedListener(new ISelectionChangedListener() {
+					@Override
 					public void selectionChanged(SelectionChangedEvent event) {
 						dialogChanged();
 					}
@@ -147,7 +149,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 	public AttribTableModel[] getAttribTableModel() {
 		AttribTableModel[] attribTableModel = new AttribTableModel[attribHolder
 				.size()];
-		attribTableModel = (AttribTableModel[]) attribHolder
+		attribTableModel = attribHolder
 				.toArray(attribTableModel);
 		return attribTableModel;
 	}
@@ -161,10 +163,12 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 	private static class AttribTableLabelProvider extends LabelProvider implements
 			ITableLabelProvider {
 
+		@Override
 		public Image getColumnImage(Object element, int columnIndex) {
 			return null;
 		}
 
+		@Override
 		public String getColumnText(Object element, int columnIndex) {
 			AttribTableModel attribTableModel = null;
 			if (element instanceof AttribTableModel)
@@ -197,6 +201,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 			this.viewer = viewer;
 		}
 
+		@Override
 		public boolean canModify(Object element, String property) {
 			int colIndex = viewer.getColumnNames().indexOf(property);
 			if (colIndex < 0)
@@ -204,23 +209,25 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 			return true;
 		}
 
+		@Override
 		public Object getValue(Object element, String property) {
 			AttribTableModel model = (AttribTableModel) element;
 			int colIndex = viewer.getColumnNames().indexOf(property);
 			switch (colIndex) {
 			case 0:
-				return (Object) model.getAttribName();
+				return model.getAttribName();
 			case 1:
 				final String dataType = AbstractElementManagementWizardPage
 						.getDataTypeOfParameterElement(model);
 				return SCHEMA_DATA_TYPES_LIST.indexOf(dataType);
 			case 2:
-				return (Object) model.getAttribDesc();
+				return model.getAttribDesc();
 			default:
 				return null;
 			}
 		}
 
+		@Override
 		public void modify(Object element, String property, Object value) {
 			if (element instanceof Item) {
 				element = ((Item) element).getData();
@@ -361,6 +368,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public Object getDatatype() {
 			return getAttribType();
 		}
@@ -377,6 +385,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public int getMaxOccurs() {
 			throw new UnsupportedOperationException();
 		}
@@ -384,6 +393,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public int getMinOccurs() {
 			throw new UnsupportedOperationException();
 		}
@@ -391,6 +401,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public String getName() {
 			return getAttribName();
 		}
@@ -398,6 +409,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setDatatype(Object datatype) {
 			setAttribType(datatype);
 		}
@@ -405,6 +417,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setMaxOccurs(int maxOccurs) throws IllegalArgumentException {
 			throw new UnsupportedOperationException();
 		}
@@ -412,6 +425,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setMinOccurs(int minOccurs) throws IllegalArgumentException {
 			throw new UnsupportedOperationException();
 		}
@@ -419,6 +433,7 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public void setName(String name) {
 			setAttribName(name);
 		}

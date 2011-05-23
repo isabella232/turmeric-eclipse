@@ -160,6 +160,7 @@ public class SOASearchResultPage extends AbstractTextSearchViewPage {
 			this.index = index;
 		}
 
+		@Override
 		public void widgetSelected(SelectionEvent e)
 		{
 			if (viewer.getSorter() instanceof SOASearchResultTableViewerSorter) {

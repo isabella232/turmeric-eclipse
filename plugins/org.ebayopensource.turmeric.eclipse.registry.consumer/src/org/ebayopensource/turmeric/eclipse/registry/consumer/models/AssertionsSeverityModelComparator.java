@@ -30,6 +30,7 @@ public class AssertionsSeverityModelComparator implements Comparator<ArtifactVal
 	 * @param o2 the o2
 	 * @return the int
 	 */
+	@Override
 	public int compare(ArtifactValidationResult o1, ArtifactValidationResult o2) {
 		return o1.getAssertionsSeverityModel().ordinal() - o2.getAssertionsSeverityModel().ordinal();
 	}

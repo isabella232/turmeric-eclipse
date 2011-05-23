@@ -137,13 +137,16 @@ public class GenTypeConsumer extends ConsumerCodeGenModel implements IMultiCodeG
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IMultiCodeGenModelIterator iterator() {
 		return new IMultiCodeGenModelIterator() {
 			private Iterator<String> it = getRequiredServices().keySet().iterator();
+			@Override
 			public boolean hasNext() {
 				return it.hasNext();
 			}
 
+			@Override
 			public Map<String, String> nextInputOptions() {
 				if (hasNext() == false) {
 					throw new IllegalArgumentException("all options have ben processed");

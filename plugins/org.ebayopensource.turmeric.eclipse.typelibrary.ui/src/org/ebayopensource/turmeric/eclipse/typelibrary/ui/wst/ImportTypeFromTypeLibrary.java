@@ -36,7 +36,6 @@ import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.actions.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.AddImportCommand;
-import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
@@ -55,6 +54,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.ITextOperationTarget;
+import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
@@ -93,6 +93,7 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 	 * org.eclipse.ui.actions.ActionDelegate#run(org.eclipse.jface.action.IAction
 	 * )
 	 */
+	@Override
 	public void run(IAction action) {
 
 		UIJob inlineType = new UIJob("Inline Type...") {
@@ -171,7 +172,7 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 								// StructuredTextViewer.FORMAT_DOCUMENT,
 								// it will set Definition.getTypes() to null
 								formatter
-										.doOperation(StructuredTextViewer.FORMAT);
+										.doOperation(ISourceViewer.FORMAT);
 								ProgressUtil.progressOneStep(monitor);
 							}
 						}
@@ -193,7 +194,7 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 								// StructuredTextViewer.FORMAT_DOCUMENT,
 								// it will set Definition.getTypes() to null
 								formatter
-										.doOperation(StructuredTextViewer.FORMAT);
+										.doOperation(ISourceViewer.FORMAT);
 							}
 							ProgressUtil.progressOneStep(monitor);
 						}

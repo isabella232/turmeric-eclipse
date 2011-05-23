@@ -237,6 +237,7 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getMetadataFileName() {
 		return SOAProjectConstants.PROPS_FILE_SERVICE_INTERFACE;
 	}

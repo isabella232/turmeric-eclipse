@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeSchema;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,19 +35,19 @@ public class GenTypeSchemaTest {
 	@Test
 	public void testGetCodeGenOptionsMetaDataDirectoryNull() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeSchema.PARAM_MDEST));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_MDEST));
 	}
 
 	@Test
 	public void testGetCodeGenOptionsMetaDataDirectory() {
 		model.setMetadataDirectory("metaDataDirectory");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeSchema.PARAM_MDEST));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_MDEST));
 	}
 	
 	@Test
 	public void testGenTypeSchema() {
-		assertEquals(GenTypeSchema.GENTYPE_SCHEMA, model.getGenType());
+		assertEquals(BaseCodeGenModel.GENTYPE_SCHEMA, model.getGenType());
 	}
 
 }

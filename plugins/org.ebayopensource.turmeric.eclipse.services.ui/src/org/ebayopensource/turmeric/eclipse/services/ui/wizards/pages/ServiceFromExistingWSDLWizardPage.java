@@ -29,6 +29,7 @@ import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.widgets.Composite;
 
@@ -67,6 +68,7 @@ public class ServiceFromExistingWSDLWizardPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(final Composite parent) {
 		try {
 			final Composite container = createParentControl(parent, 4);
@@ -155,6 +157,7 @@ public class ServiceFromExistingWSDLWizardPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean dialogChanged(boolean validateWsdl) {
 		final boolean result = super.dialogChanged(validateWsdl);
 		if (result == false && isPageComplete() == false)
@@ -204,7 +207,7 @@ public class ServiceFromExistingWSDLWizardPage extends
 		if (StringUtils.isNotEmpty(getResourceName())
 				&& Character.isLowerCase(getResourceName().charAt(0))) {
 			updatePageStatus(getResourceNameText(), EclipseMessageUtils
-					.createStatus(SOAMessages.SVCNAME_ERR, Status.WARNING));
+					.createStatus(SOAMessages.SVCNAME_ERR, IStatus.WARNING));
 			return true;
 		}
 		return true;

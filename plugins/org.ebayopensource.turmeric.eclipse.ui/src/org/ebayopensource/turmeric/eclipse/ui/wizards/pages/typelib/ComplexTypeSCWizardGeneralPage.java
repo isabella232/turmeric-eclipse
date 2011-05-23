@@ -53,6 +53,7 @@ public class ComplexTypeSCWizardGeneralPage extends ComplexTypeWizardGeneralPage
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected Map<String, URL> getTemplateTypes() {
 		return getTemplateTypeNames(SOAXSDTemplateSubType.COMPLEX_SIMPLECONTENT);
 	}

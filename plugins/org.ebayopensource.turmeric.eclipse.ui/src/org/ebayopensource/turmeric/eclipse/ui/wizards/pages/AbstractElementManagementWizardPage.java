@@ -180,6 +180,7 @@ public static final String COLUMN_NAME = "name";
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		final Composite container = super.createParentControl(parent, 3);
 		createTypesViewer(container);
@@ -253,6 +254,7 @@ public static final String COLUMN_NAME = "name";
 		table.setLayoutData(data);
 		
 		typesViewer.setContentProvider(new IStructuredContentProvider() {
+			@Override
 			public Object[] getElements(Object inputElement) {
 				if (inputElement instanceof Collection<?>) {
 					return ((Collection<?>)inputElement).toArray();
@@ -260,20 +262,24 @@ public static final String COLUMN_NAME = "name";
 				return Collections.EMPTY_LIST.toArray();
 			}
 
+			@Override
 			public void dispose() {
 				
 			}
 
+			@Override
 			public void inputChanged(Viewer viewer, Object oldInput,
 					Object newInput) {
 			}
 		});
 		
 		typesViewer.setLabelProvider(new ITableLabelProvider() {
+			@Override
 			public Image getColumnImage(Object element, int columnIndex) {
 				return null;
 			}
 
+			@Override
 			public String getColumnText(Object element, int columnIndex) {
 				
 				if (element instanceof IParameterElement) {
@@ -295,16 +301,20 @@ public static final String COLUMN_NAME = "name";
 				return SOAProjectConstants.EMPTY_STRING;
 			}
 
+			@Override
 			public void addListener(ILabelProviderListener listener) {
 			}
 
+			@Override
 			public void dispose() {
 			}
 
+			@Override
 			public boolean isLabelProperty(Object element, String property) {
 				return false;
 			}
 
+			@Override
 			public void removeListener(ILabelProviderListener listener) {
 			}
 			
@@ -312,12 +322,14 @@ public static final String COLUMN_NAME = "name";
 		typesViewer.setColumnProperties(PARAMETER_COLUMN_PROPERTIES);		
 		typesViewer.setCellModifier(new ICellModifier() {
 
+			@Override
 			public boolean canModify(Object element, String property) {
 
 
 				return true;
 			}
 
+			@Override
 			public Object getValue(Object element, String property) {
 				if (element instanceof IParameterElement) {
 					final IParameterElement param = (IParameterElement) element;
@@ -330,13 +342,14 @@ public static final String COLUMN_NAME = "name";
 					} else if (COLUMN_OCCUR_MAX.equals(property)) {
 						if (param.getMaxOccurs() < 0)
 							return OCCUR_UNBOUNDED;
-						return (Object) String.valueOf(param.getMaxOccurs());
+						return String.valueOf(param.getMaxOccurs());
 					}
 				}
 				
 				return SOAProjectConstants.EMPTY_STRING;
 			}
 
+			@Override
 			public void modify(Object element, String property, Object value) {
 				Object obj = null;
 				if (element instanceof Item) {

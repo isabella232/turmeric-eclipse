@@ -58,6 +58,7 @@ public class BuildResourceDeltaVisitor implements IResourceDeltaVisitor {
 	 * @throws CoreException the core exception
 	 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
 	 */
+	@Override
 	public boolean visit(IResourceDelta delta) throws CoreException {
 		// we dont want to go inside the output location.
 		// This is JDTs business

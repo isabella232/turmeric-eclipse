@@ -47,6 +47,7 @@ public class PropertiesErrorRegistryViewProvider implements
 	 * 
 	 * <p>Not implemented.</p>
 	 */
+	@Override
 	public void postClientAreaCreation(Composite parent, TreeViewer errorViewer)
 			throws Exception {
 
@@ -57,6 +58,7 @@ public class PropertiesErrorRegistryViewProvider implements
 	 * 
 	 * <p>Should migrate to commands/handlers/menus extension.</p>
 	 */
+	@Override
 	public void createContextMenu(MenuManager menuMgr, final TreeViewer errorViewer)
 	throws Exception {
 		if (deleteAction == null)
@@ -64,6 +66,7 @@ public class PropertiesErrorRegistryViewProvider implements
 		if (refreshAction == null)
 			refreshAction = new RefreshErrorNodeAction(errorViewer);
 		menuMgr.addMenuListener(new IMenuListener() {
+			@Override
 			public void menuAboutToShow(IMenuManager mgr) {
 				mgr.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
 				if (errorViewer.getSelection() instanceof IStructuredSelection) {
@@ -88,6 +91,7 @@ public class PropertiesErrorRegistryViewProvider implements
 	 * 
 	 * <p>Not implemented.</p>
 	 */
+	@Override
 	public void createToolBar(IToolBarManager mgr, TreeViewer errorViewer)
 			throws Exception {
 

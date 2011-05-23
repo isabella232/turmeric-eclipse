@@ -47,6 +47,7 @@ public class FileProcessor implements ICommand {
 	 * @see org.ebayopensource.turmeric.eclipse.core.ICommand#execute(java.lang.Object,
 	 * org.eclipse.core.runtime.IProgressMonitor)
 	 */
+	@Override
 	public boolean execute(Object object, IProgressMonitor monitor)
 			throws CommandFailedException {
 		if (object == null || !(object instanceof FileProcessorParam)) {

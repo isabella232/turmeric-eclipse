@@ -135,10 +135,12 @@ public class ProjectUtil {
 
 			final IProject curPrj = project;
 			buildJob = new WorkspaceJob("Deleting project " + project.getName()) {
+				@Override
 				public boolean belongsTo(Object family) {
 					return false;
 				}
 
+				@Override
 				public IStatus runInWorkspace(IProgressMonitor monitor)
 						throws CoreException {
 					try {
@@ -163,10 +165,12 @@ public class ProjectUtil {
 			buildJob.join();
 
 			buildJob = new WorkspaceJob("Deleting project " + curPrj.getName()) {
+				@Override
 				public boolean belongsTo(Object family) {
 					return false;
 				}
 
+				@Override
 				public IStatus runInWorkspace(IProgressMonitor monitor)
 						throws CoreException {
 					try {
@@ -192,10 +196,12 @@ public class ProjectUtil {
 			buildJob.join();
 
 			buildJob = new WorkspaceJob("Deleting project " + curPrj.getName()) {
+				@Override
 				public boolean belongsTo(Object family) {
 					return false;
 				}
 
+				@Override
 				public IStatus runInWorkspace(IProgressMonitor monitor)
 						throws CoreException {
 					try {

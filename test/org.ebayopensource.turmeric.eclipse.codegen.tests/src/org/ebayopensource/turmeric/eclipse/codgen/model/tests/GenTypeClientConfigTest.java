@@ -12,6 +12,7 @@ package org.ebayopensource.turmeric.eclipse.codgen.model.tests;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeClientConfig;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,14 +36,14 @@ public class GenTypeClientConfigTest {
 	@Test
 	public void testGenTypClientConfigMetaDataDirectoryNull() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeClientConfig.PARAM_MDEST));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_MDEST));
 	}
 	
 	@Test
 	public void testGenTypClientConfigMetaDataDirectory() {
 		model.setMetadataDirectory("metaDataDirectory");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeClientConfig.PARAM_MDEST));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_MDEST));
 	}
 
 }

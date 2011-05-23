@@ -11,6 +11,7 @@ package org.ebayopensource.turmeric.eclipse.codgen.model.tests;
 import static org.junit.Assert.*;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeTypeMappings;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.Test;
 
 
@@ -20,7 +21,7 @@ public class GenTypeTypeMappingsTest {
 	@Test
 	public void testGetCodeGenOptions() {
 		GenTypeTypeMappings model = new GenTypeTypeMappings();
-		assertEquals(GenTypeTypeMappings.GENTYPE_TYPE_MAPPINGS, model.getGenType());
+		assertEquals(BaseCodeGenModel.GENTYPE_TYPE_MAPPINGS, model.getGenType());
 	}
 
 

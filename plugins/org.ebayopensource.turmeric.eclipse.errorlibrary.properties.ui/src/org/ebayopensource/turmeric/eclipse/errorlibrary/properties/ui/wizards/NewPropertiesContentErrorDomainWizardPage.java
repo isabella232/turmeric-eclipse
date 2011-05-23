@@ -65,6 +65,7 @@ AbstractNewErrorResourceWizardPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		try {
 			final Composite container = super.createParentControl(parent, 4);
@@ -72,6 +73,7 @@ AbstractNewErrorResourceWizardPage {
 			createErrorLibrarySelector(container);
 			final ModifyListener domainModifyListener = new ModifyListener() {
 				
+				@Override
 				public void modifyText(ModifyEvent e) {
 					if (packageText != null && overridePackage.getSelection() == false) {
 						packageText.setText(getDefaultValue(packageText));

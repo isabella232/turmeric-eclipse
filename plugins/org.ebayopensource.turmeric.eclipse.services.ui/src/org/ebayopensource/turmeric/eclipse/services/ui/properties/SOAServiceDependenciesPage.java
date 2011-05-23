@@ -151,6 +151,7 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 	 * {@inheritDoc}
 	 *  @see org.eclipse.ui.IWorkbenchPropertyPage#getElement()
 	 */
+	@Override
 	public IAdaptable getElement() {
 		return null;
 	}
@@ -189,6 +190,7 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		this.serviceList
 				.addSelectionChangedListener(new ISelectionChangedListener() {
 
+					@Override
 					public void selectionChanged(SelectionChangedEvent event) {
 						try {
 							load();
@@ -304,6 +306,7 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 							.get(serviceBindingEditor));
 			bindingList.addModifyListener(new ModifyListener() {
 
+				@Override
 				public void modifyText(ModifyEvent e) {
 					String bindingStr = bindingList.getText();
 					Text svcLoctext = serviceLocationEditor
@@ -406,6 +409,7 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 	 * 
 	 * @see org.eclipse.ui.IWorkbenchPropertyPage#setElement(org.eclipse.core.runtime.IAdaptable)
 	 */
+	@Override
 	public void setElement(IAdaptable element) {
 		try {
 			if (element.getAdapter(IProject.class) instanceof IProject) {

@@ -68,6 +68,7 @@ public class SOAErrorLibrarySearchPage extends DialogPage implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout gridLayout = new GridLayout();	
@@ -113,6 +114,7 @@ public class SOAErrorLibrarySearchPage extends DialogPage implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean performAction() {
 		return false;
 	}
@@ -120,6 +122,7 @@ public class SOAErrorLibrarySearchPage extends DialogPage implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setContainer(ISearchPageContainer container) {
 		this.searchContainer = container;
 		

@@ -55,6 +55,7 @@ private static final SOALogger logger = SOALogger.getLogger();
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean execute(Object parameter, IProgressMonitor monitor) throws CommandFailedException {
 		if (parameter != null && parameter instanceof CommonWSDLProcessorParam) {
 			final CommonWSDLProcessorParam processorModel = (CommonWSDLProcessorParam) parameter;

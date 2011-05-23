@@ -47,6 +47,7 @@ import org.ebayopensource.turmeric.eclipse.validator.core.ErrorMessage;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.RegExConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecoration;
@@ -181,6 +182,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		try {
 			final Composite container = super.createParentControl(parent, 4);
@@ -313,6 +315,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			final Text text = getResourceNameText();
 			text.addModifyListener(new ModifyListener() {
 
+				@Override
 				public void modifyText(ModifyEvent e) {
 					retrieveConsumerIDBtn.setEnabled(StringUtils
 							.isNotBlank(getResourceName()));
@@ -345,14 +348,17 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 				new GridData(GridData.FILL_BOTH));
 		envrionmentList.setContentProvider(new IStructuredContentProvider() {
 
+			@Override
 			public Object[] getElements(Object inputElement) {
 				return environments.toArray();
 			}
 
+			@Override
 			public void dispose() {
 
 			}
 
+			@Override
 			public void inputChanged(Viewer viewer, Object oldInput,
 					Object newInput) {
 
@@ -361,26 +367,32 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		});
 		envrionmentList.setLabelProvider(new ILabelProvider() {
 
+			@Override
 			public Image getImage(Object element) {
 				return null;
 			}
 
+			@Override
 			public String getText(Object element) {
 				return String.valueOf(element);
 			}
 
+			@Override
 			public void addListener(ILabelProviderListener listener) {
 
 			}
 
+			@Override
 			public void dispose() {
 
 			}
 
+			@Override
 			public boolean isLabelProperty(Object element, String property) {
 				return false;
 			}
 
+			@Override
 			public void removeListener(ILabelProviderListener listener) {
 
 			}
@@ -416,6 +428,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 	protected Text createServiceClient(final Composite parent,
 			final boolean clientPropEditable) {
 		final ModifyListener nsModifyListener = new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
@@ -436,6 +449,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getDefaultValue(Text text) {
 		if (text == serviceClientText) {
 			if (clientPropEditable == false) {
@@ -537,7 +551,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		if (StringUtils.isNotEmpty(getResourceName())
 				&& Character.isLowerCase(getResourceName().charAt(0))) {
 			updatePageStatus(getResourceNameText(), EclipseMessageUtils
-					.createStatus(SOAMessages.SVCNAME_ERR, Status.WARNING));
+					.createStatus(SOAMessages.SVCNAME_ERR, IStatus.WARNING));
 			return true;
 		}
 

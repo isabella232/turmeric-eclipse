@@ -41,7 +41,7 @@ public class ProjectInfo extends AssetInfo {
 	 * @param serviceLayer the service layer
 	 */
 	public ProjectInfo(String name, String version, String dir, String serviceLayer) {
-		this(name, version, dir, serviceLayer, AssetInfo.TYPE_PROJECT);
+		this(name, version, dir, serviceLayer, IAssetInfo.TYPE_PROJECT);
 	}
 	
 	/**
@@ -53,7 +53,7 @@ public class ProjectInfo extends AssetInfo {
 	 */
 	public ProjectInfo(String name, String version, String dir) {
 		this(name, version, dir, SOAProjectConstants.ServiceLayer.UNKNOWN.toString(), 
-				AssetInfo.TYPE_PROJECT);
+				IAssetInfo.TYPE_PROJECT);
 	}
 	
 	/**

@@ -95,6 +95,7 @@ public class TableButtonPanelViewer extends TableViewer {
 			}
 		}
 		addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				viewerSelectionChanged(event);
 				resetButtons();

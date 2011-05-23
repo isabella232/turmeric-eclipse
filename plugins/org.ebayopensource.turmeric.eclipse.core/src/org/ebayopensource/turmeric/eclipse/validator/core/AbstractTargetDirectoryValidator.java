@@ -39,6 +39,7 @@ public abstract class AbstractTargetDirectoryValidator extends
 	 * @return the i status
 	 * @throws ValidationInterruptedException the validation interrupted exception
 	 */
+	@Override
 	public IStatus validate(Object object) throws ValidationInterruptedException {
 		IStatus status = super.validate(object);
 		

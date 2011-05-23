@@ -83,6 +83,7 @@ public class ErrorLibraryBuildSystemConfigurer {
 			Comparator<IClasspathEntry> {
 		private static final ClasspathComparator INSTANCE = new ClasspathComparator();
 
+		@Override
 		public int compare(IClasspathEntry e1, IClasspathEntry e2) {
 
 			if (e1.getEntryKind() == e2.getEntryKind())

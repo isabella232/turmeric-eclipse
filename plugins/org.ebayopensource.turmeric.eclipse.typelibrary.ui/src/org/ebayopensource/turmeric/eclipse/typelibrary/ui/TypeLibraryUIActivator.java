@@ -77,6 +77,7 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
@@ -93,6 +94,7 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		if (typeLibMoveDeleteHook != null)
 			ResourcesPlugin.getWorkspace().removeResourceChangeListener(
@@ -175,7 +177,7 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		XSDElementDeclaration element = XSDFactory.eINSTANCE
 				.createXSDElementDeclaration();
 
-		element.setName(StringUtils.defaultString(strName)); //$NON-NLS-1$
+		element.setName(StringUtils.defaultString(strName)); 
 		element.setTypeDefinition(type);
 
 		XSDParticle particle = XSDFactory.eINSTANCE.createXSDParticle();
@@ -317,7 +319,7 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		XSDAttributeDeclaration attribute = XSDFactory.eINSTANCE
 				.createXSDAttributeDeclaration();
 
-		attribute.setName(StringUtils.defaultString(strName)); //$NON-NLS-1$
+		attribute.setName(StringUtils.defaultString(strName)); 
 		attribute.setTypeDefinition(type);
 
 		XSDAttributeUse attributeUse = XSDFactory.eINSTANCE

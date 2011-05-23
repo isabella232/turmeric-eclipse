@@ -41,6 +41,7 @@ public class PropertiesContentErrorTypeCreator implements IErrorTypeCreator {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void preCreation(ErrorParamModel model)
 			throws SOAErrorCreationFailedException {
 	}
@@ -48,6 +49,7 @@ public class PropertiesContentErrorTypeCreator implements IErrorTypeCreator {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void postCreation(ErrorParamModel model, IProgressMonitor monitor)
 			throws SOAErrorCreationFailedException {
 		String errorLibraryName = model.getErrorLibrary();

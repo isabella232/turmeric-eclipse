@@ -75,6 +75,7 @@ public class TypeSelectionWizardPage extends SOABasePage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		container = new Composite(parent, SWT.NONE);
 		container.setLayout(new GridLayout(1, true));

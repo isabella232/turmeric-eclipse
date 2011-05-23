@@ -99,6 +99,7 @@ public class ServiceConsumerFactory<K> {
 				clazz.getClassLoader(), 
 				new Class[] { clazz }, 
 				new InvocationHandler() {
+					@Override
 					public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 						K internal = null;
 						try {

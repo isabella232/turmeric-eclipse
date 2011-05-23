@@ -94,6 +94,7 @@ public class ArtifactValidationResult {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean equals(Object obj) {
 		//we dont count line number
 		if (this == obj)
@@ -112,6 +113,7 @@ public class ArtifactValidationResult {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public int hashCode() {
 		//we dont count line number
 		final int prime = 31;

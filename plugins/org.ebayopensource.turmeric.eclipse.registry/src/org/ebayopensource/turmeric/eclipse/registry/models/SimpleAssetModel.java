@@ -264,6 +264,7 @@ public class SimpleAssetModel {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer();
 		buf.append("Asset Name:");

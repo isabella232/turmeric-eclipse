@@ -88,6 +88,7 @@ public class SOASearchPage extends DialogPage implements ISearchPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean performAction() {
 		NewSearchUI.activateSearchResultView();
 		NewSearchUI.runQueryInBackground(new SOASearchQuery(
@@ -101,6 +102,7 @@ public class SOASearchPage extends DialogPage implements ISearchPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setContainer(ISearchPageContainer container) {
 		this.searchContainer = container;
 	}
@@ -108,6 +110,7 @@ public class SOASearchPage extends DialogPage implements ISearchPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout gridLayout = new GridLayout();	

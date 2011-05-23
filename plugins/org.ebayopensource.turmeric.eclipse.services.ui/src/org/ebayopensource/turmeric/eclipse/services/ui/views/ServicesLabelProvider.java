@@ -28,6 +28,7 @@ public class ServicesLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Image getImage(Object element) {
 		String imageName = DEFAULT_IMAGE;
 		if (element instanceof ServicesViewInterfaceModel) {
@@ -44,6 +45,7 @@ public class ServicesLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getText(Object element) {
 		if (element instanceof ProjectInfo)
 			return ((ProjectInfo) element).getName();
@@ -55,18 +57,21 @@ public class ServicesLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void addListener(ILabelProviderListener listener) {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void dispose() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
@@ -74,6 +79,7 @@ public class ServicesLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void removeListener(ILabelProviderListener listener) {
 	}
 

@@ -39,6 +39,7 @@ public class XSDContentList {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String toString() {
 		StringBuilder xsd = new StringBuilder();
 		for (IXSDPiece piece : content) {

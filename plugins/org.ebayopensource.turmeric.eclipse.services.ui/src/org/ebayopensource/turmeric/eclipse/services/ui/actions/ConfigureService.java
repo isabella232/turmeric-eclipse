@@ -54,6 +54,7 @@ public class ConfigureService implements IObjectActionDelegate {
 	 * {@inheritDoc}
 	 *  @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
 	 */
+	@Override
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 	}
@@ -62,6 +63,7 @@ public class ConfigureService implements IObjectActionDelegate {
 	 * {@inheritDoc}
 	 *  @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(final IAction action) {
 		if (SOALogger.DEBUG)
 			logger.entering(action, selection);
@@ -123,6 +125,7 @@ public class ConfigureService implements IObjectActionDelegate {
 	 * {@inheritDoc}
 	 *  @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

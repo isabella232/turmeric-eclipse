@@ -26,6 +26,7 @@ public class RegistryActivator implements BundleActivator {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		StringBuffer buf = new StringBuffer();
     	buf.append("SOAPlugin.start - ");
@@ -49,6 +50,7 @@ public class RegistryActivator implements BundleActivator {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 	}
 

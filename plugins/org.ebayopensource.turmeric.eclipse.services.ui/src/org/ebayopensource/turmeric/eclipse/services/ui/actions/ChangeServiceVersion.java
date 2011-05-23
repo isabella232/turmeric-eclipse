@@ -46,6 +46,7 @@ public class ChangeServiceVersion implements IObjectActionDelegate {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 		shell = targetPart.getSite().getShell();
@@ -54,6 +55,7 @@ public class ChangeServiceVersion implements IObjectActionDelegate {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void run(final IAction action) {
 		try {
 			if (SOALogger.DEBUG)
@@ -89,6 +91,7 @@ public class ChangeServiceVersion implements IObjectActionDelegate {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

@@ -28,6 +28,7 @@ public class TypeLibraryLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getText(Object element) {
 		if (element instanceof IRegistryTreeNode) {
 			return ((IRegistryTreeNode) element).getLabel();
@@ -38,18 +39,21 @@ public class TypeLibraryLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void addListener(ILabelProviderListener listener) {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void dispose() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
@@ -57,12 +61,14 @@ public class TypeLibraryLabelProvider implements ILabelProvider {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void removeListener(ILabelProviderListener listener) {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Image getImage(Object element) {
 		return null;
 	}

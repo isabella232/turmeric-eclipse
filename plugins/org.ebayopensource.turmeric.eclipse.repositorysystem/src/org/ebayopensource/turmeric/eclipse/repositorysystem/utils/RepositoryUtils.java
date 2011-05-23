@@ -17,6 +17,7 @@ import java.util.TreeSet;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -53,7 +54,7 @@ public class RepositoryUtils {
 		for (IProject project : projects) {
 			if (project.isOpen()) {
 				AssetInfo assetInfo = new AssetInfo(project.getName(),
-						AssetInfo.TYPE_PROJECT);
+						IAssetInfo.TYPE_PROJECT);
 				projectSet.add(assetInfo);
 			}
 		}
@@ -84,7 +85,7 @@ public class RepositoryUtils {
 								StringUtils.trim(props.getProperty(SOAProjectConstants.PROP_KEY_SERVICE_VERSION)),
 								project.getLocation().toString(),
 								StringUtils.trim(props.getProperty(SOAProjectConstants.PROP_KEY_SERVICE_LAYER)),
-								AssetInfo.TYPE_SERVICE_LIBRARY);
+								IAssetInfo.TYPE_SERVICE_LIBRARY);
 
 						projectSet.add(info);
 					}

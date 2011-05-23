@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeErrorLibAll;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,26 +36,26 @@ public class GenTypeErrorLibAllTest {
 	@Test
 	public void testGetCodeGenOptionsDomainsEmpty() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeErrorLibAll.PARAM_DOMAIN));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_DOMAIN));
 	}
 
 	@Test
 	public void testGetCodeGenOptionsDomain() {
 		model.addDomain("org.ebayopensource");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeErrorLibAll.PARAM_DOMAIN));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_DOMAIN));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsErrorLibraryNameBlank() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeErrorLibAll.PARAM_ERROR_LIBRARY_NAME));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_ERROR_LIBRARY_NAME));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsError() {
 		model.setErrorLibraryName("Error");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeErrorLibAll.PARAM_ERROR_LIBRARY_NAME));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_ERROR_LIBRARY_NAME));
 	}
 }

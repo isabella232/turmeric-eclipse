@@ -9,7 +9,6 @@
 package org.ebayopensource.turmeric.eclipse.mavenapi.impl;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +32,6 @@ import org.apache.maven.settings.Profile;
 import org.apache.maven.settings.Settings;
 import org.apache.maven.settings.SettingsUtils;
 import org.codehaus.plexus.PlexusContainer;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
 import org.ebayopensource.turmeric.eclipse.mavenapi.internal.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.mavenapi.internal.resources.Messages;
@@ -105,7 +103,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 			throw new MavenEclipseApiException(Messages.ERROR_NULL_SETTINGS);
 		}
 
-		List<String> activeProfiles = (List<String>) settings
+		List<String> activeProfiles = settings
 				.getActiveProfiles();
 		if (activeProfiles == null || activeProfiles.size() < 1) {
 			throw new MavenEclipseApiException(
@@ -119,7 +117,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 			// .lookup(org.apache.maven.MavenTools.class);
 			RepositorySystem rs = plexus.lookup(RepositorySystem.class);
 			if (needPluginRepo == false) {
-				for (Mirror mirror : (List<Mirror>) settings.getMirrors()) {
+				for (Mirror mirror : settings.getMirrors()) {
 					final org.apache.maven.model.Repository repo = new org.apache.maven.model.Repository();
 					repo.setId(mirror.getId());
 					// repo.setModelEncoding(mirror.getModelEncoding());
@@ -137,7 +135,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 				}
 			}
 
-			List<Profile> profiles = (List<Profile>) settings.getProfiles();
+			List<Profile> profiles = settings.getProfiles();
 			for (Profile p : profiles) {
 				if (activeProfiles.contains(p.getId())) {
 					org.apache.maven.model.Profile mp = SettingsUtils
@@ -336,6 +334,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Model parsePom(final File file)
 			throws MavenEclipseApiException {
 		try {

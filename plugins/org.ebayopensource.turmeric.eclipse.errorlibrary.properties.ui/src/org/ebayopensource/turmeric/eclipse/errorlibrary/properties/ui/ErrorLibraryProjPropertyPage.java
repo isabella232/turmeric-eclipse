@@ -117,7 +117,8 @@ IWorkbenchPropertyPage {
      * 
      * Always returns null.
      */
-    public IAdaptable getElement() {
+    @Override
+	public IAdaptable getElement() {
         return null;
     }
     
@@ -155,7 +156,8 @@ IWorkbenchPropertyPage {
                 "Error Library Version:", editable, "1.0.0");
         this.errorLibVersion.addModifyListener(new ModifyListener() {
 
-            public void modifyText(ModifyEvent e) {
+            @Override
+			public void modifyText(ModifyEvent e) {
                /* try {
                     validateTypeLibraryProperties();
                 } catch (ValidationInterruptedException e1) {
@@ -216,7 +218,8 @@ IWorkbenchPropertyPage {
     /**
      * {@inheritDoc}
      */
-    public void setElement(IAdaptable element) {
+    @Override
+	public void setElement(IAdaptable element) {
         try {
             if (element.getAdapter(IProject.class) instanceof IProject) {
                 IProject project = (IProject) element

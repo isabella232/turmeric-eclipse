@@ -26,6 +26,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegist
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
@@ -98,13 +99,13 @@ public final class PropertiesUtil {
 				.getActiveRepositorySystem().getProjectConfigurer();
 		boolean userChangedSomething = false;
 		for (String str : addedProjects) {
-			configurer.addDependency(projectName, str, AssetInfo.TYPE_PROJECT,
+			configurer.addDependency(projectName, str, IAssetInfo.TYPE_PROJECT,
 					true, monitor);
 			userChangedSomething = true;
 		}
 		ProgressUtil.progressOneStep(monitor);
 		for (String str : removedProjects) {
-			configurer.addDependency(projectName, str, AssetInfo.TYPE_PROJECT,
+			configurer.addDependency(projectName, str, IAssetInfo.TYPE_PROJECT,
 					false, monitor);
 			userChangedSomething = true;
 		}
@@ -142,13 +143,13 @@ public final class PropertiesUtil {
 			boolean userChangedSomething = false;
 			for (String str : addedLibraries) {
 				configurer.addDependency(projectName, str,
-						AssetInfo.TYPE_LIBRARY, true, monitor);
+						IAssetInfo.TYPE_LIBRARY, true, monitor);
 				userChangedSomething = true;
 			}
 			ProgressUtil.progressOneStep(monitor);
 			for (String str : removedLibraries) {
 				configurer.addDependency(projectName, str,
-						AssetInfo.TYPE_LIBRARY, false, monitor);
+						IAssetInfo.TYPE_LIBRARY, false, monitor);
 				userChangedSomething = true;
 			}
 			ProgressUtil.progressOneStep(monitor);
@@ -342,7 +343,7 @@ public final class PropertiesUtil {
 		// there will always be an impl project
 		if (implProjectName != null) {
 			projectConfigurer.addDependency(consumerProjectName,
-					implProjectName, AssetInfo.TYPE_PROJECT,
+					implProjectName, IAssetInfo.TYPE_PROJECT,
 					isLocalBindingSelected, monitor);
 		}
 		ProgressUtil.progressOneStep(monitor);
@@ -352,7 +353,7 @@ public final class PropertiesUtil {
 		
 		if (isLocalBindingSelected) {
 			projectConfigurer.addDependency(consumerProjectName,
-					orgProvider.getSOAFrameworkLibraryIdentifier(SOAFrameworkLibrary.SOASERVER), AssetInfo.TYPE_LIBRARY,
+					orgProvider.getSOAFrameworkLibraryIdentifier(SOAFrameworkLibrary.SOASERVER), IAssetInfo.TYPE_LIBRARY,
 					isLocalBindingSelected, monitor);
 			ProgressUtil.progressOneStep(monitor);
 		} else {
@@ -382,7 +383,7 @@ public final class PropertiesUtil {
 			if (stillHasLocalBinding == false) {
 				projectConfigurer.addDependency(consumerProjectName,
 						orgProvider.getSOAFrameworkLibraryIdentifier(SOAFrameworkLibrary.SOASERVER), 
-						AssetInfo.TYPE_LIBRARY,
+						IAssetInfo.TYPE_LIBRARY,
 						false, monitor);
 				ProgressUtil.progressOneStep(monitor);
 			}

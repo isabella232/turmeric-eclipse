@@ -57,6 +57,7 @@ public class RemoveType extends AbastractTypeLibraryAtion {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void run(IAction action) {
 		
 		UIJob removeType = new UIJob("Remove Type...") {

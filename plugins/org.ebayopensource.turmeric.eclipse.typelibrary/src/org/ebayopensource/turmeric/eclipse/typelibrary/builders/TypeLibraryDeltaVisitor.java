@@ -60,6 +60,7 @@ public class TypeLibraryDeltaVisitor implements IResourceDeltaVisitor {
 	 * @throws CoreException the core exception
 	 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
 	 */
+	@Override
 	public boolean visit(IResourceDelta delta) throws CoreException {
 		if (!StringUtils.isEmpty(delta.getProjectRelativePath().toString())
 				&& delta.getProjectRelativePath().toString().endsWith(

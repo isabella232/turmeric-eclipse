@@ -27,6 +27,7 @@ public abstract class AbstractErrUIComp implements ISOAErrUIComp {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getName() {
 		return "";
 	}
@@ -34,6 +35,7 @@ public abstract class AbstractErrUIComp implements ISOAErrUIComp {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getVersion() {
 		return "";
 	}

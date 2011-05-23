@@ -124,6 +124,7 @@ public class SOASearchQuery implements ISearchQuery{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean canRerun() {
 		return true;
 	}
@@ -131,6 +132,7 @@ public class SOASearchQuery implements ISearchQuery{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean canRunInBackground() {
 		return true;
 	}
@@ -138,6 +140,7 @@ public class SOASearchQuery implements ISearchQuery{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getLabel() {
 		return "Searching for SOA Services";
 	}
@@ -145,6 +148,7 @@ public class SOASearchQuery implements ISearchQuery{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer();
 		if (StringUtils.isNotBlank(serviceName)) {
@@ -170,6 +174,7 @@ public class SOASearchQuery implements ISearchQuery{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public ISearchResult getSearchResult() {
 		if (searchResult == null) {
 			searchResult = new SOASearchResult(this);
@@ -198,6 +203,7 @@ public class SOASearchQuery implements ISearchQuery{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IStatus run(IProgressMonitor monitor)
 			throws OperationCanceledException {
 		monitor.beginTask("Searching for SOA Services...", IProgressMonitor.UNKNOWN);

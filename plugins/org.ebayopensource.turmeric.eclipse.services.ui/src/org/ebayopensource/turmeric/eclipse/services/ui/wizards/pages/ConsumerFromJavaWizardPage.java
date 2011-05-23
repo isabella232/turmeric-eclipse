@@ -92,6 +92,7 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		try {
 			final Composite container = super.createParentControl(parent, 4);
@@ -153,6 +154,7 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 			final Text text = getResourceNameText();
 			
 			text.addModifyListener(new ModifyListener() {
+				@Override
 				public void modifyText(ModifyEvent e) {
 					try {
 						setRetrieveConsumerIDEnabled();

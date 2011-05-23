@@ -45,11 +45,11 @@ public class EclipseMessageUtils {
 
 	static {
 		Map<Integer, String> map = new ConcurrentHashMap<Integer, String>();
-		map.put(Status.OK, STATUS_LABEL_OK);
-		map.put(Status.CANCEL, STATUS_LABEL_CANCEL);
-		map.put(Status.WARNING, STATUS_LABEL_WARNING);
-		map.put(Status.INFO, STATUS_LABEL_INFO);
-		map.put(Status.ERROR, STATUS_LABEL_ERROR);
+		map.put(IStatus.OK, STATUS_LABEL_OK);
+		map.put(IStatus.CANCEL, STATUS_LABEL_CANCEL);
+		map.put(IStatus.WARNING, STATUS_LABEL_WARNING);
+		map.put(IStatus.INFO, STATUS_LABEL_INFO);
+		map.put(IStatus.ERROR, STATUS_LABEL_ERROR);
 		SEVERITY_LABELS = Collections.unmodifiableMap(map);
 	}
 
@@ -65,9 +65,9 @@ public class EclipseMessageUtils {
 	 */
 	public static Status createAssertSafeStatus(int severity, String pluginId,
 			int code, String message, Throwable exception) {
-		if (!(severity == Status.OK || severity == Status.ERROR
-				|| severity == Status.WARNING || severity == Status.INFO || severity == Status.CANCEL)) {
-			severity = Status.INFO;
+		if (!(severity == IStatus.OK || severity == IStatus.ERROR
+				|| severity == IStatus.WARNING || severity == IStatus.INFO || severity == IStatus.CANCEL)) {
+			severity = IStatus.INFO;
 
 		}
 		if (StringUtils.isEmpty(pluginId)) {
@@ -482,6 +482,7 @@ public class EclipseMessageUtils {
 		 * @return the path
 		 * @see IResourceStatus#getPath()
 		 */
+		@Override
 		public IPath getPath() {
 			return path;
 		}
@@ -534,6 +535,7 @@ public class EclipseMessageUtils {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public String toString() {
 			StringBuffer sb = new StringBuffer();
 			sb.append("[type: "); //$NON-NLS-1$

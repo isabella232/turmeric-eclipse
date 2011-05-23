@@ -44,6 +44,7 @@ public abstract class AbstractMavenTypeRegistryBridge implements ITypeRegistryBr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Set<AssetInfo> getAllTypeLibraries() throws Exception {
 		return MavenCoreUtils.getAllTypeLibraries();
 	}
@@ -51,6 +52,7 @@ public abstract class AbstractMavenTypeRegistryBridge implements ITypeRegistryBr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<AssetInfo> getAllLatestTypeLibraries() throws Exception {
 		Map<String, AssetInfo> data = new ConcurrentHashMap<String, AssetInfo>();
 		for (AssetInfo asset : MavenCoreUtils.getAllTypeLibraries()) {
@@ -70,6 +72,7 @@ public abstract class AbstractMavenTypeRegistryBridge implements ITypeRegistryBr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean createTypeLibrary(SOABaseProject soaBaseProject)
 			throws Exception {
 		return false;
@@ -78,6 +81,7 @@ public abstract class AbstractMavenTypeRegistryBridge implements ITypeRegistryBr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean deleteTypeLibrary(String typeLibName) throws Exception {
 		return false;
 	}
@@ -85,6 +89,7 @@ public abstract class AbstractMavenTypeRegistryBridge implements ITypeRegistryBr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean typeLibraryExists(String typeLibName) throws Exception {
 		return MavenCoreUtils.isTypeLibraryExist(typeLibName);
 	}
@@ -92,6 +97,7 @@ public abstract class AbstractMavenTypeRegistryBridge implements ITypeRegistryBr
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Collection<String> getRequiredLibrariesForTypeLibraryProject() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem().getActiveOrganizationProvider()
 		.getDefaultDependencies(SOAProjectConstants.SupportedProjectType.TYPE_LIBRARY);

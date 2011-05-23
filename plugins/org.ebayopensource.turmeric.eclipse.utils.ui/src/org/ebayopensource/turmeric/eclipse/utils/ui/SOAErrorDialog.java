@@ -127,7 +127,8 @@ public class SOAErrorDialog extends IconAndMessageDialog {
      *
      * @param id the id
      */
-    protected void buttonPressed(int id) {
+    @Override
+	protected void buttonPressed(int id) {
         if (id == IDialogConstants.DETAILS_ID) {
             showDetialsArea();
         } else {
@@ -138,7 +139,8 @@ public class SOAErrorDialog extends IconAndMessageDialog {
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void configureShell(Shell shell) {
+    @Override
+	protected void configureShell(Shell shell) {
         super.configureShell(shell);
         shell.setText(errorDialogTitle);
     }
@@ -146,7 +148,8 @@ public class SOAErrorDialog extends IconAndMessageDialog {
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void createButtonsForButtonBar(Composite parent) {
+    @Override
+	protected void createButtonsForButtonBar(Composite parent) {
         // create OK and Details buttons
         String okLabel = IDialogConstants.OK_LABEL;
         String cancelLabel = IDialogConstants.CANCEL_LABEL;
@@ -170,7 +173,8 @@ public class SOAErrorDialog extends IconAndMessageDialog {
      * @param parent the parent
      * @return the control
      */
-    protected Control createDialogArea(Composite parent) {
+    @Override
+	protected Control createDialogArea(Composite parent) {
         createMessageArea(parent);
         // create content area
         Composite composite = new Composite(parent, SWT.NONE);
@@ -193,7 +197,8 @@ public class SOAErrorDialog extends IconAndMessageDialog {
 	/**
 	 * {@inheritDoc}
 	 */
-    protected void createDialogAndButtonArea(Composite parent) {
+    @Override
+	protected void createDialogAndButtonArea(Composite parent) {
         super.createDialogAndButtonArea(parent);
         if (this.dialogArea instanceof Composite) {
             Composite dialogComposite = (Composite) dialogArea;
@@ -208,7 +213,8 @@ public class SOAErrorDialog extends IconAndMessageDialog {
      *
      * @return the image
      */
-    protected Image getImage() {
+    @Override
+	protected Image getImage() {
         if (status != null) {
             if (status.getSeverity() == IStatus.WARNING
                     || hasCancelButton == true) {
@@ -249,14 +255,16 @@ public class SOAErrorDialog extends IconAndMessageDialog {
             /*
              * @see SelectionListener.widgetSelected (SelectionEvent)
              */
-            public void widgetSelected(SelectionEvent e) {
+            @Override
+			public void widgetSelected(SelectionEvent e) {
                 copyDetailsToClipboard();
             }
 
             /*
              * @see SelectionListener.widgetDefaultSelected(SelectionEvent)
              */
-            public void widgetDefaultSelected(SelectionEvent e) {
+            @Override
+			public void widgetDefaultSelected(SelectionEvent e) {
                 copyDetailsToClipboard();
             }
         });
@@ -271,7 +279,8 @@ public class SOAErrorDialog extends IconAndMessageDialog {
      *
      * @return the int
      */
-    public int open() {
+    @Override
+	public int open() {
         if (shouldShow(status, filterMask)) {
             return super.open();
         }
@@ -484,7 +493,8 @@ public class SOAErrorDialog extends IconAndMessageDialog {
 	/**
 	 * {@inheritDoc}
 	 */
-    public boolean close() {
+    @Override
+	public boolean close() {
         if (clipboard != null) {
             clipboard.dispose();
         }
@@ -504,7 +514,8 @@ public class SOAErrorDialog extends IconAndMessageDialog {
     	
     	public static StatusComparator INSTANCE = new StatusComparator();
 
-    	public int compare(IStatus status1, IStatus status2) {
+    	@Override
+		public int compare(IStatus status1, IStatus status2) {
     		return status2.getSeverity() - status1.getSeverity();
     	}
     	

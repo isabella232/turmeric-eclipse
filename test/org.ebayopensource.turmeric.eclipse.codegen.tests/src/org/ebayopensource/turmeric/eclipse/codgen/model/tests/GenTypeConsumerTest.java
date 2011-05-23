@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeConsumer;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -36,53 +37,53 @@ public class GenTypeConsumerTest {
 	@Test
 	public void testGetCodeGenOptionsGenFolderNull() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeConsumer.PARAM_JDEST));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_JDEST));
 	}
 
 	@Test
 	public void testGetCodeGenOptionsGenFolder() {
 		model.setGenFolder("someFolder");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeConsumer.PARAM_JDEST));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_JDEST));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsServiceLocationNull() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeConsumer.PARAM_SL));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_SL));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsServiceLocation() {
 		model.setServiceLocation("someServiceLocation");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeConsumer.PARAM_SL));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_SL));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsDefaultEnvironmentNameNull() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeConsumer.PARAM_ENVIRONMENT));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_ENVIRONMENT));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsEnvironmentName() {
 		model.setDefaultEnvironmentName("someEnvironment");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeConsumer.PARAM_ENVIRONMENT));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_ENVIRONMENT));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsEnvMapperNull() {
 		Map<String, String> map = model.getCodeGenOptions();
-		assertFalse(map.containsKey(GenTypeConsumer.PARAM_ENV_MAPPER));
+		assertFalse(map.containsKey(BaseCodeGenModel.PARAM_ENV_MAPPER));
 	}
 	
 	@Test
 	public void testGetCodeGenOptionsEnvironmentMapper() {
 		model.setEnvMapper("someEnvironmentMapper");
 		Map<String, String> map = model.getCodeGenOptions();
-		assertTrue(map.containsKey(GenTypeConsumer.PARAM_ENV_MAPPER));
+		assertTrue(map.containsKey(BaseCodeGenModel.PARAM_ENV_MAPPER));
 	}
 	
 	

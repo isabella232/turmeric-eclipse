@@ -70,6 +70,7 @@ public class DataTypeManagementWizardPage extends AbstractElementManagementWizar
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<IParameterElement> getElements() {
 		return this.elements;
 	}
@@ -109,6 +110,7 @@ public class DataTypeManagementWizardPage extends AbstractElementManagementWizar
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected Object openTypeSelectorDialog(Shell shell, LibraryType[] libTypes) {
 		TypeSelector typeSelector = new TypeSelector(shell,
 				"Select Type",	libTypes,
@@ -122,6 +124,7 @@ public class DataTypeManagementWizardPage extends AbstractElementManagementWizar
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected List<LibraryType> getSelectedLibraryTypes() throws Exception {
 		return SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
 		.getAllTypes();

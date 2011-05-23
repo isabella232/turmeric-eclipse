@@ -93,6 +93,7 @@ public class SOAToolFileUrlHandler extends URLStreamHandler {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public URLConnection openConnection(URL url) throws IOException {
 
 		if (expectedUrl == null)

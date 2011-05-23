@@ -78,6 +78,7 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public ISOAErrorLibraryWizardPageProvider getErrorLibraryWizardPageProvider() {
 		if (errorLibWizardProvider == null) {
 			errorLibWizardProvider = new PropertiesErrorLibraryWizardPageProvider();
@@ -88,6 +89,7 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public ISOAErrorLibraryWizardPageProvider getErrorWizardPageProvider() {
 		if (errorWizardProvider == null) {
 			errorWizardProvider = new PropertiesErrorWizardPageProvider();
@@ -98,6 +100,7 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public ISOAErrorLibraryWizardPageProvider getErrorDomainWizardPageProvider() {
 		if (errorDomainWizardProvider == null) {
 			errorDomainWizardProvider = new PropertiesDomainWizardPageProvider();
@@ -108,6 +111,7 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getProviderID() {
 		return PROVIDER_ID;
 	}
@@ -115,6 +119,7 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IErrorLibraryCreator getErrorLibraryCreator() {
 		if (errorCreator == null) {
 			errorCreator = new PropertiesContentErrorLibraryCreator();
@@ -125,6 +130,7 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IErrorDomainCreator getErrorDomainCreator() {
 		if (domainCreator == null) {
 			domainCreator = new PropertiesContentErrorDomainCreator();
@@ -135,6 +141,7 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IErrorTypeCreator getErrorTypeCreator() {
 		if (typeCreator == null) {
 			typeCreator = new PropertiesContentErrorTypeCreator();
@@ -145,6 +152,7 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IErrorRegistryViewProvider getErrorRegistryViewProvider() {
 		if (viewProvider == null) {
 			viewProvider = new PropertiesErrorRegistryViewProvider();
@@ -155,6 +163,7 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<String> getSourceSubFolders(ISOAProject project) {
 		List<String> folders = new ArrayList<String>();
 		folders.add(PropertiesSOAConstants.FOLDER_ERROR_DOMAIN + "/" + project.getProjectName());
@@ -164,6 +173,7 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getImportErrorSource(IProject project, ISOAError error) {
 		String retCode = PropertiesSOAConstants.IMPORT_CODE_ERROR_CONSTR;
 		retCode = StringUtils.replace(retCode, "$error", error.getName().toUpperCase());

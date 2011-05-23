@@ -67,7 +67,7 @@ public class TLArtifactValidator implements IResourceVisitor {
 	public boolean isMatches() {
 		if (files.size() > 0) {
 			for (Iterator<File> iterator = files.iterator(); iterator.hasNext();) {
-				File file = (File) iterator.next();
+				File file = iterator.next();
 				System.out.println("Goldcopy extra file: " + file.getAbsolutePath() );
 			}
 		}
@@ -78,6 +78,7 @@ public class TLArtifactValidator implements IResourceVisitor {
 	 * {@inheritDoc}
 	 */
 	
+	@Override
 	public boolean visit(IResource resource) throws CoreException {
 
 		if (!matches) return false;

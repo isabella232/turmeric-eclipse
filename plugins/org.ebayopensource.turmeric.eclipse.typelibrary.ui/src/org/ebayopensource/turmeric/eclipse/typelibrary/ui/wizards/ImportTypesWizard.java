@@ -74,6 +74,7 @@ public class ImportTypesWizard extends AbstractTypeLibraryWizard {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean canFinish() {
 		if (getContainer().getCurrentPage() == typeSelectPage) {
 			return typeSelectPage.needNewTypeLibraryCreation() == false

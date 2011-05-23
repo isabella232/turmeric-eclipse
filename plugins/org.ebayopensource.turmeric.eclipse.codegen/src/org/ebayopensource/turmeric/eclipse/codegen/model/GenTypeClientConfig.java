@@ -87,6 +87,7 @@ public class GenTypeClientConfig extends ConsumerCodeGenModel implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IMultiCodeGenModelIterator iterator() {
 		final List<SOAClientEnvironment> envs = new ArrayList<SOAClientEnvironment>();
 		for (String env : environments) {
@@ -97,10 +98,12 @@ public class GenTypeClientConfig extends ConsumerCodeGenModel implements
 		return new IMultiCodeGenModelIterator() {
 			private Iterator<SOAClientEnvironment> it = envs.iterator();
 
+			@Override
 			public boolean hasNext() {
 				return it.hasNext();
 			}
 
+			@Override
 			public Map<String, String> nextInputOptions() {
 				if (hasNext() == false) {
 					throw new IllegalArgumentException(

@@ -47,6 +47,7 @@ public abstract class AbstractRegistryTreeNode implements IRegistryTreeNode {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object getNode() {
 		return node;
 	}
@@ -54,6 +55,7 @@ public abstract class AbstractRegistryTreeNode implements IRegistryTreeNode {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IRegistryTreeNode getParent() {
 		return parent;
 	}
@@ -61,6 +63,7 @@ public abstract class AbstractRegistryTreeNode implements IRegistryTreeNode {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setNode(Object object) {
 		this.node = object;
 	}
@@ -68,6 +71,7 @@ public abstract class AbstractRegistryTreeNode implements IRegistryTreeNode {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setParent(IRegistryTreeNode parent) {
 		this.parent = parent;
 	}
@@ -75,6 +79,7 @@ public abstract class AbstractRegistryTreeNode implements IRegistryTreeNode {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getLabel() {
 		return getNode() != null ? getNode().toString() 
 				: SOAProjectConstants.EMPTY_STRING;

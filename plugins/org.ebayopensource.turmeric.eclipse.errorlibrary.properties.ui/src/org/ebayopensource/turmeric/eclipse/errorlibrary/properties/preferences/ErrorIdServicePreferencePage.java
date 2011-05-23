@@ -50,6 +50,7 @@ public class ErrorIdServicePreferencePage extends FieldEditorPreferencePage
 	 * GUI blocks needed to manipulate various types of preferences. Each field
 	 * editor knows how to save and restore itself.
 	 */
+	@Override
 	public void createFieldEditors() {
 		hostSelectionField = new RadioGroupFieldEditor(
 				ErrorIdServicePreferenceConstants.HOSTSELECTION,
@@ -72,6 +73,7 @@ public class ErrorIdServicePreferencePage extends FieldEditorPreferencePage
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void init(IWorkbench workbench) {
 	}
 

@@ -19,6 +19,7 @@ import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractSelectionSou
  * @author yayu
  * @deprecated Creating service from existing Java interface is no longer supported.
  */
+@Deprecated
 public class ChooseServiceSourceWizardPage extends
 		AbstractSelectionSourceWizardPage {
 

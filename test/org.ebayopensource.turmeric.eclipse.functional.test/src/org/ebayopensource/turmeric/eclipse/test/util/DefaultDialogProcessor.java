@@ -15,6 +15,7 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 
 public class DefaultDialogProcessor implements IDialogProcessor {
 
+	@Override
 	public void processDialog(Object dialog) {
 
 		/**

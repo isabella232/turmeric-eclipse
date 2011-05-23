@@ -85,10 +85,12 @@ public class ComplexTypeCCWizardGeneralPage extends
 		extensionTypeButton.setText("&Select...");
 		extensionTypeButton.setSelection(false);
 		extensionTypeButton.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				TypeSelector typeSelector = null;
 				try {
@@ -142,6 +144,7 @@ public class ComplexTypeCCWizardGeneralPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected Map<String, URL> getTemplateTypes() {
 		return getTemplateTypeNames(SOAXSDTemplateSubType.COMPLEX_COMPLEXCONTENT);
 	}

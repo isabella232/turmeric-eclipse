@@ -169,6 +169,7 @@ public abstract class AbstractNewServiceWizardPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected boolean dialogChanged() {
 		if (super.dialogChanged() == false)
 			return false;
@@ -317,6 +318,7 @@ public abstract class AbstractNewServiceWizardPage extends
 		final String labelText = "&Admin Name:";
 		final String tooltip = "the admin or interface project name of the new service";
 		final ModifyListener adminNameListener = new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				if (adminNameText == null || overrideAdminNameButton == null) {
 					return;
@@ -375,9 +377,11 @@ public abstract class AbstractNewServiceWizardPage extends
 		typeFoldingButton.setSelection(true);// we are making type folding to be
 												// checked by default
 		typeFoldingButton.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (typeNamespaceText != null) {
 					typeNamespaceText.setEnabled(!typeFoldingButton
@@ -483,6 +487,7 @@ public abstract class AbstractNewServiceWizardPage extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getDefaultResourceName() {
 		return "NewService";
 	}

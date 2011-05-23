@@ -11,7 +11,6 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewPart;
@@ -105,6 +104,7 @@ public class RegistryRefreshHandler extends AbstractHandler implements IHandler 
 				/**
 				 * Refresh the tree viewer with the data
 				 */
+				@Override
 				public void run() {
 					typeLibraryViewer.setInput(input);
 					typeLibraryViewer.refresh();

@@ -86,6 +86,7 @@ public class AssertionStatus extends Status implements IValidationStatus {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public int getLineNumber() {
 		return lineNumber;
 	}
@@ -93,6 +94,7 @@ public class AssertionStatus extends Status implements IValidationStatus {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setLineNumber(int lineNumber){
 		this.lineNumber = lineNumber;
 	}
@@ -106,7 +108,7 @@ public class AssertionStatus extends Status implements IValidationStatus {
 		String title = null;
 		switch (getSeverity()) {
 		case IStatus.WARNING:
-			if (getCode() == AssertionStatus.CODE_MAY)
+			if (getCode() == IValidationStatus.CODE_MAY)
 				title = "May Fix Issue: ";
 			else
 				title = "Should Fix Issue: ";

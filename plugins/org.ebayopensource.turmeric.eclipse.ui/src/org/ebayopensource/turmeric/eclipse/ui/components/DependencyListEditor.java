@@ -214,7 +214,7 @@ public class DependencyListEditor extends ListEditor {
 				.open(parentComposite.getShell(),
 						this.soaProject, availableLibs, getLibraries());
 				if (result.isEmpty() == false && result.iterator().hasNext()) {
-					libInfo = (AssetInfo)result.iterator().next();
+					libInfo = result.iterator().next();
 				}
 				/*libInfo = GlobalRepositorySystem.instanceOf()
 						.getActiveRepositorySystem().getProjectConfigurer()

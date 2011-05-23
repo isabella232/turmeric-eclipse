@@ -41,6 +41,7 @@ public class EnumTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		try {
 			super.createControl(parent, false);
@@ -56,6 +57,7 @@ public class EnumTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected Map<String, URL> getTemplateTypes() {
 		return getTemplateTypeNames(SOAXSDTemplateSubType.ENUM);
 	}
@@ -63,6 +65,7 @@ public class EnumTypeWizardGeneralPage extends AbstractNewTypeWizardPage {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected void createTypeCombo(Composite parent, String typeLabel) {
 		baseTypeComp = createCCombo(parent, typeLabel, false,
 				SOATypeLibraryConstants.SCHEMA_DATA_TYPES, 

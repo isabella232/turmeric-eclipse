@@ -55,6 +55,7 @@ public class AssertionServicePreferencePage
 	 * of preferences. Each field editor knows how to save and
 	 * restore itself.
 	 */
+	@Override
 	public void createFieldEditors() {
 		final Composite fieldParent = getFieldEditorParent();
 		enableASField = new BooleanFieldEditor(
@@ -98,6 +99,7 @@ public class AssertionServicePreferencePage
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void init(IWorkbench workbench) {
 	}
 	

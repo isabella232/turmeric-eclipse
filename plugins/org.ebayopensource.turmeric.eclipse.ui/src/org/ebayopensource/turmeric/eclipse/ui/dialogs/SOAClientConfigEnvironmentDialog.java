@@ -135,6 +135,7 @@ public class SOAClientConfigEnvironmentDialog extends TitleAreaDialog {
 		environmentText.setItems(SOAProjectConstants.EBAY_POOL_TYPES);
 		environmentText.addModifyListener(new ModifyListener() {
 
+			@Override
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}

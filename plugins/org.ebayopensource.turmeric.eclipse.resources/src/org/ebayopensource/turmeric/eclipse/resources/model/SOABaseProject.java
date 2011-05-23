@@ -54,6 +54,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IProject getProject() {
 		return eclipseMetadata != null ? eclipseMetadata.getProject() : null;
 	}
@@ -61,6 +62,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public AbstractSOAMetadata getMetadata() {
 		return metadata;
 	}
@@ -68,6 +70,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setMetadata(AbstractSOAMetadata soaMetadata) {
 		final Class<?> clazz = getSOAMetadataClass();
 		if (clazz.isInstance(soaMetadata)) {
@@ -130,6 +133,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IPath getRepositoryPath() {
 		return repositoryPath;
 	}
@@ -146,6 +150,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Set<String> getRequiredLibraries() {
 		return requiredLibraries;
 	}
@@ -153,6 +158,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setRequiredLibraries(Set<String> requiredLibraries) {
 		this.requiredLibraries = requiredLibraries;
 	}
@@ -160,6 +166,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Set<String> getRequiredProjects() {
 		return requiredProjects;
 	}
@@ -167,6 +174,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setRequiredProjects(Set<String> requiredProjects) {
 		this.requiredProjects = requiredProjects;
 	}
@@ -174,6 +182,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<SOAProjectSourceDirectory> getSourceDirectories() {
 		if (sourceDirectories == null) {
 			sourceDirectories = new ArrayList<SOAProjectSourceDirectory>();
@@ -207,6 +216,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public SOAProjectEclipseMetadata getEclipseMetadata() {
 		return eclipseMetadata;
 	}
@@ -214,6 +224,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setEclipseMetadata(
 			SOAProjectEclipseMetadata soaProjectEclipseMetadata) {
 		this.eclipseMetadata = soaProjectEclipseMetadata;
@@ -229,6 +240,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setOutputFolder(String outputFolder) {
 		this.outputFolder = outputFolder;
 	}
@@ -245,6 +257,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public IPath getOutputFolder() {
 		return getProject()
 		.getFolder(outputFolder).getLocation();
@@ -253,6 +266,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getProjectName() {
 		return eclipseMetadata.getProjectName();
 	}

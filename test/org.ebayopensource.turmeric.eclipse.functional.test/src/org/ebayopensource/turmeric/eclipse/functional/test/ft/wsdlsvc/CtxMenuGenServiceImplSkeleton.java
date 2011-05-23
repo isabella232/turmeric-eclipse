@@ -33,7 +33,6 @@ import org.eclipse.core.resources.IProject;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -60,6 +59,7 @@ public class CtxMenuGenServiceImplSkeleton extends AbstractTestCase {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Override
 	@Before
 	public  void setUpBeforeClass() throws Exception {
 		

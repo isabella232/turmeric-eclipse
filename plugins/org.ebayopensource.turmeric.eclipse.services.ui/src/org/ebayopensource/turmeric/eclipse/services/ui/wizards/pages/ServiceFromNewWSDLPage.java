@@ -27,6 +27,7 @@ import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Composite;
@@ -77,6 +78,7 @@ private CCombo templateFileCombo;
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void createControl(final Composite parent) {
 		try {
 			final Composite container = super.createParentControl(parent, 4);
@@ -175,7 +177,7 @@ private CCombo templateFileCombo;
 				&& Character.isLowerCase(getResourceName().charAt(0))) {
 			updatePageStatus(getResourceNameText(), 
 					EclipseMessageUtils.createStatus(
-					SOAMessages.SVCNAME_ERR, Status.WARNING));
+					SOAMessages.SVCNAME_ERR, IStatus.WARNING));
 			return true;
 		}
 		return true;

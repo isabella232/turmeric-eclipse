@@ -197,6 +197,7 @@ public final class ErrorLibraryProviderFactory {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public Object[] getElements(Object inputElement) {
 			try {
 				return getErrorLibraryProviders().toArray();
@@ -209,10 +210,12 @@ public final class ErrorLibraryProviderFactory {
 	
 	private static class ErrorLibraryLabelProvider implements ILabelProvider {
 
+		@Override
 		public Image getImage(Object element) {
 			return null;
 		}
 
+		@Override
 		public String getText(Object element) {
 			if (element instanceof IErrorLibraryProvider) {
 				return ((IErrorLibraryProvider)element).getProviderID();

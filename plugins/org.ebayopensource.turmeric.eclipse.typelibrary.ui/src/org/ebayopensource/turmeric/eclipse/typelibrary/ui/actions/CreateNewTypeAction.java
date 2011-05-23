@@ -44,6 +44,7 @@ public class CreateNewTypeAction implements IObjectActionDelegate {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 	}
@@ -51,6 +52,7 @@ public class CreateNewTypeAction implements IObjectActionDelegate {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void run(final IAction action) {
 		if (SOALogger.DEBUG)
 			logger.entering(action, selection);
@@ -96,6 +98,7 @@ public class CreateNewTypeAction implements IObjectActionDelegate {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

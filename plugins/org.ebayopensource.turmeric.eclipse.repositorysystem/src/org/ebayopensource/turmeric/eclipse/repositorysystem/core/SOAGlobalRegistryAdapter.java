@@ -9,7 +9,6 @@
 package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;

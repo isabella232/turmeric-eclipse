@@ -32,6 +32,7 @@ public class TypeLibResolver implements URIResolverExtension {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String resolve(IFile file, String baseLocation, String publicId,
 			String systemId) {
 		if (isEbayProtocol(systemId)) {
