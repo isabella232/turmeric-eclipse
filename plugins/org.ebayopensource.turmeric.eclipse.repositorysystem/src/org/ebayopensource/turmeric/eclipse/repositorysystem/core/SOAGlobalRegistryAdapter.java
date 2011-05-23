@@ -92,9 +92,12 @@ public class SOAGlobalRegistryAdapter {
 //							.getWorkbench().getProgressService();
 //							service.run(false, false, runnable);
 //						}
-						while (job.getState() == Job.RUNNING || job.getState() == Job.WAITING) {
+					    int cnt = 0;
+//						while ((job.getState() == Job.RUNNING || job.getState() == Job.WAITING)) {
+					    while (cnt < 5 && soaTypeRegistry == null) {
 							logger.warning("SOA types registry not initialized yet, sleeping...");
 							Thread.sleep(1000);
+							cnt++;
 						}
 					} finally {
 						if (SOALogger.DEBUG) {

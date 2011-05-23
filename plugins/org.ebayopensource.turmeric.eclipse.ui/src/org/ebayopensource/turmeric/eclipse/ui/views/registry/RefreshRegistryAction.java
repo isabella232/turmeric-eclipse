@@ -74,7 +74,7 @@ public class RefreshRegistryAction extends Action{
 						SOALogger.getLogger().error(e);
 						return Status.CANCEL_STATUS;
 					}
-					typeLibraryViewer.refresh();
+					typeLibraryViewer.refresh(true);
 					return Status.OK_STATUS;
 				}
 			};
