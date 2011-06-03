@@ -39,8 +39,8 @@
          <build>
             <plugins>
                <plugin>
-                  <groupId>org.sonatype.tycho</groupId>
-                  <artifactId>maven-osgi-source-plugin</artifactId>
+                  <groupId>org.eclipse.tycho</groupId>
+                  <artifactId>tycho-source-plugin</artifactId>
                   <version>${tycho-version}</version>
                   <executions>
                      <execution>
@@ -79,8 +79,8 @@
                   </executions>
                </plugin>
                <plugin>
-                  <groupId>org.sonatype.tycho</groupId>
-                  <artifactId>maven-osgi-test-plugin</artifactId>
+                  <groupId>org.eclipse.tycho</groupId>
+                  <artifactId>tycho-surefire-plugin</artifactId>
                   <version>${tycho-version}</version>
                   <configuration>
                      <useUIHarness>true</useUIHarness>
@@ -152,8 +152,8 @@
 			</executions>
 		</plugin>      
          <plugin>
-            <groupId>org.sonatype.tycho</groupId>
-            <artifactId>maven-osgi-source-plugin</artifactId>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>tycho-source-plugin</artifactId>
             <version>${tycho-version}</version>
             <executions>
                <execution>
@@ -169,8 +169,8 @@
             </executions>
          </plugin>
          <plugin>
-            <groupId>org.sonatype.tycho</groupId>
-            <artifactId>maven-osgi-test-plugin</artifactId>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>tycho-surefire-plugin</artifactId>
             <version>${tycho-version}</version>
             <configuration>
                <useUIHarness>true</useUIHarness>
