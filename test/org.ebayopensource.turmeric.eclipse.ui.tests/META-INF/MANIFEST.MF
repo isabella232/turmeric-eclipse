@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Turmeric UI Test
+Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.ui.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.ebayopensource.turmeric.eclipse.ui.test.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.junit;bundle-version="4.8.1",
+ org.ebayopensource.turmeric.eclipse.ui;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: eBay, Inc.
