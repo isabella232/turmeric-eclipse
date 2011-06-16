@@ -10,7 +10,7 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.providers;
 
 import java.util.List;
 
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.BaseServiceParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.viewers.IStructuredSelection;

@@ -8,13 +8,13 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.exception.tests.resources;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAActionExecutionFailedException;
-import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.IStatus;
+import org.junit.Before;
+import org.junit.Test;
 
 
 public class TestSOAActionExecutionFailedException {

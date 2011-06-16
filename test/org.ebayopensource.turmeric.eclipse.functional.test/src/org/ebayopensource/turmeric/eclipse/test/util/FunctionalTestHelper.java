@@ -23,16 +23,11 @@ import org.apache.commons.io.LineIterator;
 import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang.StringUtils;
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.repository.metadata.ArtifactMetadata;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
-import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.mavenapi.MavenApiPlugin;
-import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
-import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseUtil;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAClientConfigUtil;
@@ -40,7 +35,6 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
-import org.ebayopensource.turmeric.repositorysystem.imp.utils.TurmericConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
@@ -244,8 +238,12 @@ public class FunctionalTestHelper {
 					consProject, environmentName, serviceName);
 
 			config.setServiceBinding("LOCAL");
-
-			SOAClientConfigUtil.save(config);
+			String protocalProcessorClassName = GlobalRepositorySystem
+			.instanceOf()
+			.getActiveRepositorySystem()
+			.getActiveOrganizationProvider()
+			.getSOAPProtocolProcessorClassName();
+			SOAClientConfigUtil.save(config, protocalProcessorClassName);
 
 			// When adding the local binding u might need to add the project as
 			// dependency also..For that use the below code,
@@ -412,7 +410,12 @@ public class FunctionalTestHelper {
 
 		config.setMessageProtocol(messageProtocol);
 		try {
-			SOAClientConfigUtil.save(config);
+			String protocalProcessorClassName = GlobalRepositorySystem
+			.instanceOf()
+			.getActiveRepositorySystem()
+			.getActiveOrganizationProvider()
+			.getSOAPProtocolProcessorClassName();
+			SOAClientConfigUtil.save(config, protocalProcessorClassName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail("failed to save Client config");
@@ -433,7 +436,12 @@ public class FunctionalTestHelper {
 
 		config.setResponseDataBinding(responseDataBinding);
 		try {
-			SOAClientConfigUtil.save(config);
+			String protocalProcessorClassName = GlobalRepositorySystem
+			.instanceOf()
+			.getActiveRepositorySystem()
+			.getActiveOrganizationProvider()
+			.getSOAPProtocolProcessorClassName();
+			SOAClientConfigUtil.save(config, protocalProcessorClassName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail("failed to save Client config");

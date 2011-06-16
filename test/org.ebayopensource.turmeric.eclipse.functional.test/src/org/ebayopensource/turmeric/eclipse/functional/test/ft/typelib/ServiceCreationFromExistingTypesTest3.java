@@ -28,7 +28,6 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -67,43 +66,63 @@ public class ServiceCreationFromExistingTypesTest3 extends
 		monitor = null;
 	}
 
-	static String serviceName = null;
+	static String eBoxServiceName = null;
 
 	/*
 	 * Import type from existing WS
 	 */
+	//@Ignore("Currently failing JIRA 756")
 	@Test
 	public void testCreateServiceFrmNewWsdl() throws IOException, CoreException {
-		serviceName = ServicesUtil.getAdminName(TypeLibSetUp.SVC_NAME3);
-		System.out.println(" ---Service name : " + serviceName);
+		eBoxServiceName = ServicesUtil.getAdminName(TypeLibSetUp.SVC_NAME3);
+		System.out.println(" --- eBox Service name : " + eBoxServiceName);
 
-		TypeLibSetUp.setupSvc(serviceName);
+		TypeLibSetUp.setupSvc(eBoxServiceName);
 		try {
-			
+			/*
+			 * final ServiceFromTemplateWsdlParamModel model = new
+			 * ServiceFromTemplateWsdlParamModel(); final String servicePkg =
+			 * "com.ebayopensource.turmeric.services";
+			 * model.setTargetNamespace(SOAServiceConstants
+			 * .DEFAULT_SERVICE_NAMESPACE);
+			 * model.setServiceName(EBoxTypeLibSetUp.SVC_NAME3);
+			 * model.setServiceInterface(servicePkg + "." +
+			 * model.getServiceName());
+			 * model.setWorkspaceRootDirectory(EBoxTypeLibSetUp.SVC_LOCATION);
+			 * model.setServiceImpl("com.ebayopensource.turmeric.services." +
+			 * EBoxTypeLibSetUp.SVC_NAME3 + "Impl");
+			 * model.setServiceVersion("1.0.0");
+			 * model.setImplName(EBoxTypeLibSetUp.SVC_NAME3 + "Impl");
+			 * model.setWSDLSourceType
+			 * (SOAProjectConstants.InterfaceWsdlSourceType.NEW);
+			 * SimpleTestUtil.setAutoBuilding(true);
+			 * ServiceCreator.createServiceFromBlankWSDL(model,
+			 * ProgressUtil.getDefaultMonitor(null));
+			 */
 
 			ServiceFromBlankWsdlTest.createServiceFromBlankWsdl(
-					serviceName, TypeLibSetUp.SVC_NAME3);
+					eBoxServiceName, TypeLibSetUp.SVC_NAME3);
 
-			WorkspaceUtil.getProject(serviceName).build(
+			WorkspaceUtil.getProject(eBoxServiceName).build(
 					IncrementalProjectBuilder.FULL_BUILD,
 					ProgressUtil.getDefaultMonitor(null));
 
-			WorkspaceUtil.getProject(serviceName + "Impl").build(
+			WorkspaceUtil.getProject(eBoxServiceName + "Impl").build(
 					IncrementalProjectBuilder.FULL_BUILD,
 					ProgressUtil.getDefaultMonitor(null));
 			// Code to simulate Import action
 			String typeNS = TLUtil.getTargetNamespace(TLUtil.functionDomain);
 			Assert.assertTrue("Import type in WSDL failed", TLUtil
-					.importAction("WSDL", serviceName, serviceName
+					.importAction("WSDL", eBoxServiceName, eBoxServiceName
 							+ ".wsdl", "ImportType", typeNS));
 
 			// Build Projects
 			SimpleTestUtil.setAutoBuilding(true);
-			WorkspaceUtil.getProject(serviceName).build(
+			WorkspaceUtil.getProject(eBoxServiceName).build(
 					IncrementalProjectBuilder.FULL_BUILD,
 					ProgressUtil.getDefaultMonitor(null));
 
-			WorkspaceUtil.getProject(serviceName + "Impl").build(
+			WorkspaceUtil.getProject(eBoxServiceName + "Impl").build(
 					IncrementalProjectBuilder.FULL_BUILD,
 					ProgressUtil.getDefaultMonitor(null));
 
@@ -125,18 +144,26 @@ public class ServiceCreationFromExistingTypesTest3 extends
 	 * Assert ImportType and dependent types are added to the wsdl
 	 */
 	public void validateProjectArtifacts() throws IOException, CoreException {
-		IProject project = WorkspaceUtil.getProject(serviceName);
+		IProject project = WorkspaceUtil.getProject(eBoxServiceName);
 		Assert.assertTrue(
 				"TypeDepencies.xml didnot get generated",
 				project.getFile(
 						"meta-src" + File.separator + "META-INF"
-								+ File.separator + serviceName
+								+ File.separator + eBoxServiceName
 								+ File.separator + "TypeDependencies.xml")
 						.exists());
 		String sb = ServiceCreationFromExistingTypesTest1
 				.readContentsFromIFile(SOAServiceUtil
-						.getWsdlFile(serviceName));
+						.getWsdlFile(eBoxServiceName));
 
+		// Assert.assertTrue(EBoxTypeLibSetUp.TYPELIBRARY_NAME1 +
+		// "TypeDependencies.xml does not contain type " +
+		// "dependency on SoftwareTypeLibrary",
+		// sb.indexOf("SoftwareTypeLibrary") > -1);
+
+		// Assert.assertTrue(EBoxTypeLibSetUp.TYPELIBRARY_NAME1 +
+		// "TypeDependencies.xml does not contain type " +
+		// "dependency on SoftwareTypeLibrary", sb.indexOf("AlertType") > -1);
 
 		Assert.assertTrue(TypeLibSetUp.TYPELIBRARY_NAME1
 				+ "TypeDependencies.xml does not contain type "
@@ -146,17 +173,34 @@ public class ServiceCreationFromExistingTypesTest3 extends
 				+ "TypeDependencies.xml does not contain type "
 				+ "dependency ImportType", sb.indexOf("ImportType") > -1);
 
-		
+		// Assert.assertTrue(EBoxTypeLibSetUp.TYPELIBRARY_NAME1 +
+		// "TypeDependencies.xml does not contain type " +
+		// "dependency on CustomerType", sb.indexOf("CustomerType") > -1);
+
+		// Assert.assertTrue(EBoxTypeLibSetUp.TYPELIBRARY_NAME1 +
+		// "TypeDependencies.xml does not contain type " +
+		// "dependency on SOA21TestTestTL2", sb.indexOf("SOA21TestTL2") > -1);
+
+		// Assert.assertTrue(EBoxTypeLibSetUp.TYPELIBRARY_NAME1 +
+		// "TypeDependencies.xml does not contain type " +
+		// "dependency on ZipType", sb.indexOf("ZipType") > -1);
 
 		sb = ServiceCreationFromExistingTypesTest1
 				.readContentsFromIFile(project.getFile("meta-src"
 						+ File.separator + "META-INF" + File.separator + "soa"
 						+ File.separator + "services" + File.separator + "wsdl"
-						+ File.separator + serviceName + File.separator
-						+ serviceName + ".wsdl"));
+						+ File.separator + eBoxServiceName + File.separator
+						+ eBoxServiceName + ".wsdl"));
 		Assert.assertTrue(
 				"WSDL file is not inlined with imported type - ImportType",
 				sb.indexOf("ImportType") > -1);
+
+		// Assert.assertTrue("WSDL file is not inlined with imported type - CustomerType",
+		// sb.indexOf("CustomerType") > -1);
+		// Assert.assertTrue("WSDL file is not inlined with imported type - ZipType",
+		// sb.indexOf("ZipType") > -1);
+		// Assert.assertTrue("WSDL file is not inlined with imported type - AlertType",
+		// sb.indexOf("AlertType") > -1);
 
 	}
 
@@ -165,7 +209,11 @@ public class ServiceCreationFromExistingTypesTest3 extends
 	 * SOA21TestTestTL2
 	 */
 	public void validatePOM() throws CoreException, IOException {
-		IProject project = WorkspaceUtil.getProject(serviceName);
+		IProject project = WorkspaceUtil.getProject(eBoxServiceName);
+		// Assert.assertTrue("Pom.xml doesnot contain library dependency SoftwareTypeLibrary",
+		// EBoxServiceCreationFromExistingTypesTest1.
+		// readContentsFromIFile(project.getFile("pom.xml")).
+		// indexOf("library name=\"SoftwareTypeLibrary\"") > -1);
 
 		Assert.assertTrue(
 				"Project.xml doesnot contain library dependency SOA21TestTL1",
@@ -173,5 +221,9 @@ public class ServiceCreationFromExistingTypesTest3 extends
 						.readContentsFromIFile(project.getFile("pom.xml"))
 						.indexOf("SOA21TestTL1") > -1);
 
+		// Assert.assertTrue("pom.xml doesnot contain library dependency SOA21TestTL2",
+		// EBoxServiceCreationFromExistingTypesTest1.
+		// readContentsFromIFile(project.getFile("pom.xml")).
+		// indexOf("SOA21TestTL2") > -1);
 	}
 }

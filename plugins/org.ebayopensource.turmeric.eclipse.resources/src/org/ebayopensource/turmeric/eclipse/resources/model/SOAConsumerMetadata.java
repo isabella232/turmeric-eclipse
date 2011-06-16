@@ -14,9 +14,9 @@ package org.ebayopensource.turmeric.eclipse.resources.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.model.consumer.ConsumerFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 
 
@@ -26,21 +26,32 @@ import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
  */
 public class SOAConsumerMetadata extends AbstractSOAMetadata{
 
-//	private SOAIntfMetadata intfMetadata;
 	private String consumerId;
 	private String baseConsumerSrcDir;
 	private String envMapper;
-	//The name used for storing ClientConfig.xml files
+	private boolean isZeroConfig = false;
+	
+	/**
+	 * The name used for storing ClientConfig.xml files
+	 */
 	private String clientName;
 	private SOAProjectConstants.ConsumerSourceType sourceType;
 	private List<String> serviceNames = new ArrayList<String>();
 	private List<String> environments = new ArrayList<String>();
+	
 	/**
 	 * 
 	 */
 	public SOAConsumerMetadata() {
 		super();
 	}
+	
+	/**
+	 * 
+	 * @param clientName 
+	 * @param baseConsumerSrcDir 
+	 * @return the created SOAConsumerMetadata instance
+	 */
 	
 	public static SOAConsumerMetadata create(String clientName, String baseConsumerSrcDir) {
 		final SOAConsumerMetadata metadata = new SOAConsumerMetadata();
@@ -49,17 +60,28 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 		return metadata;
 	}
 
+	/**
+	 * 
+	 * @param paramModel 
+	 * @return the created SOAConsumerMetaData instance
+	 */
 	public static SOAConsumerMetadata create(ConsumerFromWsdlParamModel paramModel) {
 		SOAConsumerMetadata metadata = new SOAConsumerMetadata();
-//		metadata.setServiceImpl(paramModel.getServiceImpl());
 		metadata.setClientName(paramModel.getClientName());
 		metadata.setConsumerId(paramModel.getConsumerId());
 		metadata.setBaseConsumerSrcDir(paramModel.getBaseConsumerSrcDir());
 		metadata.setEnvironments(paramModel.getEnvironments());
 		metadata.setServiceNames(ListUtil.arrayList(paramModel.getServiceName()));
 		metadata.setSourceType(SOAProjectConstants.ConsumerSourceType.WSDL);
+		metadata.setZeroConfig(paramModel.getEnvironments().isEmpty());
 		return metadata;
 	}
+	
+	/**
+	 * 
+	 * @param paramModel 
+	 * @return the created SOAConsumerMetadata instance
+	 */
 	public static SOAConsumerMetadata create(ConsumerFromJavaParamModel paramModel) {
 		SOAConsumerMetadata metadata = new SOAConsumerMetadata();
 		metadata.setClientName(paramModel.getClientName());
@@ -71,62 +93,129 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 		return metadata;
 	}
 	
+	public boolean isZeroConfig() {
+		return isZeroConfig;
+	}
+
+	public void setZeroConfig(boolean isZeroConfig) {
+		this.isZeroConfig = isZeroConfig;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getMetadataFileName() {
 		return SOAProjectConstants.PROPS_FILE_SERVICE_CONSUMER;
 	}
 
+	/**
+	 * 
+	 * @return the client name
+	 */
 	public String getClientName() {
 		return clientName;
 	}
 
+	/**
+	 * 
+	 * @param clientName 
+	 */
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}
 
+	/**
+	 * 
+	 * @return the Consumer Id
+	 */
 	public String getConsumerId() {
 		return consumerId;
 	}
 
+	/**
+	 * 
+	 * @param consumerId the consumer id
+	 */
 	public void setConsumerId(String consumerId) {
 		this.consumerId = consumerId;
 	}
 
+	/**
+	 * 
+	 * @return the base consumer src directory
+	 */
 	public String getBaseConsumerSrcDir() {
 		return baseConsumerSrcDir;
 	}
 
+	/**
+	 * 
+	 * @param baseConsumerSrcDir 
+	 */
 	public void setBaseConsumerSrcDir(String baseConsumerSrcDir) {
 		this.baseConsumerSrcDir = baseConsumerSrcDir;
 	}
 
+	/**
+	 * 
+	 * @return a list of service names
+	 */
 	public List<String> getServiceNames() {
 		return serviceNames;
 	}
 
+	/**
+	 * 
+	 * @param serviceNames 
+	 */
 	public void setServiceNames(List<String> serviceNames) {
 		this.serviceNames = serviceNames;
 	}
 
+	/**
+	 * 
+	 * @return A list of environements
+	 */
 	public List<String> getEnvironments() {
 		return environments;
 	}
 
+	/**
+	 * 
+	 * @param environments 
+	 */
 	public void setEnvironments(List<String> environments) {
 		this.environments = environments;
 	}
 
+	/**
+	 * 
+	 * @return a Consumer Source Type
+	 */
 	public SOAProjectConstants.ConsumerSourceType getSourceType() {
 		return sourceType;
 	}
 
+	/**
+	 * 
+	 * @param sourceType 
+	 */
 	public void setSourceType(SOAProjectConstants.ConsumerSourceType sourceType) {
 		this.sourceType = sourceType;
 	}
 
+	/**
+	 * 
+	 * @return the environment mapper name
+	 */
 	public String getEnvMapper() {
 		return envMapper;
 	}
 
+	/**
+	 * 
+	 * @param envMapper 
+	 */
 	public void setEnvMapper(String envMapper) {
 		this.envMapper = envMapper;
 	}

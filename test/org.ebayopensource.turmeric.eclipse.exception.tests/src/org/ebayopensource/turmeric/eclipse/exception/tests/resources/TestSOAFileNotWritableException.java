@@ -8,14 +8,14 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.exception.tests.resources;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.net.URL;
 
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAFileNotWritableException;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.osgi.framework.internal.protocol.NullURLStreamHandlerService;
 import org.junit.Before;
 import org.junit.Test;
 import org.osgi.framework.Bundle;

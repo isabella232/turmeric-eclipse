@@ -8,8 +8,8 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.SOAErrorLibraryConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 
 

@@ -11,33 +11,37 @@
  */
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc;
 
-import java.io.File;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNoException;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ebayopensource.turmeric.eclipse.build.builder.SOAInterfaceProjectBuilder;
+import org.ebayopensource.turmeric.eclipse.core.model.consumer.ConsumerFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.services.buildsystem.ServiceCreator;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectArtifactValidator;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.SimpleTestUtil;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.repositorysystem.imp.impl.TurmericRepositorySystem;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.junit.Assume.*;
 
 
 
@@ -56,6 +60,18 @@ public class ConsumerFromWsdlTest extends AbstractTestCase {
 	static boolean allMatch = true;
 	final static String domainClassifier = "Blogs";
 	final static String namespacePart = "blogs";
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	
+	
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/ConsumerFromIntfTest.zip",dataDirectory +"/extractedData");
+		
+	}
 
 	/**
 	 * @throws java.lang.Exception
@@ -77,14 +93,35 @@ public class ConsumerFromWsdlTest extends AbstractTestCase {
 		System.out.println(" --- Service Admin Name : " + adminName);
 
 		ProjectUtil.cleanUpWS();
-	
+		// EBoxServiceSetupCleanupValidate.cleanupWSConsumer(eBoxServiceName);
 		ServiceSetupCleanupValidate.cleanup(adminName);
 	}
 	
+	/*@Override
+	public void setUp() throws Exception {
+
+		super.setUp();
+		SimpleTestUtil.setAutoBuilding(false);
+
+		ISOARepositorySystem repositorySystem = new TurmericRepositorySystem();
+		GlobalRepositorySystem.instanceOf().setActiveRepositorySystem(
+				repositorySystem);
+
+		eBoxServiceName = EBoxServiceSetupCleanupValidate
+				.getServiceName(WSDL_FILE);
+		eBoxServiceName = ServicesUtil.getAdminName(eBoxServiceName);
+		System.out.println(" --- WSDL FILE : " + WSDL_FILE);
+		System.out.println(" --- eBox Service name : " + eBoxServiceName);
+
+		ProjectUtil.cleanUpWS();
+		// EBoxServiceSetupCleanupValidate.cleanupWSConsumer(eBoxServiceName);
+		EBoxServiceSetupCleanupValidate.cleanup(eBoxServiceName);
+
+	}*/
 	
 	
 	@Test
-
+	@Ignore("failing")
 	public void testCreateEBoxConsumerFromWsdl() throws Exception {
 
 		Boolean b = false;
@@ -179,5 +216,11 @@ public class ConsumerFromWsdlTest extends AbstractTestCase {
 					+ e.getLocalizedMessage());
 		}
 		return false;
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 }

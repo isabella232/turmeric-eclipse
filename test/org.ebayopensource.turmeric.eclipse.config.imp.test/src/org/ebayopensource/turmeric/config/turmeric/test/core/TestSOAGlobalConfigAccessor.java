@@ -12,11 +12,14 @@
 package org.ebayopensource.turmeric.config.turmeric.test.core;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
-
-import static org.junit.Assert.*;
 
 import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
 import org.ebayopensource.turmeric.eclipse.config.core.SOAServiceConfiguration;

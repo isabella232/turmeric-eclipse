@@ -9,14 +9,15 @@
 package org.ebayopensource.turmeric.eclipse.codgen.model.tests;
 
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeClientConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 
 public class GenTypeClientConfigTest {

@@ -15,13 +15,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.AddImportCommand;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeSCParamModel;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
@@ -48,9 +50,6 @@ import org.eclipse.xsd.XSDSimpleTypeDefinition;
 import org.eclipse.xsd.XSDTypeDefinition;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 
 /**
  * @author smathew
@@ -241,6 +240,7 @@ public class TemplateUtils {
 
 	public static String getPrefix(XSDSchema schema, String nameSpace) {		
 		Map<String, String> qNamesMap = schema.getQNamePrefixToNamespaceMap();
+		
 		if (qNamesMap.containsValue(nameSpace)) {
 			for (Entry<String, String> entry : qNamesMap.entrySet()) {
 				if (StringUtils.equals(entry.getValue(), nameSpace)) {
@@ -359,13 +359,15 @@ public class TemplateUtils {
 					importSchema);
 			addImportCommand.run();
 
+			if(typeLibraryName == null){
+				return;
+			}
 			TypeLibraryType typeLibInfo = SOAGlobalRegistryAdapter.getInstance()
 					.getGlobalRegistry().getTypeLibrary(typeLibraryName);
 			LibraryType libraryType = TypeLibraryUtil.getLibraryType(typeName,
 					version, typeLibInfo);
 
-			SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().addTypeToRegistry(
-					libraryType);
+			SOAGlobalRegistryAdapter.getInstance().addTypeToRegistry(libraryType);
 			IProject project = WorkspaceUtil.getProject(typeLibraryName);
 			TypeLibSynhcronizer.syncronizeXSDandDepXml(typeDefinition
 					.getSchema(), project, TypeLibraryUtil.toQName(libraryType));

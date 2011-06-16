@@ -14,8 +14,8 @@ package org.ebayopensource.turmeric.eclipse.ui.components;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.EnvironmentItem;
 import org.eclipse.core.runtime.Assert;
@@ -42,6 +42,7 @@ import org.eclipse.swt.widgets.TreeColumn;
 public class SOAConsumerServicesViewer extends TreeViewer {
 	private static final SOALogger logger = SOALogger.getLogger();
 	private boolean useAssetInfo = true;
+	private boolean isZeroConfig = false;
 	
 	/**
 	 * @param parent
@@ -52,12 +53,24 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 	
 	
 	public SOAConsumerServicesViewer(Composite parent, boolean useAssetInfo) {
+		this(parent, useAssetInfo, false);
+	}
+	
+	public SOAConsumerServicesViewer(Composite parent, boolean useAssetInfo, boolean isZeroConfig) {
 		super(parent, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL
                 | SWT.H_SCROLL| SWT.FULL_SELECTION);
 		this.useAssetInfo = useAssetInfo;
+		this.isZeroConfig = isZeroConfig;
 		init();
 	}
 
+	public boolean isZeroConfig() {
+		return isZeroConfig;
+	}
+
+	public void setZeroConfig(boolean isZeroConfig) {
+		this.isZeroConfig = isZeroConfig;
+	}
 
 	protected void addContentProvider() {
 		setContentProvider(new ITreeContentProvider() {
@@ -76,6 +89,16 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 
 			public Object[] getElements(Object inputElement) {
 				if (inputElement instanceof Collection<?>) {
+					Collection<?> data = (Collection<?>)inputElement;
+					if (isZeroConfig && data.isEmpty() == false) {
+						Object obj = data.iterator().next();
+						if (obj instanceof EnvironmentItem) {
+
+							return useAssetInfo ? 
+									((EnvironmentItem)obj).getServiceData().values().toArray()
+									: ((EnvironmentItem)obj).getServices().toArray();
+						}
+					}
 					return ((Collection<?>)inputElement).toArray();
 				} else if (inputElement instanceof EnvironmentItem) {
 					
@@ -106,16 +129,26 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 			}
 
 			public String getColumnText(Object element, int columnIndex) {
-				if (element instanceof AssetInfo) {
-					if (columnIndex == 1)
-						return ((AssetInfo)element).getDescription();
-				} else if (element instanceof String) {
-					if (columnIndex == 1)
-						return element.toString();
-				}  else if (element instanceof EnvironmentItem) {
-					final EnvironmentItem info = (EnvironmentItem)element;
-					if (columnIndex == 0) {
-						return info.getName();
+				if (isZeroConfig == false) {
+					if (element instanceof AssetInfo) {
+						if (columnIndex == 1)
+							return ((AssetInfo)element).getDescription();
+					} else if (element instanceof String) {
+						if (columnIndex == 1)
+							return element.toString();
+					}  else if (element instanceof EnvironmentItem) {
+						final EnvironmentItem info = (EnvironmentItem)element;
+						if (columnIndex == 0) {
+							return info.getName();
+						}
+					}
+				} else {
+					if (element instanceof AssetInfo) {
+						if (columnIndex == 0)
+							return ((AssetInfo)element).getDescription();
+					} else if (element instanceof String) {
+						if (columnIndex == 0)
+							return element.toString();
 					}
 				}
 				return SOAProjectConstants.EMPTY_STRING;
@@ -155,14 +188,18 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 		tree.setLinesVisible(true);
 		
 		final TableLayout layout = new TableLayout();
-		layout.addColumnData(new ColumnWeightData(40, 100, true));
+		if (isZeroConfig == false) {
+			layout.addColumnData(new ColumnWeightData(40, 100, true));
+		}
 		layout.addColumnData(new ColumnWeightData(60, 150, true));
 		tree.setLayout(layout);
 		
 		TreeColumn column = new TreeColumn(tree, SWT.LEFT);
-		column.setText("Environment");
-		
-		column = new TreeColumn(tree, SWT.LEFT);
+		if (isZeroConfig == false) {
+			column.setText("Environment");
+
+			column = new TreeColumn(tree, SWT.LEFT);
+		}
 		column.setText("Admin Name");
 	}
 	

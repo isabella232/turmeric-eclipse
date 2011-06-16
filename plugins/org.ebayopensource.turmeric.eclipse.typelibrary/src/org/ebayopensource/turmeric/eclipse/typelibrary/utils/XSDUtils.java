@@ -25,11 +25,11 @@ import javax.xml.namespace.QName;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.exception.ImportTypeException;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
@@ -44,6 +44,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardAttribPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.EnumTypeWizardDetailsPage.EnumTableModel;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xsd.XSDAnnotation;
@@ -62,8 +63,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * Extract type definitions from XSD file or WSDL file.
@@ -200,7 +199,7 @@ public final class XSDUtils {
 						ImportTypeModel dep = typeMap.get(eleType);
 						if (dep == null) {
 							throw new ImportTypeException(
-									"Unable to find dependency: " + dep);
+									"Unable to find dependency: " + eleType);
 						}
 						type.addDependency((QName) eleType, dep);
 					}
@@ -456,6 +455,9 @@ public final class XSDUtils {
 		model = importModel.getTypeModel();
 
 		String typeName = complex.getName();
+		if (typeName == null) {
+			typeName = "";
+		}
 		// String version = complex.getSchema().getVersion();
 
 		String namespace = complex.getTargetNamespace();
@@ -582,6 +584,9 @@ public final class XSDUtils {
 							.getNamedItem(TL_NS_ATTR_NAME);
 					String tlName = tlNameNode.getNodeValue();
 					String typeNS = typeNSNode.getNodeValue();
+					if(typeNSNode == null || tlNameNode == null){
+						return null;
+					}
 					if (SOALogger.DEBUG)
 						logger.debug(tlName + "\t" + typeNS);
 					return typeNS;
@@ -629,6 +634,9 @@ public final class XSDUtils {
 		}
 
 		String typeName = simple.getName();
+		if (typeName == null) {
+			typeName = "";
+		}
 		// String version = simple.getSchema().getVersion();
 		XSDTypeDefinition typeDef = simple.getBaseType();
 		String baseType = typeDef.getName();
@@ -694,6 +702,9 @@ public final class XSDUtils {
 				importModel = processComplexTypeDef((XSDComplexTypeDefinition) def);
 			}
 			if (importModel != null) {
+				if(importModel.getName() == null){
+					importModel.setName("");
+				}
 				importModel.getTypeModel().setVersion(TYPE_VERSION);
 				types.add(importModel);
 			}

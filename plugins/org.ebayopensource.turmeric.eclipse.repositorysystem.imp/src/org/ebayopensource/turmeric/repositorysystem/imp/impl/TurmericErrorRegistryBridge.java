@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ErrorLibraryProviderFactory;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryCreator;
 import org.ebayopensource.turmeric.eclipse.exception.AbstractSOAException;
@@ -22,6 +23,9 @@ import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.SOAMavenConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.IErrorRegistryBridge;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.tools.errorlibrary.ErrorIdGenerator;
+import org.ebayopensource.turmeric.tools.errorlibrary.ErrorIdGeneratorFactory;
+import org.ebayopensource.turmeric.tools.errorlibrary.ErrorIdServiceFactory;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -71,6 +75,19 @@ public class TurmericErrorRegistryBridge implements IErrorRegistryBridge {
 		IErrorLibraryCreator creator = 
 			ErrorLibraryProviderFactory.getPreferredProvider().getErrorLibraryCreator();
 		creator.createPlatformSpecificArtifacts(project, SOAMavenConstants.FOLDER_SRC_MAIN_RESOURCES, monitor);
+	}
+
+	public long nextErrorId(String storeLocation, String organization,
+			String domain) throws Exception {
+		ErrorIdGenerator generator = null;
+		if (storeLocation.startsWith(SOAProjectConstants.PROTOCOL_HTTP)) {
+			generator = ErrorIdServiceFactory.getInstance()
+					.getErrorIdGenerator(storeLocation, organization);
+		} else {
+			generator = ErrorIdGeneratorFactory.getErrorIdGenerator(
+					storeLocation, organization);
+		}
+		return generator.getNextId(domain);
 	}
 
 }

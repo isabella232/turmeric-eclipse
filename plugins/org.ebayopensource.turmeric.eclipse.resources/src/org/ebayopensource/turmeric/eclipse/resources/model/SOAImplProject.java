@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -26,6 +26,9 @@ import org.eclipse.core.resources.IFolder;
  */
 public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerProject{
 
+	/**
+	 * An array of source directory strings.
+	 */
 	public static final String[] SOURCE_DIRECTORIES = {
 		SOAProjectConstants.FOLDER_SRC,
 		SOAProjectConstants.FOLDER_GEN_TEST,
@@ -33,14 +36,32 @@ public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerPr
 		SOAProjectConstants.FOLDER_GEN_META_SRC,
 		SOAProjectConstants.FOLDER_META_SRC };
 
+	/**
+	 * Directory path for generated services configuration file.
+	 */
 	public static final String GEN_META_SRC_SERVICES_CONFIG = SOAProjectConstants.GEN_META_SRC_META_INF
 	+ "/soa/services/config";
 
+	/**
+	 * Directory path for the client configuration file.
+	 */
 	public static final String META_SRC_ClIENT_CONFIG = SOAProjectConstants.META_SRC_META_INF
 	+ "/soa/client/config";
+	
+	/**
+	 * Directory path for the services configuration file.
+	 */
 	public static final String META_SRC_SERVICES_CONFIG = SOAProjectConstants.META_SRC_META_INF
 	+ "/soa/services/config";
 
+	/**
+	 * Creates an instance of the SOAImplProject.  This probably should be a constructor.
+	 * 
+	 * @param implMetadata implementation meta data
+	 * @param eclipseMetadata eclipse meta data
+	 * @return an instance of SOAImplProject
+	 * @throws Exception 
+	 */
 	public static SOAImplProject create(SOAImplMetadata implMetadata,
 			SOAProjectEclipseMetadata eclipseMetadata) throws Exception{
 		SOAImplProject implProject = new SOAImplProject();
@@ -49,6 +70,7 @@ public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerPr
 		return implProject;
 	}
 
+	@Override
 	public SOAImplMetadata getMetadata() {
 		final AbstractSOAMetadata metadata = super.getMetadata();
 		return metadata instanceof SOAImplMetadata ? (SOAImplMetadata)metadata : null;
@@ -59,6 +81,7 @@ public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerPr
 		return SOAImplMetadata.class;
 	}
 
+	@Override
 	public List<String> getSourceSubFolders() {
 		List<String> subFolders = new ArrayList<String>();
 		subFolders.add(GEN_META_SRC_SERVICES_CONFIG);
@@ -68,15 +91,24 @@ public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerPr
 		return subFolders;
 	}
 
+	/**
+	 * 
+	 * @return the service configuration file as an IFile
+	 */
 	public IFile getServiceConfigFile() {
 		return SOAImplUtil.getServiceConfigFile(getProject(), 
 				getMetadata().getIntfMetadata().getServiceName());
 	}
 
+	/**
+	 * 
+	 * @return the implementation project properties file as an IFile
+	 */
 	public IFile getImplProjectPropertiesFile() {
 		return getProject().getFile(SOAProjectConstants.PROPS_FILE_SERVICE_IMPL);
 	}
 
+	@Override
 	public List<String> getSourceDirectoryNames() {
 		final List<String> result = ListUtil.arrayList(SOURCE_DIRECTORIES);
 		if (getMetadata() != null) {
@@ -89,6 +121,10 @@ public class SOAImplProject extends SOAConsumerProject implements ISOAConsumerPr
 		return result;
 	}
 
+	/**
+	 * 
+	 * @return the IFolder that contains the web content root
+	 */
 	public IFolder getWebContentRoot() {
 		return getProject().getFolder(SOAProjectConstants.FOLDER_WEB_CONTENT);
 	}

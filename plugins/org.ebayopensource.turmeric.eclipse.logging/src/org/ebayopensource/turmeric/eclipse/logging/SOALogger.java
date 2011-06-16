@@ -8,12 +8,16 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.logging;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.Hashtable;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
@@ -47,12 +51,16 @@ public final class SOALogger extends Logger{
 	
 	private static final PluginLogDelegateHandler pluginLogHandler = new PluginLogDelegateHandler();
 	public static final Logger GLOBAL_LOGGER = Logger.getLogger("");
+	
 	private static final String FILENAME_LOGGING_PROPERTIES = "turmeric-plugin-logging.properties";
+	
+	public static final ConsoleHandler CONSOLE_HANDLER;
 	
 
 	static
 	{
 		boolean trace = false;
+		ConsoleHandler consoleHandler = null;
 		try {
 			loggers = new Hashtable<String,SOALogger>();
 			GLOBAL_LOGGER.addHandler( pluginLogHandler );
@@ -68,9 +76,20 @@ public final class SOALogger extends Logger{
 				Logger.getLogger( GLOBAL_LOGGER_ID_PLUGIN ).setLevel(tracingLevel);
 			}
 			
+			if (GLOBAL_LOGGER.getHandlers() != null) {
+				for (Handler handler : GLOBAL_LOGGER.getHandlers()) {
+					if (handler instanceof ConsoleHandler) {
+						consoleHandler = (ConsoleHandler)handler;
+						break;
+					}
+				}
+				
+			}
+			
 		} catch (Exception e) {
 			Logger.getLogger( GLOBAL_LOGGER_ID_PLUGIN ).throwing(SOALogger.class.getName(), "<static>", e);
 		}
+		CONSOLE_HANDLER = consoleHandler;
 		try {
 			ISOALoggingSystemProvider logSystemProvider = SOALoggingSystemExtensionRegistry.getInstance()
 			.getLoggingSystemIDProvider(PluginLogDelegateHandler.getBuildSystemName());
@@ -103,6 +122,24 @@ public final class SOALogger extends Logger{
 				System.setProperty("java.util.logging.config.file", configFile.getAbsolutePath());
 			}
 		}
+		
+		LogManager.getLogManager().addPropertyChangeListener(new PropertyChangeListener() {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent event) {
+				try {
+					ISOALoggingSystemProvider logSystemProvider = SOALoggingSystemExtensionRegistry.getInstance()
+					.getLoggingSystemIDProvider(PluginLogDelegateHandler.getBuildSystemName());
+					if (logSystemProvider != null) {
+						logSystemProvider.loggingPropertyChanged(event);
+					}
+				} catch (Exception e) {
+					//ignore the issue
+					e.printStackTrace();
+				}
+			}
+			
+		});
 		DEBUG = trace;
 	}
 	
@@ -183,7 +220,7 @@ public final class SOALogger extends Logger{
 	
 	public static void setBuildSystemName(String name)
 	{
-		PluginLogDelegateHandler.setBuildSystemName(name);
+		 PluginLogDelegateHandler.setBuildSystemName(name);
 	}
 
 	/**

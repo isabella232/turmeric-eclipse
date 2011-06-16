@@ -16,7 +16,8 @@ import java.util.Map;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
@@ -24,6 +25,7 @@ import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFro
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceSetupCleanupValidate;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ProjectUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
@@ -31,6 +33,7 @@ import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.UpdateTypeVersion;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.WTPTypeLibUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
@@ -43,12 +46,10 @@ import org.eclipse.ui.ide.IDE;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDTypeDefinition;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 import org.junit.Test;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 
 public class ServiceByUpdatingTypes extends AbstractTestCase {
 	private static final String SVC_NAME = TypeLibSetUp.SVC_NAME2;
@@ -57,6 +58,16 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 
 	static DialogMonitor monitor;
 	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUpBefore(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/xsd.zip",dataDirectory +"/extractedData");
+		
+	}
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -64,6 +75,7 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 	public  void setUp() throws Exception {
 		
 		
+		// EBoxFunctionalTestHelper.ensureM2EcipseBeingInited();
 		monitor = new DialogMonitor();
 		monitor.startMonitoring();
 		createService();
@@ -84,7 +96,7 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 	}
 
 	public static void createService() throws Exception {
-		System.out.println(" ---Service name : " + SVC_NAME);
+		System.out.println(" --- eBox Service name : " + SVC_NAME);
 		TypeLibSetUp.setup();
 		ServiceSetupCleanupValidate.cleanup(SVC_NAME);
 
@@ -115,7 +127,7 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 	@Test
 	public void testUpdateVersion() throws Exception {
 		String srcFile = WsdlUtilTest.getPluginOSPath(SoaTestConstants.PLUGIN_ID,
-				"test-data" + File.separator + "xsd");
+				"data/extractedData" + File.separator + "xsd");
 		String destFile = TypeLibSetUp.TYPELIB_LOCATION + File.separator
 				+ TypeLibSetUp.TYPELIBRARY_NAME1 + File.separator
 				+ "meta-src" + File.separator + "types" + File.separator
@@ -144,7 +156,7 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 		validatePOM(TypeLibSetUp.TYPELIBRARY_NAME1);
 	}
 
-
+	//@Ignore()
 	@Test
 	public void testWsdl() throws IOException, CoreException {
 		UpdateTypeVersion update = new UpdateTypeVersion();
@@ -152,7 +164,12 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 			// Update the wsdl
 			IProject project = ProjectUtil.getProject(SVC_NAME_ADMIN);
 			IFile wsdlFile = SOAServiceUtil.getWsdlFile(SVC_NAME_ADMIN);
-		
+			/*
+			 * IFile wsdlFile = project
+			 * .getFile("\\meta-src\\META-INF\\soa\\services\\wsdl\\" +
+			 * EBoxTypeLibSetUp.SVC_NAME2 + "\\" + EBoxTypeLibSetUp.SVC_NAME2 +
+			 * ".wsdl");
+			 */
 			IDE.openEditor(UIUtil.getActiveWorkBenchWindow().getActivePage(),
 					wsdlFile);
 
@@ -222,7 +239,12 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 				sb.contains("EmployerType"));
 		Assert.assertTrue("WSDL file is not inlined with updated type - age",
 				sb.contains("age"));
-	
+		// Assert.assertTrue(
+		// "WSDL file is not inlined with updated type - designation",
+		// sb.contains("designation"));
+
+		// Assert.assertTrue("WSDL file is not inlined with updated type - name",
+		// sb.contains("name"));
 
 	}
 
@@ -237,6 +259,13 @@ public class ServiceByUpdatingTypes extends AbstractTestCase {
 
 		Assert.assertTrue("pom.xml doesnot contain library dependency "
 				+ typeLibName, fileContents.contains(typeLibName));
+	}
+	
+
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 	
 }

@@ -23,12 +23,10 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorParamModel
 import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.ErrorLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.SOAErrorLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrDomain;
-import org.ebayopensource.turmeric.eclipse.exception.resources.SOAFileNotWritableException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
-import org.ebayopensource.turmeric.tools.errorlibrary.exception.ErrorIdGeneratorException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;

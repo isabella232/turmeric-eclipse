@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceReader;
@@ -50,7 +49,7 @@ public class GlobalRepositorySystem {
 		IExtensionPoint extensionPoint = registry
 				.getExtensionPoint(RepositorySystemActivator.PLUGIN_ID
 						+ ".repositorysystem");
-		String systemID = PreferenceConstants.PREF_DEFAULT_REPOSITORY_SYSTEM;
+		String systemID = PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM;
 		if (extensionPoint != null) {
 			IExtension[] extensions = extensionPoint.getExtensions();
 			boolean foundV3 = false;
@@ -62,11 +61,12 @@ public class GlobalRepositorySystem {
 						repositorySystem = (ISOARepositorySystem) element
 								.createExecutableExtension("RepositorySystem");
 						availableRepositorySystems.add(repositorySystem);
-						if (PreferenceConstants.PREF_DEFAULT_REPOSITORY_SYSTEM.equals(repositorySystem.getId())) {
+						if (PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM.equals(repositorySystem.getId())) {
 							foundV3 = true;
 						}
 					} catch (CoreException e) {
 						// TODO The SOA logger is not available yet, need an altertinave way to report the error
+						e.printStackTrace();
 					}
 				}
 			}
@@ -82,7 +82,7 @@ public class GlobalRepositorySystem {
 				systemID = availableRepositorySystems.get(0).getId();
 			}
 			
-			SOALogger.setBuildSystemName(systemID);
+			//SOALogger.setBuildSystemName(systemID);
 		}
 
 	}
@@ -94,7 +94,7 @@ public class GlobalRepositorySystem {
 	public ISOARepositorySystem getActiveRepositorySystem() {
 		if (activeRepositorySystem == null) {
 			final String systemID = PreferenceReader.getCurrentRepositorySystemId();
-			SOALogger.setBuildSystemName(systemID);
+			//SOALogger.setBuildSystemName(systemID);
 			activeRepositorySystem = GlobalRepositorySystem.instanceOf()
 					.getRepositorySystem(systemID);
 		}

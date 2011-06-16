@@ -11,11 +11,11 @@ package org.ebayopensource.turmeric.eclipse.ui;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.ui.components.SOACComboControlAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.resources.SOAConstants;
 import org.ebayopensource.turmeric.eclipse.ui.resources.SOAMessages;
@@ -37,6 +37,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -45,7 +46,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.events.ExpansionAdapter;
+import org.eclipse.ui.forms.events.ExpansionEvent;
+import org.eclipse.ui.forms.events.IExpansionListener;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.osgi.service.prefs.BackingStoreException;
 
 
@@ -253,6 +259,36 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 		UIUtil.getHelpSystem().setHelp(container, getHelpContextID());
 		return container;
 	}
+	
+	protected Composite createAdvancedSettingsPanel(final Composite parent,
+			IExpansionListener listener) {
+		ExpandableComposite eComposite = new ExpandableComposite(parent,
+				ExpandableComposite.COMPACT | ExpandableComposite.TWISTIE
+						| ExpandableComposite.EXPANDED);
+		GridData data = new GridData(GridData.FILL_BOTH);
+		data.verticalIndent = 7;
+		data.horizontalSpan = 4;
+		eComposite.setLayoutData(data);
+		eComposite.setText("Advanced");
+		eComposite.addExpansionListener(new ExpansionAdapter() {
+			public void expansionStateChanged(ExpansionEvent e) {
+				Shell shell = parent.getShell();
+				Point minSize = shell.getMinimumSize();
+				shell.setMinimumSize(shell.getSize().x, minSize.y);
+				shell.pack();
+				parent.layout();
+				shell.setMinimumSize(minSize);
+			}
+		});
+		if (listener != null) {
+			eComposite.addExpansionListener(listener);
+		}
+		Composite composite = createParentControl(eComposite, 4);
+		eComposite.setClient(composite);
+
+		return composite;
+	}
+
 
 	/**
 	 * Create the options specification widgets.

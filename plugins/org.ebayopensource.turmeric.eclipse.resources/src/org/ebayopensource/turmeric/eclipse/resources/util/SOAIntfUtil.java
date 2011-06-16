@@ -15,9 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 import java.util.jar.JarFile;
 
@@ -28,27 +26,23 @@ import javax.wsdl.WSDLException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xerces.parsers.DOMParser;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
-import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
-import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.XMLUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.osgi.framework.Version;
 import org.w3c.dom.Document;
@@ -392,6 +386,17 @@ public class SOAIntfUtil {
 		return project
 				.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_INTERFACE);
 	}
+	
+	public static IFile getIntfProtoBufFile(final IProject project) {
+		String protoBufPath = getIntfProtoBufFilePath(project.getName());
+		return project.getFile(protoBufPath);
+	}
+	
+	public static String getIntfProtoBufFilePath(String adminName) {
+		return SOAProjectConstants.FOLDER_META_SRC + "/"
+				+ SOAProjectConstants.META_PROTO_BUF + "/" + adminName + "/"
+				+ adminName + ".proto";
+	}
 
 	public static Properties loadIntfProjectPropFile(final IProject project)
 			throws CoreException, IOException {
@@ -542,6 +547,16 @@ public class SOAIntfUtil {
 		if (properties.containsKey(SOAProjectConstants.PROPS_SERVICE_DOMAIN_NAME)) {
 			metadata.setServiceDomainName(StringUtils.trim(properties.getProperty(
 					SOAProjectConstants.PROPS_SERVICE_DOMAIN_NAME)));
+		}
+		
+		if (properties.containsKey(SOAProjectConstants.PROP_KEY_NON_XSD_FORMATS)) {
+			metadata.setServiceNonXSDProtocols(StringUtils.trim(properties
+					.getProperty(SOAProjectConstants.PROP_KEY_NON_XSD_FORMATS)));
+		}
+		
+		if (properties.containsKey(SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG)) {
+			metadata.setZeroConfig(Boolean.valueOf(StringUtils.trim(properties
+					.getProperty(SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG))));
 		}
 		
 		final String wsdlUrl = StringUtils.trim(properties
@@ -812,44 +827,5 @@ public class SOAIntfUtil {
 		if (SOALogger.DEBUG)
 			logger.exiting(result);
 		return result;
-	}
-
-	public static boolean isProjectGoodForConsumption(String... projectNames) {
-
-		if (!ResourcesPlugin.getWorkspace().isAutoBuilding()) {
-			final List<String> serviceNames = new ArrayList<String>();
-			ArrayList<IProject> projectsToBeBuilt = new ArrayList<IProject>();
-			for (String projectName : projectNames) {
-				if (WorkspaceUtil.getProject(projectName).exists()) {
-					serviceNames.add(projectName);
-					projectsToBeBuilt.add(WorkspaceUtil.getProject(projectName));
-				}
-			}
-			final String serviceNameList = StringUtils.join(serviceNames, 
-					SOAProjectConstants.DELIMITER_COMMA);
-			if (!projectsToBeBuilt.isEmpty()) {
-				if (UIUtil
-						.openChoiceDialog(
-								"Cannot consume the selected service",
-								"You have set build automatically off. These projects should be built before it could be consumed ["
-										+ serviceNameList 
-										+ "].\n\n Click Ok to build it or otherwise Cancel.",
-								IStatus.ERROR)) {
-					for (IProject project : projectsToBeBuilt) {
-						try {
-							project.build(IncrementalProjectBuilder.FULL_BUILD,
-									ProgressUtil.getDefaultMonitor(null));
-						} catch (CoreException e) {
-							logger.warning(e);
-						}
-					}
-					return true;
-				} else {
-					return false;
-				}
-			}
-
-		}
-		return true;
 	}
 }

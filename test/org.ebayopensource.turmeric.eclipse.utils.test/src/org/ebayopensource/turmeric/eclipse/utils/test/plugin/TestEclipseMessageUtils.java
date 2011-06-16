@@ -8,8 +8,6 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.utils.test.plugin;
 
-import static org.junit.Assert.fail;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,7 +17,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 

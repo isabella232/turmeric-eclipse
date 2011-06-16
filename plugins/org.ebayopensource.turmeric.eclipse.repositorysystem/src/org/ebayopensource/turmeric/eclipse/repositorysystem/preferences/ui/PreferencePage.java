@@ -9,6 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,20 +57,37 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 		final List<ISOARepositorySystem> reposList = GlobalRepositorySystem
 				.instanceOf().getAvailableRepositorySystems();
 		final List<String[]> choices = new ArrayList<String[]>();
-		final Map<String, List<String>> organizations = new LinkedHashMap<String, List<String>>();
+		final Map<String, Map<String, String>> organizations = new LinkedHashMap<String, Map<String, String>>();
 		for (final ISOARepositorySystem repositorySystem : reposList) {
 			choices.add(new String[] { repositorySystem.getDisplayName(),
 					repositorySystem.getId() });
-			final List<String> orgs = new ArrayList<String>(3);
-			for (ISOAOrganizationProvider provider : repositorySystem.getOrganizationProviders()) {
-				orgs.add(provider.getName());
+			
+			final Map<String, String> orgs = new LinkedHashMap<String, String>(3);
+			List<ISOAOrganizationProvider> providers = repositorySystem.getOrganizationProviders();
+			Collections.sort(providers, new Comparator<ISOAOrganizationProvider>() {
+
+				@Override
+				public int compare(ISOAOrganizationProvider object1, ISOAOrganizationProvider object2) {
+					String name1 = object1.getDisplayName();
+					String name2 = object2.getDisplayName();
+					if (PreferenceConstants.PREF_DEFAULT_ORGANIZATION_DISPLAY_NAME.equals(name1)) {
+						return -1;
+					}
+					if (PreferenceConstants.PREF_DEFAULT_ORGANIZATION_DISPLAY_NAME.equals(name2)) {
+						return 1;
+					}
+					return name1.compareTo(name2);
+				}
+			});
+			for (ISOAOrganizationProvider provider : providers) {
+				orgs.put(provider.getName(), provider.getDisplayName());
 			}
 			organizations.put(repositorySystem.getId(), orgs);
 		}
 		final Composite buildSystemComposite = getFieldEditorParent();
 		
 		final CustomRadioGroupFieldEditor buildSystem = new CustomRadioGroupFieldEditor(
-				PreferenceConstants.PREF_REPOSITORY_SYSTEM, "Build System", 1,
+				PreferenceConstants.PREF_REPOSITORY_SYSTEM, "Build System / Organization", 1,
 				choices.toArray(new String[0][]), organizations, 
 				buildSystemComposite, true) {
 			@Override
@@ -81,7 +100,7 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 
 			@Override
 			protected void fireValueChanged(final String property,
-					final Object oldValue, final Object newValue) {
+					final Object oldValue, Object newValue) {
 				super.fireValueChanged(property, oldValue, newValue);
 				if (ObjectUtils.equals(oldValue, newValue))
 					return;
@@ -111,7 +130,7 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 				}
 			}
 
-			private boolean openWarningDialogBox(final Object newValue,
+			private boolean openWarningDialogBox(Object newValue,
 					final String currentValue) {
 				if (ObjectUtils.equals(newValue, currentValue))
 					return true;

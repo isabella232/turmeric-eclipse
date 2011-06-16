@@ -11,8 +11,8 @@
  */
 package org.ebayopensource.turmeric.eclipse.maven.core.model;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 
@@ -23,34 +23,33 @@ import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
  */
 public class MavenAssetInfo extends AssetInfo implements IMavenArtifact{
 	private String groupID;
+	
+	/**
+	 * 
+	 * @param groupID the maven group id
+	 * @param name the asset name
+	 * @param version the version number
+	 * @param dir the directory it is located
+	 * @param serviceLayer the service layer
+	 * @param type the asset type
+	 */
 	public MavenAssetInfo(String groupID, String name, String version, String dir,
 			String serviceLayer, String type) {
 		super(name, version, dir, serviceLayer, type);
 		this.groupID = groupID;
 	}
 	
-	/*public EBoxAssetInfo(String name, String version, String dir,
-			String serviceLayer, String type) {
-		super(name, version, dir, serviceLayer, type);
-	}
 
-	public EBoxAssetInfo(String name, String version, String dir,
-			String type) {
-		super(name, version, dir, type);
-	}
-
-	public EBoxAssetInfo(String name, String version, String dir) {
-		super(name, version, "");
-	}
-
-	public EBoxAssetInfo(String name, String type) {
-		super(name, type);
-	}*/
-
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getGroupID() {
 		return groupID;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setGroupID(String groupID) {
 		this.groupID = groupID;
 	}

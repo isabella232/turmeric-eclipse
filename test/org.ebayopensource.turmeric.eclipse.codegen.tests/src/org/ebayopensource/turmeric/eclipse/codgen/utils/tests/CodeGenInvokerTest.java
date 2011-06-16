@@ -8,7 +8,9 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.codgen.utils.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.apache.commons.lang.NullArgumentException;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
@@ -16,7 +18,6 @@ import org.ebayopensource.turmeric.eclipse.utils.classloader.SOAPluginClassLoade
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;

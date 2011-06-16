@@ -13,10 +13,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.IParameterElement;
-import org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeSelector;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractElementManagementWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.eclipse.core.runtime.IStatus;
@@ -24,8 +25,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * Element Page for complex type wizard

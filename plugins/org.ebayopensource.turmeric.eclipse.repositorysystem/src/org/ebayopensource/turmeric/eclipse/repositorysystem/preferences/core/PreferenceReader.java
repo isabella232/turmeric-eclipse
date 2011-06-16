@@ -34,11 +34,11 @@ public class PreferenceReader {
 				PreferenceConstants.PREF_REPOSITORY_SYSTEM);
 	}
 	
-	public static String getCurrentOrganizationId() {
+	public static String getCurrentOrganizationId(String defaultOrgId) {
 		String orgId = PreferenceUtil.getPreferenceStore().getString(
 				PreferenceConstants.PREF_ORGANIZATION);
 		if (StringUtils.isBlank(orgId)) {
-			orgId = PreferenceConstants.PREF_DEFAULT_ORGANIZATION;
+			orgId = defaultOrgId;
 			PreferenceUtil.getPreferenceStore().setDefault(
 					PreferenceConstants.PREF_ORGANIZATION, 
 					orgId);

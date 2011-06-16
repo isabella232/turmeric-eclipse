@@ -212,13 +212,6 @@ reason of your accepting any such warranty or additional liability.
    </requires>
 
    <plugin
-         id="org.ebayopensource.turmeric.eclipse.codegen"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.ebayopensource.turmeric.eclipse.core"
          download-size="0"
          install-size="0"
@@ -261,31 +254,10 @@ reason of your accepting any such warranty or additional liability.
          unpack="false"/>
 
    <plugin
-         id="org.ebayopensource.turmeric.eclipse.services"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.ebayopensource.turmeric.eclipse.soatools"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-
-   <plugin
-         id="org.ebayopensource.turmeric.eclipse.template.wsdl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.ebayopensource.turmeric.eclipse.typelibrary"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
    <plugin
          id="org.ebayopensource.turmeric.eclipse.ui"
@@ -296,13 +268,6 @@ reason of your accepting any such warranty or additional liability.
 
    <plugin
          id="org.ebayopensource.turmeric.eclipse.utils"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.ebayopensource.turmeric.eclipse.validator"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -323,20 +288,6 @@ reason of your accepting any such warranty or additional liability.
          unpack="false"/>
 
    <plugin
-         id="org.ebayopensource.turmeric.eclipse.errorlibrary"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.ebayopensource.turmeric.eclipse.buildsystem"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.ebayopensource.turmeric.eclipse"
          download-size="0"
          install-size="0"
@@ -344,6 +295,48 @@ reason of your accepting any such warranty or additional liability.
 
    <plugin
          id="org.jdom"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.ebayopensource.turmeric.eclipse.utils.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="javax.wsdl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.ebayopensource.turmeric.eclipse.services.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.collections"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.io"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.lang"
          download-size="0"
          install-size="0"
          version="0.0.0"

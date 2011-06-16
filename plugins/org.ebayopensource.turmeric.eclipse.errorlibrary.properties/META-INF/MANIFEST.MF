@@ -25,7 +25,10 @@ Require-Bundle: org.eclipse.ui;bundle-version="3.5.0",
  org.eclipse.core.resources,
  org.ebayopensource.turmeric.eclipse.utils;bundle-version="1.0.0",
  org.ebayopensource.turmeric.eclipse.soatools;bundle-version="1.0.0";visibility:=reexport,
- org.jdom;bundle-version="1.0.0"
+ org.jdom;bundle-version="1.0.0",
+ org.apache.commons.lang;bundle-version="2.4.0",
+ org.apache.commons.io;bundle-version="1.4.0",
+ org.ebayopensource.turmeric.eclipse.utils.ui;bundle-version="1.0.0"
 Export-Package: org.ebayopensource.turmeric.eclipse.errorlibrary.properties.eclipse,
  org.ebayopensource.turmeric.eclipse.errorlibrary.properties.model,
  org.ebayopensource.turmeric.eclipse.errorlibrary.properties.providers,

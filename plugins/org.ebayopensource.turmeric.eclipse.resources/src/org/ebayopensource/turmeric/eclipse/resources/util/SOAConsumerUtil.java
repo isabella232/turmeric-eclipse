@@ -29,15 +29,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject;
-import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
-import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientEnvironment;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject.SOAProjectSourceDirectory;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
@@ -240,9 +240,6 @@ public final class SOAConsumerUtil {
 			final SOAConsumerProject consumerProject) throws IOException,
 			CoreException {
 		Properties properties = loadConsumerProperties(consumerProject.getProject());
-		properties.setProperty(
-				SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR,
-				consumerProject.getMetadata().getBaseConsumerSrcDir());
 		PropertiesFileUtil.writeToFile(properties, consumerProject.getProject()
 				.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_CONSUMER),
 				SOAProjectConstants.PROPS_COMMENTS);
@@ -443,7 +440,7 @@ public final class SOAConsumerUtil {
 				//TODO this is a dirty fix, but we could not get the service name at this point
 				final String serviceName = StringUtils.removeEnd(project.getName(), 
 						SOAProjectConstants.IMPL_PROJECT_SUFFIX);
-				return serviceName + SOAProjectConstants.SERVICE_CLIENT_SUFFIX;
+				return serviceName + SOAProjectConstants.CLIENT_PROJECT_SUFFIX;
 			}
 		}
 		return project.getName();
@@ -548,6 +545,23 @@ public final class SOAConsumerUtil {
 					project.getName());
 		}
 		return clientName;
+	}
+	
+	public static boolean isZeroConfigEnabled(IProject project) throws IOException, CoreException {
+		final IFile file = getConsumerPropertiesFile(project);
+		//the default name is same as the project name
+		boolean isZeroConfig = Boolean.FALSE;
+		if (file.exists() == true) {
+			final Properties props = loadConsumerProperties(project);
+			isZeroConfig = Boolean.valueOf(StringUtils.trim(
+					props.getProperty(SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG, 
+					Boolean.FALSE.toString())));
+		} else {
+			logger.warning(
+					"service_consumer_project.properties file is missing, so use the support_zero_config=false instead");
+		}
+		return isZeroConfig;
+		
 	}
 	
 	public static IFolder getClientConfigClientFolder(IProject project) throws CoreException {

@@ -38,7 +38,6 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.ElementNameAndAttributeQualifier;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
-import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.AttachmentWsdlConsumerTest;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
@@ -72,7 +71,7 @@ public class ProjectArtifactValidator implements IResourceVisitor {
 
 	public void setGoldCopyRootDir(String subDir) {
 		goldCopyDir = WsdlUtilTest.getPluginOSPath(SoaTestConstants.PLUGIN_ID,
-				"test-data/" + subDir);
+				"data/extractedData/" + subDir);
 		System.out.println(" --- gold Copy Dir : " + goldCopyDir.toString());
 
 		ISOARepositorySystem repositorySystem = GlobalRepositorySystem

@@ -15,12 +15,12 @@ import org.apache.commons.lang.StringUtils;
 /**
  * @author smathew
  * 
- *
+ * 
  */
-public class GenTypeServiceConfig extends AbstractGenTypeGlobalConfig{
+public class GenTypeServiceConfig extends AbstractGenTypeGlobalConfig {
 	private String serviceConfigGroup;
-	
-	public GenTypeServiceConfig(){
+
+	public GenTypeServiceConfig() {
 		super();
 		setGenType(GENTYPE_SERVER_CONFIG);
 	}
@@ -38,6 +38,9 @@ public class GenTypeServiceConfig extends AbstractGenTypeGlobalConfig{
 		final Map<String, String> result = super.getCodeGenOptions();
 		if (StringUtils.isNotBlank(this.serviceConfigGroup))
 			result.put(PARAM_SCGN, this.serviceConfigGroup);
+		if (this.useExternalServiceFactory() == true) {
+			result.remove(PARAM_SICN);
+		}
 		return result;
 	}
 }

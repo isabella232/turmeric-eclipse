@@ -12,12 +12,34 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.ArtifactScopeEnum;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
 
+/**
+ * 
+ * 
+ *
+ */
 public class EclipseArtifactMetadata extends ArtifactMetadata {
 
+	/**
+	 * 
+	 * @param af the Artifact
+	 */
 	public EclipseArtifactMetadata(Artifact af) {
 		super(af);
 	}
 
+	/**
+	 * 
+	 * @param groupId groupid
+	 * @param name name
+	 * @param version version
+	 * @param type type
+	 * @param artifactScope scope
+	 * @param classifier classifier
+	 * @param artifactUri location of the artifact
+	 * @param why 
+	 * @param resolved resolved or not
+	 * @param error error state
+	 */
 	public EclipseArtifactMetadata(String groupId, String name, String version,
 			String type, ArtifactScopeEnum artifactScope, String classifier,
 			String artifactUri, String why, boolean resolved, String error) {
@@ -25,6 +47,16 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 				artifactUri, why, resolved, error);
 	}
 
+	/**
+	 * 
+	 * @param groupId gropid
+	 * @param name name
+	 * @param version version
+	 * @param type type
+	 * @param artifactScope artifact scope
+	 * @param classifier maven classifier
+	 * @param artifactUri artifact location
+	 */
 	public EclipseArtifactMetadata(String groupId, String name, String version,
 			String type, ArtifactScopeEnum artifactScope, String classifier,
 			String artifactUri) {
@@ -32,16 +64,46 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 				artifactUri);
 	}
 
+	/**
+	 * 
+	 * @param groupId groupid
+	 * @param name name
+	 * @param version version
+	 * @param type type
+	 * @param artifactScope artifact scope
+	 * @param classifier the maven classifer
+	 */
 	public EclipseArtifactMetadata(String groupId, String name, String version,
 			String type, ArtifactScopeEnum artifactScope, String classifier) {
 		super(groupId, name, version, type, artifactScope, classifier);
 	}
 
+	/**
+	 * 
+	 * @param groupId groupid
+	 * @param name name
+	 * @param version version
+	 * @param type type
+	 * @param artifactScope artifact scope
+	 */
 	public EclipseArtifactMetadata(String groupId, String name, String version,
 			String type, ArtifactScopeEnum artifactScope) {
 		super(groupId, name, version, type, artifactScope);
 	}
 
+	/**
+	 * 
+	 * @param groupId groupid
+	 * @param name name
+	 * @param version version
+	 * @param type type
+	 * @param scopeString artifact scope
+	 * @param classifier the maven classifer
+	 * @param artifactUri the artificat location
+	 * @param why 
+	 * @param resolved whether the items is to be resolved or not
+	 * @param error error status
+	 */
 	public EclipseArtifactMetadata(String groupId, String name, String version,
 			String type, String scopeString, String classifier,
 			String artifactUri, String why, boolean resolved, String error) {
@@ -49,15 +111,32 @@ public class EclipseArtifactMetadata extends ArtifactMetadata {
 				artifactUri, why, resolved, error);
 	}
 
+	/**
+	 * 
+	 * @param groupId group id
+	 * @param name name
+	 * @param version version
+	 * @param type type
+	 */
 	public EclipseArtifactMetadata(String groupId, String name, String version,
 			String type) {
 		super(groupId, name, version, type);
 	}
 
+	/**
+	 * 
+	 * @param groupId group id
+	 * @param name name
+	 * @param version version
+	 */
 	public EclipseArtifactMetadata(String groupId, String name, String version) {
 		super(groupId, name, version);
 	}
 
+	/**
+	 * 
+	 * @param name the artifact name
+	 */
 	public EclipseArtifactMetadata(String name) {
 		super(name);
 	}

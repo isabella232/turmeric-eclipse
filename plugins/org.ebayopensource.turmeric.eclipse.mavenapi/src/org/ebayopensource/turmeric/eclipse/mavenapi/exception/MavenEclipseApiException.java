@@ -20,18 +20,35 @@ public class MavenEclipseApiException extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 *  
+	 */
 	public MavenEclipseApiException() {
 		super();
 	}
 
+	/**
+	 * 
+	 * @param message Message for the exception
+	 */
 	public MavenEclipseApiException(String message) {
 		super(message);
 	}
 
+	/**
+	 * 
+	 * @param cause the cause of the exception
+	 */
 	public MavenEclipseApiException(Throwable cause) {
 		super(cause);
 	}
 
+	
+	/**
+	 * 
+	 * @param message the message for the exception
+	 * @param cause  the cause of the exception
+	 */
 	public MavenEclipseApiException(String message, Throwable cause) {
 		super(message, cause);
 	}

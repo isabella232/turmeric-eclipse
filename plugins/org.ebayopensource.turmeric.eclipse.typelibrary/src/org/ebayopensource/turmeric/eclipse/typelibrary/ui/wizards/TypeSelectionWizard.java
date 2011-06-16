@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOATypeCreationFailedException;
@@ -34,17 +34,19 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexT
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeSCWizardGeneralPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardAttribPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage.ElementTableModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardGeneralPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.EnumTypeWizardDetailsPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.EnumTypeWizardGeneralPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.SimpleTypeWizardGeneralPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.TypeSelectionWizardPage;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage.ElementTableModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
+import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -52,9 +54,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -81,6 +86,11 @@ public class TypeSelectionWizard extends SOABaseWizard {
 
 	private static final SOALogger logger = SOALogger.getLogger();
 	private String typeLibName = "";
+	protected IEditorPart editorPart = null;
+
+	public void setEditorPart(IEditorPart editorPart) {
+		this.editorPart = editorPart;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -306,6 +316,35 @@ public class TypeSelectionWizard extends SOABaseWizard {
 					}
 
 				});
+			}
+			
+			if (this.editorPart != null) {
+				//auto inline the type to the wsdl file
+				Job job = new Job("Auto Inline the New Schema Type...") {
+
+					@Override
+					protected IStatus run(IProgressMonitor monitor) {
+						monitor.beginTask(getName(), IProgressMonitor.UNKNOWN);
+						try {
+							SOATypeRegistry registry = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry();
+							LibraryType newType = null;
+							
+							while((newType = registry.getType(
+									paramModel.getTypeName(), typeLibName)) == null) {
+								MessageDialog.openInformation(null, "DDD", "Found the type->" + newType);
+							}
+						
+						} catch (Exception e) {
+							logger.error(e);
+						} finally {
+							monitor.done();
+						}
+						return Status.OK_STATUS;
+					}
+					
+				};
+				job.schedule();
+				
 			}
 			return true;
 		} catch (Exception exception) {

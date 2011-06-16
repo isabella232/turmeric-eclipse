@@ -15,20 +15,19 @@ import java.util.TreeSet;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.ICommand;
+import org.ebayopensource.turmeric.eclipse.core.compare.LibraryTypeComparator;
+import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.IParameterElement;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.util.ServiceTemplateUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.WTPTypeLibUtil;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.LibraryTypeComparator;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.wst.wsdl.PortType;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * This class process the preference for imports from the
@@ -80,7 +79,7 @@ public class ImportProcessor implements ICommand {
 				}
 				PortType portType = ServiceTemplateUtil
 						.getDefaultPort(definition);
-				for (org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel.Operation operationModel : processorModel
+				for (org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel.Operation operationModel : processorModel
 						.getInputParamModel().getOperations()) {
 					if (!ServiceTemplateUtil.operationExists(portType,
 							operationModel.getName())) {

@@ -13,6 +13,9 @@ import java.util.Arrays;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemCodeGen;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
+import org.ebayopensource.turmeric.eclipse.core.model.consumer.ConsumerFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAConsumeNewServiceFailedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
@@ -23,9 +26,6 @@ import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromWsdlParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.processors.WSDLTemplateProcessor;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
@@ -76,12 +76,14 @@ public class ServiceCreator {
 			final IProgressMonitor monitor) throws Exception {
 		SOAIntfProject intfProject = InterfaceCreator
 				.createIntfModelFromExistingWsdl(paramModel, monitor);
-
-		SOAConsumerProject consumerProject = ConsumerCreator
-				.createConsumerModelFromExistingWsdl(paramModel, intfProject,
-						monitor);
+		
 		InterfaceCreator
 				.createIntfProjectFromExistingWsdl(intfProject, monitor);
+		
+		//skip the consumer creation for simple mode
+		SOAConsumerProject consumerProject = ConsumerCreator
+		.createConsumerModelFromExistingWsdl(paramModel, intfProject,
+				monitor);
 
 		ConsumerCreator.createConsumerProjectFromExistingWsdl(consumerProject,
 				intfProject, monitor);

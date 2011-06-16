@@ -29,16 +29,17 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ProjectPropertiesFileUtil;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.SOAMavenConstants;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.SOAMavenConstants.ProjectType;
+import org.ebayopensource.turmeric.eclipse.maven.ui.utils.MavenUIUtils;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
 import org.ebayopensource.turmeric.eclipse.mavenapi.intf.IMavenEclipseApi;
 import org.ebayopensource.turmeric.eclipse.mavenapi.request.ProjectMavenizationRequest;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.impl.AbstractSOAProjectConfigurer;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
@@ -291,7 +292,7 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 		boolean result = false;
 		final IProject project = WorkspaceUtil.getProject(projectName);
 		if (project != null && project.isAccessible()) {
-			result = MavenCoreUtils.addDependency(project, dependentLibraries, addRemove, monitor);
+			result = MavenUIUtils.addDependency(project, dependentLibraries, addRemove, monitor);
 			if (result == true && addRemove) {
 				for (String libName : dependentLibraries.keySet()) {
 					MavenCoreUtils.updateMavenClasspathContainer(project, 
@@ -426,6 +427,8 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 			if (build.getPlugins() != null) {
 				for (Plugin plugin: build.getPlugins()) {
 					final String pluginVersion = plugin.getVersion();
+					//we might change the Plugin object, so we should do a clone first.
+					Plugin newPlugin = plugin.clone();
 					if (StringUtils.isNotBlank(pluginVersion) 
 							&& pluginVersion.equals(TurmericConstants.TAG_AUTOUPDATE_VERSION)
 							&& StringUtils.isNotBlank(plugin.getGroupId())
@@ -434,12 +437,12 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 						Artifact pluginArtifact = MavenCoreUtils.getLatestArtifact(plugin.getGroupId(), 
 								plugin.getArtifactId());
 						if (pluginArtifact != null && !pluginArtifact.getVersion().contains("-T40")) {
-							plugin.setVersion(pluginArtifact.getVersion());
+							newPlugin.setVersion(pluginArtifact.getVersion());
 						} else {
-							plugin.setVersion(TurmericConstants.TURMERIC_DEVELOPMENT_VERSION);
+							newPlugin.setVersion(TurmericConstants.TURMERIC_DEVELOPMENT_VERSION);
 						}
 					}
-					request.getBuildPlugins().add(plugin);
+					request.getBuildPlugins().add(newPlugin);
 				}
 			}
 		}

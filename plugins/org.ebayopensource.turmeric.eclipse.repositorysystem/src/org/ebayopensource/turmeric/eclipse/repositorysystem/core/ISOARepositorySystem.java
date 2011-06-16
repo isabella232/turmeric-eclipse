@@ -11,7 +11,7 @@ package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.core.buildsystem.AbstractSOAClassPathContainer;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.validator.core.ISOAPreValidator;
 import org.ebayopensource.turmeric.eclipse.validator.core.ISOAValidator;
 import org.eclipse.core.resources.IProject;

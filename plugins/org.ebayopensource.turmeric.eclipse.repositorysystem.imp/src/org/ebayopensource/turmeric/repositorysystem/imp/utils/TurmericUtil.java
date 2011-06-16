@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject.SOAProjectSourceDirectory;
 import org.eclipse.core.runtime.CoreException;

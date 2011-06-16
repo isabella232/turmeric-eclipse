@@ -11,19 +11,21 @@
  */
 package org.ebayopensource.turmeric.eclipse.services.buildsystem;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.buildsystem.core.BuildSystemConfigurer;
 import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemCodeGen;
+import org.ebayopensource.turmeric.eclipse.core.model.consumer.ConsumerFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SOAFrameworkLibrary;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SOAFrameworkLibrary;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
@@ -31,7 +33,6 @@ import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.utils.collections.SetUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
@@ -75,18 +76,18 @@ public class ConsumerCreator {
 		
 		final ISOAOrganizationProvider orgProvider = GlobalRepositorySystem.instanceOf()
 		.getActiveRepositorySystem().getActiveOrganizationProvider();
-		Set<String> requiredLibraries = paramModel.getInterfaceLibs();
+		// Set<String> requiredLibraries = paramModel.getInterfaceLibs();
+		Set<String> requiredLibraries = new HashSet<String>();
 		requiredLibraries.addAll(orgProvider.getDefaultDependencies(SupportedProjectType.CONSUMER));
 		
 		consumerProject.setRequiredLibraries(requiredLibraries);
-		consumerProject.setRequiredProjects(paramModel.getInterfaceProjects());
+		// consumerProject.setRequiredProjects(paramModel.getInterfaceProjects());
 		ProgressUtil.progressOneStep(monitor);
 		
 		// adding the service project now
-		Set<String> requiredProjects = paramModel.getImplProjects();
-		requiredProjects.add(interfaceProject.getEclipseMetadata()
-				.getProjectName());
-		consumerProject.setRequiredProjects(requiredProjects);
+		// Set<String> requiredProjects = paramModel.getImplProjects();
+		// requiredProjects.add(interfaceProject.getEclipseMetadata()
+		// .getProjectName());
 
 		consumerProject.getRequiredServices().put(
 				interfaceProject.getMetadata().getServiceName(), 
@@ -116,10 +117,12 @@ public class ConsumerCreator {
 		BuildSystemConfigurer.configure(consumerProject, monitor);
 		ProgressUtil.progressOneStep(monitor);
 		
-		//we only generate the client config now, because the interface class is not ready yet
-		//the client project builder will be responsible for generating the base consumer
-		BuildSystemCodeGen.generateClientConfigXml(consumerProject, monitor);
-		ProgressUtil.progressOneStep(monitor);
+		if (consumerProject.getMetadata().getEnvironments().isEmpty() == false) {
+			//we only generate the client config now, because the interface class is not ready yet
+			//the client project builder will be responsible for generating the base consumer
+			BuildSystemCodeGen.generateClientConfigXml(consumerProject, monitor);
+			ProgressUtil.progressOneStep(monitor);
+		}
 	}
 
 
@@ -160,8 +163,8 @@ public class ConsumerCreator {
 					
 					//we need to get all required libs for the intf service
 					final ProjectInfo intfProjectInfo = assetRegistry.getProjectInfo(serviceName);
-					consumerProject.getRequiredLibraries().addAll(intfProjectInfo.getRequiredLibraries());
-					consumerProject.getRequiredProjects().addAll(intfProjectInfo.getRequiredProjects());
+//					consumerProject.getRequiredLibraries().addAll(intfProjectInfo.getRequiredLibraries());
+//					consumerProject.getRequiredProjects().addAll(intfProjectInfo.getRequiredProjects());
 
 					if (serviceLocation != null && serviceLocation
 							.startsWith(SOAProjectConstants.PROTOCOL_HTTP) == false) {

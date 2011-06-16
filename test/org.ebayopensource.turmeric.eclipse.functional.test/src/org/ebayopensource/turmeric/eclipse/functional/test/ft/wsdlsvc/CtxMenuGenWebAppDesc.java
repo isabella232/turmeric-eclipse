@@ -20,14 +20,19 @@ import junit.framework.Assert;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemCodeGen;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceConstants;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -40,6 +45,17 @@ public class CtxMenuGenWebAppDesc extends AbstractTestCase {
 	final ActionUtil ctxMenuAction = new ActionUtil();
 
 	static final String SERVICE_NAME = "CalcServiceV1";
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/wsdl.zip",dataDirectory +"/extractedData");
+		
+	}
+
 
 	/**
 	 * @throws java.lang.Exception
@@ -91,7 +107,7 @@ public class CtxMenuGenWebAppDesc extends AbstractTestCase {
 
 			final Class<?> templateLoadingClass;
 			final Map<String, String> templates = new ConcurrentHashMap<String, String>(1);
-			if (PreferenceConstants.PREF_DEFAULT_REPOSITORY_SYSTEM
+			if (PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM
 					.equals(GlobalRepositorySystem.instanceOf()
 							.getActiveRepositorySystem().getId())) {
 				// we should generate the Geronimo specific deployment file in
@@ -128,6 +144,12 @@ public class CtxMenuGenWebAppDesc extends AbstractTestCase {
 			Assert.fail("Exception in testCtxMenuWebAppDesc: "
 					+ ex.getLocalizedMessage());
 		}
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 
 }

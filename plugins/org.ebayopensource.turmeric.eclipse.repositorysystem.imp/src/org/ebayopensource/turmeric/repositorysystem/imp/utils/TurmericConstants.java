@@ -17,8 +17,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.SOAMavenConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 
 
@@ -89,6 +89,8 @@ public final class TurmericConstants {
 	public static final List<String> DEFAULT_DEPENDENCIES_ERRORLIB;
 	private static final String JAXB_XJC = "com.sun.xml.bind:jaxb-xjc:jar:2.1.2";
 	//private static final String[] LIB_JAXB2 = {//"com.sun.xml.bind:jaxb1-impl:2.1.13",};
+	
+	public static final String PROTOCOL_PROCESSOR_CLASS_NAME_VALUE = "org.ebayopensource.turmeric.runtime.sif.impl.protocolprocessor.soap.ClientSOAPProtocolProcessor";
 	
 	// Nature IDs
     public static final String NATURE_ID_SOA_INTF_PROJECT = "org.ebayopensource.turmeric.eclipse.build.SOAInterfaceProjectNature";

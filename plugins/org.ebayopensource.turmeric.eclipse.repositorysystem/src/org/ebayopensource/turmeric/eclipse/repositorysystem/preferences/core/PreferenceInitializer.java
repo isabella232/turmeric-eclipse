@@ -30,7 +30,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	public void initializeDefaultPreferences() {
 		final IPreferenceStore store = PreferenceUtil.getPreferenceStore();
 		store.setDefault(PreferenceConstants.PREF_REPOSITORY_SYSTEM,
-				PreferenceConstants.PREF_DEFAULT_REPOSITORY_SYSTEM);
+				PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM);
 		store.setDefault(PreferenceConstants.PREF_SERVICE_LAYERS,
 				PreferenceConstants.getDefaultServiceLayers());
 		

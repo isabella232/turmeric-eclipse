@@ -16,10 +16,10 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.SOAXSDValidator;
@@ -275,6 +275,10 @@ public class TypeLibraryBuilderUtils {
 				.getSoaPluginClassLoader();
 		ArrayList<IProject> typeLibProjects = WorkspaceUtil
 				.getProjectsByNature(TypeLibraryProjectNature.getTypeLibraryNatureId());
+		soaPluginClassLoader.setPluginBundles(
+				(GlobalRepositorySystem
+						.instanceOf().getActiveRepositorySystem()
+						.getTypeRegistryBridge().getPluginBundles()));
 		// Output location of each project
 		ArrayList<URL> outPutUrls = new ArrayList<URL>();
 		ArrayList<URL> metasrcmetainfUrls = new ArrayList<URL>();

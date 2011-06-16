@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject.SOAProjectSourceDirectory;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
-import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject.SOAProjectSourceDirectory;
 import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -161,6 +161,18 @@ public class SOAImplUtil {
 
 	public static IFile getWarFile(final IProject implProject, final String serviceName) {
 		return implProject.getFile(serviceName + SOAProjectConstants.WAR_EXT);
+	}
+	
+	public static IFile getServiceImplPropertiesFile(IProject implProject){
+		return implProject.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_IMPL);
+	}
+	
+	public static IFile getServiceImplWebXMLFile(IProject implProject){
+		return implProject.getFile(SOAProjectConstants.FOLDER_GEN_WEB_CONTENT
+				+ SOAProjectConstants.DELIMITER_URL_SLASH
+				+ SOAProjectConstants.FOLDER_WEB_INF
+				+ SOAProjectConstants.DELIMITER_URL_SLASH
+				+ SOAProjectConstants.FILE_WEB_XML);
 	}
 	
 	/*public static String getImplNameFromServiceName(String serviceName){

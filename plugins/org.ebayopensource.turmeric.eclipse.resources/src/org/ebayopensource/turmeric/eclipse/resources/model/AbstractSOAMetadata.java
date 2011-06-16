@@ -27,6 +27,10 @@ public abstract class AbstractSOAMetadata {
 	
 //	public abstract IFile getMetadataFile();
 	
+	/**
+	 * 
+	 * @return the MetaDataFileName as a string.
+	 */
 	public abstract String getMetadataFileName();
 
 }

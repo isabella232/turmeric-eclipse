@@ -204,42 +204,20 @@ defend, and hold each Contributor harmless for any liability
 incurred by, or claims asserted against, such Contributor by
 reason of your accepting any such warranty or additional liability.
    </license>
-   
-   <requires>
-      <import feature="org.maven.ide.eclipse.feature" version="0.12" match="greaterOrEqual"/>
-   </requires>
-   
 
    <includes
          id="org.ebayopensource.turmeric.eclipse.core.feature"
          version="0.0.0"/>
 
-   <plugin
-         id="org.ebayopensource.turmeric.eclipse.maven.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+   <requires>
+      <import feature="org.maven.ide.eclipse.feature" version="0.12" match="greaterOrEqual"/>
+   </requires>
 
    <plugin
          id="org.ebayopensource.turmeric.eclipse"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-
-   <plugin
-         id="org.ebayopensource.turmeric.eclipse.doc"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.ebayopensource.turmeric.eclipse.mavenapi"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
    <plugin
          id="org.ebayopensource.turmeric.eclipse.config.imp"
@@ -258,13 +236,6 @@ reason of your accepting any such warranty or additional liability.
 
    <plugin
          id="org.ebayopensource.turmeric.eclipse.repositorysystem.imp"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.ebayopensource.turmeric.eclipse.maven.sconfig"
          download-size="0"
          install-size="0"
          version="0.0.0"

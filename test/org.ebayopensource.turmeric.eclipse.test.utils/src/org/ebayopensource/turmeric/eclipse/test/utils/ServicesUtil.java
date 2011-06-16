@@ -33,8 +33,11 @@ import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel.Binding;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel.Operation;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
@@ -45,9 +48,6 @@ import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel.Binding;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ServiceFromTemplateWsdlParamModel.Operation;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAClientConfigUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
@@ -285,8 +285,12 @@ public class ServicesUtil {
 					consProject,"production", serviceName);
 
 			config.setServiceBinding("LOCAL");
-
-			SOAClientConfigUtil.save(config);
+			String protocalProcessorClassName = GlobalRepositorySystem
+			.instanceOf()
+			.getActiveRepositorySystem()
+			.getActiveOrganizationProvider()
+			.getSOAPProtocolProcessorClassName();
+			SOAClientConfigUtil.save(config, protocalProcessorClassName);
 
 			// When adding the local binding u might need to add the project as
 			// dependency also..For that use the below code,

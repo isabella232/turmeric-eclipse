@@ -15,20 +15,25 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.common.config.ReferredType;
+import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;
+import org.ebayopensource.turmeric.common.config.TypeDependencyType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 import org.ebayopensource.turmeric.eclipse.exception.core.SOABadParameterException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeDepMarshaller;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
@@ -54,12 +59,6 @@ import org.eclipse.xsd.XSDTypeDefinition;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.common.config.ReferredType;
-import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;
-import org.ebayopensource.turmeric.common.config.TypeDependencyType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 
 /**
  * WTP Type Library Utility contains the WTP related utility functions. The WSDL
@@ -524,7 +523,7 @@ public class WTPTypeLibUtil {
 		return null;
 	}
 
-	private static List<XSDSchema> getXSDSchema(Definition definition,
+	public static List<XSDSchema> getXSDSchema(Definition definition,
 			String targetNamespace) {
 		List<XSDSchema> schemaList = getTypes(definition).getSchemas(
 				targetNamespace);
@@ -546,7 +545,7 @@ public class WTPTypeLibUtil {
 		return schemaList != null && !schemaList.isEmpty();
 	}
 
-	private static Types getTypes(Definition definition) {
+	public static Types getTypes(Definition definition) {
 		Types types = (Types) definition.getTypes();
 		if (types != null)
 			return types;

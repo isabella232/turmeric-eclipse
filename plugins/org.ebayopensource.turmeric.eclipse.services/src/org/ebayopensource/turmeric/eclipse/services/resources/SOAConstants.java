@@ -17,4 +17,5 @@ package org.ebayopensource.turmeric.eclipse.services.resources;
 public class SOAConstants {
 
 	public static final String SVC_PAGE_NAME = "newSOAServiceProjectFromBlankWSDLWizardPage";
+	
 }

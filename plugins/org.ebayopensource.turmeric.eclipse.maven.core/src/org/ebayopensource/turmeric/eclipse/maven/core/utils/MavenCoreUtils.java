@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.jar.JarEntry;
@@ -31,22 +30,21 @@ import org.apache.maven.model.Model;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
 import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.ServiceLayer;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.maven.core.model.MavenAssetInfo;
 import org.ebayopensource.turmeric.eclipse.maven.core.model.MavenProjectInfo;
 import org.ebayopensource.turmeric.eclipse.maven.core.repositorysystem.IMavenOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.mavenapi.MavenApiPlugin;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
-import org.ebayopensource.turmeric.eclipse.mavenapi.impl.EclipseArtifactMetadata;
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenApiHelper;
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseUtil;
 import org.ebayopensource.turmeric.eclipse.mavenapi.intf.IMavenEclipseApi;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.ServiceLayer;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject.SOAProjectSourceDirectory;
@@ -62,7 +60,6 @@ import org.ebayopensource.turmeric.eclipse.utils.collections.SetUtil;
 import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
-import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -77,10 +74,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.swt.widgets.Shell;
 import org.maven.ide.eclipse.embedder.ArtifactKey;
 import org.maven.ide.eclipse.embedder.ArtifactRef;
-import org.maven.ide.eclipse.internal.project.EclipseMavenMetadataCache;
 import org.maven.ide.eclipse.project.IMavenProjectFacade;
 
 /**
@@ -92,10 +87,21 @@ public class MavenCoreUtils {
 			.getDefault().getMavenEclipseApi();
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * 
+	 * @return an instance of the MavenEclipseAPI.
+	 */
 	public static IMavenEclipseApi mavenEclipseAPI() {
 		return mavenEclipseAPI;
 	}
 
+	/**
+	 * 
+	 * @param project a soa base project
+	 * @param monitor an eclipse progress monitor
+	 * @return a configured SOABaseProject
+	 * @throws CoreException 
+	 */
 	public static SOABaseProject configureAsStandardMavenProject(
 			final SOABaseProject project, IProgressMonitor monitor)
 			throws CoreException {
@@ -123,6 +129,11 @@ public class MavenCoreUtils {
 		return project;
 	}
 
+	/**
+	 * 
+	 * @param mavenProject a maven project
+	 * @return a set of ArtifactKeys
+	 */
 	public static Set<ArtifactKey> getArtifactKeys(
 			final MavenProject mavenProject) {
 		if (mavenProject == null)
@@ -138,7 +149,7 @@ public class MavenCoreUtils {
 	/**
 	 * Retrieve the MavenOrganizationProvider.
 	 * 
-	 * @return
+	 * @return the Maven Organization provider instance
 	 */
 	public static IMavenOrganizationProvider getMavenOrgProviderInstance() {
 		ISOAOrganizationProvider provider = GlobalRepositorySystem.instanceOf()
@@ -153,9 +164,9 @@ public class MavenCoreUtils {
 	/**
 	 * we only check for the existence of interface projects.
 	 * 
-	 * @param serviceNames
-	 * @return
-	 * @throws Exception
+	 * @param serviceNames an Array of strings that contain service names
+	 * @return an boolean arry of results for the service names
+	 * @throws Exception 
 	 */
 	public static boolean[] serviceExists(final String... serviceNames)
 			throws Exception {
@@ -180,6 +191,12 @@ public class MavenCoreUtils {
 		return results;
 	}
 
+	/**
+	 * 
+	 * @param typeLibName type library names
+	 * @return true if the type library exists
+	 * @throws Exception 
+	 */
 	public static boolean isTypeLibraryExist(final String typeLibName)
 			throws Exception {
 		if (SOALogger.DEBUG)
@@ -200,6 +217,12 @@ public class MavenCoreUtils {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param libs a list of libraries 
+	 * @return a set of ArtifactMetadata for the libraries
+	 * @throws MavenEclipseApiException 
+	 */
 	public static Set<ArtifactMetadata> artifactMetadata(
 			final Collection<String> libs) throws MavenEclipseApiException {
 		if (SOALogger.DEBUG)
@@ -225,7 +248,7 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * @param artifact
+	 * @param artifact artifact meta data
 	 * @return The full library name in Maven format
 	 */
 	public static String libraryName(final ArtifactMetadata artifact) {
@@ -234,6 +257,11 @@ public class MavenCoreUtils {
 				artifact.getVersion());
 	}
 
+	/**
+	 * 
+	 * @param artifact the artifact name
+	 * @return the libary name
+	 */
 	public static String libraryName(final Artifact artifact) {
 		return MavenCoreUtils.translateLibraryName(artifact.getGroupId(),
 				artifact.getArtifactId(), artifact.getType(),
@@ -241,7 +269,7 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * @param project
+	 * @param project the maven project
 	 * @return The full library name for the given Maven project
 	 */
 	public static String libraryName(final MavenProject project) {
@@ -257,6 +285,12 @@ public class MavenCoreUtils {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param metadata
+	 * @return
+	 * @throws MavenEclipseApiException
+	 */
 	public static MavenProject getLibrary(final ArtifactMetadata metadata)
 			throws MavenEclipseApiException {
 		if (SOALogger.DEBUG)
@@ -1251,118 +1285,6 @@ public class MavenCoreUtils {
 		return false;
 	}
 
-	/**
-	 * @param project
-	 * @param dependentName
-	 * @param type
-	 * @param addRemove
-	 *            add = true, remove = false
-	 * @return
-	 * @throws CoreException
-	 * @throws MavenEclipseApiException
-	 */
-	public static boolean addDependency(final IProject project,
-			Map<String, String> dependentLibraries, final boolean addRemove,
-			IProgressMonitor monitor) throws CoreException,
-			MavenEclipseApiException {
-		ArtifactMetadata metadata = null;
-		final IFile pomFile = MavenEclipseUtil.getPomFile(project);
-		pomFile.refreshLocal(IResource.DEPTH_ZERO, monitor);
-		final Model pom = MavenEclipseUtil.readPOM(project);
-		if (pom == null)
-			return false;
-
-		for (String dependentName : dependentLibraries.keySet()) {
-			final String type = dependentLibraries.get(dependentName);
-			if (StringUtils.equals(type, AssetInfo.TYPE_SERVICE_LIBRARY)) {
-				// service dependency
-				String groupId = getMavenOrgProviderInstance()
-						.getProjectGroupId(SupportedProjectType.INTERFACE);
-				final String libVersion = MavenCoreUtils.getLibraryVersion(
-						groupId, dependentName,
-						SOAProjectConstants.DEFAULT_SERVICE_VERSION);
-				final String fullLibName = MavenCoreUtils.translateLibraryName(
-						groupId, dependentName, libVersion);
-				metadata = getLibraryIdentifier(fullLibName);
-			} else if (StringUtils.equals(type, AssetInfo.TYPE_PROJECT)) {
-				final IProject dependentProject = WorkspaceUtil
-						.getProject(dependentName);
-				if (dependentProject != null && dependentProject.isAccessible()) {
-					final Model dependentPom = MavenEclipseUtil
-							.readPOM(dependentProject);
-					if (dependentPom == null)
-						return false;
-					metadata = MavenEclipseUtil.artifactMetadata(dependentPom);
-				} else if (dependentName
-						.contains(SOAProjectConstants.DELIMITER_SEMICOLON)) {
-					// it is Maven fully qualified identifier
-					logger.warning(
-							"library name to add is a fully qualified identifier->",
-							dependentName);
-					metadata = MavenEclipseUtil.artifactMetadata(dependentName);
-				}
-			} else if (StringUtils.equals(type, AssetInfo.TYPE_LIBRARY)) {
-				metadata = getLibraryIdentifier(dependentName);
-				if (metadata == null
-						&& WorkspaceUtil.getProject(dependentName)
-								.isAccessible()) {
-					// could not find the lib, but exist as a project in the
-					// workspace
-					MavenProject mProj = getMavenProject(WorkspaceUtil
-							.getProject(dependentName));
-					if (mProj != null) {
-						metadata = MavenEclipseUtil
-								.convertToArtifactMetadata(mProj.getModel());
-					}
-				}
-			} else {
-				metadata = getLibraryIdentifier(dependentName);
-			}
-
-			if (metadata == null) {
-				if (addRemove == true) {
-					// we only report failed adding operation
-					final String errMsg = StringUtil.toString(
-							"Failed to add dependency->", dependentName,
-							" to project->", project);
-					logger.warning(errMsg);
-					UIUtil.showErrorDialogInNewThread((Shell) null,
-							"Error Occured", errMsg);
-				}
-
-				return false;
-			}
-			Dependency dependency = null;
-			if (addRemove) {
-				// adding a new dependency
-				dependency = MavenEclipseUtil.dependency(metadata);
-				if (dependency == null || dependency.getGroupId() == null)
-					return false;
-				if (findDependency(dependency.getGroupId(),
-						dependency.getArtifactId(), pom) != null) {
-					logger.warning("Dependency has already been added skipping it->"
-							+ dependency);
-					return false;
-				}
-				pom.addDependency(dependency);
-			} else {
-				// removing an existing dependency
-				dependency = findDependency(metadata.getGroupId(),
-						metadata.getArtifactId(), pom);
-				if (dependency == null)
-					return false;
-				pom.removeDependency(dependency);
-			}
-
-			if (StringUtils.equals(type, AssetInfo.TYPE_SERVICE_LIBRARY)) {
-				modifyRequiredServices(pom, dependentName, addRemove);
-			}
-		}
-
-		mavenEclipseAPI().writePom(pomFile, pom);
-		pomFile.refreshLocal(IResource.DEPTH_ZERO, monitor);
-		return true;
-	}
 
 	/**
 	 * @param pom

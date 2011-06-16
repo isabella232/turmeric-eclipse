@@ -10,8 +10,6 @@ package org.ebayopensource.turmeric.eclipse.buildsystem.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,48 +20,35 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.buildsystem.resources.SOAConstants;
 import org.ebayopensource.turmeric.eclipse.buildsystem.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.codegen.model.ConsumerCodeGenModel;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAActionExecutionFailedException;
-import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
-import org.ebayopensource.turmeric.eclipse.registry.exception.ProviderException;
 import org.ebayopensource.turmeric.eclipse.registry.intf.IArtifactValidator;
 import org.ebayopensource.turmeric.eclipse.registry.intf.IArtifactValidator2;
-import org.ebayopensource.turmeric.eclipse.registry.intf.IClientRegistryProvider;
-import org.ebayopensource.turmeric.eclipse.registry.intf.IRegistryProvider;
 import org.ebayopensource.turmeric.eclipse.registry.intf.IValidationStatus;
-import org.ebayopensource.turmeric.eclipse.registry.models.ClientAssetModel;
-import org.ebayopensource.turmeric.eclipse.registry.models.SubmitAssetModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARootLocator;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
-import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
-import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
+import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
-import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
+import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
-import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -75,11 +60,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.wsdl.validation.internal.IValidationMessage;
-import org.osgi.framework.Version;
-
 
 /**
  * All Action calls comes here
@@ -343,313 +324,28 @@ public class ActionUtil {
 							.getRoot()));
 		}
 
+		IFile projectFile = project.getFile(SOAProjectConstants.FILE_PROJECT);
+		if (projectFile.exists() == true && projectFile.isReadOnly() == true) {
+			return EclipseMessageUtils.createErrorStatus(StringUtil
+					.formatString(SOAMessages.JAVA_CLASSPATH_READONLY,
+							projectFile.getLocationURI().toString()));
+		}
+
+		IFile classpathFile = project
+				.getFile(SOAProjectConstants.FILE_CLASSPATH);
+		if (classpathFile.exists() == true
+				&& classpathFile.isReadOnly() == true) {
+			return EclipseMessageUtils.createErrorStatus(StringUtil
+					.formatString(SOAMessages.JAVA_CLASSPATH_READONLY,
+							classpathFile.getLocationURI().toString()));
+		}
+
 		return Status.OK_STATUS;
 	}
 
-	public static IStatus submitNewClientToSOARegistry(IProject project)
-			throws Exception {
-		final IClientRegistryProvider regProvider = ExtensionPointFactory
-				.getSOAClientRegistryProvider();
-		if (regProvider == null) {
-			return EclipseMessageUtils.createStatus(
-					"Could not find a valid client registry provider",
-					IStatus.WARNING);
-		}
-
-		final ClientAssetModel clientModel = new ClientAssetModel();
-		final String clientName = SOAConsumerUtil.getClientName(project);
-		clientModel.setClientName(clientName);
-		final Properties props = SOAConsumerUtil
-				.loadConsumerProperties(project);
-		if (props.containsKey(SOAProjectConstants.PROPS_KEY_CONSUMER_ID)) {
-			final String consumerID = StringUtils.trim(props
-					.getProperty(SOAProjectConstants.PROPS_KEY_CONSUMER_ID));
-			clientModel.setConsumerId(consumerID);
-		}
-		// submit the model
-		return regProvider.submitNewClientAsset(clientModel);
-	}
-
-	/**
-	 * submit new service from menu item. it will submit a service version to
-	 * AR. This is the start of submit version to AR
-	 * 
-	 * @param project
-	 * @return
-	 */
-	public static IStatus submitNewAssetToSOARegistry(IProject project) {
-		/*
-		 * //validate the service for (IArtifactValidator validator :
-		 * ExtensionPointFactory.getArtifactValidators()) { if
-		 * (validator.getAllSupportedValidators
-		 * ().contains(SOAProjectConstants.WSDL)) { //as of now we only use WSDL
-		 * Validator final IFile wsdlFile = SOAServiceUtil.getWsdlFile(project,
-		 * serviceName); InputStream is = null; try { is =
-		 * wsdlFile.getContents(); byte[] contents = IOUtils.toByteArray(is);
-		 * IStatus status = validator.validateArtifact(contents,
-		 * wsdlFile.getFileExtension(), monitor); if (status.isOK() == false) {
-		 * throw new CoreException(status); } } finally {
-		 * IOUtils.closeQuietly(is); } } }
-		 */
-
-		IRegistryProvider regProvider;
-		try {
-			regProvider = ExtensionPointFactory.getSOARegistryProvider();
-			if (regProvider == null)
-				throw new IllegalArgumentException(
-						"Could not find a valid SOA Registry Provider");
-
-			final SubmitAssetModel model = getAssetModel(project);
-			// ProgressUtil.progressOneStep(monitor);
-			// submit the model
-			return regProvider.submitNewAssetForGovernance(model);
-		} catch (CoreException e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		} catch (ProviderException e) {
-			return handleExceptionFromAR(e);
-		} catch (Exception e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		}
-
-	}
-
-	public static SubmitAssetModel getAssetModel(IProject project)
-			throws Exception {
-		if (project == null
-				|| TurmericServiceUtils.isSOAInterfaceProject(project) == false) {
-			throw new IllegalArgumentException(
-					"Not a valid SOA interface project ->" + project);
-		}
-		// we trust the service name should be same as the project name
-		final String serviceName = project.getName();
-		// construct the model
-		final SubmitAssetModel model = new SubmitAssetModel();
-		String natureId = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
-		.getTurmericProjectNatureId(project);
-		ISOAProject soaProject = SOAServiceUtil.loadSOAProject(project, natureId);
-		SOAIntfMetadata metadata = (SOAIntfMetadata) soaProject.getMetadata();
-		if (StringUtils.isNotBlank(metadata.getPublicServiceName())) {
-			// post 2.4 services
-			model.setServiceName(metadata.getPublicServiceName());
-			model.setAdminName(metadata.getServiceName());
-		} else {
-			// pre 2.4 services, adminName=serviceName
-			model.setServiceName(metadata.getServiceName());
-			model.setAdminName(metadata.getServiceName());
-		}
-		model.setNamespacePart(metadata.getServiceNamespacePart());
-		model.setInterfaceProjectPath(project.getLocation().toString());
-		model.setServiceLayer(metadata.getServiceLayer());
-		model.setServiceNamespace(metadata.getTargetNamespace());
-		model.setServiceVersion(metadata.getServiceVersion());
-		model.setServiceWsdlLocation(SOAServiceUtil.getWsdlFile(project,
-				serviceName).getLocation().toString());
-		if (StringUtils.isBlank(metadata.getServiceDomainName())) {
-			logger
-					.warning(
-							"Service domain name is missing. Please check service_intf_project.properties of the project and make sure 'domainName' propery is set.",
-							"\n\nIf the service is created before installing AR plugin, then please either re-create the service or manually add 'domainName={DomainName}' to service_intf_project.properties and substitute the {DomainName}.");
-		}
-		model.setServiceDomain(metadata.getServiceDomainName());
-		return model;
-	}
-
-	public static IStatus updateExistingAssetVersionToSOARegistry(
-			IProject project) {
-		IRegistryProvider regProvider;
-		try {
-			regProvider = ExtensionPointFactory.getSOARegistryProvider();
-
-			if (regProvider == null)
-				throw new IllegalArgumentException(
-						"Could not find a valid SOA Registry Provider");
-
-			final SubmitAssetModel model = getAssetModel(project);
-			// ProgressUtil.progressOneStep(monitor);
-			// submit the model
-			return regProvider.updateExistingVersionForGovernance(model);
-		} catch (CoreException e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		} catch (ProviderException e) {
-			return handleExceptionFromAR(e);
-		} catch (Exception e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		}
-	}
-
-	/**
-	 * submit a new minor version to AR.
-	 * 
-	 * @param project
-	 * @param newVersion
-	 * @return
-	 */
-	public static IStatus submitNewVersionAssetToSOARegistry(IProject project,
-			String newVersion) {
-		IRegistryProvider regProvider;
-		try {
-			regProvider = ExtensionPointFactory.getSOARegistryProvider();
-			if (regProvider == null) {
-				return EclipseMessageUtils.createStatus(
-						SOAMessages.WARNING_AR_NOT_AVAILABLE, IStatus.WARNING);
-			}
-
-			final SubmitAssetModel model = getAssetModel(project);
-			if (newVersion != null && newVersion.trim().length() > 0) {
-				model.setServiceVersion(newVersion);
-			}
-			// ProgressUtil.progressOneStep(monitor);
-			// submit the model
-			return regProvider.submitNewVersionForGovernance(model);
-		} catch (CoreException e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		} catch (ProviderException e) {
-			return handleExceptionFromAR(e);
-		} catch (Exception e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		}
-
-	}
-
-	/**
-	 * when exception thrown from AR, it is not friendly. This method gets the
-	 * root cause of the exception and create an error status for the exception,
-	 * using a description
-	 * SOAMessages.ERROR_FAIL_TO_SUBMIT_SERVICE_VERSION_TO_AR
-	 * 
-	 * @param e
-	 * @return
-	 */
-	private static IStatus handleExceptionFromAR(Throwable e) {
-		logger.error(e);
-		Throwable rootCause = e.getCause();
-		if (rootCause == null) {
-			return EclipseMessageUtils.createErrorStatus(e);
-		} else {
-			while (rootCause.getCause() != null) {
-				rootCause = rootCause.getCause();
-			}
-			if (rootCause instanceof LinkageError) {
-				logger.error(rootCause);
-				return EclipseMessageUtils.createErrorStatus(
-						SOAMessages.ERROR_AR_OUT_OF_DATE, null);
-			} else {
-				return EclipseMessageUtils.createErrorStatus(
-						SOAMessages.ERROR_FAIL_TO_SUBMIT_SERVICE_VERSION_TO_AR,
-						rootCause);
-			}
-		}
-	}
-
-	/**
-	 * Submite a service maintenance version. For Backward Compatibility, using
-	 * reflect to call new added method. Show error message if method not found
-	 * and notify users to update to latest version.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws Exception
-	 */
-	public static IStatus submitServiceMaintenanceVersion(IProject project,
-			String newVersion) throws Exception {
-		final IRegistryProvider regProvider = ExtensionPointFactory
-				.getSOARegistryProvider();
-		if (regProvider == null) {
-			return EclipseMessageUtils.createStatus(
-					SOAMessages.WARNING_AR_NOT_AVAILABLE, IStatus.WARNING);
-		}
-
-		// use reflect for backward compatible.
-		try {
-			Method submitNewMaintenanceVersionMethod = regProvider.getClass()
-					.getMethod("submitNewMaintenanceVersion",
-							SubmitAssetModel.class);
-			SubmitAssetModel model = getAssetModel(project);
-			if (newVersion != null && newVersion.trim().length() > 0) {
-				model.setServiceVersion(newVersion);
-			}
-			Object retStatus = submitNewMaintenanceVersionMethod.invoke(
-					regProvider, model);
-			return (IStatus) retStatus;
-		} catch (NoSuchMethodException ex) {
-			logger.error(ex);
-			return EclipseMessageUtils.createErrorStatus(
-					SOAMessages.ERROR_AR_OUT_OF_DATE, null);
-		} catch (SecurityException ex) {
-			return EclipseMessageUtils.createErrorStatus(ex);
-		} catch (InvocationTargetException ex) {
-			return handleExceptionFromAR(ex);
-		}
-	}
-
-	public static void buildService(IProject project, Properties intfProps,
-			String serviceName, Version newVersion, IProgressMonitor monitor)
-			throws Exception {
-		{
-
-			// modifying the service version
-			// intfProps.setProperty(SOAProjectConstants.PROP_KEY_SERVICE_VERSION,
-			// newVersion.toString());
-			// final IFile oldMetadataFile = SOAIntfUtil.getOldMetadataFile(
-			// project, serviceName);
-			// if (oldMetadataFile.exists() == true) {
-			// // pre 2.4
-			// SOAIntfUtil.saveMetadataProps(intfProps, project);
-			// oldMetadataFile.refreshLocal(IResource.DEPTH_ONE, monitor);
-			// } else {
-			// final IFile intfProjFile = SOAIntfUtil
-			// .getIntfProjectPropFile(project);
-			// final Properties props = SOAIntfUtil
-			// .loadIntfProjectPropFile(project);
-			// props.setProperty(SOAProjectConstants.PROP_KEY_SERVICE_VERSION,
-			// newVersion.toString());
-			// PropertiesFileUtil.writeToFile(props, intfProjFile,
-			// SOAProjectConstants.PROPS_COMMENTS);
-			// project.build(IncrementalProjectBuilder.CLEAN_BUILD, monitor);
-			// }
-			ISOAProject soaProject = GlobalRepositorySystem.instanceOf()
-					.getActiveRepositorySystem().getAssetRegistry()
-					.getSOAProject(project);
-
-			final SOAIntfMetadata intfMetadata = ((SOAIntfProject) soaProject)
-					.getMetadata();
-			intfMetadata.setServiceVersion(newVersion.toString());
-
-			ISOAProjectConfigurer configurer = GlobalRepositorySystem
-					.instanceOf().getActiveRepositorySystem()
-					.getProjectConfigurer();
-			ProgressUtil.progressOneStep(monitor);
-
-			// All metadata version will be updated, SIPP, WSDL, Project.xml and
-			// so on.
-			configurer.updateProject(soaProject, false, monitor);
-
-			logger.info("Saved new version->", newVersion, " for service->",
-					serviceName);
-			ProgressUtil.progressOneStep(monitor);
-		}
-
-		// {
-		// // modifying the WSDL file
-		// final String wsdlVersion = newVersion.getMajor()
-		// + SOAProjectConstants.DELIMITER_DOT + newVersion.getMinor();
-		// SOAIntfUtil.modifyWsdlAppInfoVersion(project, wsdlVersion, monitor);
-		// logger.info("Saved new version->", wsdlVersion,
-		// " into service WSDL file->", serviceName);
-		// ProgressUtil.progressOneStep(monitor);
-		// }
-
-	}
-
 	private static IStatus validateUsingAS(IFile wsdlWorkspaceFile,
-			URL wsdlFile, IProgressMonitor monitor, List<IStatus> statuses)
-			throws Exception {
+			URL wsdlFile, List<IStatus> statuses, boolean needDowngrade,
+			IProgressMonitor monitor) throws Exception {
 		final List<IArtifactValidator> validators = ExtensionPointFactory
 				.getArtifactValidators();
 
@@ -659,8 +355,9 @@ public class ActionUtil {
 				.toUpperCase(Locale.US);
 
 		for (IArtifactValidator validator : validators) {
-			if (validator instanceof IArtifactValidator2 ) {
-				if (((IArtifactValidator2)validator).isAssertionServiceEnabled() == false) {
+			if (validator instanceof IArtifactValidator2) {
+				if (((IArtifactValidator2) validator)
+						.isAssertionServiceEnabled() == false) {
 					continue;
 				}
 			}
@@ -677,7 +374,6 @@ public class ActionUtil {
 			return Status.CANCEL_STATUS;
 		}
 
-		
 		Collections.sort(wsdlValidators, new Comparator<IArtifactValidator>() {
 
 			public int compare(IArtifactValidator v1, IArtifactValidator v2) {
@@ -696,7 +392,6 @@ public class ActionUtil {
 		});
 		ProgressUtil.progressOneStep(monitor);
 
-		
 		// sorted in ascending order, so the last one is the most matched one.
 		IArtifactValidator validator = wsdlValidators.get(0);
 		logger.info("Validating WSDL with assertion service ->", wsdlFile
@@ -708,7 +403,6 @@ public class ActionUtil {
 			byte[] contents = IOUtils.toByteArray(is);
 			logger.info("Validating WSDL with assertion service->", wsdlFile
 					.toString());
-			
 			IStatus status = validator.validateArtifact(contents, upperWSDL,
 					monitor);
 			ProgressUtil.progressOneStep(monitor);
@@ -722,6 +416,17 @@ public class ActionUtil {
 							lineNumber = ((IValidationStatus) wsdlValidationStatus)
 									.getLineNumber();
 						}
+						// if need downgrade, only care about error status and
+						// change it to warning.
+						if (needDowngrade == true) {
+							if (wsdlValidationStatus.getSeverity() == IStatus.ERROR) {
+								wsdlValidationStatus = EclipseMessageUtils
+										.createStatus(wsdlValidationStatus
+												.getMessage(), IStatus.WARNING);
+							} else {
+								continue;
+							}
+						}
 						if (wsdlWorkspaceFile != null) {
 							MarkerUtil
 									.createWSDLMarker(wsdlWorkspaceFile,
@@ -734,17 +439,28 @@ public class ActionUtil {
 						statuses.add(wsdlValidationStatus);
 					}
 				} else {
-					// Add markers to wsdl file
-					if (wsdlWorkspaceFile != null) {
-						MarkerUtil.createWSDLMarker(wsdlWorkspaceFile,
-								AS_PREFIX, status, -1);
-						logger.warning(AS_PREFIX + ":" + status.getMessage(),
-								status.getException());
+					IStatus statusDump = status;
+					if (needDowngrade == true) {
+						if (statusDump.getSeverity() == IStatus.ERROR) {
+							statusDump = EclipseMessageUtils.createStatus(
+									statusDump.getMessage(), IStatus.WARNING);
+						} else {
+							statusDump = null;
+						}
 					}
-					statuses.add(status);
+					if (statusDump != null) {
+						// Add markers to wsdl file
+						if (wsdlWorkspaceFile != null) {
+							MarkerUtil.createWSDLMarker(wsdlWorkspaceFile,
+									AS_PREFIX, statusDump, -1);
+							logger.warning(AS_PREFIX + ":"
+									+ statusDump.getMessage(), statusDump
+									.getException());
+						}
+						statuses.add(statusDump);
+					}
 				}
-			}
-			if (status.isOK() == true) {
+			} else {
 				logger.info("Validating WSDL with AS validator finsihed."
 						+ " No AS violations found.");
 			}
@@ -757,9 +473,9 @@ public class ActionUtil {
 
 	@SuppressWarnings("restriction")
 	public static void validateUsingWTP(IFile wsdlWorkspaceFile, URL wsdlFile,
-			IProgressMonitor monitor, List<IStatus> statuses)
-			throws ValidationInterruptedException, CoreException,
-			MalformedURLException, IOException {
+			List<IStatus> statuses, boolean needDowngrade,
+			IProgressMonitor monitor) throws ValidationInterruptedException,
+			CoreException, MalformedURLException, IOException {
 
 		// TODO This WSDL validation is different with the one used in in
 		// codeGen.
@@ -777,14 +493,29 @@ public class ActionUtil {
 		if (validationMessages != null && validationMessages.length > 0) {
 			for (IValidationMessage validationMessage : validationMessages) {
 				IStatus status = null;
-				if (validationMessage.getSeverity() == IValidationMessage.SEV_ERROR) {
-					status = EclipseMessageUtils.createStatus(validationMessage
-							.getMessage(), IStatus.ERROR);
+				if (needDowngrade == true) {
+					// downgrade error to warning, ignore warning.
+					if (validationMessage.getSeverity() == IValidationMessage.SEV_ERROR) {
+						status = EclipseMessageUtils
+								.createStatus(validationMessage.getMessage(),
+										IStatus.WARNING);
+					} else {
+						continue;
+					}
 				} else {
-					status = EclipseMessageUtils.createStatus(validationMessage
-							.getMessage(), IStatus.WARNING);
+					if (validationMessage.getSeverity() == IValidationMessage.SEV_ERROR) {
+						status = EclipseMessageUtils.createStatus(
+								validationMessage.getMessage(), IStatus.ERROR);
+					} else if (validationMessage.getSeverity() == IValidationMessage.SEV_WARNING) {
+						status = EclipseMessageUtils
+								.createStatus(validationMessage.getMessage(),
+										IStatus.WARNING);
+					} else {
+						continue;
+					}
 				}
 				statuses.add(status);
+
 				if (wsdlWorkspaceFile != null) {
 					MarkerUtil.createWSDLMarker(wsdlWorkspaceFile, WSI_PREFIX,
 							status, validationMessage.getLine());
@@ -799,8 +530,8 @@ public class ActionUtil {
 	}
 
 	public static IStatus validateServiceWSDL(IFile wsdlFile, URL wsdlFileURL,
-			boolean needASValidation, IProgressMonitor monitor)
-			throws Exception {
+			boolean needASValidation, boolean needDowngrade,
+			IProgressMonitor monitor) throws Exception {
 		final List<IStatus> statuses = new ArrayList<IStatus>();
 
 		// Clean all markers before validation
@@ -808,20 +539,22 @@ public class ActionUtil {
 			MarkerUtil.cleanWSDLMarkers(wsdlFile);
 		}
 
-		validateUsingWTP(wsdlFile, wsdlFileURL, monitor, statuses);
+		validateUsingWTP(wsdlFile, wsdlFileURL, statuses, needDowngrade,
+				monitor);
 
 		if (needASValidation == true) {
 			try {
-				validateUsingAS(wsdlFile, wsdlFileURL, monitor, statuses);
+				validateUsingAS(wsdlFile, wsdlFileURL, statuses, needDowngrade,
+						monitor);
 			} catch (Exception e) {
 				logger.error(e);
 				IStatus status = EclipseMessageUtils.createStatus(
 						"Exception occures while Running Assertion Service Validation: "
 								+ e.getMessage(), IStatus.WARNING);
 				statuses.add(status);
-				UIUtil.showErrorDialog(
-						SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED_TITLE,
-						SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED, e);
+				// UIUtil.showErrorDialog(
+				// SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED_TITLE,
+				// SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED, e);
 
 			}
 		} else {
@@ -837,89 +570,6 @@ public class ActionUtil {
 		return Status.OK_STATUS;
 	}
 
-	public static IStatus submitVersionToAssetRepository(Object newVersion,
-			Object oldVersion, String svcIntfName, IProgressMonitor monitor)
-			throws Exception {
-		Version newVer = VersionUtil.getVersion(newVersion);
-		Version oldVer = VersionUtil.getVersion(oldVersion);
-
-		monitor.setTaskName("Synchronize service version with "
-				+ "Asset Repository for project->" + svcIntfName
-				+ ", from version [" + oldVer + "], to version [" + newVer
-				+ "].");
-
-		// no version format check here because it is checked when version
-		// changed.
-		// here we use not equal but not bigger than to decide if a version is
-		// changed.
-		// Only show when service version is changed this time.
-		boolean miniorChanged = newVer.getMinor() != oldVer.getMinor();
-		boolean mantanChanged = newVer.getMicro() != oldVer.getMicro();
-		final boolean syncVersion;
-
-		if (miniorChanged || mantanChanged) {
-			syncVersion = UIUtil
-					.openChoiceDialog(
-							"Synchronize Service Version",
-							"Service version has been updated to ["
-									+ newVer
-									+ "] in local metadata. "
-									+ "Would you like to synchronize service version change to the Asset Repository?",
-							MessageDialog.QUESTION_WITH_CANCEL);
-
-		} else {
-			logger.info("Service Version not changed:" + newVer
-					+ ". Exist submitVersionToAssetRepository");
-			return Status.CANCEL_STATUS;
-		}
-
-		if (syncVersion == false) {
-			return Status.CANCEL_STATUS;
-		}
-
-		try {
-			IStatus result = null;
-			IProject intfProj = WorkspaceUtil.getProject(svcIntfName);
-			if (miniorChanged == true) {
-				result = ActionUtil.submitNewVersionAssetToSOARegistry(
-						intfProj, newVer.toString());
-			} else if (mantanChanged == true) {
-				result = ActionUtil.submitServiceMaintenanceVersion(intfProj,
-						newVer.toString());
-
-			} else {
-				logger.info("Service Version not changed:" + newVer
-						+ ". Exist submitVersionToAssitionRepository");
-			}
-			if (result != null) {
-				if (result.isOK() == true) {
-					GlobalRepositorySystem.instanceOf()
-							.getActiveRepositorySystem().trackingUsage(
-									new TrackingEvent(ActionUtil.class
-											.getName(),
-											TrackingEvent.TRACKING_ACTION));
-				} else {
-					UIUtil
-							.showErrorDialog(
-									(Shell) null,
-									"Service Version Synchronize Failed",
-									"Failed to synchronize service version with Asset Repository.",
-									result);
-				}
-			}
-		} catch (Exception e) {
-			logger.error(e);
-			throw new SOAResourceModifyFailedException(
-					"Failed to synchronize service version for project->"
-							+ svcIntfName + ", from version [" + oldVer
-							+ "] to version [" + newVer + "].", e);
-		} finally {
-			monitor.done();
-		}
-
-		return null;
-	}
-
 	public static IStatus cleanProject(IProject project,
 			IProgressMonitor monitor) throws CoreException {
 
@@ -929,31 +579,66 @@ public class ActionUtil {
 					.getFolder(SOAProjectConstants.FOLDER_GEN_META_SRC));
 			resources.add(project
 					.getFolder(SOAProjectConstants.FOLDER_GEN_TEST));
-			resources.add(project
-					.getFolder(SOAProjectConstants.FOLDER_GEN_SRC_CLIENT));
-			resources.add(project
-					.getFolder(SOAProjectConstants.FOLDER_GEN_SRC_SERVICE));
+			IFolder genClient = project
+					.getFolder(SOAProjectConstants.FOLDER_GEN_SRC_CLIENT);
+			IFolder genService = project
+					.getFolder(SOAProjectConstants.FOLDER_GEN_SRC_SERVICE);
+			if (genClient.isAccessible() == false
+					&& genService.isAccessible() == false) {
+				resources.add(project
+						.getFolder(SOAProjectConstants.FOLDER_GEN_SRC));
+
+			}
+			resources.add(genClient);
+			resources.add(genService);
 			resources.add(project
 					.getFolder(SOAProjectConstants.FOLDER_GEN_WEB_CONTENT));
-
+			logger.info("Start to clean project " + project.getName() + "...");
 			for (final IResource resource : resources) {
 				if (resource.isAccessible()) {
-					FileUtils.cleanDirectory(resource.getLocation().toFile());
-					ProgressUtil.progressOneStep(monitor);
+					try {
+						logger.info("Cleaning directory  "
+								+ resource.getLocation() + "...");
+						FileUtils.cleanDirectory(resource.getLocation()
+								.toFile());
+						ProgressUtil.progressOneStep(monitor);
+					} catch (Exception e) {
+						logger.error(e);
+						throw new SOAActionExecutionFailedException(e);
+					}
 				}
 			}
+			logger.info("Clean project " + project.getName() + " finished.");
 			project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-			ProgressUtil.progressOneStep(monitor);
 			project.build(IncrementalProjectBuilder.CLEAN_BUILD, monitor);
-		} catch (Exception e) {
-			logger.error(e);
-			throw new SOAActionExecutionFailedException(e);
+			ProgressUtil.progressOneStep(monitor);
 		} finally {
 			monitor.done();
 			WorkspaceUtil.refresh(monitor, project);
 		}
 		return Status.OK_STATUS;
 
+	}
+	
+	public static IStatus generateConfigs(IProject consumerProject, IProgressMonitor monitor) throws Exception {
+		final List<AssetInfo> services = new ArrayList<AssetInfo>();
+		for (AssetInfo asset : GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+		.getAssetRegistry().getDependencies(consumerProject.getName())) {
+			if (IAssetInfo.TYPE_SERVICE_LIBRARY.equals(asset.getType())) {
+				services.add(asset);
+			}
+		}
+		logger.info("Generating configs for consumer project-> ", consumerProject.getName(), 
+				" with services ->", services );
+		final String clientName = SOAConsumerUtil.getClientName(consumerProject);
+		BuildSystemCodeGen
+		.generateArtifactsForAddedService(
+				consumerProject,
+				clientName,
+				ListUtil
+						.arrayList(SOAProjectConstants.DEFAULT_CLIENT_CONFIG_ENVIRONMENT),
+						services, monitor);
+		return Status.OK_STATUS;
 	}
 
 	/**

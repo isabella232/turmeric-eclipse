@@ -16,44 +16,60 @@ package org.ebayopensource.turmeric.eclipse.resources.model;
  * @since 1.0.0
  */
 public interface IAssetInfo {
+	/**
+	 * 
+	 */
 	public static final String TYPE_PROJECT = "Project";
+	
+	/**
+	 * 
+	 */
 	public static final String TYPE_LIBRARY = "Library";
+	
+	/**
+	 * 
+	 */
 	public static final String TYPE_SERVICE_PROJECT = "Project_Service";
+	
+	/**
+	 * 
+	 */
 	public static final String TYPE_SERVICE_LIBRARY = "Library_Service";
 
 	/**
-	 * The name of the asset
-	 * @return
+	 * The name of the asset.
+	 * @return the name of the asset as a String.
 	 */
 	public String getName();
 	
 	/**
-	 * The type of the asset
-	 * @return
+	 * The type of the asset.
+	 * @return the type of asset.
 	 */
 	public String getType();
 
 	/**
-	 * The version of the asset
-	 * @return
+	 * The version of the asset.
+	 * @return the version as a string
 	 */
 	public String getVersion();
 	
 	/**
-	 * An ID that could uniquely identify the asset 
-	 * @return
+	 * An ID that could uniquely identify the asset. 
+	 * @return a uniqueID as a String.
 	 */
 	public String getUniqueID();
 
 	/**
-	 * A long description of the asset
-	 * @return
+	 * A long description of the asset.
+	 * @return the description as a string.
 	 */
 	public String getDescription();
 	
 	/**
-	 * A brief description of the asset
-	 * @return
+	 * A brief description of the asset.
+	 * 
+	 * @return a short description as a string
 	 */
 	public String getShortDescription();
 

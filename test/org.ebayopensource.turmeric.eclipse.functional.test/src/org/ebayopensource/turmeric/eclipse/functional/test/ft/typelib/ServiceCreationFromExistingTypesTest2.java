@@ -15,7 +15,7 @@ import javax.xml.namespace.QName;
 
 import junit.framework.Assert;
 
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFromBlankWsdlTest;
@@ -23,6 +23,7 @@ import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.SimpleTestUtil;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
@@ -30,10 +31,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 
 public class ServiceCreationFromExistingTypesTest2 extends
@@ -72,7 +70,36 @@ public class ServiceCreationFromExistingTypesTest2 extends
 		TypeLibSetUp.setupSvc(eBoxServiceName);
 
 		try {
-			
+			/*
+			 * final ServiceFromTemplateWsdlParamModel model = new
+			 * ServiceFromTemplateWsdlParamModel(); final String servicePkg =
+			 * "com.ebayopensource.turmeric.services"; model
+			 * .setTargetNamespace(SOAServiceConstants
+			 * .DEFAULT_SERVICE_NAMESPACE);
+			 * model.setServiceName(EBoxTypeLibSetUp.SVC_NAME2); model
+			 * .setServiceInterface(servicePkg + "." + model.getServiceName());
+			 * model.setWorkspaceRootDirectory(EBoxTypeLibSetUp.SVC_LOCATION);
+			 * model.setServiceImpl("com.ebayopensource.turmeric.services." +
+			 * EBoxTypeLibSetUp.SVC_NAME2 + "Impl");
+			 * model.setServiceVersion("1.0.0");
+			 * model.setImplName(EBoxTypeLibSetUp.SVC_NAME2 + "Impl"); model
+			 * .setWSDLSourceType
+			 * (SOAProjectConstants.InterfaceWsdlSourceType.NEW);
+			 * SimpleTestUtil.setAutoBuilding(true);
+			 * ServiceCreator.createServiceFromBlankWSDL(model, ProgressUtil
+			 * .getDefaultMonitor(null));
+			 * 
+			 * WorkspaceUtil.getProject(EBoxTypeLibSetUp.SVC_NAME2).build(
+			 * IncrementalProjectBuilder.FULL_BUILD,
+			 * ProgressUtil.getDefaultMonitor(null));
+			 * 
+			 * WorkspaceUtil.getProject(EBoxTypeLibSetUp.SVC_NAME2 + "Impl")
+			 * .build(IncrementalProjectBuilder.FULL_BUILD,
+			 * ProgressUtil.getDefaultMonitor(null));
+			 */
+	
+			//TypeLibSetUp.setup();
+
 			Assert.assertTrue(TypeLibSetUp.TYPELIBRARY_NAME2
 					+ " -- TypeLibrary Creation failed", TLUtil
 					.createTypeLibrary(TypeLibSetUp.TYPELIBRARY_NAME2,

@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.eclipse.core.resources.IFile;
@@ -27,24 +27,52 @@ import org.eclipse.core.runtime.CoreException;
  *
  */
 public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerProject{
+	/**
+	 * An array of source directories.
+	 */
 	public static final String[] SOURCE_DIRECTORIES = {
 		SOAProjectConstants.FOLDER_SRC,
 		SOAProjectConstants.FOLDER_META_SRC };
 	
+	/**
+	 * 
+	 */
 	public static final String FOLDER_CLIENT = "/soa/client/";
+	
+	/**
+	 * 
+	 */
 	public static final String FOLDER_CLIENT_CONFIG = FOLDER_CLIENT + "config/";
+	
+	/**
+	 * 
+	 */
 	public static final String FOLDER_META_SRC_ClIENT = SOAProjectConstants.META_SRC_META_INF
 	+ FOLDER_CLIENT;
+	
+	/**
+	 * 
+	 */
 	public static final String META_SRC_ClIENT_CONFIG = SOAProjectConstants.META_SRC_META_INF
 	+ FOLDER_CLIENT_CONFIG;
 	
     private Map<String, SOAIntfMetadata> requiredServices = new TreeMap<String, SOAIntfMetadata>();
     private Map<SOAClientEnvironment, SOAClientConfig> clientConfigs = new TreeMap<SOAClientEnvironment, SOAClientConfig>();
 
+    /**
+     * 
+     */
 	public SOAConsumerProject() {
 		super();
 	}
     
+	/**
+	 * 
+	 * @param consumerMetadata the consumer Meta Data
+	 * @param eclipseMetadata  the eclispe meta data
+	 * @return an instance of SOAConsumerProject
+	 * @throws Exception 
+	 */
 	public static SOAConsumerProject create(SOAConsumerMetadata consumerMetadata,
 			SOAProjectEclipseMetadata eclipseMetadata) throws Exception{
 		SOAConsumerProject consumerProject = new SOAConsumerProject();
@@ -64,23 +92,39 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 		return SOAConsumerMetadata.class;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Map<String, SOAIntfMetadata> getRequiredServices() {
 		return requiredServices;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setRequiredServices(Map<String, SOAIntfMetadata> requiredServices) {
 		this.requiredServices = requiredServices;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public Map<SOAClientEnvironment, IFile> getClientConfigFiles() throws CoreException {
 		return SOAConsumerUtil.getClientConfigFiles(getProject());
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public IFile getClientConfigFile(final SOAClientEnvironment clientEnv) throws CoreException, IOException {
 		return SOAConsumerUtil.getClientConfig(getProject(), clientEnv.getEnvironment()
 				, clientEnv.getServiceName());
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * @return an IFile that represents the GlobalClientConfig File
+	 */
 	public IFile getGlobalClientConfigFile() {
 		return getProject().getFile(ISOAConsumerProject.META_SRC_GLOBAL_ClIENT_CONFIG);
 	}
@@ -93,6 +137,9 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<String> getSourceDirectoryNames() {
 		final List<String> result = ListUtil.arrayList(SOURCE_DIRECTORIES);
 		if (getMetadata() != null) {
@@ -105,15 +152,26 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Map<SOAClientEnvironment, SOAClientConfig> getClientConfigs() {
 		return clientConfigs;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setClientConfigs(Map<SOAClientEnvironment, SOAClientConfig> clientConfigs) {
 		if (clientConfigs != null)
 			this.clientConfigs = clientConfigs;
 	}
 	
+	/**
+	 * 
+	 * @param envName environment name
+	 * @param clientConfig the client configuration file.
+	 */
 	public void addClientConfig(String envName, SOAClientConfig clientConfig) {
 		if (clientConfig != null) {
 			final SOAClientConfig config = new SOAClientConfig();

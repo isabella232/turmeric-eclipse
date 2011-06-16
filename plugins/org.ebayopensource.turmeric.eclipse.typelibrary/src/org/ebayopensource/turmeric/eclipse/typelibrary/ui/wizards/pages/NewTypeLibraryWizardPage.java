@@ -19,14 +19,14 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage;
+import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.runtime.IStatus;
@@ -48,9 +48,9 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 	private CCombo categoryCombo;
 	private Text namespaceText;
 	private Button overrideNamespaceBtn;
-	private List<TypeParamModel> types;
+	private List<TypeModel> types;
 
-	public void setImportedTypes(List<TypeParamModel> types) {
+	public void setImportedTypes(List<TypeModel> types) {
 		this.types = types;
 		this.dialogChanged();
 	}
@@ -99,7 +99,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 
 	protected List<String> getAllCategories() {
 		List<String> strList = new ArrayList<String>();
-		for (final String category : TypeLibraryUtil.getCategories())
+		for (final String category : UIActivator.getCategories())
 			strList.add(category);
 		return strList;
 	}
@@ -197,7 +197,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 			return true;
 		}
 		StringBuffer dupNames = new StringBuffer();
-		for (TypeParamModel type : types) {
+		for (TypeModel type : types) {
 
 			boolean hasType = true;
 			try {
@@ -211,7 +211,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 			}
 		}
 		if (dupNames.length() > 0) {
-			String errorMsg = "Selected types duplicated with types in the Type Repository [ "
+			String errorMsg = "Chosen types duplicated with types in the Type Repository [ "
 					+ dupNames.substring(0, dupNames.length() - 2)
 					+ "]. Please return to previous page and un-select these types or "
 					+ "change Type Library namespace.";

@@ -35,8 +35,10 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -155,17 +157,22 @@ public class DependenciesDialog extends TitleAreaDialog {
 	@Override
 	protected Control createDialogArea(final Composite parent) {
 		final Composite composite = (Composite) super.createDialogArea(parent);
+		
+		Composite container = new Composite(composite, SWT.NONE);
+		GridLayout layout = new GridLayout();
+		container.setLayout(layout);
+		
 		final GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.widthHint = 520;
 		gd.heightHint = 300;
 		gd.grabExcessVerticalSpace = true;
 		gd.grabExcessHorizontalSpace = true;
-		composite.setLayoutData(gd);
-		viewer = new DependenciesViewer(composite, multiSelect)
+		container.setLayoutData(gd);
+		
+		viewer = new DependenciesViewer(container, multiSelect)
 				.setServiceName(serviceName);
 		GridData gridData = new GridData(GridData.FILL_BOTH);
-		gridData.horizontalIndent = 20;
-		// gridData.grabExcessHorizontalSpace = true;
+		gridData.grabExcessHorizontalSpace = true;
 		gridData.grabExcessVerticalSpace = true;
 		viewer.getControl().setLayoutData(gridData);
 		final IStructuredContentProvider contentProvider = getContentProvider();

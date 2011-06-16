@@ -8,8 +8,6 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.utils.test.io;
 
-import static org.junit.Assert.fail;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +22,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.io.IOUtils;
 import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 

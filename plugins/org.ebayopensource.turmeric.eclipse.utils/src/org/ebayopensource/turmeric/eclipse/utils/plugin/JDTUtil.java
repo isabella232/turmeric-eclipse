@@ -58,7 +58,6 @@ public class JDTUtil {
 	private static final String COMPILER_OPTIONS_VERSION_1_4 = "1.4";
 	public static final String DEFAULT_COMPILER_VERSION = "1.6";
 	public static final String DOT = ".";
-	private static final String PLATFORM_BUNDLE_ID = "org.eclipse.core.runtime";
 
 	/**
 	 * Pure Wrapper Call

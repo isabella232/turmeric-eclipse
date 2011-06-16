@@ -24,10 +24,15 @@ Require-Bundle: org.eclipse.core.runtime,
  org.ebayopensource.turmeric.eclipse.services,
  org.ebayopensource.turmeric.eclipse.typelibrary,
  org.ebayopensource.turmeric.eclipse.utils,
- org.ebayopensource.turmeric.eclipse.validator,
  org.ebayopensource.turmeric.eclipse.repositorysystem.imp,
- org.jdom;bundle-version="1.0.0"
+ org.ebayopensource.turmeric.eclipse.core;bundle-version="1.0.0",
+ org.jdom;bundle-version="1.0.0",
+ org.apache.commons.io;bundle-version="1.4.0",
+ org.apache.commons.lang;bundle-version="2.4.0",
+ javax.wsdl;bundle-version="1.6.2",
+ org.ebayopensource.turmeric.eclipse.utils.ui;bundle-version="1.0.0",
+ org.ebayopensource.turmeric.eclipse.ui;bundle-version="1.0.0"
 Export-Package: org.ebayopensource.turmeric.eclipse.test.utils;uses:="com.ebay.tools.soa.resources.constants,org.eclipse.core.resources"
 Bundle-ClassPath: .
-Import-Package: org.ebayopensource.turmeric.eclipse.core.command
+Import-Package: org.ebayopensource.turmeric.eclipse.ui.actions
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

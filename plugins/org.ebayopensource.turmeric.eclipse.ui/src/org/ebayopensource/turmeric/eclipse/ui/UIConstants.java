@@ -23,4 +23,6 @@ public class UIConstants {
 	public static final String SERVICES_VIEW_VERSION = "v";
 	public static final String SERVICES_VIEW_INTERFACE= "Interface";
 	public static final String SERVICES_VIEW_LAYER = "Layer";
+	
+	public static final String TYPELIB_NATURE_ID = "org.ebayopensource.turmeric.eclipse.typelib.TypeLibraryProjectNature";
 }

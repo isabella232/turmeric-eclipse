@@ -15,17 +15,11 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNoException;
 import static org.junit.Assume.assumeTrue;
 
-import java.util.Set;
-
-import junit.framework.Assert;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
-import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -69,7 +63,19 @@ public class CreateTypeLibraryTest extends AbstractTestCase {
 	 * ->TestTypeLibrary ->TypeInformation.xml 2. Sun-jaxb.episode 3. gen-src 4.
 	 * meta-src 5. META-INF ->TestTypeLibrary -> TypeDependencies.xml 6. Types
 	 */
-	
+	/*
+	 * public void testValidateProjectArtifactsTypeLibrary1() throws Exception {
+	 * IProject project =
+	 * WorkspaceUtil.getProject(EBoxTypeLibSetUp.TYPELIBRARY_NAME1);
+	 * TLArtifactValidator visitor = new TLArtifactValidator();
+	 * 
+	 * visitor.setGoldCopyRootDir(EBoxTypeLibSetUp.TYPELIBRARY_NAME1 +
+	 * "InitialeBox"); project.accept(visitor);
+	 * 
+	 * Assert.assertTrue("Gold Copy match failed", visitor.isMatches());
+	 * 
+	 * }
+	 */
 
 	/*
 	 * Create a type library with name = TYPELIBRARY_NAME2 To be used for Import
@@ -84,20 +90,42 @@ public class CreateTypeLibraryTest extends AbstractTestCase {
 		TLUtil.createType("CustomerType", TypeLibSetUp.TYPELIBRARY_NAME2,
 				TypeLibSetUp.TYPELIBRARY_NAME2, SOAXSDTemplateSubType.SIMPLE,
 				TstConstants.TEMPLATE_SIMPLE_TYPE, TstConstants.XSD_STRING);
-		
-		
-		
-	
 	}
 
-	
+	// /*
+	// * Validate GTR if the type libraries show up
+	// */
+	// public void testValidateGTR() throws Exception {
+	// SOAGlobalRegistryAdapter.invalidateRegistry();
+	// SOATypeRegistry typeRegistry =
+	// SOAGlobalRegistryAdapter.getGlobalRegistry();
+	//
+	// // List<LibraryType> types = typeRegistry.getAllTypes();
+	// Set<String> types = typeRegistry.getAllTypeLibrariesNames();
+	// TypeLibraryType library =
+	// typeRegistry.getTypeLibrary(EBoxTypeLibSetUp.TYPELIBRARY_NAME2);
+	// LibraryType type = typeRegistry.getType("CustomerType",
+	// EBoxTypeLibSetUp.TYPELIBRARY_NAME2);
+	// System.out.println("type library ==== " + library + "type == "+ type);
+	// //
+	// Assert.assertTrue("Global View Registry does not contain MarketPlaceServiceCommonTypeLibrary",
+	// types.contains("MarketPlaceServiceCommonTypeLibrary"));
+	// Assert.assertTrue("Global View Registry does not contain SOACommonTypeLibrary",
+	// types.contains("SOACommonTypeLibrary"));
+	// Assert.assertTrue("Global View Registry doesnot contain " +
+	// EBoxTypeLibSetUp.TYPELIBRARY_NAME1,
+	// types.contains(EBoxTypeLibSetUp.TYPELIBRARY_NAME1));
+	// Assert.assertTrue("Global View Registry doesnot contain " +
+	// EBoxTypeLibSetUp.TYPELIBRARY_NAME2,
+	// types.contains(EBoxTypeLibSetUp.TYPELIBRARY_NAME2));
+	// }
 
 	/*
 	 * Same TL name with WS
 	 */
 
 	@Test
-
+	@Ignore
 	public void testCreateDuplicateCreationTypeLibrary1() {
 		boolean createTypeLib = TLUtil.createTypeLibrary(
 				TypeLibSetUp.TYPELIBRARY_NAME1, "1.0.0",
@@ -112,7 +140,7 @@ public class CreateTypeLibraryTest extends AbstractTestCase {
 	 * Same TL name with jar
 	 */
 	@Test
-
+	@Ignore
 	public void testCreateDuplicateCreationTypeLibrary2() {
 
 		// assertFalse(

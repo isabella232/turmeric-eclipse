@@ -9,7 +9,6 @@
 package org.ebayopensource.turmeric.eclipse.mavenapi.impl;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +32,6 @@ import org.apache.maven.settings.Profile;
 import org.apache.maven.settings.Settings;
 import org.apache.maven.settings.SettingsUtils;
 import org.codehaus.plexus.PlexusContainer;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
 import org.ebayopensource.turmeric.eclipse.mavenapi.internal.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.mavenapi.internal.resources.Messages;
@@ -48,10 +46,23 @@ import org.maven.ide.eclipse.internal.embedder.MavenImpl;
  * 
  */
 public abstract class AbstractMavenApi implements IMavenEclipseApi {
+	/**
+	 * 
+	 */
 	public static final String PACKAGING_TYPE_MAVENPLUGIN = "maven-plugin";
+	
+	/**
+	 * 
+	 */
 	public static final String PACKAGING_TYPE_POM = "pom";
 
-	// -------------------------------------------------------------------------------------
+	/**
+	 * 
+	 * @param embedder the maven implementation to use
+	 * @param packagingType the packaging type to filter by
+	 * @return A list of known repositories filtered by packaging type
+	 * @throws MavenEclipseApiException 
+	 */
 	protected List<ArtifactRepository> _getKnownRepositories(
 			MavenImpl embedder, String packagingType)
 			throws MavenEclipseApiException {
@@ -71,7 +82,6 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 		}
 	}
 
-	// -------------------------------------------------------------------------------------
 	/**
 	 * Return the Maven remote repositories defined in the Maven settings.xml
 	 * file. The returned list of repositories depend on the pacakgeType.
@@ -80,11 +90,11 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 	 * pluginRepositories, and all other types will return Mirrors and
 	 * Repositories.
 	 * 
-	 * @param plexus
-	 * @param settings
-	 * @param packagingType
-	 * @return
-	 * @throws MavenEclipseApiException
+	 * @param plexus 
+	 * @param settings the settings.xml file to use
+	 * @param packagingType the pom packaging type to return.
+	 * @return the remote repositories defined in the Maven settings.xml file.  
+	 * @throws MavenEclipseApiException 
 	 */
 	protected List<ArtifactRepository> _getKnownRepositories(
 			PlexusContainer plexus, Settings settings, String packagingType)
@@ -162,7 +172,15 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 		}
 	}
 
-	// -------------------------------------------------------------------------------------
+
+	/**
+	 * Resolve an artifact using a particular maven implementation and repository.
+	 * @param embedder the embedded version of maven to use
+	 * @param repoSystem the repository to resolve against
+	 * @param md the artifact metadata to search
+	 * @return the resolved artifact 
+	 * @throws MavenEclipseApiException 
+	 */
 	public Artifact resolveArtifact(MavenImpl embedder, RepositorySystem repoSystem, ArtifactMetadata md)
 			throws MavenEclipseApiException {
 		if (embedder == null)
@@ -239,7 +257,13 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 		}
 	}
 
-	// -------------------------------------------------------------------------------------
+	/**
+	 * Returns a list of Artifacts.
+	 * @param embedder the maven implementation to use.
+	 * @param md the artifact meta data.
+	 * @return A list of Artifacts that were resolved.
+	 * @throws MavenEclipseApiException 
+	 */
 	public List<Artifact> resolveArtifactAsClasspath(MavenImpl embedder,
 			ArtifactMetadata md) throws MavenEclipseApiException {
 		List<Artifact> result = new ArrayList<Artifact>();
@@ -265,7 +289,13 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 
 	}
 
-	// -------------------------------------------------------------------------------------
+	/**
+	 * Resolves the artifact Metadata from the repository.
+	 * @param embedder the maven implementation to use
+	 * @param md the artifact metadata
+	 * @return the MetadataResolutionResult 
+	 * @throws MavenEclipseApiException 
+	 */
 	protected MetadataResolutionResult resolveArtifactMetadata(
 			MavenImpl embedder, ArtifactMetadata md)
 			throws MavenEclipseApiException {
@@ -302,10 +332,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 	}
 
 	/**
-	 * read & parse the POM file from an IProject
-	 * 
-	 * @throws IOException
-	 * @throws XmlPullParserException
+	 * {@inheritDoc}
 	 */
 	public Model parsePom(final File file)
 			throws MavenEclipseApiException {

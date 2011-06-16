@@ -11,21 +11,6 @@
  */
 package org.ebayopensource.turmeric.eclipse.errorlibrary;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
-
-import javax.wsdl.Definition;
-import javax.wsdl.Service;
-import javax.wsdl.WSDLException;
-
-import org.apache.commons.io.FileUtils;
-import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
-import org.ebayopensource.turmeric.eclipse.test.util.ProjectArtifactValidator;
-import org.ebayopensource.turmeric.eclipse.test.util.ProjectUtil;
-import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
-import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
-import org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 

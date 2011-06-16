@@ -11,6 +11,7 @@
  */
 package org.ebayopensource.turmeric.eclipse.logging.system;
 
+import java.beans.PropertyChangeEvent;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
@@ -41,4 +42,10 @@ public interface ISOALoggingSystemProvider {
 	 * @return true if should log the raw message or false otherwise
 	 */
 	public boolean shouldLogRawMessage(LogRecord record);
+	
+	/**
+	 * Something has changed in the JDK logging system
+	 * @param event
+	 */
+	public void loggingPropertyChanged(PropertyChangeEvent event);
 }

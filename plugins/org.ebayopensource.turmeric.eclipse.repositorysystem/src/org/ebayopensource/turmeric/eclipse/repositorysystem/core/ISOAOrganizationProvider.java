@@ -13,8 +13,8 @@ package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 
 import java.util.List;
 
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SOAFrameworkLibrary;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SOAFrameworkLibrary;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 
@@ -31,6 +31,11 @@ public interface ISOAOrganizationProvider {
 	 * @return
 	 */
 	public String getName();
+	
+	/**
+	 * @return the descriptive name of the underlying organization
+	 */
+	public String getDisplayName();
 	
 	/**
 	 * Whether support the functional domain
@@ -138,5 +143,23 @@ public interface ISOAOrganizationProvider {
 	 */
 	public IStatus preValidateChangeServiceVersion(String oldVersion,
 			String newVersion, String serviceName) throws Exception;
+	
+	/**
+	 * return the build system specified URL pattern. 
+	 * a leading slash "/" should be added as a prefix of returned URL
+	 * @param serviceName admin name of the service
+	 * @param namespacePart
+	 * @param majorVersion
+	 * @return
+	 */
+	public String getURLPattern(String serviceName, String namespacePart,
+			int majorVersion);
+
+	/**
+	 * The protocol processor class name for ClientConfig.xml
+	 * 
+	 * @return protocol processor class name
+	 */
+	public String getSOAPProtocolProcessorClassName();
 
 }

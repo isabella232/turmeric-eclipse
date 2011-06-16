@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.ErrorLibraryCreator;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ErrorLibraryProviderFactory;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryProvider;
@@ -28,12 +29,12 @@ import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterr
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
+import org.ebayopensource.turmeric.eclipse.validator.core.ISOAPreValidator;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -64,6 +65,11 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			return EclipseMessageUtils.createErrorStatus(e);
 		}
+	}
+
+	@Override
+	protected Object getCreatingType() {
+		return ISOAPreValidator.ERROR_LIBRARY;
 	}
 
 	@Override
@@ -121,6 +127,7 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 							GlobalRepositorySystem.instanceOf()
 									.getActiveRepositorySystem().trackingUsage(
 											event);
+							changePerspective();
 						} catch (Exception e) {
 							logger.error(e);
 							throw new SOAErrorTypeCreationFailedException(
@@ -135,7 +142,6 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 				ErrorLibraryProviderFactory.getPreferredProvider()
 						.getErrorLibraryCreator().preCreation(model);
 				getContainer().run(false, true, operation);
-				changePerspective();
 			} catch (Exception e) {
 				logger.error(e);
 				UIUtil.showErrorDialog(SOAMessages.CREATE_ERRLIB_ERR, e);

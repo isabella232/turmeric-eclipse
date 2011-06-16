@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryDeltaVisitor;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.collections.CollectionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
-import org.ebayopensource.turmeric.tools.library.SOAGlobalRegistryFactory;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -29,8 +29,6 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.MessageDialog;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * @author smathew This is the move delete hook for XSD modification We wont

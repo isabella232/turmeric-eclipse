@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.ebayopensource.turmeric.eclipse.maven.feature"
+      label="Maven Feature"
+      version="1.0.0.qualifier"
+      provider-name="eBay, Inc">
+
+   <description url="http://www.ebayopensource.org/index.php/Turmeric/HomePage">
+      Provides common API used by turmeric bundles that depend on working
+with Maven and M2Eclipse.
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import feature="org.maven.ide.eclipse.feature" version="0.12" match="compatible"/>
+   </requires>
+
+   <plugin
+         id="org.ebayopensource.turmeric.eclipse.maven.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.ebayopensource.turmeric.eclipse.mavenapi"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.ebayopensource.turmeric.eclipse.maven.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.io"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.lang"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

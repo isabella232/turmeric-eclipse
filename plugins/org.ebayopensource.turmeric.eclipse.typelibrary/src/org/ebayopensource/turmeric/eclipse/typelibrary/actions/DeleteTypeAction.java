@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;
@@ -21,6 +21,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcr
 import org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.GenTypeDeleteType;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.collections.CollectionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
@@ -42,8 +43,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.progress.IProgressConstants;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * @author smathew
@@ -235,7 +234,7 @@ public class DeleteTypeAction implements IObjectActionDelegate {
 
 	}
 
-	public static void callCodegen(IProject project, IFile file, IProgressMonitor monitor) throws Exception {
+	private static void callCodegen(IProject project, IFile file, IProgressMonitor monitor) throws Exception {
 		GenTypeDeleteType genTypeDeleteType = new GenTypeDeleteType();
 		genTypeDeleteType.setProjectRoot(project.getLocation().toString());
 		genTypeDeleteType.setLibraryName(project.getName());

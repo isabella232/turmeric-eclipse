@@ -8,7 +8,8 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.exception.tests.resources;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAErrorTypeCreationFailedException;
 import org.junit.Before;

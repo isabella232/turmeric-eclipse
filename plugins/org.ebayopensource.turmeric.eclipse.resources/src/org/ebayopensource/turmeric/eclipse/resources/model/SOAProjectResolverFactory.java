@@ -29,8 +29,19 @@ import org.eclipse.core.runtime.Platform;
  *
  */
 public final class SOAProjectResolverFactory {
+	/**
+	 * External Project Resolver Id.
+	 */
 	public static final String EXT_PROJECT_RESOLVER_ID = "org.ebayopensource.turmeric.eclipse.resources.soaProjectResolver";
+	
+	/**
+	 * Project Nature ID.
+	 */
 	public static final String ID_PROJECT_NATURE = "projectNature";
+	
+	/**
+	 * Project Resolver Class.
+	 */
 	public static final String ID_RESOLVER_CLASS = "projectResolverClass";
 	private static final Map<String, ISOAProjectResolver<?>> SOA_PROJECT_RESOLVERS;
 	
@@ -45,6 +56,11 @@ public final class SOAProjectResolverFactory {
 		super();
 	}
 	
+	/**
+	 * 
+	 * @param projectNature project nature
+	 * @return an ISOAProjectResolver
+	 */
 	public static ISOAProjectResolver<?> getSOAProjectResolver(String projectNature) {
 		return SOA_PROJECT_RESOLVERS.get(projectNature);
 	}

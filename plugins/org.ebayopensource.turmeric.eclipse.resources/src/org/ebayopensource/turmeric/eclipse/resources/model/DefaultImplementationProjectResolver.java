@@ -31,13 +31,15 @@ public abstract class DefaultImplementationProjectResolver implements
 		super();
 	}
 
-	/* 
-	 * for impl projects, do the followings: 1) create the
+	/**
+	 * {@inheritDoc} 
+	 *  
+	 * <p>for impl projects, do the followings: 1) create the
 	 * SOAProjectEclipseMetadata 2) read metadata from
 	 * service_impl_project.properties 3) load the metadata from
-	 * ServiceConfig.xml 4) load the corresponding intf project metadata
+	 * ServiceConfig.xml 4) load the corresponding intf project metadata.
+	 * </p>
 	 * 
-	 * (non-Javadoc)
 	 * @see org.ebayopensource.turmeric.eclipse.resources.model.ISOAProjectResolver#loadProject(org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata)
 	 */
 	@Override
@@ -64,8 +66,10 @@ public abstract class DefaultImplementationProjectResolver implements
 	}
 	
 	/**
-	 * @param project
+	 * 
+	 * @param project 
 	 * @return true if the given project is also a consumer project
+	 * @throws CoreException 
 	 */
 	public abstract boolean isConsumerProject(IProject project) throws CoreException;
 

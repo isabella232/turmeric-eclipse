@@ -14,8 +14,8 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.SOAErrorLibraryConstants;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.BaseServiceParamModel;
 
 
 /**

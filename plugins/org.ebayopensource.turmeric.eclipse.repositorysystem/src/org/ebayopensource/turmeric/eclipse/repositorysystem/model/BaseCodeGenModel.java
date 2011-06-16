@@ -16,7 +16,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author yayu
@@ -58,6 +57,9 @@ public class BaseCodeGenModel {
 	public static final String PARAM_JDK_HOME = "-jdkhome"; //The full path of the JDK HOME directory
 	public static final String PARAM_DOMAIN = "-domain"; //command separated list of error domains
 	public static final String PARAM_ERROR_LIBRARY_NAME = "-errorlibname"; //the name of the error library
+	public static final String PARAM_NON_XSD_FORMATS = "-nonXSDFormats"; //the name of the nonxsdprotocol, such as protobuf
+	public static final String PARAM_XSD_PATHS_FOR_VALIDATION = "-xsdPathsForValidation";
+
 	
 	/*All|Client|ClientNoConfig|Server|ServerNoConfig|Proxy|Dispatcher|ConfigAll|ClientConfig|ServerConfig|
     GlobalServerConfig|GlocalClientConfig|Wsdl|Interface|Schema|SISkeleton|TypeMappings|WebXml|UnitTest|
@@ -90,6 +92,7 @@ public class BaseCodeGenModel {
 	public static final String GENTYPE_SERVICE_FROM_WSDL_INTF = "ServiceFromWSDLIntf";
 	public static final String GENTYPE_SERVICE_FROM_WSDL_IMPL = "ServiceFromWSDLImpl";
 	public static final String GENTYPE_ADDTYPE = "genTypeAddType";
+	public static final String GENTYPE_VALIDATEXSDSFORNONXSDFORMATES = "ValidateXSDsForNonXSDFormats";
 	public static final String GENTYPE_DELETETYPE = "genTypeDeleteType";
 	public static final String GENTYPE_CREATETYPELIBRARY = "genTypeCreateTypeLibrary";
 	public static final String GENTYPE_CLEANBUILDTYPELIBRARY = "genTypeCleanBuildTypeLibrary";
@@ -134,6 +137,7 @@ public class BaseCodeGenModel {
 		list.add(GENTYPE_DELETETYPE);
 		list.add(GENTYPE_COMMAND_LINE_ALL);
 		list.add(GENTYPE_ERROR_LIB_ALL);
+		list.add(GENTYPE_VALIDATEXSDSFORNONXSDFORMATES);
 		SUPPORTED_GENTYPES = Collections.unmodifiableList(list);
 	}
 
@@ -154,7 +158,23 @@ public class BaseCodeGenModel {
 	private String originalWsdlUrl; //-wsdl
 	private String ns2pkg; //-ns2pkg
 	private String genFolder; //jdesk
+	private String nonXSDFormats;// -nonXSDFormats
 	
+	public String getNonXSDFormats() {
+		return nonXSDFormats;
+	}
+
+	public void setNonXSDFormats(String nonXSDFormats) {
+		this.nonXSDFormats = nonXSDFormats;
+	}
+
+	/**
+	 * for impl project. identify use external factory or -sicn. If this is
+	 * true, then -sicn MUST not be added to codegen options. Otherwise the
+	 * -sicn is neede.
+	 */
+	private boolean useExternalServiceFactory = false;
+
 	/**
 	 * 
 	 */
@@ -310,6 +330,14 @@ public class BaseCodeGenModel {
 
 	public void setGenFolder(String genFolder) {
 		this.genFolder = genFolder;
+	}
+	
+	public boolean useExternalServiceFactory(){
+		return useExternalServiceFactory;
+	}
+	
+	public void setUseExternalServiceFactory(boolean useExternalServiceFactory) {
+		this.useExternalServiceFactory = useExternalServiceFactory;
 	}
 
 	public Map<String, String> getCodeGenOptions() {

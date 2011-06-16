@@ -13,8 +13,8 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.MessageProtocol;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAFileNotWritableException;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.MessageProtocol;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.JDOMUtil;
@@ -49,16 +49,19 @@ public class SOAClientConfigUtil {
 	private static final String URL_PATTERN = "URL-pattern";
 	private static final String TRANSPORT_HEADER = "transport-header";
 	private static final String CONSUMER_ID = "consumer-id";
-	private static final String TRANSPORT_HEADER_NAME = "X-EBAY-SOA-MESSAGE-PROTOCOL";
+	private static final String TRANSPORT_HEADER_NAME = "X-TURMERIC-MESSAGE-PROTOCOL";
 	private static final String SOAP12 = "SOAP12";
 	private static final String SOAP11 = "SOAP11";
 	private static final String SOAP11_VERSION = "1.1";
 	private static final String SOAP12_VERSION = "1.2";
 	private static final String CLASS_NAME = "class-name";
-	private static final String CLASS_NAME_VALUE = "org.ebayopensource.turmeric.sif.impl.protocolprocessor.soap.ClientSOAPProtocolProcessor"; //FIXME use the new turmeric name
+
+	// private static final String CLASS_NAME_VALUE =
+	// "org.ebayopensource.turmeric.sif.impl.protocolprocessor.soap.ClientSOAPProtocolProcessor";
+	// //FIXME use the new turmeric name
 
 	public static SOAClientConfig parseClientConfig(IFile iFile)
-			throws IOException, JDOMException {
+	throws IOException, JDOMException {
 		SOAClientConfig soaClientConfig = new SOAClientConfig();
 
 		File soaConfFile = iFile.getLocation().toFile();
@@ -71,7 +74,7 @@ public class SOAClientConfigUtil {
 
 			if (clientConfig != null) {
 				final String fullServiceName = clientConfig
-						.getAttributeValue(SERVICE_NAME);
+				.getAttributeValue(SERVICE_NAME);
 				soaClientConfig.setFullyQualifiedServiceName(fullServiceName);
 				final String serviceName = getServiceNameFromClientConfigServiceName(fullServiceName);
 				soaClientConfig.setServiceName(serviceName);
@@ -81,8 +84,8 @@ public class SOAClientConfigUtil {
 						SERVICE_INTERFACE_CLASS_NAME, nameSpace);
 				if (serviceInterfaceClassName != null) {
 					soaClientConfig
-							.setServiceInterfaceClassName(serviceInterfaceClassName
-									.getValue());
+					.setServiceInterfaceClassName(serviceInterfaceClassName
+							.getValue());
 				}
 				Element serviceLocation = clientConfig.getChild(
 						SERVICE_LOCATION, nameSpace);
@@ -103,11 +106,11 @@ public class SOAClientConfigUtil {
 									.getAttributeValue(NAME));
 						}
 						Element requestDataBinding = invocationOptions
-								.getChild(REQUEST_DATA_BINDING, nameSpace);
+						.getChild(REQUEST_DATA_BINDING, nameSpace);
 						if (requestDataBinding != null) {
 							soaClientConfig
-									.setRequestDataBinding(requestDataBinding
-											.getValue());
+							.setRequestDataBinding(requestDataBinding
+									.getValue());
 						}
 						Element responseDataBinding = invocationOptions
 						.getChild(RESPONSE_DATA_BINDING, nameSpace);
@@ -130,8 +133,8 @@ public class SOAClientConfigUtil {
 									.getValue());
 						} else {
 							soaClientConfig
-									.setMessageProtocol(MessageProtocol.NONE
-											.name());
+							.setMessageProtocol(MessageProtocol.NONE
+									.name());
 						}
 						Element consumerId = invocationOptions.getChild(
 								CONSUMER_ID, nameSpace);
@@ -157,12 +160,12 @@ public class SOAClientConfigUtil {
 		return serviceName;
 	}
 	
-	public static void save(SOAClientConfig config) throws Exception {
-		save(config, false);
+	public static void save(SOAClientConfig config, String protocalProcessorClassName) throws Exception {
+		save(config, false, protocalProcessorClassName);
 	}
 
 	public static void save(SOAClientConfig config, 
-			boolean removeDeprecatedElements) throws Exception {
+			boolean removeDeprecatedElements, String protocalProcessorClassName) throws Exception {
 		if (!WorkspaceUtil.isResourceWritable(config.getFile())) {
 			throw new SOAFileNotWritableException(config.getFile()
 					.getLocation().toFile());
@@ -207,16 +210,16 @@ public class SOAClientConfigUtil {
 						}
 
 						Element requestDataBindingElement = invocationOptions
-								.getChild(REQUEST_DATA_BINDING, nameSpace);
+						.getChild(REQUEST_DATA_BINDING, nameSpace);
 						if (requestDataBindingElement != null) {
 							requestDataBindingElement
-									.setText(requestDataBinding);
+							.setText(requestDataBinding);
 						}
 						Element responseDataBindingElement = invocationOptions
-								.getChild(RESPONSE_DATA_BINDING, nameSpace);
+						.getChild(RESPONSE_DATA_BINDING, nameSpace);
 						if (responseDataBindingElement != null) {
 							responseDataBindingElement
-									.setText(responseDataBinding);
+							.setText(responseDataBinding);
 
 						}
 						if (StringUtils.isNotBlank(consumerId)) {
@@ -230,32 +233,32 @@ public class SOAClientConfigUtil {
 								invocationOptions.addContent(elem);
 							}
 						}
-						
+
 						if (removeDeprecatedElements == true) {
 							invocationOptions.removeChild(INVOCATION_USE_CASE, nameSpace);
 						}
-						
+
 						// if this is none
 						// then we have to remove the protocol processor and the
 						// message protocol element under invocation options
 						if (StringUtils.equals(MessageProtocol.NONE.name(),
 								messageProtocol)) {
 							Element messageProtocolElement = invocationOptions
-									.getChild(MESSAGE_PROTOCOL, nameSpace);
+							.getChild(MESSAGE_PROTOCOL, nameSpace);
 							if (messageProtocolElement != null) {
 								invocationOptions
-										.removeContent(messageProtocolElement);
+								.removeContent(messageProtocolElement);
 							}
 							removeProtocolProcessor(clientInstanceConfig,
 									document);
 						} else {
 							Element messageProtocolElement = invocationOptions
-									.getChild(MESSAGE_PROTOCOL, nameSpace);
+							.getChild(MESSAGE_PROTOCOL, nameSpace);
 							if (messageProtocolElement == null) {
 								messageProtocolElement = new Element(
 										MESSAGE_PROTOCOL, nameSpace);
 								invocationOptions
-										.addContent(messageProtocolElement);
+								.addContent(messageProtocolElement);
 							}
 							messageProtocolElement.setText(messageProtocol);
 							removeProtocolProcessor(clientInstanceConfig,
@@ -268,7 +271,7 @@ public class SOAClientConfigUtil {
 								version = SOAP12_VERSION;
 							}
 							addProtocolProcessor(messageProtocol, version,
-									clientInstanceConfig, document);
+									clientInstanceConfig, document, protocalProcessorClassName);
 						}
 					}
 
@@ -286,7 +289,7 @@ public class SOAClientConfigUtil {
 	}
 
 	private static void addProtocolProcessor(String name, String version,
-			Element parentElement, Document document) {
+			Element parentElement, Document document, String protocalProcessorClassName) {
 
 		Namespace nameSpace = document.getRootElement().getNamespace();
 		Element protocolProcessorElement = new Element(PROTOCOL_PROCESSOR,
@@ -304,7 +307,7 @@ public class SOAClientConfigUtil {
 		indicator.addContent(transportHeader);
 
 		Element classNameElement = new Element(CLASS_NAME, nameSpace);
-		classNameElement.setText(CLASS_NAME_VALUE);
+		classNameElement.setText(protocalProcessorClassName);
 
 		protocolProcessorElement.addContent(classNameElement);
 	}

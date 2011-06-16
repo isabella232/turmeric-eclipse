@@ -28,18 +28,29 @@ import org.ebayopensource.turmeric.eclipse.mavenapi.internal.util.EclipseUtil;
 import org.ebayopensource.turmeric.eclipse.mavenapi.internal.util.ThrowableUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.maven.ide.eclipse.core.IMavenConstants;
 import org.maven.ide.eclipse.index.IndexedArtifactFile;
 
 /**
  * 
- * @author James Ervin</a>
+ * @author James Ervin
  * 
  */
 public final class MavenEclipseUtil {
+	/**
+	 * Artifact meta data.
+	 */
 	static final String ARTIFACT_METADATA_SEPARATOR = ":";
 
+	/**
+	 * Check to see if the project has a maven nature.
+	 * 
+	 * @param project an eclipse project
+	 * @return true if the project is a maven project, false otherwise
+	 * @throws CoreException 
+	 */
 	public static boolean hasMavenNature(final IProject project)
 			throws CoreException {
 		if (project == null || !project.isAccessible())
@@ -47,6 +58,11 @@ public final class MavenEclipseUtil {
 		return project.hasNature(IMavenConstants.NATURE_ID);
 	}
 
+	/**
+	 * 
+	 * @return a List of projects that are Maven Projects
+	 * @throws CoreException 
+	 */
 	public static List<IProject> getAllMavenProjectsInWorkspace()
 			throws CoreException {
 		final List<IProject> projects = ListUtil.list();
@@ -60,7 +76,11 @@ public final class MavenEclipseUtil {
 	}
 
 	public static Model readPOM(final IProject project) throws CoreException {
-		return getMavenModelManager().readMavenModel(getPomFile(project));
+		IFile file = getPomFile(project);
+		file.refreshLocal(IResource.DEPTH_ZERO, null);
+		if (file.isAccessible() == false)
+			return null;
+		return getMavenModelManager().readMavenModel(file);
 	}
 
 	public static Map<ArtifactMetadata, IProject> getAllProjectArtifactsInWorkspace() {

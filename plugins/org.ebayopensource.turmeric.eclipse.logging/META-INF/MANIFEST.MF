@@ -6,7 +6,9 @@ Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.logging;singleton:=true
 Require-Bundle: org.eclipse.core.runtime,
- org.ebayopensource.turmeric.eclipse.utils
+ org.ebayopensource.turmeric.eclipse.utils,
+ org.apache.commons.lang;bundle-version="2.4.0",
+ org.apache.commons.io;bundle-version="1.4.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.logging.Activator
 Export-Package: org.ebayopensource.turmeric.eclipse.logging,
  org.ebayopensource.turmeric.eclipse.logging.system

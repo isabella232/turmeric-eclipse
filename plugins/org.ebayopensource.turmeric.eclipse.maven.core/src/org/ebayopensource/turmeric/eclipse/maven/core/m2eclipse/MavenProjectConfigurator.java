@@ -19,11 +19,11 @@ import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
@@ -57,9 +57,6 @@ public class MavenProjectConfigurator extends AbstractProjectConfigurator {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.maven.ide.eclipse.project.configurator.AbstractProjectConfigurator#configure(org.maven.ide.eclipse.project.configurator.ProjectConfigurationRequest, org.eclipse.core.runtime.IProgressMonitor)
-	 */
 	@Override
 	public void configure(ProjectConfigurationRequest request,
 			IProgressMonitor monitor) throws CoreException {
@@ -172,21 +169,41 @@ public class MavenProjectConfigurator extends AbstractProjectConfigurator {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param project the eclipse project to validate
+	 * @return true if it is a valid interface project
+	 */
 	public static boolean isValidInterfaceProject(IProject project) {
 		return isFileAccessible(project, 
 				SOAProjectConstants.PROPS_FILE_SERVICE_INTERFACE);
 	}
 	
+	/**
+	 * 
+	 * @param project the implementation project to validate.
+	 * @return true if it is a valid implementation project.
+	 */
 	public static boolean isValidImplementationProject(IProject project) {
 		return isFileAccessible(project, 
 				SOAProjectConstants.PROPS_FILE_SERVICE_IMPL);
 	}
 	
+	/**
+	 * 
+	 * @param project the consumer project to validate
+	 * @return true if it is a valid consumer project
+	 */
 	public static boolean isValidConsumerProject(IProject project) {
 		return isFileAccessible(project, 
 				SOAProjectConstants.PROPS_FILE_SERVICE_CONSUMER);
 	}
 	
+	/**
+	 * 
+	 * @param project the project to verify
+	 * @return true if it is a valid type library project
+	 */
 	public static boolean isValidTypeLibraryProject(IProject project) {
 		return isFileAccessible(project, 
 				SOAProjectConstants.PROPS_FILE_TYPE_LIBRARY);
@@ -196,6 +213,11 @@ public class MavenProjectConfigurator extends AbstractProjectConfigurator {
 		SOAProjectConstants.FOLDER_META_SRC + WorkspaceUtil.PATH_SEPERATOR + 
 		SOAProjectConstants.FOLDER_META_INF + WorkspaceUtil.PATH_SEPERATOR + "errorlibrary/";
 	
+	/**
+	 * 
+	 * @param project the project to validate
+	 * @return true if it is a valid error library project
+	 */
 	public static boolean isValidErrorLibraryProject(IProject project) {
 		String path = ERROR_DOMAIN_LIST_PATH_PREFIX + project.getName() + "/domain_list.properties";
 		return isFileAccessible(project, path);

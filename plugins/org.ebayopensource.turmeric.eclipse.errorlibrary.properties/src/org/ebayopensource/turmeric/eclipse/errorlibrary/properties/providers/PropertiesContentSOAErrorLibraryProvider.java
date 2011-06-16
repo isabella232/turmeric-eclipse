@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.Activator;
-import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences.ErrorIdServicePreferenceInitializer;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorDomainCreator;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryCreator;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryProvider;
@@ -138,15 +137,6 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 		retCode = StringUtils.replace(retCode, "$error", error.getName().toUpperCase());
 //		retCode = StringUtils.replace(retCode, "$domain", error.getDomain().getName().toUpperCase());
 		return retCode;
-	}
-
-	public String getErrorLibraryCentralLocation() {
-		if (ErrorIdServicePreferenceInitializer.useLocalHost()) {
-			return ErrorIdServicePreferenceInitializer.getLocalErrorDataPath();
-		} else {
-			return ErrorIdServicePreferenceInitializer
-					.getErrorIdServiceEndpoint();
-		}
 	}
 
 }

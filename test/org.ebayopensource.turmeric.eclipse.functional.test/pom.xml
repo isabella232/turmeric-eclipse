@@ -137,6 +137,11 @@
                   </dependency>
                   <dependency>
                      <type>eclipse-plugin</type>
+                     <artifactId>org.ebayopensource.turmeric.eclipse.maven.ui</artifactId>
+                     <version>0.0.0</version>
+                  </dependency>
+                  <dependency>
+                     <type>eclipse-plugin</type>
                      <artifactId>org.ebayopensource.turmeric.eclipse.maven.sconfig</artifactId>
                      <version>0.0.0</version>
                   </dependency>
@@ -195,12 +200,6 @@
                      <artifactId>org.ebayopensource.turmeric.eclipse.utils</artifactId>
                      <version>0.0.0</version>
                   </dependency>
-                  <dependency>
-                     <type>eclipse-plugin</type>
-                     <artifactId>org.ebayopensource.turmeric.eclipse.validator</artifactId>
-                     <version>0.0.0</version>
-                  </dependency>
-
                </dependencies>
 
             </configuration>

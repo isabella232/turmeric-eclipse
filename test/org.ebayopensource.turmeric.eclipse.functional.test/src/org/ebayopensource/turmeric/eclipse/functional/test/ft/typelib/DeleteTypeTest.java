@@ -17,12 +17,12 @@ import java.io.IOException;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
@@ -83,7 +83,36 @@ public class DeleteTypeTest extends AbstractTestCase {
 		
 		WorkspaceUtil.getProject(TypeLibSetUp.TYPELIBRARY_NAME1).build(IncrementalProjectBuilder.FULL_BUILD, 
 				ProgressUtil.getDefaultMonitor(null));
+		/*TLUtil.createType("CustomerType", TypeLibSetUp.TYPELIBRARY_NAME1,
+				TypeLibSetUp.TYPELIBRARY_NAME1,
+				SOAXSDTemplateSubType.SIMPLE,
+				SoaTestConstants.TEMPLATE_SIMPLE_TYPE,
+				SoaTestConstants.XSD_STRING); */
 		
+		//UIUtil.getActivePage().closeAllEditors(true);
+
+		/*Assert.assertTrue(TypeLibSetUp.TYPELIBRARY_NAME2
+				+ " -- TypeLibrary Creation failed", TLUtil.createTypeLibrary(
+				TypeLibSetUp.TYPELIBRARY_NAME2, "1.0.0", "COMMON",
+				TypeLibSetUp.TYPELIB_LOCATION));
+		TLUtil.createType("ZipType", TypeLibSetUp.TYPELIBRARY_NAME2,
+				TypeLibSetUp.TYPELIBRARY_NAME2,
+				SOAXSDTemplateSubType.SIMPLE,
+				SoaTestConstants.TEMPLATE_SIMPLE_TYPE,
+				SoaTestConstants.XSD_STRING);
+		final Display display = Display.getCurrent();
+		System.out.println(display.getActiveShell());
+
+		String typeNS = TLUtil.getTargetNamespace(TLUtil.functionDomain);
+		TLUtil.importAction("TYPELIB", TypeLibSetUp.TYPELIBRARY_NAME1,
+				"ImportType.xsd", "AlertType", typeNS);
+
+		TLUtil.importAction("TYPELIB", TypeLibSetUp.TYPELIBRARY_NAME1,
+				"ImportType.xsd", "ZipType", typeNS);
+		TLUtil.importAction("TYPELIB", TypeLibSetUp.TYPELIBRARY_NAME1,
+				"ImportType.xsd", "CustomerType", typeNS);
+
+		UIUtil.getActivePage().closeAllEditors(true); */
 	}
 	
 	
@@ -104,7 +133,6 @@ public class DeleteTypeTest extends AbstractTestCase {
 		//UIUtil.getActivePage().closeAllEditors(true);
 		
 //		Clean and do a build
-		WorkspaceUtil.setBuildAutomatically(true);
 		WorkspaceUtil.getProject(TypeLibSetUp.TYPELIBRARY_NAME1).build(IncrementalProjectBuilder.CLEAN_BUILD, 
 				ProgressUtil.getDefaultMonitor(null));
 		

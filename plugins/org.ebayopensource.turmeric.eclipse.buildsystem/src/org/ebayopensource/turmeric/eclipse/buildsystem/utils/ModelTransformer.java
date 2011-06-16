@@ -25,16 +25,19 @@ import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeServiceFromWSDLI
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeTypeMappings;
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeWebXml;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodeGenUtil;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAConfigurationRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
+import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -116,6 +119,11 @@ public class ModelTransformer {
 				.getGIPFromInterface(model.getServiceInterface()));
 		genTypeServiceFromWsdlIntf.setGenerateFromWsdl(true);
 
+		genTypeServiceFromWsdlIntf.setMetaDir(project.getLocation().toString()
+				+ WorkspaceUtil.PATH_SEPERATOR
+				+ SOAProjectConstants.FOLDER_GEN_META_SRC);
+		genTypeServiceFromWsdlIntf.setNonXSDFormats(model.getNonXSDFormats());
+
 		return genTypeServiceFromWsdlIntf;
 	}
 
@@ -164,13 +172,14 @@ public class ModelTransformer {
 				.getActiveRepositorySystem().getSOACodegenProvider()
 				.getGenFolderForImpl();
 		genTypeServiceFromWsdlImpl.setGenFolder(project.getLocation()
-				.toString()
-				+ WorkspaceUtil.PATH_SEPERATOR + genFolder);
+				.toString() + WorkspaceUtil.PATH_SEPERATOR + genFolder);
 		final ISOAConfigurationRegistry config = GlobalRepositorySystem
 				.instanceOf().getActiveRepositorySystem()
 				.getConfigurationRegistry();
 		genTypeServiceFromWsdlImpl.setServiceConfigGroup(config
 				.getServiceConfigGroup());
+		genTypeServiceFromWsdlImpl.setUseExternalServiceFactory(model
+				.useExternalServiceFactory());
 		return genTypeServiceFromWsdlImpl;
 	}
 
@@ -483,7 +492,7 @@ public class ModelTransformer {
 	 * @throws WSDLException
 	 */
 	public static GenTypeServiceConfig transformToGenTypeServiceConfig(
-			BaseCodeGenModel model, IProject project) throws WSDLException {
+			BaseCodeGenModel model, IProject project) throws Exception {
 		GenTypeServiceConfig genTypeServiceConfig = new GenTypeServiceConfig();
 		genTypeServiceConfig.setNamespace(model.getNamespace());
 		genTypeServiceConfig.setServiceInterface(model.getServiceInterface());
@@ -491,11 +500,12 @@ public class ModelTransformer {
 		genTypeServiceConfig.setServiceVersion(model.getServiceVersion());
 		genTypeServiceConfig.setServiceImplClassName(model
 				.getServiceImplClassName());
-		genTypeServiceConfig.setOutputDirectory(project.getFolder(
-				SOAProjectConstants.CODEGEN_FOLDER_OUTPUT_DIR).getLocation()
+		genTypeServiceConfig.setOutputDirectory(project
+				.getFolder(SOAProjectConstants.CODEGEN_FOLDER_OUTPUT_DIR)
+				.getLocation().toString());
+		genTypeServiceConfig.setSourceDirectory(project
+				.getFolder(SOAProjectConstants.FOLDER_SRC).getLocation()
 				.toString());
-		genTypeServiceConfig.setSourceDirectory(project.getFolder(
-				SOAProjectConstants.FOLDER_SRC).getLocation().toString());
 		genTypeServiceConfig.setDestination(project.getLocation().toString());
 		genTypeServiceConfig.setMetadataDirectory(project.getLocation()
 				.toString()
@@ -506,6 +516,22 @@ public class ModelTransformer {
 				.getConfigurationRegistry();
 		genTypeServiceConfig.setServiceConfigGroup(config
 				.getServiceConfigGroup());
+
+		// get the useExternalServiceFactory property value and set it to gen
+		// model.
+		IFile svcImplProperties = SOAImplUtil
+				.getServiceImplPropertiesFile(project);
+		if (svcImplProperties.isAccessible() == true) {
+			String useExternalFac = PropertiesFileUtil.getPropertyValueByKey(
+					svcImplProperties.getContents(),
+					SOAProjectConstants.PROPS_KEY_USE_EXTERNAL_SERVICE_FACTORY);
+			genTypeServiceConfig.setUseExternalServiceFactory(Boolean
+					.valueOf(useExternalFac));
+
+		}
+
+		genTypeServiceConfig.setProjectRoot(model.getProjectRoot());
+
 		return genTypeServiceConfig;
 	}
 

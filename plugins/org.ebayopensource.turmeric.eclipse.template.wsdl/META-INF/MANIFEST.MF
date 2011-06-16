@@ -22,9 +22,13 @@ Require-Bundle: org.eclipse.ui;bundle-version="3.5.2",
  org.ebayopensource.turmeric.eclipse.repositorysystem,
  org.ebayopensource.turmeric.eclipse.exception;bundle-version="1.0.0",
  org.ebayopensource.turmeric.eclipse.logging;bundle-version="1.0.0",
- org.jdom;bundle-version="1.0.0"
+ org.jdom;bundle-version="1.0.0",
+ org.apache.commons.io;bundle-version="1.4.0",
+ org.apache.commons.lang;bundle-version="2.4.0",
+ org.ebayopensource.turmeric.eclipse.ui;bundle-version="1.0.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.template.wsdl.Activator
-Export-Package: org.ebayopensource.turmeric.eclipse.template.wsdl.processors
+Export-Package: org.ebayopensource.turmeric.eclipse.template.wsdl.processors,
+ org.ebayopensource.turmeric.eclipse.template.wsdl.util
 Bundle-Version: 1.0.0.qualifier
 Import-Package: freemarker,freemarker.cache,freemarker.core,freemarker
  .debug,freemarker.debug.impl,freemarker.ext.ant,freemarker.ext.beans,

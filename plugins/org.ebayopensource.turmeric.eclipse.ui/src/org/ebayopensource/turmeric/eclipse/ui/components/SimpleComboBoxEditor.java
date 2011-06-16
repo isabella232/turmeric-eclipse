@@ -142,6 +142,27 @@ public class SimpleComboBoxEditor extends FieldEditor {
         }
         return itemList;
     }
+    
+	public void updateProtocolList(String selection,
+			String[][] newNameValuePairs) {
+		if (itemList == null) {
+			return;
+		}
+		itemList.removeAll();
+		boolean has = false;
+		for (int i = 0; i < newNameValuePairs.length; i++) {
+			itemList.add(newNameValuePairs[i][0], i);
+			if (newNameValuePairs[i][0].equalsIgnoreCase(selection) == true) {
+				has = true;
+			}
+		}
+		nameValuePairs = newNameValuePairs;
+		if (has == true) {
+			itemList.setText(selection);
+		} else {
+			itemList.setText(newNameValuePairs[0][0]);
+		}
+	}
 
     private String getSelectedItemValue(String selected) {
         for (int i = 0; i < nameValuePairs.length; i++) {

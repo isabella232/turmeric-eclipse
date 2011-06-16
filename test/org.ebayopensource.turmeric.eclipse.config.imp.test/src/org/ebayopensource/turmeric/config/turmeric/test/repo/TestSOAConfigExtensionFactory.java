@@ -11,6 +11,9 @@
  */
 package org.ebayopensource.turmeric.config.turmeric.test.repo;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +22,6 @@ import org.ebayopensource.turmeric.config.turmeric.test.core.TestSOAGlobalConfig
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
-
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 

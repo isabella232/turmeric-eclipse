@@ -15,16 +15,17 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.TemplateBinding;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.TemplateBinding;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.IParameterElement;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.WTPTypeLibUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateUtils;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.eclipse.wst.wsdl.Binding;
 import org.eclipse.wst.wsdl.Definition;
@@ -54,8 +55,6 @@ import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDTypeDefinition;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * The Utility class to serve the Service template processors and other template

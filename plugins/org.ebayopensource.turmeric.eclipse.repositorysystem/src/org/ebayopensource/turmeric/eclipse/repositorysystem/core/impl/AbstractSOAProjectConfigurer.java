@@ -14,10 +14,10 @@ package org.ebayopensource.turmeric.eclipse.repositorysystem.core.impl;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
@@ -27,7 +27,6 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
-import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IFile;
@@ -86,8 +85,9 @@ public abstract class AbstractSOAProjectConfigurer implements
 					ProgressUtil.progressOneStep(monitor, 5);
 					final IFile svcConfigFile = imProject.getServiceConfigFile();
 					imProject.getMetadata().setImplVersion(newServiceVersion);
-					ConfigTool.saveServerConfig(imProject.getMetadata(),
-							svcConfigFile.getLocationURI().toURL());
+					// plugin should never modify the ServiceConfig.xml since soa 2.9
+					// ConfigTool.saveServerConfig(imProject.getMetadata(),
+					// svcConfigFile);
 					svcConfigFile.refreshLocal(IResource.DEPTH_ZERO, monitor);
 					ProgressUtil.progressOneStep(monitor, 10);
 				}
@@ -122,8 +122,9 @@ public abstract class AbstractSOAProjectConfigurer implements
 	private boolean saveImplProject(final SOAImplProject implProject, IProgressMonitor monitor)
 	throws Exception {
 		final IFile svcConfigFile = implProject.getServiceConfigFile();
-		ConfigTool.saveServerConfig(implProject.getMetadata(),
-				svcConfigFile.getLocationURI().toURL());
+		// plugin should never modify the ServiceConfig.xml since soa 2.9
+		// ConfigTool.saveServerConfig(implProject.getMetadata(),
+		// svcConfigFile);
 		svcConfigFile.refreshLocal(IResource.DEPTH_ZERO, monitor);
 		ProgressUtil.progressOneStep(monitor);
 		return true;
@@ -135,4 +136,12 @@ public abstract class AbstractSOAProjectConfigurer implements
 		ProgressUtil.progressOneStep(monitor);
 		return true;
 	}
+
+	@Override
+	public void postServiceVersionUpdated(SOAIntfProject soaIntfProject,
+			String oldVersion, String newVersion, boolean slience,
+			IProgressMonitor monitor) throws Exception {
+		// do nothing by default. V3 need to do a build service.
+	}
+
 }

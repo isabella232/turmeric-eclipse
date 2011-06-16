@@ -23,14 +23,15 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.ErrorLibrary
 import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.ErrorTypeCreator;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.registry.TurmericErrorRegistry;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.resources.SOAMessages;
-import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.ui.DeleteErrorNodeAction;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.utils.TurmericErrorLibraryUtils;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.DomainParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrDomain;
-import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAError;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
@@ -38,8 +39,9 @@ import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -57,6 +59,16 @@ public class DeleteDomain extends AbstractTestCase {
 	public static final String ERROR_SUBDOMAIN = "Buying";
 	
 	public static final String ERROR_PROPS = WorkspaceUtil.getProjectDirPath(ERRORLIB_PROJECT_NAME,"Domain_list.properties");
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/ErrorLibraryTestData.zip",dataDirectory +"/extractedData");
+		
+	}
 	
 	@Before
 	public void init(){
@@ -151,6 +163,12 @@ public class DeleteDomain extends AbstractTestCase {
 		Assert.assertFalse(status.isOK());
 		
 		
+	}
+		
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 		
 

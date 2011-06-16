@@ -12,7 +12,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +21,6 @@ import java.net.URL;
 import java.net.URLDecoder;
 
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
-import org.junit.Ignore;
 import org.junit.Test;
 
 

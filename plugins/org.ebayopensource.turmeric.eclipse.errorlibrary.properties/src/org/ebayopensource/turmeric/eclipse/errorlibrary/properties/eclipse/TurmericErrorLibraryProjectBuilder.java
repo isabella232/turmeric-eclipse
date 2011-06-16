@@ -17,9 +17,9 @@ import org.ebayopensource.turmeric.eclipse.buildsystem.eclipse.AbstractSOAProjec
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuilderUtil;
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeErrorLibAll;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.Activator;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.properties.utils.TurmericErrorLibraryUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceDelta;
@@ -79,7 +79,7 @@ public class TurmericErrorLibraryProjectBuilder extends AbstractSOAProjectBuilde
 		CodegenInvoker codegenInvoker = CodegenInvoker.init(project);
 		final String projectLocation = project.getLocation().toString();
 		GenTypeErrorLibAll codeGenModel = new GenTypeErrorLibAll(
-				projectLocation, projectLocation + "/gen-src");
+				projectLocation, projectLocation);
 		codeGenModel.setErrorLibraryName(project.getName());
 		final Collection<String> domains = new LinkedHashSet<String>();
 		if (delta == null || kind == FULL_BUILD || kind == CLEAN_BUILD) {

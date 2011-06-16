@@ -25,54 +25,35 @@ import org.maven.ide.eclipse.project.MavenProjectManager;
  */
 public class MavenApiHelper {
 
+	/**
+	 * 
+	 * @return the IndexManager
+	 */
 	public static IndexManager getMavenIndexManager() {
 		return MavenPlugin.getDefault().getIndexManager();
 	}
 
-	// -------------------------------------------------------------------------------------
+	/**
+	 * 
+	 * @return the maven ProjectManager
+	 */
 	public static MavenProjectManager getMavenProjectManager() {
 		return MavenPlugin.getDefault().getMavenProjectManager();
 	}
 
-	// -------------------------------------------------------------------------------------
+	/**
+	 * 
+	 * @return the maven model manager
+	 */
 	public static MavenModelManager getMavenModelManager() {
 		return MavenPlugin.getDefault().getMavenModelManager();
 	}
 
-	// -------------------------------------------------------------------------------------
-	// public static MavenEmbedder getMavenEmbedder()
-	// throws MavenEclipseApiException
-	// {
-	// return getMavenEmbedder(
-	// MavenPlugin.getDefault().getMavenEmbedderManager() );
-	// }
-	// -------------------------------------------------------------------------------------
-	// public static MavenEmbedder getMavenEmbedder( MavenEmbedderManager
-	// embedderManager )
-	// throws MavenEclipseApiException
-	// {
-	// if(DEBUG)
-	// System.out.println("request for MavenEmbedder");
-	//
-	// MavenEmbedder embedder = null;
-	// try {
-	// embedder = embedderManager.createEmbedder(
-	// EmbedderFactory.createExecutionCustomizer() );
-	// // MavenEmbedder embedder = embedderManager.getWorkspaceEmbedder(); TODO
-	// this would come later
-	// if( embedder == null )
-	// throw new MavenEclipseApiException(
-	// Language.getMsg("configure.command.error.noMavenEmbedder") );
-	// } catch (CoreException e) {
-	// throw new MavenEclipseApiException(e);
-	// }
-	//
-	// if(DEBUG)
-	// System.out.println("request for MavenEmbedder: return "+embedder);
-	// return embedder;
-	// }
-	// -------------------------------------------------------------------------------------
-	// -------------------------------------------------------------------------------------
+	/**
+	 * 
+	 * @return the maven implementation that is being used
+	 * @throws MavenEclipseApiException 
+	 */
 	public static MavenImpl getMavenEmbedder() throws MavenEclipseApiException {
 		IMaven embedder = MavenPlugin.getDefault().getMaven();
 		if (!(embedder instanceof MavenImpl)) {
@@ -81,6 +62,11 @@ public class MavenApiHelper {
 		return (MavenImpl) embedder;
 	}
 	
+	/**
+	 * 
+	 * @return the maven repository system
+	 * @throws MavenEclipseApiException 
+	 */
 	public static RepositorySystem getRepositorySystem() throws MavenEclipseApiException {
 		try {
 			return getMavenEmbedder().getPlexusContainer().lookup(RepositorySystem.class);

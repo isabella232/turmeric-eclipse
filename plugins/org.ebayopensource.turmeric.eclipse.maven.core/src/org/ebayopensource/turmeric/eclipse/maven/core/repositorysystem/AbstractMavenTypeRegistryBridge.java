@@ -17,10 +17,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ITypeRegistryBridge;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
@@ -40,15 +40,15 @@ public abstract class AbstractMavenTypeRegistryBridge implements ITypeRegistryBr
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ITypeRegistryBridge#getAllTypeLibraries()
+	/**
+	 * {@inheritDoc}
 	 */
 	public Set<AssetInfo> getAllTypeLibraries() throws Exception {
 		return MavenCoreUtils.getAllTypeLibraries();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ITypeRegistryBridge#getAllLatestTypeLibraries()
+	/**
+	 * {@inheritDoc}
 	 */
 	public List<AssetInfo> getAllLatestTypeLibraries() throws Exception {
 		Map<String, AssetInfo> data = new ConcurrentHashMap<String, AssetInfo>();
@@ -66,28 +66,31 @@ public abstract class AbstractMavenTypeRegistryBridge implements ITypeRegistryBr
 		return ListUtil.arrayList(data.values());
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ITypeRegistryBridge#createTypeLibrary(org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject)
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean createTypeLibrary(SOABaseProject soaBaseProject)
 			throws Exception {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ITypeRegistryBridge#deleteTypeLibrary(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean deleteTypeLibrary(String typeLibName) throws Exception {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.core.ITypeRegistryBridge#typeLibraryExists(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
 	public boolean typeLibraryExists(String typeLibName) throws Exception {
 		return MavenCoreUtils.isTypeLibraryExist(typeLibName);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Collection<String> getRequiredLibrariesForTypeLibraryProject() {
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem().getActiveOrganizationProvider()
 		.getDefaultDependencies(SOAProjectConstants.SupportedProjectType.TYPE_LIBRARY);

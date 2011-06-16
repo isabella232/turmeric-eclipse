@@ -34,27 +34,28 @@ public class SOAMessages extends NLS{
 	public static String ERR_PROJ_ROOT;
 
 	public static String ERR_LOC_ROOT_INCORRECT;
+	
+	public static String WARNING_MISSING_ARTIFACT_VALIDATOR;
 
 	public static String TARGET_PLATFORM;
 
 	public static String IMPL_INVALID;
-	
-	public static String WARNING_MISSING_ARTIFACT_VALIDATOR;
-	
+
 	public static String ERROR_SERVICE_WSDL_VALIDATION_FAILED;
 	
 	public static String ERROR_SERVICE_RS_SERVICE_FAILED;
 	
 	public static String  ERROR_SERVICE_RS_SERVICE_FAILED_TITLE;
 	
-	public static String  ERROR_AR_OUT_OF_DATE;
-	
-	public static String  WARNING_AR_NOT_AVAILABLE;
-	
 	public static String MSG_TIME_TAKEN_FOR_BUILD_PROJECT;
 	public static String MSG_TIME_TAKEN_FOR_CLEAN_PROJECT;
 	
-	public static String ERROR_FAIL_TO_SUBMIT_SERVICE_VERSION_TO_AR;
+	public static String SERVICE_CODEGEN_SKIPPED_MESSAGE;
+	
+	public static String JAVA_PROJECT_READONLY;
+	
+	public static String JAVA_CLASSPATH_READONLY;
+	
 	
 	static {
 		// initialize resource bundle

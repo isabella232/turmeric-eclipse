@@ -46,7 +46,10 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 
     private String[][] labelsAndValues;
 
-    private Map<String, List<String>> organizations;
+    /**
+     * The first level key is repo ID, the second level key is org ID/Name, then the value is org display name
+     */
+    private Map<String, Map<String, String>> organizations;
 
     private int numColumns;
 
@@ -70,14 +73,14 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 
     public CustomRadioGroupFieldEditor(String name, String labelText,
             int numColumns, String[][] labelAndValues,
-            Map<String, List<String>> organizations, Composite parent) {
+            Map<String, Map<String, String>> organizations, Composite parent) {
         this(name, labelText, numColumns, labelAndValues, organizations,
                 parent, false);
     }
 
     public CustomRadioGroupFieldEditor(String name, String labelText,
             int numColumns, String[][] labelAndValues,
-            Map<String, List<String>> organizations, Composite parent,
+            Map<String, Map<String, String>> organizations, Composite parent,
             boolean useGroup) {
         setPreferenceStore(RepositorySystemActivator.getDefault()
                 .getPreferenceStore());
@@ -219,6 +222,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
             radio.setText(labelAndValue[0]);
             radio.setData(labelAndValue[1]);
             radio.setFont(font);
+            radio.setEnabled(organizations.size() > 1);
             radio.addSelectionListener(new SelectionAdapter() {
                 @Override
                 public void widgetSelected(SelectionEvent event) {
@@ -236,18 +240,16 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
             composite.setLayout(layout);
             List<Button> buttons = new ArrayList<Button>();
             subButtons.put(labelAndValue[1], buttons);
-            for (String org : organizations.get(labelAndValue[1])) {
+            for (String orgId : organizations.get(labelAndValue[1]).keySet()) {
                 final Button radio1 = new Button(composite, SWT.RADIO
                         | SWT.LEFT);
                 GridData data = new GridData();
                 data.horizontalIndent = 30;
                 radio1.setLayoutData(data);
-                radio1.setText(org);
-                radio1.setData(org);
+                radio1.setText(organizations.get(labelAndValue[1]).get(orgId));
+                radio1.setData(orgId);
                 radio1.setFont(font);
-                radio1
-                        .setEnabled(PreferenceConstants.PREF_DEFAULT_REPOSITORY_SYSTEM
-                                .equals(labelAndValue[1]));
+                radio1.setEnabled(organizations.get(labelAndValue[1]).size() > 1);
                 radio1.addSelectionListener(new SelectionAdapter() {
                     @Override
                     public void widgetSelected(SelectionEvent event) {
@@ -386,13 +388,14 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
                     found = true;
                 }
                 radio.setSelection(selection);
+                radio.setEnabled(this.organizations.get(this.value).size() > 1);
             }
             if (found) {
                 return;
             }
         }
 
-        // if valie is not found, the first radio button will be selected.
+        // if value is not found, the first radio button will be selected.
         if (subButtons.get(firstValue).isEmpty() == false) {
             subButtons.get(firstValue).get(0).setSelection(true);
             this.subValue = (String) subButtons.get(firstValue).get(0)

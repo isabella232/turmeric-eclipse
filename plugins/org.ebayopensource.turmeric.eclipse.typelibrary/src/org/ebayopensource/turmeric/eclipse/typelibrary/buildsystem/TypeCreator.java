@@ -16,18 +16,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;
 import org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.GenTypeAddType;
 import org.ebayopensource.turmeric.eclipse.typelibrary.template.XSDTemplateProcessor;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.CommonTypeProp;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage.ElementTableModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.XSDTypeParser;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -38,9 +43,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.ide.IDE;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
@@ -76,8 +78,23 @@ public class TypeCreator {
 		String xsdFileName = TypeLibraryUtil.getXsdFileLocation(typeName,
 				project);
 		IFile xsdFile = createXsd(project, xsdFileName, monitor);
-		
+		boolean needSync = false;
 		if (typeParamModel.getBaseType() instanceof LibraryType) {
+			needSync = true;
+		} else if (typeParamModel instanceof ComplexTypeParamModel){
+			ComplexTypeParamModel complexType = (ComplexTypeParamModel) typeParamModel;
+			if (complexType.getElementTableModel() != null) {
+				for (ElementTableModel model: complexType.getElementTableModel()) {
+					if (model.getDatatype() instanceof LibraryType) {
+						needSync = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		if (needSync == true) {
+			//FIXME need to fix the case that a complex type reference types from other type libs.
 			final List<IFile> xsdFiles = TypeLibraryUtil.getAllXsdFiles(project, true);
 			xsdFiles.add(xsdFile);
 			TypeLibSynhcronizer.syncronizeAllXSDsandDepXml(project, 
@@ -170,12 +187,15 @@ public class TypeCreator {
 	public static void postProcessTypeCreation(String typeName,
 			String version, String typeLibName, IFile xsdFile, boolean refreshSOATypeRegistry, boolean openXSDEditor) throws Exception {
 		SOAGlobalRegistryAdapter registryAdapter = SOAGlobalRegistryAdapter.getInstance();
-		SOATypeRegistry typeRegistry = registryAdapter.getGlobalRegistry();
+		SOATypeRegistry typeRegistry = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem().getTypeRegistryBridge().getSOATypeRegistry();//registryAdapter.getGlobalRegistry();
 		TypeLibraryType typeLibInfo = typeRegistry.getTypeLibrary(typeLibName);
+		if(typeLibInfo == null){
+			return;
+		}
 		LibraryType libraryType = TypeLibraryUtil.getLibraryType(typeName,
 				version, typeLibInfo);
 
-		typeRegistry.addTypeToRegistry(libraryType);
+		registryAdapter.addTypeToRegistry(libraryType);
 
 		if (SOALogger.DEBUG) {
 			for (LibraryType libraryType2 : typeRegistry.getAllTypes()) {

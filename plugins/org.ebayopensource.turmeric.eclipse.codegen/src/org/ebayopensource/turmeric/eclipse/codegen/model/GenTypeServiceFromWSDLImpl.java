@@ -13,11 +13,10 @@ package org.ebayopensource.turmeric.eclipse.codegen.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 
 
 /**
@@ -116,7 +115,7 @@ public class GenTypeServiceFromWSDLImpl extends BaseCodeGenModel {
 		result.put(PARAM_SRC, getSourceDirectory());
 		result.put(PARAM_DEST, getDestination());
 		result.put(PARAM_BIN, getOutputDirectory());
-		if (getServiceImplClassName() != null) {
+		if (getServiceImplClassName() != null && this.useExternalServiceFactory() == false) {
 			result.put(PARAM_SICN, getServiceImplClassName());
 		}
 		

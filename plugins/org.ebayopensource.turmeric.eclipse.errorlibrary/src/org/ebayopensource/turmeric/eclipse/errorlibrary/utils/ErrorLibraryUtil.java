@@ -15,6 +15,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ErrorLibraryProviderFactory;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryProvider;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.views.ISOAErrDomain;
@@ -25,6 +26,7 @@ import org.ebayopensource.turmeric.eclipse.exception.resources.SOAFileNotWritabl
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAGetErrorLibraryProviderFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAOperationNotAvailableException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 
@@ -92,10 +94,14 @@ public class ErrorLibraryUtil {
 		return "";
 	}
 	
-	public static String getErrorLibraryCentralLocation() throws SOAFileNotWritableException, SOAGetErrorLibraryProviderFailedException {
-//		if (SOAErrorLibraryConstants.errorLibraryCentralLocation == null) {
+	public static String getErrorLibraryCentralLocation() throws SOAFileNotWritableException {
+		if (SOAErrorLibraryConstants.errorLibraryCentralLocation == null) {
 			try {
-				final String loc = ErrorLibraryProviderFactory.getPreferredProvider().getErrorLibraryCentralLocation();
+				String buildSystem = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem().getId();
+				String organization = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+				.getActiveOrganizationProvider().getName();
+				final String loc = SOAGlobalConfigAccessor.getErrorLibraryCentralLocation(buildSystem, 
+						organization);
 				if (loc.startsWith("http")) {
 					//validate http server
 					URLConnection connection = new URL(loc).openConnection();
@@ -106,12 +112,6 @@ public class ErrorLibraryUtil {
 						SOALogger.getLogger().info(
 								"Error Library central location initialized->"
 								+ file);
-					} else if (!file.exists()) {
-						if (!file.mkdir()) {
-							throw new SOAFileNotWritableException(
-									"The specified error library central location is not writable->"
-									+ file, file);
-						}
 					} else {
 						throw new SOAFileNotWritableException(
 								"The specified error library central location is either not exist or not writable->"
@@ -122,7 +122,7 @@ public class ErrorLibraryUtil {
 			} catch (IOException e) {
 				throw new SOAFileNotWritableException(e);
 			}
-//		}
+		}
 		return SOAErrorLibraryConstants.errorLibraryCentralLocation;
 	}
 }

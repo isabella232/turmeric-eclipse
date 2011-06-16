@@ -8,6 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.repositorysystem.imp.utils;
 
+import java.beans.PropertyChangeEvent;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
@@ -71,6 +72,11 @@ public class TurmericLoggingSystemProvider implements
 	 */
 	public boolean shouldLogRawMessage(LogRecord record) {
 		return false;
+	}
+
+	public void loggingPropertyChanged(PropertyChangeEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

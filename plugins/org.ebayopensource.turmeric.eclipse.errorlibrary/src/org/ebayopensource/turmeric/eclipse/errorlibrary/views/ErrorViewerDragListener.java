@@ -11,12 +11,12 @@ package org.ebayopensource.turmeric.eclipse.errorlibrary.views;
 import java.util.Iterator;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.core.exception.SOAExceptionHandler;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.ErrorLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.exception.core.SOAPartNotFoundException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAOperationNotAvailableException;
-import org.ebayopensource.turmeric.eclipse.exception.ui.SOAPartNotFoundException;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
+import org.ebayopensource.turmeric.eclipse.utils.ui.exception.ExceptionHandler;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -46,11 +46,11 @@ public class ErrorViewerDragListener implements DragSourceListener {
 		try {
 			event.data = getDndString();
 		} catch (SOAOperationNotAvailableException e) {
-			SOAExceptionHandler.handleException(e);
+			ExceptionHandler.handleException(e);
 		} catch (SOAPartNotFoundException e) {
-			SOAExceptionHandler.handleException(e);
+			ExceptionHandler.handleException(e);
 		} catch (CoreException e) {
-			SOAExceptionHandler.handleException(e);
+			ExceptionHandler.handleException(e);
 		}
 	}
 

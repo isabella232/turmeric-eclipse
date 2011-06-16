@@ -27,11 +27,11 @@ import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeConsumer;
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeServiceConfig;
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeServiceMetadataProps;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAConfigurationRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
@@ -39,8 +39,10 @@ import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
+import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -136,6 +138,21 @@ public class BuildSystemCodeGen {
 		final ISOAConfigurationRegistry config = GlobalRepositorySystem.instanceOf()
 		.getActiveRepositorySystem().getConfigurationRegistry();
 		genTypeServiceConfig.setServiceConfigGroup(config.getServiceConfigGroup());
+		
+		// get the useExternalServiceFactory property value and set it to gen model.
+		IFile svcImplProperties = SOAImplUtil
+				.getServiceImplPropertiesFile(project);
+		if (svcImplProperties.isAccessible() == true) {
+			String useExternalFac = PropertiesFileUtil
+					.getPropertyValueByKey(
+							svcImplProperties.getContents(),
+							SOAProjectConstants.PROPS_KEY_USE_EXTERNAL_SERVICE_FACTORY);
+			genTypeServiceConfig.setUseExternalServiceFactory(Boolean
+					.valueOf(useExternalFac));
+
+		}
+		
+		genTypeServiceConfig.setProjectRoot(implProject.getProject().getLocation().toFile().toString());
 
 		CodegenInvoker codegenInvoker = CodegenInvoker.init(project);
 		codegenInvoker.execute(genTypeServiceConfig);

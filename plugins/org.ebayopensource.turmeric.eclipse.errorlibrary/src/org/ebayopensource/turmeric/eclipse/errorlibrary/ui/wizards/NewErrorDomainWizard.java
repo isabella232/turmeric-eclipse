@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.ErrorDomainCreator;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ErrorLibraryProviderFactory;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryProvider;
@@ -27,7 +28,6 @@ import org.ebayopensource.turmeric.eclipse.exception.resources.SOAGetErrorLibrar
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
@@ -134,7 +134,9 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 				ErrorLibraryProviderFactory.getPreferredProvider()
 						.getErrorDomainCreator().preCreation(model);
 				getContainer().run(false, true, operation);
-				changePerspective();
+				// http://www.nbweekly.com/Print/Page/844,62.shtml
+				// No change if just resource created inside a project
+				// changePerspective();
 			} catch (Exception e) {
 				logger.error(e);
 				UIUtil.showErrorDialog(SOAMessages.CREATE_DOMAIN_ERR, e);

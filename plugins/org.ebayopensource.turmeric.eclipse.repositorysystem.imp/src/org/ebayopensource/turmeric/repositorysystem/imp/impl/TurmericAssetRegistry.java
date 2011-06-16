@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.maven.core.model.MavenAssetInfo;
 import org.ebayopensource.turmeric.eclipse.maven.core.model.MavenProjectInfo;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
@@ -24,7 +25,6 @@ import org.ebayopensource.turmeric.eclipse.maven.core.utils.SOAMavenConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;

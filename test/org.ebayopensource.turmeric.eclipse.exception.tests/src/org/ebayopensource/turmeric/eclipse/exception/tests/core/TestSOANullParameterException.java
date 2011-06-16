@@ -8,7 +8,10 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.exception.tests.core;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.ebayopensource.turmeric.eclipse.exception.core.SOANullParameterException;
 import org.junit.Before;

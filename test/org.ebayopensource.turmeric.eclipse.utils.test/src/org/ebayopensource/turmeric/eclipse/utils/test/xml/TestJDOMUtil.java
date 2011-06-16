@@ -34,7 +34,6 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 

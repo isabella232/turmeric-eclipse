@@ -11,11 +11,14 @@ package org.ebayopensource.turmeric.eclipse.buildsystem.eclipse;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuilderUtil;
+import org.ebayopensource.turmeric.eclipse.exception.resources.SOAActionExecutionFailedException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.GlobalProjectHealthChecker;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
@@ -24,12 +27,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 
-
 /**
  * @author yayu
- *
+ * 
  */
-public abstract class AbstractSOAProjectBuilder extends IncrementalProjectBuilder {
+public abstract class AbstractSOAProjectBuilder extends
+		IncrementalProjectBuilder {
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
@@ -44,6 +47,19 @@ public abstract class AbstractSOAProjectBuilder extends IncrementalProjectBuilde
 			throws CoreException {
 		final IProject project = getProject();
 		long time = System.currentTimeMillis();
+		/**
+		 * even using meunu project->clean, the build kind is still full build.
+		 */
+		if (kind == CLEAN_BUILD || kind == FULL_BUILD) {
+			try {
+				ActionUtil.cleanProject(project, monitor);
+			} catch (Exception e) {
+				logger.error("Clean failed with exception:" + e);
+				throw new SOAActionExecutionFailedException(e);
+			} finally {
+				WorkspaceUtil.refresh(monitor, project);
+			}
+		}
 		try {
 			final IResourceDelta delta = getDelta(project);
 			if (shouldBuild(delta, project)) {
@@ -51,40 +67,47 @@ public abstract class AbstractSOAProjectBuilder extends IncrementalProjectBuilde
 				final IStatus status = checkProjectHealth(project);
 				if (status.isOK() == false) {
 					MarkerUtil.createSOAProblemMarkerRecursive(status, project);
-					if (status.getSeverity() == IStatus.ERROR) {
-						return null;
-					}
 				}
 				BuilderUtil.generateSourceDirectories(project, monitor);
 				return doBuild(kind, args, project, delta, monitor);
+			} else {
+				if (SOALogger.DEBUG) {
+					logger
+							.warning("Should not do build according to changed resources. Build Skipped.");
+				}
 			}
 		} catch (Exception e) {
+			logger.error(SOAMessages.SERVICE_CODEGEN_SKIPPED_MESSAGE + ":"
+					+ e.getMessage());
 			logger.error(e);
 			MarkerUtil.createSOAProblemMarker(e, project);
 		} finally {
 			project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 			if (SOALogger.DEBUG) {
 				long duration = System.currentTimeMillis() - time;
-				String msg = StringUtil.formatString(SOAMessages.MSG_TIME_TAKEN_FOR_BUILD_PROJECT
-						, project.getName(), duration);
+				String msg = StringUtil.formatString(
+						SOAMessages.MSG_TIME_TAKEN_FOR_BUILD_PROJECT, project
+								.getName(), duration);
 				logger.debug(msg);
 			}
 		}
 		return null;
 	}
-	
-	protected abstract IProject[] doBuild(int kind, Map args, IProject project, IResourceDelta delta, 
-			IProgressMonitor monitor) throws Exception;
-	
-	protected boolean shouldBuild(IResourceDelta delta, IProject project) throws Exception {
+
+	protected abstract IProject[] doBuild(int kind, Map args, IProject project,
+			IResourceDelta delta, IProgressMonitor monitor) throws Exception;
+
+	protected boolean shouldBuild(IResourceDelta delta, IProject project)
+			throws Exception {
 		return BuilderUtil.shouldBuild(delta, project);
 	}
-	
+
 	protected IStatus checkProjectHealth(IProject project) throws Exception {
 		return GlobalProjectHealthChecker.checkProjectHealth(project);
 	}
-	
-	protected abstract void doClean(IProject project, IProgressMonitor monitor) throws Exception;
+
+	protected abstract void doClean(IProject project, IProgressMonitor monitor)
+			throws Exception;
 
 	@Override
 	protected void clean(IProgressMonitor monitor) throws CoreException {
@@ -100,8 +123,9 @@ public abstract class AbstractSOAProjectBuilder extends IncrementalProjectBuilde
 		} finally {
 			if (SOALogger.DEBUG) {
 				long duration = System.currentTimeMillis() - time;
-				String msg = StringUtil.formatString(SOAMessages.MSG_TIME_TAKEN_FOR_CLEAN_PROJECT
-						, project.getName(), duration);
+				String msg = StringUtil.formatString(
+						SOAMessages.MSG_TIME_TAKEN_FOR_CLEAN_PROJECT, project
+								.getName(), duration);
 				logger.debug(msg);
 			}
 		}

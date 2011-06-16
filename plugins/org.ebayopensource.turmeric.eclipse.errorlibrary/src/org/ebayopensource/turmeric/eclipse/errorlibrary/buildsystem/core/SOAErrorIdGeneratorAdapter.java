@@ -9,14 +9,10 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.core;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
 
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAInvocationException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.tools.errorlibrary.ErrorIdGenerator;
-import org.ebayopensource.turmeric.tools.errorlibrary.ErrorIdGeneratorFactory;
-import org.ebayopensource.turmeric.tools.errorlibrary.ErrorIdServiceFactory;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
@@ -43,17 +39,10 @@ public class SOAErrorIdGeneratorAdapter implements IRunnableWithProgress {
 	@Override
 	public void run(IProgressMonitor monitor) throws InvocationTargetException,
 			InterruptedException {
-		ErrorIdGenerator generator = null;
-		if (storeLocation.startsWith(SOAProjectConstants.PROTOCOL_HTTP)) {
-			generator = ErrorIdServiceFactory.getInstance()
-					.getErrorIdGenerator(storeLocation, this.organization);
-		} else {
-			generator = ErrorIdGeneratorFactory.getErrorIdGenerator(
-					storeLocation, this.organization);
-		}
 		try {
-			this.errorId = generator.getNextId(domain);
-			SOALogger.getLogger().log(Level.INFO, "Error Id generated: " + this.errorId);
+			this.errorId = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+			.getErorRegistryBridge().nextErrorId(storeLocation, organization, domain);
+			SOALogger.getLogger().info("Error Id generated: ", this.errorId);
 		} catch (Exception e) {
 			throw new SOAInvocationException(e);
 		}

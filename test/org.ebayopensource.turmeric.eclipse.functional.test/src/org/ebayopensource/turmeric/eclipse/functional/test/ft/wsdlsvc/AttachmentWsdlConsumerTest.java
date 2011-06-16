@@ -11,28 +11,34 @@
  */
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc;
 
-import static org.junit.Assert.*;
-import static org.junit.Assume.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNoException;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ebayopensource.turmeric.eclipse.core.model.consumer.ConsumerFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.services.buildsystem.ServiceCreator;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.util.ProjectArtifactValidator;
 import org.ebayopensource.turmeric.eclipse.test.util.SimpleTestUtil;
+import org.ebayopensource.turmeric.eclipse.test.util.ZipExtractor;
 import org.ebayopensource.turmeric.eclipse.test.utils.ServicesUtil;
+import org.ebayopensource.turmeric.eclipse.test.utils.WsdlUtilTest;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -44,6 +50,10 @@ import org.junit.Test;
  */
 public class AttachmentWsdlConsumerTest extends AbstractTestCase {
 
+	
+	static String dataDirectory = WsdlUtilTest.getPluginOSPath(
+			SoaTestConstants.PLUGIN_ID,"data");
+	
 	public static String PARENT_DIR = ServiceSetupCleanupValidate
 			.getParentDir();
 	static String WSDL_FILE = ServiceSetupCleanupValidate
@@ -55,14 +65,26 @@ public class AttachmentWsdlConsumerTest extends AbstractTestCase {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	
+	@BeforeClass
+	public static void setUp(){
+		
+		ZipExtractor zip = new ZipExtractor();
+		zip.extract(dataDirectory+"/AttachmentWsdlConsumerTest.zip",dataDirectory +"/extractedData");
+		
+	}
 	@Before
 	public void setUpBeforeClass() throws Exception {
-
+		
+		
+		
 		SimpleTestUtil.setAutoBuilding(false);
 
 		publicServiceName = ServiceSetupCleanupValidate
 				.getServiceName(WSDL_FILE);
 
+		// if(ServiceName.contains("APIInterfaceService")) ServiceName =
+		// ServiceName.replace("APIInterfaceService", "");
 		adminName = ServicesUtil.getAdminName(publicServiceName);
 
 		System.out.println("--- WSDL file : " + WSDL_FILE);
@@ -79,7 +101,11 @@ public class AttachmentWsdlConsumerTest extends AbstractTestCase {
 	public void createConsumerFromWsdl(URL wsdlURL) throws Exception {
 
 		String publicService = ServicesUtil.getServiceName(wsdlURL.toString());
+		// String domainClassifier = SoaTestConstants.DOMAIN_CLASSIFIER;
 		String serviceName = ServicesUtil.getAdminName(publicService);
+		// if(serviceName.contains("APIInterfaceService")) serviceName =
+		// serviceName.replace("APIInterfaceService", "");
+		// String nsPart = domainClassifier.toLowerCase().trim();
 		String targetNS = ServicesUtil.getTargetNamespaceFromWsdl(wsdlURL
 				.toString());
 		String serviceInterface = ServicesUtil.getInterfacePackage(
@@ -147,6 +173,7 @@ public class AttachmentWsdlConsumerTest extends AbstractTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void testAttachmentServiceConsumerCreate() throws Exception {
 
 		try {
@@ -172,5 +199,11 @@ public class AttachmentWsdlConsumerTest extends AbstractTestCase {
 			assumeNoException(ex);
 		}
 
+	}
+	
+	@AfterClass
+	public static void deInit(){
+		
+		ensureClean(dataDirectory +"/extractedData");
 	}
 }

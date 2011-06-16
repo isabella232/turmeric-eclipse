@@ -104,7 +104,23 @@ public class ServiceSetupCleanupValidate {
 			
 		}
 
-		
+		/*
+		 * ProcessBuilder procBuilder = null; Process pid = null;
+		 * 
+		 * System.out.println(" --- Delete Svc Artifacts ");
+		 * 
+		 * //Delete Intf Proj folder procBuilder = new ProcessBuilder("cmd",
+		 * "/c", "rmdir", "/S/Q", PARENT_DIR + "\\"+ serviceName); pid =
+		 * procBuilder.start(); pid.waitFor();
+		 * 
+		 * //Delete Impl Proj folder procBuilder = new ProcessBuilder("cmd",
+		 * "/c", "rmdir", "/S/Q", PARENT_DIR + "\\" + serviceName + "Impl"); pid
+		 * = procBuilder.start(); pid.waitFor();
+		 * 
+		 * //Delete Consumer Proj folder procBuilder = new ProcessBuilder("cmd",
+		 * "/c", "rmdir", "/S/Q", PARENT_DIR + "\\" + serviceName + "Consumer");
+		 * pid = procBuilder.start(); pid.waitFor();
+		 */
 	}
 
 	public static void cleanupConsumer(String serviceName) throws IOException,
@@ -211,7 +227,7 @@ public class ServiceSetupCleanupValidate {
 	public static String getWsdlFilePath(String wsdlFileName) {
 		String wsdlFilePath = null;
 		wsdlFilePath = WsdlUtilTest.getPluginOSPath(
-				SoaTestConstants.PLUGIN_ID, "test-data")
+				SoaTestConstants.PLUGIN_ID, "data/extractedData")
 				+ WorkspaceUtil.PATH_SEPERATOR + wsdlFileName;
 		return wsdlFilePath;
 	}

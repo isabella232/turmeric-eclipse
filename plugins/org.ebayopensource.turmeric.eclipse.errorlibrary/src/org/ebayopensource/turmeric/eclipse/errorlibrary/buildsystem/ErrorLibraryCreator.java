@@ -12,6 +12,8 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
+import org.ebayopensource.turmeric.eclipse.core.model.AbstractSOAProjetParamModel.UIModelProjectLinkedResource;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.core.ErrorLibraryBuildSystemConfigurer;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ErrorLibraryProviderFactory;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryCreator;
@@ -19,10 +21,8 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.model.SOAError
 import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.model.SOAErrorLibraryProject;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants.SupportedProjectType;
-import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject.ProjectLinkedResource;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.AbstractSOAProjetParamModel.UIModelProjectLinkedResource;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
 import org.ebayopensource.turmeric.eclipse.utils.collections.SetUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;

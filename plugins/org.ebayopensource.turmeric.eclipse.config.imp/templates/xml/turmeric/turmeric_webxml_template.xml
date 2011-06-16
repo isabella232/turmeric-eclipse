@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+	<servlet>
+		<servlet-name>${adminName}</servlet-name>
+		<display-name>${adminName}</display-name>
+		<description>${adminName}</description>
+		<servlet-class>org.ebayopensource.turmeric.runtime.spf.pipeline.SPFServlet</servlet-class>
+		<init-param>
+			<param-name>SOA_SERVICE_NAME</param-name>
+			<param-value>${adminName}</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>${adminName}</servlet-name>
+		<url-pattern>${urlPattern}</url-pattern>
+	</servlet-mapping>
+</web-app>
+

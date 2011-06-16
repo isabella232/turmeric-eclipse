@@ -8,21 +8,19 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.typelib;
 
+import static org.junit.Assume.assumeNoException;
 import junit.framework.Assert;
-import static org.junit.Assume.*;
 
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 
 /**
  * @author ksathiamurthy

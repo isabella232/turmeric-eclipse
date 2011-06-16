@@ -131,6 +131,35 @@
                </and>
           </enablement>
          </action>
+        <visibility>
+           <and>
+              <objectClass
+                    name="org.eclipse.core.resources.IProject">
+              </objectClass>
+              <or>
+                 <objectState
+                       name="projectNature"
+                       value="%SOA.ProjectNatureID.Interface">
+                 </objectState>
+                 <objectState
+                       name="projectNature"
+                       value="%SOA.ProjectNatureID.Implementation">
+                 </objectState>
+                 <objectState
+                       name="projectNature"
+                       value="%SOA.ProjectNatureID.TypeLibrary">
+                 </objectState>
+                 <objectState
+                       name="projectNature"
+                       value="%SOA.ProjectNatureID.Consumer">
+                 </objectState>
+                 <objectState
+                       name="projectNature"
+                       value="%SOA.ProjectNatureID.ErrorLibrary">
+                 </objectState>
+              </or>
+           </and>
+        </visibility>
       </objectContribution>
       
       <!-- wsdl popup menus-->
@@ -198,7 +227,7 @@
                class="org.ebayopensource.turmeric.eclipse.typelibrary.actions.ImportTypesAction"
                helpContextId="%helpIdSOATutorial"
                icon="icons/export.gif"
-               id="org.ebayopensource.turmeric.eclipse.typelibrary.importtypesfromwsdl"
+               id="org.ebayopensource.turmeric.eclipse.typelibrary.exporttypestot_ldesignview"
                label="%Menu.ExportTypesToATypeLibrary.Label"
                menubarPath="typeMenu/type">
          </action>
@@ -278,7 +307,15 @@
          		label="%Menu.IncrementVersion.Label"
         		menubarPath="typeMenu/type"
          		tooltip="Increments the version">
-		  </action>		
+		  </action>
+    <action
+          class="org.ebayopensource.turmeric.eclipse.typelibrary.actions.ImportTypesAction"
+          helpContextId="%helpIdSOATutorial"
+          icon="icons/export.gif"
+          id="org.ebayopensource.turmeric.eclipse.typelibrary.exporttypestot_ldesignview"
+          label="%Menu.ExportTypesToATypeLibrary.Label"
+          menubarPath="typeMenu/type">
+    </action>		
 		  
 		</viewerContribution>
    <objectContribution
@@ -355,33 +392,9 @@
             enablesFor="1"
             helpContextId="%helpIdSOATutorial"
             icon="icons/export.gif"
-            id="org.ebayopensource.turmeric.eclipse.typelibrary.importtypesfromwsdl"
+            id="org.ebayopensource.turmeric.eclipse.typelibrary.exporttypestotl"
             label="%Menu.ExportTypesToATypeLibrary.Label"
             menubarPath="typeMenu/type">
-      </action>
-		<action
-            class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.UpdateTypeVersion"
-            helpContextId="org.eclipse.ui.AddTask_action_context"
-            id="org.ebayopensource.turmeric.eclipse.typelibrary.updateTypeVersion_WSDL_Design"
-            label="%Menu.UpdateInlinedType.Label"
-            menubarPath="typeMenu/type"
-            tooltip="Find out if there is a newer version of the inlined types">
-      </action>
-      <action
-            class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary"
-            helpContextId="org.eclipse.ui.AddTask_action_context"
-            id="org.ebayopensource.turmeric.eclipse.typelibrary.importType_WSDL_Design"
-            label="%Menu.AddInlineType.Label"
-            menubarPath="typeMenu/type"
-            tooltip="Inlines the selected schema in this wsdl">
-      </action>
-      <action
-            class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.RemoveType"
-            helpContextId="org.eclipse.ui.AddTask_action_context"
-            id="org.ebayopensource.turmeric.eclipse.typelibrary.removeType_WSDL_Source"
-            label="%Menu.RemoveInlinedType.Label"
-            menubarPath="typeMenu/type"
-            tooltip="Removes inlined type from this WSDL">
       </action>
       <visibility>
          <or>
@@ -409,25 +422,15 @@
 
    </extension>
    
-   <extension
-         point="org.eclipse.ui.views">
-      <view
-            category="org.ebayopensource.turmeric.eclipse.ui.category"
-            class="org.ebayopensource.turmeric.eclipse.typelibrary.registry.RegistryView"
-            icon="icons/script_obj.gif"
-            id="org.ebayopensource.turmeric.eclipse.typelibrary.registryView"
-            name="%View.TypeExplorer.Name">
-      </view>
-   </extension>  
-   
    <extension id="typeLibResolver" name="Type Library Resolver" point="org.eclipse.wst.common.uriresolver.resolverExtensions">
- 		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeLibResolver" priority="high" stage="physical">
-  			<projectNature value="org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryProjectNature" /> 
+ 		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.resolvers.TypeLibResolver" priority="high" stage="physical">
+  			<projectNature value="%SOA.ProjectNatureID.TypeLibrary" /> 
   		</resolverExtension>
-  		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.registry.TypeLibResolver" priority="high" stage="prenormalization">
-  			<projectNature value="org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryProjectNature" /> 
+  		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.resolvers.TypeLibResolver" priority="high" stage="prenormalization">
+  			<projectNature value="%SOA.ProjectNatureID.TypeLibrary" /> 
   		</resolverExtension>
    </extension>
+   
    <extension
          point="org.ebayopensource.turmeric.eclipse.resources.soaProjectResolver">
       <soaProjectResolver

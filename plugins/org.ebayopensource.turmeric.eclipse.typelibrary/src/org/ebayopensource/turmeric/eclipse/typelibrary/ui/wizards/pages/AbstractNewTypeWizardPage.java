@@ -22,13 +22,13 @@ import javax.xml.namespace.QName;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.buildsystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
-import org.ebayopensource.turmeric.eclipse.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
@@ -37,6 +37,7 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TemplateUtils;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage;
 import org.ebayopensource.turmeric.eclipse.ui.components.ProjectSelectionListLabelProvider;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.tools.library.TypeLibraryConstants;
@@ -58,8 +59,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-
-import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 
 /**
  * @author yayu
@@ -271,66 +270,55 @@ public abstract class AbstractNewTypeWizardPage extends
 		if (checkValidationResult(getResourceNameText(), validationModel) == false)
 			return false;
 
-		// Taking it out because Code gen guys fixed it recently.
-		// if (StringUtils.contains(fileName, "_")) {
-		// updateStatus("Schema Type cannot have an underscore in it, due to
-		// JAXB restricitons");
-		// return false;
-		// }
-
-		try {
-			if (StringUtils.isEmpty(typeLibraryNameText.getText())) {
-				updateStatus(typeLibraryNameText, "Select a type library.");
-				return false;
-			}
-			// if (docText != null) {
-			// if (StringUtils.isEmpty(docText.getText())) {
-			// updateStatus("Documentation/Description cannot be empty");
-			// return false;
-			// }
-			// }
-			IProject project = WorkspaceUtil.getProject(typeLibraryNameText
-					.getText());
-			if (project.getFile(
-					TypeLibraryUtil.getXsdFileLocation(fileName, project))
-					.exists()
-					|| SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getType(
-							new QName(
-									TypeLibraryUtil
-											.getNameSpace(typeLibraryNameText
-													.getText()), fileName)) != null) {
-				updateStatus(super.getResourceNameText(), 
-						"Type with the same name already exists in the specified namespace.");
-				return false;
-			}
-			for (final IResource resource : TypeLibraryBuilderUtils
-					.getTypeLibProjectReadableResources(WorkspaceUtil
-							.getProject(typeLibraryNameText.getText()))) {
-				if (WorkspaceUtil.isResourceReadable(resource) == false) {
-					updateStatus(super.getResourceNameText(), 
-							resource.getName()
-							+ " does not exist or is not accessible.");
+		if (typeLibraryNameText != null) {
+			try {
+				if (StringUtils.isEmpty(typeLibraryNameText.getText())) {
+					updateStatus(typeLibraryNameText, "Select a type library.");
 					return false;
 				}
-			}
-			for (final IResource resource : TypeLibraryBuilderUtils
-					.getTypeLibProjectWritableResources(WorkspaceUtil
-							.getProject(typeLibraryNameText.getText()))) {
-				if (WorkspaceUtil.isResourceModifiable(resource) == false) {
+				IProject project = WorkspaceUtil.getProject(typeLibraryNameText
+						.getText());
+				if (project.getFile(
+						TypeLibraryUtil.getXsdFileLocation(fileName, project))
+						.exists()
+						|| SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getType(
+								new QName(
+										TypeLibraryUtil
+										.getNameSpace(typeLibraryNameText
+												.getText()), fileName)) != null) {
 					updateStatus(super.getResourceNameText(), 
-							resource.getName()
-							+ " does not exist or is not modifiable.");
+					"Type with the same name already exists in the specified namespace.");
 					return false;
 				}
+				for (final IResource resource : TypeLibraryBuilderUtils
+						.getTypeLibProjectReadableResources(WorkspaceUtil
+								.getProject(typeLibraryNameText.getText()))) {
+					if (WorkspaceUtil.isResourceReadable(resource) == false) {
+						updateStatus(super.getResourceNameText(), 
+								resource.getName()
+								+ " does not exist or is not accessible.");
+						return false;
+					}
+				}
+				for (final IResource resource : TypeLibraryBuilderUtils
+						.getTypeLibProjectWritableResources(WorkspaceUtil
+								.getProject(typeLibraryNameText.getText()))) {
+					if (WorkspaceUtil.isResourceModifiable(resource) == false) {
+						updateStatus(super.getResourceNameText(), 
+								resource.getName()
+								+ " does not exist or is not modifiable.");
+						return false;
+					}
+				}
+				if (SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getTypeLibrary(
+						typeLibraryNameText.getText()) == null) {
+					updateStatus("The Type registry seems to be out of sync. Please open the GlobalRegistry view, Window-->Show View-->SOA Plugin-->Global Registry and click the refresh button and try again.");
+					return false;
+				}
+			} catch (Exception exception) {
+				SOALogger.getLogger().warning("Validation Failure!", exception);
+				// Validation failure is Okay :).
 			}
-			if (SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getTypeLibrary(
-					typeLibraryNameText.getText()) == null) {
-				updateStatus("The Type registry seems to be out of sync. Please open the GlobalRegistry view, Window-->Show View-->SOA Plugin-->Global Registry and click the refresh button and try again.");
-				return false;
-			}
-		} catch (Exception exception) {
-			SOALogger.getLogger().warning("Validation Failure!", exception);
-			// Validation failure is Okay :).
 		}
 
 		return result;
@@ -418,11 +406,6 @@ public abstract class AbstractNewTypeWizardPage extends
 	public Object getRawBaseType() {
 		return getTextValue(this.baseTypeComp);
 	}
-
-	/*
-	 * public Object getBaseTypeValue() { return
-	 * getTextValue(this.baseTypeComp); }
-	 */
 
 	protected Map<String, File> truncateXSDExtension(
 			Map<String, File> templateTypeValues) {

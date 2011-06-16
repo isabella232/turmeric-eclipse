@@ -48,6 +48,9 @@ public final class SOAConfigExtensionFactory {
 	
 	private static final Map<String, Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>>> xsdTemplates = 
 		new ConcurrentHashMap<String, Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>>>();
+	
+	private static final Map<String, List<SOAConfigTemplate>> xmlTemplates = 
+		new LinkedHashMap<String, List<SOAConfigTemplate>>();
 
 	private SOAConfigExtensionFactory() {
 		super();
@@ -119,6 +122,20 @@ public final class SOAConfigExtensionFactory {
 							} catch (IOException e) {
 								throw new SOAConfigAreaCorruptedException(e);
 							}
+						} else if (type.equalsIgnoreCase("XML")) {
+							List<SOAConfigTemplate> templates = xmlTemplates.get(org);
+							if (templates == null) {
+								templates = new ArrayList<SOAConfigTemplate>();
+								xmlTemplates.put(org, templates);
+							}
+							try {
+								if (url != null) {
+									templates.add(new SOAConfigTemplate(name, org, relativePath, 
+											FileLocator.toFileURL(url)));
+								}
+							} catch (IOException e) {
+								throw new SOAConfigAreaCorruptedException(e);
+							}
 						}
 							
 					}
@@ -147,6 +164,28 @@ public final class SOAConfigExtensionFactory {
 		return wsdlTemplates.containsKey(organization) ? wsdlTemplates.get(organization) 
 				: new ArrayList<SOAConfigTemplate>(0);
 	}
+	
+	public static List<SOAConfigTemplate> getXMLTemplates(String organization) throws SOAConfigAreaCorruptedException {
+		organization = organization.toLowerCase(Locale.US);
+		if (xmlTemplates.isEmpty() == true) {
+			init();
+		}
+		
+		return xmlTemplates.containsKey(organization) ? xmlTemplates.get(organization) 
+				: new ArrayList<SOAConfigTemplate>(0);
+	}
+	
+	public static URL getXMLTemplate(String organization, String name) throws SOAConfigAreaCorruptedException {
+		for (SOAConfigTemplate template : getXMLTemplates(organization.toLowerCase(Locale.US))) {
+			if (template.getName().equals(name)) {
+				return template.getUrl();
+			}
+		}
+		
+		return null;
+	}
+	
+	
 	
 	public static enum SOAXSDTemplateSubType {
 		SIMPLE, COMPLEX, ENUM, COMPLEX_COMPLEXCONTENT, COMPLEX_SIMPLECONTENT

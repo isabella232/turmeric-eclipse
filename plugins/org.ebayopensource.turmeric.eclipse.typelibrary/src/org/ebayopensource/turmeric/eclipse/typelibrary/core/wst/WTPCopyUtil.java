@@ -13,11 +13,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.xerces.util.DOMUtil;
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.exception.core.SOABadParameterException;
 import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
@@ -41,8 +42,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * The WTP Copy Utility Class. WTP has its own mechanism to copy existing xsds
@@ -81,6 +80,25 @@ public class WTPCopyUtil {
 		inputStream.mark(CodedIO.MAX_MARK_SIZE);
 		return inputStream;
 	}
+	
+	public static void copy(XSDSchema dstSchema, XSDSchema srcSchema, String typeName,
+			URL srcURL,
+			boolean typeFolding, String libraryName, String libraryNamespace) throws SOABadParameterException {
+		XSDTypeDefinition srcTypeDefinition = null;
+		for (XSDTypeDefinition typeDefiniton : srcSchema.getTypeDefinitions()) {
+			if (StringUtils.equals(typeDefiniton.getName(), typeName)) {
+				srcTypeDefinition = typeDefiniton;
+				break;
+			}
+		}
+		if (srcTypeDefinition == null || srcTypeDefinition.getElement() == null) {
+			throw new SOABadParameterException(StringUtil.formatString(
+					SOAMessages.INVALID_XSD, srcURL, typeName));
+		}
+
+		addAnnotation(srcTypeDefinition, libraryName, libraryNamespace);
+		transformQNamePrefix(dstSchema, srcSchema, typeFolding);
+	}
 
 	/**
 	 * Copies the schema specified in the source URL derived from the library
@@ -108,21 +126,10 @@ public class WTPCopyUtil {
 			throw new SOABadParameterException(StringUtil.formatString(
 					SOAMessages.INVALID_XSD_URL, srcURL));
 		}
-
-		XSDTypeDefinition srcTypeDefinition = null;
-		for (XSDTypeDefinition typeDefiniton : srcSchema.getTypeDefinitions()) {
-			if (StringUtils.equals(typeDefiniton.getName(), name)) {
-				srcTypeDefinition = typeDefiniton;
-				break;
-			}
-		}
-		if (srcTypeDefinition == null || srcTypeDefinition.getElement() == null) {
-			throw new SOABadParameterException(StringUtil.formatString(
-					SOAMessages.INVALID_XSD, srcURL, name));
-		}
-
-		addAnnotation(srcTypeDefinition, srcType);
-		transformQNamePrefix(dstSchema, srcSchema, typeFolding);
+		copy(dstSchema, srcSchema, name, srcURL, typeFolding, 
+				srcType.getLibraryInfo().getLibraryName(), 
+				srcType.getLibraryInfo().getLibraryNamespace());
+		
 	}
 
 	public static void transformQNamePrefix(XSDSchema dstSchema,
@@ -142,6 +149,7 @@ public class WTPCopyUtil {
 		for (Entry<String, String> entry : dstPrefixes.entrySet()) {
 			if (StringUtils.equals(entry.getValue(), targetNameSpace)) {
 				targetNameSpaceprefix = entry.getKey();
+				break;
 			}
 		}
 		// if the destination schema does not have a name space prefix for
@@ -204,12 +212,23 @@ public class WTPCopyUtil {
 			String attrValue = namedNodeMap.item(i).getNodeValue();
 			String attrName = namedNodeMap.item(i).getNodeName();
 			for (String str : prefixMap.keySet()) {
-				if (!StringUtils.isEmpty(attrValue)
+				if (StringUtils.isNotEmpty(attrValue)
 						&& attrValue.trim().startsWith(str + ":")) {
-					String newAttrValue = StringUtils.replaceOnce(attrValue
-							.trim(), str + ":", prefixMap.get(str) + ":");
+					String trimmedAttrValue = attrValue.trim();
+					String newAttrValue = trimmedAttrValue;
+					if (trimmedAttrValue.startsWith(str + ":xs:")) {
+						newAttrValue = StringUtils.replaceOnce(trimmedAttrValue, str + ":xs:", "xs:");
+					} else if (StringUtils.countMatches(trimmedAttrValue, ":") == 2) {
+						//already contains a prefix
+						trimmedAttrValue = StringUtils.substringAfter(trimmedAttrValue, ":");
+						String oldPrefix = StringUtils.substringBefore(trimmedAttrValue, ":");
+						newAttrValue = StringUtils.replaceOnce(trimmedAttrValue, 
+								oldPrefix + ":", prefixMap.get(oldPrefix) + ":");
+					} else {
+						newAttrValue = StringUtils.replaceOnce(trimmedAttrValue, 
+								str + ":", prefixMap.get(str) + ":");
+					}
 					element.getAttributeNode(attrName).setValue(newAttrValue);
-
 				}
 			}
 		}
@@ -221,8 +240,13 @@ public class WTPCopyUtil {
 		}
 	}
 
+	public static void addAnnotation(XSDTypeDefinition typeDefinition, 
+			LibraryType type) {
+		addAnnotation(typeDefinition, type.getLibraryInfo().getLibraryName(), 
+				type.getLibraryInfo().getLibraryNamespace());
+	}
 	public static void addAnnotation(XSDTypeDefinition typeDefinition,
-			LibraryType libraryType) {
+			String libraryName, String libraryNamespace) {
 
 		XSDAnnotation annotation = XSDCommonUIUtils.getInputXSDAnnotation(
 				typeDefinition, true);
@@ -235,13 +259,14 @@ public class WTPCopyUtil {
 		} else {
 			appInfoElement = annotation.getApplicationInformation().get(0);
 		}
-		fillAppInfo(appInfoElement, libraryType);
+		if (StringUtils.isNotBlank(libraryName) && StringUtils.isNotBlank(libraryNamespace)) {
+			fillAppInfo(appInfoElement, libraryName, libraryNamespace);
+		}
 		annotation.getElement().appendChild(appInfoElement);
-
 	}
 
 	public static void fillAppInfo(Element appInfoElement,
-			LibraryType libraryType) {
+			String libraryName, String libraryNamespace) {
 		NodeList children = appInfoElement.getChildNodes();
 
 		Element typeLibElement = null;
@@ -264,9 +289,9 @@ public class WTPCopyUtil {
 			appInfoElement.appendChild(typeLibElement);
 		}
 		typeLibElement.setAttribute(SOATypeLibraryConstants.ATTR_LIB,
-				libraryType.getLibraryInfo().getLibraryName());
+				libraryName);
 		typeLibElement.setAttribute(SOATypeLibraryConstants.ATTR_NMSPC,
-				libraryType.getLibraryInfo().getLibraryNamespace());
+				libraryNamespace);
 
 		
 	}

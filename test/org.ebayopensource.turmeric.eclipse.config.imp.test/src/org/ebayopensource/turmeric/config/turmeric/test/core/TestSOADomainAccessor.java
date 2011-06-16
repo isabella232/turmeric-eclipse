@@ -11,10 +11,12 @@
  */
 package org.ebayopensource.turmeric.config.turmeric.test.core;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 import org.ebayopensource.turmeric.eclipse.config.core.SOADomainAccessor;
 import org.junit.Test;
