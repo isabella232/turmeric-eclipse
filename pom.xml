@@ -6,7 +6,7 @@
    <parent>
       <groupId>org.ebayopensource.turmeric</groupId>
       <artifactId>turmeric-project</artifactId>
-      <version>0.9.0-Beta-RC3</version>
+      <version>1.1.0.0-SNAPSHOT</version>
       <relativePath>../turmeric-project/pom.xml</relativePath>
    </parent>
    <groupId>org.ebayopensource.turmeric.tools.eclipse</groupId>
@@ -38,7 +38,6 @@
       <module>plugins/org.ebayopensource.turmeric.eclipse.ui</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.typelibrary</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.registry</module>
-      <module>plugins/org.ebayopensource.turmeric.eclipse.validator</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.repositorysystem</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.buildsystem</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.config</module>
@@ -49,12 +48,15 @@
       <module>plugins/org.ebayopensource.turmeric.eclipse.core</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.build</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.utils</module>
+      <module>plugins/org.ebayopensource.turmeric.eclipse.utils.ui</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.exception</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.services</module>
+      <module>plugins/org.ebayopensource.turmeric.eclipse.services.ui</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.template.wsdl</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.config.imp</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.repositorysystem.imp</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.maven.core</module>
+      <module>plugins/org.ebayopensource.turmeric.eclipse.maven.ui</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.mavenapi</module>
       <module>plugins/org.ebayopensource.turmeric.eclipse.maven.sconfig</module>
       <module>docs/org.ebayopensource.turmeric.eclipse.doc</module>
@@ -63,6 +65,9 @@
       <module>features/org.ebayopensource.turmeric.eclipse.core.sdk.feature</module>
       <module>features/org.ebayopensource.turmeric.eclipse.core.feature</module>
       <module>features/org.ebayopensource.turmeric.eclipse.utils.feature</module>
+      <module>features/org.ebayopensource.turmeric.eclipse.maven.feature</module>
+      <module>features/org.ebayopensource.turmeric.eclipse.mavenstd.feature</module>
+      <module>features/org.ebayopensource.turmeric.eclipse.legacy.feature</module>
       <module>releng/org.ebayopensource.turmeric.eclipse.updatesite</module>
 
       <!-- Test Related Plugins -->
@@ -72,6 +77,7 @@
       <!-- <module>test/org.ebayopensource.turmeric.eclipse.config.imp.test</module> -->
       <module>test/org.ebayopensource.turmeric.eclipse.config.test</module>
       <module>test/org.ebayopensource.turmeric.eclipse.core.test</module>
+      <module>test/org.ebayopensource.turmeric.eclipse.ui.tests</module>
       <module>test/org.ebayopensource.turmeric.eclipse.exception.tests</module>
       <module>test/org.ebayopensource.turmeric.eclipse.mavenapi.test</module>
       <module>test/org.ebayopensource.turmeric.eclipse.utils.test</module>
@@ -79,10 +85,6 @@
       <module>test/org.ebayopensource.turmeric.eclipse.functional.test</module>
       <module>releng/org.ebayopensource.turmeric.eclipse.releng</module>
    </modules>
-
-   <!-- <pluginRepositories> <pluginRepository> <id>apache.snapshots</id> 
-      <url>http://repository.sonatype.org/content/groups/public/</url> </pluginRepository> 
-      </pluginRepositories> -->
 
    <repositories>
       <repository>
