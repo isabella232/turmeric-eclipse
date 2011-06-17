@@ -11,6 +11,7 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.ui.actions;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.ImportTypeFromTypeLibrary;
@@ -23,8 +24,6 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDSchema;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * The Class AddImportAction.

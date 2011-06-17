@@ -38,8 +38,8 @@ import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTempla
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel.Operation;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplMetadata;
@@ -47,7 +47,6 @@ import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
-import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAClientConfigUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;

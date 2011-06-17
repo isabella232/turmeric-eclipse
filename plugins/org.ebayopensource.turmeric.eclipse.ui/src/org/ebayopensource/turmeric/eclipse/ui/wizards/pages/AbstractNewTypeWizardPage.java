@@ -23,16 +23,17 @@ import javax.xml.namespace.QName;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
 import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.TemplateModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage;
 import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.eclipse.ui.UIConstants;
@@ -62,8 +63,6 @@ import org.eclipse.wst.xsd.ui.internal.common.util.XSDCommonUIUtils;
 import org.eclipse.xsd.XSDAnnotation;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDTypeDefinition;
-
-import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.w3c.dom.Element;
 
 /**

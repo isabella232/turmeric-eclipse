@@ -11,14 +11,16 @@
  */
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.typelib;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeNoException;
+import static org.junit.Assume.assumeTrue;
+
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.junit.Assume.*;
 
 /**
  * @author vyaramala

@@ -15,17 +15,22 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.common.config.ReferredType;
+import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;
+import org.ebayopensource.turmeric.common.config.TypeDependencyType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.TypeDepMarshaller;
 import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
@@ -47,11 +52,6 @@ import org.eclipse.xsd.XSDFactory;
 import org.eclipse.xsd.XSDImport;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDTypeDefinition;
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.common.config.ReferredType;
-import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;
-import org.ebayopensource.turmeric.common.config.TypeDependencyType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 
 /**
  * WTP Type Library Utility contains the WTP related utility functions. The WSDL

@@ -10,11 +10,10 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 import java.util.List;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.jface.viewers.ArrayContentProvider;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * The Class TypeContentProvider.

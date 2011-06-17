@@ -3,7 +3,6 @@ package org.ebayopensource.turmeric.eclipse.ui.handlers;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.TypeLibRegistryJob;
-import org.ebayopensource.turmeric.eclipse.ui.views.registry.RefreshRegistryAction;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.RegistryView;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeViewer;
 import org.eclipse.core.commands.AbstractHandler;

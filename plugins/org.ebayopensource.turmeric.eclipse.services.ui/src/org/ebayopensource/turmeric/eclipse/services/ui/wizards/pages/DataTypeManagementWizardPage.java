@@ -13,6 +13,7 @@ package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 
 import java.util.List;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel.ParameterElement;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
@@ -23,8 +24,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * The Class DataTypeManagementWizardPage.

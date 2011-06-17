@@ -8,7 +8,9 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.codgen.utils.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.apache.commons.lang.NullArgumentException;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;

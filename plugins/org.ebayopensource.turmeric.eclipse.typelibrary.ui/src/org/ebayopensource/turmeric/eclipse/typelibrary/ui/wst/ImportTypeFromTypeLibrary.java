@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
- 
+
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
@@ -29,16 +29,16 @@ import org.ebayopensource.turmeric.eclipse.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.core.compare.LibraryTypeComparator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.actions.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.AddImportCommand;
-import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.actions.ActionUtil;
+import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
@@ -57,7 +57,6 @@ import org.eclipse.jface.text.ITextOperationTarget;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.progress.UIJob;
-import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDSchema;
 
