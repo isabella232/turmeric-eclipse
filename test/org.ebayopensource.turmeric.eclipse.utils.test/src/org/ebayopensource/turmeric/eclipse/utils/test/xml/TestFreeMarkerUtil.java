@@ -21,7 +21,6 @@ import org.ebayopensource.turmeric.eclipse.utils.xml.FreeMarkerUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
-
 import freemarker.template.TemplateException;
 
 /**

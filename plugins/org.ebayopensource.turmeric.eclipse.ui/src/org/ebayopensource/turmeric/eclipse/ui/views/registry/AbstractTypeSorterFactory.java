@@ -9,11 +9,10 @@
 package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 import org.apache.commons.lang.StringUtils;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
-
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 
 /**
  * The Factory pattern gateway to expose the sorter. Right now the table has

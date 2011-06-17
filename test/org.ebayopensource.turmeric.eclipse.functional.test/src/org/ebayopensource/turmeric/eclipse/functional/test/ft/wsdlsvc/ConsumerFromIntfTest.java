@@ -11,6 +11,8 @@
  */
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc;
 
+import static org.junit.Assume.assumeNoException;
+
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -51,7 +53,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assume.*;
 
 
 /**

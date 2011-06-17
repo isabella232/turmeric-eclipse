@@ -8,9 +8,10 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.codgen.model.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
-import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeServiceFromWSDLImpl;
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeServiceFromWSDLIntf;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;

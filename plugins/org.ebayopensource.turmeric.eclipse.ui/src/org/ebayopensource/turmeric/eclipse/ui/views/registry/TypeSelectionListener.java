@@ -8,6 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.exception.SOAExceptionHandler;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -15,8 +16,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * Selects the library back on type selection. Stores an instance of the type

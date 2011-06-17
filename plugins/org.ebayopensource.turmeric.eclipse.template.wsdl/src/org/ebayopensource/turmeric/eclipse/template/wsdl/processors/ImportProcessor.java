@@ -15,6 +15,7 @@ import java.util.TreeSet;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.ICommand;
 import org.ebayopensource.turmeric.eclipse.core.compare.LibraryTypeComparator;
 import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
@@ -27,8 +28,6 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.WTPTypeLibUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.wst.wsdl.PortType;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * This class process the preference for imports from the
