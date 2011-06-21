@@ -22,7 +22,7 @@ Export-Package: org.ebayopensource.turmeric.eclipse.resources,
  org.ebayopensource.turmeric.eclipse.resources.model,
  org.ebayopensource.turmeric.eclipse.resources.ui.model,
  org.ebayopensource.turmeric.eclipse.resources.util
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.xerces.parsers;version="2.8.0"

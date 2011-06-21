@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Repository Styme UI
 Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.repositorysystem.ui;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.repositorysystem.ui.RepositorySystemUIActivator
 Bundle-Vendor: eBay, Inc.
 Bundle-Localization: plugin

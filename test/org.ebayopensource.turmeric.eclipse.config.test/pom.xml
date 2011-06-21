@@ -13,7 +13,7 @@
    <modelVersion>4.0.0</modelVersion>
    <artifactId>org.ebayopensource.turmeric.eclipse.config.test</artifactId>
    <packaging>eclipse-test-plugin</packaging>
-   <version>1.0.0-SNAPSHOT</version>
+   <version>1.1.0-SNAPSHOT</version>
    <name>Turmeric: Config Tests</name>
 
 	<parent>

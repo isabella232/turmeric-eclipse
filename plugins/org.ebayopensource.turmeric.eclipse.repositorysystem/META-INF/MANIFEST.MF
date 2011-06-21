@@ -26,7 +26,7 @@ Export-Package: org.ebayopensource.turmeric.eclipse.repositorysystem,
  org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core,
  org.ebayopensource.turmeric.eclipse.repositorysystem.resources,
  org.ebayopensource.turmeric.eclipse.repositorysystem.utils
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.jface.wizard
