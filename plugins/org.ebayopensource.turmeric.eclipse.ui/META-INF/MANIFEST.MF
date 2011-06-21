@@ -49,7 +49,7 @@ Export-Package: org.ebayopensource.turmeric.eclipse.ui,
  org.ebayopensource.turmeric.eclipse.ui.wizards,
  org.ebayopensource.turmeric.eclipse.ui.wizards.pages,
  org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 

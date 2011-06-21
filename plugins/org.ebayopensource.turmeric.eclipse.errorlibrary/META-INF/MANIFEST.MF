@@ -36,7 +36,7 @@ Export-Package: org.ebayopensource.turmeric.eclipse.errorlibrary,
  org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards,
  org.ebayopensource.turmeric.eclipse.errorlibrary.utils,
  org.ebayopensource.turmeric.eclipse.errorlibrary.views
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 

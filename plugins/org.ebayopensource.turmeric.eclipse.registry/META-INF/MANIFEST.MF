@@ -11,7 +11,7 @@ Export-Package: org.ebayopensource.turmeric.eclipse.registry,
  org.ebayopensource.turmeric.eclipse.registry.intf,
  org.ebayopensource.turmeric.eclipse.registry.models,
  org.ebayopensource.turmeric.eclipse.registry.util
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-ManifestVersion: 2
 Import-Package: org.osgi.framework;version="1.3.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

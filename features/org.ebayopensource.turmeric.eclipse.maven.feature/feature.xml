@@ -2,8 +2,9 @@
 <feature
       id="org.ebayopensource.turmeric.eclipse.maven.feature"
       label="Maven Feature"
-      version="1.0.0.qualifier"
-      provider-name="eBay, Inc">
+      version="1.1.0.qualifier"
+      provider-name="eBay, Inc"
+      plugin="org.ebayopensource.turmeric.eclipse">
 
    <description url="http://www.ebayopensource.org/index.php/Turmeric/HomePage">
       Provides common API used by turmeric bundles that depend on working

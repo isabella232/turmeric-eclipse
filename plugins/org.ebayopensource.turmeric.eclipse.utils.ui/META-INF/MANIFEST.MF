@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Utils Ui
 Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.utils.ui
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.utils.ui.Activator
 Bundle-Vendor: eBay, Inc
 Require-Bundle: org.eclipse.ui,
