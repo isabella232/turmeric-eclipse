@@ -2,17 +2,15 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.maven.ide.eclipse.projectConfigurators">
+         point="org.eclipse.m2e.core.projectConfigurators">
       <configurator
             class="org.ebayopensource.turmeric.eclipse.maven.sconfig.TurmerStandardProjectConfigurator"
-            generic="true"
             id="org.ebayopensource.turmeric.eclipse.maven.sconfig.configurator"
-            name="Turmeric Maven Standard Configuration"
-            priority="100">
+            name="Turmeric Maven Standard Configuration">
       </configurator>
    </extension>
    
-	<extension point="org.maven.ide.eclipse.archetypeCatalogs">
+	<extension point="org.eclipse.m2e.core.archetypeCatalogs">
 	  <remote description="Turmeric Snapshots Catalog" url="http://www.ebayopensource.org/nexus/content/repositories/snapshots/"/>
 	  <remote description="Turmeric Releases Catalog"
          url="http://www.ebayopensource.org/nexus/content/repositories/releases/">

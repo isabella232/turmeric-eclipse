@@ -22,11 +22,9 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOALibraryDepe
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.eclipse.jface.window.Window;
+import org.eclipse.m2e.core.internal.index.IndexedArtifactFile;
+import org.eclipse.m2e.core.ui.internal.dialogs.MavenRepositorySearchDialog;
 import org.eclipse.swt.widgets.Shell;
-import org.maven.ide.eclipse.index.IIndex;
-import org.maven.ide.eclipse.index.IndexedArtifactFile;
-import org.maven.ide.eclipse.ui.dialogs.MavenRepositorySearchDialog;
-
 
 /**
  * The Class MavenLibraryDependencyDialog.
@@ -53,8 +51,8 @@ public class MavenLibraryDependencyDialog implements
 		final Collection<AssetInfo> result = new HashSet<AssetInfo>();
 		
 		final MavenProject mavenProject = soaProject != null ? MavenCoreUtils.getMavenProject( soaProject.getProject() ) : null;
-        final MavenRepositorySearchDialog dialog = new MavenRepositorySearchDialog( shell, "Select Library to add:", 
-        		IIndex.SEARCH_ARTIFACT, MavenCoreUtils.getArtifactKeys(mavenProject));
+        final MavenRepositorySearchDialog dialog = MavenRepositorySearchDialog.createSearchDependencyDialog(shell, "Select Library to add:", mavenProject, soaProject.getProject(), false);
+        
         if( dialog.open() == Window.OK ) {
         	final Object obj = dialog.getFirstResult();
         	if (obj instanceof IndexedArtifactFile) {

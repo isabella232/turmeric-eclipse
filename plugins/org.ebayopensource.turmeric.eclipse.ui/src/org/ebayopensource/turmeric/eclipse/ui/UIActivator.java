@@ -36,7 +36,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.maven.ide.eclipse.MavenPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -89,9 +88,7 @@ public class UIActivator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		
-		ensureM2EcipseBeingInited();
-		
+			
 		StringBuffer buf = new StringBuffer();
 		buf.append("SOAPlugin.start - ");
 		buf.append(JDTUtil.getBundleInfo(context.getBundle(), SOALogger.DEBUG));
@@ -102,26 +99,7 @@ public class UIActivator extends AbstractUIPlugin {
 		SOALogger.getLogger().info(buf);
 //		initImageRegistry(context);
 	}
-	
-	/**
-	 * Ensure m2 ecipse being inited.
-	 *
-	 * @throws Exception the exception
-	 */
-	public void ensureM2EcipseBeingInited()
-			throws Exception {
 		
-		BundleContext context = MavenPlugin.getDefault().getBundleContext();
-		MavenPlugin.getDefault().start(context);
-		int state = MavenPlugin.getDefault().getBundle().getState();
-		
-		while(state != Bundle.ACTIVE) {
-			System.out.println("M2 Eclipse still not started.  Sleeping and trying again.");
-			Thread.sleep(5000L);
-			state = MavenPlugin.getDefault().getBundle().getState();
-		}
-	}	
-	
 
 	/**
 	 * {@inheritDoc}

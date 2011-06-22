@@ -18,8 +18,6 @@ Require-Bundle: org.ebayopensource.turmeric.eclipse.mavenapi;bundle-version="1.0
  org.eclipse.swt;bundle-version="3.5.2",
  org.ebayopensource.turmeric.eclipse.repositorysystem;bundle-version="1.0.0",
  org.eclipse.ui;bundle-version="3.5.2",
- org.maven.ide.eclipse.maven_embedder;bundle-version="0.12.0",
- org.maven.ide.eclipse;bundle-version="0.12.0",
  org.eclipse.jdt.core;bundle-version="3.5.0",
  org.jdom;bundle-version="1.0.0",
  org.eclipse.jface;bundle-version="3.5.0",
@@ -29,7 +27,10 @@ Require-Bundle: org.ebayopensource.turmeric.eclipse.mavenapi;bundle-version="1.0
  org.ebayopensource.turmeric.eclipse.config;bundle-version="1.0.0",
  org.ebayopensource.turmeric.eclipse.exception;bundle-version="1.0.0",
  org.eclipse.ui.ide;bundle-version="3.5.2",
- org.ebayopensource.turmeric.eclipse.core;bundle-version="1.0.0"
+ org.ebayopensource.turmeric.eclipse.core;bundle-version="1.0.0",
+ org.eclipse.m2e.maven.runtime;bundle-version="1.0.0",
+ org.eclipse.m2e.core;bundle-version="1.0.0",
+ org.eclipse.m2e.core.ui;bundle-version="1.0.0"
 Export-Package: org.ebayopensource.turmeric.eclipse.maven.core,
  org.ebayopensource.turmeric.eclipse.maven.core.m2eclipse,
  org.ebayopensource.turmeric.eclipse.maven.core.model,

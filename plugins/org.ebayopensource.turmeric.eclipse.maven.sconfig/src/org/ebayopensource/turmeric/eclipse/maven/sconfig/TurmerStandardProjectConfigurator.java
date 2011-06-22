@@ -28,8 +28,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.maven.ide.eclipse.project.configurator.AbstractProjectConfigurator;
-import org.maven.ide.eclipse.project.configurator.ProjectConfigurationRequest;
+import org.eclipse.m2e.core.project.configurator.AbstractProjectConfigurator;
+import org.eclipse.m2e.core.project.configurator.ProjectConfigurationRequest;
 
 /**
  * The Class TurmerStandardProjectConfigurator.

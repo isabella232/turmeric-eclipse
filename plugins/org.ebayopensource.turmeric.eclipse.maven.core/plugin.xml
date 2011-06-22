@@ -11,10 +11,9 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.maven.ide.eclipse.projectConfigurators">
+         point="org.eclipse.m2e.core.projectConfigurators">
       <configurator
             class="org.ebayopensource.turmeric.eclipse.maven.core.m2eclipse.MavenProjectConfigurator"
-            generic="true"
             id="org.ebayopensource.turmeric.eclipse.maven.core.configurator"
             name="Turmeric Maven Project Configurator">
       </configurator>

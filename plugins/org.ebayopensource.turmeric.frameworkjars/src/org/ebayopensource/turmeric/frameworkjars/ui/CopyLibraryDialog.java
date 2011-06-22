@@ -29,6 +29,10 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.Window;
+import org.eclipse.m2e.core.embedder.ArtifactKey;
+import org.eclipse.m2e.core.internal.index.IIndex;
+import org.eclipse.m2e.core.internal.index.IndexedArtifactFile;
+import org.eclipse.m2e.core.ui.internal.dialogs.MavenRepositorySearchDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -43,10 +47,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
-import org.maven.ide.eclipse.embedder.ArtifactKey;
-import org.maven.ide.eclipse.index.IIndex;
-import org.maven.ide.eclipse.index.IndexedArtifactFile;
-import org.maven.ide.eclipse.ui.dialogs.MavenRepositorySearchDialog;
+
 
 
 /**
@@ -125,9 +126,7 @@ public class CopyLibraryDialog extends TitleAreaDialog {
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final MavenRepositorySearchDialog dialog = new MavenRepositorySearchDialog( 
-						getShell(), "Select Library to copy:", 
-		        		IIndex.SEARCH_ARTIFACT, null);
+				final MavenRepositorySearchDialog dialog =  MavenRepositorySearchDialog.createSearchDependencyDialog(getShell(), "Libraries to copy", null, null, false);
 		        if( dialog.open() == Window.OK ) {
 		        	final Object obj = dialog.getFirstResult();
 		        	if (obj instanceof IndexedArtifactFile) {

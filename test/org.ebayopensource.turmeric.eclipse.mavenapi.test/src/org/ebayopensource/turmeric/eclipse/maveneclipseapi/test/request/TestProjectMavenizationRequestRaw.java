@@ -32,9 +32,6 @@ public class TestProjectMavenizationRequestRaw {
 		Assert.assertNotNull(request);
 	}
 
-	/**
-	 * Test method for {@link org.ebayopensource.turmeric.eclipse.mavenapi.request.ProjectMavenizationRequestRaw#getMavenModel()}.
-	 */
 	@Test
 	public void testSetGetMavenModel() {
 		InputStream ins = null;

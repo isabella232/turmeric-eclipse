@@ -33,7 +33,7 @@ public class TestMavenApiHelper {
 	 */
 	@Test
 	public void testGetMavenProjectManager() {
-		Assert.assertNotNull(MavenApiHelper.getMavenProjectManager());
+		Assert.assertNotNull(MavenApiHelper.getMavenProjectRegistry());
 	}
 
 	/**

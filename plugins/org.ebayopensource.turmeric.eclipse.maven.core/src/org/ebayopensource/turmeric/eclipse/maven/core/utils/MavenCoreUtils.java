@@ -75,9 +75,9 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.maven.ide.eclipse.embedder.ArtifactKey;
-import org.maven.ide.eclipse.embedder.ArtifactRef;
-import org.maven.ide.eclipse.project.IMavenProjectFacade;
+import org.eclipse.m2e.core.embedder.ArtifactKey;
+import org.eclipse.m2e.core.embedder.ArtifactRef;
+import org.eclipse.m2e.core.project.IMavenProjectFacade;
 
 /**
  * The Class MavenCoreUtils.
@@ -145,7 +145,7 @@ public class MavenCoreUtils {
 		if (mavenProject == null)
 			return SetUtil.set();
 		final IMavenProjectFacade projectFacade = MavenApiHelper
-				.getMavenProjectManager()
+				.getMavenProjectRegistry()
 				.getMavenProject(mavenProject.getGroupId(),
 						mavenProject.getArtifactId(), mavenProject.getVersion());
 		return ArtifactRef.toArtifactKey(projectFacade

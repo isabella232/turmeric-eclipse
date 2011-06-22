@@ -45,6 +45,7 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
+import org.eclipse.m2e.core.internal.IMavenConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -58,7 +59,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.jdom.Document;
-import org.maven.ide.eclipse.core.IMavenConstants;
 import org.osgi.framework.Version;
 
 /**

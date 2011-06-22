@@ -3,28 +3,26 @@ package org.ebayopensource.turmeric.eclipse.maven.core.utils.tests;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseApi;
+import org.eclipse.m2e.core.MavenPlugin;
+import org.eclipse.m2e.core.internal.index.nexus.IndexedArtifactGroup;
+import org.eclipse.m2e.core.internal.index.nexus.NexusIndexManager;
+import org.eclipse.m2e.core.internal.repository.RepositoryRegistry;
+import org.eclipse.m2e.core.repository.IRepository;
+import org.eclipse.m2e.core.repository.IRepositoryRegistry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.maven.ide.eclipse.MavenPlugin;
-import org.maven.ide.eclipse.internal.index.IndexedArtifactGroup;
-import org.maven.ide.eclipse.internal.index.NexusIndexManager;
-import org.maven.ide.eclipse.internal.repository.RepositoryRegistry;
-import org.maven.ide.eclipse.repository.IRepository;
-import org.maven.ide.eclipse.repository.IRepositoryRegistry;
 import static org.junit.Assert.*;
 
 public class TestMavenCoreUtils {
 
 	private static MavenEclipseApi api;
 	private RepositoryRegistry repositoryRegistry;
-	private NexusIndexManager indexManager = (NexusIndexManager) MavenPlugin
-			.getDefault().getIndexManager();
+	private NexusIndexManager indexManager = (NexusIndexManager) MavenPlugin.getIndexManager();
 
 	@Before
 	public void setUp() throws Exception {
-		repositoryRegistry = (RepositoryRegistry) MavenPlugin.getDefault()
-				.getRepositoryRegistry();
+		repositoryRegistry = (RepositoryRegistry) MavenPlugin.getRepositoryRegistry();
 	}
 
 	@After

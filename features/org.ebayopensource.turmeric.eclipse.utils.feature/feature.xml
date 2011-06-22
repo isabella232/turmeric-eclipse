@@ -210,7 +210,7 @@ reason of your accepting any such warranty or additional liability.
          version="0.0.0"/>
 
    <requires>
-      <import feature="org.maven.ide.eclipse.feature" version="0.12" match="greaterOrEqual"/>
+      <import feature="org.eclipse.m2e.feature" version="1.0.0.20110607-2117" match="greaterOrEqual"/>
    </requires>
 
    <plugin

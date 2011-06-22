@@ -89,7 +89,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.apache.commons.io;bundle-version="1.4.0",
  org.apache.commons.lang;bundle-version="2.4.0",
  javax.wsdl;bundle-version="1.6.2",
- org.apache.commons.collections;bundle-version="3.2.0"
+ org.apache.commons.collections
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.soatools.Activator
 Export-Package: 
  org.apache.xbean.classloader,
