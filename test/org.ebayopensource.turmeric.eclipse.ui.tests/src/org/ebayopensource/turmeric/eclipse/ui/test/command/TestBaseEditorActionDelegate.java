@@ -6,9 +6,6 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-/**
- * 
- */
 package org.ebayopensource.turmeric.eclipse.ui.test.command;
 
 import org.ebayopensource.turmeric.eclipse.ui.actions.BaseEditorActionDelegate;
