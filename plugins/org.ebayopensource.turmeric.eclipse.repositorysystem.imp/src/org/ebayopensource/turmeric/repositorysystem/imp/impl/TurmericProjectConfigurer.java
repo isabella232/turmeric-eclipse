@@ -63,6 +63,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -520,11 +521,20 @@ public class TurmericProjectConfigurer extends AbstractSOAProjectConfigurer {
 				//This is a hot fix for the Maven classpath container issue,
 				//should be removed as soon as the M2Eclipse guys fix it
 				int count = 0; //we only go to sleep 5 times.
-				while (MavenCoreUtils.getMaven2ClasspathContainer(javaProject).getClasspathEntries().length == 0
+				IClasspathContainer container = MavenCoreUtils.getMaven2ClasspathContainer(javaProject);
+				int entriesLength = 0;
+				if (container != null) {
+					entriesLength = container.getClasspathEntries().length;
+				}
+				while (entriesLength == 0
 						&& count < 5) {
 					logger.warning("Maven Classpath is empty->", SOAMavenConstants.MAVEN_CLASSPATH_CONTAINER_ID, ", going to sleep...");
 					Thread.sleep(1000);
 					ProgressUtil.progressOneStep(monitor, 10);
+					container = MavenCoreUtils.getMaven2ClasspathContainer(javaProject);
+					if (container != null) {
+						entriesLength = container.getClasspathEntries().length;
+					}
 					count++;
 				}
 			}
