@@ -113,6 +113,10 @@ AbstractSOAResourceWizardPage {
 					@Override
 					protected Control createDialogArea(Composite parent) {
 						final Control control = super.createDialogArea(parent);
+						/*UIUtil.getHelpSystem().setHelp(
+								control, GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+								.getHelpProvider().getHelpContextID(
+										ISOAHelpProvider.DIALOG_SELECT_TYPE_LIBRARY));*/
 						return control;
 					}
 				};

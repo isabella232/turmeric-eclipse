@@ -25,8 +25,8 @@ public class ConsumerFromWsdlParamModel extends ServiceFromWsdlParamModel {
 
 	private String clientName;
 	private String consumerId;
+	private String serviceLocation;
 	private List<String> environments = new ArrayList<String>();
-	
 	/**
 	 * Instantiates a new consumer from wsdl param model.
 	 */
@@ -96,6 +96,14 @@ public class ConsumerFromWsdlParamModel extends ServiceFromWsdlParamModel {
 	 */
 	public boolean addEnvironment(String environment) {
 		return this.environments.add(environment);
+	}
+	
+	public String getServiceLocation() {
+		return serviceLocation;
+	}
+
+	public void setServiceLocation(String serviceLocation) {
+		this.serviceLocation = serviceLocation;
 	}
 	
 }

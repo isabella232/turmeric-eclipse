@@ -122,7 +122,6 @@ public class ConsumeServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		final String clientID = consumerFromWsdl.getConsumerId();
 		uiModel
 				.setWSDLSourceType(SOAProjectConstants.InterfaceWsdlSourceType.EXISTIING);
-		uiModel.setBaseConsumerSrcDir(consumerFromWsdl.getBaseConsumerSrcDir());
 		uiModel.setNamespaceToPacakgeMappings(consumerFromWsdl
 				.getNamespaceToPackageMappings());
 		uiModel.setClientName(clientName);
@@ -132,7 +131,7 @@ public class ConsumeServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		uiModel.setNamespacePart(consumerFromWsdl.getDomainClassifier());
 		uiModel.setEnvironments(consumerFromWsdl.getEnvironments());
 		uiModel.setTypeFolding(consumerFromWsdl.getTypeFolding());
-
+		uiModel.setServiceLocation(consumerFromWsdl.getServiceLocation());
 		try {
 			uiModel.setOriginalWsdlUrl(new URL(consumerFromWsdl.getWSDLURL()));
 			WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
@@ -235,6 +234,6 @@ public class ConsumeServiceFromWSDLWizard extends AbstractSOADomainWizard {
 	 */
 	@Override
 	public int getMinimumHeight() {
-		return super.getMinimumHeight() + 150;
+		return super.getMinimumHeight() - 150;
 	}
 }

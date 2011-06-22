@@ -11,11 +11,13 @@ package org.ebayopensource.turmeric.eclipse.buildsystem.eclipse;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuilderUtil;
-import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.exception.resources.SOAActionExecutionFailedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.GlobalProjectHealthChecker;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
@@ -25,29 +27,57 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 
 /**
+<<<<<<< HEAD
  * The Class AbstractSOAProjectBuilder.
  *
  * @author yayu
+=======
+ * @author yayu
+ * 
+>>>>>>> TURMERIC-1351
  */
 public abstract class AbstractSOAProjectBuilder extends
 		IncrementalProjectBuilder {
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
+<<<<<<< HEAD
 	 * Instantiates a new abstract soa project builder.
+=======
+	 * 
+>>>>>>> TURMERIC-1351
 	 */
 	public AbstractSOAProjectBuilder() {
 		super();
 	}
 
+<<<<<<< HEAD
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.resources.IncrementalProjectBuilder#build(int, java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
 	 */
+=======
+>>>>>>> TURMERIC-1351
 	@Override
 	protected IProject[] build(int kind, Map args, IProgressMonitor monitor)
 			throws CoreException {
 		final IProject project = getProject();
 		long time = System.currentTimeMillis();
+<<<<<<< HEAD
+=======
+		/**
+		 * even using meunu project->clean, the build kind is still full build.
+		 */
+		if (kind == CLEAN_BUILD || kind == FULL_BUILD) {
+			try {
+				ActionUtil.cleanProject(project, monitor);
+			} catch (Exception e) {
+				logger.error("Clean failed with exception:" + e);
+				throw new SOAActionExecutionFailedException(e);
+			} finally {
+				WorkspaceUtil.refresh(monitor, project);
+			}
+		}
+>>>>>>> TURMERIC-1351
 		try {
 			final IResourceDelta delta = getDelta(project);
 			if (shouldBuild(delta, project)) {
@@ -82,6 +112,7 @@ public abstract class AbstractSOAProjectBuilder extends
 		return null;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Do build.
 	 *
@@ -104,11 +135,17 @@ public abstract class AbstractSOAProjectBuilder extends
 	 * @return true, if successful
 	 * @throws Exception the exception
 	 */
+=======
+	protected abstract IProject[] doBuild(int kind, Map args, IProject project,
+			IResourceDelta delta, IProgressMonitor monitor) throws Exception;
+
+>>>>>>> TURMERIC-1351
 	protected boolean shouldBuild(IResourceDelta delta, IProject project)
 			throws Exception {
 		return BuilderUtil.shouldBuild(delta, project);
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Check project health.
 	 *
@@ -116,10 +153,13 @@ public abstract class AbstractSOAProjectBuilder extends
 	 * @return the i status
 	 * @throws Exception the exception
 	 */
+=======
+>>>>>>> TURMERIC-1351
 	protected IStatus checkProjectHealth(IProject project) throws Exception {
 		return GlobalProjectHealthChecker.checkProjectHealth(project);
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Do clean.
 	 *
@@ -133,6 +173,11 @@ public abstract class AbstractSOAProjectBuilder extends
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.resources.IncrementalProjectBuilder#clean(org.eclipse.core.runtime.IProgressMonitor)
 	 */
+=======
+	protected abstract void doClean(IProject project, IProgressMonitor monitor)
+			throws Exception;
+
+>>>>>>> TURMERIC-1351
 	@Override
 	protected void clean(IProgressMonitor monitor) throws CoreException {
 		final IProject project = getProject();

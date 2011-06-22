@@ -220,7 +220,40 @@ public class TypeLibraryBuilderUtils {
 		return resources;
 	}
 
+	/**
+	 * Mainly used to validate a type library project. These are the minimum
+	 * files that should be readable for the SOA plugin and codegen to work. For
+	 * now its just the type dependency file.
+	 * 
+	 * @param project
+	 * @return list of resources that are supposed to exist in a valid type
+	 *         library project.
+	 * @throws Exception
+	 */
+	public static List<IResource> getTypeLibProjectReadableResources(
+			final IProject project) throws Exception {
+		final List<IResource> resources = new ArrayList<IResource>();
+		resources.add(TypeLibraryUtil.getDependencyFile(project));
+		return resources;
+	}
 
+	/**
+	 * Mainly used to validate a type library project. These are the minimum
+	 * files that should be writable for the SOA plugin and codegen to modify.
+	 * The returned list of files could be modified either by codegen or soa
+	 * plugin. For now its just the type dependency file.
+	 * 
+	 * @param project
+	 * @return list of resources that are supposed tobe writable in a valid type
+	 *         library project.
+	 * @throws Exception
+	 */
+	public static List<IResource> getTypeLibProjectWritableResources(
+			final IProject project) throws Exception {
+		final List<IResource> resources = new ArrayList<IResource>();
+		resources.add(TypeLibraryUtil.getDependencyFile(project));
+		return resources;
+	}
 
 	/**
 	 * Creates a Codegen Invoker and populates its class loader with type

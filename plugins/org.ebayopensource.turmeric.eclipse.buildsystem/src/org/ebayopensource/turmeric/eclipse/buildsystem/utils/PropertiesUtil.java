@@ -25,7 +25,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
-import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
@@ -196,11 +196,11 @@ public final class PropertiesUtil {
 			String implProjectName, boolean isLocalBindingSelected)
 			throws Exception {
 		if (isLocalBindingSelected) {
-			if (StringUtils.isBlank(implProjectName)) {
+			if (StringUtils.isBlank(implProjectName) == true) {
 				return EclipseMessageUtils
 						.createErrorStatus(
-								"Can not set the service binding of the selected service to LOCAL, because the implementation project [" +
-								implProjectName + "] is missing",
+								"Can not set the service binding of the selected service to LOCAL, "
+										+ "because the implementation project is missing",
 								null);
 			}
 			final IProject implProject = WorkspaceUtil
@@ -210,7 +210,8 @@ public final class PropertiesUtil {
 			} else {
 				return EclipseMessageUtils
 						.createErrorStatus(
-								"Can not set the service binding of the selected service to LOCAL, because the correponding implementation project is not accessible in the current worksapce-> "
+								"Can not set the service binding of the selected service to LOCAL, "
+										+ "because the correponding implementation project is not accessible in the current worksapce-> "
 										+ implProjectName, null);
 			}
 		}

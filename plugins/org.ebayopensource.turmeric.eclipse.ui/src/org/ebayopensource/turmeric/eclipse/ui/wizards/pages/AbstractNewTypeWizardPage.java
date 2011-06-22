@@ -294,7 +294,7 @@ public abstract class AbstractNewTypeWizardPage extends
 				try {
 					final List<IProject> projects = WorkspaceUtil
 					.getProjectsByNature(
-							UIConstants.TYPELIB_NATURE_ID);
+							TypeLibraryProjectNature.getTypeLibraryNatureId());
 					if (typeLibraryNameText != null && StringUtils.isNotBlank(typeLibraryNameText.getText())
 							&& WorkspaceUtil.getProject(
 							typeLibraryNameText.getText()).isAccessible()) {
@@ -351,51 +351,55 @@ public abstract class AbstractNewTypeWizardPage extends
 		if (checkValidationResult(getResourceNameText(), validationModel) == false)
 			return false;
 
-		try {
-			if (StringUtils.isEmpty(typeLibraryNameText.getText())) {
-				updateStatus(typeLibraryNameText, "Select a type library.");
-				return false;
-			}
-			IProject project = WorkspaceUtil.getProject(typeLibraryNameText
-					.getText());
-			if (project.getFile(
-					TurmericCoreActivator.getXsdFileLocation(fileName, project))
-					.exists()
-					|| SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getType(
-							new QName(
-									UIActivator
-											.getNameSpace(typeLibraryNameText
-													.getText()), fileName)) != null) {
-				updateStatus(super.getResourceNameText(), 
-						"Type with the same name already exists in the specified namespace.");
-				return false;
-			}
-			for (final IResource resource : TurmericCoreActivator.getTypeLibProjectReadableResources(WorkspaceUtil
-							.getProject(typeLibraryNameText.getText()))) {
-				if (WorkspaceUtil.isResourceReadable(resource) == false) {
-					updateStatus(super.getResourceNameText(), 
-							resource.getName()
-							+ " does not exist or is not accessible.");
+		if (typeLibraryNameText != null) {
+			try {
+				if (StringUtils.isEmpty(typeLibraryNameText.getText())) {
+					updateStatus(typeLibraryNameText, "Select a type library.");
 					return false;
 				}
-			}
-			for (final IResource resource : TurmericCoreActivator.getTypeLibProjectWritableResources(WorkspaceUtil
-							.getProject(typeLibraryNameText.getText()))) {
-				if (WorkspaceUtil.isResourceModifiable(resource) == false) {
+				IProject project = WorkspaceUtil.getProject(typeLibraryNameText
+						.getText());
+				if (project.getFile(
+						TurmericCoreActivator.getXsdFileLocation(fileName, project))
+						.exists()
+						|| SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getType(
+								new QName(
+										UIActivator
+										.getNameSpace(typeLibraryNameText
+												.getText()), fileName)) != null) {
 					updateStatus(super.getResourceNameText(), 
-							resource.getName()
-							+ " does not exist or is not modifiable.");
+					"Type with the same name already exists in the specified namespace.");
 					return false;
 				}
+				for (final IResource resource : TurmericCoreActivator
+						.getTypeLibProjectReadableResources(WorkspaceUtil
+								.getProject(typeLibraryNameText.getText()))) {
+					if (WorkspaceUtil.isResourceReadable(resource) == false) {
+						updateStatus(super.getResourceNameText(), 
+								resource.getName()
+								+ " does not exist or is not accessible.");
+						return false;
+					}
+				}
+				for (final IResource resource : TurmericCoreActivator
+						.getTypeLibProjectWritableResources(WorkspaceUtil
+								.getProject(typeLibraryNameText.getText()))) {
+					if (WorkspaceUtil.isResourceModifiable(resource) == false) {
+						updateStatus(super.getResourceNameText(), 
+								resource.getName()
+								+ " does not exist or is not modifiable.");
+						return false;
+					}
+				}
+				if (SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getTypeLibrary(
+						typeLibraryNameText.getText()) == null) {
+					updateStatus("The Type registry seems to be out of sync. Please open the GlobalRegistry view, Window-->Show View-->SOA Plugin-->Global Registry and click the refresh button and try again.");
+					return false;
+				}
+			} catch (Exception exception) {
+				SOALogger.getLogger().warning("Validation Failure!", exception);
+				// Validation failure is Okay :).
 			}
-			if (SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getTypeLibrary(
-					typeLibraryNameText.getText()) == null) {
-				updateStatus("The Type registry seems to be out of sync. Please open the GlobalRegistry view, Window-->Show View-->SOA Plugin-->Global Registry and click the refresh button and try again.");
-				return false;
-			}
-		} catch (Exception exception) {
-			SOALogger.getLogger().warning("Validation Failure!", exception);
-			// Validation failure is Okay :).
 		}
 
 		return result;

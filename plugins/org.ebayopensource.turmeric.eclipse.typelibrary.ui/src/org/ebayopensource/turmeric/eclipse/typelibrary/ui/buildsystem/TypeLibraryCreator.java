@@ -6,11 +6,16 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
+<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeLibraryCreator.java
 package org.ebayopensource.turmeric.eclipse.typelibrary.ui.buildsystem;
+=======
+package org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem;
+>>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeLibraryCreator.java
 
 import java.util.HashSet;
 import java.util.Set;
 
+<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeLibraryCreator.java
 import org.ebayopensource.turmeric.eclipse.buildsystem.TypeDepMarshaller;
 import org.ebayopensource.turmeric.eclipse.buildsystem.core.TypeLibraryBuildSystemConfigurer;
 import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
@@ -19,12 +24,25 @@ import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeLibraryPar
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
+=======
+import org.ebayopensource.turmeric.eclipse.buildsystem.core.TypeLibraryBuildSystemConfigurer;
+import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
+import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+>>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeLibraryCreator.java
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;
 import org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.GenTypeCreateTypeLibrary;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryMetadata;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProject;
+<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeLibraryCreator.java
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+=======
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeLibraryParamModel;
+import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
+>>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeLibraryCreator.java
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
@@ -39,6 +57,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
  */
 public class TypeLibraryCreator {
 
+<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeLibraryCreator.java
 	/**
 	 * Creates the type library.
 	 *
@@ -46,6 +65,8 @@ public class TypeLibraryCreator {
 	 * @param monitor the monitor
 	 * @throws Exception the exception
 	 */
+=======
+>>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeLibraryCreator.java
 	public static void createTypeLibrary(TypeLibraryParamModel model,
 			IProgressMonitor monitor) throws Exception {
 
@@ -90,9 +111,12 @@ public class TypeLibraryCreator {
 
 		SOAGlobalRegistryAdapter registryAdapter = SOAGlobalRegistryAdapter.getInstance();
 		SOATypeRegistry typeRegistry = registryAdapter.getGlobalRegistry();
+<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeLibraryCreator.java
 		if (typeRegistry == null) {
 			typeRegistry = registryAdapter.getGlobalRegistry();
 		}
+=======
+>>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeLibraryCreator.java
 		typeRegistry.addTypeLibraryToRegistry(
 				TypeLibraryUtil.getTypeLibraryType(project));
 

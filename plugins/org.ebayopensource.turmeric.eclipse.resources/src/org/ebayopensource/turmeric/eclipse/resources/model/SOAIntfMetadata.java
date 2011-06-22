@@ -49,8 +49,11 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	private String typeNamespace;
 	private boolean typeFolding;
 	private String serviceLocation;
+	private boolean isZeroConfig;
 	private String metadataVersion = SOAProjectConstants.DEFAULT_VERSION;
 	private Map<String, String> namespaceToPackageMappings = new ConcurrentHashMap<String, String>();
+	
+	private String serviceNonXSDProtocols;
 
 	/**
 	 * This is called from the UI processors. Since we have the user entered
@@ -75,11 +78,13 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 		metadata.setSourceType(SOAProjectConstants.InterfaceSourceType.WSDL);
 		metadata.setWsdlSourceType(paramModel.getWSDLSourceType());
 		metadata.setOriginalWSDLUrl(paramModel.getOriginalWsdlUrl());
-		metadata.setMetadataVersion(SOAProjectConstants.PROPS_DEFAULT_PROPERTY_VERSION);
+		metadata.setMetadataVersion(SOAProjectConstants.PROPS_INTERFACE_PROPERTY_VERSION);
 		metadata.setNamespaceToPackageMappings(paramModel
 				.getNamespaceToPacakgeMappings());
 		metadata.setServiceNamespacePart(paramModel.getNamespacePart());
 		metadata.setServiceDomainName(paramModel.getServiceDomain());
+		metadata.setServiceNonXSDProtocols(paramModel.getServiceProtocols());
+		metadata.setZeroConfig(true);
 		SOAIntfUtil.setInformationFromWsdl(paramModel.getOriginalWsdlUrl(),
 				metadata);
 		return metadata;
@@ -116,7 +121,9 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 			SOAIntfMetadata metadata = new SOAIntfMetadata();
 			metadata.setServiceName(serviceName);
 			metadatas.put(serviceName, metadata);
+			metadata.setZeroConfig(true);
 		}
+		
 		return metadatas;
 	}
 
@@ -125,9 +132,16 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 
 	}
 
+	public boolean isZeroConfig() {
+		return isZeroConfig;
+	}
+
+	public void setZeroConfig(boolean isZeroConfig) {
+		this.isZeroConfig = isZeroConfig;
+	}
+
 	/**
 	 * Gets the metadata version.
-	 *
 	 * @return the meta data version
 	 */
 	public String getMetadataVersion() {
@@ -440,5 +454,13 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	public void setNamespaceToPackageMappings(
 			Map<String, String> namespaceToPackageMappings) {
 		this.namespaceToPackageMappings = namespaceToPackageMappings;
+	}
+
+	public String getServiceNonXSDProtocols() {
+		return serviceNonXSDProtocols;
+	}
+
+	public void setServiceNonXSDProtocols(String serviceNonXSDProtocol) {
+		this.serviceNonXSDProtocols = serviceNonXSDProtocol;
 	}
 }

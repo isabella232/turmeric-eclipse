@@ -31,10 +31,10 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	private String fullyQualifiedServiceName;
 	private String serviceImplClassName;
 	private String messageProtocol;
+	private ServiceImplType serviceImplType = ServiceImplType.SERVICE_IMPL;
 
 	/**
-	 * Creates the.
-	 *
+	 * Create an instance.
 	 * @param paramModel parameter model from Wsdl
 	 * @param intfData interface data
 	 * @return an instance of SOAImplMetadata
@@ -48,9 +48,7 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 		metadata.setServiceImplProjectName(intfData.getServiceName()
 				+ SOAProjectConstants.IMPL_PROJECT_SUFFIX);
 		metadata.setBaseConsumerSrcDir(paramModel.getBaseConsumerSrcDir());
-		/*metadata.setIncludeTestJsp(paramModel.isIncludeTestJSP());
-		metadata.setIncludeValidateInternalsServlet(paramModel
-				.isIncludeValidateInternals());*/
+		metadata.setServiceImplType(paramModel.getServiceImplType());
 		return metadata;
 	}
 	
@@ -268,5 +266,18 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 		this.messageProtocol = messageProtocol;
 	}
 
+	/**
+	 * @return
+	 */
+	public ServiceImplType getServiceImplType() {
+		return serviceImplType;
+	}
+
+	/**
+	 * @param serviceImplType
+	 */
+	public void setServiceImplType(ServiceImplType serviceImplType) {
+		this.serviceImplType = serviceImplType;
+	}
 	
 }

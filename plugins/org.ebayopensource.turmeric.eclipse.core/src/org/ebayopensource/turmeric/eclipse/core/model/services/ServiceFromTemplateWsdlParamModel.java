@@ -20,15 +20,16 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
+import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.TemplateBinding;
-import org.ebayopensource.turmeric.eclipse.core.model.IParameterElement;
 
 
 /**
  * The Class ServiceFromTemplateWsdlParamModel.
  *
  * @author yayu
+ * 
  */
 public class ServiceFromTemplateWsdlParamModel extends
 ServiceFromWsdlParamModel {

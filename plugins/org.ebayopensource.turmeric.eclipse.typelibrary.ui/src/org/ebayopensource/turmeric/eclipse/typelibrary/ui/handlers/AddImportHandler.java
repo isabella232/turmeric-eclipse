@@ -30,28 +30,34 @@ import org.eclipse.xsd.XSDSchema;
  * @author dcarver
  * @since 1.0
  */
-public class AddImportHandler extends AbstractHandler {
+public class AddImportAction extends Action {
+	private static final SOALogger logger = SOALogger.getLogger();
 
-	private TypeViewer typeViewer = null;
-	private static final String MISSING_EDITOR_ERR_MSG = "The plugin could not find the right editor to import. Please open the XSD/WSDL document in a XSD/WTP editor and try again. ";
-	private SOALogger logger = SOALogger.getLogger();
-	
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
+	public TypeViewer typeViewer = null;
+
+	public static final String MISSING_EDITOR_ERR_MSG = "The plugin could not find the right editor to import. Please open the XSD/WSDL document in a XSD/WTP editor and try again. ";
+
+	/**
+	 * The constructor stores the type Viewer
+	 * 
+	 * @param typeViewer
+	 */
+	public AddImportAction(TypeViewer typeViewer) {
+		this.typeViewer = typeViewer;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.action.Action#run()
+	 * 
+	 * computes the highlighted editor and imports the type to the editor. If
+	 * the editor does not have wsdl or xsd, it throws an Error Message.
+	 * 
+	 * Otherwise It imports the code, updates the dependency.
 	 */
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IWorkbenchPage page = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
-		IViewPart viewPart = page.findView(RegistryView.VIEW_ID);
-		
-		if (!(viewPart instanceof RegistryView)) {
-			return null;
-		}
-		
-		RegistryView view = (RegistryView) viewPart;
-		typeViewer = view.getTypeViewer();
-		
+	public void run() {
 		if (typeViewer != null && typeViewer.getSelection() != null
 				&& typeViewer.getSelection() instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) typeViewer
@@ -74,20 +80,20 @@ public class AddImportHandler extends AbstractHandler {
 									"Editor couldnt be located",
 									"Falied to locate an appropriate editor to import.",
 									MISSING_EDITOR_ERR_MSG);
-					return null;
+					return;
 				}
 
 				Object adaptedObject = TypeLibraryUtil
 						.getAdapterClassFromWTPEditors(editorPart);
 				if (adaptedObject == null) {
 					showEditorErrorMsg();
-					return null;
+					return;
 				}
 
 				if (editorPart.getEditorInput() == null
 						|| !(editorPart.getEditorInput() instanceof IFileEditorInput)) {
 					showEditorErrorMsg();
-					return null;
+					return;
 				}
 
 				IFileEditorInput editorInput = (IFileEditorInput) editorPart
@@ -96,7 +102,7 @@ public class AddImportHandler extends AbstractHandler {
 				if (!ImportTypeFromTypeLibrary
 						.validateSelectedTypeForImport(selectedTypes
 								.toArray(new LibraryType[0]), selectedFile)) {
-					return null;
+					return;
 				}
 				if (adaptedObject instanceof Definition) {
 					try {
@@ -110,7 +116,7 @@ public class AddImportHandler extends AbstractHandler {
 						logger.error(e);
 						showGeneralErrorMsg();
 					}
-					return null;
+					return;
 				}
 				if (adaptedObject instanceof XSDSchema) {
 					try {
@@ -124,11 +130,10 @@ public class AddImportHandler extends AbstractHandler {
 						logger.error(e);
 						showGeneralErrorMsg();
 					}
-					return null;
+					return;
 				}
 			}
 		}
-		return null;
 	}
 
 	private void showEditorErrorMsg() {
@@ -148,5 +153,35 @@ public class AddImportHandler extends AbstractHandler {
 						"Plugin failed to import the selected schema types.",
 						"This error is mostly due to the environment that you are using. Please refresh the type registry by clicking the Refresh button in this view, reopen the XSD/WSDL editor and try again.");
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.action.Action#getAccelerator()
+	 */
+	@Override
+	public int getAccelerator() {
+		return super.getAccelerator();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.action.Action#getText()
+	 */
+	@Override
+	public String getText() {
+		return "Add to Current XSD/WSDL editor";// Include Types in Schema
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.action.Action#getToolTipText()
+	 */
+	@Override
+	public String getToolTipText() {
+		return "Includes the selected schemas to the editor in focus.";
+	}
+
 }

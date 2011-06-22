@@ -13,6 +13,7 @@ import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
@@ -75,7 +76,7 @@ public class RegistryView extends ViewPart {
 			logger.error(e);
 			throw new RuntimeException(e);
 		}
-		//createToolbar();
+		createToolbar();
 	}
 
 	/*
@@ -214,13 +215,25 @@ public class RegistryView extends ViewPart {
 			}
 		}
 	}
+
+	/**
+	 * Creates the toolbar.
+	 */
+	private void createToolbar() {
+		IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
+		RefreshRegistryAction refreshAction = new RefreshRegistryAction(
+				typeLibraryViewer);
+		refreshAction.setTypeViewer(typeViewer);
+		mgr.add(refreshAction);
+		mgr.add(new SortRegistryAction(typeViewer, getLibraryComparator()));
+	}
 	
 	/**
 	 * Gets the library comparator.
 	 *
 	 * @return the library comparator
 	 */
-	public ViewerComparator getLibraryComparator() {
+	protected ViewerComparator getLibraryComparator() {
 		final ViewerComparator comparator = new ViewerComparator() {
 			@Override
 			public int compare(Viewer viewer, Object e1, Object e2) {

@@ -88,8 +88,7 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 	 * editors. Call back from eclipse.
 	 *
 	 * @param action the action
-	 * @see
-	 * org.eclipse.ui.actions.ActionDelegate#run(org.eclipse.jface.action.IAction
+	 * @see org.eclipse.ui.actions.ActionDelegate#run(org.eclipse.jface.action.IAction
 	 * )
 	 */
 	@Override
@@ -215,7 +214,6 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 		inlineType.schedule();
 	}
 
-
 	/**
 	 * Shows the common Error dialog in case of import failures. Most of these
 	 * failures are due to stale registry or invalid XSD opened up outside the
@@ -307,6 +305,9 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 				librarySet.add(libraryType);
 			}
 		}
+
+		XSDSchemaValidationUtil.validateType(project,
+				librarySet.toArray(new LibraryType[0]));
 		boolean typeFolding = SOAServiceUtil.getSOAIntfMetadata(
 				SOAServiceUtil.getSOAEclipseMetadata(project)).getTypeFolding();
 

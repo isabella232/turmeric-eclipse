@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Turmeric Plugin Test Plug-in - Core
 Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.test.utils
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: EBay Tools
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,

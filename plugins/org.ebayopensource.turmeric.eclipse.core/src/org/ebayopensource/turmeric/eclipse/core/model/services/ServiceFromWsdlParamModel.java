@@ -16,7 +16,7 @@ import java.util.Set;
 
 import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
-
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.ServiceImplType;
 
 /**
  * UI Model for service from WSDL Flow. This is a pure java object that
@@ -36,104 +36,107 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 	 * The public service name.
 	 */
 	String publicServiceName;
-	
+
 	/**
 	 * The target namespace for the service.
 	 */
 	String targetNamespace;
-	
+
 	/**
 	 * The service name.
 	 */
 	String serviceName;
-	
+
 	/**
 	 * The service interface class.
 	 */
 	String serviceInterface;
-	
+
 	/**
 	 * Whether to over ride the Workspace Root directory.
 	 */
 	boolean overrideWorkspaceRoot;
-	
+
 	/**
-	 * The workspace root directory. This may be different than the users IDE workspace.
+	 * The workspace root directory. This may be different than the users IDE
+	 * workspace.
 	 */
 	String workspaceRootDirectory;
-	
+
 	/**
 	 * Implementation class name.
 	 */
 	String implName;
-	
+
 	/**
 	 * The service implemenation name.
 	 */
 	String serviceImpl;
-	
+
 	/**
 	 * the service version in major.minor.rev format.
 	 */
 	String serviceVersion;
-	
+
 	/**
 	 * Whether type folding is enabled or disabled for the service.
 	 */
 	boolean typeFolding;
-	
+
 	/**
 	 * The namespace for the common types or specific types.
 	 */
 	String typeNamespace;
-	
+
 	/**
-	 * Base consumer source directory for both implemenation and consumer projects.
+	 * Base consumer source directory for both implemenation and consumer
+	 * projects.
 	 */
 	String baseConsumerSrcDir;
-	
+
 	/**
 	 * The service layer which the service resides.
 	 */
 	String serviceLayer;
-	
+
 	/**
 	 * Interface libraries.
 	 */
 	Set<String> interfaceLibs = new HashSet<String>();
-	
+
 	/**
 	 * Interface Projects.
 	 */
 	Set<String> interfaceProjects = new HashSet<String>();
-	
+
 	/**
 	 * Implementation Libraries.
 	 */
 	Set<String> implLibs = new HashSet<String>();
-	
+
 	/**
 	 * Implementation Projects.
 	 */
 	Set<String> implProjects = new HashSet<String>();
-	
+
 	/**
 	 * Service Domain.
 	 */
 	String serviceDomain;
-	
+
 	/**
 	 * Namespace Part.
 	 */
 	String namespacePart;
-	
+
 	/**
 	 * Wsdl Interface Source Type.
 	 */
 	SOAProjectConstants.InterfaceWsdlSourceType wsdlSource;
-	
+
 	/**
-	 * A Map of namespace to corresponding java package name mappings.  Used by TypeLibs. 
+	 * A Map of namespace to corresponding java package name mappings. Used by
+	 * TypeLibs.
 	 */
 	Map<String, String> namespaceToPacakgeMappings = new LinkedHashMap<String, String>();
 
@@ -143,8 +146,17 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 	URL originalWsdlUrl;
 
 	/**
-	 * Gets the public service name.
-	 *
+	 * 
+	 */
+	ServiceImplType serviceImplType;
+
+	/**
+	 * Protocols used by a service. separated by ,
+	 */
+	String serviceNonXSDProtocols;
+
+	/**
+	 * 
 	 * @return the public service name
 	 */
 	public String getPublicServiceName() {
@@ -539,10 +551,41 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 
 	/**
 	 * Sets the namespace part.
-	 *
-	 * @param namespacePart the namespace part
+	 * @param namespacePart
+	 *            the namespace part
 	 */
 	public void setNamespacePart(String namespacePart) {
 		this.namespacePart = namespacePart;
 	}
+
+	/**
+	 * @return
+	 */
+	public ServiceImplType getServiceImplType() {
+		return serviceImplType;
+	}
+
+	/**
+	 * @param serviceImplType
+	 */
+	public void setServiceImplType(ServiceImplType serviceImplType) {
+		this.serviceImplType = serviceImplType;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getServiceProtocols() {
+		return serviceNonXSDProtocols;
+	}
+
+	/**
+	 * 
+	 * @param serviceProtocols
+	 */
+	public void setServiceNonXSDProtocols(String serviceProtocols) {
+		this.serviceNonXSDProtocols = serviceProtocols;
+	}
+
 }

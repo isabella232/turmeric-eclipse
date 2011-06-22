@@ -158,7 +158,14 @@ public class SubmitNewConsumer implements IObjectActionDelegate {
 	 */
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
-		this.selection = (IStructuredSelection)selection;
+		this.selection = (IStructuredSelection) selection;
+		IClientRegistryProvider regProvider = null;
+		try {
+			regProvider = ExtensionPointFactory.getSOAClientRegistryProvider();
+		} catch (Exception e) {
+		}
+
+		action.setEnabled(regProvider != null);
 	}
 
 }

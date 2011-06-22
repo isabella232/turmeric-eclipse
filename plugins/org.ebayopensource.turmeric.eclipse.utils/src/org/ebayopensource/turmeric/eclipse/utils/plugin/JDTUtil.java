@@ -137,7 +137,6 @@ public class JDTUtil {
 		final IJavaProject javaProject = JavaCore.create(project);
 		final List<IClasspathEntry> classpath = JDTUtil.rawClasspath(
 				javaProject, true);
-		
 		if (outputLocation.equals(javaProject.getOutputLocation()) == false) {
 			final IFolder outputDirClasses = project.getFolder(outputLocation);
 			javaProject.setOutputLocation(outputDirClasses.getFullPath(), monitor);
@@ -469,32 +468,32 @@ public class JDTUtil {
 
 		return genPkgName + WorkspaceUtil.PATH_SEPERATOR + genClassName;
 	}
-	
-	 /**
- 	 * Gets the plugin properties.
- 	 *
- 	 * @param bundle the bundle
- 	 * @param fileName the file name
- 	 * @return the plugin properties
- 	 * @throws IOException Signals that an I/O exception has occurred.
- 	 */
- 	public static PropertyResourceBundle getPluginProperties(
-	    		final Bundle bundle, String fileName)
-	    throws IOException{
-	    	PropertyResourceBundle pluginProperties;
-	    	
-	    	if (StringUtils.isBlank(fileName)) {
-	    		final Object object = bundle.getHeaders().get(Constants.BUNDLE_LOCALIZATION);
-		    	fileName = object != null ? object.toString() + ".properties" : "plugin.properties";
-	    	}
-	    	
-	    	pluginProperties = new PropertyResourceBundle(
-					FileLocator.openStream(bundle,
-							new Path(fileName),false));
 
-	    	return pluginProperties;
-	    }
-	
+	/**
+	 * Gets the plugin properties.
+	 *
+	 * @param bundle the bundle
+	 * @param fileName the file name
+	 * @return the plugin properties
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public static PropertyResourceBundle getPluginProperties(
+			final Bundle bundle, String fileName)
+	throws IOException{
+		PropertyResourceBundle pluginProperties;
+
+		if (StringUtils.isBlank(fileName)) {
+			final Object object = bundle.getHeaders().get(Constants.BUNDLE_LOCALIZATION);
+			fileName = object != null ? object.toString() + ".properties" : "plugin.properties";
+		}
+
+		pluginProperties = new PropertyResourceBundle(
+				FileLocator.openStream(bundle,
+						new Path(fileName),false));
+
+		return pluginProperties;
+	}
+
 
     /**
      * Gets the plugin properties.

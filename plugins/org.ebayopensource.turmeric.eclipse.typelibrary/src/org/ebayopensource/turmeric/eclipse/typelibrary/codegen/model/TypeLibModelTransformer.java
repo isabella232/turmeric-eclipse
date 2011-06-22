@@ -49,6 +49,14 @@ public class TypeLibModelTransformer {
 				.toString());
 		genTypeBaseTypeLibCodegenModel.setLibraryName(project.getName());
 		genTypeBaseTypeLibCodegenModel.setXjcClassPath(getXJCClassPath());
+		TypeLibraryParamModel model = SOATypeLibraryProjectResolver.loadTypeLibraryModel(project);
+		if (model != null) {
+			genTypeBaseTypeLibCodegenModel.setLibNamespace(model.getNamespace());
+			genTypeBaseTypeLibCodegenModel.setLibraryCategory(model.getCategory());
+			genTypeBaseTypeLibCodegenModel.setLibraryName(model.getTypeLibraryName());
+			genTypeBaseTypeLibCodegenModel.setLibraryVersion(model.getVersion());
+		}
+		
 		return genTypeBaseTypeLibCodegenModel;
 	}
 
@@ -86,6 +94,10 @@ public class TypeLibModelTransformer {
 				.getProjectRoot());
 		genTypeCleanBuildTypeLibrary.setXjcClassPath(baseTypeLibCodegenModel
 				.getXjcClassPath());
+		genTypeCleanBuildTypeLibrary.setLibraryName(baseTypeLibCodegenModel.getLibraryName());
+		genTypeCleanBuildTypeLibrary.setLibraryCategory(baseTypeLibCodegenModel.getLibraryCategory());
+		genTypeCleanBuildTypeLibrary.setLibraryVersion(baseTypeLibCodegenModel.getLibraryVersion());
+		genTypeCleanBuildTypeLibrary.setLibNamespace(baseTypeLibCodegenModel.getLibNamespace());
 		return genTypeCleanBuildTypeLibrary;
 	}
 

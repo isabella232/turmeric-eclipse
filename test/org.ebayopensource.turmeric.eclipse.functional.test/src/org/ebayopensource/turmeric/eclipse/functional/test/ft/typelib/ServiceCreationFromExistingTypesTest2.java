@@ -15,7 +15,6 @@ import javax.xml.namespace.QName;
 
 import junit.framework.Assert;
 
-import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFromBlankWsdlTest;
@@ -32,6 +31,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import org.ebayopensource.turmeric.common.config.LibraryType;
 
 
 public class ServiceCreationFromExistingTypesTest2 extends

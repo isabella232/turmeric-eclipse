@@ -54,7 +54,7 @@ public class DataTypeManagementWizardPage extends AbstractElementManagementWizar
 			List<? extends IParameterElement> elements,
 			int minimumRequiredElementNum) {
 		super("datatypeManagementWizardPage", title, 
-				"manage elements for the given parameter", elements, minimumRequiredElementNum);
+				"Manage elements for the given parameter", elements, minimumRequiredElementNum);
 	}
 
 	/**

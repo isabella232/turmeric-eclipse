@@ -16,8 +16,6 @@ import java.util.Map;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
@@ -50,6 +48,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 
 public class ServiceByUpdatingTypes extends AbstractTestCase {
 	private static final String SVC_NAME = TypeLibSetUp.SVC_NAME2;

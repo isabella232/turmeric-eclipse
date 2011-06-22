@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.codgen.model.tests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeRequestDispatcher;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;

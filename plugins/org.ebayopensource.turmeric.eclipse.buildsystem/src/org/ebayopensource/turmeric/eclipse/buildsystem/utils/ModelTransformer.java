@@ -33,8 +33,11 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
+import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -83,7 +86,6 @@ public class ModelTransformer {
 	 * @param project - the project will be again used to get the rest of the
 	 * codegen parameter values.
 	 * @return the gen type service from wsdl intf
-	 * @throws WSDLException the wSDL exception
 	 */
 	public static GenTypeServiceFromWSDLIntf transformToGenTypeServiceFromWSDLIntf(
 			BaseCodeGenModel model, IProject project) throws WSDLException {
@@ -113,6 +115,11 @@ public class ModelTransformer {
 		genTypeServiceFromWsdlIntf.setGenInterfacePacakgeName(CodeGenUtil
 				.getGIPFromInterface(model.getServiceInterface()));
 		genTypeServiceFromWsdlIntf.setGenerateFromWsdl(true);
+
+		genTypeServiceFromWsdlIntf.setMetaDir(project.getLocation().toString()
+				+ WorkspaceUtil.PATH_SEPERATOR
+				+ SOAProjectConstants.FOLDER_GEN_META_SRC);
+		genTypeServiceFromWsdlIntf.setNonXSDFormats(model.getNonXSDFormats());
 
 		return genTypeServiceFromWsdlIntf;
 	}
@@ -160,13 +167,14 @@ public class ModelTransformer {
 				.getActiveRepositorySystem().getSOACodegenProvider()
 				.getGenFolderForImpl();
 		genTypeServiceFromWsdlImpl.setGenFolder(project.getLocation()
-				.toString()
-				+ WorkspaceUtil.PATH_SEPERATOR + genFolder);
+				.toString() + WorkspaceUtil.PATH_SEPERATOR + genFolder);
 		final ISOAConfigurationRegistry config = GlobalRepositorySystem
 				.instanceOf().getActiveRepositorySystem()
 				.getConfigurationRegistry();
 		genTypeServiceFromWsdlImpl.setServiceConfigGroup(config
 				.getServiceConfigGroup());
+		genTypeServiceFromWsdlImpl.setUseExternalServiceFactory(model
+				.useExternalServiceFactory());
 		return genTypeServiceFromWsdlImpl;
 	}
 
@@ -235,7 +243,7 @@ public class ModelTransformer {
 			genTypeConsumer.setServiceLocation(serviceData
 					.get(BaseCodeGenModel.PARAM_SL));
 		}
-		genTypeConsumer.setRequiredServices(model
+		genTypeConsumer.setRequiredServices(((ConsumerCodeGenModel) model)
 				.getRequiredServices());
 		return genTypeConsumer;
 	}
@@ -269,20 +277,21 @@ public class ModelTransformer {
 	}
 
 	/**
-	 * Wrapper on the.
-	 *
-	 * @param model the model
-	 * @param project the project
-	 * @return the gen type si skeleton
-	 * @see {@link ModelTransformer}
-	 * {@link #transformToGenTypeSISkelton(BaseCodeGenModel, IProject)}
+	 * Wrapper on the
 	 * 
-	 * method, additionally it has the overwrite implementation class flag
-	 * set to true. Setting it to true will over write the implementation
-	 * java class. The reason for having an additional flag is because
-	 * there is a high chance that there might be some additional business
-	 * logic added to the implementation class and for the same reason we
-	 * don't want to overwrite it without a confirmation.
+	 * @see {@link ModelTransformer}
+	 *      {@link #transformToGenTypeSISkelton(BaseCodeGenModel, IProject)}
+	 * 
+	 *      method, additionally it has the overwrite implementation class flag
+	 *      set to true. Setting it to true will over write the implementation
+	 *      java class. The reason for having an additional flag is because
+	 *      there is a high chance that there might be some additional business
+	 *      logic added to the implementation class and for the same reason we
+	 *      don't want to overwrite it without a confirmation.
+	 * 
+	 * @param model
+	 * @param project
+	 * @return
 	 */
 	public static GenTypeSISkeleton transformToGenTypeSISkeltonOverwriteImplClass(
 			BaseCodeGenModel model, IProject project) {
@@ -454,16 +463,18 @@ public class ModelTransformer {
 	 * base model data. Meaning the rest of the data is inferred from the both
 	 * of them. This is not generated in all the projects, but is generated on
 	 * demand. Additional SOA Tools bug fixes are added here.
-	 *
-	 * @param model - The base model has the general information from a project
-	 * already parsed and fed into
-	 * @param project - the project will be again used to get the rest of the
-	 * codegen parameter values.
-	 * @return the gen type service config
-	 * @throws WSDLException the wSDL exception
+	 * 
+	 * @param model
+	 *            - The base model has the general information from a project
+	 *            already parsed and fed into
+	 * @param project
+	 *            - the project will be again used to get the rest of the
+	 *            codegen parameter values.
+	 * @return
+	 * @throws WSDLException
 	 */
 	public static GenTypeServiceConfig transformToGenTypeServiceConfig(
-			BaseCodeGenModel model, IProject project) throws WSDLException {
+			BaseCodeGenModel model, IProject project) throws Exception {
 		GenTypeServiceConfig genTypeServiceConfig = new GenTypeServiceConfig();
 		genTypeServiceConfig.setNamespace(model.getNamespace());
 		genTypeServiceConfig.setServiceInterface(model.getServiceInterface());
@@ -471,11 +482,12 @@ public class ModelTransformer {
 		genTypeServiceConfig.setServiceVersion(model.getServiceVersion());
 		genTypeServiceConfig.setServiceImplClassName(model
 				.getServiceImplClassName());
-		genTypeServiceConfig.setOutputDirectory(project.getFolder(
-				SOAProjectConstants.CODEGEN_FOLDER_OUTPUT_DIR).getLocation()
+		genTypeServiceConfig.setOutputDirectory(project
+				.getFolder(SOAProjectConstants.CODEGEN_FOLDER_OUTPUT_DIR)
+				.getLocation().toString());
+		genTypeServiceConfig.setSourceDirectory(project
+				.getFolder(SOAProjectConstants.FOLDER_SRC).getLocation()
 				.toString());
-		genTypeServiceConfig.setSourceDirectory(project.getFolder(
-				SOAProjectConstants.FOLDER_SRC).getLocation().toString());
 		genTypeServiceConfig.setDestination(project.getLocation().toString());
 		genTypeServiceConfig.setMetadataDirectory(project.getLocation()
 				.toString()
@@ -486,9 +498,24 @@ public class ModelTransformer {
 				.getConfigurationRegistry();
 		genTypeServiceConfig.setServiceConfigGroup(config
 				.getServiceConfigGroup());
+
+		// get the useExternalServiceFactory property value and set it to gen
+		// model.
+		IFile svcImplProperties = SOAImplUtil
+				.getServiceImplPropertiesFile(project);
+		if (svcImplProperties.isAccessible() == true) {
+			String useExternalFac = PropertiesFileUtil.getPropertyValueByKey(
+					svcImplProperties.getContents(),
+					SOAProjectConstants.PROPS_KEY_USE_EXTERNAL_SERVICE_FACTORY);
+			genTypeServiceConfig.setUseExternalServiceFactory(Boolean
+					.valueOf(useExternalFac));
+
+		}
+
+		genTypeServiceConfig.setProjectRoot(model.getProjectRoot());
+
 		return genTypeServiceConfig;
 	}
-
 
 	/**
 	 * This is frequently used to generate the type mappings file. User can use
@@ -500,13 +527,16 @@ public class ModelTransformer {
 	 * base model data. Meaning the rest of the data is inferred from the both
 	 * of them. This is not generated in all the projects, but is generated on
 	 * demand. Additional SOA Tools bug fixes are added here.
-	 *
-	 * @param model the model
-	 * @param project the project
-	 * @return the gen type type mappings
-	 * @throws WSDLException the wSDL exception
+	 * 
+	 * @param model
+	 *            - The base model has the general information from a project
+	 *            already parsed and fed into
+	 * @param project
+	 *            - the project will be again used to get the rest of the
+	 *            codegen parameter values.
+	 * @return
+	 * @throws WSDLException
 	 */
-
 	public static GenTypeTypeMappings transformToGenTypeTypeMappings(
 			BaseCodeGenModel model, IProject project) throws WSDLException {
 		GenTypeTypeMappings genTypeTypeMappings = new GenTypeTypeMappings();

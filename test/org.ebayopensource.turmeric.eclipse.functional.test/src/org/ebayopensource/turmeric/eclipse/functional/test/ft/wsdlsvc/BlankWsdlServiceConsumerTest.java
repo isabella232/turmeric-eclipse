@@ -11,11 +11,11 @@
  */
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeNoException;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.*;
+import static org.junit.Assume.*;
 
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;

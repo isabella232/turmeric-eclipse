@@ -372,6 +372,11 @@ public class SOAServiceUtil {
 				intfMetadata.setServiceLayer(StringUtils.trim(properties.getProperty(
 						SOAProjectConstants.PROP_KEY_SERVICE_LAYER)));
 			}
+			
+			if(properties.containsKey(SOAProjectConstants.PROP_KEY_NON_XSD_FORMATS)) {
+				intfMetadata.setServiceNonXSDProtocols(StringUtils.trim(properties.getProperty(
+						SOAProjectConstants.PROP_KEY_NON_XSD_FORMATS)));
+			}
 
 			final String strTypeFolding = StringUtils.trim(properties
 					.getProperty(SOAProjectConstants.PROPS_KEY_TYPE_FOLDING));
@@ -383,7 +388,6 @@ public class SOAServiceUtil {
 			if (StringUtils.isNotBlank(domainName)) {
 				intfMetadata.setServiceDomainName(domainName);
 			}
-
 			final String nsPart = StringUtils.trim(properties
 					.getProperty(SOAProjectConstants.PROPS_SERVICE_NAMESPACE_PART));
 
@@ -453,21 +457,10 @@ public class SOAServiceUtil {
 		try {
 			io = file.getContents();
 			properties.load(io);
-			/*
-			 * final boolean includeTestJSP = Boolean.valueOf(properties
-			 * .getProperty(SOAProjectConstants.PROPS_IMPL_INCLUDE_TEST_JSP,
-			 * Boolean.FALSE.toString())); final boolean includeVIPage = Boolean
-			 * .valueOf(properties.getProperty(SOAProjectConstants.PROPS_IMPL_INLCUDE_VALIDATE_INTERNAL_SERVLET,
-			 * Boolean.FALSE.toString()));
-			 */
 			final String baseConsumerDir = StringUtils.trim(properties
 					.getProperty(SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR));
 			implMetadata = SOAImplMetadata.create(project.getName(),
 					baseConsumerDir);
-			/*
-			 * implMetadata = SOAImplMetadata.create(metadata .getProjectName(),
-			 * includeTestJSP, includeVIPage, baseConsumerDir);
-			 */
 		} finally {
 			IOUtils.closeQuietly(io);
 		}
@@ -527,8 +520,9 @@ public class SOAServiceUtil {
 			IOUtils.closeQuietly(input);
 		}
 
-		final String baseConsumerDir = StringUtils.trim(properties
+		String baseConsumerDir = StringUtils.trim(properties
 				.getProperty(SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR));
+		
 		SOAConsumerMetadata consumerMetadata = SOAConsumerMetadata.create(
 				project.getName(), baseConsumerDir);
 		final String envMapper = StringUtils.trim(properties.getProperty(
@@ -542,6 +536,9 @@ public class SOAServiceUtil {
 				SOAProjectConstants.PROPS_KEY_CONSUMER_ID, null);
 		consumerMetadata.setClientName(clientName);
 		consumerMetadata.setConsumerId(consumerId);
+		consumerMetadata.setZeroConfig(Boolean.valueOf(StringUtils.trim(
+				properties.getProperty(SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG, 
+					Boolean.FALSE.toString()))));
 		
 		if (SOALogger.DEBUG)
 			logger.exiting(consumerMetadata);
@@ -693,35 +690,13 @@ public class SOAServiceUtil {
 	
 	/**
 	 * Get the major version of the given service version.
-	 *
-	 * @param version the version
-	 * @return the service major version
+	 * @param version
+	 * @return
 	 */
 	public static String getServiceMajorVersion(String version) {
 		if (StringUtils.isBlank(version))
-			return "";
+			return "1";
 		return StringUtils.substringBefore(version, ".");
 	}
-
-	/*
-	 * public static String getTargetNamespace(final ISOAProject soaProject)
-	 * throws WSDLException { String nameSpace =
-	 * SOAProjectConstants.DEFAULT_SERVICE_NAMESPACE; if (soaProject instanceof
-	 * SOAIntfProject) { final SOAIntfMetadata intfMetadata =
-	 * ((SOAIntfProject)soaProject).getMetadata(); if
-	 * (InterfaceSourceType.WSDL.equals(intfMetadata.getWsdlSourceType()) &&
-	 * intfMetadata.getWsdl() != null) { return
-	 * intfMetadata.getWsdl().getTargetNamespace(); } } else if (soaProject
-	 * instanceof SOAImplProject) { final SOAImplMetadata implMetadata =
-	 * ((SOAImplProject)soaProject).getMetadata(); if
-	 * (StringUtils.isNotBlank(implMetadata.getTargetNamespace())) { //the
-	 * targetNamespace already been read from the service config file return
-	 * implMetadata.getTargetNamespace(); } final SOAIntfMetadata intfMetadata =
-	 * ((SOAImplProject)soaProject).getMetadata().getIntfMetadata(); if
-	 * (InterfaceSourceType.WSDL.equals(intfMetadata.getWsdlSourceType()) &&
-	 * intfMetadata.getWsdl() != null) { return
-	 * intfMetadata.getWsdl().getTargetNamespace(); } } else if (soaProject
-	 * instanceof SOAConsumerProject) { } return nameSpace; }
-	 */
 
 }

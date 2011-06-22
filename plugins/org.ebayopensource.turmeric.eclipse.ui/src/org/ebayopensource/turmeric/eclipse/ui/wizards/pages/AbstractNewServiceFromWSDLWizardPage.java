@@ -25,6 +25,7 @@ import javax.wsdl.Service;
 import javax.wsdl.WSDLException;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
@@ -96,6 +97,9 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 	
 	/** The wsdl. */
 	protected Definition wsdl;
+	
+	/** The service location. */
+	protected String serviceLocation = null;
 
 	/**
 	 * Instantiates a new abstract new service from wsdl wizard page.
@@ -363,23 +367,25 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		final GridData gridData = new GridData(GridData.FILL_BOTH);
 		gridData.horizontalSpan = ((GridLayout) parent.getLayout()).numColumns;
 		table.setLayoutData(gridData);
+		gridData.heightHint =50;
 
 		final TableLayout layout = new TableLayout();
 		layout.addColumnData(new ColumnWeightData(50, 75, true));
 		layout.addColumnData(new ColumnWeightData(50, 75, true));
 		table.setLayout(layout);
 
-		TableColumn column = new TableColumn(table, SWT.LEFT);
-		column.setText("Namespace");
-		column.setImage(UIActivator.getImageFromRegistry("element.gif"));
+		{// columns
+			TableColumn column = new TableColumn(table, SWT.LEFT);
+			column.setText("Namespace");
+			column.setImage(UIActivator.getImageFromRegistry("element.gif"));
 
-		column = new TableColumn(table, SWT.LEFT);
-		column.setText("Package Name");
-		column.setImage(UIActivator.getImageFromRegistry("package.gif"));
+			column = new TableColumn(table, SWT.LEFT);
+			column.setText("Package Name");
+			column.setImage(UIActivator.getImageFromRegistry("package.gif"));
+		}
 
 		ns2pkgViewer.setContentProvider(new IStructuredContentProvider() {
 
-			@Override
 			public Object[] getElements(Object inputElement) {
 				final Set<NamespaceToPackageModel> result = new LinkedHashSet<NamespaceToPackageModel>();
 				if (inputElement instanceof Definition) {
@@ -583,6 +589,7 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 				wsdlURLText.setText(wsdlURL);
 			this.ns2pkgViewer.setInput(definition);
 			wsdlChanged(definition);
+			serviceLocation = WSDLUtil.getServiceLocationFromWSDL(definition);
 		} catch (final WSDLException wsdlE) {
 			this.wsdl = oldWsdl;
 			getContainer().showPage(this);
@@ -798,7 +805,15 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 	 * @return the target namespace
 	 */
 	public String getTargetNamespace() {
-		return getTextValue(namespaceText);
+		String result = getTextValue(namespaceText);
+		if (StringUtils.isBlank(result) && wsdl != null) {
+			try {
+				return WSDLUtil.getTargetNamespace(wsdl);
+			} catch (WSDLException e) {
+				SOALogger.getLogger().error(e);
+			}
+		}
+		return result;
 	}
 	
 	/**
@@ -809,6 +824,7 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 	public Text getTargetNamespaceText() {
 		return namespaceText;
 	}
+
 	
 	/**
 	 * Sets the target namespace.
@@ -850,5 +866,11 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 	 */
 	public abstract void wsdlChanged(final Definition wsdl);
 	
-	
+	public String getServiceLocation() {
+		return serviceLocation;
+	}
+
+	public void setServiceLocation(String serviceLocation) {
+		this.serviceLocation = serviceLocation;
+	}
 }

@@ -139,7 +139,6 @@ public class ComplexTypeWizardElementPage extends
 	/**
 	 * Element Table Model.
 	 */
-
 	public static class ElementTableModel implements IParameterElement {
 
 		private String elementName;

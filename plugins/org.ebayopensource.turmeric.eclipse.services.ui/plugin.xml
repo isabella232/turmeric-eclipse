@@ -231,7 +231,7 @@
                   id="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateGlobalServiceConfig"
                   label="%Menu.GenerateGlobalServiceConfig.Label"
                   menubarPath="soaMenu/impl"/>
-                                 
+           
             <visibility>
                <objectState
                      name="nature"
@@ -248,7 +248,7 @@
             	id="soaMenu"
               	label="%Menu.Group.SOA.Label">
           		<separator name="consumer"/>          	
-        	</menu>        	
+        	</menu>
             <action
                   class="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateGlobalClientConfig"
                   enablesFor="1"
@@ -263,13 +263,21 @@
                   id="org.ebayopensource.turmeric.eclipse.services.ui.actions.ConsumeNewService"
                   label="%Menu.SetUpConsumerConfigurations.Label"
                   menubarPath="soaMenu/consumer"/>
-   <action
-         class="org.ebayopensource.turmeric.eclipse.services.ui.actions.ConsumeServiceFromWSDL"
-         helpContextId="%helpIdSOATutorial"
-         id="org.ebayopensource.turmeric.eclipse.services.consumeServiceFromWSDL"
-         label="%Menu.ConsumeNewServicesFromWSDL.Label"
-         menubarPath="soaMenu/consumer">
-   </action>
+		   <action
+		         class="org.ebayopensource.turmeric.eclipse.services.ui.actions.ConsumeServiceFromWSDL"
+		         helpContextId="%helpIdSOATutorial"
+		         id="org.ebayopensource.turmeric.eclipse.services.consumeServiceFromWSDL"
+		         label="%Menu.ConsumeNewServicesFromWSDL.Label"
+		         menubarPath="soaMenu/consumer">
+		   </action>
+   
+   			<action
+                  class="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateConfigs"
+                  enablesFor="1"
+                  helpContextId="%helpIdSOATutorial"
+                  id="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateConfigs"
+                  label="%Menu.GenerateConfigs.Label"
+                  menubarPath="soaMenu/consumer"/>
             <visibility>
             	<or>
 	               <objectState

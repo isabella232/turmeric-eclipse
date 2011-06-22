@@ -99,12 +99,14 @@ public class ServiceCreator {
 			final IProgressMonitor monitor) throws Exception {
 		SOAIntfProject intfProject = InterfaceCreator
 				.createIntfModelFromExistingWsdl(paramModel, monitor);
-
-		SOAConsumerProject consumerProject = ConsumerCreator
-				.createConsumerModelFromExistingWsdl(paramModel, intfProject,
-						monitor);
+		
 		InterfaceCreator
 				.createIntfProjectFromExistingWsdl(intfProject, monitor);
+		
+		//skip the consumer creation for simple mode
+		SOAConsumerProject consumerProject = ConsumerCreator
+		.createConsumerModelFromExistingWsdl(paramModel, intfProject,
+				monitor);
 
 		ConsumerCreator.createConsumerProjectFromExistingWsdl(consumerProject,
 				intfProject, monitor);

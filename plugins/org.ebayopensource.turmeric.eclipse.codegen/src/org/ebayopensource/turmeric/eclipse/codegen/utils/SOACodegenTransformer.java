@@ -22,13 +22,14 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOACodegenTransformer;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
+import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientEnvironment;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
-import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientEnvironment;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
+import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.eclipse.core.resources.IFile;
@@ -100,6 +101,20 @@ public class SOACodegenTransformer implements ISOACodegenTransformer {
 								.createErrorStatus("Can not load metadata for service->"
 										+ serviceName));
 			transform(model, intfMetadata, monitor);
+
+			// get the useExternalServiceFactory property value and set it to gen model.
+			IFile svcImplProperties = SOAImplUtil
+					.getServiceImplPropertiesFile(project);
+			if (svcImplProperties.isAccessible() == true) {
+				String useExternalFac = PropertiesFileUtil
+						.getPropertyValueByKey(
+								svcImplProperties.getContents(),
+								SOAProjectConstants.PROPS_KEY_USE_EXTERNAL_SERVICE_FACTORY);
+				model.setUseExternalServiceFactory(Boolean
+						.valueOf(useExternalFac));
+
+			}
+
 			model.setServiceImplClassName(implMetadata
 					.getServiceImplClassName());
 		}
@@ -181,6 +196,7 @@ public class SOACodegenTransformer implements ISOACodegenTransformer {
 		model.setServiceInterface(intfMetadata.getServiceInterface());
 		model.setNamespace(intfMetadata.getTargetNamespace());
 		model.setServiceLayer(intfMetadata.getServiceLayer());
+		model.setNonXSDFormats(intfMetadata.getServiceNonXSDProtocols());
 		if (intfMetadata.getOriginalWSDLUrl() != null)
 			model.setOriginalWsdlUrl(intfMetadata.getOriginalWSDLUrl()
 					.toString());

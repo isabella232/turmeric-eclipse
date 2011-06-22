@@ -159,109 +159,12 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 					.getTypeLibraryName());
 	}
 	
-	/**
-	 * Creates the xsd element declaration.
-	 *
-	 * @param strName the str name
-	 * @param strType the str type
-	 * @param minOccurs the min occurs
-	 * @param maxOccurs the max occurs
-	 * @return the xSD particle
-	 */
-	public static XSDParticle createXSDElementDeclaration(String strName,
-			String strType, int minOccurs, int maxOccurs) {
-
-		XSDSimpleTypeDefinition type = XSDFactory.eINSTANCE
-				.createXSDSimpleTypeDefinition();
-		type.setName(strType);
-		XSDElementDeclaration element = XSDFactory.eINSTANCE
-				.createXSDElementDeclaration();
-
-		element.setName(StringUtils.defaultString(strName)); 
-		element.setTypeDefinition(type);
-
-		XSDParticle particle = XSDFactory.eINSTANCE.createXSDParticle();
-		particle.setContent(element);
-		// -2 means no Occurs attribute
-		if (minOccurs != NO_OCCURS) {
-			particle.setMinOccurs(minOccurs);
-		}
-		if (maxOccurs != NO_OCCURS) {
-			particle.setMaxOccurs(maxOccurs);
-		}
-
-		return particle;
-	}
-	
 	/** The Constant NO_OCCURS. */
 	public static final int NO_OCCURS = -2;
 	
 	/** The Constant UNBOUND. */
 	public static final int UNBOUND= -1;
 	
-	/**
-	 * Gets the prefix.
-	 *
-	 * @param schema the schema
-	 * @param nameSpace the name space
-	 * @return the prefix
-	 */
-	public static String getPrefix(XSDSchema schema, String nameSpace) {		
-		Map<String, String> qNamesMap = schema.getQNamePrefixToNamespaceMap();
-		if (qNamesMap.containsValue(nameSpace)) {
-			for (Entry<String, String> entry : qNamesMap.entrySet()) {
-				if (StringUtils.equals(entry.getValue(), nameSpace)) {
-					return entry.getKey() + SOATypeLibraryConstants.COLON;
-				}
-			}
-		}
-
-		int prefixInt = 0;
-		while (true) {
-			prefixInt++;
-			if (!qNamesMap
-					.containsKey(SOATypeLibraryConstants.DEFAULT_TNS_PREFIX
-							+ prefixInt))
-				break;
-		}
-		String prefix = SOATypeLibraryConstants.DEFAULT_TNS_PREFIX + prefixInt;
-		qNamesMap.put(prefix, nameSpace);
-		return prefix + SOATypeLibraryConstants.COLON;
-	}
-	
-	/**
-	 * Gets the model group.
-	 *
-	 * @param cType the c type
-	 * @return the model group
-	 */
-	public static XSDModelGroup getModelGroup(XSDComplexTypeDefinition cType) {
-		XSDParticle particle = null;
-		XSDComplexTypeContent xsdComplexTypeContent = cType.getContent();
-		if (xsdComplexTypeContent instanceof XSDParticle) {
-			particle = (XSDParticle) xsdComplexTypeContent;
-		}
-
-		if (particle == null) {
-			return null;
-		}
-
-		Object particleContent = particle.getContent();
-		XSDModelGroup group = null;
-
-		if (particleContent instanceof XSDModelGroupDefinition) {
-			group = ((XSDModelGroupDefinition) particleContent)
-					.getResolvedModelGroupDefinition().getModelGroup();
-		} else if (particleContent instanceof XSDModelGroup) {
-			group = (XSDModelGroup) particleContent;
-		}
-
-		if (group == null) {
-			return null;
-		}
-
-		return group;
-	}
 	
 	/**
 	 * Adds the attribute declarations.
@@ -309,26 +212,115 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		addDocumentation(attr.getAttributeDeclaration(), attrDoc);
 
 	}
+	
 
-	private static XSDAttributeUse createXSDAttrDeclaration(String strName,
-			String strType) {
-
-		XSDSimpleTypeDefinition type = XSDFactory.eINSTANCE
-				.createXSDSimpleTypeDefinition();
-		type.setName(strType);
-		XSDAttributeDeclaration attribute = XSDFactory.eINSTANCE
-				.createXSDAttributeDeclaration();
-
-		attribute.setName(StringUtils.defaultString(strName)); 
-		attribute.setTypeDefinition(type);
-
-		XSDAttributeUse attributeUse = XSDFactory.eINSTANCE
-				.createXSDAttributeUse();
-		attributeUse.setAttributeDeclaration(attribute);
-		attributeUse.setContent(attribute);
-		return attributeUse;
+	/**
+	 * Format contents.
+	 *
+	 * @param contents the contents
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
+	public static String formatContents(String contents) throws IOException,
+			CoreException {
+		FormatProcessorXML formatProcessor = new FormatProcessorXML();
+		return formatProcessor.formatContent(contents);
 	}
 	
+	private static void addImport(LibraryType importType,
+			XSDTypeDefinition typeDefinition, String typeName, String version,
+			String typeLibraryName) throws CommandFailedException {
+		try {
+			XSDSchema importSchema = TypeLibraryUtil
+					.parseSchema(TypeLibraryUtil
+							.getXSD(SOAGlobalRegistryAdapter.getInstance()
+									.getGlobalRegistry()
+									.getType(
+											TypeLibraryUtil.toQName(importType))));
+			AddImportCommand addImportCommand = new AddImportCommand(
+					typeDefinition.getSchema(), TypeLibraryUtil
+							.getProtocolString(importType),
+					importSchema);
+			addImportCommand.run();
+
+			TypeLibraryType typeLibInfo = SOAGlobalRegistryAdapter.getInstance()
+					.getGlobalRegistry().getTypeLibrary(typeLibraryName);
+			LibraryType libraryType = TypeLibraryUtil.getLibraryType(typeName,
+					version, typeLibInfo);
+
+			SOAGlobalRegistryAdapter.getInstance().addTypeToRegistry(libraryType);
+			IProject project = WorkspaceUtil.getProject(typeLibraryName);
+			SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
+			synch.syncronizeXSDandDepXml(typeDefinition.getSchema(), TypeLibraryUtil.toQName(libraryType));
+			synch.synchronizeTypeDepandProjectDep(ProgressUtil.getDefaultMonitor(null));
+		} catch (Exception e) {
+			throw new CommandFailedException(e);
+		}
+	}
+
+	/**
+	 * Gets the image from registry.
+	 *
+	 * @param path the path
+	 * @return the image from registry
+	 */
+	public static ImageDescriptor getImageFromRegistry(String path) {
+		if (path == null)
+			return null;
+		path = StringUtils.replaceChars(path, '\\', '/');
+		final String iconPath = path.startsWith(ICON_PATH) ? path : ICON_PATH
+				+ path;
+
+		ImageDescriptor image = getDefault().getImageRegistry().getDescriptor(
+				iconPath);
+		if (image == null) {
+
+			final ImageDescriptor descriptor = imageDescriptorFromPlugin(
+					PLUGIN_ID, iconPath);
+			if (descriptor != null) {
+				getDefault().getImageRegistry().put(iconPath, descriptor);
+				image = getDefault().getImageRegistry().getDescriptor(iconPath);
+			}
+		}
+		return image;
+	}
+
+	/**
+	 * Gets the image descriptor.
+	 *
+	 * @param path the path
+	 * @return the image descriptor
+	 */
+	public static ImageDescriptor getImageDescriptor(final String path) {
+		ImageDescriptor descriptor = imageDescriptorFromPlugin(PLUGIN_ID, path);
+		return descriptor;
+	}
+	
+	/**
+	 * Format child.
+	 *
+	 * @param child the child
+	 */
+	public static void formatChild(Element child) {
+		if (child instanceof IDOMNode) {
+			IDOMModel model = ((IDOMNode) child).getModel();
+			try {
+				model.aboutToChangeModel();
+				IStructuredFormatProcessor formatProcessor = new FormatProcessorXML();
+				formatProcessor.formatNode(child);
+			} finally {
+				model.changedModel();
+			}
+		}
+	}
+
+	public static String formatContents(String contents) throws IOException,
+			CoreException {
+		FormatProcessorXML formatProcessor = new FormatProcessorXML();
+		return formatProcessor.formatContent(contents);
+	}
+
 	/**
 	 * Adds the documentation.
 	 *
@@ -392,70 +384,198 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		}
 		formatChild(xsdAnnotation.getElement());
 	}
-	
+
 	/**
-	 * Format child.
+	 * Gets the model group.
 	 *
-	 * @param child the child
+	 * @param cType the c type
+	 * @return the model group
 	 */
-	public static void formatChild(Element child) {
-		if (child instanceof IDOMNode) {
-			IDOMModel model = ((IDOMNode) child).getModel();
-			try {
-				model.aboutToChangeModel();
-				IStructuredFormatProcessor formatProcessor = new FormatProcessorXML();
-				formatProcessor.formatNode(child);
-			} finally {
-				model.changedModel();
+	public static XSDModelGroup getModelGroup(XSDComplexTypeDefinition cType) {
+		XSDParticle particle = null;
+		XSDComplexTypeContent xsdComplexTypeContent = cType.getContent();
+		if (xsdComplexTypeContent instanceof XSDParticle) {
+			particle = (XSDParticle) xsdComplexTypeContent;
+		}
+
+		if (particle == null) {
+			return null;
+		}
+
+		Object particleContent = particle.getContent();
+		XSDModelGroup group = null;
+
+		if (particleContent instanceof XSDModelGroupDefinition) {
+			group = ((XSDModelGroupDefinition) particleContent)
+					.getResolvedModelGroupDefinition().getModelGroup();
+		} else if (particleContent instanceof XSDModelGroup) {
+			group = (XSDModelGroup) particleContent;
+		}
+
+		if (group == null) {
+			return null;
+		}
+
+		return group;
+	}
+
+	public static void addElementDeclaration(
+			XSDComplexTypeDefinition complexTypeDefinition,
+			ComplexTypeParamModel model, String elementName,
+			Object elementType, int minOccurs, int maxOccurs)
+			throws CommandFailedException {
+		String prefixedElementType = "";
+		boolean isPrimitive = true;
+		try {
+			if (elementType instanceof String) {
+				prefixedElementType = getPrefix(complexTypeDefinition
+						.getSchema(), SOATypeLibraryConstants.W3C_NAMEPSACE)
+						+ elementType;
+			} else {
+				isPrimitive = false;
+				LibraryType libElementType = (LibraryType) elementType;
+				prefixedElementType = getPrefix(complexTypeDefinition
+						.getSchema(), TypeLibraryUtil
+						.getNameSpace(libElementType))
+						+ libElementType.getName();
+			}
+		} catch (Exception e) {
+			throw new CommandFailedException(
+					"Could not get the name space for the type "
+							+ elementType
+							+ " from the registry. Please fix this issue and try again.");
+		}
+		XSDParticle xsdParticle = createXSDElementDeclaration(elementName,
+				prefixedElementType, minOccurs, maxOccurs);
+		XSDModelGroup xsdModelGroup = getModelGroup(complexTypeDefinition);
+		xsdModelGroup.getContents().add(0, xsdParticle);
+		if (!isPrimitive)
+			addImport((LibraryType) elementType, complexTypeDefinition, model
+					.getTypeName(), model.getVersion(), model
+					.getTypeLibraryName());
+	}
+
+	public static void addAttributeDeclarations(
+			XSDComplexTypeDefinition complexTypeDefinition,
+			ComplexTypeSCParamModel model, String attrName, Object attrType,
+			String attrDoc) throws CommandFailedException {
+		String prefixedAttrType = "";
+		boolean isPrimitive = true;
+		try {
+			if (attrType instanceof String) {// this is a primitive type
+				prefixedAttrType = getPrefix(complexTypeDefinition.getSchema(),
+						SOATypeLibraryConstants.W3C_NAMEPSACE)
+						+ attrType;
+			} else {// this is a library Type
+				isPrimitive = false;
+				LibraryType libAttrType = (LibraryType) attrType;
+
+				prefixedAttrType = getPrefix(complexTypeDefinition.getSchema(),
+						TypeLibraryUtil.getNameSpace(libAttrType))
+						+ libAttrType.getName();
+
+			}
+		} catch (Exception e) {
+			throw new CommandFailedException(
+					"Could not get the name space for the type "
+							+ attrType
+							+ " from the registry. Please fix this issue and try again.");
+		}
+		XSDAttributeUse attr = createXSDAttrDeclaration(attrName,
+				prefixedAttrType);
+		complexTypeDefinition.getAttributeContents().add(attr);
+		if (!isPrimitive)
+			addImport((LibraryType) attrType, complexTypeDefinition, model
+					.getTypeName(), model.getVersion(), model
+					.getTypeLibraryName());
+		addDocumentation(attr.getAttributeDeclaration(), attrDoc);
+
+	}
+
+	/**
+	 * Gets the prefix.
+	 *
+	 * @param schema the schema
+	 * @param nameSpace the name space
+	 * @return the prefix
+	 */
+	public static String getPrefix(XSDSchema schema, String nameSpace) {		
+		Map<String, String> qNamesMap = schema.getQNamePrefixToNamespaceMap();
+		
+		if (qNamesMap.containsValue(nameSpace)) {
+			for (Entry<String, String> entry : qNamesMap.entrySet()) {
+				if (StringUtils.equals(entry.getValue(), nameSpace)) {
+					return entry.getKey() + SOATypeLibraryConstants.COLON;
+				}
 			}
 		}
+
+		int prefixInt = 0;
+		while (true) {
+			prefixInt++;
+			if (!qNamesMap
+					.containsKey(SOATypeLibraryConstants.DEFAULT_TNS_PREFIX
+							+ prefixInt))
+				break;
+		}
+		String prefix = SOATypeLibraryConstants.DEFAULT_TNS_PREFIX + prefixInt;
+		qNamesMap.put(prefix, nameSpace);
+		return prefix + SOATypeLibraryConstants.COLON;
 	}
 
 	/**
-	 * Format contents.
+	 * Creates the xsd element declaration.
 	 *
-	 * @param contents the contents
-	 * @return the string
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws CoreException the core exception
+	 * @param strName the str name
+	 * @param strType the str type
+	 * @param minOccurs the min occurs
+	 * @param maxOccurs the max occurs
+	 * @return the xSD particle
 	 */
-	public static String formatContents(String contents) throws IOException,
-			CoreException {
-		FormatProcessorXML formatProcessor = new FormatProcessorXML();
-		return formatProcessor.formatContent(contents);
-	}
-	
-	private static void addImport(LibraryType importType,
-			XSDTypeDefinition typeDefinition, String typeName, String version,
-			String typeLibraryName) throws CommandFailedException {
-		try {
-			XSDSchema importSchema = TypeLibraryUtil
-					.parseSchema(TypeLibraryUtil
-							.getXSD(SOAGlobalRegistryAdapter.getInstance()
-									.getGlobalRegistry()
-									.getType(
-											TypeLibraryUtil.toQName(importType))));
-			AddImportCommand addImportCommand = new AddImportCommand(
-					typeDefinition.getSchema(), TypeLibraryUtil
-							.getProtocolString(importType),
-					importSchema);
-			addImportCommand.run();
+	public static XSDParticle createXSDElementDeclaration(String strName,
+			String strType, int minOccurs, int maxOccurs) {
 
-			TypeLibraryType typeLibInfo = SOAGlobalRegistryAdapter.getInstance()
-					.getGlobalRegistry().getTypeLibrary(typeLibraryName);
-			LibraryType libraryType = TypeLibraryUtil.getLibraryType(typeName,
-					version, typeLibInfo);
+		XSDSimpleTypeDefinition type = XSDFactory.eINSTANCE
+				.createXSDSimpleTypeDefinition();
+		type.setName(strType);
+		XSDElementDeclaration element = XSDFactory.eINSTANCE
+				.createXSDElementDeclaration();
 
-			SOAGlobalRegistryAdapter.getInstance().addTypeToRegistry(libraryType);
-			IProject project = WorkspaceUtil.getProject(typeLibraryName);
-			SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
-			synch.syncronizeXSDandDepXml(typeDefinition.getSchema(), TypeLibraryUtil.toQName(libraryType));
-			synch.synchronizeTypeDepandProjectDep(ProgressUtil.getDefaultMonitor(null));
-		} catch (Exception e) {
-			throw new CommandFailedException(e);
+		element.setName(StringUtils.defaultString(strName)); //$NON-NLS-1$
+		element.setTypeDefinition(type);
+
+		XSDParticle particle = XSDFactory.eINSTANCE.createXSDParticle();
+		particle.setContent(element);
+		// -2 means no Occurs attribute
+		if (minOccurs != NO_OCCURS) {
+			particle.setMinOccurs(minOccurs);
 		}
+		if (maxOccurs != NO_OCCURS) {
+			particle.setMaxOccurs(maxOccurs);
+		}
+
+		return particle;
 	}
-	
+
+	private static XSDAttributeUse createXSDAttrDeclaration(String strName,
+			String strType) {
+
+		XSDSimpleTypeDefinition type = XSDFactory.eINSTANCE
+				.createXSDSimpleTypeDefinition();
+		type.setName(strType);
+		XSDAttributeDeclaration attribute = XSDFactory.eINSTANCE
+				.createXSDAttributeDeclaration();
+
+		attribute.setName(StringUtils.defaultString(strName)); //$NON-NLS-1$
+		attribute.setTypeDefinition(type);
+
+		XSDAttributeUse attributeUse = XSDFactory.eINSTANCE
+				.createXSDAttributeUse();
+		attributeUse.setAttributeDeclaration(attribute);
+		attributeUse.setContent(attribute);
+		return attributeUse;
+	}
+
 	/**
 	 * Sets the base type for complex types.
 	 *
@@ -502,44 +622,65 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		}
 
 	}
-	
 
-	/**
-	 * Gets the image from registry.
-	 *
-	 * @param path the path
-	 * @return the image from registry
-	 */
-	public static ImageDescriptor getImageFromRegistry(String path) {
-		if (path == null)
-			return null;
-		path = StringUtils.replaceChars(path, '\\', '/');
-		final String iconPath = path.startsWith(ICON_PATH) ? path : ICON_PATH
-				+ path;
+	private static void addImport(LibraryType importType,
+			XSDTypeDefinition typeDefinition, String typeName, String version,
+			String typeLibraryName) throws CommandFailedException {
+		try {
+			XSDSchema importSchema = TypeLibraryUtil
+					.parseSchema(TypeLibraryUtil
+							.getXSD(SOAGlobalRegistryAdapter.getInstance()
+									.getGlobalRegistry()
+									.getType(
+											TypeLibraryUtil.toQName(importType))));
+			AddImportCommand addImportCommand = new AddImportCommand(
+					typeDefinition.getSchema(), TypeLibraryUtil
+							.getProtocolString(importType),
+					importSchema);
+			addImportCommand.run();
 
-		ImageDescriptor image = getDefault().getImageRegistry().getDescriptor(
-				iconPath);
-		if (image == null) {
-
-			final ImageDescriptor descriptor = imageDescriptorFromPlugin(
-					PLUGIN_ID, iconPath);
-			if (descriptor != null) {
-				getDefault().getImageRegistry().put(iconPath, descriptor);
-				image = getDefault().getImageRegistry().getDescriptor(iconPath);
+			if(typeLibraryName == null){
+				return;
 			}
+			TypeLibraryType typeLibInfo = SOAGlobalRegistryAdapter.getInstance()
+					.getGlobalRegistry().getTypeLibrary(typeLibraryName);
+			LibraryType libraryType = TypeLibraryUtil.getLibraryType(typeName,
+					version, typeLibInfo);
+
+			SOAGlobalRegistryAdapter.getInstance().addTypeToRegistry(libraryType);
+			IProject project = WorkspaceUtil.getProject(typeLibraryName);
+			TypeLibSynhcronizer.syncronizeXSDandDepXml(typeDefinition
+					.getSchema(), project, TypeLibraryUtil.toQName(libraryType));
+			TypeLibSynhcronizer.synchronizeTypeDepandProjectDep(project, 
+					ProgressUtil.getDefaultMonitor(null));
+		} catch (Exception e) {
+			throw new CommandFailedException(e);
 		}
-		return image;
 	}
 
-	/**
-	 * Gets the image descriptor.
-	 *
-	 * @param path the path
-	 * @return the image descriptor
-	 */
-	public static ImageDescriptor getImageDescriptor(final String path) {
-		ImageDescriptor descriptor = imageDescriptorFromPlugin(PLUGIN_ID, path);
-		return descriptor;
+	public static TemplateModel processTemplateModel(InputStream inputStream)
+			throws CoreException, IOException {
+		TemplateModel templateModel = new TemplateModel();
+		XSDSchema schema = TypeLibraryUtil.parseSchema(inputStream);
+		if (schema.getTypeDefinitions() != null
+				&& schema.getTypeDefinitions().size() > 0
+				&& schema.getTypeDefinitions().get(0) != null
+				&& schema.getTypeDefinitions().get(0) instanceof XSDTypeDefinition) {
+			XSDAnnotation xsdAnnotation = XSDCommonUIUtils
+					.getInputXSDAnnotation((XSDTypeDefinition) schema
+							.getTypeDefinitions().get(0), false);
+			if (xsdAnnotation != null) {
+				List documentationList = xsdAnnotation.getUserInformation();
+				if (documentationList.size() > 0) {
+					Element documentationElement = (Element) documentationList
+							.get(0);
+					templateModel.setDocumentation(documentationElement
+							.getTextContent());
+				}
+			}
+		}
+		return templateModel;
+
 	}
 	
 

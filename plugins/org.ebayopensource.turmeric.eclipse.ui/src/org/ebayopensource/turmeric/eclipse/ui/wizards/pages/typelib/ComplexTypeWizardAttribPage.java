@@ -261,7 +261,6 @@ public class ComplexTypeWizardAttribPage extends SOABasePage {
 	 */
 	@Override
 	protected boolean dialogChanged() {
-		
 		updateStatus(null);
 
 		final Set<String> attribNames = new HashSet<String>();

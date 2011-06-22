@@ -155,6 +155,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 
 		boolean result = super.dialogChanged();
 		if (result) {
+			// IStatus validationModel = null;
 			try {
 				if (SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
 						.getTypeLibrary(getResourceName()) != null) {
@@ -300,6 +301,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 		final ModifyListener nsModifyListener = new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
+				// targetNamespaceModified(getNamespaceValue());
 				dialogChanged();
 			}
 		};

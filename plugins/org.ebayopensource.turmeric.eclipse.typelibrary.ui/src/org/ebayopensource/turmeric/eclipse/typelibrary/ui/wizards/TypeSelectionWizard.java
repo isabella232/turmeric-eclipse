@@ -80,6 +80,11 @@ public class TypeSelectionWizard extends SOABaseWizard {
 
 	private static final SOALogger logger = SOALogger.getLogger();
 	private String typeLibName = "";
+	protected IEditorPart editorPart = null;
+
+	public void setEditorPart(IEditorPart editorPart) {
+		this.editorPart = editorPart;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -320,6 +325,35 @@ public class TypeSelectionWizard extends SOABaseWizard {
 					}
 
 				});
+			}
+			
+			if (this.editorPart != null) {
+				//auto inline the type to the wsdl file
+				Job job = new Job("Auto Inline the New Schema Type...") {
+
+					@Override
+					protected IStatus run(IProgressMonitor monitor) {
+						monitor.beginTask(getName(), IProgressMonitor.UNKNOWN);
+						try {
+							SOATypeRegistry registry = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry();
+							LibraryType newType = null;
+							
+							while((newType = registry.getType(
+									paramModel.getTypeName(), typeLibName)) == null) {
+								MessageDialog.openInformation(null, "DDD", "Found the type->" + newType);
+							}
+						
+						} catch (Exception e) {
+							logger.error(e);
+						} finally {
+							monitor.done();
+						}
+						return Status.OK_STATUS;
+					}
+					
+				};
+				job.schedule();
+				
 			}
 			return true;
 		} catch (Exception exception) {

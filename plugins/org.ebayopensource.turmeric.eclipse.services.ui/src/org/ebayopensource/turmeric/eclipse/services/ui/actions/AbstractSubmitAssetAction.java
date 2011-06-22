@@ -167,9 +167,8 @@ private IStructuredSelection selection;
 	public abstract IStatus submitAsset(IAction action, IProject project) throws Exception;
 	
 	/**
-	 * Indicate whether to popup a dialog when the submission succeed.
-	 *
-	 * @return true, if successful
+	 * Indicate whether to popup a dialog when the submission succeed
+	 * @return whether to popup a dialog when the submission succeed
 	 */
 	protected boolean needOKDialog() {
 		return false;

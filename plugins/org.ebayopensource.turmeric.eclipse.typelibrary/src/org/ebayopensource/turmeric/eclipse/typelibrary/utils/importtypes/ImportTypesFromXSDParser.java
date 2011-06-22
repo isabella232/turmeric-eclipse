@@ -149,6 +149,8 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 
 	private static String ELEMENT_NODE = "element";
 
+	private static String ATTRIBUTE_NODE = "attribute";
+
 	private static String UNION_NODE = "union";
 
 	private static String SEQUENCE_NODE = "sequence";
@@ -468,14 +470,16 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 			Map<String, TypeModel> xsds) throws SAXException {
 		Set<String> keys = xsds.keySet();
 
-		Map<String, TypeModel> noImport = new HashMap<String, TypeModel>();
+		// a map to store types that refers to type library type
+		Map<String, TypeModel> referToTLType = new HashMap<String, TypeModel>();
 		Set<String> typeLibTypeKey = new HashSet<String>();
 		for (String key : keys) {
 			TypeModel model = xsds.get(key);
 
+			// type library name and namespace are both validated
 			if (model.isNeedToImport() == false) {
 				typeLibTypeKey.add(key);
-				noImport.put(key, model);
+				referToTLType.put(key, model);
 				continue;
 			}
 
@@ -483,10 +487,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 
 			/*
 			 * the following Collection instance using set to avoid duplication
-			 * all xmlns attributes for current type
+			 * all xmlns attributes for current type. The list is used to store
+			 * contents to be added to XSD.
 			 */
+			// all xmlns mappings for current type.
 			Set<String> xmlnsNames = new HashSet<String>();
-			xmlnsNames.add(XS_NS_ATTR);
 			List<IXSDPiece> xmlns = new ArrayList<IXSDPiece>();
 
 			// all include node for current type
@@ -500,22 +505,48 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 			// key-value for namespace and xmlns, just for case 4)
 			Map<String, String> namespaceToXMLNS = new HashMap<String, String>();
 
+			/*
+			 * adding xmlns to XMLNS if needed. so that the current xsd will
+			 * just use node name without prefix such as "xs:" or "xsd:". It
+			 * doesn't have a name. So no need to add an element to
+			 * "xmlnsNames".
+			 */
 			if (model.getSchemaXMLNS() != null) {
 				xmlns.add(new StringPiece("\r\n\txmlns=\""
 						+ model.getSchemaXMLNS() + "\""));
 			}
 
+			/*
+			 * except schema basic type, the "xs:schema" is also kind of needing
+			 * "xmlns:xs". Add it if needed.
+			 */
+			{
+				String schemaQName = model.getSchemaQName();
+				String[] qNames = schemaQName.split(":");
+				if (qNames.length == 2) {
+
+					xmlns.add(new StringPiece("\r\n\txmlns:" + qNames[0]
+							+ "=\"http://www.w3.org/2001/XMLSchema\""));
+					xmlnsNames.add(qNames[0]);
+				}
+			}
+
+			/*
+			 * go though all pieces, handle dependencies.
+			 */
 			for (IXSDPiece piece : model.getTypeContent().getContentList()) {
 				if (piece instanceof StringPiece) {
 					continue;
 				}
 				if (piece instanceof TypeRelatedContent) {
 					TypeRelatedContent tp = (TypeRelatedContent) piece;
-					if (tp.getqName() == null) {
+					if (tp.getQName() == null) {
+						// null means current type. used for type name.
 						tp.setModel(model);
 						continue;
 					}
 				}
+				// basic type
 				if (piece instanceof SchemaTypePiece) {
 					SchemaTypePiece sp = (SchemaTypePiece) piece;
 					String dep = sp.getContent();
@@ -523,8 +554,8 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 					String[] qName = dep.split(":");
 					if (qName.length != 2) {
 						throw new SAXException(
-								"Invalidated type. Type QName is \"namespacepart:typename\":"
-										+ dep);
+								"Invalidated type. Type QName should be format"
+										+ " \"namespacepart:typename\":" + dep);
 					}
 					String nsShort = qName[0];
 					String shortNSDefinition = XML_NS + nsShort;
@@ -538,26 +569,33 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 					xmlnsNames.add(nsShort);
 					continue;
 				}
+				// if not dependency related here, jump to next.
 				if ((piece instanceof TypeQNamePiece) == false) {
 					continue;
 				}
 
 				TypeQNamePiece depPiece = (TypeQNamePiece) piece;
-				String dep = depPiece.getqName();
+				String dep = depPiece.getQName();
 
 				String[] qName = dep.split(":");
 				// in fact, before an dependency is added ,this is already
 				// checked.
 				if (qName.length != 2) {
 					throw new SAXException(
-							"Invalidated type. Type QName is \"namespacepart:typename\":"
-									+ dep);
+							"Invalidated type. Type QName should be in format "
+									+ "\"namespacepart:typename\":" + dep);
 				}
+				// such as "tns"
 				String nsShort = qName[0];
+				// such as "xml:tns"
 				String shortNSDefinition = XML_NS + nsShort;
+				// full namespace, such as http://www.example.com/namespace
 				String depNamespace = typeNSMapping.get(shortNSDefinition);
+				// type name, such as ServiceRequest
 				String depTypeName = qName[1];
 
+				// try to find the type in type library using current namespace
+				// and type name.
 				LibraryType typeLibratyType = findTypeInTypeLibrary(
 						depNamespace, depTypeName);
 
@@ -569,14 +607,20 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 				depPiece.setModel(depInternalType);
 
 				/*
-				 * if this type refer to a type in type library, get it.
+				 * if this type refer to a type in type library, use the new
+				 * namespace and get it.
 				 */
 				if (depInternalType != null
 						&& depInternalType.isTypeLibraryType()) {
-					typeLibratyType = findTypeInTypeLibrary(depInternalType
-							.getTypelibRefNamespace(), depTypeName);
+					typeLibratyType = findTypeInTypeLibrary(
+							depInternalType.getTypelibRefNamespace(),
+							depTypeName);
 				}
-
+				/*
+				 * if the dependency is found in current schema file and it is
+				 * also need to be imported (not refer to a TL type). then it is
+				 * a common internal dependency.
+				 */
 				if ((depInternalType != null && depInternalType
 						.isNeedToImport() == true)) {
 					// use type in wsdl
@@ -588,29 +632,36 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 						xmlns.add(new TypeNamespacePiece(dep, depInternalType));
 						xmlns.add(new StringPiece("\""));
 					}
-					if (includeTypeNames.contains(depTypeName) == false) {
+					if (includeTypeNames.contains(depTypeName) == false
+							&& StringUtils.equals(depTypeName,
+									model.getTypeName()) == false) {
 						includeTypeNames.add(depTypeName);
 						TypeLibraryNamePiece libName = new TypeLibraryNamePiece(
 								dep, depInternalType);
 						TypeNamePiece typeName = new TypeNamePiece(dep,
 								depInternalType);
-						String include = syncXSDPrefix(TYPE_INCLUDE_NODE, model
-								.getSchemaXMLNS());
+						String include = syncXSDPrefix(TYPE_INCLUDE_NODE,
+								model.getSchemaQName());
 						includes.addAll(addToXSDContentListBatch(include,
 								libName, typeName));
 					}
 					model.addInternalDependency(depInternalType);
 
-				} else if ((typeLibratyType != null)
-						&& (depInternalType == null)) {
+				}
+				/*
+				 * if the dependency is NOT found in current schema file but
+				 * found in type library. Then it is a common Type Library Type
+				 * dependency.
+				 */
+				else if ((typeLibratyType != null) && (depInternalType == null)) {
 					// use type library type
 					if (xmlnsNames.contains(nsShort) == false) {
 						xmlnsNames.add(nsShort);
 						xmlns.add(new StringPiece("\r\n\t" + shortNSDefinition
 								+ "=\"" + depNamespace + "\""));
 					}
-					String importStr = syncXSDPrefix(TYPE_IMPORT_NODE, model
-							.getSchemaXMLNS());
+					String importStr = syncXSDPrefix(TYPE_IMPORT_NODE,
+							model.getSchemaQName());
 
 					String importNode = MessageFormat.format(importStr,
 							depNamespace, typeLibratyType.getLibraryInfo()
@@ -621,7 +672,14 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 						imports.add(new StringPiece(importNode));
 					}
 
-				} else if ((typeLibratyType != null)
+				}
+				/*
+				 * if the dependency is not only found in current schema file
+				 * but also found in type library, AND it has validated TL name
+				 * and Namespace attribute. Then it is a referred Type Library
+				 * Type dependency.
+				 */
+				else if ((typeLibratyType != null)
 						&& (depInternalType != null && depInternalType
 								.isTypeLibraryType() == true)) {
 					// this a a wsdl type refer to typle library. use type
@@ -644,7 +702,7 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 					 * registry, add a warning about this.
 					 */
 					if (typeLibraryName.equals(refTypeLibraryName) == false) {
-						String tlNameWarning = "It is declared in typeLibrarySource node that dependcy type \""
+						String tlNameWarning = "It is declared in typeLibrarySource node that dependency type \""
 								+ typeLibTypeName
 								+ "\" is in type library \""
 								+ refTypeLibraryName
@@ -674,37 +732,46 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 					}
 				} else if ((typeLibratyType == null)
 						&& (depInternalType == null)) {
-					model.addError("Dependency \"" + dep
+					model.addWarning("Dependency \"" + dep
 							+ "\" can't be resolved. It is not "
 							+ "found in source file or type library.");
 				} else if ((typeLibratyType == null)
 						&& (depInternalType != null && depInternalType
 								.isTypeLibraryType() == true)) {
-					model.addError("Dependency \"" + dep
-							+ "\" can't be resolved. It is declared"
+					model.addWarning("Dependency \""
+							+ dep
+							+ "\" can't be resolved. Its definition is found in current "
+							+ "schema file. It is declared"
 							+ " as a type library type. "
 							+ " But it is not found in Type Library.");
+				} else if (depInternalType != null
+						&& depInternalType.isTypeLibrarySourceInvalidated() == false) {
+					model.addWarning("Dependency \""
+							+ dep
+							+ "\" is not validated. Its definition is found in current "
+							+ "schema file. But its typeLibrarySource node, library "
+							+ "or namespace attribute is missed.");
 				}
 
 			}
 
 			List<IXSDPiece> extraContent = new ArrayList<IXSDPiece>();
 
-			String typeSchemaNode1 = syncXSDPrefix(TYPE_SCHEMA_NODE_1, model
-					.getSchemaXMLNS());
+			String typeSchemaNode1 = syncXSDPrefix(TYPE_SCHEMA_NODE_1,
+					model.getSchemaQName());
 			extraContent.add(new StringPiece(typeSchemaNode1));
 
 			extraContent.addAll(xmlns);
 
-			String typeSchemaNode2 = syncXSDPrefix(TYPE_SCHEMA_NODE_2, model
-					.getSchemaXMLNS());
+			String typeSchemaNode2 = syncXSDPrefix(TYPE_SCHEMA_NODE_2,
+					model.getSchemaQName());
 			extraContent.add(new StringPiece(typeSchemaNode2));
 
 			extraContent
 					.add(new TypeNamespacePiece(model.getNamespace(), model));
 
-			String typeSchemaNode3 = syncXSDPrefix(TYPE_SCHEMA_NODE_3, model
-					.getSchemaXMLNS());
+			String typeSchemaNode3 = syncXSDPrefix(TYPE_SCHEMA_NODE_3,
+					model.getSchemaQName());
 			extraContent.add(new StringPiece(typeSchemaNode3));
 
 			extraContent.addAll(imports);
@@ -715,8 +782,8 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 
 			model.getTypeContent().insert(0, extraContent);
 
-			String schemaNodeEnd = syncXSDPrefix(TYPE_SCHEMA_NODE_END, model
-					.getSchemaXMLNS());
+			String schemaNodeEnd = syncXSDPrefix(TYPE_SCHEMA_NODE_END,
+					model.getSchemaQName());
 
 			model.getTypeContent().add(schemaNodeEnd);
 
@@ -725,7 +792,7 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		for (String removeKey : typeLibTypeKey) {
 			xsds.remove(removeKey);
 		}
-		return noImport;
+		return referToTLType;
 	}
 
 	private static String createNewXMLNS(Collection<String> existingXMLNS) {
@@ -822,7 +889,8 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		}
 		NodeQName eleNode = xmlPath.get(xmlPath.size() - 1);
 		NodeQName typeNode = xmlPath.get(xmlPath.size() - 2);
-		return ELEMENT_NODE.endsWith(eleNode.localName)
+		return (ELEMENT_NODE.equals(eleNode.localName) || ATTRIBUTE_NODE
+				.equals(ATTRIBUTE_NODE))
 				&& (COMPLEX_TYPE_NODE.equals(typeNode.localName) || SIMPLE_TYPE_NODE
 						.equals(typeNode.localName));
 	}
@@ -831,8 +899,8 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		if (xmlPath.size() < 2) {
 			return false;
 		}
-		NodeQName typeNode = xmlPath.get(xmlPath.size() - 1);
-		NodeQName unionNode = xmlPath.get(xmlPath.size() - 2);
+		NodeQName typeNode = xmlPath.get(xmlPath.size() - 2);
+		NodeQName unionNode = xmlPath.get(xmlPath.size() - 1);
 		return UNION_NODE.endsWith(unionNode.localName)
 				&& (COMPLEX_TYPE_NODE.equals(typeNode.localName) || SIMPLE_TYPE_NODE
 						.equals(typeNode.localName));
@@ -919,16 +987,16 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		boolean hasChoiceInType = this.hasChoiceInType();
 
 		if (hasTypeInElement == true) {
-			errors.add("Codegen doesn't support to "
+			warnings.add("Codegen doesn't support to "
 					+ "definte a type in element node.");
 		}
 
 		if (hasUnionInType == true) {
-			errors.add("Codegen doesn't support \"union\" in type.");
+			warnings.add("Codegen doesn't support \"union\" in type.");
 		}
 
 		if (hasChoiceInType == true) {
-			errors.add("Codegen doesn't support \"choice\" in type.");
+			warnings.add("Codegen doesn't support \"choice\" in type.");
 		}
 
 		// current node is a type definition node
@@ -978,9 +1046,9 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 					continue;
 				}
 
-				if (isElementNode == true && ELEMENT_REF.equals(attrValue)) {
-					errors
-							.add("Codegen doesn't support using \"ref\" in element.");
+				if (isElementNode == true && ELEMENT_REF.equals(attrName)) {
+					warnings.add("Codegen doesn't "
+							+ "support using \"ref\" in element.");
 				}
 
 				content.add(" " + attrName + "=\"");
@@ -1097,7 +1165,8 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 					// has annotation, no document, just insert document node
 
 					String docNode = syncXSDPrefix(DOC_NODE, schemaQName);
-					content.insert(documentAnnotationIndex,
+					content.insert(
+							documentAnnotationIndex,
 							addToXSDContentListBatch(docNode,
 									new TypeDocumentationPiece(null)));
 				} else if (documentAnnotationIndex > 0) {
@@ -1107,7 +1176,8 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 					 */
 					String annotationDocNode = syncXSDPrefix(
 							ANNOTATION_DOC_NODE, schemaQName);
-					content.insert(documentAnnotationIndex,
+					content.insert(
+							documentAnnotationIndex,
 							addToXSDContentListBatch(annotationDocNode,
 									new TypeDocumentationPiece(null)));
 				}
@@ -1124,7 +1194,7 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 				type = new TypeModel(typeName, targetNamespace,
 						nsMappingSchema, content, documentation, tlName,
 						tlNamespace);
-				type.addError("Type library source is invalidate!");
+				type.addWarning("Type library source is invalidate!");
 			}
 			type.addErrors(this.errors);
 			type.addWarnings(this.warnings);
@@ -1177,23 +1247,20 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		String[] qName = schemaQName.split(":");
 		String replacement = "";
 		if (qName.length == 2) {
-			replacement = qName[0];
-			if (XS_NS_ATTR.equals(replacement)) {
+			replacement = qName[0] + ":";
+			if (XS_NS.equals(replacement)) {
 				return str;
 			}
+			str = str.replace("<" + XS_NS, "<" + replacement);
+			str = str.replace("</" + XS_NS, "</" + replacement);
+
+		} else {
 			str = str.replace("<" + XS_NS, "<");
 			str = str.replace("</" + XS_NS, "</");
 		}
-
-		str = str.replace("<" + XS_NS, "<" + replacement);
-		str = str.replace("</" + XS_NS, "</" + replacement);
-
 		return str;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
-	 */
 	@Override
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {

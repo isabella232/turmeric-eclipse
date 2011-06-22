@@ -82,6 +82,7 @@ public class ConfigTool {
 	 * @param serviceConfig the service config
 	 * @param fileLocation the file location
 	 * @throws Exception the exception
+	 * @deprecated plugin should never modify the ServiceConfig.xml
 	 */
 	public static void saveServerConfig(final ISOAServiceConfig serviceConfig, 
 			final IFile fileLocation) throws Exception {
@@ -97,6 +98,14 @@ public class ConfigTool {
 				ServiceConfigXmlHelper svcConfigXMLHelper = new ServiceConfigXmlHelper();
 				svcConfigXMLHelper.setServiceImplementationName(input,
 						serviceConfig.getServiceImplClassName(), fileLocation);
+				//we are no longer modifying the current version, and the version would be maintained 
+				//in the service_metadata.properties
+				//svcConfig.setCurrentVersion(serviceConfig.getCurrentVersion());
+				// svcConfig.setServiceImplClassName(serviceConfig.getServiceImplClassName());
+				// final String configXml =
+				// ConfigHelper.serviceConfigToXml(svcConfig);
+				// out = new FileOutputStream(fileLocation.getFile());
+				// IOUtils.write(configXml, out);
 			}
 			
 		} finally {

@@ -51,7 +51,7 @@ public abstract class TypeRelatedContent implements IXSDPiece {
 	 *
 	 * @return the q name
 	 */
-	public String getqName() {
+	public String getQName() {
 		return qName;
 	}
 
@@ -60,7 +60,7 @@ public abstract class TypeRelatedContent implements IXSDPiece {
 	 *
 	 * @param qName the new q name
 	 */
-	public void setqName(String qName) {
+	public void setQName(String qName) {
 		this.qName = qName;
 	}
 

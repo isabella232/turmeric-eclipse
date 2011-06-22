@@ -15,6 +15,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -57,7 +59,6 @@ import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -131,17 +132,21 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 			if (consumeNewServicePage != null) {
 				final String clientName = consumeNewServicePage.getClientName();
 				final String consumerId = consumeNewServicePage.getConsumerId();
+				final boolean isZeroConfig = consumeNewServicePage.isZeroConfig();
 				final Set<AssetInfo> fullServiceList = consumeNewServicePage
 						.getServices();
 				final Set<AssetInfo> addedServices = consumeNewServicePage
 						.getAddedServices();
 				final Set<AssetInfo> removedServices = consumeNewServicePage
 						.getRemovedServices();
-				final Map<String, EnvironmentItem> addedEnvironments = consumeNewServicePage
+				final Map<String, EnvironmentItem> addedEnvironments = isZeroConfig ? 
+						new HashMap<String, EnvironmentItem>(1) : consumeNewServicePage
 						.getAddedEnvironments();
-				final Set<String> removedEnvironments = consumeNewServicePage
+				final Set<String> removedEnvironments = isZeroConfig ? 
+						new HashSet<String>(1) : consumeNewServicePage
 						.getRemovedEnvironments();
-				final Set<String> environments = consumeNewServicePage
+				final Set<String> environments = isZeroConfig ? 
+						new HashSet<String>(1) : consumeNewServicePage
 						.getEnvironments();
 				// checking if the intf project is built
 				final Collection<String> addedServiceList = new ArrayList<String>(
@@ -207,7 +212,7 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 										.keySet()) {
 									final EnvironmentItem cloneEnv = addedEnvironments
 											.get(newEnvName);
-									if (cloneEnv != null) {
+									if (cloneEnv != null && StringUtils.isNotBlank(cloneEnv.getName())) {
 										logger
 												.info(
 														"Cloning existing environment ->",
@@ -270,9 +275,11 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 								for (AssetInfo removedService : removedServices) {
 									serviceNames.add(removedService.getName());
 								}
-								SOAConsumerUtil.removeClientConfigFiles(
-										consumerProject, monitor, serviceNames
-												.toArray(new String[0]));
+								if (isZeroConfig == false) {
+									SOAConsumerUtil.removeClientConfigFiles(
+											consumerProject, monitor, serviceNames
+											.toArray(new String[0]));
+								}
 								ProgressUtil.progressOneStep(monitor);
 							}
 						} catch (Exception e) {
@@ -412,7 +419,7 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 													"Generating artifacts for new services->",
 													addedServices);
 									ProgressUtil.progressOneStep(monitor);
-									if (addedServices.isEmpty() == false) {
+									if (addedServices.isEmpty() == false && isZeroConfig == false) {
 										BuildSystemCodeGen
 												.generateArtifactsForAddedService(
 														consumerProject,
@@ -534,21 +541,16 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 				InvocationTargetException,
 				InterruptedException {
 			logger
-					.warning(
-							"The consumer ID has been changed, re-generate the service_consumer_project.properties and "
-									+ "modify all ClientConfig.xml files for project->",
-							consumerProject);
+			.warning(
+					"The consumer ID has been changed, re-generate the service_consumer_project.properties and "
+							+ "modify all ClientConfig.xml files for project->",
+					consumerProject);
 			try {
 				ProjectPropertiesFileUtil
 						.createPropsFileForImplProjects(
 								consumerProject,
 								clientName,
-								consumerId,
-								StringUtils
-										.trim(result
-												.getProperties()
-												.getProperty(
-														SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR)),
+								consumerId, 
 								monitor);
 				
 				for (SOAClientConfig clientConfig : result
@@ -563,7 +565,7 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 									.getOldClientConfigs()
 									.contains(clientConfig), protocalProcessorClassName);
 				}
-
+		
 			} catch (Exception e) {
 				logger.error(e);
 				throw new SOAResourceModifyFailedException(
@@ -572,7 +574,7 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 						e);
 			} finally {
 				consumerProject.refreshLocal(
-						IResource.DEPTH_INFINITE, monitor);
+						IProject.DEPTH_INFINITE, monitor);
 			}
 		}		
 	}

@@ -26,6 +26,7 @@ public class ServiceConfigXmlHelper {
 	public final static String SERVICE_NAME = "service-name";
 	private static final String SERVICE_INTERFACE_CLASS_NAME = "service-interface-class-name";
 	private static final String SERVICE_IMPL_CLASS_NAME = "service-impl-class-name";
+	private static final String SERVICE_IMPL_FACTORY_CLASS_NAME = "service-impl-factory-class-name";
 	
 	/**
 	 * Parses the service config.

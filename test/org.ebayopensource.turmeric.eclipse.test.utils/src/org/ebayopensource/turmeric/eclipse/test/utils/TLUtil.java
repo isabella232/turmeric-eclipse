@@ -16,7 +16,6 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
@@ -50,6 +49,8 @@ import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDSchemaDirective;
 import org.eclipse.xsd.XSDTypeDefinition;
+
+import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /*
  * Utilities to be used by TypeLibrary Functional Tests

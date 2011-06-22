@@ -29,7 +29,11 @@ public class QualifiedRenderer extends LabelProvider {
 	public String getText(final Object element) {
 		if (element instanceof AssetInfo) {
 			final AssetInfo info = (AssetInfo) element;
-			return info.getDescription() + " - " + info.getDir();
+			String postFix = "";
+			if (StringUtils.isNotBlank(info.getDir()) == true) {
+				postFix = " - " + info.getDir();
+			}
+			return info.getDescription() + postFix;
 		}
 		return super.getText(element);
 

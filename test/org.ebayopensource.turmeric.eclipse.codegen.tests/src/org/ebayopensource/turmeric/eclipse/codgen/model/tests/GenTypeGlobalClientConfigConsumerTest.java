@@ -8,12 +8,11 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.codgen.model.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Map;
 
+import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeClientConfig;
 import org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeGlobalClientConfigConsumer;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 import org.junit.After;
