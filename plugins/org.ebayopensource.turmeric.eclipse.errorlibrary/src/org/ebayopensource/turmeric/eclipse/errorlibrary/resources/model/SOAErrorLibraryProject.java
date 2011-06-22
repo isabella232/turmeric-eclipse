@@ -102,7 +102,7 @@ public class SOAErrorLibraryProject extends SOABaseProject {
 	public List<String> getSourceSubFolders() {
 		List<String> srcDirs = new ArrayList<String>();
 		try {
-			srcDirs = factory.getPreferredProvider().getSourceSubFolders(this);
+			srcDirs = ErrorLibraryProviderFactory.getPreferredProvider().getSourceSubFolders(this);
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			SOALogger.getLogger().error(e);
 		}

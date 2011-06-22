@@ -46,12 +46,10 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 	 */
 	public SOABaseWizard() {
 		super();
+		setWindowTitle("Turmeric SOA"); //not setting the window title would cause NPE when activating the context help
 		setNeedsProgressMonitor(true);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
-	 */
 	@Override
 	public boolean performFinish() {
 		return false;
@@ -59,7 +57,7 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 
 	/** The config. */
 	protected IConfigurationElement fConfig;
-
+	
 	/**
 	 * {@inheritDoc}
 	 */

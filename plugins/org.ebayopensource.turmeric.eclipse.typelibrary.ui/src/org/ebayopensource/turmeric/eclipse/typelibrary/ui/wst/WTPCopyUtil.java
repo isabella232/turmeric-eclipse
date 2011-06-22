@@ -80,6 +80,25 @@ public class WTPCopyUtil {
 		inputStream.mark(CodedIO.MAX_MARK_SIZE);
 		return inputStream;
 	}
+	
+	public static void copy(XSDSchema dstSchema, XSDSchema srcSchema, String typeName,
+			URL srcURL,
+			boolean typeFolding, String libraryName, String libraryNamespace) throws SOABadParameterException {
+		XSDTypeDefinition srcTypeDefinition = null;
+		for (XSDTypeDefinition typeDefiniton : srcSchema.getTypeDefinitions()) {
+			if (StringUtils.equals(typeDefiniton.getName(), typeName)) {
+				srcTypeDefinition = typeDefiniton;
+				break;
+			}
+		}
+		if (srcTypeDefinition == null || srcTypeDefinition.getElement() == null) {
+			throw new SOABadParameterException(StringUtil.formatString(
+					SOAMessages.INVALID_XSD, srcURL, typeName));
+		}
+
+		addAnnotation(srcTypeDefinition, libraryName, libraryNamespace);
+		transformQNamePrefix(dstSchema, srcSchema, typeFolding);
+	}
 
 	/**
 	 * Copies the schema specified in the source URL derived from the library
@@ -108,31 +127,12 @@ public class WTPCopyUtil {
 			throw new SOABadParameterException(StringUtil.formatString(
 					SOAMessages.INVALID_XSD_URL, srcURL));
 		}
-
-		XSDTypeDefinition srcTypeDefinition = null;
-		for (XSDTypeDefinition typeDefiniton : srcSchema.getTypeDefinitions()) {
-			if (StringUtils.equals(typeDefiniton.getName(), name)) {
-				srcTypeDefinition = typeDefiniton;
-				break;
-			}
-		}
-		if (srcTypeDefinition == null || srcTypeDefinition.getElement() == null) {
-			throw new SOABadParameterException(StringUtil.formatString(
-					SOAMessages.INVALID_XSD, srcURL, name));
-		}
-
-		addAnnotation(srcTypeDefinition, srcType);
-		transformQNamePrefix(dstSchema, srcSchema, typeFolding);
+		copy(dstSchema, srcSchema, name, srcURL, typeFolding, 
+				srcType.getLibraryInfo().getLibraryName(), 
+				srcType.getLibraryInfo().getLibraryNamespace());
+		
 	}
 
-	/**
-	 * Transform q name prefix.
-	 *
-	 * @param dstSchema the dst schema
-	 * @param srcSchema the src schema
-	 * @param typeFolding the type folding
-	 * @throws SOABadParameterException the sOA bad parameter exception
-	 */
 	public static void transformQNamePrefix(XSDSchema dstSchema,
 			XSDSchema srcSchema, boolean typeFolding)
 			throws SOABadParameterException {
@@ -150,6 +150,7 @@ public class WTPCopyUtil {
 		for (Entry<String, String> entry : dstPrefixes.entrySet()) {
 			if (StringUtils.equals(entry.getValue(), targetNameSpace)) {
 				targetNameSpaceprefix = entry.getKey();
+				break;
 			}
 		}
 		// if the destination schema does not have a name space prefix for
@@ -212,12 +213,23 @@ public class WTPCopyUtil {
 			String attrValue = namedNodeMap.item(i).getNodeValue();
 			String attrName = namedNodeMap.item(i).getNodeName();
 			for (String str : prefixMap.keySet()) {
-				if (!StringUtils.isEmpty(attrValue)
+				if (StringUtils.isNotEmpty(attrValue)
 						&& attrValue.trim().startsWith(str + ":")) {
-					String newAttrValue = StringUtils.replaceOnce(attrValue
-							.trim(), str + ":", prefixMap.get(str) + ":");
+					String trimmedAttrValue = attrValue.trim();
+					String newAttrValue = trimmedAttrValue;
+					if (trimmedAttrValue.startsWith(str + ":xs:")) {
+						newAttrValue = StringUtils.replaceOnce(trimmedAttrValue, str + ":xs:", "xs:");
+					} else if (StringUtils.countMatches(trimmedAttrValue, ":") == 2) {
+						//already contains a prefix
+						trimmedAttrValue = StringUtils.substringAfter(trimmedAttrValue, ":");
+						String oldPrefix = StringUtils.substringBefore(trimmedAttrValue, ":");
+						newAttrValue = StringUtils.replaceOnce(trimmedAttrValue, 
+								oldPrefix + ":", prefixMap.get(oldPrefix) + ":");
+					} else {
+						newAttrValue = StringUtils.replaceOnce(trimmedAttrValue, 
+								str + ":", prefixMap.get(str) + ":");
+					}
 					element.getAttributeNode(attrName).setValue(newAttrValue);
-
 				}
 			}
 		}
@@ -235,8 +247,21 @@ public class WTPCopyUtil {
 	 * @param typeDefinition the type definition
 	 * @param libraryType the library type
 	 */
+	public static void addAnnotation(XSDTypeDefinition typeDefinition, 
+			LibraryType type) {
+		addAnnotation(typeDefinition, type.getLibraryInfo().getLibraryName(), 
+				type.getLibraryInfo().getLibraryNamespace());
+	}
+	
+	/**
+	 * Adds the annotation.
+	 *
+	 * @param typeDefinition the type definition
+	 * @param libraryType the library type
+	 * @param libraryNamespace the namespace
+	 */
 	public static void addAnnotation(XSDTypeDefinition typeDefinition,
-			LibraryType libraryType) {
+			String libraryName, String libraryNamespace) {
 
 		XSDAnnotation annotation = XSDCommonUIUtils.getInputXSDAnnotation(
 				typeDefinition, true);
@@ -249,19 +274,14 @@ public class WTPCopyUtil {
 		} else {
 			appInfoElement = annotation.getApplicationInformation().get(0);
 		}
-		fillAppInfo(appInfoElement, libraryType);
+		if (StringUtils.isNotBlank(libraryName) && StringUtils.isNotBlank(libraryNamespace)) {
+			fillAppInfo(appInfoElement, libraryName, libraryNamespace);
+		}
 		annotation.getElement().appendChild(appInfoElement);
-
 	}
 
-	/**
-	 * Fill app info.
-	 *
-	 * @param appInfoElement the app info element
-	 * @param libraryType the library type
-	 */
 	public static void fillAppInfo(Element appInfoElement,
-			LibraryType libraryType) {
+			String libraryName, String libraryNamespace) {
 		NodeList children = appInfoElement.getChildNodes();
 
 		Element typeLibElement = null;
@@ -284,9 +304,9 @@ public class WTPCopyUtil {
 			appInfoElement.appendChild(typeLibElement);
 		}
 		typeLibElement.setAttribute(SOATypeLibraryConstants.ATTR_LIB,
-				libraryType.getLibraryInfo().getLibraryName());
+				libraryName);
 		typeLibElement.setAttribute(SOATypeLibraryConstants.ATTR_NMSPC,
-				libraryType.getLibraryInfo().getLibraryNamespace());
+				libraryNamespace);
 
 		
 	}

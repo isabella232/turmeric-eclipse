@@ -70,6 +70,7 @@ public class GlobalRepositorySystem {
 						}
 					} catch (CoreException e) {
 						// The SOA logger is not available yet, need an altertinave way to report the error
+						e.printStackTrace();
 					}
 				}
 			}
@@ -79,12 +80,13 @@ public class GlobalRepositorySystem {
 			}
 			if (foundV3 == false && availableRepositorySystems.isEmpty() == false) {
 				//the default V3 plugin is not installed, we should use the first available repo system
-				IEclipsePreferences prefs = RepositorySystemActivator.getDefault().getPreferences();
-				prefs.put(PreferenceConstants.PREF_REPOSITORY_SYSTEM, availableRepositorySystems.get(0).getId());
+				PreferenceUtil.getPreferenceStore().setDefault(
+						PreferenceConstants.PREF_REPOSITORY_SYSTEM, 
+						availableRepositorySystems.get(0).getId());
 				systemID = availableRepositorySystems.get(0).getId();
 			}
 			
-			SOALogger.setBuildSystemName(systemID);
+			//SOALogger.setBuildSystemName(systemID);
 		}
 
 	}
@@ -106,7 +108,7 @@ public class GlobalRepositorySystem {
 	public ISOARepositorySystem getActiveRepositorySystem() {
 		if (activeRepositorySystem == null) {
 			final String systemID = PreferenceReader.getCurrentRepositorySystemId();
-			SOALogger.setBuildSystemName(systemID);
+			//SOALogger.setBuildSystemName(systemID);
 			activeRepositorySystem = GlobalRepositorySystem.instanceOf()
 					.getRepositorySystem(systemID);
 		}

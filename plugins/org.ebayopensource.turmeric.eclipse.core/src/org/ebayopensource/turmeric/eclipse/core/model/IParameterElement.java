@@ -8,7 +8,6 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.core.model;
 
-
 /**
  * The Interface IParameterElement.
  */

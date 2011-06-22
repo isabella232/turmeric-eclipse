@@ -299,7 +299,6 @@ AbstractSOAResourceWizardPage {
 				dialogChanged();
 			}
 		};
-		
 		serviceDomainList.addListener(SWT.DefaultSelection, new Listener() {
 			@Override
 			public void handleEvent(Event e) {

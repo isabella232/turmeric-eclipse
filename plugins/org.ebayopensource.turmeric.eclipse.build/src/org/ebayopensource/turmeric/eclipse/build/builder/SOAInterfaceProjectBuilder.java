@@ -26,6 +26,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
+import org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -73,6 +74,9 @@ public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 				SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
  				synch.syncronizeWsdlandDepXml();
 				synch.synchronizeTypeDepandProjectDep(monitor);
+				//TypeLibSynhcronizer.syncronizeWsdlandDepXml(project);
+				//TypeLibSynhcronizer.synchronizeTypeDepandProjectDep(project,
+				//		monitor);
 			} catch (Exception e) {
 				SOAExceptionHandler.silentHandleException(e);
 				// Silently ignore. This is just an attempt
@@ -120,6 +124,5 @@ public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 	@Override
 	protected void doClean(IProject project, IProgressMonitor monitor)
 			throws Exception {
-		
 	}
 }

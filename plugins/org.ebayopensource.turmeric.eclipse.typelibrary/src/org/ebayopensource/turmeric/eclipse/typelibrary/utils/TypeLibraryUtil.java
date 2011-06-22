@@ -56,6 +56,68 @@ import org.xml.sax.SAXException;
 public class TypeLibraryUtil {
 
 	/**
+	 * Get Template Category Map
+	 * 
+	 * @return
+	 */
+	public static Map<SOAXSDTemplateSubType, String> getTemplateCategoryMap() {
+		Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> templateCategoryFiles = getTemplateCategoryFiles();
+		Map<SOAXSDTemplateSubType, String> templateCategoryMap = new LinkedHashMap<SOAXSDTemplateSubType, String>();
+		for (SOAXSDTemplateSubType subType : templateCategoryFiles.keySet()) {
+			if (subType.equals(SOAXSDTemplateSubType.SIMPLE))
+				templateCategoryMap.put(SOAXSDTemplateSubType.SIMPLE,
+						SOATypeLibraryConstants.SIMPLE_TYPE_NAME);
+			else if (subType.equals(SOAXSDTemplateSubType.COMPLEX))
+				templateCategoryMap.put(SOAXSDTemplateSubType.COMPLEX,
+						SOATypeLibraryConstants.COMPLEX_TYPE_NAME);
+			else if (subType.equals(SOAXSDTemplateSubType.ENUM))
+				templateCategoryMap.put(SOAXSDTemplateSubType.ENUM,
+						SOATypeLibraryConstants.ENUM_TYPE_NAME);
+			else if (subType
+					.equals(SOAXSDTemplateSubType.COMPLEX_SIMPLECONTENT))
+				templateCategoryMap.put(
+						SOAXSDTemplateSubType.COMPLEX_SIMPLECONTENT,
+						SOATypeLibraryConstants.COMPLEXSC_TYPE_NAME);
+			else if (subType
+					.equals(SOAXSDTemplateSubType.COMPLEX_COMPLEXCONTENT))
+				templateCategoryMap.put(
+						SOAXSDTemplateSubType.COMPLEX_COMPLEXCONTENT,
+						SOATypeLibraryConstants.COMPLEXCC_TYPE_NAME);
+		}
+		return templateCategoryMap;
+	}
+
+	/**
+	 * Get all template Category files
+	 * 
+	 * @return
+	 */
+	public static Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> getTemplateCategoryFiles() {
+		try {
+			final String organization = GlobalRepositorySystem.instanceOf()
+					.getActiveRepositorySystem()
+					.getActiveOrganizationProvider().getName();
+			return SOAConfigExtensionFactory.getXSDTemplates(organization);
+		} catch (SOAConfigAreaCorruptedException e) {
+			UIUtil.showErrorDialog(e);
+		}
+		return null;
+	}
+
+	/**
+	 * Get files inside a template category
+	 * 
+	 * @return
+	 */
+	public static List<SOAConfigTemplate> getFiles(SOAXSDTemplateSubType subType) {
+		Map<SOAXSDTemplateSubType, List<SOAConfigTemplate>> templates = getTemplateCategoryFiles();
+		if (templates != null) {
+			return templates.get(subType);
+		}
+		return null;
+	}
+
+	/**
 	 * Gets the xsd file location.
 	 *
 	 * @param typeName the type name
@@ -130,7 +192,18 @@ public class TypeLibraryUtil {
 		return retValue;
 	}
 
-
+	/**
+	 * Adding the TypeLibProtocal to the name for the xsd entry.
+	 * 
+	 * @param typeName
+	 * @return
+	 */
+	public static IFile getDependencyFile(IProject project) {
+		return project.getFile(SOATypeLibraryConstants.FOLDER_META_SRC_META_INF
+				+ WorkspaceUtil.PATH_SEPERATOR + project.getName()
+				+ WorkspaceUtil.PATH_SEPERATOR
+				+ SOATypeLibraryConstants.FILE_TYPE_DEP_XML);
+	}
 
 	/**
 	 * Adding the TypeLibProtocal to the name for the xsd entry.
@@ -387,7 +460,149 @@ public class TypeLibraryUtil {
 		return files;
 	}
 
+	/**
+	 * return the DnD string
+	 * @param type the library type
+	 * @return the string
+	 */
+	public static String getDragNDropString(LibraryType type) {
+		String retValue = "";
+		IEditorPart editorPart = UIUtil.getActiveEditor();
+		IFileEditorInput editorInput = (IFileEditorInput) editorPart
+				.getEditorInput();
+		InputStream readInputStream = null;
+		try {
+			if (!StringUtils.isEmpty(type.getName())) {
+				if (StringUtils.equalsIgnoreCase(editorInput.getFile()
+						.getFileExtension(), SOATypeLibraryConstants.XSD)) {
+					String tagBegin = null;
+					String tagEnd = null;
+					boolean needTargetNamespace = false;
+					XSDSchema xsdSchema = parseSchema(editorInput.getFile()
+							.getContents());
+					if (StringUtils.equals(type.getNamespace(), xsdSchema
+							.getTargetNamespace())) {
+						tagBegin = SOATypeLibraryConstants.DND_PREFIX;
+						tagEnd = SOATypeLibraryConstants.DND_SUFFIX;
+					} else {
+						tagBegin = SOATypeLibraryConstants.DND_PREFIX_IMPORT;
+						tagEnd = SOATypeLibraryConstants.DND_SUFFIX_IMPORT;
+						needTargetNamespace = true;
+					}
+					StringBuffer buf = new StringBuffer();
+					buf.append(tagBegin);
+					buf.append(getProtocolString(type));
+					if (needTargetNamespace == true) {
+						buf.append("\" namespace=\"");
+						buf.append(type.getNamespace());
+					}
+					buf.append(tagEnd);
+					retValue = buf.toString();
+				} else if (StringUtils.equalsIgnoreCase(editorInput.getFile()
+						.getFileExtension(), "wsdl")) {
+					XSDSchema xsdSchema = parseSchema(TypeLibraryUtil
+							.getXSD(type));
+					XSDTypeDefinition typeDef = (XSDTypeDefinition) xsdSchema
+							.getTypeDefinitions().get(0);
+					StringBuffer buf = new StringBuffer();
+					// add typelib source tag
+					WTPCopyUtil.addAnnotation(typeDef, type);
+					buf
+							.append(XMLUtil.convertXMLToString(typeDef
+									.getElement()));
+					retValue = TemplateUtils.formatContents(buf.toString());
+				}
+			}
+		} catch (Exception e) {
+			SOALogger.getLogger().error(e);
+		} finally {
+			IOUtils.closeQuietly(readInputStream);
+		}
+		return retValue;
+	}
 
+	/**
+	 * This is just for WTP WSDL and XSD editors. Dont get confused and use it
+	 * for generic pruposes.
+	 * 
+	 * @param editorPart
+	 * @return
+	 */
+	public static Object getAdapterClassFromWTPEditors(IEditorPart editorPart) {
+		Object retValue = null;
+		if (editorPart != null) {
+
+			IEditorSite editorSite = editorPart.getEditorSite();
+			if (editorSite != null && editorSite instanceof MultiPageEditorSite) {
+				MultiPageEditorSite multiPageEditorSite = (MultiPageEditorSite) editorSite;
+				MultiPageEditorPart multiPageEditorPart = multiPageEditorSite
+						.getMultiPageEditor();
+				if (multiPageEditorPart != null) {
+					Object adaptedObject = multiPageEditorPart
+							.getAdapter(Definition.class);
+					if (adaptedObject != null
+							&& adaptedObject instanceof Definition) {
+						retValue = adaptedObject;
+					} else {
+						adaptedObject = multiPageEditorPart
+								.getAdapter(XSDSchema.class);
+						if (adaptedObject != null
+								&& adaptedObject instanceof XSDSchema) {
+							retValue = adaptedObject;
+						}
+					}
+				}
+			} else {
+				Object adaptedObject = editorPart.getAdapter(Definition.class);
+				if (adaptedObject != null
+						&& adaptedObject instanceof Definition) {
+					retValue = adaptedObject;
+				} else {
+					adaptedObject = editorPart.getAdapter(XSDSchema.class);
+					if (adaptedObject != null
+							&& adaptedObject instanceof XSDSchema) {
+						retValue = adaptedObject;
+					}
+				}
+			}
+		}
+		return retValue;
+	}
+
+	/**
+	 * This is just for WTP WSDL and XSD editors. Dont get confused and use it
+	 * for generic pruposes.
+	 * 
+	 * @param editorPart
+	 * @return
+	 */
+	public static ITextOperationTarget getFormatter(IEditorPart editorPart) {
+		ITextOperationTarget retValue = null;
+		if (editorPart != null) {
+			IEditorSite editorSite = editorPart.getEditorSite();
+			if (editorSite != null && editorSite instanceof MultiPageEditorSite) {
+				MultiPageEditorSite multiPageEditorSite = (MultiPageEditorSite) editorSite;
+				MultiPageEditorPart multiPageEditorPart = multiPageEditorSite
+						.getMultiPageEditor();
+				if (multiPageEditorPart != null) {
+					Object adaptedObject = multiPageEditorPart
+							.getAdapter(ITextOperationTarget.class);
+					if (adaptedObject != null
+							&& adaptedObject instanceof ITextOperationTarget) {
+						retValue = (ITextOperationTarget) adaptedObject;
+					}
+				}
+			} else {
+				Object adaptedObject = editorPart
+						.getAdapter(ITextOperationTarget.class);
+				if (adaptedObject != null
+						&& adaptedObject instanceof ITextOperationTarget) {
+					retValue = (ITextOperationTarget) adaptedObject;
+				}
+			}
+		}
+		return retValue;
+	}
 
 	/**
 	 * Parses the schema.
@@ -590,6 +805,27 @@ public class TypeLibraryUtil {
 	}
 
 	/**
+	 * Get template stream.
+	 * 
+	 * @param category the category
+	 * @param type the type
+	 * @return the template input stream
+	 * @throws IOException
+	 */
+	public static InputStream getTemplateStream(SOAXSDTemplateSubType category,
+			String type) throws IOException {
+		List<SOAConfigTemplate> templateCategoryFiles = getTemplateCategoryFiles()
+				.get(category);
+		for (SOAConfigTemplate categoryFile : templateCategoryFiles) {
+			if (categoryFile.getName().equals(type)) {
+				return categoryFile.getUrl().openStream();
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * To library type.
 	 *
 	 * @param qname the qname
@@ -651,7 +887,6 @@ public class TypeLibraryUtil {
 		return new QName(typeLibraryNameSpace, typeName);
 	}
 
-
 	/**
 	 * Old type library project (in workspace) has the dir structure
 	 * meta-src\types\<xsd> and the new one has
@@ -692,6 +927,266 @@ public class TypeLibraryUtil {
 	 *
 	 * @param typeLibraryName the type library name
 	 */
+	// mzang 2010-4-22 modify library version. not used yet
+	public static void updateTypeLibraryVersion(String newVersion,
+			SOATypeLibraryProject typelibProject, IProgressMonitor monitor)
+			throws Exception {
+		ProgressUtil.progressOneStep(monitor);
+		// check if update version needed.
+		TypeLibraryParamModel model = SOATypeLibraryProjectResolver
+				.loadTypeLibraryModel(typelibProject.getProject());
+		String oldVersion = model.getVersion().trim();
+		ProgressUtil.progressOneStep(monitor);
+		if (oldVersion.equals(newVersion) == true) {
+			return;
+		}
+		// update library version in property file.
+		model.setVersion(newVersion);
+		ProgressUtil.progressOneStep(monitor);
+		try {
+			Properties properties = new Properties();
+			File propFile = new File(typelibProject.getProject().getLocation()
+					.toFile(), TYPE_LIB_PRJ_PROPERTIES_FILE_NAME);
+			FileInputStream propis = null;
+			try {
+				propis = new FileInputStream(propFile);
+				properties.load(propis);
+			} finally {
+				if (propis != null) {
+					propis.close();
+				}
+			}
+
+			ProgressUtil.progressOneStep(monitor);
+
+			properties.setProperty(TypeLibraryConstants.TYPE_LIBRARY_VERSION,
+					newVersion);
+			OutputStream out = new FileOutputStream(propFile);
+			properties.store(out, COMMENT);
+			out.flush();
+			out.close();
+
+			ProgressUtil.progressOneStep(monitor);
+
+			// update version number in dependency file
+			IFile file = getDependencyFile(typelibProject.getProject());
+			TypeLibraryDependencyType typeLibraryDependencyType = TypeDepMarshaller
+					.unmarshallIt(file);
+
+			ProgressUtil.progressOneStep(monitor);
+
+			typeLibraryDependencyType.setVersion(newVersion);
+			TypeDepMarshaller.marshallIt(typeLibraryDependencyType, file);
+			WorkspaceUtil.refresh(file);
+
+			ProgressUtil.progressOneStep(monitor);
+
+			// refresh is needed.
+			WorkspaceUtil.refresh(typelibProject.getProject());
+			typelibProject.getProject().build(
+					IncrementalProjectBuilder.FULL_BUILD, monitor);
+			WorkspaceUtil.refresh(typelibProject.getProject());
+
+			monitor.done();
+		} catch (Exception e) {
+			UIUtil.showErrorDialog(e);
+		}
+	}
+
+	/**
+	 * Import types to type library project.
+	 * 
+	 * @param types the types
+	 * @param tlProjectName the type library project name
+	 * @param monitor the monitor
+	 */
+	public static void importTypesToTypeLibrarySAXP(List<TypeModel> types,
+			String tlProjectName, IProgressMonitor monitor) {
+		try {
+			IProject project = WorkspaceUtil.getProject(tlProjectName);
+			WorkspaceUtil.refresh(project);
+			monitor.subTask(" -> Creating xsd files "
+					+ "and updating type registery...");
+			for (TypeModel model : types) {
+				String xsdFileName = TypeLibraryUtil.getXsdFileLocation(model
+						.getTypeName(), project);
+				IFile xsdFile = WorkspaceUtil.createEmptyFile(project,
+						xsdFileName, monitor);
+				ProgressUtil.progressOneStep(monitor);
+
+				String content = model.getTypeContent().toString();
+
+				File xsdSysFile = xsdFile.getLocation().toFile();
+				PrintWriter pw = new PrintWriter(xsdSysFile, "UTF-8");
+				pw.write(content);
+				pw.close();
+
+				xsdFile.refreshLocal(IResource.DEPTH_ZERO, monitor);
+				ProgressUtil.progressOneStep(monitor);
+				TypeCreator.postProcessTypeCreation(model.getTypeName(),
+						"1.0.0", tlProjectName, project.getFile(xsdFileName),
+						false, false);
+				ProgressUtil.progressOneStep(monitor);
+
+			}
+			monitor.subTask(" -> Updating xsd dependencies...");
+			TypeLibSynhcronizer.syncronizeAllXSDsandDepXml(project, null);
+			ProgressUtil.progressOneStep(monitor);
+
+			monitor.subTask(" -> Updating project dependencies...");
+			TypeLibSynhcronizer.synchronizeTypeDepandProjectDep(project,
+					monitor);
+			ProgressUtil.progressOneStep(monitor);
+
+			monitor.subTask(" -> Updating project classpath...");
+			BuildSystemUtil.updateSOAClasspathContainer(WorkspaceUtil
+					.getProject(tlProjectName));
+			ProgressUtil.progressOneStep(monitor);
+
+			monitor.subTask(" -> Generating code...");
+
+			try {
+				TypeLibraryUtil
+						.refreshTypeDependencyInSOATypeRegistry(tlProjectName);
+			} catch (Exception e) {
+				SOALogger.getLogger().error(e);
+				throw new SOATypeCreationFailedException(
+						"Failed to import schema type", e);
+			}
+
+		} catch (Exception e) {
+			SOALogger.getLogger().error(e);
+			UIUtil.showErrorDialog("Error Occurs",
+					"Error Occurs during type creation", e);
+			return;
+		}
+		ProgressUtil.progressOneStep(monitor);
+
+	}
+
+	public static void importTypesToTypeLibrary(List<ImportTypeModel> types,
+			String tlProjectName, IProgressMonitor monitor) {
+		List<ImportTypeModel> allResolvedModel = new ArrayList<ImportTypeModel>();
+		List<ImportTypeModel> resolvedModel = new ArrayList<ImportTypeModel>();
+		do {
+			resolvedModel.clear();
+			for (ImportTypeModel importModel : types) {
+				if (allResolvedModel.containsAll(importModel.getDependencies()
+						.values()) == false) {
+					// dependency not resolved yet.
+					continue;
+				}
+				TypeParamModel model = importModel.getTypeModel();
+
+				if (model instanceof ComplexTypeParamModel == true) {
+					ComplexTypeParamModel cModel = (ComplexTypeParamModel) model;
+					ComplexTypeWizardElementPage.ElementTableModel[] elements = cModel
+							.getElementTableModel();
+					try {
+						for (ComplexTypeWizardElementPage.ElementTableModel element : elements) {
+							Object eleType = element.getRawElementType();
+							if (eleType instanceof QName) {
+								QName keyDepQName = (QName) eleType;
+								ImportTypeModel depModel = importModel
+										.getDependencies().get(keyDepQName);
+								QName depQName = new QName(depModel
+										.getNamespace(), depModel.getName());
+								LibraryType depType = SOAGlobalRegistryAdapter
+										.getInstance().getGlobalRegistry()
+										.getType(depQName);
+
+								if (depType == null) {
+									throw new ImportTypeException(
+											"Failed to resolve \""
+													+ cModel.getTypeName()
+													+ "\" type dependency:"
+													+ depQName);
+								}
+								element.setDatatype(depType);
+							}
+						}
+						if (model instanceof ComplexTypeCCParamModel) {
+							ComplexTypeCCParamModel ccModel = (ComplexTypeCCParamModel) model;
+							Object baseType = ccModel.getBaseType();
+							if (baseType instanceof QName) {
+								QName keyDepQName = (QName) baseType;
+								ImportTypeModel depModel = importModel
+										.getDependencies().get(keyDepQName);
+								QName depQName = new QName(depModel
+										.getNamespace(), depModel.getName());
+								LibraryType depType = SOAGlobalRegistryAdapter
+										.getInstance().getGlobalRegistry()
+										.getType(depQName);
+								if (depType == null) {
+									throw new ImportTypeException(
+											"Failed to resolve \""
+													+ cModel.getTypeName()
+													+ "\" type dependency:"
+													+ depQName);
+								}
+								ccModel.setBaseType(depType);
+							}
+						}
+
+					} catch (Exception e) {
+						SOALogger.getLogger().error(e);
+						UIUtil.showErrorDialog(e);
+					}
+				}
+
+				monitor.subTask(" -> " + model.getTypeName());
+				model.setTypeLibraryName(tlProjectName);
+				try {
+					TypeCreator.createType(model, monitor);
+					// invoke this when a type is created, for dependency
+					// need
+					BuildSystemUtil.updateSOAClasspathContainer(WorkspaceUtil
+							.getProject(tlProjectName));
+
+					monitor
+							.subTask(" -> Calling code gen for type generation: "
+									+ model.getTypeName());
+					ProgressUtil.progressOneStep(monitor);
+
+					final IProject project = WorkspaceUtil.getProject(model
+							.getTypeLibraryName());
+					final String typeLibName = model.getTypeLibraryName();
+					final String typeName = model.getTypeName();
+					final String version = model.getVersion();
+
+					try {
+						TypeCreator.callCodegen(project, typeLibName, typeName);
+						ProgressUtil.progressOneStep(monitor);
+						WorkspaceUtil.refresh(project);
+						ProgressUtil.progressOneStep(monitor);
+						String xsdFileName = TypeLibraryUtil
+								.getXsdFileLocation(typeName, project);
+						ProgressUtil.progressOneStep(monitor);
+						TypeCreator.postProcessTypeCreation(typeName, version,
+								typeLibName, project.getFile(xsdFileName),
+								false, false);
+						TypeLibraryUtil
+								.refreshTypeDependencyInSOATypeRegistry(tlProjectName);
+					} catch (Exception e) {
+						SOALogger.getLogger().error(e);
+						throw new SOATypeCreationFailedException(
+								"Failed to import schema type", e);
+					}
+				} catch (Exception e) {
+					SOALogger.getLogger().error(e);
+					UIUtil.showErrorDialog("Error Occurs",
+							"Error Occurs during type creation", e);
+					return;
+				}
+				resolvedModel.add(importModel);
+				ProgressUtil.progressOneStep(monitor);
+			}
+			allResolvedModel.addAll(resolvedModel);
+			types.removeAll(resolvedModel);
+		} while (resolvedModel.size() > 0);
+
+	}
+
 	public static void refreshTypeDependencyInSOATypeRegistry(
 			String typeLibraryName) {
 		try {

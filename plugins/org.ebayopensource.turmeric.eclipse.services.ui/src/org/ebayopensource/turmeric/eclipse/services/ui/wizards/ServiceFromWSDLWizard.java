@@ -39,6 +39,7 @@ import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFrom
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLAddBindingWizardPage;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLAddOperationWizardPage;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLPage;
+import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceProtocolSelectionWizardPage;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.processors.WSDLTemplateProcessor;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
@@ -82,6 +83,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 	private ServiceFromExistingWSDLWizardPage serviceFromExsitingWSDL = null;
 	private ServiceFromNewWSDLAddOperationWizardPage addOperationPage = null;
 	private ServiceFromNewWSDLAddBindingWizardPage addBindingPage = null;
+	private ServiceProtocolSelectionWizardPage protocolPage = null;
 
 	/**
 	 * Instantiates a new service from wsdl wizard.
@@ -151,9 +153,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		uiModel.setServiceImpl(wizardPage
 				.getFullyQualifiedServiceImplementation());
 		uiModel.setServiceVersion(wizardPage.getServiceVersion());
-		uiModel
-				.setBaseConsumerSrcDir(SOAProjectConstants.DEFAULT_BASE_CONSUMER_SOURCE_DIRECTORY);
-	
+		uiModel.setServiceImplType(wizardPage.getServiceImplType());
 		if (!wizardPage.getTypeFolding())
 			uiModel.setTypeNamespace(wizardPage.getTypeNamespace());
 		uiModel.setTypeFolding(wizardPage.getTypeFolding());
@@ -165,15 +165,15 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		uiModel.setImplName(implProjectName);
 		uiModel.setServiceDomain(wizardPage.getServiceDomain());
 		uiModel.setNamespacePart(wizardPage.getDomainClassifier());
-
+		uiModel.setServiceNonXSDProtocols(protocolPage.getNonXSDProtocolString());
+		uiModel.setNamespaceToPacakgeMappings(wizardPage
+				.getNamespaceToPackageMappings());
 		try {
 			if (fromExistingWsdl) {
 				uiModel
 						.setWSDLSourceType(SOAProjectConstants.InterfaceWsdlSourceType.EXISTIING);
 				uiModel.setOriginalWsdlUrl(new URL(serviceFromExsitingWSDL
 						.getWSDLURL()));
-				uiModel.setNamespaceToPacakgeMappings(wizardPage
-						.getNamespaceToPackageMappings());
 			} else {
 				final ServiceFromTemplateWsdlParamModel tempModel = (ServiceFromTemplateWsdlParamModel) uiModel;
 				tempModel.setTemplateFile(serviceFromNewWSDL.getTemplateFile());
@@ -185,8 +185,8 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 				tempModel.setBindings(addBindingPage.getBindings());
 			}
 			final ISOAOrganizationProvider provider = GlobalRepositorySystem
-			.instanceOf().getActiveRepositorySystem()
-			.getActiveOrganizationProvider();
+					.instanceOf().getActiveRepositorySystem()
+					.getActiveOrganizationProvider();
 
 			// registry validation
 			SOAStatusReportingRunnable validationRunnable = new SOAStatusReportingRunnable() {
@@ -252,8 +252,9 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 						wsdlURL = wsdlTemplateProcessor.getWSDLFileURL(monitor);
 					}
 					IStatus validationStatuses = ActionUtil
-					.validateServiceWSDL(null, wsdlURL,
-							provider.supportAssertionServiceIntegration(), false, monitor);
+							.validateServiceWSDL(null, wsdlURL, provider
+									.supportAssertionServiceIntegration(),
+									false, monitor);
 					if (validationStatuses != null) {
 						if (validationStatuses.isMultiStatus() == true) {
 							Collections.addAll(statuses, validationStatuses
@@ -265,9 +266,9 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 
 					if (statuses.isEmpty() == false) {
 						return EclipseMessageUtils
-						.createErrorMultiStatus(
-								statuses,
-								SOAMessages.ERROR_SERVICE_WSDL_VALIDATION_FAILED);
+								.createErrorMultiStatus(
+										statuses,
+										SOAMessages.ERROR_SERVICE_WSDL_VALIDATION_FAILED);
 					}
 					monitor.done();
 					return Status.OK_STATUS;
@@ -277,9 +278,9 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 
 			// we only do the validation if and only if the underlying
 			// organization support it.
-			if (provider != null && 
-					(provider.supportAssetRepositoryIntegration() 
-							|| provider.supportAssertionServiceIntegration())) {
+			if (provider != null
+					&& (provider.supportAssetRepositoryIntegration() || provider
+							.supportAssertionServiceIntegration())) {
 				try {
 					getContainer().run(false, false, validationRunnable);
 				} catch (Exception arExp) {
@@ -450,8 +451,10 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 	public IWizardPage getNextPage(IWizardPage page) {
 		if (page instanceof ChooseWSDLSourcePage) {
 			if (((ChooseWSDLSourcePage) page).isStartFromNewWSDL()) {
+				protocolPage.setWizardPage(serviceFromNewWSDL);
 				return serviceFromNewWSDL;
 			} else {
+				protocolPage.setWizardPage(serviceFromExsitingWSDL);
 				return serviceFromExsitingWSDL;
 			}
 		}
@@ -466,6 +469,8 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 			return intfDependenciesPage;
 		} else if (page == intfDependenciesPage) {
 			return implDependenciesPage;
+		} else if (page == implDependenciesPage) {
+			return protocolPage;
 		}
 
 		return null;
@@ -484,6 +489,9 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 				"Service Implementation");
 		addOperationPage = new ServiceFromNewWSDLAddOperationWizardPage();
 		addBindingPage = new ServiceFromNewWSDLAddBindingWizardPage();
+
+		protocolPage = new ServiceProtocolSelectionWizardPage();
+
 		List<IWizardPage> pages = new ArrayList<IWizardPage>();
 		pages.add(chooseWsdlSource);
 		pages.add(serviceFromNewWSDL);
@@ -492,6 +500,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		pages.add(addBindingPage);
 		pages.add(intfDependenciesPage);
 		pages.add(implDependenciesPage);
+		pages.add(protocolPage);
 		return pages.toArray(new IWizardPage[pages.size()]);
 
 	}

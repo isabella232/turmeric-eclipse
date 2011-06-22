@@ -220,7 +220,6 @@ public class SOASearchPage extends DialogPage implements ISearchPage {
 		Collections.reverse(layers);
 		serviceLayerList.setItems(
 				layers.toArray(new String[0]));
-			
 	}
 
 }

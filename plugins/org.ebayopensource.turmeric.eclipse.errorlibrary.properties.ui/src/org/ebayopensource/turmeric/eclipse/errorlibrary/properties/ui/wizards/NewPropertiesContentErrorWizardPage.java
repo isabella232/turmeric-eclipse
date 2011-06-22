@@ -47,6 +47,7 @@ import org.eclipse.swt.widgets.Text;
  */
 public final class NewPropertiesContentErrorWizardPage extends
 		AbstractNewErrorResourceWizardPage {
+	// private Text errorIDText;
 	private CCombo categoryCombo;
 	private Text organizationText;
 	private CCombo domainCombo;
@@ -144,6 +145,7 @@ public final class NewPropertiesContentErrorWizardPage extends
 	}
 
 	private void populateDomainCombo() {
+		boolean foundDomains = false;
 		domainCombo.clearSelection();
 		if (StringUtils.isNotBlank(getErrorLibrary())) {
 			final List<String> names = new ArrayList<String>();
@@ -158,6 +160,7 @@ public final class NewPropertiesContentErrorWizardPage extends
 			domainCombo.setItems(names.toArray(new String[0]));
 			if (names.size() > 0) {
 				domainCombo.select(0);
+				foundDomains = true;
 			}
 		}
 
@@ -204,6 +207,17 @@ public final class NewPropertiesContentErrorWizardPage extends
 		return true;
 	}
 
+	/*
+	 * private void setErrorID() { if (errorIDText != null &&
+	 * StringUtils.isNotBlank(getErrorLibrary())) { final IProject project =
+	 * WorkspaceUtil.getProject(getErrorLibrary()); if (project.isAccessible()) {
+	 * 
+	 * try { long id = ErrorParamModel.generateErrorID(
+	 * project.getLocation().toString(), getOrganization(), getDomain());
+	 * errorIDText.setText(String.valueOf(id)); } catch (Exception e) {
+	 * SOALogger.getLogger().warning(e); } } } }
+	 */
+
 	private void createContentStructure(Composite parent) {
 		final Group container = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		container.setText(SOAMessages.GROUP_TITLE_CONTENT_STRUCTURE);
@@ -214,6 +228,11 @@ public final class NewPropertiesContentErrorWizardPage extends
 		container.setLayout(layout);
 
 		final ErrorParamModel model = new ErrorParamModel();
+
+		/*
+		 * errorIDText = super.createLabelTextField(container, "&Error ID:", "",
+		 * modifyListener, false);
+		 */
 
 		super.createResourceNameControl(container,
 				SOAMessages.TEXT_NAME_NAME, modifyListener, true, 

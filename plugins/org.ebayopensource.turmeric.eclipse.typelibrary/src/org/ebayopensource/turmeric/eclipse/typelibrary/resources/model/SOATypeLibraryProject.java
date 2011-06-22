@@ -11,9 +11,15 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.resources.model;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
+=======
+import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
+import org.ebayopensource.turmeric.eclipse.typelibrary.core.SOATypeLibraryConstants;
+>>>>>>> TURMERIC-1351
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 

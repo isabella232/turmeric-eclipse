@@ -62,6 +62,9 @@ public class ImportTypesWizard extends AbstractTypeLibraryWizard {
 		this.mode = mode;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IWizardPage[] getContentPages() {
 		typeSelectPage = new ImportTypesWizardPage(DIALOG_LABELS[mode][0],

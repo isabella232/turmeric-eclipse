@@ -212,7 +212,6 @@ public class DeleteTypeAction implements IObjectActionDelegate {
 							ProgressUtil.progressOneStep(monitor);
 							synch.synchronizeTypeDepandProjectDep(monitor);
 							WorkspaceUtil.refresh(monitor, project);
-
 						} catch (Exception e) {
 							logger.error(e);
 							throw new CoreException(EclipseMessageUtils.createErrorStatus(e));

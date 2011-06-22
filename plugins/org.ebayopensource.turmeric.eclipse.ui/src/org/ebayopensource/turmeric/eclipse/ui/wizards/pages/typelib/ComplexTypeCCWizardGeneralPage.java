@@ -32,7 +32,6 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author ramurthy
  */
-
 public class ComplexTypeCCWizardGeneralPage extends
 		ComplexTypeWizardGeneralPage {
 

@@ -149,7 +149,7 @@ public class GenTypeServiceFromWSDLImpl extends BaseCodeGenModel {
 		result.put(PARAM_SRC, getSourceDirectory());
 		result.put(PARAM_DEST, getDestination());
 		result.put(PARAM_BIN, getOutputDirectory());
-		if (getServiceImplClassName() != null) {
+		if (getServiceImplClassName() != null && this.useExternalServiceFactory() == false) {
 			result.put(PARAM_SICN, getServiceImplClassName());
 		}
 		

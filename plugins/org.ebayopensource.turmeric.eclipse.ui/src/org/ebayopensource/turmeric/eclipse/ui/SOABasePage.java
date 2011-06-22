@@ -51,6 +51,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
+import org.eclipse.ui.forms.events.IExpansionListener;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.osgi.service.prefs.BackingStoreException;
 
@@ -184,7 +185,7 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	 */
 	public void updatePageStatus(final IStatus status, Control... controls) {
 		String message = null;
-		int messageType = IMessageProvider.NONE;
+		int messageType = WizardPage.NONE;
 		if (status != null) {
 			switch (status.getSeverity()) {
 			case IStatus.WARNING:
@@ -302,7 +303,8 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	 * @param parent the parent
 	 * @return the composite
 	 */
-	protected Composite createAdvancedSettingsPanel(final Composite parent) {
+	protected Composite createAdvancedSettingsPanel(final Composite parent,
+			IExpansionListener listener) {
 		ExpandableComposite eComposite = new ExpandableComposite(parent, 
 				ExpandableComposite.COMPACT | ExpandableComposite.TWISTIE | ExpandableComposite.EXPANDED);
 		GridData data = new GridData(GridData.FILL_BOTH);
@@ -321,9 +323,12 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 				shell.setMinimumSize(minSize);
 			}
 		});
+		if (listener != null) {
+			eComposite.addExpansionListener(listener);
+		}
 		Composite composite = createParentControl(eComposite, 4);
 		eComposite.setClient(composite);
-		
+
 		return composite;
 	}
 

@@ -28,27 +28,22 @@ public class ErrorIdServicePreferenceInitializer extends
 	 */
 	@Override
 	public void initializeDefaultPreferences() {
-		String symbolicName = Activator.getDefault().getBundle().getSymbolicName();
-		IEclipsePreferences node = new DefaultScope().getNode(symbolicName);
-		IEclipsePreferences instanceNode = new InstanceScope().getNode(symbolicName);
-		
-		setNodeValues(node);
-		
-		try {
-			if (instanceNode.keys() != null && instanceNode.keys().length == 0) {
-				setNodeValues(instanceNode);
-				instanceNode.flush();
-			}
-		} catch (BackingStoreException e) {
-			SOALogger.getLogger().warning(e);
-		}		
-		
+		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+		store.setDefault(ErrorIdServicePreferenceConstants.USELOCALHOST, true);
+		store.setDefault(ErrorIdServicePreferenceConstants.USEREMOTEHOST, false);
+		store.setDefault(ErrorIdServicePreferenceConstants.REMOTEENDPOINTURL,
+				"http://www.example.org/AdminASV1");
+		store.setDefault(ErrorIdServicePreferenceConstants.LOCALFILEPATH,
+				System.getProperty("user.home"));
 	}
 
-	private void setNodeValues(IEclipsePreferences node) {
-		node.putBoolean(ErrorIdServicePreferenceConstants.USELOCALHOST, true);
-		node.putBoolean(ErrorIdServicePreferenceConstants.USEREMOTEHOST, false);
-		node.put(ErrorIdServicePreferenceConstants.REMOTEENDPOINTURL, "http://www.example.org/AdminASV1");
-		node.put(ErrorIdServicePreferenceConstants.LOCALFILEPATH, System.getProperty("user.home"));
+	public static String getErrorIdServiceEndpoint() {
+		return Activator.getDefault().getPreferenceStore()
+				.getString(ErrorIdServicePreferenceConstants.REMOTEENDPOINTURL);
+	}
+
+	public static boolean useLocalHost() {
+		return Activator.getDefault().getPreferenceStore()
+				.getBoolean(ErrorIdServicePreferenceConstants.USELOCALHOST);
 	}
 }

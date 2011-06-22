@@ -326,11 +326,17 @@ public class SOAIntfUtil {
 
 	/**
 	 * This is only supposed to be used for modifying service layers and version.
+<<<<<<< HEAD
 	 *
 	 * @param intfProject the intf project
 	 * @param monitor the monitor
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws CoreException the core exception
+=======
+	 * @param intfProject
+	 * @throws IOException
+	 * @throws CoreException
+>>>>>>> TURMERIC-1351
 	 */
 	public static void saveMetadataProps(SOAIntfProject intfProject, 
 			IProgressMonitor monitor)
@@ -376,11 +382,20 @@ public class SOAIntfUtil {
 
 	/**
 	 * Get the IFile instance of the
+<<<<<<< HEAD
 	 * [PROJECT]/gen-meta-src/META-INF/soa/common/config/[SERVICE_NAME]/service_metadata.properties.
 	 *
 	 * @param project the project
 	 * @param serviceName The interface project name or the service name
 	 * @return the new metadata file
+=======
+	 * [PROJECT]/gen-meta-src/META-INF/soa/common/config/[SERVICE_NAME]/service_metadata.properties
+	 * 
+	 * @param project
+	 * @param serviceName
+	 *            The interface project name or the service name
+	 * @return
+>>>>>>> TURMERIC-1351
 	 */
 	public static IFile getNewMetadataFile(final IProject project,
 			final String serviceName) {
@@ -467,6 +482,17 @@ public class SOAIntfUtil {
 	public static IFile getIntfProjectPropFile(final IProject project) {
 		return project
 				.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_INTERFACE);
+	}
+	
+	public static IFile getIntfProtoBufFile(final IProject project) {
+		String protoBufPath = getIntfProtoBufFilePath(project.getName());
+		return project.getFile(protoBufPath);
+	}
+	
+	public static String getIntfProtoBufFilePath(String adminName) {
+		return SOAProjectConstants.FOLDER_META_SRC + "/"
+				+ SOAProjectConstants.META_PROTO_BUF + "/" + adminName + "/"
+				+ adminName + ".proto";
 	}
 
 	/**
@@ -665,6 +691,16 @@ public class SOAIntfUtil {
 					SOAProjectConstants.PROPS_SERVICE_DOMAIN_NAME)));
 		}
 		
+		if (properties.containsKey(SOAProjectConstants.PROP_KEY_NON_XSD_FORMATS)) {
+			metadata.setServiceNonXSDProtocols(StringUtils.trim(properties
+					.getProperty(SOAProjectConstants.PROP_KEY_NON_XSD_FORMATS)));
+		}
+		
+		if (properties.containsKey(SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG)) {
+			metadata.setZeroConfig(Boolean.valueOf(StringUtils.trim(properties
+					.getProperty(SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG))));
+		}
+		
 		final String wsdlUrl = StringUtils.trim(properties
 				.getProperty(SOAProjectConstants.PROP_KEY_ORIGINAL_WSDL_URI));
 		if (WSDLUtil.isValidURL(wsdlUrl)) {
@@ -724,6 +760,7 @@ public class SOAIntfUtil {
 			result = new Properties();
 			InputStream in = null;
 			try {
+				//TODO decode the white spaces: %20
 				in = new FileInputStream(metadataFile);
 				result.load(in);
 			} finally {

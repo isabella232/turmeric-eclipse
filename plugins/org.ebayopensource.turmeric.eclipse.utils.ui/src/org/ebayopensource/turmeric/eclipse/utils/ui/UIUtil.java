@@ -113,6 +113,15 @@ public class UIUtil {
 			return Display.getCurrent();
 		return Display.getDefault();
 	}
+	
+	/**
+	 * @author yayu
+	 *
+	 * @param <T>
+	 */
+	public static interface IRunnable<T> {
+		public T run();
+	}
 
 	/**
 	 * File dialog.

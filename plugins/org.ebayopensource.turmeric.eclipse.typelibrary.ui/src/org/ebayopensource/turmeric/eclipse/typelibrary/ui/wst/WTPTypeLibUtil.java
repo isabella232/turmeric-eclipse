@@ -65,9 +65,117 @@ import org.eclipse.xsd.XSDTypeDefinition;
  */
 public class WTPTypeLibUtil {
 
+	/**
+	 * Scans the schema and returns all the type imports pertaining to SOA
+	 * protocol. Remember this will not return the normal XSD imports.ie the
+	 * imports without the typelib: protocol. The registry is being queried for
+	 * the type name before adding it to the returned map.
+	 * 
+	 * @param xsdSchema
+	 * @return
+	 * @throws Exception
+	 */
+	public static Map<LibraryType, XSDSchemaDirective> getAllTypeLibImports(
+			XSDSchema xsdSchema) throws Exception {
+		Map<LibraryType, XSDSchemaDirective> typeImportsList = new ConcurrentHashMap<LibraryType, XSDSchemaDirective>();
+		for (Object xsdContent : xsdSchema.getContents()) {
+			if (xsdContent instanceof XSDSchemaDirective) {
+				XSDSchemaDirective xsdSchemaDirective = (XSDSchemaDirective) xsdContent;
+				String xsdSchemaLocation = xsdSchemaDirective
+						.getSchemaLocation();
+				String typeName = TypeLibraryUtil
+						.getTypeNameFromProtocolString(xsdSchemaLocation);
+				String importedTypeNameSpace = "";
+				if (xsdSchemaDirective instanceof XSDInclude) {
+					if (xsdSchemaDirective.getResolvedSchema() != null) {
+						importedTypeNameSpace = ((XSDInclude)xsdSchemaDirective).getResolvedSchema().getTargetNamespace();
+					} else {
+						importedTypeNameSpace = xsdSchema.getTargetNamespace();
+					}
+				} else if (xsdSchemaDirective instanceof XSDImport) {
+					importedTypeNameSpace = ((XSDImport) xsdSchemaDirective)
+							.getNamespace();
+				}
+				if (!StringUtils.isEmpty(typeName)) {
+					SOATypeRegistry typeRegistry = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry();
+					LibraryType libType = typeRegistry.getType(new QName(importedTypeNameSpace,
+									typeName));
+					if (libType != null) {
+						typeImportsList.put(libType,
+								xsdSchemaDirective);
+					}
+				}
+			}
+		}
+		return typeImportsList;
+	}
 
+	/**
+	 * Returns the types defined in the given WSDL definition that are part of
+	 * the global registry. Basically the API scan the WSDL and finds all the
+	 * types and then query the Global registry with the type name and will add
+	 * it to the returned map only if the registry has the type. In short it
+	 * returns all the type library types in the WSDL definition.
+	 * 
+	 * @param definition
+	 * @return
+	 * @throws Exception
+	 */
+	public static Map<LibraryType, XSDTypeDefinition> getTypeLibraryTypes(
+			Definition definition) throws Exception {
+		Map<LibraryType, XSDTypeDefinition> allSchemas = new ConcurrentHashMap<LibraryType, XSDTypeDefinition>();
+		Types types = ((Types) definition.getTypes());
+		// Do we have a schema already?
+		for (Object objSchema : types.getSchemas()) {
+			XSDSchema xsdSchema = (XSDSchema) objSchema;
+			for (Object xsdSchemaContent : xsdSchema.getContents()) {
+				if (xsdSchemaContent instanceof XSDTypeDefinition) {
+					XSDTypeDefinition xsdTypeDefinition = (XSDTypeDefinition) xsdSchemaContent;
+					// Annotations will take precedence over the XSD target
+					// namespace
+					String nameSpace = getNameSpace(xsdTypeDefinition);
+					SOATypeRegistry typeRegistry = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry(); 
+					LibraryType libraryType = typeRegistry.getType(
+									new QName(nameSpace, xsdTypeDefinition
+											.getName()));
+					if (libraryType != null) {
+						allSchemas.put(libraryType, xsdTypeDefinition);
+					}
+				}
+			}
+		}
+		return allSchemas;
+	}
 
+	public static String getNameSpace(XSDTypeDefinition xsdTypeDefinition)
+			throws SOABadParameterException {
+		for (XSDAnnotation annotation : xsdTypeDefinition.getAnnotations()) {
+			for (Element element : annotation.getApplicationInformation()) {
+				NodeList children = element.getChildNodes();
+				for (int i = 0; i < children.getLength(); i++) {
+					Node node = children.item(i);
+					if (node instanceof Element) {
+						Element childElement = (Element) node;
+						if (StringUtils.equals(childElement.getNodeName(),
+								SOATypeLibraryConstants.TAG_TYPE_LIB)) {
+							if (StringUtils
+									.isEmpty(childElement
+											.getAttribute(SOATypeLibraryConstants.ATTR_NMSPC))) {
+								throw new SOABadParameterException(
+										StringUtil.formatString(
+												SOAMessages.ERR_NMSPC,
+												xsdTypeDefinition.getName()));
+							}
+							return childElement
+									.getAttribute(SOATypeLibraryConstants.ATTR_NMSPC);
+						}
+					}
 
+				}
+			}
+		}
+		return xsdTypeDefinition.getTargetNamespace();
+	}
 
 	/**
 	 * Scan the given map of schemas and returns a new map containing only the
@@ -433,7 +541,13 @@ public class WTPTypeLibUtil {
 		return schemaList != null && !schemaList.isEmpty();
 	}
 
-	private static Types getTypes(Definition definition) {
+	/**
+	 * Return the types.
+	 * 
+	 * @param definition the definition
+	 * @return the types
+	 */
+	public static Types getTypes(Definition definition) {
 		Types types = (Types) definition.getTypes();
 		if (types != null)
 			return types;
@@ -470,7 +584,6 @@ public class WTPTypeLibUtil {
 						XSDSchema xsdSchema = (XSDSchema) schemaObj;
 						for (Object objXsdTypeDefinition : xsdSchema
 								.getTypeDefinitions()) {
-							
 							if (objXsdTypeDefinition != null
 									&& (objXsdTypeDefinition instanceof XSDTypeDefinition)
 									&& StringUtils

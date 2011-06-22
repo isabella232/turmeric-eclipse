@@ -42,8 +42,11 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
+<<<<<<< HEAD
  * The Class NewErrorLibraryWizard.
  *
+=======
+>>>>>>> TURMERIC-1351
  * @author yayu
  * @since 1.0.0
  */
@@ -69,7 +72,7 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 			return result;
 		}
 		try {
-			return factory.getPreferredProvider()
+			return ErrorLibraryProviderFactory.getPreferredProvider()
 					.getErrorLibraryWizardPageProvider().preValidate();
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			return EclipseMessageUtils.createErrorStatus(e);
@@ -93,7 +96,8 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 		IErrorLibraryProvider errorLibProvider;
 		try {
 
-			errorLibProvider = factory.getPreferredProvider();
+			errorLibProvider = ErrorLibraryProviderFactory
+					.getPreferredProvider();
 			if (errorLibProvider != null
 					&& errorLibProvider.getErrorLibraryWizardPageProvider() != null) {
 				wizardProvider = errorLibProvider
@@ -156,7 +160,7 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 					}
 
 				};
-				factory.getPreferredProvider()
+				ErrorLibraryProviderFactory.getPreferredProvider()
 						.getErrorLibraryCreator().preCreation(model);
 				getContainer().run(false, true, operation);
 			} catch (Exception e) {

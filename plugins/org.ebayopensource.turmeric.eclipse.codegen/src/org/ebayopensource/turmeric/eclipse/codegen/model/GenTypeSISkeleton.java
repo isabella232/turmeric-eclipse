@@ -18,8 +18,9 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
 
 /**
  * The Class GenTypeSISkeleton.
- *
+ * 
  * @author yayu
+ * 
  */
 public class GenTypeSISkeleton extends BaseCodeGenModel {
 	private boolean overwriteImplClass = false;

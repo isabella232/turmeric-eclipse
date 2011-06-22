@@ -85,18 +85,18 @@ public class ConsumerCreator {
 		
 		final ISOAOrganizationProvider orgProvider = GlobalRepositorySystem.instanceOf()
 		.getActiveRepositorySystem().getActiveOrganizationProvider();
-		Set<String> requiredLibraries = paramModel.getInterfaceLibs();
+		// Set<String> requiredLibraries = paramModel.getInterfaceLibs();
+		Set<String> requiredLibraries = new HashSet<String>();
 		requiredLibraries.addAll(orgProvider.getDefaultDependencies(SupportedProjectType.CONSUMER));
 		
 		consumerProject.setRequiredLibraries(requiredLibraries);
-		consumerProject.setRequiredProjects(paramModel.getInterfaceProjects());
+		// consumerProject.setRequiredProjects(paramModel.getInterfaceProjects());
 		ProgressUtil.progressOneStep(monitor);
 		
 		// adding the service project now
-		Set<String> requiredProjects = paramModel.getImplProjects();
-		requiredProjects.add(interfaceProject.getEclipseMetadata()
-				.getProjectName());
-		consumerProject.setRequiredProjects(requiredProjects);
+		// Set<String> requiredProjects = paramModel.getImplProjects();
+		// requiredProjects.add(interfaceProject.getEclipseMetadata()
+		// .getProjectName());
 
 		consumerProject.getRequiredServices().put(
 				interfaceProject.getMetadata().getServiceName(), 
@@ -134,19 +134,20 @@ public class ConsumerCreator {
 		BuildSystemConfigurer.configure(consumerProject, monitor);
 		ProgressUtil.progressOneStep(monitor);
 		
-		//we only generate the client config now, because the interface class is not ready yet
-		//the client project builder will be responsible for generating the base consumer
-		BuildSystemCodeGen.generateClientConfigXml(consumerProject, monitor);
-		ProgressUtil.progressOneStep(monitor);
+		if (consumerProject.getMetadata().getEnvironments().isEmpty() == false) {
+			//we only generate the client config now, because the interface class is not ready yet
+			//the client project builder will be responsible for generating the base consumer
+			BuildSystemCodeGen.generateClientConfigXml(consumerProject, monitor);
+			ProgressUtil.progressOneStep(monitor);
+		}
 	}
 
 
 	/**
-	 * Creates the consumer model from java.
-	 *
-	 * @param uiModel the ui model
+	 * Creates the consumer project from existing service.
+	 * @param uiModel the UI model
 	 * @param monitor the monitor
-	 * @return the sOA consumer project
+	 * @return the created consumer project instance
 	 * @throws Exception the exception
 	 */
 	public static SOAConsumerProject createConsumerModelFromJava(
@@ -186,8 +187,8 @@ public class ConsumerCreator {
 					
 					//we need to get all required libs for the intf service
 					final ProjectInfo intfProjectInfo = assetRegistry.getProjectInfo(serviceName);
-					consumerProject.getRequiredLibraries().addAll(intfProjectInfo.getRequiredLibraries());
-					consumerProject.getRequiredProjects().addAll(intfProjectInfo.getRequiredProjects());
+//					consumerProject.getRequiredLibraries().addAll(intfProjectInfo.getRequiredLibraries());
+//					consumerProject.getRequiredProjects().addAll(intfProjectInfo.getRequiredProjects());
 
 					if (serviceLocation != null && serviceLocation
 							.startsWith(SOAProjectConstants.PROTOCOL_HTTP) == false) {

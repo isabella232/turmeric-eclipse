@@ -62,21 +62,21 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 	private SOAIntfProject intfProject;
 
 	private Shell parentShell;
-	
+
 	private Text newVersionText;
-	
+
 	private Text oldVersionText;
-	
+
 	private Button maintenanceBtn;
-	
+
 	private Button minorBtn;
-	
+
 	private Button majorBtn;
-	
+
 	private Version oldVersion;
-	
+
 	private String oldVersionStr;
-	
+
 	/**
 	 * Instantiates a new change service version dialog.
 	 *
@@ -124,15 +124,15 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 		layout.marginLeft = 3;
 		maintenanceBtn = new Button(group, SWT.RADIO);
 		maintenanceBtn.setText(SOAMessages.CHANGE_MAINTENANCE_VERSION_LABEL);
-		ControlDecoration controlDecoration = new ControlDecoration(maintenanceBtn,
-				SWT.LEFT | SWT.TOP);
+		ControlDecoration controlDecoration = new ControlDecoration(
+				maintenanceBtn, SWT.LEFT | SWT.TOP);
 		controlDecoration.setShowOnlyOnFocus(false);
 		controlDecoration
 				.setDescriptionText(SOAMessages.CHANGE_MAINTENANCE_VERSION_DECORATION);
 		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault()
 				.getFieldDecoration(FieldDecorationRegistry.DEC_INFORMATION);
 		controlDecoration.setImage(fieldDecoration.getImage());
-		maintenanceBtn.addSelectionListener(new SelectionListener(){
+		maintenanceBtn.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -143,7 +143,6 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 			public void widgetSelected(SelectionEvent e) {
 				maintenanceButtonSelected();
 			}
-			
 		});
 
 		minorBtn = new Button(group, SWT.RADIO);
@@ -153,7 +152,7 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 		controlDecoration
 				.setDescriptionText(SOAMessages.CHANGE_MINOR_VERSION_DECORATION);
 		controlDecoration.setImage(fieldDecoration.getImage());
-		minorBtn.addSelectionListener(new SelectionListener(){
+		minorBtn.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -164,7 +163,6 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 			public void widgetSelected(SelectionEvent e) {
 				minorButtonSelected();
 			}
-			
 		});
 
 		majorBtn = new Button(group, SWT.RADIO);
@@ -174,7 +172,7 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 		controlDecoration
 				.setDescriptionText(SOAMessages.CHANGE_MAJOR_VERSION_DECORATION);
 		controlDecoration.setImage(fieldDecoration.getImage());
-		majorBtn.addSelectionListener(new SelectionListener(){
+		majorBtn.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -185,7 +183,6 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 			public void widgetSelected(SelectionEvent e) {
 				majorButtonSelected();
 			}
-			
 		});
 
 		Label label = new Label(parentComposite, SWT.LEFT);
@@ -199,15 +196,15 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 		newVersionText = new Text(parentComposite, SWT.BORDER);
 		newVersionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		newVersionText.setText("1.2.0");
-		newVersionText.addModifyListener(new ModifyListener(){
+		newVersionText.addModifyListener(new ModifyListener() {
 
 			@Override
 			public void modifyText(ModifyEvent e) {
 				validateNewVersionText();
 			}
-			
+
 		});
-		newVersionText.addKeyListener(new KeyListener(){
+		newVersionText.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -222,22 +219,28 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 					newVersionText.setData(newVersionStr);
 				}
 			}
-			
 		});
 		newVersionText.setData(oldVersionStr);
 		Dialog.applyDialogFont(control);
 		return control;
 	}
-	
-	private void validateNewVersionText(){
+
+	@Override
+	public void setErrorMessage(String newErrorMessage) {
+		Button btn = this.getButton(OK);
+		btn.setEnabled(newErrorMessage == null);
+		super.setErrorMessage(newErrorMessage);
+	}
+
+	private void validateNewVersionText() {
 		this.setErrorMessage(null);
-		
-		if(majorBtn.getSelection() == true){
+
+		if (majorBtn.getSelection() == true) {
 			return;
 		}
-		
+
 		String newVersionStr = newVersionText.getText();
-		
+
 		// validate new version format first.
 		try {
 			IStatus status = ServiceVersionValidator.getInstance().validate(
@@ -250,25 +253,25 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 			this.setErrorMessage("Error: " + e.toString());
 			return;
 		}
-		
-		
+
 		Version newVersion = new Version(newVersionStr);
-		
-		if(newVersion.compareTo(oldVersion) < 0){
+
+		if (newVersion.compareTo(oldVersion) < 0) {
 			this.setErrorMessage(SOAMessages.NEW_VERSION_SMALLER_ERROR_MESSAGE);
 			return;
 		}
-		
-		// boolean maintenanceChanged = newVersion.getMicro() != oldVersion.getMicro();
+
+		// boolean maintenanceChanged = newVersion.getMicro() !=
+		// oldVersion.getMicro();
 		boolean minorChanged = newVersion.getMinor() != oldVersion.getMinor();
 		boolean majorChanged = newVersion.getMajor() != oldVersion.getMajor();
 
-		if(minorBtn.getSelection() == true){
-			if(majorChanged == true){
+		if (minorBtn.getSelection() == true) {
+			if (majorChanged == true) {
 				this.setErrorMessage(SOAMessages.SHOULD_ONLY_CHANGE_MAINTENANCE_VERSION_OR_MINIOR_VERSION_ERROR_MESSAGE);
 			}
-		}else if(maintenanceBtn.getSelection() == true){
-			if(majorChanged == true || minorChanged == true){
+		} else if (maintenanceBtn.getSelection() == true) {
+			if (majorChanged == true || minorChanged == true) {
 				this.setErrorMessage(SOAMessages.SHOULD_ONLY_CHANGE_MAINTENANCE_VERSION_ERROR_MESSAGE);
 			}
 		}
@@ -276,39 +279,37 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 
 	private void maintenanceButtonSelected() {
 		newVersionText.setEditable(true);
-		newVersionText.setText((String)newVersionText.getData());
+		newVersionText.setText((String) newVersionText.getData());
 		validateNewVersionText();
 	}
-	
+
 	private void minorButtonSelected() {
 		newVersionText.setEditable(true);
-		newVersionText.setText((String)newVersionText.getData());
+		newVersionText.setText((String) newVersionText.getData());
 		validateNewVersionText();
 	}
 
 	private void majorButtonSelected() {
 		newVersionText.setEditable(false);
-		newVersionText.setText(SOAMessages.NEW_MAJOR_SERVICE_VERSION_NOTIFICATION);
+		newVersionText
+				.setText(SOAMessages.NEW_MAJOR_SERVICE_VERSION_NOTIFICATION);
 		validateNewVersionText();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.Dialog#okPressed()
-	 */
 	@Override
 	protected void okPressed() {
 		final String newVersionStr = newVersionText.getText();
 		boolean changeMajor = majorBtn.getSelection();
 		super.okPressed();
-		if(changeMajor == true){
+		if (changeMajor == true) {
 			ServiceFromWSDLWizard svcFromWsld = new ServiceFromWSDLWizard();
 			WizardDialog dialog = new WizardDialog(parentShell, svcFromWsld);
 			dialog.open();
-		}else{
+		} else {
 			changeServiceVersionOperations(oldVersionStr, newVersionStr);
 		}
 	}
-	
+
 	private boolean changeServiceVersionOperations(final String oldVersionStr,
 			final String newVersionStr) {
 		final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
@@ -348,5 +349,4 @@ public class ChangeServiceVersionDialog extends TitleAreaDialog {
 			return false;
 		}
 	}
-	
 }

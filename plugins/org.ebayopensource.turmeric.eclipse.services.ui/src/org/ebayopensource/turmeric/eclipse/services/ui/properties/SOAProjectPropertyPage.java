@@ -224,7 +224,6 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		return consumerPropertyGroup;
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 * @see org.eclipse.jface.preference.PreferencePage#createControl(org.eclipse.swt.widgets.Composite)
@@ -548,7 +547,11 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 			if (soaProject instanceof SOAIntfProject) {
 				final SOAIntfProject intfProject = (SOAIntfProject) soaProject;
 				final Version newVer = new Version(serviceVersion.getText());
-				final Version existingVer = new Version(intfProject.getMetadata().getServiceVersion());
+				String curVersion = intfProject.getMetadata().getServiceVersion();
+				if (StringUtils.isEmpty(curVersion)) {
+					return true;
+				}
+				final Version existingVer = new Version(curVersion);
 				if (newVer.getMajor() != existingVer.getMajor()) {
 					setErrorMessage(SOAMessages.ERR_CHANGE_MAJOR_VERSION_NOT_ALLOWED);
 					return false;

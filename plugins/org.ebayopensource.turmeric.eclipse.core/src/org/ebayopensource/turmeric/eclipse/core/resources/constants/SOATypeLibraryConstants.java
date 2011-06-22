@@ -8,6 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.core.resources.constants;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 
 /**
  * Type Library related constants goes here. Most of them are used in UI and
@@ -24,13 +25,13 @@ public class SOATypeLibraryConstants {
 	 * The Enum TypeCategory.
 	 */
 	public static enum TypeCategory {
-		
+
 		/** The SIMPLE. */
 		SIMPLE, 
- /** The COMPLEX. */
- COMPLEX, 
- /** The ENUM. */
- ENUM
+		/** The COMPLEX. */
+		COMPLEX, 
+		/** The ENUM. */
+		ENUM
 	}
 
 	/** The Constant FOLDER_GEN_SRC. */

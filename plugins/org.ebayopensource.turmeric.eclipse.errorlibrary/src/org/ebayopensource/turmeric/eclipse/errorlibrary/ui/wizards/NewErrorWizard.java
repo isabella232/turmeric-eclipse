@@ -42,8 +42,11 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
+<<<<<<< HEAD
  * The Class NewErrorWizard.
  *
+=======
+>>>>>>> TURMERIC-1351
  * @author yayu
  * @since 1.0.0
  */
@@ -58,7 +61,7 @@ public final class NewErrorWizard extends SOABaseWizard {
 	public IStatus preValidate() throws ValidationInterruptedException {
 		// checking for valid providers
 		try {
-			factory.getPreferredProvider();
+			ErrorLibraryProviderFactory.getPreferredProvider();
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			return EclipseMessageUtils.createErrorStatus(e);
 		}
@@ -83,7 +86,8 @@ public final class NewErrorWizard extends SOABaseWizard {
 		final List<IWizardPage> pages = new ArrayList<IWizardPage>();
 		IErrorLibraryProvider errorLibProvider;
 		try {
-			errorLibProvider = factory.getPreferredProvider();
+			errorLibProvider = ErrorLibraryProviderFactory
+					.getPreferredProvider();
 			if (errorLibProvider != null
 					&& errorLibProvider.getErrorWizardPageProvider() != null) {
 				wizardProvider = errorLibProvider.getErrorWizardPageProvider();
@@ -141,9 +145,12 @@ public final class NewErrorWizard extends SOABaseWizard {
 					}
 
 				};
-				factory.getPreferredProvider()
+				ErrorLibraryProviderFactory.getPreferredProvider()
 						.getErrorTypeCreator().preCreation(model);
 				getContainer().run(false, true, operation);
+				// http://www.nbweekly.com/Print/Page/844,62.shtml
+				// No change if just resource created inside a project
+				// changePerspective();
 			} catch (Exception e) {
 				logger.error(e);
 				UIUtil.showErrorDialog(SOAMessages.CREATE_ERR_ERR, e);

@@ -126,8 +126,6 @@ public class ConsumerFromJavaWizard extends SOABaseWizard {
 	private ConsumerFromJavaParamModel createModel(
 			final String clientProjectName) {
 		final ConsumerFromJavaParamModel uiModel = new ConsumerFromJavaParamModel();
-		uiModel.setBaseConsumerSrcDir(newConsumerPage
-				.getBaseConsumerSrcDir());
 		uiModel.setParentDirectory(newConsumerPage
 				.getProjectRootDirectory());
 		uiModel.setServiceNames(newConsumerPage.getServiceList());

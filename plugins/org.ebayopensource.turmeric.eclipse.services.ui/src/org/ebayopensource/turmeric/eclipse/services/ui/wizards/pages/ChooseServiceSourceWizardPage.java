@@ -14,54 +14,36 @@ package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractSelectionSourceWizardPage;
 
 /**
- * The Class ChooseServiceSourceWizardPage.
- *
  * @author yayu
  * @deprecated Creating service from existing Java interface is no longer supported.
  */
-@Deprecated
 public class ChooseServiceSourceWizardPage extends
 		AbstractSelectionSourceWizardPage {
 
 	/**
-	 * Instantiates a new choose service source wizard page.
-	 *
+	 * @param pageName
+	 * @param title
+	 * @param description
 	 */
 	public ChooseServiceSourceWizardPage() {
 		super("chooseServiceSourceWizardPage", "Choose Service Source", 
 				"a good description goes here");
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractSelectionSourceWizardPage#getFirstChoiceName()
-	 */
 	@Override
 	protected String getFirstChoiceName() {
 		return "New Interface";
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractSelectionSourceWizardPage#getSecondChoiceName()
-	 */
 	@Override
 	protected String getSecondChoiceName() {
 		return "Existing Interface";
 	}
 	
-	/**
-	 * Checks if is creates the from new interface.
-	 *
-	 * @return true, if is creates the from new interface
-	 */
 	public boolean isCreateFromNewInterface() {
 		return super.isFirstChoiceSelected();
 	}
 	
-	/**
-	 * Checks if is creates the from existing interface.
-	 *
-	 * @return true, if is creates the from existing interface
-	 */
 	public boolean isCreateFromExistingInterface() {
 		return super.isSecondChoiceSelected();
 	}

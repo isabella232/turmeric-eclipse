@@ -89,9 +89,9 @@ public class ServiceFromExistingWSDLWizardPage extends
 			addServicePackage(container);
 			addServiceImpl(container);
 			addServiceLayer(container);
+			createServiceImplTypeCombo(container);
 			addTypeFolding(container);
 			addWSDLPackageToNamespace(container);
-			setControl(container);
 		} catch (Exception e) {
 			logger.error(e);
 			UIUtil.showErrorDialog(e);
@@ -136,6 +136,7 @@ public class ServiceFromExistingWSDLWizardPage extends
 			// could not get the namespace-part
 			this.serviceDomainList.select(-1);
 			this.serviceDomainList.clearSelection();
+			this.domainClassifierList.select(-1);
 			this.domainClassifierList.clearSelection();
 		}
 	}

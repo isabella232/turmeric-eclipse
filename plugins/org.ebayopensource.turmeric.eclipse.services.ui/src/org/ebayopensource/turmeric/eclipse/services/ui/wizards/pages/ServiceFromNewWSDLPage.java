@@ -10,7 +10,9 @@ package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.wsdl.Definition;
 
@@ -24,6 +26,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.services.resources.SOAConstants;
 import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
@@ -94,6 +97,7 @@ private CCombo templateFileCombo;
 			addServiceImpl(container);
 			addServiceLayer(container);
 			addTemplateFileComboBox(container);
+			createServiceImplTypeCombo(container);
 			addTypeFolding(container);
 			modifyListener.modifyText(null);
 		} catch (Exception e) {
@@ -233,6 +237,20 @@ private CCombo templateFileCombo;
 	/* (non-Javadoc)
 	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#wsdlChanged(javax.wsdl.Definition)
 	 */
+	@Override
+	public Map<String, String> getNamespaceToPackageMappings() {
+		Map<String, String> result = new LinkedHashMap<String, String>();
+		String targetNs = getTargetNamespace();
+		String typeNs = getTypeNamespace();
+		result.put(targetNs, ConfigTool
+				.getTypePackageNameFromNamespace(targetNs, getPublicServiceName()));
+		if (StringUtils.isNotBlank(typeNs) && targetNs.equals(typeNs) == false) {
+			result.put(typeNs, ConfigTool
+					.getTypePackageNameFromNamespace(typeNs, getPublicServiceName()));
+		}
+		return result;
+	}
+
 	@Override
 	public void wsdlChanged(Definition wsdl) {
 

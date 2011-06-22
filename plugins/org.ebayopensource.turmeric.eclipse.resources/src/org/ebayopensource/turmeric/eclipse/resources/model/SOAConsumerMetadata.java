@@ -30,6 +30,7 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	private String consumerId;
 	private String baseConsumerSrcDir;
 	private String envMapper;
+	private boolean isZeroConfig = false;
 	
 	/**
 	 * The name used for storing ClientConfig.xml files
@@ -47,10 +48,9 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 	
 	/**
-	 * Creates the.
-	 *
-	 * @param clientName the client name
-	 * @param baseConsumerSrcDir the base consumer src dir
+	 * 
+	 * @param clientName 
+	 * @param baseConsumerSrcDir 
 	 * @return the created SOAConsumerMetadata instance
 	 */
 	
@@ -62,9 +62,8 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * Creates the.
-	 *
-	 * @param paramModel the param model
+	 * 
+	 * @param paramModel 
 	 * @return the created SOAConsumerMetaData instance
 	 */
 	public static SOAConsumerMetadata create(ConsumerFromWsdlParamModel paramModel) {
@@ -75,13 +74,13 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 		metadata.setEnvironments(paramModel.getEnvironments());
 		metadata.setServiceNames(ListUtil.arrayList(paramModel.getServiceName()));
 		metadata.setSourceType(SOAProjectConstants.ConsumerSourceType.WSDL);
+		metadata.setZeroConfig(paramModel.getEnvironments().isEmpty());
 		return metadata;
 	}
 	
 	/**
-	 * Creates the.
-	 *
-	 * @param paramModel the param model
+	 * 
+	 * @param paramModel 
 	 * @return the created SOAConsumerMetadata instance
 	 */
 	public static SOAConsumerMetadata create(ConsumerFromJavaParamModel paramModel) {
@@ -98,7 +97,17 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
+	public boolean isZeroConfig() {
+		return isZeroConfig;
+	}
+
+	public void setZeroConfig(boolean isZeroConfig) {
+		this.isZeroConfig = isZeroConfig;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getMetadataFileName() {
 		return SOAProjectConstants.PROPS_FILE_SERVICE_CONSUMER;
 	}

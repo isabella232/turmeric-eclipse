@@ -2,6 +2,10 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes;
 
 import java.util.ArrayList;
 import java.util.Collection;
+<<<<<<< HEAD
+=======
+import java.util.Collections;
+>>>>>>> TURMERIC-1351
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +14,13 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiec
 /**
  * The Class TypeModel.
  */
-public class TypeModel {
+public class TypeModel implements Comparable<TypeModel> {
 
 	private String typeName;
 
 	private String namespace;
+
+	private String originalNamespace;
 
 	private String typeLibName;
 
@@ -73,12 +79,17 @@ public class TypeModel {
 			String documentation, String typelibName, String typelibNamespace) {
 		this.typeName = typeName;
 		this.namespace = namespace;
+		this.originalNamespace = namespace;
 		this.nsMappingSchema = nsMappingSchema;
 		this.typeContent = typeContent;
 		this.documentation = documentation;
 		// type from type library
 		this.typelibRefName = typelibName;
 		this.typelibRefNamespace = typelibNamespace;
+	}
+
+	public String getOriginalNamespace() {
+		return originalNamespace;
 	}
 
 	/**
@@ -168,6 +179,15 @@ public class TypeModel {
 	 */
 	public boolean isTypeLibraryType() {
 		return typelibRefName != null && typelibRefNamespace != null;
+	}
+
+	/**
+	 * Return whether the type lib source is valid.
+	 * 
+	 * @return whether the type lib source is valid
+	 */
+	public boolean isTypeLibrarySourceInvalidated() {
+		return (typelibRefName == null) == (typelibRefNamespace == null);
 	}
 
 	/**
@@ -380,6 +400,42 @@ public class TypeModel {
 		return warnings;
 	}
 
+	private void mergeSameItems(Collection<String> target, List<String> source) {
+		if (source.size() == 0) {
+			return;
+		}
+		Collections.sort(source);
+		String preItem = source.get(0);
+		int counter = 1;
+		int size = source.size();
+		for (int i = 1; i < size; i++) {
+			String curItem = source.get(i);
+			if (curItem == null) {
+				continue;
+			}
+			if (preItem.equals(curItem)) {
+				counter++;
+			} else {
+				if (counter == 1) {
+					target.add(preItem);
+				} else if (counter == 2) {
+					target.add(preItem + " (occurs twice)");
+				} else {
+					target.add(preItem + " (occurs " + counter + " times)");
+				}
+				preItem = curItem;
+				counter = 1;
+			}
+		}
+		if (counter == 1) {
+			target.add(preItem);
+		} else if (counter == 2) {
+			target.add(preItem + " (occurs twice)");
+		} else {
+			target.add(preItem + " (occurs " + counter + " times)");
+		}
+	}
+
 	/**
 	 * Checks for error.
 	 *
@@ -557,6 +613,11 @@ public class TypeModel {
 	 */
 	public void setWarnings(List<String> warnings) {
 		this.warnings = warnings;
+	}
+
+	@Override
+	public int compareTo(TypeModel o) {
+		return this.hashCode() - o.hashCode();
 	}
 
 }

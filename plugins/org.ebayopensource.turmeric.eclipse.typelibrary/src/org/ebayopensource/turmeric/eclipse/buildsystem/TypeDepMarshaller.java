@@ -516,7 +516,6 @@ public class TypeDepMarshaller {
 		.getTypeRegistryBridge().createReferredTypeInstance();
 		refType.setName(addedType.getName());
 		String version = addedType.getVersion();
-		
 		for (ReferredType referredType : oldReferredTypes) {
 			if (StringUtils.equals(addedType.getName(), referredType.getName())) {
 				version = referredType.getVersion();

@@ -47,9 +47,11 @@ public class IOUtil {
 	 * incrementally. Basically, here we first create the parent directory and
 	 * then create the child incrementally. It checks for the readability of the
 	 * parent and the validity of the segment before creating every child.
-	 *
-	 * @param root the File base directory (ignored if null or not readable
-	 * @param segments the segments
+	 * 
+	 * @param root
+	 *            the File base directory (ignored if null or not readable
+	 * @param segment
+	 *            the String[] of path elements to add to root (ignored if null)
 	 * @return null if root not readable or File otherwise
 	 */
 	public static File newFile(File root, String... segments) {
