@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
+import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.project.MavenProject;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
@@ -28,14 +29,18 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.m2e.core.project.configurator.AbstractProjectConfigurator;
+import org.eclipse.m2e.core.lifecyclemapping.model.IPluginExecutionMetadata;
+import org.eclipse.m2e.core.project.IMavenProjectFacade;
+import org.eclipse.m2e.core.project.configurator.AbstractBuildParticipant;
+import org.eclipse.m2e.jdt.AbstractJavaProjectConfigurator;
+import org.eclipse.m2e.jdt.IClasspathDescriptor;
 import org.eclipse.m2e.core.project.configurator.ProjectConfigurationRequest;
 
 /**
  * The Class TurmerStandardProjectConfigurator.
  */
 public class TurmerStandardProjectConfigurator extends
-		AbstractProjectConfigurator {
+		AbstractJavaProjectConfigurator {
 
 	private static final String GEN_TYPELIBRARY = "gen-typelibrary";
 	private static final String GEN_ERRORLIBRARY = "gen-errorlibrary";
@@ -44,22 +49,46 @@ public class TurmerStandardProjectConfigurator extends
 	private static final String TURMERIC_MAVEN_PLUGIN = "turmeric-maven-plugin";
 
 	/**
-	 * Instantiates a new turmer standard project configurator.
+	 * Instantiates a new turmeric standard project configurator.
 	 */
 	public TurmerStandardProjectConfigurator() {
-		
+
 	}
 
-	/* (non-Javadoc)
-	 * @see org.maven.ide.eclipse.project.configurator.AbstractProjectConfigurator#configure(org.maven.ide.eclipse.project.configurator.ProjectConfigurationRequest, org.eclipse.core.runtime.IProgressMonitor)
-	 */
+	@Override
+	public void configureRawClasspath(ProjectConfigurationRequest request,
+			IClasspathDescriptor classpath, IProgressMonitor monitor)
+			throws CoreException {
+
+		IProject project = request.getProject();
+		IMavenProjectFacade facade = request.getMavenProjectFacade();
+
+		List<IPath> additionalSrcDirs = new ArrayList<IPath>();
+		additionalSrcDirs.add(new Path("target/generated-sources/codegen"));
+		additionalSrcDirs.add(new Path("target/generated-resources/codegen"));
+		additionalSrcDirs
+				.add(new Path("target/generated-sources/jaxb-episode"));
+		additionalSrcDirs.add(new Path(
+				"target/generated-resources/jaxb-episode"));
+
+		for (IPath path : additionalSrcDirs) {
+			IFolder folder = project.getFolder(path);
+			if (folder.exists()) {
+				IPath srcPath = project.getFolder(path).getFullPath();
+				if (!classpath.containsPath(path))
+					classpath.addSourceEntry(srcPath,
+							facade.getOutputLocation(), true);
+			}
+		}
+	}
+
 	@Override
 	public void configure(ProjectConfigurationRequest projRequest,
 			IProgressMonitor monitor) throws CoreException {
 
-		if (projRequest == null) {
-			return;
-		}
+		// if (projRequest == null) {
+		// return;
+		// }
 
 		SupportedProjectType projectType = null;
 		IProject project = projRequest.getProject();
@@ -83,8 +112,16 @@ public class TurmerStandardProjectConfigurator extends
 		JDTUtil.addNatures(project, monitor, natureId);
 
 		List<IPath> additionalSrcDirs = new ArrayList<IPath>();
+		additionalSrcDirs.add(new Path("src/main/java"));
+		additionalSrcDirs.add(new Path("src/test/java"));
+		additionalSrcDirs.add(new Path("src/main/resources"));
+		additionalSrcDirs.add(new Path("src/test/resources"));
 		additionalSrcDirs.add(new Path("target/generated-sources/codegen"));
 		additionalSrcDirs.add(new Path("target/generated-resources/codegen"));
+		additionalSrcDirs
+				.add(new Path("target/generated-sources/jaxb-episode"));
+		additionalSrcDirs.add(new Path(
+				"target/generated-resources/jaxb-episode"));
 
 		final IJavaProject javaProject = JavaCore.create(project);
 
@@ -99,7 +136,8 @@ public class TurmerStandardProjectConfigurator extends
 				}
 			}
 		}
-		javaProject.setRawClasspath(entries.toArray(new IClasspathEntry[0]), monitor);
+		javaProject.setRawClasspath(entries.toArray(new IClasspathEntry[0]),
+				monitor);
 
 	}
 
@@ -114,8 +152,9 @@ public class TurmerStandardProjectConfigurator extends
 
 	/**
 	 * Checks if is interface project.
-	 *
-	 * @param projRequest the proj request
+	 * 
+	 * @param projRequest
+	 *            the proj request
 	 * @return true, if is interface project
 	 */
 	public boolean isInterfaceProject(ProjectConfigurationRequest projRequest) {
@@ -146,8 +185,9 @@ public class TurmerStandardProjectConfigurator extends
 
 	/**
 	 * Checks if is implementation project.
-	 *
-	 * @param projRequest the proj request
+	 * 
+	 * @param projRequest
+	 *            the proj request
 	 * @return true, if is implementation project
 	 */
 	public boolean isImplementationProject(
@@ -157,8 +197,9 @@ public class TurmerStandardProjectConfigurator extends
 
 	/**
 	 * Checks if is error lib project.
-	 *
-	 * @param projRequest the proj request
+	 * 
+	 * @param projRequest
+	 *            the proj request
 	 * @return true, if is error lib project
 	 */
 	public boolean isErrorLibProject(ProjectConfigurationRequest projRequest) {
@@ -167,8 +208,9 @@ public class TurmerStandardProjectConfigurator extends
 
 	/**
 	 * Checks if is type lib project.
-	 *
-	 * @param projRequest the proj request
+	 * 
+	 * @param projRequest
+	 *            the proj request
 	 * @return true, if is type lib project
 	 */
 	public boolean isTypeLibProject(ProjectConfigurationRequest projRequest) {
@@ -177,8 +219,9 @@ public class TurmerStandardProjectConfigurator extends
 
 	/**
 	 * Checks if is consumer lib project.
-	 *
-	 * @param projRequest the proj request
+	 * 
+	 * @param projRequest
+	 *            the proj request
 	 * @return true, if is consumer lib project
 	 */
 	public boolean isConsumerLibProject(ProjectConfigurationRequest projRequest) {
@@ -192,6 +235,13 @@ public class TurmerStandardProjectConfigurator extends
 			return project.getFile(fileRelativePath).isAccessible();
 		}
 		return false;
+	}
+
+	@Override
+	public AbstractBuildParticipant getBuildParticipant(
+			IMavenProjectFacade projectFacade, MojoExecution execution,
+			IPluginExecutionMetadata executionMetadata) {
+		return new TurmericStandardBuildParticipant(execution);
 	}
 
 }
