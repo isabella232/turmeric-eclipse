@@ -17,6 +17,7 @@
          url="http://www.ebayopensource.org/nexus/content/repositories/releases/">
 	  </remote>
 	</extension>
+	
  <extension
        point="org.eclipse.m2e.core.lifecycleMappingMetadataSource">
  </extension>
