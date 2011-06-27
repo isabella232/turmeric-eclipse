@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target name="eBay SOA Target Definition" sequenceNumber="10">
+<target name="eBay SOA Target Definition" sequenceNumber="11">
 <locations>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.apache.commons.collections.source" version="3.2.0.v201005080500"/>
@@ -32,6 +32,10 @@
 <unit id="org.eclipse.jst.server_ui.feature.feature.group" version="3.3.0.v201102200555-7A6FHr9xFcAVCFLZBBJLIR43A"/>
 <unit id="org.eclipse.wst.server_adapters.feature.feature.group" version="3.2.100.v20110303-51EoAkF77g8HBSc"/>
 <repository location="http://download.eclipse.org/releases/indigo"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.m2e.sdk.feature.feature.group" version="1.0.0.201106061504"/>
+<repository location="https://repository.sonatype.org/content/sites/forge-sites/m2e/1.0.0/N/LATEST/"/>
 </location>
 </locations>
 </target>

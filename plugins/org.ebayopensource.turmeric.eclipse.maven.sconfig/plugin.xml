@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-     <extension
-        point="org.eclipse.m2e.core.projectConfigurators">
-     <configurator
-           class="org.ebayopensource.turmeric.eclipse.maven.sconfig.TurmerStandardProjectConfigurator"
-           id="org.ebayopensource.turmeric.eclipse.maven.turmericMavenStandard"
-           name="Turmeric Maven Standard Configurator"
-           secondaryTo="org.eclipse.m2e.jdt.javaConfigurator">
-     </configurator>
-  </extension>
-   
 	<extension point="org.eclipse.m2e.core.archetypeCatalogs">
 	  <remote description="Turmeric Snapshots Catalog" url="http://www.ebayopensource.org/nexus/content/repositories/snapshots/"/>
 	  <remote description="Turmeric Releases Catalog"
          url="http://www.ebayopensource.org/nexus/content/repositories/releases/">
 	  </remote>
 	</extension>
-	
- <extension
-       point="org.eclipse.m2e.core.lifecycleMappingMetadataSource">
- </extension>
+
+    <extension
+        point="org.eclipse.m2e.core.projectConfigurators">
+     <configurator
+           class="org.ebayopensource.turmeric.eclipse.maven.sconfig.TurmerStandardProjectConfigurator"
+           id="org.ebayopensource.turmeric.eclipse.maven.turmericMavenConfigurator"
+           name="Turmeric Maven Standard Configurator">
+     </configurator>
+    </extension>
+   	
+    <extension
+         point="org.eclipse.m2e.core.lifecycleMappingMetadataSource">
+    </extension>
 
 </plugin>

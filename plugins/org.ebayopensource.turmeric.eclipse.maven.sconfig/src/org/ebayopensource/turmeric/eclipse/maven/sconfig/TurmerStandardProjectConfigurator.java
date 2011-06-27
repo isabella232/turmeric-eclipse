@@ -8,6 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.maven.sconfig;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,21 +63,24 @@ public class TurmerStandardProjectConfigurator extends
 
 		IProject project = request.getProject();
 		IMavenProjectFacade facade = request.getMavenProjectFacade();
-
 		List<IPath> additionalSrcDirs = new ArrayList<IPath>();
-		additionalSrcDirs.add(new Path("target/generated-sources/codegen"));
-		additionalSrcDirs.add(new Path("target/generated-resources/codegen"));
-		additionalSrcDirs
-				.add(new Path("target/generated-sources/jaxb-episode"));
-		additionalSrcDirs.add(new Path(
-				"target/generated-resources/jaxb-episode"));
+
+		if (isErrorLibProject(request) || isInterfaceProject(request)
+				|| isTypeLibProject(request)
+				|| isImplementationProject(request)) {
+			additionalSrcDirs.add(new Path(project.getFullPath().toString() + "/target/generated-sources/codegen"));
+			additionalSrcDirs
+					.add(new Path(project.getFullPath().toString() + "/target/generated-resources/codegen"));
+		} else {
+			additionalSrcDirs.add(new Path(project.getFullPath().toString() +
+					"/target/generated-sources/jaxb-episode"));
+			additionalSrcDirs.add(new Path(project.getFullPath().toString() +
+					"/target/generated-resources/jaxb-episode"));
+		}
 
 		for (IPath path : additionalSrcDirs) {
-			IFolder folder = project.getFolder(path);
-			if (folder.exists()) {
-				IPath srcPath = project.getFolder(path).getFullPath();
-				if (!classpath.containsPath(path))
-					classpath.addSourceEntry(srcPath,
+				if (!classpath.containsPath(path)) {
+					classpath.addSourceEntry(path,
 							facade.getOutputLocation(), true);
 			}
 		}
@@ -110,35 +114,6 @@ public class TurmerStandardProjectConfigurator extends
 				.getActiveRepositorySystem().getProjectNatureId(projectType);
 
 		JDTUtil.addNatures(project, monitor, natureId);
-
-		List<IPath> additionalSrcDirs = new ArrayList<IPath>();
-		additionalSrcDirs.add(new Path("src/main/java"));
-		additionalSrcDirs.add(new Path("src/test/java"));
-		additionalSrcDirs.add(new Path("src/main/resources"));
-		additionalSrcDirs.add(new Path("src/test/resources"));
-		additionalSrcDirs.add(new Path("target/generated-sources/codegen"));
-		additionalSrcDirs.add(new Path("target/generated-resources/codegen"));
-		additionalSrcDirs
-				.add(new Path("target/generated-sources/jaxb-episode"));
-		additionalSrcDirs.add(new Path(
-				"target/generated-resources/jaxb-episode"));
-
-		final IJavaProject javaProject = JavaCore.create(project);
-
-		final List<IClasspathEntry> entries = ListUtil.arrayList(javaProject
-				.readRawClasspath());
-		for (IPath path : additionalSrcDirs) {
-			IFolder folder = project.getFolder(path);
-			if (folder.exists()) {
-				IPath srcPath = project.getFolder(path).getFullPath();
-				if (containsSourcePath(entries, srcPath) == false) {
-					entries.add(JavaCore.newSourceEntry(srcPath, new IPath[0]));
-				}
-			}
-		}
-		javaProject.setRawClasspath(entries.toArray(new IClasspathEntry[0]),
-				monitor);
-
 	}
 
 	private boolean containsSourcePath(List<IClasspathEntry> entries,

@@ -85,6 +85,7 @@
       <module>test/org.ebayopensource.turmeric.eclipse.ui.tests</module>
       <module>test/org.ebayopensource.turmeric.eclipse.exception.tests</module>
       <module>test/org.ebayopensource.turmeric.eclipse.mavenapi.test</module>
+      <module>test/org.ebayopensource.turmeric.eclipse.maven.sconfig.tests</module>
       <module>test/org.ebayopensource.turmeric.eclipse.utils.test</module>
       <module>test/org.ebayopensource.turmeric.eclipse.test.utils</module>
       <module>test/org.ebayopensource.turmeric.eclipse.functional.test</module>
