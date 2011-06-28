@@ -221,6 +221,16 @@
                      <artifactId>org.ebayopensource.turmeric.eclipse.utils</artifactId>
                      <version>0.0.0</version>
                   </dependency>
+                  <dependency>
+                  	 <type>eclipse-plugin</type>
+                  	 <artifactId>org.eclipse.m2e.core</artifactId>
+                  	 <version>0.0.0</version>
+                  </dependency>
+                  <dependency>
+                  	 <type>eclipse-plugin</type>
+                  	 <artifactId>org.eclipse.m2e.maven.runtime</artifactId>
+                  	 <version>0.0.0</version>
+                  </dependency>
                </dependencies>
 
             </configuration>
