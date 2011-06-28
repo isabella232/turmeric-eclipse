@@ -15,7 +15,7 @@
 				</pluginExecutionFilter>
 				<action>
 					<configurator>
-						<id>org.ebayopensource.turmeric.eclipse.maven.turmericMavenStandard</id>
+						<id>org.ebayopensource.turmeric.eclipse.maven.turmericMavenConfigurator</id>
 					</configurator>
 				</action>
 			</pluginExecution>
