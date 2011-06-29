@@ -47,13 +47,16 @@ public class TurmericStandardProjectConfiguratorTest extends
 		IClasspathEntry[] cp = javaProject1.getRawClasspath();
 		return cp;
 	}
-
+	
+	private void assertGeneratedFilesExist(IProject project, String file) {
+		assertTrue("File is not synchronized: " + file, project.getFile(file).isSynchronized(IResource.DEPTH_ZERO));
+		assertTrue("File is not accessible:" + file, project.getFile(file).isAccessible());
+	}
+	
 	@Test
 	public void testJAXBEpisodeCodegenToolsProject() throws Exception {
 		String testProjectPOMPath = "projects/codegen-tools/pom.xml";
 		IProject project = buildProject(testProjectPOMPath);
-
-		// assertNoErrors(project1);
 
 		IClasspathEntry[] cp = getClasspath(project);
 
@@ -103,8 +106,41 @@ public class TurmericStandardProjectConfiguratorTest extends
 		assertSourcePathFound(cp, sourcePath);
 		
 		String file = "target/generated-sources/codegen/org/ebayopensource/turmeric/runtime/errorlibrary/ErrorConstants.java";
-		assertTrue("File is not synchronized: " + file, project.getFile(file).isSynchronized(IResource.DEPTH_ZERO));
-		assertTrue("File is not accessible:" + file, project.getFile(file).isAccessible());
+		assertGeneratedFilesExist(project, file);
 	}
-
+	
+	@Test
+	public void testInterfaceProject() throws Exception {
+		String testProjectPOMPath = "projects/AuthenticationService/pom.xml";
+		IProject project = buildProject(testProjectPOMPath);
+		IClasspathEntry[] cp = getClasspath(project);
+		
+		Path sourcePath = new Path("/AuthenticationService/target/generated-sources/codegen");
+		assertSourcePathFound(cp, sourcePath);
+		
+		sourcePath = new Path("/AuthenticationService/target/generated-resources/codegen");
+		assertSourcePathFound(cp, sourcePath);
+		
+		String file = "target/generated-sources/codegen/org/ebayopensource/turmeric/services/authenticationservice/intf/gen/AuthenticationServiceProxy.java";
+		assertGeneratedFilesExist(project, file);
+		
+		file = "target/generated-resources/codegen/META-INF/soa/services/wsdl/AuthenticationService_mns.wsdl";
+		assertGeneratedFilesExist(project, file);
+	}
+	
+	@Test
+	public void testImplementationProject() throws Exception {
+		String testProjectPOMPath = "projects/AuthenticationServiceImpl/pom.xml";
+		IProject project = buildProject(testProjectPOMPath);
+		IClasspathEntry[] cp = getClasspath(project);
+		
+		Path sourcePath = new Path("/AuthenticationServiceImpl/target/generated-sources/codegen");
+		assertSourcePathFound(cp, sourcePath);
+		
+		sourcePath = new Path("/AuthenticationServiceImpl/target/generated-resources/codegen");
+		assertSourcePathFound(cp, sourcePath);
+		
+		String file = "target/generated-sources/codegen/org/ebayopensource/turmeric/services/authenticationservice/impl/gen/AuthenticationServiceRequestDispatcher.java";
+		assertGeneratedFilesExist(project, file);
+	}
 }
