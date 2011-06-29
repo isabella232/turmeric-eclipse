@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2010 Sonatype, Inc.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *      Sonatype, Inc. - initial API and implementation
+ *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.maven.sconfig.tests.utils;
 
 import java.io.File;
@@ -71,7 +81,8 @@ public class WorkspaceHelpers {
   private static void doCleanWorkspace() throws InterruptedException, CoreException, IOException {
     final IWorkspace workspace = ResourcesPlugin.getWorkspace();
     workspace.run(new IWorkspaceRunnable() {
-      public void run(IProgressMonitor monitor) throws CoreException {
+      @Override
+	public void run(IProgressMonitor monitor) throws CoreException {
         IProject[] projects = workspace.getRoot().getProjects();
         for(int i = 0; i < projects.length; i++ ) {
           projects[i].delete(true, true, monitor);
@@ -133,7 +144,8 @@ public class WorkspaceHelpers {
   public static List<IMarker> findMarkers(IProject project, int targetSeverity, String withAttribute)
       throws CoreException {
     SortedMap<IMarker, IMarker> errors = new TreeMap<IMarker, IMarker>(new Comparator<IMarker>() {
-      public int compare(IMarker o1, IMarker o2) {
+      @Override
+	public int compare(IMarker o1, IMarker o2) {
         int lineNumber1 = o1.getAttribute(IMarker.LINE_NUMBER, -1);
         int lineNumber2 = o2.getAttribute(IMarker.LINE_NUMBER, -1);
         if(lineNumber1 < lineNumber2) {

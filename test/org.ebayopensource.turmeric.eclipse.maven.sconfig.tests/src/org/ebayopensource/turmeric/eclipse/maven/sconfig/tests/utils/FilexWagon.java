@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2010 Sonatype, Inc.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *      Sonatype, Inc. - initial API and implementation
+ *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.maven.sconfig.tests.utils;
 
 import java.util.ArrayList;
@@ -38,7 +48,8 @@ public class FilexWagon extends FileWagon {
     }
   }
 
-  public void connect(Repository repository, AuthenticationInfo authenticationInfo, ProxyInfoProvider proxyInfoProvider)
+  @Override
+public void connect(Repository repository, AuthenticationInfo authenticationInfo, ProxyInfoProvider proxyInfoProvider)
       throws ConnectionException, AuthenticationException {
     String basedir = repository.getBasedir();
     if(basedir != null && basedir.startsWith("/")) {
@@ -48,13 +59,15 @@ public class FilexWagon extends FileWagon {
     super.connect(repository, authenticationInfo, proxyInfoProvider);
   }
 
-  public void fillInputData(InputData inputData) throws TransferFailedException, ResourceDoesNotExistException {
+  @Override
+public void fillInputData(InputData inputData) throws TransferFailedException, ResourceDoesNotExistException {
     record("GET", inputData.getResource());
 
     super.fillInputData(inputData);
   }
 
-  public void fillOutputData(OutputData outputData) throws TransferFailedException {
+  @Override
+public void fillOutputData(OutputData outputData) throws TransferFailedException {
     record("PUT", outputData.getResource());
 
     super.fillOutputData(outputData);

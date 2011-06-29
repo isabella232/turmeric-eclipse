@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (c) 2010 Sonatype, Inc.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *      Sonatype, Inc. - initial API and implementation
+ *******************************************************************************/
+
 package org.ebayopensource.turmeric.eclipse.maven.sconfig.tests;
 
 import java.io.File;
@@ -12,8 +23,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
-
-import junit.framework.TestCase;
 
 import org.ebayopensource.turmeric.eclipse.maven.sconfig.tests.utils.FileHelpers;
 import org.ebayopensource.turmeric.eclipse.maven.sconfig.tests.utils.FilexWagon;
@@ -67,7 +76,6 @@ import org.eclipse.m2e.jdt.MavenJdtPlugin;
 import org.eclipse.m2e.jdt.internal.BuildPathManager;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 import static org.junit.Assert.*;
 
 @SuppressWarnings( "restriction" )
@@ -184,7 +192,8 @@ public abstract class AbstractMavenProjectTestCase {
     waitForJobsToComplete(monitor);
 
     workspace.run(new IWorkspaceRunnable() {
-      public void run(IProgressMonitor monitor) throws CoreException {
+      @Override
+	public void run(IProgressMonitor monitor) throws CoreException {
         if(project.exists()) {
           deleteMember(".classpath", project, monitor);
           deleteMember(".project", project, monitor);
@@ -205,7 +214,8 @@ public abstract class AbstractMavenProjectTestCase {
     final IProject project = workspace.getRoot().getProject(projectName);
   
     workspace.run(new IWorkspaceRunnable() {
-      public void run(IProgressMonitor monitor) throws CoreException {
+      @Override
+	public void run(IProgressMonitor monitor) throws CoreException {
         project.create(monitor);
   
         if(!project.isOpen()) {
@@ -237,7 +247,8 @@ public abstract class AbstractMavenProjectTestCase {
     final IProject project = workspace.getRoot().getProject(projectName);
 
     workspace.run(new IWorkspaceRunnable() {
-      public void run(IProgressMonitor monitor) throws CoreException {
+      @Override
+	public void run(IProgressMonitor monitor) throws CoreException {
         if (!project.exists()) {
           IProjectDescription projectDescription = workspace.newProjectDescription(project.getName());
           projectDescription.setLocation(null); 
@@ -307,7 +318,8 @@ public abstract class AbstractMavenProjectTestCase {
     final ArrayList<IMavenProjectImportResult> importResults = new ArrayList<IMavenProjectImportResult>();
 
     workspace.run(new IWorkspaceRunnable() {
-      public void run(IProgressMonitor monitor) throws CoreException {
+      @Override
+	public void run(IProgressMonitor monitor) throws CoreException {
         importResults.addAll(MavenPlugin.getProjectConfigurationManager().importProjects(projectInfos,
             importConfiguration, monitor));
       }
@@ -360,7 +372,8 @@ public abstract class AbstractMavenProjectTestCase {
     setBasedirRename(projectInfo);
 
     workspace.run(new IWorkspaceRunnable() {
-      public void run(IProgressMonitor monitor) throws CoreException {
+      @Override
+	public void run(IProgressMonitor monitor) throws CoreException {
         MavenPlugin.getProjectConfigurationManager().importProjects(Collections.singleton(projectInfo),
             importConfiguration, monitor);
         IProject project = workspace.getRoot().getProject(importConfiguration.getProjectName(projectInfo.getModel()));

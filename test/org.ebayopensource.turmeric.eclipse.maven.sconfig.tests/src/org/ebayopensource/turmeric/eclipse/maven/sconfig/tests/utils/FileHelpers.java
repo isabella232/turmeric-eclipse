@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2010 Sonatype, Inc.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *      Sonatype, Inc. - initial API and implementation
+ *      
+ *      Based on work from the m2e-core-tests repository
+ *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.maven.sconfig.tests.utils;
 
 import java.io.BufferedInputStream;
@@ -21,7 +33,8 @@ public class FileHelpers {
 
   public static void copyDir(File src, File dst) throws IOException {
     copyDir(src, dst, new FileFilter() {
-      public boolean accept(File pathname) {
+      @Override
+	public boolean accept(File pathname) {
         return !".svn".equals(pathname.getName());
       }
     });

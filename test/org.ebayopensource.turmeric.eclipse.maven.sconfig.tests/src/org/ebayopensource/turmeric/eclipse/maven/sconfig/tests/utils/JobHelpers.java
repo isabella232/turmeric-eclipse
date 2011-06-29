@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2010 Sonatype, Inc.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *      Sonatype, Inc. - initial API and implementation
+ *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.maven.sconfig.tests.utils;
 
 import java.util.ArrayList;
@@ -59,7 +69,8 @@ public class JobHelpers {
         }
       }
       workspace.run(new IWorkspaceRunnable() {
-        public void run(IProgressMonitor monitor) {
+        @Override
+		public void run(IProgressMonitor monitor) {
         }
       }, workspace.getRoot(), 0, monitor);
 
@@ -181,7 +192,8 @@ public class JobHelpers {
 
     public static final IJobMatcher INSTANCE = new LaunchJobMatcher();
 
-    public boolean matches(Job job) {
+    @Override
+	public boolean matches(Job job) {
       return job.getClass().getName().matches("(.*\\.DebugUIPlugin.*)");
     }
 
@@ -191,7 +203,8 @@ public class JobHelpers {
 
     public static final IJobMatcher INSTANCE = new BuildJobMatcher();
 
-    public boolean matches(Job job) {
+    @Override
+	public boolean matches(Job job) {
       return (job instanceof WorkspaceJob) || job.getClass().getName().matches("(.*\\.AutoBuild.*)")
           || job.getClass().getName().endsWith("JREUpdateJob");
     }

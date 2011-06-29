@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
+ * Copyright (c) 2011 eBay Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -8,7 +8,6 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.maven.sconfig;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,17 +18,12 @@ import org.apache.maven.project.MavenProject;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.m2e.core.lifecyclemapping.model.IPluginExecutionMetadata;
 import org.eclipse.m2e.core.project.IMavenProjectFacade;
 import org.eclipse.m2e.core.project.configurator.AbstractBuildParticipant;
@@ -43,6 +37,10 @@ import org.eclipse.m2e.core.project.configurator.ProjectConfigurationRequest;
 public class TurmerStandardProjectConfigurator extends
 		AbstractJavaProjectConfigurator {
 
+	private static final String GENERATED_RESOURCES_CODEGEN = "/target/generated-resources/codegen";
+	private static final String GENERATED_SOURCES_CODEGEN = "/target/generated-sources/codegen";
+	private static final String GENERATED_RESOURCES_JAXB_EPISODE = "/target/generated-resources/jaxb-episode";
+	private static final String GENERATED_SOURCES_JAXB_EPISODE = "/target/generated-sources/jaxb-episode";
 	private static final String GEN_TYPELIBRARY = "gen-typelibrary";
 	private static final String GEN_ERRORLIBRARY = "gen-errorlibrary";
 	private static final String GEN_IMPLEMENTATION = "gen-implementation";
@@ -68,14 +66,14 @@ public class TurmerStandardProjectConfigurator extends
 		if (isErrorLibProject(request) || isInterfaceProject(request)
 				|| isTypeLibProject(request)
 				|| isImplementationProject(request)) {
-			additionalSrcDirs.add(new Path(project.getFullPath().toString() + "/target/generated-sources/codegen"));
+			additionalSrcDirs.add(new Path(project.getFullPath().toString() + GENERATED_SOURCES_CODEGEN));
 			additionalSrcDirs
-					.add(new Path(project.getFullPath().toString() + "/target/generated-resources/codegen"));
+					.add(new Path(project.getFullPath().toString() + GENERATED_RESOURCES_CODEGEN));
 		} else {
 			additionalSrcDirs.add(new Path(project.getFullPath().toString() +
-					"/target/generated-sources/jaxb-episode"));
+					GENERATED_SOURCES_JAXB_EPISODE));
 			additionalSrcDirs.add(new Path(project.getFullPath().toString() +
-					"/target/generated-resources/jaxb-episode"));
+					GENERATED_RESOURCES_JAXB_EPISODE));
 		}
 
 		for (IPath path : additionalSrcDirs) {
@@ -89,10 +87,6 @@ public class TurmerStandardProjectConfigurator extends
 	@Override
 	public void configure(ProjectConfigurationRequest projRequest,
 			IProgressMonitor monitor) throws CoreException {
-
-		// if (projRequest == null) {
-		// return;
-		// }
 
 		SupportedProjectType projectType = null;
 		IProject project = projRequest.getProject();
@@ -116,21 +110,12 @@ public class TurmerStandardProjectConfigurator extends
 		JDTUtil.addNatures(project, monitor, natureId);
 	}
 
-	private boolean containsSourcePath(List<IClasspathEntry> entries,
-			IPath srcPath) {
-		for (IClasspathEntry entry : entries) {
-			if (entry.getPath().equals(srcPath))
-				return true;
-		}
-		return false;
-	}
-
 	/**
 	 * Checks if is interface project.
 	 * 
 	 * @param projRequest
-	 *            the proj request
-	 * @return true, if is interface project
+	 *            the project request
+	 * @return true, if is an interface project
 	 */
 	public boolean isInterfaceProject(ProjectConfigurationRequest projRequest) {
 
@@ -159,7 +144,7 @@ public class TurmerStandardProjectConfigurator extends
 	}
 
 	/**
-	 * Checks if is implementation project.
+	 * Checks if is an implementation project.
 	 * 
 	 * @param projRequest
 	 *            the proj request
@@ -171,10 +156,10 @@ public class TurmerStandardProjectConfigurator extends
 	}
 
 	/**
-	 * Checks if is error lib project.
+	 * Checks if is an errorlib project.
 	 * 
 	 * @param projRequest
-	 *            the proj request
+	 *            the project request
 	 * @return true, if is error lib project
 	 */
 	public boolean isErrorLibProject(ProjectConfigurationRequest projRequest) {
@@ -182,7 +167,7 @@ public class TurmerStandardProjectConfigurator extends
 	}
 
 	/**
-	 * Checks if is type lib project.
+	 * Checks if is a typelib project.
 	 * 
 	 * @param projRequest
 	 *            the proj request
