@@ -9,6 +9,7 @@
 package org.ebayopensource.turmeric.eclipse.buildsystem;
 
 import java.util.Collection;
+
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.common.config.ReferredType;
 import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;

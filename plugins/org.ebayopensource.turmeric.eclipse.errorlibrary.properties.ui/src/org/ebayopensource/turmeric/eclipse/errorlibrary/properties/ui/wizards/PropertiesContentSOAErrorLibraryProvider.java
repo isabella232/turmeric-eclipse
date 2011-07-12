@@ -173,10 +173,10 @@ public class PropertiesContentSOAErrorLibraryProvider implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getImportErrorSource(IProject project, ISOAError error) {
 		String retCode = PropertiesSOAConstants.IMPORT_CODE_ERROR_CONSTR;
 		retCode = StringUtils.replace(retCode, "$error", error.getName().toUpperCase());
-//		retCode = StringUtils.replace(retCode, "$domain", error.getDomain().getName().toUpperCase());
 		return retCode;
 	}
 

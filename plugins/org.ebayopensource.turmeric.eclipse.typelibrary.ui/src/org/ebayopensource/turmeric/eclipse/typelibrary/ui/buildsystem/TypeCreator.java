@@ -6,11 +6,8 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
-<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java
+
 package org.ebayopensource.turmeric.eclipse.typelibrary.ui.buildsystem;
-=======
-package org.ebayopensource.turmeric.eclipse.typelibrary.buildsystem;
->>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeCreator.java
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -22,7 +19,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryType;
-<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java
 import org.ebayopensource.turmeric.eclipse.buildsystem.SynchronizeWsdlAndDepXML;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
@@ -39,23 +35,6 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.XSDTemplateProce
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardElementPage.ElementTableModel;
-=======
-import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
-import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
-import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;
-import org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.GenTypeAddType;
-import org.ebayopensource.turmeric.eclipse.typelibrary.template.XSDTemplateProcessor;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.CommonTypeProp;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.ComplexTypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.model.TypeParamModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ComplexTypeWizardElementPage.ElementTableModel;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
-import org.ebayopensource.turmeric.eclipse.typelibrary.utils.XSDTypeParser;
-import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
->>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeCreator.java
 import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -80,28 +59,21 @@ import freemarker.template.Template;
  * @author smathew
  */
 public class TypeCreator {
-<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java
-	
+
 	/** The Constant logger. */
-=======
->>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeCreator.java
 	protected static final SOALogger logger = SOALogger.getLogger();
 
 	/**
 	 * Creates the type. Performs file creation, process the template, calls
 	 * code generation, refresh the registry and opens the created file in an
 	 * editor.
-<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java
-	 *
-	 * @param typeParamModel the type param model
-	 * @param monitor the monitor
-	 * @throws Exception the exception
-=======
 	 * 
 	 * @param typeParamModel
+	 *            the type param model
 	 * @param monitor
+	 *            the monitor
 	 * @throws Exception
->>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeCreator.java
+	 *             the exception
 	 */
 	public static void createType(TypeParamModel typeParamModel,
 			IProgressMonitor monitor) throws Exception {
@@ -116,10 +88,11 @@ public class TypeCreator {
 		boolean needSync = false;
 		if (typeParamModel.getBaseType() instanceof LibraryType) {
 			needSync = true;
-		} else if (typeParamModel instanceof ComplexTypeParamModel){
+		} else if (typeParamModel instanceof ComplexTypeParamModel) {
 			ComplexTypeParamModel complexType = (ComplexTypeParamModel) typeParamModel;
 			if (complexType.getElementTableModel() != null) {
-				for (ElementTableModel model: complexType.getElementTableModel()) {
+				for (ElementTableModel model : complexType
+						.getElementTableModel()) {
 					if (model.getDatatype() instanceof LibraryType) {
 						needSync = true;
 						break;
@@ -127,52 +100,34 @@ public class TypeCreator {
 				}
 			}
 		}
-		
+
 		if (needSync == true) {
-<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java
-			//need to fix the case that a complex type reference types from other type libs.
-			final List<IFile> xsdFiles = TypeLibraryUtil.getAllXsdFiles(project, true);
+			// need to fix the case that a complex type reference types from
+			// other type libs.
+			final List<IFile> xsdFiles = TypeLibraryUtil.getAllXsdFiles(
+					project, true);
 			xsdFiles.add(xsdFile);
-			SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
+			SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(
+					project);
 			synch.syncronizeAllXSDsandDepXml(xsdFiles);
 			synch.synchronizeTypeDepandProjectDep(monitor);
-=======
-			//FIXME need to fix the case that a complex type reference types from other type libs.
-			final List<IFile> xsdFiles = TypeLibraryUtil.getAllXsdFiles(project, true);
-			xsdFiles.add(xsdFile);
-			TypeLibSynhcronizer.syncronizeAllXSDsandDepXml(project, 
-					xsdFiles);
-			TypeLibSynhcronizer
-			.synchronizeTypeDepandProjectDep(project, monitor);
->>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeCreator.java
 		}
 
 		processTemplate(typeParamModel, xsdFile, monitor);
-		
-<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java
-=======
-		/* This is causing issue in eBox
-		callCodegen(project, typeLibraryName, typeName);
-		WorkspaceUtil.refresh(project);
-		postProcessTypeCreation(typeName, version, typeLibraryName, xsdFile);*/
->>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeCreator.java
+
 	}
-	
+
 	/**
 	 * Creates the type. Performs file creation, process the template, calls
 	 * code generation, refresh the registry and opens the created file in an
 	 * editor.
-<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java
-	 *
-	 * @param typeParamModel the type param model
-	 * @param monitor the monitor
-	 * @throws Exception the exception
-=======
 	 * 
 	 * @param typeParamModel
+	 *            the type param model
 	 * @param monitor
+	 *            the monitor
 	 * @throws Exception
->>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeCreator.java
+	 *             the exception
 	 */
 	public static void createType(CommonTypeProp typeParamModel,
 			IProgressMonitor monitor) throws Exception {
@@ -183,34 +138,37 @@ public class TypeCreator {
 		String xsdFileName = TypeLibraryUtil.getXsdFileLocation(typeName,
 				project);
 		IFile xsdFile = createXsd(project, xsdFileName, monitor);
-		
+
 		Configuration cfg = new Configuration();
-        StringTemplateLoader tloader = new StringTemplateLoader();
-        cfg.setTemplateLoader(tloader);
-        tloader.putTemplate("ImportType", typeParamModel.getSchemaTemplate());
-        cfg.setObjectWrapper(new DefaultObjectWrapper());
-        Template temp = cfg.getTemplate("ImportType");
-        
-        Writer writer = new StringWriter();
-        Map<String, String> mapping = new ConcurrentHashMap<String, String>();
-        mapping.put(XSDTypeParser.namespaceMarker, typeParamModel.getTargetNamespace());
-        mapping.put(XSDTypeParser.typeNameMarker, typeParamModel.getTypeName());
-        mapping.put(XSDTypeParser.documentMarker, typeParamModel.getDescription());
-        temp.process(mapping, writer);
-        IOUtil.writeTo(writer.toString(), xsdFile, monitor);
+		StringTemplateLoader tloader = new StringTemplateLoader();
+		cfg.setTemplateLoader(tloader);
+		tloader.putTemplate("ImportType", typeParamModel.getSchemaTemplate());
+		cfg.setObjectWrapper(new DefaultObjectWrapper());
+		Template temp = cfg.getTemplate("ImportType");
+
+		Writer writer = new StringWriter();
+		Map<String, String> mapping = new ConcurrentHashMap<String, String>();
+		mapping.put(XSDTypeParser.namespaceMarker,
+				typeParamModel.getTargetNamespace());
+		mapping.put(XSDTypeParser.typeNameMarker, typeParamModel.getTypeName());
+		mapping.put(XSDTypeParser.documentMarker,
+				typeParamModel.getDescription());
+		temp.process(mapping, writer);
+		IOUtil.writeTo(writer.toString(), xsdFile, monitor);
 	}
 
-<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java
 	/**
 	 * Call codegen.
-	 *
-	 * @param project the project
-	 * @param typeLibName the type lib name
-	 * @param typeName the type name
-	 * @throws Exception the exception
+	 * 
+	 * @param project
+	 *            the project
+	 * @param typeLibName
+	 *            the type lib name
+	 * @param typeName
+	 *            the type name
+	 * @throws Exception
+	 *             the exception
 	 */
-=======
->>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeCreator.java
 	public static void callCodegen(IProject project, String typeLibName,
 			String typeName) throws Exception {
 		GenTypeAddType genTypeAddType = new GenTypeAddType();
@@ -240,38 +198,52 @@ public class TypeCreator {
 	}
 
 	/**
-<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java
-	 * Updates the type registry and opens the xsd in an editor.
-	 *
-	 * @param typeName the type name
-	 * @param version the version
-	 * @param typeLibName the type lib name
-	 * @param xsdFile the xsd file
-	 * @param refreshSOATypeRegistry the refresh soa type registry
-	 * @param openXSDEditor the open xsd editor
-	 * @throws Exception the exception
-=======
+	 * <<<<<<<
+	 * HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src
+	 * /org/ebayopensource
+	 * /turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java Updates the
+	 * type registry and opens the xsd in an editor.
 	 * 
-	 * Updates the type registry and opens the xsd in an editor.
+	 * @param typeName
+	 *            the type name
+	 * @param version
+	 *            the version
+	 * @param typeLibName
+	 *            the type lib name
+	 * @param xsdFile
+	 *            the xsd file
+	 * @param refreshSOATypeRegistry
+	 *            the refresh soa type registry
+	 * @param openXSDEditor
+	 *            the open xsd editor
+	 * @throws Exception
+	 *             the exception =======
+	 * 
+	 *             Updates the type registry and opens the xsd in an editor.
 	 * 
 	 * @param typeName
 	 * @param version
 	 * @param typeLibName
 	 * @param xsdFile
 	 * @throws Exception
->>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeCreator.java
+	 *             >>>>>>>
+	 *             TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse
+	 *             .typelibrary
+	 *             /src/org/ebayopensource/turmeric/eclipse/typelibrary
+	 *             /buildsystem/TypeCreator.java
 	 */
-	public static void postProcessTypeCreation(String typeName,
-			String version, String typeLibName, IFile xsdFile, boolean refreshSOATypeRegistry, boolean openXSDEditor) throws Exception {
-		SOAGlobalRegistryAdapter registryAdapter = SOAGlobalRegistryAdapter.getInstance();
-		SOATypeRegistry typeRegistry = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem().getTypeRegistryBridge().getSOATypeRegistry();//registryAdapter.getGlobalRegistry();
+	public static void postProcessTypeCreation(String typeName, String version,
+			String typeLibName, IFile xsdFile, boolean refreshSOATypeRegistry,
+			boolean openXSDEditor) throws Exception {
+		SOAGlobalRegistryAdapter registryAdapter = SOAGlobalRegistryAdapter
+				.getInstance();
+		SOATypeRegistry typeRegistry = GlobalRepositorySystem.instanceOf()
+				.getActiveRepositorySystem().getTypeRegistryBridge()
+				.getSOATypeRegistry();// registryAdapter.getGlobalRegistry();
 		TypeLibraryType typeLibInfo = typeRegistry.getTypeLibrary(typeLibName);
-<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java
-=======
-		if(typeLibInfo == null){
+		if (typeLibInfo == null) {
 			return;
 		}
->>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeCreator.java
 		LibraryType libraryType = TypeLibraryUtil.getLibraryType(typeName,
 				version, typeLibInfo);
 
@@ -282,39 +254,34 @@ public class TypeCreator {
 				logger.debug(libraryType2.getName());
 			}
 		}
-		
-		if(refreshSOATypeRegistry == true){
+
+		if (refreshSOATypeRegistry == true) {
 			TypeLibraryUtil.refreshTypeDependencyInSOATypeRegistry(typeLibName);
 		}
-		
+
 		if (openXSDEditor == true && xsdFile.isAccessible()) {
 			IDE.openEditor(UIUtil.getActiveWorkBenchWindow().getActivePage(),
 					xsdFile);
 		}
 	}
-	
+
 	/**
-<<<<<<< HEAD:plugins/org.ebayopensource.turmeric.eclipse.typelibrary.ui/src/org/ebayopensource/turmeric/eclipse/typelibrary/ui/buildsystem/TypeCreator.java
-	 * Updates the type registry and opens the xsd in an editor.
-	 *
-	 * @param typeName the type name
-	 * @param version the version
-	 * @param typeLibName the type lib name
-	 * @param xsdFile the xsd file
-	 * @throws Exception the exception
-=======
-	 * 
 	 * Updates the type registry and opens the xsd in an editor.
 	 * 
 	 * @param typeName
+	 *            the type name
 	 * @param version
+	 *            the version
 	 * @param typeLibName
+	 *            the type lib name
 	 * @param xsdFile
+	 *            the xsd file
 	 * @throws Exception
->>>>>>> TURMERIC-1351:plugins/org.ebayopensource.turmeric.eclipse.typelibrary/src/org/ebayopensource/turmeric/eclipse/typelibrary/buildsystem/TypeCreator.java
+	 *             the exception
 	 */
-	public static void postProcessTypeCreation(String typeName,
-			String version, String typeLibName, IFile xsdFile) throws Exception {
-		postProcessTypeCreation(typeName, version, typeLibName, xsdFile, true, true);
+	public static void postProcessTypeCreation(String typeName, String version,
+			String typeLibName, IFile xsdFile) throws Exception {
+		postProcessTypeCreation(typeName, version, typeLibName, xsdFile, true,
+				true);
 	}
 }

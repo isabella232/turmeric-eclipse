@@ -389,6 +389,9 @@ public class SOAProjectConstants {
     /** Inside the jar wsdl goes inside meta inf. */
     public static final String META_INF_WSDL = "META-INF/soa/services/wsdl";
     
+    /** protobuf file location  */
+    public static final String META_PROTO_BUF = "META-INF/soa/services/proto";
+    
     /** The Constant IMPL_SERVICE_CONFIG_DIR. */
     public static final String IMPL_SERVICE_CONFIG_DIR = "META-INF/soa/services/config";
     

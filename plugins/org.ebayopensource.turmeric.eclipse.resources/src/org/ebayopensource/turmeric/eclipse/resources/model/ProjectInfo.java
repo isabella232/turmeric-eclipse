@@ -111,6 +111,7 @@ public class ProjectInfo extends AssetInfo {
 	 * Sets the implementation project name.
 	 *
 	 * @param implementationProjectName the new implementation project name
+	 */
 	public void setImplementationProjectName(String implementationProjectName) {
 		this.implementationProjectName = implementationProjectName;
 	}

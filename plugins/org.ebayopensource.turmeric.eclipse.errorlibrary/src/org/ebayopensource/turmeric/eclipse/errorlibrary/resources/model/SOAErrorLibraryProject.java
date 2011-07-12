@@ -34,7 +34,6 @@ import org.eclipse.jdt.core.JavaCore;
 public class SOAErrorLibraryProject extends SOABaseProject {
 
 	private static final String[] SOURCE_DIRECTORIES = { SOAProjectConstants.FOLDER_DOT };
-	private static ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 
 	/**
 	 * Instantiates a new sOA error library project.
@@ -102,7 +101,7 @@ public class SOAErrorLibraryProject extends SOABaseProject {
 	public List<String> getSourceSubFolders() {
 		List<String> srcDirs = new ArrayList<String>();
 		try {
-			srcDirs = ErrorLibraryProviderFactory.getPreferredProvider().getSourceSubFolders(this);
+			srcDirs = ErrorLibraryProviderFactory.getInstance().getPreferredProvider().getSourceSubFolders(this);
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			SOALogger.getLogger().error(e);
 		}

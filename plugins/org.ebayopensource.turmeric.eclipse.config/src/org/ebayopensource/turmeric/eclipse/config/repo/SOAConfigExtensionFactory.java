@@ -235,10 +235,6 @@ public final class SOAConfigExtensionFactory {
 		
 		return null;
 	}
-	
-	public static enum SOAXSDTemplateSubType {
-		SIMPLE, COMPLEX, ENUM, COMPLEX_COMPLEXCONTENT, COMPLEX_SIMPLECONTENT
-	}
 
 	/**
 	 * The Class SOAConfigTemplate.

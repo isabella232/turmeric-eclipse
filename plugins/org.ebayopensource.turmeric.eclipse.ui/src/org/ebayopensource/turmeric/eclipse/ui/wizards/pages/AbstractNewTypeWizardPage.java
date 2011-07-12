@@ -294,7 +294,7 @@ public abstract class AbstractNewTypeWizardPage extends
 				try {
 					final List<IProject> projects = WorkspaceUtil
 					.getProjectsByNature(
-							TypeLibraryProjectNature.getTypeLibraryNatureId());
+							UIConstants.TYPELIB_NATURE_ID);
 					if (typeLibraryNameText != null && StringUtils.isNotBlank(typeLibraryNameText.getText())
 							&& WorkspaceUtil.getProject(
 							typeLibraryNameText.getText()).isAccessible()) {

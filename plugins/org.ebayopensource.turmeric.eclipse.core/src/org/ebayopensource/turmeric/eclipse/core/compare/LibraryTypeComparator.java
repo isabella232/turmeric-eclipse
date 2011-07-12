@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**

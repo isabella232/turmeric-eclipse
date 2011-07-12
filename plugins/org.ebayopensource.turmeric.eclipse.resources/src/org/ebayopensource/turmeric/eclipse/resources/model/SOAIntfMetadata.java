@@ -16,10 +16,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.wsdl.WSDLException;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
-import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 
 
 /**

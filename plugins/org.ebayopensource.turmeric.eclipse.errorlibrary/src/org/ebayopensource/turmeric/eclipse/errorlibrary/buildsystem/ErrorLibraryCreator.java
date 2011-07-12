@@ -21,8 +21,8 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.model.SOAError
 import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.model.SOAErrorLibraryProject;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject.ProjectLinkedResource;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAProjectEclipseMetadata;
 import org.ebayopensource.turmeric.eclipse.utils.collections.SetUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -95,7 +95,7 @@ public class ErrorLibraryCreator {
 		ProgressUtil.progressOneStep(monitor);
 		
 		IErrorLibraryCreator creator = 
-			ErrorLibraryProviderFactory.getPreferredProvider().getErrorLibraryCreator();
+			ErrorLibraryProviderFactory.getInstance().getPreferredProvider().getErrorLibraryCreator();
 		
 		creator.postCreation(errorLibraryProject.getProject(), model, monitor);
 		

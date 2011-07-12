@@ -44,6 +44,7 @@ import org.ebayopensource.turmeric.eclipse.validator.utils.common.NameValidator;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.RegExConstants;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.fieldassist.ControlDecoration;

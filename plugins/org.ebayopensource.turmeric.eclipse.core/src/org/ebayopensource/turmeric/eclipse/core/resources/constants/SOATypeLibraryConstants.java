@@ -8,7 +8,6 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.core.resources.constants;
 
-import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 
 /**
  * Type Library related constants goes here. Most of them are used in UI and

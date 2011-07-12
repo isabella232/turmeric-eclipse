@@ -14,6 +14,7 @@ package org.ebayopensource.turmeric.eclipse.codegen.model;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
 /**

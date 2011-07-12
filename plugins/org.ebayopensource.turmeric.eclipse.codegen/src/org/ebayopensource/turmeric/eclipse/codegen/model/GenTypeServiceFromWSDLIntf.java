@@ -14,7 +14,7 @@ package org.ebayopensource.turmeric.eclipse.codegen.model;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 
 /**
  * This gentype is intended to be called during the service creation. This is

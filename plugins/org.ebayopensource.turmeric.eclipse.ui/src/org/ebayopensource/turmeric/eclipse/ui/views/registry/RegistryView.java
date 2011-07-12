@@ -233,7 +233,7 @@ public class RegistryView extends ViewPart {
 	 *
 	 * @return the library comparator
 	 */
-	protected ViewerComparator getLibraryComparator() {
+	public ViewerComparator getLibraryComparator() {
 		final ViewerComparator comparator = new ViewerComparator() {
 			@Override
 			public int compare(Viewer viewer, Object e1, Object e2) {

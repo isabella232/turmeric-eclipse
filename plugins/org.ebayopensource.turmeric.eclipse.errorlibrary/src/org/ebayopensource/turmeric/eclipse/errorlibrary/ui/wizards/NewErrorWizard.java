@@ -27,8 +27,8 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorParamModel
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAErrorTypeCreationFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAGetErrorLibraryProviderFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
@@ -61,7 +61,7 @@ public final class NewErrorWizard extends SOABaseWizard {
 	public IStatus preValidate() throws ValidationInterruptedException {
 		// checking for valid providers
 		try {
-			ErrorLibraryProviderFactory.getPreferredProvider();
+			ErrorLibraryProviderFactory.getInstance().getPreferredProvider();
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			return EclipseMessageUtils.createErrorStatus(e);
 		}
@@ -86,7 +86,7 @@ public final class NewErrorWizard extends SOABaseWizard {
 		final List<IWizardPage> pages = new ArrayList<IWizardPage>();
 		IErrorLibraryProvider errorLibProvider;
 		try {
-			errorLibProvider = ErrorLibraryProviderFactory
+			errorLibProvider = ErrorLibraryProviderFactory.getInstance()
 					.getPreferredProvider();
 			if (errorLibProvider != null
 					&& errorLibProvider.getErrorWizardPageProvider() != null) {
@@ -145,7 +145,7 @@ public final class NewErrorWizard extends SOABaseWizard {
 					}
 
 				};
-				ErrorLibraryProviderFactory.getPreferredProvider()
+				ErrorLibraryProviderFactory.getInstance().getPreferredProvider()
 						.getErrorTypeCreator().preCreation(model);
 				getContainer().run(false, true, operation);
 				// http://www.nbweekly.com/Print/Page/844,62.shtml

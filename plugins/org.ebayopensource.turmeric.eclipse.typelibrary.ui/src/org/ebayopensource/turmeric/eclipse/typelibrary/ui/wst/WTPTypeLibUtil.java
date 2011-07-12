@@ -29,10 +29,12 @@ import org.ebayopensource.turmeric.common.config.TypeDependencyType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.TypeDepMarshaller;
 import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
+import org.ebayopensource.turmeric.eclipse.exception.core.SOABadParameterException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.ui.views.registry.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
@@ -48,10 +50,16 @@ import org.eclipse.wst.wsdl.XSDSchemaExtensibilityElement;
 import org.eclipse.wst.wsdl.ui.internal.commands.AddTypesCommand;
 import org.eclipse.wst.wsdl.ui.internal.commands.AddXSDSchemaCommand;
 import org.eclipse.wst.xsd.ui.internal.adt.editor.CommonMultiPageEditor;
+import org.eclipse.xsd.XSDAnnotation;
 import org.eclipse.xsd.XSDFactory;
 import org.eclipse.xsd.XSDImport;
+import org.eclipse.xsd.XSDInclude;
 import org.eclipse.xsd.XSDSchema;
+import org.eclipse.xsd.XSDSchemaDirective;
 import org.eclipse.xsd.XSDTypeDefinition;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * WTP Type Library Utility contains the WTP related utility functions. The WSDL

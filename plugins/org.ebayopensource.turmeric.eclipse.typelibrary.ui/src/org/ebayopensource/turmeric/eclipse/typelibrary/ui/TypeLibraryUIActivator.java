@@ -1,6 +1,7 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.ui;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,11 +11,12 @@ import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.SynchronizeWsdlAndDepXML;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.model.TemplateModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.AddImportCommand;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.resources.TypeLibMoveDeleteHook;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.AddImportCommand;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeSCParamModel;
@@ -315,12 +317,6 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		}
 	}
 
-	public static String formatContents(String contents) throws IOException,
-			CoreException {
-		FormatProcessorXML formatProcessor = new FormatProcessorXML();
-		return formatProcessor.formatContent(contents);
-	}
-
 	/**
 	 * Adds the documentation.
 	 *
@@ -417,79 +413,6 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		}
 
 		return group;
-	}
-
-	public static void addElementDeclaration(
-			XSDComplexTypeDefinition complexTypeDefinition,
-			ComplexTypeParamModel model, String elementName,
-			Object elementType, int minOccurs, int maxOccurs)
-			throws CommandFailedException {
-		String prefixedElementType = "";
-		boolean isPrimitive = true;
-		try {
-			if (elementType instanceof String) {
-				prefixedElementType = getPrefix(complexTypeDefinition
-						.getSchema(), SOATypeLibraryConstants.W3C_NAMEPSACE)
-						+ elementType;
-			} else {
-				isPrimitive = false;
-				LibraryType libElementType = (LibraryType) elementType;
-				prefixedElementType = getPrefix(complexTypeDefinition
-						.getSchema(), TypeLibraryUtil
-						.getNameSpace(libElementType))
-						+ libElementType.getName();
-			}
-		} catch (Exception e) {
-			throw new CommandFailedException(
-					"Could not get the name space for the type "
-							+ elementType
-							+ " from the registry. Please fix this issue and try again.");
-		}
-		XSDParticle xsdParticle = createXSDElementDeclaration(elementName,
-				prefixedElementType, minOccurs, maxOccurs);
-		XSDModelGroup xsdModelGroup = getModelGroup(complexTypeDefinition);
-		xsdModelGroup.getContents().add(0, xsdParticle);
-		if (!isPrimitive)
-			addImport((LibraryType) elementType, complexTypeDefinition, model
-					.getTypeName(), model.getVersion(), model
-					.getTypeLibraryName());
-	}
-
-	public static void addAttributeDeclarations(
-			XSDComplexTypeDefinition complexTypeDefinition,
-			ComplexTypeSCParamModel model, String attrName, Object attrType,
-			String attrDoc) throws CommandFailedException {
-		String prefixedAttrType = "";
-		boolean isPrimitive = true;
-		try {
-			if (attrType instanceof String) {// this is a primitive type
-				prefixedAttrType = getPrefix(complexTypeDefinition.getSchema(),
-						SOATypeLibraryConstants.W3C_NAMEPSACE)
-						+ attrType;
-			} else {// this is a library Type
-				isPrimitive = false;
-				LibraryType libAttrType = (LibraryType) attrType;
-
-				prefixedAttrType = getPrefix(complexTypeDefinition.getSchema(),
-						TypeLibraryUtil.getNameSpace(libAttrType))
-						+ libAttrType.getName();
-
-			}
-		} catch (Exception e) {
-			throw new CommandFailedException(
-					"Could not get the name space for the type "
-							+ attrType
-							+ " from the registry. Please fix this issue and try again.");
-		}
-		XSDAttributeUse attr = createXSDAttrDeclaration(attrName,
-				prefixedAttrType);
-		complexTypeDefinition.getAttributeContents().add(attr);
-		if (!isPrimitive)
-			addImport((LibraryType) attrType, complexTypeDefinition, model
-					.getTypeName(), model.getVersion(), model
-					.getTypeLibraryName());
-		addDocumentation(attr.getAttributeDeclaration(), attrDoc);
-
 	}
 
 	/**
@@ -622,42 +545,7 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		}
 
 	}
-
-	private static void addImport(LibraryType importType,
-			XSDTypeDefinition typeDefinition, String typeName, String version,
-			String typeLibraryName) throws CommandFailedException {
-		try {
-			XSDSchema importSchema = TypeLibraryUtil
-					.parseSchema(TypeLibraryUtil
-							.getXSD(SOAGlobalRegistryAdapter.getInstance()
-									.getGlobalRegistry()
-									.getType(
-											TypeLibraryUtil.toQName(importType))));
-			AddImportCommand addImportCommand = new AddImportCommand(
-					typeDefinition.getSchema(), TypeLibraryUtil
-							.getProtocolString(importType),
-					importSchema);
-			addImportCommand.run();
-
-			if(typeLibraryName == null){
-				return;
-			}
-			TypeLibraryType typeLibInfo = SOAGlobalRegistryAdapter.getInstance()
-					.getGlobalRegistry().getTypeLibrary(typeLibraryName);
-			LibraryType libraryType = TypeLibraryUtil.getLibraryType(typeName,
-					version, typeLibInfo);
-
-			SOAGlobalRegistryAdapter.getInstance().addTypeToRegistry(libraryType);
-			IProject project = WorkspaceUtil.getProject(typeLibraryName);
-			TypeLibSynhcronizer.syncronizeXSDandDepXml(typeDefinition
-					.getSchema(), project, TypeLibraryUtil.toQName(libraryType));
-			TypeLibSynhcronizer.synchronizeTypeDepandProjectDep(project, 
-					ProgressUtil.getDefaultMonitor(null));
-		} catch (Exception e) {
-			throw new CommandFailedException(e);
-		}
-	}
-
+	
 	public static TemplateModel processTemplateModel(InputStream inputStream)
 			throws CoreException, IOException {
 		TemplateModel templateModel = new TemplateModel();

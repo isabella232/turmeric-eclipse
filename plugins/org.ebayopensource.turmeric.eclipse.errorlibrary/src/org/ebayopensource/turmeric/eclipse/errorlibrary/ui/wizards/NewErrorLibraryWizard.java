@@ -27,8 +27,8 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryPar
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAErrorTypeCreationFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAGetErrorLibraryProviderFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
@@ -72,7 +72,7 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 			return result;
 		}
 		try {
-			return ErrorLibraryProviderFactory.getPreferredProvider()
+			return ErrorLibraryProviderFactory.getInstance().getPreferredProvider()
 					.getErrorLibraryWizardPageProvider().preValidate();
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			return EclipseMessageUtils.createErrorStatus(e);
@@ -96,7 +96,7 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 		IErrorLibraryProvider errorLibProvider;
 		try {
 
-			errorLibProvider = ErrorLibraryProviderFactory
+			errorLibProvider = ErrorLibraryProviderFactory.getInstance()
 					.getPreferredProvider();
 			if (errorLibProvider != null
 					&& errorLibProvider.getErrorLibraryWizardPageProvider() != null) {
@@ -160,7 +160,7 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 					}
 
 				};
-				ErrorLibraryProviderFactory.getPreferredProvider()
+				ErrorLibraryProviderFactory.getInstance().getPreferredProvider()
 						.getErrorLibraryCreator().preCreation(model);
 				getContainer().run(false, true, operation);
 			} catch (Exception e) {

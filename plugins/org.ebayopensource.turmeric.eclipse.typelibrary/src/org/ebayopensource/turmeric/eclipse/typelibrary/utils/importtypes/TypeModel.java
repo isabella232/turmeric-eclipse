@@ -2,10 +2,7 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes;
 
 import java.util.ArrayList;
 import java.util.Collection;
-<<<<<<< HEAD
-=======
 import java.util.Collections;
->>>>>>> TURMERIC-1351
 import java.util.List;
 import java.util.Map;
 

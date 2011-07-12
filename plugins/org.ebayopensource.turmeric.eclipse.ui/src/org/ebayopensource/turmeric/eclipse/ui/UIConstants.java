@@ -42,4 +42,6 @@ public class UIConstants {
 	/** The Constant SERVICES_VIEW_LAYER. */
 	public static final String SERVICES_VIEW_LAYER = "Layer";
 	
+	/** The Constant TYPELIB_NATURE_ID. */
+	public static final String TYPELIB_NATURE_ID = "org.ebayopensource.turmeric.eclipse.typelib.TypeLibraryProjectNature";
 }

@@ -12,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceReader;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -80,12 +78,10 @@ public class GlobalRepositorySystem {
 			}
 			if (foundV3 == false && availableRepositorySystems.isEmpty() == false) {
 				//the default V3 plugin is not installed, we should use the first available repo system
-				PreferenceUtil.getPreferenceStore().setDefault(
-						PreferenceConstants.PREF_REPOSITORY_SYSTEM, 
-						availableRepositorySystems.get(0).getId());
+				IEclipsePreferences prefs = RepositorySystemActivator.getDefault().getPreferences();
+				prefs.put(PreferenceConstants.PREF_REPOSITORY_SYSTEM, availableRepositorySystems.get(0).getId());
 				systemID = availableRepositorySystems.get(0).getId();
 			}
-			
 			//SOALogger.setBuildSystemName(systemID);
 		}
 

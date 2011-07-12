@@ -15,7 +15,7 @@ import org.ebayopensource.turmeric.eclipse.core.ICommand;
 import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.exception.core.CommandFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
-import org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.SOAXSDValidator;
+import org.ebayopensource.turmeric.eclipse.typelibrary.builders.SOAXSDValidator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.template.BasicProcessor;
 import org.ebayopensource.turmeric.eclipse.typelibrary.template.CommonXSDProcessorParam;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.template.DocumentationProcessor;
