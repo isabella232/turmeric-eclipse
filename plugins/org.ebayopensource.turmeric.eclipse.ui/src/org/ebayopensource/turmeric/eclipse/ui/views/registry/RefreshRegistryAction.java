@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.swt.custom.BusyIndicator;
 
 
 /**
@@ -31,11 +32,6 @@ public class RefreshRegistryAction extends Action{
 	private StructuredViewer typeViewer;
 	private static final String TEXT = "Refresh the Type Registry";
 
-	/**
-	 * Instantiates a new refresh registry action.
-	 *
-	 * @param typeLibraryViewer the type library viewer
-	 */
 	public RefreshRegistryAction(StructuredViewer typeLibraryViewer) {
 		super(TEXT, AS_PUSH_BUTTON);
 		this.setToolTipText(TEXT);
@@ -43,25 +39,14 @@ public class RefreshRegistryAction extends Action{
 		this.setImageDescriptor(UIActivator.getImageDescriptor("icons/refresh.gif"));
 	}
 	
-	/**
-	 * Sets the type viewer.
-	 *
-	 * @param typeViewer the new type viewer
-	 */
 	public void setTypeViewer(StructuredViewer typeViewer) {
 		this.typeViewer = typeViewer;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void run() {
 		if (typeLibraryViewer != null) {
-			Job job = new Job("Refresh SOA Typelib Registry") {
-				@Override
-				protected IStatus run(IProgressMonitor monitor) {
-					monitor.beginTask("Invalidating registry", 10);
+			final Runnable runnable = new Runnable() {
+				public void run() {
 					SOAGlobalRegistryAdapter.getInstance().invalidateRegistry();
 					try {
 						final Object input = SOAGlobalRegistryAdapter.getInstance()
@@ -72,14 +57,12 @@ public class RefreshRegistryAction extends Action{
 						}
 					} catch (Exception e) {
 						SOALogger.getLogger().error(e);
-						return Status.CANCEL_STATUS;
+						throw new RuntimeException(e);
 					}
-					typeLibraryViewer.refresh(true);
-					return Status.OK_STATUS;
 				}
 			};
-			job.setUser(true);
-			job.schedule();
+			BusyIndicator.showWhile(null, runnable);
+			typeLibraryViewer.refresh();
 		}
 	}
 }
