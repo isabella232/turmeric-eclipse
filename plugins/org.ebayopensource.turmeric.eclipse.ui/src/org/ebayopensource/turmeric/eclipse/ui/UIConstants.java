@@ -8,6 +8,9 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.ui;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+
 /**
  * The Class UIConstants.
  *
@@ -43,5 +46,7 @@ public class UIConstants {
 	public static final String SERVICES_VIEW_LAYER = "Layer";
 	
 	/** The Constant TYPELIB_NATURE_ID. */
-	public static final String TYPELIB_NATURE_ID = "org.ebayopensource.turmeric.eclipse.typelib.TypeLibraryProjectNature";
+	public static final String TYPELIB_NATURE_ID = GlobalRepositorySystem
+			.instanceOf().getActiveRepositorySystem()
+			.getProjectNatureId(SupportedProjectType.TYPE_LIBRARY);
 }

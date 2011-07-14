@@ -10,11 +10,14 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.xml.namespace.QName;
 
@@ -24,17 +27,17 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProjectResolver;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUIActivator;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.ImportTypesFromWSDLParser;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.ImportTypesFromXSDParser;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.ui.components.ProjectSelectionListLabelProvider;
 import org.ebayopensource.turmeric.eclipse.ui.dialogs.DetailMessageDialog;
+import org.ebayopensource.turmeric.eclipse.ui.monitor.typelib.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.InputObject;
@@ -72,7 +75,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -91,9 +93,6 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
-/**
- * The Class ImportTypesWizardPage.
- */
 public class ImportTypesWizardPage extends SOABasePage {
 	private String typeFile;
 	private IProject targetTLPrj;
@@ -105,23 +104,29 @@ public class ImportTypesWizardPage extends SOABasePage {
 	private Text typeLibraryProjTxt;
 	private Text typeNamespaceTxt;
 	private Composite typeLibrarySelectCmp;
-	
-	/** The sorter. */
+	private Label typeStatusLine;
+
+	private Label typeTableStatusLine;
+
 	final TypeSorter sorter = new TypeSorter();
 	private Action viewTypeContentAction;
 
 	private String globalErrMsg = null;
 
-	/**
-	 * Instantiates a new import types wizard page.
-	 *
-	 * @param pageName the page name
-	 * @param title the title
-	 * @param description the description
-	 * @param tableTitle the table title
-	 * @param targetProject the target project
-	 * @param sourceFile the source file
-	 */
+	private static final String STATUS_LINE_SEL = "{0} Types Selected.";
+
+	private static final String STATUS_LINE_SEL_ERROR = "{0} of them have errors.";
+
+	private static final String STATUS_LINE_SEL_WARNING = "{0} of them have warnings.";
+
+	private static final String STATUS_LINE_TYPE = "{0} Types found in selected file.";
+
+	private static final String STATUS_LINE_TYPE_ERROR = "{0} of them are listed.";
+
+	private static final String STATUS_LINE_TYPE_WARNING = "{0} of them refer to type library type.";
+
+	private String statusLineType = "";
+
 	public ImportTypesWizardPage(String pageName, String title,
 			String description, String tableTitle, IProject targetProject,
 			String sourceFile) {
@@ -131,9 +136,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 		typeTable = new TypeTable(tableTitle, true);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getHelpContextID()
-	 */
 	@Override
 	public String getHelpContextID() {
 		return GlobalRepositorySystem
@@ -144,18 +146,11 @@ public class ImportTypesWizardPage extends SOABasePage {
 						ISOAHelpProvider.HELPID_SCHEMA_TYPES_IMPORTEXPORT_WIZARD_MARKETPLACE_ID);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABasePage#getDefaultValue(org.eclipse.swt.widgets.Text)
-	 */
 	@Override
 	public String getDefaultValue(Text text) {
 		return "";
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
-	 */
-	@Override
 	public void createControl(Composite parent) {
 		Composite container = super.createParentControl(parent, 3);
 
@@ -164,6 +159,15 @@ public class ImportTypesWizardPage extends SOABasePage {
 		createTypeTable(container);
 
 		initWizardPage();
+	}
+
+	private static String getOneLineString(String doc) {
+		if (doc == null) {
+			return "";
+		}
+		doc = StringUtils.replace(doc, "\r\n", " ");
+		doc = StringUtils.replace(doc, "\n", " ");
+		return doc.trim();
 	}
 
 	private void reloadTypes() {
@@ -175,13 +179,18 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 			Collection<TypeModel> types = loadTypesFromFile();
 
+			updateTypeLibNameAndTypeNamespace();
+
 			if (types == null) {
-				return;
+				types = new ArrayList<TypeModel>();
 			}
 
 			typeTable.updateTableContent(types);
 
-			updateTypeLibNameAndTypeNamespace();
+			updateStatusLine();
+
+			typeStatusLine.setText(statusLineType);
+
 		} catch (Exception e) {
 			SOALogger.getLogger().error(e);
 			typeTable.updateTableContent(new ArrayList<TypeModel>());
@@ -191,11 +200,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 		}
 	}
 
-	/**
-	 * Load types from file.
-	 *
-	 * @return the collection
-	 */
 	public Collection<TypeModel> loadTypesFromFile() {
 		Collection<TypeModel> types = null;
 		try {
@@ -205,24 +209,39 @@ public class ImportTypesWizardPage extends SOABasePage {
 			new ProgressMonitorDialog(this.getShell())
 					.run(false, false, reload);
 			types = reload.getTypes();
-			int refferedTLTypeCount = 0;
+			int referedTLTypeCount = 0;
 			if (reload.getReferedTypes() != null) {
-				refferedTLTypeCount = reload.getReferedTypes().size();
+				referedTLTypeCount = reload.getReferedTypes().size();
 			}
+			int totalType = 0;
+			int showType = 0;
 			if (types == null || types.size() == 0) {
 				StringBuilder msg = new StringBuilder();
-				msg.append("No Type found in file \"" + path + "\".");
-				if (refferedTLTypeCount > 0) {
-					msg.append(" Found " + refferedTLTypeCount
+				msg.append("No Type found in file \"" + path + "\" to process.");
+				if (referedTLTypeCount > 0) {
+					msg.append(" Found " + referedTLTypeCount
 							+ " types that refer "
 							+ "to existing types in type registry.");
 				}
-				MessageDialog.openWarning(this.getShell(), "No Type to Import",
+				MessageDialog.openWarning(this.getShell(), "No Type to Process",
 						msg.toString());
+			} else {
+				showType = types.size();
+			}
+			totalType = showType + referedTLTypeCount;
+			statusLineType = MessageFormat.format(STATUS_LINE_TYPE, totalType,
+					showType, referedTLTypeCount);
+			if (showType > 0) {
+				statusLineType += MessageFormat.format(STATUS_LINE_TYPE_ERROR,
+						showType);
+			}
+			if (referedTLTypeCount > 0) {
+				statusLineType += MessageFormat.format(
+						STATUS_LINE_TYPE_WARNING, referedTLTypeCount);
 			}
 		} catch (Exception e) {
-			MessageDialog.openError(this.getShell(), "Exception", e
-					.getMessage());
+			MessageDialog.openError(this.getShell(), "Exception",
+					e.getMessage());
 		}
 		return types;
 	}
@@ -244,6 +263,32 @@ public class ImportTypesWizardPage extends SOABasePage {
 		this.validateAll();
 	}
 
+	private void updateStatusLine() {
+		List<TypeModel> types = typeTable.getTypes();
+		int sel = 0;
+		int warning = 0;
+		int error = 0;
+		for (TypeModel model : types) {
+			if (model.isSelected() == true) {
+				sel++;
+				if (model.hasError() == true || model.hasImportError() == true) {
+					error++;
+				} else if (model.hasWarning() == true) {
+					warning++;
+				}
+			}
+		}
+		String line = MessageFormat.format(STATUS_LINE_SEL, sel);
+
+		if (error > 0) {
+			line += MessageFormat.format(STATUS_LINE_SEL_ERROR, error);
+		}
+		if (warning > 0) {
+			line += MessageFormat.format(STATUS_LINE_SEL_WARNING, warning);
+		}
+		typeTableStatusLine.setText(line);
+	}
+
 	private void createSourceFileLine(Composite parent) {
 
 		new Label(parent, SWT.LEFT).setText("Source File:");
@@ -258,17 +303,22 @@ public class ImportTypesWizardPage extends SOABasePage {
 		browseButton.setSelection(false);
 		browseButton.addSelectionListener(new SelectionListener() {
 
-			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				browseSourceFile();
 			}
 
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				browseSourceFile();
 			}
 
 		});
+
+		new Label(parent, SWT.LEFT);
+		typeStatusLine = new Label(parent, SWT.LEFT);
+		GridData optionGD = new GridData(GridData.FILL_HORIZONTAL);
+		optionGD.horizontalSpan = 2;
+		typeStatusLine.setLayoutData(optionGD);
+		typeStatusLine.setText("");
 	}
 
 	private void createTypeLibraryGroupLine(Composite parent) {
@@ -279,12 +329,10 @@ public class ImportTypesWizardPage extends SOABasePage {
 		existProjBtn.setText("Existing Type Library Project");
 		existProjBtn.addSelectionListener(new SelectionListener() {
 
-			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				updateTypeLibrarySelectionStatus();
 			}
 
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (existProjBtn.getSelection() == true) {
 					updateTypeLibrarySelectionStatus();
@@ -307,12 +355,10 @@ public class ImportTypesWizardPage extends SOABasePage {
 		newProjBtn.setText("Create New Target Library");
 		newProjBtn.addSelectionListener(new SelectionListener() {
 
-			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				updateTypeLibrarySelectionStatus();
 			}
 
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (existProjBtn.getSelection() == false) {
 					updateTypeLibrarySelectionStatus();
@@ -323,20 +369,10 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 	}
 
-	/**
-	 * Need new type library creation.
-	 *
-	 * @return true, if successful
-	 */
 	public boolean needNewTypeLibraryCreation() {
 		return newProjBtn.getSelection() == true;
 	}
 
-	/**
-	 * Use exist project.
-	 *
-	 * @return true, if successful
-	 */
 	public boolean useExistProject() {
 		return existProjBtn.getSelection() == true;
 	}
@@ -345,6 +381,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 		enableCompositeChildrens(this.existProjBtn.getSelection());
 		updateTypeLibNameAndTypeNamespace();
 		validateAll();
+		this.updateStatusLine();
 	}
 
 	private void updateTypeLibNameAndTypeNamespace() {
@@ -377,12 +414,10 @@ public class ImportTypesWizardPage extends SOABasePage {
 		browseTypeLibraryBtn.setText("&Select...");
 		browseTypeLibraryBtn.addSelectionListener(new SelectionListener() {
 
-			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				browseTargetTypeLibraryProject();
 			}
 
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				browseTargetTypeLibraryProject();
 			}
@@ -407,7 +442,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 		tableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
 				true, 3, 1));
 		viewTypeContentAction = new Action() {
-			@Override
 			public void run() {
 				List<TypeModel> selection = typeTable.getUserSelection();
 				if (selection.size() == 0) {
@@ -503,16 +537,10 @@ public class ImportTypesWizardPage extends SOABasePage {
 		updateProjectAndNamepsace();
 	}
 
-	/**
-	 * Source file updated.
-	 */
 	public void sourceFileUpdated() {
 		this.validateAll();
 	}
 
-	/**
-	 * Target type library updated.
-	 */
 	public void targetTypeLibraryUpdated() {
 		this.validateAll();
 	}
@@ -554,6 +582,11 @@ public class ImportTypesWizardPage extends SOABasePage {
 		if ((existProjBtn.getSelection() == true)
 				&& projectName.isEmpty() == true) {
 			String errMsg = "Please select a validated type library";
+			// clean all errors in the type table.
+			for (TypeModel type : typeTable.getSelectedType()) {
+				type.setHasImportError(false);
+			}
+			typeTable.typeTableView.refresh();
 			super.updateStatus(typeLibraryProjTxt, errMsg);
 			return;
 		}
@@ -567,29 +600,14 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 	}
 
-	/**
-	 * Gets the selected type library name.
-	 *
-	 * @return the selected type library name
-	 */
 	public String getSelectedTypeLibraryName() {
 		return typeLibraryProjTxt.getText();
 	}
 
-	/**
-	 * Gets the namespace.
-	 *
-	 * @return the namespace
-	 */
 	public String getNamespace() {
 		return typeNamespaceTxt.getText();
 	}
 
-	/**
-	 * Gets the selected type models.
-	 *
-	 * @return the selected type models
-	 */
 	public List<TypeModel> getSelectedTypeModels() {
 		List<TypeModel> models = getSelectedTypeImportModels();
 		List<TypeModel> typeModels = new ArrayList<TypeModel>();
@@ -601,11 +619,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 		return typeModels;
 	}
 
-	/**
-	 * Gets the selected type import models.
-	 *
-	 * @return the selected type import models
-	 */
 	public List<TypeModel> getSelectedTypeImportModels() {
 		return typeTable.getSelectedType();
 	}
@@ -630,8 +643,9 @@ public class ImportTypesWizardPage extends SOABasePage {
 			.getImageFromRegistry("icons/error_report.gif").createImage();
 	private static final ImageDescriptor TOOLBAR_SCHEMA_CONTENT_SELECTED_DES = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/schema_content_selected.gif");
-	private static final Image TOOLBAR_SCHEMA_CONTENT_SELECTED = TOOLBAR_SCHEMA_CONTENT_SELECTED_DES
-			.createImage();
+	// private static final Image TOOLBAR_SCHEMA_CONTENT_SELECTED =
+	// TOOLBAR_SCHEMA_CONTENT_SELECTED_DES
+	// .createImage();
 	private static final Image TOOLBAR_SCHEMA_CONTENT_IMPORT = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/schema_content_import.gif")
 			.createImage();
@@ -645,9 +659,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 	private static final Image DOCUMENTATION_COL = TypeLibraryUIActivator
 			.getImageFromRegistry("icons/documentation_col.gif").createImage();
 
-	/**
-	 * The Class TypeTable.
-	 */
 	class TypeTable {
 		private List<TypeModel> typeList = new ArrayList<TypeModel>();
 
@@ -664,22 +675,11 @@ public class ImportTypesWizardPage extends SOABasePage {
 		private String groupTitle;
 		private boolean showNS;
 
-		/**
-		 * Instantiates a new type table.
-		 *
-		 * @param groupTitle the group title
-		 * @param showNS the show ns
-		 */
 		public TypeTable(String groupTitle, boolean showNS) {
 			this.groupTitle = groupTitle;
 			this.showNS = showNS;
 		}
 
-		/**
-		 * Gets the selected type.
-		 *
-		 * @return the selected type
-		 */
 		public List<TypeModel> getSelectedType() {
 			List<TypeModel> selectedTypeList = new ArrayList<TypeModel>();
 			for (TypeModel type : typeList) {
@@ -701,12 +701,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 			return selections;
 		}
 
-		/**
-		 * Creates the type table.
-		 *
-		 * @param parent the parent
-		 * @return the composite
-		 */
 		public Composite createTypeTable(Composite parent) {
 			Composite tableComposite = new Composite(parent, SWT.NONE);
 			tableComposite.setLayout(new GridLayout(1, false));
@@ -719,12 +713,14 @@ public class ImportTypesWizardPage extends SOABasePage {
 			tableGroup.setText(groupTitle);
 			tableGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
 					true, 1, 1));
-			FillLayout layout = new FillLayout();
+			GridLayout layout = new GridLayout(1, true);
 			layout.marginWidth = 2;
 			layout.marginHeight = 5;
 			tableGroup.setLayout(layout);
 
 			ViewForm viewForm = new ViewForm(tableGroup, SWT.NONE);
+			viewForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
+					1, 1));
 
 			ToolBar toolBar = new ToolBar(viewForm, SWT.FLAT);
 			ToolItem selectAll = new ToolItem(toolBar, SWT.PUSH);
@@ -732,12 +728,10 @@ public class ImportTypesWizardPage extends SOABasePage {
 			selectAll.setToolTipText("Choose all types");
 			selectAll.addSelectionListener(new SelectionListener() {
 
-				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					selectAll(true);
 				}
 
-				@Override
 				public void widgetSelected(SelectionEvent e) {
 					selectAll(true);
 				}
@@ -749,12 +743,10 @@ public class ImportTypesWizardPage extends SOABasePage {
 			diselectAll.setToolTipText("Un-choose all types");
 			diselectAll.addSelectionListener(new SelectionListener() {
 
-				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					selectAll(false);
 				}
 
-				@Override
 				public void widgetSelected(SelectionEvent e) {
 					selectAll(false);
 				}
@@ -772,12 +764,10 @@ public class ImportTypesWizardPage extends SOABasePage {
 							+ "if a dependency type has error or warnings.");
 			selectCorrect.addSelectionListener(new SelectionListener() {
 
-				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					selectAllCorrect();
 				}
 
-				@Override
 				public void widgetSelected(SelectionEvent e) {
 					selectAllCorrect();
 				}
@@ -791,12 +781,10 @@ public class ImportTypesWizardPage extends SOABasePage {
 			errorReport.setToolTipText("View error report");
 			errorReport.addSelectionListener(new SelectionListener() {
 
-				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					showErrprReport();
 				}
 
-				@Override
 				public void widgetSelected(SelectionEvent e) {
 					showErrprReport();
 				}
@@ -808,16 +796,14 @@ public class ImportTypesWizardPage extends SOABasePage {
 			ToolItem schemaContentImport = new ToolItem(toolBar, SWT.PUSH);
 			schemaContentImport.setImage(TOOLBAR_SCHEMA_CONTENT_IMPORT);
 			schemaContentImport.setToolTipText("View type schema content "
-					+ "that chosen to be imported. "
+					+ "that are chosen to be imported. "
 					+ "Please check the first column to choose a type.");
 			schemaContentImport.addSelectionListener(new SelectionListener() {
 
-				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					widgetSelected(e);
 				}
 
-				@Override
 				public void widgetSelected(SelectionEvent e) {
 					List<TypeModel> selection = getSelectedType();
 					if (selection.size() == 0) {
@@ -832,38 +818,39 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 			});
 
-			ToolItem schemaContentSelected = new ToolItem(toolBar, SWT.PUSH);
-			schemaContentSelected.setImage(TOOLBAR_SCHEMA_CONTENT_SELECTED);
-			schemaContentSelected.setToolTipText("View type schema content "
-					+ "that selected in table. " + "Please Use Ctrl or Shift "
-					+ "to select multi types in the table.");
-			schemaContentSelected.addSelectionListener(new SelectionListener() {
-
-				@Override
-				public void widgetDefaultSelected(SelectionEvent e) {
-					widgetSelected(e);
-				}
-
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					List<TypeModel> selection = getUserSelection();
-					if (selection.size() == 0) {
-						MessageDialog.openWarning(ImportTypesWizardPage.this
-								.getContainer().getShell(), "No Type Selected",
-								"No Type selected in the table. Please Use Ctrl "
-										+ "or Shift to select multi "
-										+ "types in the table.");
-						return;
-					}
-					showTypeContent(selection);
-				}
-
-			});
+			// ToolItem schemaContentSelected = new ToolItem(toolBar, SWT.PUSH);
+			// schemaContentSelected.setImage(TOOLBAR_SCHEMA_CONTENT_SELECTED);
+			// schemaContentSelected.setToolTipText("View type schema content "
+			// + "that selected in table. " + "Please Use Ctrl or Shift "
+			// + "to select multi types in the table.");
+			// schemaContentSelected.addSelectionListener(new
+			// SelectionListener() {
+			//
+			// public void widgetDefaultSelected(SelectionEvent e) {
+			// widgetSelected(e);
+			// }
+			//
+			// public void widgetSelected(SelectionEvent e) {
+			// List<TypeModel> selection = getUserSelection();
+			// if (selection.size() == 0) {
+			// MessageDialog.openWarning(ImportTypesWizardPage.this
+			// .getContainer().getShell(), "No Type Selected",
+			// "No Type selected in the table. Please Use Ctrl "
+			// + "or Shift to select multi "
+			// + "types in the table.");
+			// return;
+			// }
+			// showTypeContent(selection);
+			// }
+			//
+			// });
 
 			typeTableView = new TableViewer(viewForm, SWT.MULTI
 					| SWT.FULL_SELECTION);
 
 			typeTable = typeTableView.getTable();
+			typeTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
+					true, 1, 1));
 			typeTable.setLinesVisible(true);
 			typeTable.setHeaderVisible(true);
 
@@ -893,7 +880,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 				});
 				column.setWidth(150);
 			}
-			typeTable.pack();
 			typeTable.getColumn(0).setWidth(50);
 			nsTableCol = typeTable.getColumn(2);
 			nsTableCol.setResizable(false);
@@ -910,7 +896,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 			cellEditors[3] = new TextCellEditor(typeTable);
 			typeTableView.setCellEditors(cellEditors);
 			typeTable.addListener(SWT.MouseDoubleClick, new Listener() {
-				@Override
 				public void handleEvent(Event event) {
 					// find clicked on which item
 					Point pt = new Point(event.x, event.y);
@@ -924,6 +909,10 @@ public class ImportTypesWizardPage extends SOABasePage {
 					showTypeContent(doubleClickType);
 				}
 			});
+			GridData optionGD = new GridData(GridData.FILL_HORIZONTAL);
+			typeTableStatusLine = new Label(tableGroup, SWT.LEFT);
+			typeTableStatusLine.setLayoutData(optionGD);
+			typeTableStatusLine.setText("");
 			return tableComposite;
 		}
 
@@ -943,23 +932,15 @@ public class ImportTypesWizardPage extends SOABasePage {
 			}
 			DetailMessageDialog dialog = new DetailMessageDialog(
 					ImportTypesWizardPage.this.getContainer().getShell(),
-					"Type Content Report", contentGen.getTypesContent(), false);
+					"TYPE CONTENT REPORT", contentGen.getTypesContent(), false);
 			dialog.open();
 		}
 
-		/**
-		 * The Class GetTypeContentRunnable.
-		 */
 		class GetTypeContentRunnable implements IRunnableWithProgress {
 			private List<TypeModel> types;
 
 			private String content;
 
-			/**
-			 * Instantiates a new gets the type content runnable.
-			 *
-			 * @param types the types
-			 */
 			public GetTypeContentRunnable(List<TypeModel> types) {
 				this.types = types;
 			}
@@ -967,16 +948,15 @@ public class ImportTypesWizardPage extends SOABasePage {
 			/**
 			 * this must be done in current thread to make sure the return
 			 * values is correct.
-			 *
-			 * @return the types content
+			 * 
+			 * @return
+			 * 
+			 * @return
 			 */
 			public String getTypesContent() {
 				return content;
 			}
 
-			/* (non-Javadoc)
-			 * @see org.eclipse.jface.operation.IRunnableWithProgress#run(org.eclipse.core.runtime.IProgressMonitor)
-			 */
 			@Override
 			public void run(IProgressMonitor monitor)
 					throws InvocationTargetException, InterruptedException {
@@ -984,16 +964,18 @@ public class ImportTypesWizardPage extends SOABasePage {
 					monitor.beginTask("Generating types content...",
 							IProgressMonitor.UNKNOWN);
 					StringBuilder typeContents = new StringBuilder(
-							"Here is the type content:\r\n\r\n");
+							"HERE IS TYPE CONTENT:\r\n");
 					for (TypeModel model : types) {
-						typeContents.append("Type Name: " + model.getTypeName()
-								+ "\r\n");
-						proceeTypeErrorReport(typeContents, model);
-						typeContents.append("Type Content:\r\n");
+						if (proceeTypeErrorReport(typeContents, model) == false) {
+							typeContents.append("TYPE NAME: \""
+									+ model.getTypeName() + "\"\r\n");
+						}
+						typeContents.append("TYPE CONTENT:\r\n");
 						String xsdContent = model.getTypeContent().toString();
 						xsdContent = xsdContent.replace("\r\n", "\n");
 						xsdContent = xsdContent.replace("\n", "\r\n");
 						typeContents.append(xsdContent);
+						typeContents.append("\r\n\r\n");
 					}
 					// for better display
 					content = typeContents.toString();
@@ -1009,28 +991,37 @@ public class ImportTypesWizardPage extends SOABasePage {
 			List<TypeModel> selection = getSelectedType();
 			List<TypeModel> allTypes = typeList;
 			StringBuilder sel = new StringBuilder(
-					"Errors and Warnings in chosen types:\r\n");
+					"ERRORS AND WARNINGS IN CHOSEN TYPES:\r\n");
 			StringBuilder unSel = new StringBuilder(
-					"Errors and Warnings in un-chosen types:\r\n");
+					"ERRORS AND WARNINGS IN UN-CHOSEN TYPES:\r\n");
 
 			boolean selErr = false;
 			boolean unselErr = false;
 
 			for (TypeModel model : selection) {
-				selErr |= proceeTypeErrorReport(sel, model);
+				boolean err = proceeTypeErrorReport(sel, model);
+				if(err == true){
+					selErr = true;
+					sel.append("\r\n");
+				}
 			}
 
 			for (TypeModel model : allTypes) {
 				if (selection.contains(model)) {
 					continue;
 				}
-				unselErr |= proceeTypeErrorReport(unSel, model);
+				boolean err = proceeTypeErrorReport(unSel, model);
+				if(err == true){
+					unselErr = true;
+					unSel.append("\r\n");
+				}
 			}
 
 			StringBuilder all = new StringBuilder();
 			if (globalErrMsg != null) {
-				all.append("Global Error Message:\r\n");
-				all.append("\t" + globalErrMsg + "\r\n\r\n");
+				all.append("GLOBAL ERROR MESSAGE:\r\n");
+				all.append("\t" + globalErrMsg + "\r\n");
+				all.append("\r\n");
 			}
 			if (selErr == true) {
 				all.append(sel);
@@ -1049,28 +1040,21 @@ public class ImportTypesWizardPage extends SOABasePage {
 			dialog.open();
 		}
 
-		/**
-		 * Procee type error report.
-		 *
-		 * @param content the content
-		 * @param model the model
-		 * @return true, if successful
-		 */
 		protected boolean proceeTypeErrorReport(StringBuilder content,
 				TypeModel model) {
 			boolean hasError = model.hasError();
 			boolean hasWarning = model.hasWarning();
 			if (hasError == true || hasWarning == true) {
-				content.append("Type " + model.getTypeName() + ":\r\n");
+				content.append("TYPE NAME: \"" + model.getTypeName() + "\"\r\n");
 			}
 			if (model.hasError() == true) {
-				content.append("Errors:\r\n");
+				content.append("ERRORS:\r\n");
 				for (String str : model.getErrors()) {
 					content.append("\t" + str + "\r\n");
 				}
 			}
 			if (model.hasWarning() == true) {
-				content.append("Warnings:\r\n");
+				content.append("WARNINGS:\r\n");
 				for (String str : model.getWarnings()) {
 					content.append("\t" + str + "\r\n");
 				}
@@ -1107,20 +1091,10 @@ public class ImportTypesWizardPage extends SOABasePage {
 			}
 		}
 
-		/**
-		 * Gets the table.
-		 *
-		 * @return the table
-		 */
 		public Table getTable() {
 			return typeTable;
 		}
 
-		/**
-		 * Update table content.
-		 *
-		 * @param types the types
-		 */
 		public void updateTableContent(Collection<TypeModel> types) {
 			typeList.clear();
 			typeList.addAll(types);
@@ -1128,11 +1102,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 			this.refreshTypeTable(true);
 		}
 
-		/**
-		 * Gets the types.
-		 *
-		 * @return the types
-		 */
 		public List<TypeModel> getTypes() {
 			return typeList;
 		}
@@ -1142,6 +1111,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 				type.setSelected(select);
 			}
 			validateAll();
+			updateStatusLine();
 			// model changes, call refresh to update view
 			refreshTypeTable(false);
 		}
@@ -1152,35 +1122,21 @@ public class ImportTypesWizardPage extends SOABasePage {
 						&& (type.hasWarning() == false));
 			}
 			validateAll();
+			updateStatusLine();
 			// model changes, call refresh to update view
 			refreshTypeTable(false);
 		}
 
-		/**
-		 * The Class TypeContentProvider.
-		 */
 		class TypeContentProvider implements IStructuredContentProvider {
 
-			/* (non-Javadoc)
-			 * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
-			 */
-			@Override
 			public Object[] getElements(Object inputElement) {
 				return typeList.toArray();
 			}
 
-			/* (non-Javadoc)
-			 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
-			 */
-			@Override
 			public void dispose() {
 
 			}
 
-			/* (non-Javadoc)
-			 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
-			 */
-			@Override
 			public void inputChanged(Viewer viewer, Object oldInput,
 					Object newInput) {
 
@@ -1188,16 +1144,9 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 		}
 
-		/**
-		 * The Class TypeLabelProvider.
-		 */
 		class TypeLabelProvider extends LabelProvider implements
 				ITableLabelProvider {
 
-			/* (non-Javadoc)
-			 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
-			 */
-			@Override
 			public Image getColumnImage(Object element, int columnIndex) {
 
 				if ((element instanceof TypeModel) == false) {
@@ -1213,7 +1162,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 						return null;
 					}
 					if (type.hasError() == true
-							|| type.isHasImportError() == true) {
+							|| type.hasImportError() == true) {
 						return ERROR;
 					}
 					if (type.hasWarning() == true) {
@@ -1224,10 +1173,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 				}
 			}
 
-			/* (non-Javadoc)
-			 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
-			 */
-			@Override
 			public String getColumnText(Object element, int columnIndex) {
 				if (element == null) {
 					return "";
@@ -1242,26 +1187,16 @@ public class ImportTypesWizardPage extends SOABasePage {
 				case 1:
 					return type.getTypeName();
 				case 2:
-					return type.getNamespace();
+					return type.getOriginalNamespace();
 				case 3:
-					String desc = type.getDocumentation();
-					desc = StringUtils.replace(desc, "\r\n", " ");
-					desc = StringUtils.replace(desc, "\n", " ");
-					return desc;
+					return getOneLineString(type.getDocumentation());
 				}
 				return "";
 			}
 		}
 
-		/**
-		 * The Class TypeModifier.
-		 */
 		class TypeModifier implements ICellModifier {
 
-			/* (non-Javadoc)
-			 * @see org.eclipse.jface.viewers.ICellModifier#canModify(java.lang.Object, java.lang.String)
-			 */
-			@Override
 			public boolean canModify(Object element, String property) {
 				if (property == null
 						|| ((element instanceof TypeModel) == false)) {
@@ -1274,10 +1209,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 				return true;
 			}
 
-			/* (non-Javadoc)
-			 * @see org.eclipse.jface.viewers.ICellModifier#getValue(java.lang.Object, java.lang.String)
-			 */
-			@Override
 			public Object getValue(Object element, String property) {
 				if (property == null
 						|| ((element instanceof TypeModel) == false)) {
@@ -1291,7 +1222,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 				} else if (titles[2].equals(property)) {
 					return type.getNamespace();
 				} else if (titles[3].equals(property)) {
-					return type.getDocumentation();
+					return getOneLineString(type.getDocumentation());
 				}
 
 				return null;
@@ -1324,10 +1255,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 				}
 			}
 
-			/* (non-Javadoc)
-			 * @see org.eclipse.jface.viewers.ICellModifier#modify(java.lang.Object, java.lang.String, java.lang.Object)
-			 */
-			@Override
 			public void modify(Object element, String property, Object value) {
 				if (property == null || element == null) {
 					return;
@@ -1353,16 +1280,11 @@ public class ImportTypesWizardPage extends SOABasePage {
 				// do a refresh so that if type name is duplicated, it will
 				// becomes red.
 				refreshTypeTable(false);
+
+				updateStatusLine();
 			}
 		}
 
-		/**
-		 * Validate name.
-		 *
-		 * @param typeName the type name
-		 * @param errorMessage the error message
-		 * @return the i status
-		 */
 		protected IStatus validateName(String typeName, String errorMessage) {
 			final InputObject inputObject = new InputObject(typeName,
 					RegExConstants.PROJECT_NAME_EXP, errorMessage);
@@ -1384,11 +1306,6 @@ public class ImportTypesWizardPage extends SOABasePage {
 			}
 		}
 
-		/**
-		 * Validate selected types.
-		 *
-		 * @return the string
-		 */
 		public String validateSelectedTypes() {
 
 			// clean all errors
@@ -1444,7 +1361,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 					type.setImportError(errorMsg);
 				}
 				if (type.hasInternalDependencies() == true) {
-					for (TypeModel depModel : type.getInternalDependencies()) {
+					if (type.getInternalDependencies().size() == 0) {
+						continue;
+					}
+					Set<TypeModel> internalDepSet = new TreeSet<TypeModel>(type
+							.getInternalDependencies());
+					for (TypeModel depModel : internalDepSet) {
 						if (depModel.isSelected() == false) {
 							type.setHasImportError(true);
 							String depErrorMsg = typeName + " depends on "
@@ -1505,7 +1427,8 @@ public class ImportTypesWizardPage extends SOABasePage {
 												.getNameSpace(targetTLPrj
 														.getName()), typeName)) != null;
 					} catch (Exception e) {
-						e.printStackTrace();
+						hasType = false;
+						// just ignore this exception.
 					}
 					if (hasXSDFile == true || hasType == true) {
 						dupNamesInTypeRepo.append(type.getTypeName() + ", ");
@@ -1539,7 +1462,7 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 			StringBuffer dupErrMsg = new StringBuffer();
 			if (dupNamesInTypeRepo.length() > 0) {
-				dupErrMsg.append("chosen types duplicated "
+				dupErrMsg.append("Chosen types duplicated "
 						+ "with types in the Type Repository ["
 						+ dupNamesInTypeRepo.substring(0, dupNamesInTypeRepo
 								.length() - 2) + "]. ");
@@ -1564,36 +1487,21 @@ public class ImportTypesWizardPage extends SOABasePage {
 
 	}
 
-	/**
-	 * The Class TypeSorter.
-	 */
-	static class TypeSorter extends ViewerSorter {
+	class TypeSorter extends ViewerSorter {
 
 		private int columnIndex;
 		private int direction = SWT.UP;
 
-		/**
-		 * Instantiates a new type sorter.
-		 */
 		public TypeSorter() {
 			this.columnIndex = 0;
 			direction = SWT.UP;
 		}
 
-		/**
-		 * Sets the sort parameters.
-		 *
-		 * @param column the column
-		 * @param direction the direction
-		 */
 		public void setSortParameters(int column, int direction) {
 			columnIndex = column;
 			this.direction = direction;
 		}
 
-		/* (non-Javadoc)
-		 * @see org.eclipse.jface.viewers.ViewerComparator#compare(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
-		 */
 		@Override
 		public int compare(Viewer viewer, Object e1, Object e2) {
 			TypeModel p1 = (TypeModel) e1;
@@ -1630,20 +1538,12 @@ public class ImportTypesWizardPage extends SOABasePage {
 	}
 
 }
-/**
- * 
- * 
- *
- */
+
 class ReloadTypesRunnable implements IRunnableWithProgress {
 	private String path;
 	private Collection<TypeModel> types;
 	private Map<String, TypeModel> referedTypes;
 
-	/**
-	 * 
-	 * @param path the path
-	 */
 	public ReloadTypesRunnable(String path) {
 		this.path = path;
 	}
@@ -1652,16 +1552,12 @@ class ReloadTypesRunnable implements IRunnableWithProgress {
 	 * this must be done in current thread to make sure the return values is
 	 * correct.
 	 * 
-	 * @return a collection of type model
+	 * @return
 	 */
 	public Collection<TypeModel> getTypes() {
 		return types;
 	}
 
-	/**
-	 * 
-	 * @return a map of strings and type models
-	 */
 	public Map<String, TypeModel> getReferedTypes() {
 		return referedTypes;
 	}

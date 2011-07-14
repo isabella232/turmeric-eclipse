@@ -527,7 +527,7 @@ public class WTPTypeLibUtil {
 		return null;
 	}
 
-	private static List<XSDSchema> getXSDSchema(Definition definition,
+	public static List<XSDSchema> getXSDSchema(Definition definition,
 			String targetNamespace) {
 		List<XSDSchema> schemaList = getTypes(definition).getSchemas(
 				targetNamespace);

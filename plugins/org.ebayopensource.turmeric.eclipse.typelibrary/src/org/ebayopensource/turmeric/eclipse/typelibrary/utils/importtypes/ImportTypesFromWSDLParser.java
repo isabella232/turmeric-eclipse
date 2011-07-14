@@ -21,21 +21,16 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * The Class ImportTypesFromWSDLParser.
+ * This class is used to cut XSD schema from WSDL. It uses
+ * ImportTypesFromXSDParser to handle XSD content.
+ * 
+ * @author mzang
+ * 
  */
 public class ImportTypesFromWSDLParser extends DefaultHandler {
 
-	/** The path. */
 	String path = null;
 
-	/**
-	 * Cut wsdl.
-	 *
-	 * @param wsdlPath the wsdl path
-	 * @throws SAXException the sAX exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ParserConfigurationException the parser configuration exception
-	 */
 	public void cutWSDL(String wsdlPath) throws SAXException, IOException,
 			ParserConfigurationException {
 		path = wsdlPath;
@@ -78,11 +73,6 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 
 	private static String SCHEMA_DEF_NAME = "schema";
 
-	/**
-	 * Gets the type models.
-	 *
-	 * @return the type models
-	 */
 	public Collection<TypeModel> getTypeModels() {
 		return this.xsds.values();
 	}
@@ -182,18 +172,10 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		referedTLTypes = ImportTypesFromXSDParser.postProcessTypes(xsds);
 	}
 
-	/**
-	 * Gets the refered tl types.
-	 *
-	 * @return the refered tl types
-	 */
 	public Map<String, TypeModel> getReferedTLTypes() {
 		return referedTLTypes;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#endDocument()
-	 */
 	@Override
 	public void endDocument() throws SAXException {
 		postProcessTypes();
@@ -201,11 +183,6 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		// test();
 	}
 
-	/**
-	 * Test.
-	 *
-	 * @throws SAXException the sAX exception
-	 */
 	public void test() throws SAXException {
 		File file = new File(path);
 		File parentFile = file.getParentFile();
@@ -266,9 +243,6 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 
 	private ImportTypesFromXSDParser schmaHandler = null;
 
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
-	 */
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
@@ -307,9 +281,6 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
@@ -327,9 +298,6 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
-	 */
 	@Override
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {
@@ -338,14 +306,6 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		}
 	}
 
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 * @throws SAXException the sAX exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ParserConfigurationException the parser configuration exception
-	 */
 	public static void main(String[] args) throws SAXException, IOException,
 			ParserConfigurationException {
 		// File f = new File(args[0]);

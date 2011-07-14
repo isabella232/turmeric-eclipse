@@ -36,20 +36,17 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * The Class ImportTypesFromXSDParser.
+ * This class is used to parse XSD content and cut XSD content from it. Also it
+ * will handle dependencies, add document node to type.
+ * 
+ * @author mzang
+ * 
  */
 public class ImportTypesFromXSDParser extends DefaultHandler {
 
+	// FIXME: remove this later
 	private String path = null;
 
-	/**
-	 * Cut xsd.
-	 *
-	 * @param wsdlPath the wsdl path
-	 * @throws SAXException the sAX exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ParserConfigurationException the parser configuration exception
-	 */
 	public void cutXSD(String wsdlPath) throws SAXException, IOException,
 			ParserConfigurationException {
 		path = wsdlPath;
@@ -111,18 +108,10 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 
 	private static int noTypeNameCounter = 0;
 
-	/**
-	 * Clear no type name counter.
-	 */
 	public static void clearNoTypeNameCounter() {
 		noTypeNameCounter = 0;
 	}
 
-	/**
-	 * Sets the outer ns mappint.
-	 *
-	 * @param outerNSMapping the outer ns mapping
-	 */
 	public void setOuterNSMappint(Map<String, String> outerNSMapping) {
 		this.outerNSMapping = outerNSMapping;
 	}
@@ -177,7 +166,6 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 
 	// namespace in attribute value
 	private static String XS_NS = "xs:";
-	private static String XS_NS_ATTR = "xs";
 	private static String XML_NS = "xmlns:";
 	private static String XML_NS_ATTR = "xmlns";
 
@@ -200,7 +188,7 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 	 * fill with all external type namespace. and real type library namespace
 	 */
 	private static final String TYPE_SCHEMA_NODE_1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-			+ "<xs:schema  xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"";
+			+ "<xs:schema ";
 
 	private static final String TYPE_SCHEMA_NODE_2 = "\r\n"
 			+ "\t attributeFormDefault=\"unqualified\" elementFormDefault=\"qualified\" "
@@ -212,18 +200,10 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 
 	private int schemaStartIndex = 0;
 
-	/**
-	 * Use wsdl model.
-	 */
 	public void useWSDLModel() {
 		this.schemaStartIndex = 2;
 	}
 
-	/**
-	 * Sets the schema start index.
-	 *
-	 * @param schemaStartIndex the new schema start index
-	 */
 	public void setSchemaStartIndex(int schemaStartIndex) {
 		this.schemaStartIndex = schemaStartIndex;
 	}
@@ -250,20 +230,10 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		}
 	}
 
-	/**
-	 * Gets the type models.
-	 *
-	 * @return the type models
-	 */
 	public Collection<TypeModel> getTypeModels() {
 		return this.xsds.values();
 	}
 
-	/**
-	 * Gets the type model map.
-	 *
-	 * @return the type model map
-	 */
 	public Map<String, TypeModel> getTypeModelMap() {
 		return this.xsds;
 	}
@@ -462,10 +432,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 	 * Notice that we need to check 2) first because a type may have the same
 	 * namespace with an existing type library. just like a class named MyClass
 	 * in java.lang package.
-	 *
-	 * @param xsds TypeModels to be processed
+	 * 
+	 * @param xsds
+	 *            TypeModels to be processed
 	 * @return TypeModel that no need to be imported.
-	 * @throws SAXException the sAX exception
+	 * 
 	 */
 	public static Map<String, TypeModel> postProcessTypes(
 			Map<String, TypeModel> xsds) throws SAXException {
@@ -808,29 +779,16 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#endDocument()
-	 */
 	@Override
 	public void endDocument() throws SAXException {
 		refferedTLTypes = postProcessTypes(xsds);
 		// test();
 	}
 
-	/**
-	 * Gets the refered tl types.
-	 *
-	 * @return the refered tl types
-	 */
 	public Map<String, TypeModel> getReferedTLTypes() {
 		return refferedTLTypes;
 	}
 
-	/**
-	 * Test.
-	 *
-	 * @throws SAXException the sAX exception
-	 */
 	public void test() throws SAXException {
 		File file = new File(path);
 		File parentFile = file.getParentFile();
@@ -888,10 +846,10 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		if (xmlPath.size() < 2) {
 			return false;
 		}
-		NodeQName eleNode = xmlPath.get(xmlPath.size() - 1);
-		NodeQName typeNode = xmlPath.get(xmlPath.size() - 2);
-		return (ELEMENT_NODE.equals(eleNode.localName) || ATTRIBUTE_NODE
-				.equals(ATTRIBUTE_NODE))
+		NodeQName eleAttrNode = xmlPath.get(xmlPath.size() - 2);
+		NodeQName typeNode = xmlPath.get(xmlPath.size() - 1);
+		return (ELEMENT_NODE.equals(eleAttrNode.localName) || ATTRIBUTE_NODE
+				.equals(eleAttrNode.localName))
 				&& (COMPLEX_TYPE_NODE.equals(typeNode.localName) || SIMPLE_TYPE_NODE
 						.equals(typeNode.localName));
 	}
@@ -928,9 +886,6 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return ELEMENT_NODE.endsWith(eleNode.localName);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
-	 */
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
@@ -989,7 +944,7 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 
 		if (hasTypeInElement == true) {
 			warnings.add("Codegen doesn't support to "
-					+ "definte a type in element node.");
+					+ "define a type in element/attribute node.");
 		}
 
 		if (hasUnionInType == true) {
@@ -1142,9 +1097,6 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
@@ -1284,14 +1236,6 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		}
 	}
 
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 * @throws SAXException the sAX exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ParserConfigurationException the parser configuration exception
-	 */
 	public static void main(String[] args) throws SAXException, IOException,
 			ParserConfigurationException {
 		// File f = new File(args[0]);

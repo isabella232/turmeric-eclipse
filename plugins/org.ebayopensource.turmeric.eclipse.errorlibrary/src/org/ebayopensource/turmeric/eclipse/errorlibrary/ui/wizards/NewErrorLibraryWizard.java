@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.ErrorLibraryCreator;
@@ -24,6 +25,7 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryP
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ISOAErrorLibraryWizardPageProvider;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryParamModel;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.SOAErrorLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAErrorTypeCreationFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAGetErrorLibraryProviderFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
@@ -42,11 +44,8 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
-<<<<<<< HEAD
  * The Class NewErrorLibraryWizard.
  *
-=======
->>>>>>> TURMERIC-1351
  * @author yayu
  * @since 1.0.0
  */
@@ -124,7 +123,11 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 				if ((uimodel instanceof ErrorLibraryParamModel) == false) {
 					return false;
 				}
+				
 				final ErrorLibraryParamModel model = (ErrorLibraryParamModel) uimodel;
+				if (StringUtils.isBlank(model.getVersion()) == true) {
+					model.setVersion(SOAErrorLibraryConstants.DEFAULT_VERSION);
+				}
 				final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 
 					@Override

@@ -142,21 +142,21 @@
             <separator name="type"/>
          </menu>
          <action
-               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary"
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.ImportTypeFromTypeLibrary"
                helpContextId="org.eclipse.ui.AddTask_action_context"
                id="org.ebayopensource.turmeric.eclipse.typelibrary.importType_WSDL_Source"
                label="%Menu.AddInlineType.Label"
                menubarPath="typeMenu/type"
                tooltip="Inlines the selected schema in this wsdl"/>
          <action
-               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.RemoveType"
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.RemoveType"
                helpContextId="org.eclipse.ui.AddTask_action_context"
                id="org.ebayopensource.turmeric.eclipse.typelibrary.removeType_WSDL_Source"
                label="%Menu.RemoveInlinedType.Label"
                menubarPath="typeMenu/type"
                tooltip="Removes inlined type from this WSDL"/>
          <action
-               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.UpdateTypeVersion"
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.UpdateTypeVersion"
                helpContextId="org.eclipse.ui.AddTask_action_context"
                id="org.ebayopensource.turmeric.eclipse.typelibrary.updateTypeVersion_WSDL_Source"
                label="%Menu.UpdateInlinedType.Label"
@@ -173,21 +173,21 @@
             <separator name="type"/>
          </menu>
          <action
-               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary"
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.ImportTypeFromTypeLibrary"
                helpContextId="org.eclipse.ui.AddTask_action_context"
                id="org.ebayopensource.turmeric.eclipse.typelibrary.importType_WSDL_Design"
                label="%Menu.AddInlineType.Label"
                menubarPath="typeMenu/type"
                tooltip="Inlines the selected schema in this wsdl"/>
          <action
-               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.RemoveType"
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.RemoveType"
                helpContextId="org.eclipse.ui.AddTask_action_context"
                id="org.ebayopensource.turmeric.eclipse.typelibrary.removeType_WSDL_Design"
                label="%Menu.RemoveInlinedType.Label"
                menubarPath="typeMenu/type"
                tooltip="Removes inlined type from this WSDL"/>
          <action
-               class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.UpdateTypeVersion"
+               class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.UpdateTypeVersion"
                helpContextId="org.eclipse.ui.AddTask_action_context"
                id="org.ebayopensource.turmeric.eclipse.typelibrary.updateTypeVersion_WSDL_Design"
                label="%Menu.UpdateInlinedType.Label"
@@ -215,7 +215,7 @@
          </menu>
          
 	      <action
-         		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary"
+         		class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.ImportTypeFromTypeLibrary"
          		helpContextId="org.eclipse.ui.AddTask_action_context"
          		id="org.ebayopensource.turmeric.eclipse.typelibrary.importType_Source"
          		label="%Menu.IncludeImportType.Label"
@@ -224,7 +224,7 @@
 		 </action>	
 		
 		 <action
-         		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.RemoveType"
+         		class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.RemoveType"
          		helpContextId="org.eclipse.ui.AddTask_action_context"
          		id="org.ebayopensource.turmeric.eclipse.typelibrary.removeType_Source"
          		label="%Menu.RemoveType.Label"
@@ -233,7 +233,7 @@
 		  </action>
 		 
 		  <action
-        		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.IncrementVersionCommand"
+        		class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.IncrementVersionCommand"
          		helpContextId="org.eclipse.ui.AddTask_action_context"
         		id="org.ebayopensource.turmeric.eclipse.typelibrary.incrementVersion_Source"
          		label="%Menu.IncrementVersion.Label"
@@ -253,7 +253,7 @@
          </menu>
          
 	      <action
-         		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.ImportTypeFromTypeLibrary"
+         		class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.ImportTypeFromTypeLibrary"
          		helpContextId="org.eclipse.ui.AddTask_action_context"
          		id="org.ebayopensource.turmeric.eclipse.typelibrary.importType_Design"
          		label="%Menu.IncludeImportType.Label"
@@ -262,7 +262,7 @@
 		 </action>	
 		
 		 <action
-         		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.RemoveType"
+         		class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.RemoveType"
          		helpContextId="org.eclipse.ui.AddTask_action_context"
          		id="org.ebayopensource.turmeric.eclipse.typelibrary.removeType_Design"
          		label="%Menu.RemoveType.Label"
@@ -271,7 +271,7 @@
 		  </action>
 		 
 		  <action
-        		class="org.ebayopensource.turmeric.eclipse.typelibrary.core.wst.IncrementVersionCommand"
+        		class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wst.IncrementVersionCommand"
          		helpContextId="org.eclipse.ui.AddTask_action_context"
         		id="org.ebayopensource.turmeric.eclipse.typelibrary.incrementVersion_Design"
          		label="%Menu.IncrementVersion.Label"
