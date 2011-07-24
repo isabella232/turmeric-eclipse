@@ -31,20 +31,38 @@ import org.eclipse.m2e.jdt.AbstractJavaProjectConfigurator;
 import org.eclipse.m2e.jdt.IClasspathDescriptor;
 import org.eclipse.m2e.core.project.configurator.ProjectConfigurationRequest;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TurmerStandardProjectConfigurator.
  */
 public class TurmerStandardProjectConfigurator extends
 		AbstractJavaProjectConfigurator {
 
+	/** The Constant GENERATED_RESOURCES_CODEGEN. */
 	private static final String GENERATED_RESOURCES_CODEGEN = "/target/generated-resources/codegen";
+	
+	/** The Constant GENERATED_SOURCES_CODEGEN. */
 	private static final String GENERATED_SOURCES_CODEGEN = "/target/generated-sources/codegen";
+	
+	/** The Constant GENERATED_RESOURCES_JAXB_EPISODE. */
 	private static final String GENERATED_RESOURCES_JAXB_EPISODE = "/target/generated-resources/jaxb-episode";
+	
+	/** The Constant GENERATED_SOURCES_JAXB_EPISODE. */
 	private static final String GENERATED_SOURCES_JAXB_EPISODE = "/target/generated-sources/jaxb-episode";
-	private static final String GEN_TYPELIBRARY = "gen-typelibrary";
-	private static final String GEN_ERRORLIBRARY = "gen-errorlibrary";
-	private static final String GEN_IMPLEMENTATION = "gen-implementation";
-	private static final String GEN_INTERFACE_WSDL = "gen-interface-wsdl";
+	
+	/** The Constant GEN_TYPELIBRARY. */
+	public static final String GEN_TYPELIBRARY = "gen-typelibrary";
+	
+	/** The Constant GEN_ERRORLIBRARY. */
+	public static final String GEN_ERRORLIBRARY = "gen-errorlibrary";
+	
+	/** The Constant GEN_IMPLEMENTATION. */
+	public static final String GEN_IMPLEMENTATION = "gen-implementation";
+	
+	/** The Constant GEN_INTERFACE_WSDL. */
+	public static final String GEN_INTERFACE_WSDL = "gen-interface-wsdl";
+	
+	/** The Constant TURMERIC_MAVEN_PLUGIN. */
 	private static final String TURMERIC_MAVEN_PLUGIN = "turmeric-maven-plugin";
 
 	/**
@@ -54,6 +72,9 @@ public class TurmerStandardProjectConfigurator extends
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.m2e.jdt.AbstractJavaProjectConfigurator#configureRawClasspath(org.eclipse.m2e.core.project.configurator.ProjectConfigurationRequest, org.eclipse.m2e.jdt.IClasspathDescriptor, org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
 	public void configureRawClasspath(ProjectConfigurationRequest request,
 			IClasspathDescriptor classpath, IProgressMonitor monitor)
@@ -84,6 +105,9 @@ public class TurmerStandardProjectConfigurator extends
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.m2e.jdt.AbstractJavaProjectConfigurator#configure(org.eclipse.m2e.core.project.configurator.ProjectConfigurationRequest, org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
 	public void configure(ProjectConfigurationRequest projRequest,
 			IProgressMonitor monitor) throws CoreException {
@@ -122,6 +146,13 @@ public class TurmerStandardProjectConfigurator extends
 		return isProjectType(GEN_INTERFACE_WSDL, projRequest);
 	}
 
+	/**
+	 * Checks if is project type.
+	 *
+	 * @param goalType the goal type
+	 * @param projRequest the proj request
+	 * @return true, if is project type
+	 */
 	private boolean isProjectType(String goalType,
 			ProjectConfigurationRequest projRequest) {
 		MavenProject mproj = projRequest.getMavenProject();
@@ -189,6 +220,13 @@ public class TurmerStandardProjectConfigurator extends
 				SOAProjectConstants.PROPS_FILE_SERVICE_CONSUMER);
 	}
 
+	/**
+	 * Checks if is file accessible.
+	 *
+	 * @param project the project
+	 * @param fileRelativePath the file relative path
+	 * @return true, if is file accessible
+	 */
 	private static boolean isFileAccessible(IProject project,
 			String fileRelativePath) {
 		if (project.isAccessible()) {
@@ -197,6 +235,9 @@ public class TurmerStandardProjectConfigurator extends
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.m2e.core.project.configurator.AbstractProjectConfigurator#getBuildParticipant(org.eclipse.m2e.core.project.IMavenProjectFacade, org.apache.maven.plugin.MojoExecution, org.eclipse.m2e.core.lifecyclemapping.model.IPluginExecutionMetadata)
+	 */
 	@Override
 	public AbstractBuildParticipant getBuildParticipant(
 			IMavenProjectFacade projectFacade, MojoExecution execution,
