@@ -193,7 +193,9 @@ public class SOAProjectConstants {
     	/** The JSON. */
     	JSON, 
     	/** The FAS t_ infoset. */
-    	FAST_INFOSET;
+    	FAST_INFOSET,
+    	/** ProtoBuf protocol*/
+    	PROTOBUF;
 
 
     	/**
