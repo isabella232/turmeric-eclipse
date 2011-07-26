@@ -13,7 +13,6 @@ import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
@@ -165,10 +164,9 @@ public class RegistryView extends ViewPart {
 		final Table typeTable = toolkit.createTable(typeGroup, SWT.H_SCROLL
 				| SWT.V_SCROLL | SWT.MULTI | SWT.FULL_SELECTION);
 		// typeTable.setLayoutData(new GridData(GridData.FILL_BOTH));
-		RefreshRegistryAction refreshAction = new RefreshRegistryAction(
-				typeLibraryViewer);
-		typeViewer = new TypeViewer(typeTable, refreshAction);
-		refreshAction.setTypeViewer(typeViewer);
+		// RefreshRegistryAction refreshAction = new RefreshRegistryAction(
+		// typeLibraryViewer);
+		typeViewer = new TypeViewer(typeTable);
 		typeViewer.setInput(typeRegistry);
 
 		typeLibrarySelectionChangedListener = new TypeLibrarySelectionChangedListener(
@@ -220,12 +218,13 @@ public class RegistryView extends ViewPart {
 	 * Creates the toolbar.
 	 */
 	private void createToolbar() {
-		IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
-		RefreshRegistryAction refreshAction = new RefreshRegistryAction(
-				typeLibraryViewer);
-		refreshAction.setTypeViewer(typeViewer);
-		mgr.add(refreshAction);
-		mgr.add(new SortRegistryAction(typeViewer, getLibraryComparator()));
+		// IToolBarManager mgr =
+		// getViewSite().getActionBars().getToolBarManager();
+		// RefreshRegistryAction refreshAction = new RefreshRegistryAction(
+		// typeLibraryViewer);
+		// refreshAction.setTypeViewer(typeViewer);
+		// mgr.add(refreshAction);
+		// mgr.add(new SortRegistryAction(typeViewer, getLibraryComparator()));
 	}
 	
 	/**

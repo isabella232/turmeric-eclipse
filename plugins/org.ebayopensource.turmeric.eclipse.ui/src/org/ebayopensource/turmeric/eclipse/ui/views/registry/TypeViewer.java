@@ -40,7 +40,7 @@ public class TypeViewer extends TableViewer {
 	private ColumnLayoutData columnLayouts[] = { new ColumnWeightData(200),
 			new ColumnWeightData(100), new ColumnWeightData(200) };
 
-	private RefreshRegistryAction refreshRegistryAction = null;
+	// private RefreshRegistryAction refreshRegistryAction = null;
 
 	/** The lib type comparator. */
 	final LibraryTypeComparator libTypeComparator = new LibraryTypeComparator();
@@ -51,9 +51,8 @@ public class TypeViewer extends TableViewer {
 	 * @param table the table
 	 * @param refreshRegistryAction the refresh registry action
 	 */
-	public TypeViewer(Table table, RefreshRegistryAction refreshRegistryAction) {
+	public TypeViewer(Table table) {
 		super(table);
-		this.refreshRegistryAction = refreshRegistryAction;
 		setContentProvider(new TypeContentProvider());
 		setLabelProvider(new TypeLabelProvider());
 		addDoubleClickListener(new TypeViewerDCListener());
