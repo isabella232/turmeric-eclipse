@@ -61,15 +61,15 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 	// The plug-in ID
 	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.typelibrary.ui"; //$NON-NLS-1$
-	
+
 	/** The Constant ICON_PATH. */
 	public static final String ICON_PATH = "icons/";
 
 	// The shared instance
 	private static TypeLibraryUIActivator plugin;
-	
+
 	private TypeLibMoveDeleteHook typeLibMoveDeleteHook;
-	
+
 	/**
 	 * The constructor.
 	 */
@@ -90,7 +90,7 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		typeLibMoveDeleteHook = new TypeLibMoveDeleteHook();
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(
 				typeLibMoveDeleteHook, IResourceChangeEvent.POST_CHANGE);
-		
+
 	}
 
 	/**
@@ -100,30 +100,37 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		if (typeLibMoveDeleteHook != null)
 			ResourcesPlugin.getWorkspace().removeResourceChangeListener(
-					typeLibMoveDeleteHook);		
+					typeLibMoveDeleteHook);
 		plugin = null;
 		super.stop(context);
 	}
 
 	/**
 	 * Returns the shared instance.
-	 *
+	 * 
 	 * @return the shared instance
 	 */
 	public static TypeLibraryUIActivator getDefault() {
 		return plugin;
 	}
-	
+
 	/**
 	 * Adds the element declaration.
-	 *
-	 * @param complexTypeDefinition the complex type definition
-	 * @param model the model
-	 * @param elementName the element name
-	 * @param elementType the element type
-	 * @param minOccurs the min occurs
-	 * @param maxOccurs the max occurs
-	 * @throws CommandFailedException the command failed exception
+	 * 
+	 * @param complexTypeDefinition
+	 *            the complex type definition
+	 * @param model
+	 *            the model
+	 * @param elementName
+	 *            the element name
+	 * @param elementType
+	 *            the element type
+	 * @param minOccurs
+	 *            the min occurs
+	 * @param maxOccurs
+	 *            the max occurs
+	 * @throws CommandFailedException
+	 *             the command failed exception
 	 */
 	public static void addElementDeclaration(
 			XSDComplexTypeDefinition complexTypeDefinition,
@@ -134,15 +141,15 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		boolean isPrimitive = true;
 		try {
 			if (elementType instanceof String) {
-				prefixedElementType = getPrefix(complexTypeDefinition
-						.getSchema(), SOATypeLibraryConstants.W3C_NAMEPSACE)
-						+ elementType;
+				prefixedElementType = getPrefix(
+						complexTypeDefinition.getSchema(),
+						SOATypeLibraryConstants.W3C_NAMEPSACE) + elementType;
 			} else {
 				isPrimitive = false;
 				LibraryType libElementType = (LibraryType) elementType;
-				prefixedElementType = getPrefix(complexTypeDefinition
-						.getSchema(), TypeLibraryUtil
-						.getNameSpace(libElementType))
+				prefixedElementType = getPrefix(
+						complexTypeDefinition.getSchema(),
+						TypeLibraryUtil.getNameSpace(libElementType))
 						+ libElementType.getName();
 			}
 		} catch (Exception e) {
@@ -156,27 +163,32 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		XSDModelGroup xsdModelGroup = getModelGroup(complexTypeDefinition);
 		xsdModelGroup.getContents().add(0, xsdParticle);
 		if (!isPrimitive)
-			addImport((LibraryType) elementType, complexTypeDefinition, model
-					.getTypeName(), model.getVersion(), model
-					.getTypeLibraryName());
+			addImport((LibraryType) elementType, complexTypeDefinition,
+					model.getTypeName(), model.getVersion(),
+					model.getTypeLibraryName());
 	}
-	
+
 	/** The Constant NO_OCCURS. */
 	public static final int NO_OCCURS = -2;
-	
+
 	/** The Constant UNBOUND. */
-	public static final int UNBOUND= -1;
-	
-	
+	public static final int UNBOUND = -1;
+
 	/**
 	 * Adds the attribute declarations.
-	 *
-	 * @param complexTypeDefinition the complex type definition
-	 * @param model the model
-	 * @param attrName the attr name
-	 * @param attrType the attr type
-	 * @param attrDoc the attr doc
-	 * @throws CommandFailedException the command failed exception
+	 * 
+	 * @param complexTypeDefinition
+	 *            the complex type definition
+	 * @param model
+	 *            the model
+	 * @param attrName
+	 *            the attr name
+	 * @param attrType
+	 *            the attr type
+	 * @param attrDoc
+	 *            the attr doc
+	 * @throws CommandFailedException
+	 *             the command failed exception
 	 */
 	public static void addAttributeDeclarations(
 			XSDComplexTypeDefinition complexTypeDefinition,
@@ -187,8 +199,7 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		try {
 			if (attrType instanceof String) {// this is a primitive type
 				prefixedAttrType = getPrefix(complexTypeDefinition.getSchema(),
-						SOATypeLibraryConstants.W3C_NAMEPSACE)
-						+ attrType;
+						SOATypeLibraryConstants.W3C_NAMEPSACE) + attrType;
 			} else {// this is a library Type
 				isPrimitive = false;
 				LibraryType libAttrType = (LibraryType) attrType;
@@ -208,54 +219,66 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 				prefixedAttrType);
 		complexTypeDefinition.getAttributeContents().add(attr);
 		if (!isPrimitive)
-			addImport((LibraryType) attrType, complexTypeDefinition, model
-					.getTypeName(), model.getVersion(), model
-					.getTypeLibraryName());
+			addImport((LibraryType) attrType, complexTypeDefinition,
+					model.getTypeName(), model.getVersion(),
+					model.getTypeLibraryName());
 		addDocumentation(attr.getAttributeDeclaration(), attrDoc);
 
 	}
-	
 
 	/**
 	 * Format contents.
-	 *
-	 * @param contents the contents
+	 * 
+	 * @param contents
+	 *            the contents
 	 * @return the string
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws CoreException the core exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws CoreException
+	 *             the core exception
 	 */
 	public static String formatContents(String contents) throws IOException,
 			CoreException {
 		FormatProcessorXML formatProcessor = new FormatProcessorXML();
 		return formatProcessor.formatContent(contents);
 	}
-	
+
 	private static void addImport(LibraryType importType,
 			XSDTypeDefinition typeDefinition, String typeName, String version,
 			String typeLibraryName) throws CommandFailedException {
 		try {
 			XSDSchema importSchema = TypeLibraryUtil
 					.parseSchema(TypeLibraryUtil
-							.getXSD(SOAGlobalRegistryAdapter.getInstance()
+							.getXSD(SOAGlobalRegistryAdapter
+									.getInstance()
 									.getGlobalRegistry()
 									.getType(
 											TypeLibraryUtil.toQName(importType))));
 			AddImportCommand addImportCommand = new AddImportCommand(
-					typeDefinition.getSchema(), TypeLibraryUtil
-							.getProtocolString(importType),
-					importSchema);
+					typeDefinition.getSchema(),
+					TypeLibraryUtil.getProtocolString(importType), importSchema);
 			addImportCommand.run();
 
-			TypeLibraryType typeLibInfo = SOAGlobalRegistryAdapter.getInstance()
-					.getGlobalRegistry().getTypeLibrary(typeLibraryName);
+			// for add type to wsdl, Type Library is null
+			if (typeLibraryName == null) {
+				return;
+			}
+
+			TypeLibraryType typeLibInfo = SOAGlobalRegistryAdapter
+					.getInstance().getGlobalRegistry()
+					.getTypeLibrary(typeLibraryName);
 			LibraryType libraryType = TypeLibraryUtil.getLibraryType(typeName,
 					version, typeLibInfo);
 
-			SOAGlobalRegistryAdapter.getInstance().addTypeToRegistry(libraryType);
+			SOAGlobalRegistryAdapter.getInstance().addTypeToRegistry(
+					libraryType);
 			IProject project = WorkspaceUtil.getProject(typeLibraryName);
-			SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
-			synch.syncronizeXSDandDepXml(typeDefinition.getSchema(), TypeLibraryUtil.toQName(libraryType));
-			synch.synchronizeTypeDepandProjectDep(ProgressUtil.getDefaultMonitor(null));
+			SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(
+					project);
+			synch.syncronizeXSDandDepXml(typeDefinition.getSchema(),
+					TypeLibraryUtil.toQName(libraryType));
+			synch.synchronizeTypeDepandProjectDep(ProgressUtil
+					.getDefaultMonitor(null));
 		} catch (Exception e) {
 			throw new CommandFailedException(e);
 		}
@@ -263,8 +286,9 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 	/**
 	 * Gets the image from registry.
-	 *
-	 * @param path the path
+	 * 
+	 * @param path
+	 *            the path
 	 * @return the image from registry
 	 */
 	public static ImageDescriptor getImageFromRegistry(String path) {
@@ -290,19 +314,21 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 	/**
 	 * Gets the image descriptor.
-	 *
-	 * @param path the path
+	 * 
+	 * @param path
+	 *            the path
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(final String path) {
 		ImageDescriptor descriptor = imageDescriptorFromPlugin(PLUGIN_ID, path);
 		return descriptor;
 	}
-	
+
 	/**
 	 * Format child.
-	 *
-	 * @param child the child
+	 * 
+	 * @param child
+	 *            the child
 	 */
 	public static void formatChild(Element child) {
 		if (child instanceof IDOMNode) {
@@ -319,9 +345,11 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 	/**
 	 * Adds the documentation.
-	 *
-	 * @param component the component
-	 * @param docText the doc text
+	 * 
+	 * @param component
+	 *            the component
+	 * @param docText
+	 *            the doc text
 	 */
 	public static void addDocumentation(XSDConcreteComponent component,
 			String docText) {
@@ -366,8 +394,11 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 				if (domElement != null) {
 
-					domElement.getModel().getStructuredDocument().replaceText(
-							documentationElement, start, end - start, docText);
+					domElement
+							.getModel()
+							.getStructuredDocument()
+							.replaceText(documentationElement, start,
+									end - start, docText);
 				}
 			}
 		} else {
@@ -383,8 +414,9 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 	/**
 	 * Gets the model group.
-	 *
-	 * @param cType the c type
+	 * 
+	 * @param cType
+	 *            the c type
 	 * @return the model group
 	 */
 	public static XSDModelGroup getModelGroup(XSDComplexTypeDefinition cType) {
@@ -417,14 +449,16 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 	/**
 	 * Gets the prefix.
-	 *
-	 * @param schema the schema
-	 * @param nameSpace the name space
+	 * 
+	 * @param schema
+	 *            the schema
+	 * @param nameSpace
+	 *            the name space
 	 * @return the prefix
 	 */
-	public static String getPrefix(XSDSchema schema, String nameSpace) {		
+	public static String getPrefix(XSDSchema schema, String nameSpace) {
 		Map<String, String> qNamesMap = schema.getQNamePrefixToNamespaceMap();
-		
+
 		if (qNamesMap.containsValue(nameSpace)) {
 			for (Entry<String, String> entry : qNamesMap.entrySet()) {
 				if (StringUtils.equals(entry.getValue(), nameSpace)) {
@@ -448,11 +482,15 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 	/**
 	 * Creates the xsd element declaration.
-	 *
-	 * @param strName the str name
-	 * @param strType the str type
-	 * @param minOccurs the min occurs
-	 * @param maxOccurs the max occurs
+	 * 
+	 * @param strName
+	 *            the str name
+	 * @param strType
+	 *            the str type
+	 * @param minOccurs
+	 *            the min occurs
+	 * @param maxOccurs
+	 *            the max occurs
 	 * @return the xSD particle
 	 */
 	public static XSDParticle createXSDElementDeclaration(String strName,
@@ -501,13 +539,19 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 	/**
 	 * Sets the base type for complex types.
-	 *
-	 * @param complexTypeDefinition the complex type definition
-	 * @param baseType the base type
-	 * @param typeName the type name
-	 * @param typeLibraryName the type library name
-	 * @param version the version
-	 * @throws CommandFailedException the command failed exception
+	 * 
+	 * @param complexTypeDefinition
+	 *            the complex type definition
+	 * @param baseType
+	 *            the base type
+	 * @param typeName
+	 *            the type name
+	 * @param typeLibraryName
+	 *            the type library name
+	 * @param version
+	 *            the version
+	 * @throws CommandFailedException
+	 *             the command failed exception
 	 */
 	public static void setBaseTypeForComplexTypes(
 			XSDComplexTypeDefinition complexTypeDefinition, Object baseType,
@@ -526,8 +570,8 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 				isPrimitive = false;
 				LibraryType libBaseType = (LibraryType) baseType;
 				restriction.setName(getPrefix(
-						complexTypeDefinition.getSchema(), TypeLibraryUtil
-								.getNameSpace(libBaseType))
+						complexTypeDefinition.getSchema(),
+						TypeLibraryUtil.getNameSpace(libBaseType))
 						+ libBaseType.getName());
 
 			}
@@ -545,7 +589,7 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		}
 
 	}
-	
+
 	public static TemplateModel processTemplateModel(InputStream inputStream)
 			throws CoreException, IOException {
 		TemplateModel templateModel = new TemplateModel();
@@ -570,6 +614,5 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		return templateModel;
 
 	}
-	
 
 }
