@@ -39,6 +39,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.UIJob;
 import org.osgi.framework.Version;
@@ -317,7 +318,7 @@ public class ActionUtil {
 									+ newVer
 									+ "] in local metadata. "
 									+ "Would you like to synchronize service version change to the Asset Repository?",
-							6);
+							MessageDialog.QUESTION_WITH_CANCEL);
 
 		} else {
 			logger.info("Service Version not changed:" + newVer
