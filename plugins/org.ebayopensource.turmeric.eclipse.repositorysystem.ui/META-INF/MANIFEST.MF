@@ -17,8 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.ebayopensource.turmeric.eclipse.registry;bundle-version="1.0.0",
  org.ebayopensource.turmeric.eclipse.exception;bundle-version="1.0.0",
  org.apache.commons.lang;bundle-version="2.4.0",
- org.eclipse.jdt.core,
- org.eclipse.jface
+ org.eclipse.jdt.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: org.ebayopensource.turmeric.eclipse.repositorysystem.ui,
