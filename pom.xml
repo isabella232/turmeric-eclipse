@@ -6,9 +6,7 @@
    <parent>
       <groupId>org.ebayopensource.turmeric</groupId>
       <artifactId>turmeric-project</artifactId>
-
       <version>1.1.0.1</version>
-
       <relativePath>../turmeric-project/pom.xml</relativePath>
    </parent>
    <groupId>org.ebayopensource.turmeric.tools.eclipse</groupId>
@@ -73,7 +71,6 @@
       <module>features/org.ebayopensource.turmeric.eclipse.maven.feature</module>
       <module>features/org.ebayopensource.turmeric.eclipse.mavenstd.feature</module>
       <module>features/org.ebayopensource.turmeric.eclipse.legacy.feature</module>
-
 <!--       <module>releng/org.ebayopensource.turmeric.eclipse.updatesite</module> -->
       <module>releng/org.ebayopensource.turmeric.eclipse.repository</module>
 
