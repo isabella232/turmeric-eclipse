@@ -35,7 +35,7 @@ import org.junit.Test;
  * @author vyaramala
  * 
  */
-
+@Ignore
 public class RemoveTypeTest extends AbstractTestCase {
 
 	//static DialogMonitor monitor;

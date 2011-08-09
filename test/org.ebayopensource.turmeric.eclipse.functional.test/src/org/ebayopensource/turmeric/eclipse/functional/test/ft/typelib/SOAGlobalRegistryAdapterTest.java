@@ -22,8 +22,10 @@ import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class SOAGlobalRegistryAdapterTest extends AbstractTestCase {
 	static DialogMonitor monitor;
 

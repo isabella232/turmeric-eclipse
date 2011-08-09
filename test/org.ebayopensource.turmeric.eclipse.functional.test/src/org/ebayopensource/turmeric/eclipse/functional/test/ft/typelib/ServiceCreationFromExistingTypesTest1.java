@@ -22,8 +22,6 @@ import java.util.Locale;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.maven.model.Dependency;
-import org.apache.maven.model.Model;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
@@ -32,7 +30,6 @@ import org.ebayopensource.turmeric.eclipse.functional.test.SoaTestConstants;
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFromBlankWsdlTest;
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFromWsdlTest;
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceSetupCleanupValidate;
-import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseApi;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
 import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
@@ -54,7 +51,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-
+@Ignore
 public class ServiceCreationFromExistingTypesTest1 extends
 		AbstractTestCase {
 
