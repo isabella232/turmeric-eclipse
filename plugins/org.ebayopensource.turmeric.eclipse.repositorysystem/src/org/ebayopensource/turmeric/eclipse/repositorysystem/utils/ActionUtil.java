@@ -4,17 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
 import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
 import org.ebayopensource.turmeric.eclipse.registry.exception.ProviderException;
-import org.ebayopensource.turmeric.eclipse.registry.intf.IClientRegistryProvider;
 import org.ebayopensource.turmeric.eclipse.registry.intf.IRegistryProvider;
-import org.ebayopensource.turmeric.eclipse.registry.models.ClientAssetModel;
 import org.ebayopensource.turmeric.eclipse.registry.models.SubmitAssetModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
@@ -23,7 +18,6 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.resources.SOAMessage
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
-import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
@@ -44,78 +38,20 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.UIJob;
 import org.osgi.framework.Version;
 
+/**
+ * action util class
+ * 
+ */
 public class ActionUtil {
 	private static final SOALogger logger = SOALogger.getLogger();
 
-	public static IStatus submitNewClientToSOARegistry(IProject project)
-			throws Exception {
-		final IClientRegistryProvider regProvider = ExtensionPointFactory
-				.getSOAClientRegistryProvider();
-		if (regProvider == null) {
-			return EclipseMessageUtils.createStatus(
-					"Could not find a valid client registry provider",
-					IStatus.WARNING);
-		}
-
-		final ClientAssetModel clientModel = new ClientAssetModel();
-		final String clientName = SOAConsumerUtil.getClientName(project);
-		clientModel.setClientName(clientName);
-		final Properties props = SOAConsumerUtil
-				.loadConsumerProperties(project);
-		if (props.containsKey(SOAProjectConstants.PROPS_KEY_CONSUMER_ID)) {
-			final String consumerID = StringUtils.trim(props
-					.getProperty(SOAProjectConstants.PROPS_KEY_CONSUMER_ID));
-			clientModel.setConsumerId(consumerID);
-		}
-		// submit the model
-		return regProvider.submitNewClientAsset(clientModel);
-	}
-
 	/**
-	 * submit new service from menu item. it will submit a service version to
-	 * AR. This is the start of submit version to AR
+	 * get assert model of the project.
 	 * 
 	 * @param project
 	 * @return
+	 * @throws Exception
 	 */
-	public static IStatus submitNewAssetToSOARegistry(IProject project) {
-		/*
-		 * //validate the service for (IArtifactValidator validator :
-		 * ExtensionPointFactory.getArtifactValidators()) { if
-		 * (validator.getAllSupportedValidators
-		 * ().contains(SOAProjectConstants.WSDL)) { //as of now we only use WSDL
-		 * Validator final IFile wsdlFile = SOAServiceUtil.getWsdlFile(project,
-		 * serviceName); InputStream is = null; try { is =
-		 * wsdlFile.getContents(); byte[] contents = IOUtils.toByteArray(is);
-		 * IStatus status = validator.validateArtifact(contents,
-		 * wsdlFile.getFileExtension(), monitor); if (status.isOK() == false) {
-		 * throw new CoreException(status); } } finally {
-		 * IOUtils.closeQuietly(is); } } }
-		 */
-
-		IRegistryProvider regProvider;
-		try {
-			regProvider = ExtensionPointFactory.getSOARegistryProvider();
-			if (regProvider == null)
-				throw new IllegalArgumentException(
-						"Could not find a valid SOA Registry Provider");
-
-			final SubmitAssetModel model = getAssetModel(project);
-			// ProgressUtil.progressOneStep(monitor);
-			// submit the model
-			return regProvider.submitNewAssetForGovernance(model);
-		} catch (CoreException e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		} catch (ProviderException e) {
-			return handleExceptionFromAR(e);
-		} catch (Exception e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		}
-
-	}
-
 	public static SubmitAssetModel getAssetModel(IProject project)
 			throws Exception {
 		if (project == null
@@ -127,9 +63,11 @@ public class ActionUtil {
 		final String serviceName = project.getName();
 		// construct the model
 		final SubmitAssetModel model = new SubmitAssetModel();
-		String natureId = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
-		.getTurmericProjectNatureId(project);
-		ISOAProject soaProject = SOAServiceUtil.loadSOAProject(project, natureId);
+		String natureId = GlobalRepositorySystem.instanceOf()
+				.getActiveRepositorySystem()
+				.getTurmericProjectNatureId(project);
+		ISOAProject soaProject = SOAServiceUtil.loadSOAProject(project,
+				natureId);
 		SOAIntfMetadata metadata = (SOAIntfMetadata) soaProject.getMetadata();
 		if (StringUtils.isNotBlank(metadata.getPublicServiceName())) {
 			// post 2.4 services
@@ -145,77 +83,15 @@ public class ActionUtil {
 		model.setServiceLayer(metadata.getServiceLayer());
 		model.setServiceNamespace(metadata.getTargetNamespace());
 		model.setServiceVersion(metadata.getServiceVersion());
-		model.setServiceWsdlLocation(SOAServiceUtil.getWsdlFile(project,
-				serviceName).getLocation().toString());
+		model.setServiceWsdlLocation(SOAServiceUtil
+				.getWsdlFile(project, serviceName).getLocation().toString());
 		if (StringUtils.isBlank(metadata.getServiceDomainName())) {
-			logger
-					.warning(
-							"Service domain name is missing. Please check service_intf_project.properties of the project and make sure 'domainName' propery is set.",
-							"\n\nIf the service is created before installing AR plugin, then please either re-create the service or manually add 'domainName={DomainName}' to service_intf_project.properties and substitute the {DomainName}.");
+			logger.warning(
+					"Service domain name is missing. Please check service_intf_project.properties of the project and make sure 'domainName' propery is set.",
+					"\n\nIf the service is created before installing AR plugin, then please either re-create the service or manually add 'domainName={DomainName}' to service_intf_project.properties and substitute the {DomainName}.");
 		}
 		model.setServiceDomain(metadata.getServiceDomainName());
 		return model;
-	}
-
-	public static IStatus updateExistingAssetVersionToSOARegistry(
-			IProject project) {
-		IRegistryProvider regProvider;
-		try {
-			regProvider = ExtensionPointFactory.getSOARegistryProvider();
-
-			if (regProvider == null)
-				throw new IllegalArgumentException(
-						"Could not find a valid SOA Registry Provider");
-
-			final SubmitAssetModel model = getAssetModel(project);
-			// ProgressUtil.progressOneStep(monitor);
-			// submit the model
-			return regProvider.updateExistingVersionForGovernance(model);
-		} catch (CoreException e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		} catch (ProviderException e) {
-			return handleExceptionFromAR(e);
-		} catch (Exception e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		}
-	}
-
-	/**
-	 * submit a new minor version to AR.
-	 * 
-	 * @param project
-	 * @param newVersion
-	 * @return
-	 */
-	public static IStatus submitNewVersionAssetToSOARegistry(IProject project,
-			String newVersion) {
-		IRegistryProvider regProvider;
-		try {
-			regProvider = ExtensionPointFactory.getSOARegistryProvider();
-			if (regProvider == null) {
-				return EclipseMessageUtils.createStatus(
-						SOAMessages.WARNING_AR_NOT_AVAILABLE, IStatus.WARNING);
-			}
-
-			final SubmitAssetModel model = getAssetModel(project);
-			if (newVersion != null && newVersion.trim().length() > 0) {
-				model.setServiceVersion(newVersion);
-			}
-			// ProgressUtil.progressOneStep(monitor);
-			// submit the model
-			return regProvider.submitNewVersionForGovernance(model);
-		} catch (CoreException e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		} catch (ProviderException e) {
-			return handleExceptionFromAR(e);
-		} catch (Exception e) {
-			logger.error(e);
-			return EclipseMessageUtils.createErrorStatus(e);
-		}
-
 	}
 
 	/**
@@ -288,8 +164,176 @@ public class ActionUtil {
 			return handleExceptionFromAR(ex);
 		}
 	}
-	
 
+	/**
+	 * this is used to update interface project version. It combines the
+	 * following operations: 1) Update local metadata 2) sync version with AR if
+	 * AR is available. Notify users before doing it. It is cancelable. 3) do a
+	 * v3 build if it is v3 mode. Notify users before doing it. Library Catalog
+	 * version need to be synchronized before doing a v3 build. It is
+	 * cancelable.
+	 * 
+	 * This method will be used in service property page when changing service
+	 * version. And also be used in V3 when calling a Build Service in right
+	 * click menu.
+	 * 
+	 * This method is meant to be invoked in the UI thread.
+	 * 
+	 * @param soaIntfProject
+	 *            the interface project that need to be updated
+	 * @param oldVersion
+	 *            service old version
+	 * @param newVersion
+	 *            service new version.
+	 * @param silence
+	 *            just for the repos that need build after version change.
+	 * @param monitor
+	 *            the progress monitor
+	 */
+	public static void updateInterfaceProjectVersion(
+			final SOAIntfProject soaIntfProject, String oldVersion,
+			String newVersion, boolean silence, IProgressMonitor monitor)
+			throws Exception {
+
+		ISOAProjectConfigurer configurer = GlobalRepositorySystem.instanceOf()
+				.getActiveRepositorySystem().getProjectConfigurer();
+		ProgressUtil.progressOneStep(monitor);
+
+		if (StringUtils.equals(oldVersion, newVersion) == true) {
+			logger.info("Service version not change : " + newVersion);
+			// still need try to build service if version not changed.
+			if (silence == true) {
+				configurer.postServiceVersionUpdated(soaIntfProject,
+						oldVersion, newVersion, silence, monitor);
+			}
+			return;
+		}
+
+		final IProject intfProject = soaIntfProject.getProject();
+		final String serviceName = intfProject.getName();
+		final IStatus status = new AbstractBaseAccessValidator() {
+
+			@Override
+			public List<IResource> getReadableFiles() {
+				// should check the following files
+				try {
+					return GlobalProjectHealthChecker
+							.getSOAProjectReadableResources(intfProject);
+				} catch (Exception e) {
+					logger.warning(e);
+				}
+				return new ArrayList<IResource>(1);
+			}
+
+			@Override
+			public List<IResource> getWritableFiles() {
+				final List<IResource> files = new ArrayList<IResource>();
+				files.add(SOAIntfUtil.getMetadataFile(intfProject, serviceName));
+				files.add(SOAServiceUtil.getWsdlFile(intfProject, serviceName));
+				return files;
+			}
+
+		}.validate(serviceName);
+
+		final String messages = ValidateUtil
+				.getFormattedStatusMessagesForAction(status);
+		if (messages != null) {
+			UIUtil.showErrorDialog(UIUtil.getActiveShell(), "Error", messages,
+					(Throwable) null);
+			return;
+		}
+
+		soaIntfProject.getMetadata().setServiceVersion(newVersion);
+		// update local meta data.
+		ProgressUtil.progressOneStep(monitor);
+
+		configurer.updateProject(soaIntfProject, false, monitor);
+		ProgressUtil.progressOneStep(monitor);
+
+		// synchronize with AR if available.
+		// although submitVersionToAssitionRepository will check
+		// version change or not. here we add a check to avoid
+		// creating a UIJob.
+		if (GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+				.getActiveOrganizationProvider()
+				.supportAssetRepositoryIntegration() == true
+				&& ExtensionPointFactory.getSOARegistryProvider() != null) {
+			final Version newVer = new Version(newVersion);
+			final Version oldVer = new Version(oldVersion);
+			ProgressUtil.progressOneStep(monitor);
+			// no version check here because it is checked when
+			// version changed.
+			UIJob updateVersion = new UIJob(
+					"Synchornizing service version with Asset Repository.") {
+
+				@Override
+				public IStatus runInUIThread(IProgressMonitor monitor) {
+					try {
+						ActionUtil.submitVersionToAssetRepository(newVer,
+								oldVer, soaIntfProject.getProjectName(),
+								monitor);
+					} catch (Exception e) {
+						logger.error(e);
+					}
+					return Status.OK_STATUS;
+				}
+
+			};
+			updateVersion.schedule();
+		}
+		ProgressUtil.progressOneStep(monitor);
+
+		// trigger build is needed.
+		configurer.postServiceVersionUpdated(soaIntfProject, oldVersion,
+				newVersion, silence, monitor);
+	}
+
+	/**
+	 * submit a new minor version to AR.
+	 * 
+	 * @param project
+	 * @param newVersion
+	 * @return
+	 */
+	public static IStatus submitNewVersionAssetToSOARegistry(IProject project,
+			String newVersion) {
+		IRegistryProvider regProvider;
+		try {
+			regProvider = ExtensionPointFactory.getSOARegistryProvider();
+			if (regProvider == null) {
+				return EclipseMessageUtils.createStatus(
+						SOAMessages.WARNING_AR_NOT_AVAILABLE, IStatus.WARNING);
+			}
+
+			final SubmitAssetModel model = getAssetModel(project);
+			if (newVersion != null && newVersion.trim().length() > 0) {
+				model.setServiceVersion(newVersion);
+			}
+			// ProgressUtil.progressOneStep(monitor);
+			// submit the model
+			return regProvider.submitNewVersionForGovernance(model);
+		} catch (CoreException e) {
+			logger.error(e);
+			return EclipseMessageUtils.createErrorStatus(e);
+		} catch (ProviderException e) {
+			return handleExceptionFromAR(e);
+		} catch (Exception e) {
+			logger.error(e);
+			return EclipseMessageUtils.createErrorStatus(e);
+		}
+
+	}
+
+	/**
+	 * submit version to assert repo
+	 * 
+	 * @param newVersion
+	 * @param oldVersion
+	 * @param svcIntfName
+	 * @param monitor
+	 * @return
+	 * @throws Exception
+	 */
 	public static IStatus submitVersionToAssetRepository(Object newVersion,
 			Object oldVersion, String svcIntfName, IProgressMonitor monitor)
 			throws Exception {
@@ -346,18 +390,19 @@ public class ActionUtil {
 			}
 			if (result != null) {
 				if (result.isOK() == true) {
-					GlobalRepositorySystem.instanceOf()
-							.getActiveRepositorySystem().trackingUsage(
+					GlobalRepositorySystem
+							.instanceOf()
+							.getActiveRepositorySystem()
+							.trackingUsage(
 									new TrackingEvent(ActionUtil.class
 											.getName(),
 											TrackingEvent.TRACKING_ACTION));
 				} else {
-					UIUtil
-							.showErrorDialog(
-									(Shell) null,
-									"Service Version Synchronize Failed",
-									"Failed to synchronize service version with Asset Repository.",
-									result);
+					UIUtil.showErrorDialog(
+							(Shell) null,
+							"Service Version Synchronize Failed",
+							"Failed to synchronize service version with Asset Repository.",
+							result);
 				}
 			}
 		} catch (Exception e) {
@@ -371,129 +416,6 @@ public class ActionUtil {
 		}
 
 		return null;
-	}
-	
-	/**
-	 * this is used to update interface project version. It combines the
-	 * following operations: 1) Update local metadata 2) sync version with AR if
-	 * AR is available. Notify users before doing it. It is cancelable. 3) do a
-	 * v3 build if it is v3 mode. Notify users before doing it. Library Catalog
-	 * version need to be synchronized before doing a v3 build. It is
-	 * cancelable.
-	 * 
-	 * This method will be used in service property page when changing service
-	 * version. And also be used in V3 when calling a Build Service in right
-	 * click menu.
-	 * 
-	 * This method is meant to be invoked in the UI thread.
-	 * 
-	 * @param soaIntfProject
-	 *            the interface project that need to be updated
-	 * @param oldVersion
-	 *            service old version
-	 * @param newVersion
-	 *            service new version.
-	 * @param silence
-	 *            just for the repos that need build after version change.
-	 * @param monitor
-	 *            the progress monitor
-	 */
-	public static void updateInterfaceProjectVersion(final SOAIntfProject soaIntfProject,
-			String oldVersion, String newVersion, boolean silence, IProgressMonitor monitor) throws Exception{
-		
-		ISOAProjectConfigurer configurer = GlobalRepositorySystem.instanceOf()
-				.getActiveRepositorySystem().getProjectConfigurer();
-		ProgressUtil.progressOneStep(monitor);
-
-		if (StringUtils.equals(oldVersion, newVersion) == true) {
-			logger.info("Service version not change : " + newVersion);
-			// still need try to build service if version not changed.
-			if (silence == true) {
-				configurer.postServiceVersionUpdated(soaIntfProject,
-						oldVersion, newVersion, silence, monitor);
-			}
-			return;
-		}
-		
-		final IProject intfProject= soaIntfProject.getProject();
-		final String serviceName = intfProject.getName();
-		final IStatus status = new AbstractBaseAccessValidator() {
-
-			@Override
-			public List<IResource> getReadableFiles() {
-				//should check the following files
-				try {
-					return GlobalProjectHealthChecker.getSOAProjectReadableResources(intfProject);
-				} catch (Exception e) {
-					logger.warning(e);
-				}
-				return new ArrayList<IResource>(1);
-			}
-
-			@Override
-			public List<IResource> getWritableFiles() {
-				final List<IResource> files = new ArrayList<IResource>();
-				files.add(SOAIntfUtil.getMetadataFile(intfProject, serviceName));
-				files.add(SOAServiceUtil.getWsdlFile(intfProject, serviceName));
-				return files;
-			}
-			
-		}.validate(serviceName);
-		
-		final String messages = ValidateUtil.getFormattedStatusMessagesForAction(status);
-		if (messages != null) {
-			UIUtil.showErrorDialog(UIUtil.getActiveShell(), "Error", 
-					messages, (Throwable)null);
-			return;
-		}
-		
-		soaIntfProject.getMetadata().setServiceVersion(newVersion);
-		// update local meta data.
-		ProgressUtil.progressOneStep(monitor);
-
-		configurer.updateProject(soaIntfProject, false, monitor);
-		ProgressUtil.progressOneStep(monitor);
-
-		// synchronize with AR if available.
-		// although submitVersionToAssitionRepository will check
-		// version change or not. here we add a check to avoid
-		// creating a UIJob.
-		if (GlobalRepositorySystem.instanceOf()
-						.getActiveRepositorySystem()
-						.getActiveOrganizationProvider()
-						.supportAssetRepositoryIntegration() == true
-				&& ExtensionPointFactory
-						.getSOARegistryProvider() != null) {
-			final Version newVer = new Version(newVersion);
-			final Version oldVer = new Version(oldVersion);
-			ProgressUtil.progressOneStep(monitor);
-			// no version check here because it is checked when
-			// version changed.
-			UIJob updateVersion = new UIJob(
-					"Synchornizing service version with Asset Repository.") {
-
-				@Override
-				public IStatus runInUIThread(
-						IProgressMonitor monitor) {
-					try {
-						ActionUtil
-								.submitVersionToAssetRepository(
-										newVer, oldVer,
-										soaIntfProject.getProjectName(), monitor);
-					} catch (Exception e) {
-						logger.error(e);
-					}
-					return Status.OK_STATUS;
-				}
-
-			};
-			updateVersion.schedule();
-		}
-		ProgressUtil.progressOneStep(monitor);
-
-		// trigger build is needed.
-		configurer.postServiceVersionUpdated(soaIntfProject,
-				oldVersion, newVersion, silence, monitor);
 	}
 
 }

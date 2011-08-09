@@ -866,10 +866,18 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 	 */
 	public abstract void wsdlChanged(final Definition wsdl);
 	
+	/**
+	 * get service location specified in wsdl.
+	 * @return
+	 */
 	public String getServiceLocation() {
 		return serviceLocation;
 	}
 
+	/**
+	 * set service location of selected wsdl
+	 * @param serviceLocation
+	 */
 	public void setServiceLocation(String serviceLocation) {
 		this.serviceLocation = serviceLocation;
 	}

@@ -168,7 +168,7 @@ private IStructuredSelection selection;
 	
 	/**
 	 * Indicate whether to popup a dialog when the submission succeed
-	 * @return whether to popup a dialog when the submission succeed
+	 * @return
 	 */
 	protected boolean needOKDialog() {
 		return false;

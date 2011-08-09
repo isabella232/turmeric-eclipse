@@ -133,8 +133,7 @@ public class TypeLibraryUtil {
 	
 	/**
 	 * Adding the TypeLibProtocal to the name for the xsd entry.
-	 * 
-	 * @param typeName
+	 * @param project
 	 * @return
 	 */
 	public static IFile getDependencyFile(IProject project) {

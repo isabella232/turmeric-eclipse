@@ -656,6 +656,13 @@ public class ActionUtil {
 
 	}
 	
+	/**
+	 * generate config for zero config project
+	 * @param consumerProject
+	 * @param monitor
+	 * @return
+	 * @throws Exception
+	 */
 	public static IStatus generateConfigs(IProject consumerProject, IProgressMonitor monitor) throws Exception {
 		final List<AssetInfo> services = new ArrayList<AssetInfo>();
 		for (AssetInfo asset : GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
@@ -703,8 +710,7 @@ public class ActionUtil {
 		public void setSubJob(Job job);
 
 		/**
-		 * Shows the message box in the UI
-		 * 
+		 * show message
 		 * @param title
 		 * @param message
 		 */

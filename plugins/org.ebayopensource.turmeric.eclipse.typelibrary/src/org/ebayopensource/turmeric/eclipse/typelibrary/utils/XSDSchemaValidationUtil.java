@@ -25,6 +25,12 @@ public class XSDSchemaValidationUtil {
 
 	private static SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * check if given types are validated.
+	 * @param project
+	 * @param types
+	 * @throws Exception
+	 */
 	public static void validateType(IProject project, LibraryType... types)
 			throws Exception {
 		logger.debug("Validating non schema support...");
@@ -87,9 +93,11 @@ public class XSDSchemaValidationUtil {
 	 * @param project
 	 *            - the project will be again used to get the rest of the
 	 *            codegen parameter values.
+	 * @param model
 	 * @return
 	 * @throws WSDLException
 	 */
+	
 	public static GenTypeValidateXSDsForNonXSDFormats transformToGenTypeValidateXSDsForNonXSDFormats(
 			BaseCodeGenModel model, IProject project) throws WSDLException {
 		GenTypeValidateXSDsForNonXSDFormats genTypeValidateXSDsForNonXSDFormats = new GenTypeValidateXSDsForNonXSDFormats();

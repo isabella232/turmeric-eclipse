@@ -377,6 +377,11 @@ public abstract class AbstractNewServiceWizardPage extends
 				serviceImplementationText, null);
 	}
 
+	/**
+	 * add service version line to wizard panel
+	 * @param composite
+	 * @return
+	 */
 	protected Text addServiceVersion(final Composite composite) {
 		return super.createResourceVersionControl(composite,
 				"Service &Version:", modifyListener,
@@ -406,6 +411,10 @@ public abstract class AbstractNewServiceWizardPage extends
 		return serviceLayer;
 	}
 	
+	/**
+	 * create service impl type combo
+	 * @param parent
+	 */
 	protected void createServiceImplTypeCombo(final Composite parent) {
 		this.serviceImplType = super.createCCombo(parent, "Service Implementation T&ype:", 
 				false, new String[]{"Service Impl", "Service Impl Factory"}, "the implementation type of the new service");
@@ -463,6 +472,10 @@ public abstract class AbstractNewServiceWizardPage extends
 		return getDefaultServiceImplName();
 	}
 
+	/**
+	 * get admin name from wizard.
+	 * @return
+	 */
 	public String getAdminName() {
 		return getTextValue(getResourceNameText());
 	}
