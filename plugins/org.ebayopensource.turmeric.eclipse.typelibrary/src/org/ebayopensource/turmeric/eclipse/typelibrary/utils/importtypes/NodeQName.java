@@ -1,5 +1,10 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes;
 
+/**
+ * Node QName
+ * @author mzang
+ *
+ */
 public class NodeQName {
 	public String namespace;
 	public NS ns;

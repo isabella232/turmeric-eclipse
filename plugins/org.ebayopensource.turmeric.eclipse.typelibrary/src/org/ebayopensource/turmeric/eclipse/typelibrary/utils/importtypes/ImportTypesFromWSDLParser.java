@@ -31,6 +31,14 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 
 	String path = null;
 
+	/**
+	 * cut XSD files from WSDL
+	 * 
+	 * @param wsdlPath
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 */
 	public void cutWSDL(String wsdlPath) throws SAXException, IOException,
 			ParserConfigurationException {
 		path = wsdlPath;
@@ -73,6 +81,11 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 
 	private static String SCHEMA_DEF_NAME = "schema";
 
+	/**
+	 * get Type Models
+	 * 
+	 * @return
+	 */
 	public Collection<TypeModel> getTypeModels() {
 		return this.xsds.values();
 	}
@@ -172,10 +185,18 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		referedTLTypes = ImportTypesFromXSDParser.postProcessTypes(xsds);
 	}
 
+	/**
+	 * get referred types
+	 * 
+	 * @return
+	 */
 	public Map<String, TypeModel> getReferedTLTypes() {
 		return referedTLTypes;
 	}
 
+	/**
+	 * document end, post process
+	 */
 	@Override
 	public void endDocument() throws SAXException {
 		postProcessTypes();
@@ -183,6 +204,11 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		// test();
 	}
 
+	/**
+	 * this is for test purpose only.
+	 * 
+	 * @throws SAXException
+	 */
 	public void test() throws SAXException {
 		File file = new File(path);
 		File parentFile = file.getParentFile();
@@ -243,7 +269,9 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 
 	private ImportTypesFromXSDParser schmaHandler = null;
 
-	@Override
+	/**
+	 * start to handle an element
+	 */
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 
@@ -281,6 +309,9 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * element end
+	 */
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
@@ -306,6 +337,13 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * for test only
+	 * @param args
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 */
 	public static void main(String[] args) throws SAXException, IOException,
 			ParserConfigurationException {
 		// File f = new File(args[0]);

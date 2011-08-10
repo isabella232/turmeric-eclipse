@@ -44,12 +44,8 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class ImportTypesFromXSDParser extends DefaultHandler {
 
-	// FIXME: remove this later
-	private String path = null;
-
 	public void cutXSD(String wsdlPath) throws SAXException, IOException,
 			ParserConfigurationException {
-		path = wsdlPath;
 		SAXParserFactory saxfac = SAXParserFactory.newInstance();
 		saxfac.setFeature("http://xml.org/sax/features/namespace-prefixes",
 				true);
@@ -789,7 +785,7 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return refferedTLTypes;
 	}
 
-	public void test() throws SAXException {
+	public void test(String path) throws SAXException {
 		File file = new File(path);
 		File parentFile = file.getParentFile();
 		String wsdlFileName = file.getName();
@@ -886,6 +882,9 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return ELEMENT_NODE.endsWith(eleNode.localName);
 	}
 
+	/**
+	 * start to parse an element
+	 */
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
@@ -1097,6 +1096,9 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 
 	}
 
+	/**
+	 * end of an element
+	 */
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
@@ -1214,6 +1216,9 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return str;
 	}
 
+	/**
+	 * handle content.
+	 */
 	@Override
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {

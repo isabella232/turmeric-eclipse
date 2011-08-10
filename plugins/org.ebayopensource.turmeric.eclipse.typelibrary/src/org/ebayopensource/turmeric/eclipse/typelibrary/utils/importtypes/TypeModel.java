@@ -8,6 +8,11 @@ import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece.XSDContentList;
 
+/**
+ * represent an XSD type
+ * @author mzang
+ *
+ */
 public class TypeModel implements Comparable<TypeModel> {
 
 	private String typeName;
@@ -54,6 +59,16 @@ public class TypeModel implements Comparable<TypeModel> {
 
 	}
 
+	/**
+	 * create an instance to represent a type
+	 * @param typeName
+	 * @param namespace
+	 * @param nsMappingSchema
+	 * @param typeContent
+	 * @param documentation
+	 * @param typelibName
+	 * @param typelibNamespace
+	 */
 	public TypeModel(String typeName, String namespace,
 			Map<String, String> nsMappingSchema, XSDContentList typeContent,
 			String documentation, String typelibName, String typelibNamespace) {
