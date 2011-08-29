@@ -28,8 +28,8 @@ import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
-import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
@@ -129,6 +129,20 @@ public class TypeLibraryUtil {
 					+ getXsdFileNameFromTypeName(type.getName());
 		return retValue;
 	}
+	
+	
+	/**
+	 * Adding the TypeLibProtocal to the name for the xsd entry.
+	 * @param project
+	 * @return
+	 */
+	public static IFile getDependencyFile(IProject project) {
+		return project.getFile(SOATypeLibraryConstants.FOLDER_META_SRC_META_INF
+				+ WorkspaceUtil.PATH_SEPERATOR + project.getName()
+				+ WorkspaceUtil.PATH_SEPERATOR
+				+ SOATypeLibraryConstants.FILE_TYPE_DEP_XML);
+	}
+
 
 
 

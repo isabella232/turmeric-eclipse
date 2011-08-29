@@ -15,6 +15,7 @@ import javax.xml.namespace.QName;
 
 import junit.framework.Assert;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.functional.test.ft.wsdlsvc.ServiceFromBlankWsdlTest;
@@ -30,11 +31,10 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import org.ebayopensource.turmeric.common.config.LibraryType;
-
-
+@Ignore
 public class ServiceCreationFromExistingTypesTest2 extends
 		AbstractTestCase {
 	static DialogMonitor monitor;

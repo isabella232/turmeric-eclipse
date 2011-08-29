@@ -73,6 +73,9 @@ public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 				SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
  				synch.syncronizeWsdlandDepXml();
 				synch.synchronizeTypeDepandProjectDep(monitor);
+				//TypeLibSynhcronizer.syncronizeWsdlandDepXml(project);
+				//TypeLibSynhcronizer.synchronizeTypeDepandProjectDep(project,
+				//		monitor);
 			} catch (Exception e) {
 				SOAExceptionHandler.silentHandleException(e);
 				// Silently ignore. This is just an attempt
@@ -120,6 +123,5 @@ public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 	@Override
 	protected void doClean(IProject project, IProgressMonitor monitor)
 			throws Exception {
-		
 	}
 }

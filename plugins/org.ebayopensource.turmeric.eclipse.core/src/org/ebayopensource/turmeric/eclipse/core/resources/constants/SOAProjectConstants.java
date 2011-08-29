@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Version;
 
 /**
@@ -86,33 +87,33 @@ public class SOAProjectConstants {
      * 
      */
     public static enum ConsumerSourceType {
-        
-        /** The JAVA. */
-        JAVA, 
- /** The WSDL. */
- WSDL
+
+    	/** The JAVA. */
+    	JAVA, 
+    	/** The WSDL. */
+    	WSDL
     }
 
     /**
      *  The different types of creation possible for an intf project.
      */
     public static enum InterfaceSourceType {
-        
-        /** The JAVA. */
-        JAVA, 
- /** The WSDL. */
- WSDL
+
+    	/** The JAVA. */
+    	JAVA, 
+    	/** The WSDL. */
+    	WSDL
     }
 
     /**
      *  The different types of creation possible for a wsdl project.
      */
     public static enum InterfaceWsdlSourceType {
-        
-        /** The NEW. */
-        NEW, 
- /** The EXISTIING. */
- EXISTIING
+
+    	/** The NEW. */
+    	NEW, 
+    	/** The EXISTIING. */
+    	EXISTIING
     }
 
     /**
@@ -129,19 +130,19 @@ public class SOAProjectConstants {
      *
      */
     public static enum SupportedProjectType {
-        
-        /** The INTERFACE. */
-        INTERFACE, 
- /** The IMPL. */
- IMPL, 
- /** The CONSUMER. */
- CONSUMER, 
- /** The TYP e_ library. */
- TYPE_LIBRARY, 
- /** The ERRO r_ library. */
- ERROR_LIBRARY, 
- /** The UNKNOWN. */
- UNKNOWN
+
+    	/** The INTERFACE. */
+    	INTERFACE, 
+    	/** The IMPL. */
+    	IMPL, 
+    	/** The CONSUMER. */
+    	CONSUMER, 
+    	/** The TYP e_ library. */
+    	TYPE_LIBRARY, 
+    	/** The ERRO r_ library. */
+    	ERROR_LIBRARY, 
+    	/** The UNKNOWN. */
+    	UNKNOWN
     }
 
     /**
@@ -154,22 +155,22 @@ public class SOAProjectConstants {
      *
      */
     public static enum Binding {
-        
-        /** The LOCAL. */
-        LOCAL, 
- /** The HTT p10. */
- HTTP10, 
- /** The HTT p11. */
- HTTP11;
-        
-        /**
-         * The enumerated value of the binding.
-         * @param name Name of transport bindings
-         * @return returns the value of the named binding.
-         */
-        public static Binding value(final String name) {
-            return valueOf(name.toUpperCase());
-        }
+
+    	/** The LOCAL. */
+    	LOCAL, 
+    	/** The HTT p10. */
+    	HTTP10, 
+    	/** The HTT p11. */
+    	HTTP11;
+
+    	/**
+    	 * The enumerated value of the binding.
+    	 * @param name Name of transport bindings
+    	 * @return returns the value of the named binding.
+    	 */
+    	public static Binding value(final String name) {
+    		return valueOf(name.toUpperCase());
+    	}
     }
 
     /**
@@ -184,25 +185,27 @@ public class SOAProjectConstants {
      *
      */
     public static enum DataBinding {
-        
-        /** The XML. */
-        XML, 
- /** The NV. */
- NV, 
- /** The JSON. */
- JSON, 
- /** The FAS t_ infoset. */
- FAST_INFOSET;
-        
-        
-        /**
-         * The enumerated value of the binding.
-         * @param name Name of data bindings
-         * @return returns the value of the named binding.
-         */
-        public static DataBinding value(final String name) {
-            return valueOf(name.toUpperCase());
-        }
+
+    	/** The XML. */
+    	XML, 
+    	/** The NV. */
+    	NV, 
+    	/** The JSON. */
+    	JSON, 
+    	/** The FAS t_ infoset. */
+    	FAST_INFOSET,
+    	/** ProtoBuf protocol*/
+    	PROTOBUF;
+
+
+    	/**
+    	 * The enumerated value of the binding.
+    	 * @param name Name of data bindings
+    	 * @return returns the value of the named binding.
+    	 */
+    	public static DataBinding value(final String name) {
+    		return valueOf(name.toUpperCase());
+    	}
     }
 
     /**
@@ -218,24 +221,24 @@ public class SOAProjectConstants {
      *
      */
     public static enum ServiceLayer {
-        
-        /** The UNKNOWN. */
-        UNKNOWN, 
- /** The COMMON. */
- COMMON, 
- /** The INTERMEDIATE. */
- INTERMEDIATE, 
- /** The BUSINESS. */
- BUSINESS;
-        
-        /**
-         * The enumerated value of the binding.
-         * @param name Name of data bindings
-         * @return returns the value of the named binding.
-         */
-        public static ServiceLayer value(final String name) {
-            return valueOf(name.toUpperCase());
-        }
+
+    	/** The UNKNOWN. */
+    	UNKNOWN, 
+    	/** The COMMON. */
+    	COMMON, 
+    	/** The INTERMEDIATE. */
+    	INTERMEDIATE, 
+    	/** The BUSINESS. */
+    	BUSINESS;
+
+    	/**
+    	 * The enumerated value of the binding.
+    	 * @param name Name of data bindings
+    	 * @return returns the value of the named binding.
+    	 */
+    	public static ServiceLayer value(final String name) {
+    		return valueOf(name.toUpperCase());
+    	}
 
         /**
          * Gets all the service layers.
@@ -259,22 +262,22 @@ public class SOAProjectConstants {
      *
      */
     public static enum MessageProtocol {
-        
-        /** The NONE. */
-        NONE, 
- /** The SOA p11. */
- SOAP11, 
- /** The SOA p12. */
- SOAP12;
-        
-        /**
-         * The value of the protocol.  
-         * @param name  Name of the protocol. The value is converted to upper case.
-         * @return the value of the protocol.
-         */
-        public static MessageProtocol value(final String name) {
-            return valueOf(name.toUpperCase());
-        }
+
+    	/** The NONE. */
+    	NONE, 
+    	/** The SOA p11. */
+    	SOAP11, 
+    	/** The SOA p12. */
+    	SOAP12;
+
+    	/**
+    	 * The value of the protocol.  
+    	 * @param name  Name of the protocol. The value is converted to upper case.
+    	 * @return the value of the protocol.
+    	 */
+    	public static MessageProtocol value(final String name) {
+    		return valueOf(name.toUpperCase());
+    	}
     }
     
     /**
@@ -287,22 +290,22 @@ public class SOAProjectConstants {
      *
      */
     public static enum SOAFrameworkLibrary {
-    	 
- 	    /** The SOASERVER. */
- 	    SOASERVER, 
- /** The SOACLIENT. */
- SOACLIENT, 
- /** The SOATOOLS. */
- SOATOOLS;
-    	 
-         /**
-          * The value of the frameowork library enumeration.  
-          * @param name  Name of the protocol. The name is converted to upper case.
-          * @return the value of the protocol.
-          */
-    	 public static SOAFrameworkLibrary value(final String name) {
-             return valueOf(name.toUpperCase());
-         }
+
+    	/** The SOASERVER. */
+    	SOASERVER, 
+    	/** The SOACLIENT. */
+    	SOACLIENT, 
+    	/** The SOATOOLS. */
+    	SOATOOLS;
+
+    	/**
+    	 * The value of the frameowork library enumeration.  
+    	 * @param name  Name of the protocol. The name is converted to upper case.
+    	 * @return the value of the protocol.
+    	 */
+    	public static SOAFrameworkLibrary value(final String name) {
+    		return valueOf(name.toUpperCase());
+    	}
     }
 
     /** The Constant PROTOCOL_HTTP. */
@@ -366,7 +369,6 @@ public class SOAProjectConstants {
      */
     public static final String FOLDER_GEN_SRC_TEST = FOLDER_GEN_SRC + "/test";
     
-    
     /** The Constant FOLDER_GEN_META_SRC. */
     public static final String FOLDER_GEN_META_SRC = FOLDER_GEN_PREFIX
             + "meta-src";
@@ -388,6 +390,9 @@ public class SOAProjectConstants {
     
     /** Inside the jar wsdl goes inside meta inf. */
     public static final String META_INF_WSDL = "META-INF/soa/services/wsdl";
+    
+    /** protobuf file location  */
+    public static final String META_PROTO_BUF = "META-INF/soa/services/proto";
     
     /** The Constant IMPL_SERVICE_CONFIG_DIR. */
     public static final String IMPL_SERVICE_CONFIG_DIR = "META-INF/soa/services/config";
@@ -513,7 +518,6 @@ public class SOAProjectConstants {
 
 
     //Props File Constants
-    
     /** The Constant PROPS_FILE_SERVICE_METADATA. */
     public static final String PROPS_FILE_SERVICE_METADATA = "service_metadata.properties";
     
@@ -568,6 +572,9 @@ public class SOAProjectConstants {
     /** The Constant PROP_KEY_ADMIN_NAME. */
     public static final String PROP_KEY_ADMIN_NAME = "admin_name";
     
+    /** The Constant PROP_KEY_NON_XSD_FORMATS. */
+    public static final String PROP_KEY_NON_XSD_FORMATS = "nonXSDFormats";
+    
     /** The Constant PROPS_INTF_SOURCE_TYPE_WSDL. */
     public static final String PROPS_INTF_SOURCE_TYPE_WSDL = "WSDL";
     
@@ -579,6 +586,9 @@ public class SOAProjectConstants {
     
     /** The Constant PROPS_IMPL_BASE_CONSUMER_SRC_DIR. */
     public static final String PROPS_IMPL_BASE_CONSUMER_SRC_DIR = "baseconsumer-srcdir";
+    
+    /** The Constant PROPS_SUPPORT_ZERO_CONFIG. */
+    public static final String PROPS_SUPPORT_ZERO_CONFIG = "support_zero_config";
     
     /** The Constant PROPS_IMPL_BASE_CONSUMER_SRC_DIR_DEFAULT. */
     public static final String PROPS_IMPL_BASE_CONSUMER_SRC_DIR_DEFAULT = FOLDER_SRC;
@@ -599,9 +609,7 @@ public class SOAProjectConstants {
     /** The Constant PROPS_KEY_CONSUMER_ID. */
     public static final String PROPS_KEY_CONSUMER_ID = "consumer_id";
     
-    // The version of service_metadata.properties file
-    
-    /** The Constant PROPS_KEY_SMP_VERSION. */
+    /** The Constant PROPS_KEY_SMP_VERSION. The version of service_metadata.properties file */
     public static final String PROPS_KEY_SMP_VERSION = "smp_version";
     
     /** The Constant PROPS_KEY_SIMP_VERSION. */
@@ -609,6 +617,12 @@ public class SOAProjectConstants {
     
     /** The Constant PROPS_KEY_USE_EXTERNAL_SERVICE_FACTORY. */
     public static final String PROPS_KEY_USE_EXTERNAL_SERVICE_FACTORY = "useExternalServiceFactory";
+    
+    /** The Constant PROPS_KEY_SERVICE_FACTORY_CLASS_NAME. */
+    public static final String PROPS_KEY_SERVICE_FACTORY_CLASS_NAME = "serviceImplFactoryClassName";
+    
+    /** The Constant PROPS_DEFAULT_VALUE_SERVICE_FACTORY_CLASS_NAME_POSTFIX. */
+    public static final String PROPS_DEFAULT_VALUE_SERVICE_FACTORY_CLASS_NAME_POSTFIX = "Factory";
     // The version of service_intf_project.properties file
     /** The Constant PROPS_KEY_SIPP_VERSION. */
     public static final String PROPS_KEY_SIPP_VERSION = "sipp_version";
@@ -630,16 +644,28 @@ public class SOAProjectConstants {
     public static final String PROPS_DEFAULT_PROPERTY_VERSION = "1.1";
     
     /**
+     * version for interface prop file is bumped up to 1.2 in SOA2.9
+     */
+    public static final String PROPS_INTERFACE_PROPERTY_VERSION = "1.2";
+
+    
+    /**
      * The default property version as a Version class.
      */
     public static final Version DEFAULT_PROPERTY_VERSION = new Version(
             PROPS_DEFAULT_PROPERTY_VERSION);
     
+    /**
+     * The property version as a Version class for interface project
+     */
+    public static final Version INTERFACE_PROPERTY_VERSION = new Version(
+    		PROPS_INTERFACE_PROPERTY_VERSION);
+    
     
     /**
-     * Default version. 1.1 
+     * version 1.2
      */
-    public static final String PROPS_DEFAULT_SIPP_VERSION = PROPS_DEFAULT_PROPERTY_VERSION;
+    public static final String PROPS_DEFAULT_SIPP_VERSION = PROPS_INTERFACE_PROPERTY_VERSION;
     
     /**
      * Default version. 1.1 
@@ -694,6 +720,10 @@ public class SOAProjectConstants {
      */
     public static final String XML_NAMESPACE_2001 = "http://www.w3.org/2001/XMLSchema";
 
+    /**
+     * string for protobuf
+     */
+	public static final String SVC_PROTOCOL_BUF = "protobuf";
     
     static {
         final List<String> types = new ArrayList<String>();
@@ -764,21 +794,21 @@ public class SOAProjectConstants {
      *
      */
     public static enum TemplateBinding {
-        
-        /** The HTTP. */
-        HTTP, 
- /** The SOAP. */
- SOAP;
 
-        /**
-         * Value.
-         *
-         * @param name the name
-         * @return value of the binding
-         */
-        public static TemplateBinding value(final String name) {
-            return valueOf(name.toUpperCase());
-        }
+    	/** The HTTP. */
+    	HTTP, 
+    	/** The SOAP. */
+    	SOAP;
+
+    	/**
+    	 * Value.
+    	 *
+    	 * @param name the name
+    	 * @return value of the binding
+    	 */
+    	public static TemplateBinding value(final String name) {
+    		return valueOf(name.toUpperCase());
+    	}
 
         /**
          * Gets the all bindings.
@@ -800,6 +830,25 @@ public class SOAProjectConstants {
                 result.add(binding.name());
             }
             return result;
+        }
+    }
+    
+    /**
+     * the type of the service implementation
+     *
+     */
+    public static enum ServiceImplType {
+    	SERVICE_IMPL, SERVICE_IMPL_FACTORY;
+    	
+    	 /**
+         * 
+         * @param name 
+         * @return value of the binding
+         */
+        public static ServiceImplType value(final String name) {
+        	String upperName = name.toUpperCase(Locale.US);
+            return StringUtils.isNotBlank(upperName) && upperName.endsWith("FACTORY") 
+            ? SERVICE_IMPL_FACTORY : SERVICE_IMPL;
         }
     }
 

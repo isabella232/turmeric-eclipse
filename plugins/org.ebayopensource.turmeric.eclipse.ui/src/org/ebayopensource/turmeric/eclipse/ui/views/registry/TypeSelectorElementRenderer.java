@@ -8,9 +8,8 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
-import org.eclipse.jface.viewers.LabelProvider;
-
 import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.eclipse.jface.viewers.LabelProvider;
 
 /**
  * Label Provider for Type Library selector. This provider is designed to hack

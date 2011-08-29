@@ -6,6 +6,7 @@
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *******************************************************************************/
+
 package org.ebayopensource.turmeric.eclipse.core.logging;
 
 import java.text.MessageFormat;
@@ -40,7 +41,7 @@ extends Handler
 	/**
 	 * The name of the current build system.
 	 */
-	private static String BUILD_SYSTEM_NAME;
+	private static String BUILD_SYSTEM_NAME = "V3";
 	static
 	{
 		String separator = System.getProperty("line.separator");
@@ -113,28 +114,30 @@ extends Handler
 		}
     	return false;
     }
-    
+
     /**
      * Sets the builds the system name.
-     *
+     * 
      * @param name The new Build System Name
      */
-    public static void setBuildSystemName(String name) {
-    	if (StringUtils.isNotBlank(name)) {
-    		BUILD_SYSTEM_NAME = name;
-    		log( IStatus.INFO, PluginLogDelegateHandler.class.getName(), 
-    				"Changed system ID to->" + name, null );
-    	}
-    }
+	public static void setBuildSystemName(String name) {
+		if (StringUtils.isNotBlank(name)) {
+			BUILD_SYSTEM_NAME = name;
+			if (StringUtils.equals(name, BUILD_SYSTEM_NAME) == false) {
+				log(IStatus.INFO, PluginLogDelegateHandler.class.getName(),
+						"Changed system ID to->" + name, null);
+			}
+		}
+	}
     
-    /**
-     * Gets the builds the system name.
-     *
-     * @return the builds the system name
-     */
-    public static String getBuildSystemName() {
-    	return BUILD_SYSTEM_NAME;
-    }
+	/**
+	 * Gets the builds the system name.
+	 *
+	 * @return the builds the system name
+	 */
+	public static String getBuildSystemName() {
+		return BUILD_SYSTEM_NAME;
+	}
     /**
      * @param severity The log severity
      * @param loggerName The name of the logger

@@ -85,8 +85,7 @@ public class ErrorLibraryUtil {
 			throws SOAOperationNotAvailableException, CoreException {
 		IErrorLibraryProvider provider = null;
 		try {
-			ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
-			provider = factory.getPreferredProvider();
+			provider = ErrorLibraryProviderFactory.getInstance().getPreferredProvider();
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			throw new SOAOperationNotAvailableException(e.getMessage());
 		}

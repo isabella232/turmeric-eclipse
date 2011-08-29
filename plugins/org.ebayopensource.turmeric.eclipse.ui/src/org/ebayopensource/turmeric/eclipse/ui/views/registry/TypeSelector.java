@@ -10,12 +10,11 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 import java.util.ArrayList;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.TwoPaneElementSelector;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * The Class TypeSelector.

@@ -11,11 +11,14 @@ package org.ebayopensource.turmeric.eclipse.buildsystem.eclipse;
 import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.resources.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuilderUtil;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.exception.resources.SOAActionExecutionFailedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.GlobalProjectHealthChecker;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
@@ -48,6 +51,19 @@ public abstract class AbstractSOAProjectBuilder extends
 			throws CoreException {
 		final IProject project = getProject();
 		long time = System.currentTimeMillis();
+		/**
+		 * even using meunu project->clean, the build kind is still full build.
+		 */
+		if (kind == CLEAN_BUILD || kind == FULL_BUILD) {
+			try {
+				ActionUtil.cleanProject(project, monitor);
+			} catch (Exception e) {
+				logger.error("Clean failed with exception:" + e);
+				throw new SOAActionExecutionFailedException(e);
+			} finally {
+				WorkspaceUtil.refresh(monitor, project);
+			}
+		}
 		try {
 			final IResourceDelta delta = getDelta(project);
 			if (shouldBuild(delta, project)) {
@@ -130,9 +146,6 @@ public abstract class AbstractSOAProjectBuilder extends
 	protected abstract void doClean(IProject project, IProgressMonitor monitor)
 			throws Exception;
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.IncrementalProjectBuilder#clean(org.eclipse.core.runtime.IProgressMonitor)
-	 */
 	@Override
 	protected void clean(IProgressMonitor monitor) throws CoreException {
 		final IProject project = getProject();

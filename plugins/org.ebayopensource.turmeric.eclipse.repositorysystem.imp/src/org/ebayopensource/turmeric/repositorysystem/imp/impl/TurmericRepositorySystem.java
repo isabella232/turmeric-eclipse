@@ -25,13 +25,13 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOACodegenProv
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOACodegenTransformer;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAConfigurationRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOALibraryDependencyDialog;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARootLocator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ITypeRegistryBridge;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOALibraryDependencyDialog;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.AbstractSOAValidator;

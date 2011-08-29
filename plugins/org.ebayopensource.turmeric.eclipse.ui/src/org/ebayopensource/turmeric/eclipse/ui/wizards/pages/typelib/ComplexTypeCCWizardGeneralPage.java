@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
@@ -26,14 +27,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
-import org.ebayopensource.turmeric.common.config.LibraryType;
-
 /**
  * General Page for complex type with complex content wizard.
  *
  * @author ramurthy
  */
-
 public class ComplexTypeCCWizardGeneralPage extends
 		ComplexTypeWizardGeneralPage {
 

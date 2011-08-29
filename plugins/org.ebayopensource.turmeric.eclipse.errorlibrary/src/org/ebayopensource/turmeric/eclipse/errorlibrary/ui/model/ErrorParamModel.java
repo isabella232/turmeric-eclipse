@@ -22,8 +22,11 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 
 /**
+<<<<<<< HEAD
  * The Class ErrorParamModel.
  *
+=======
+>>>>>>> TURMERIC-1351
  * @author yayu
  * @since 1.0.0
  */

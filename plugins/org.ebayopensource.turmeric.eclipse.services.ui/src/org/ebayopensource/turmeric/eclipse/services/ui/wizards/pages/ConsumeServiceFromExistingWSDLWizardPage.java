@@ -48,7 +48,6 @@ import org.ebayopensource.turmeric.eclipse.validator.utils.common.RegExConstants
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
@@ -96,9 +95,11 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 
 	private String consumerIDStr = "";
 	private String clientNameStr = "";
-	private String baseConsumerSource = SOAProjectConstants.FOLDER_SRC;
 	private List<String> environments = new ArrayList<String>();
 	private String serviceLayerStr = "";
+	private String domainName = "";
+	
+	private static final String ADV_MODE_TITLE = "This wizard creates a SOA Intf Project from a pre-existing WSDL document and add it to selected consumer.";
 
 	/**
 	 * Instantiates a new consume service from existing wsdl wizard page.
@@ -108,19 +109,17 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 	 */
 	public ConsumeServiceFromExistingWSDLWizardPage(
 			final IStructuredSelection selection) throws Exception {
-		super(
-				"ConsumeServiceFromWSDLWizardPage",
-				"Consume Service From Existing WSDL Wizard",
-				"This wizard creates a new SOA Interface Service Consumer from a pre-existing WSDL document and add it to selected consumer.");
+		super("ConsumeServiceFromWSDLWizardPage",
+				"Consume Service From Existing WSDL Wizard", ADV_MODE_TITLE);
 		IProject project = (IProject) selection.getFirstElement();
 		soaPrj = GlobalRepositorySystem.instanceOf()
-				.getActiveRepositorySystem().getAssetRegistry().getSOAProject(
-						project);
-		String consumerNatureId = GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
-		.getProjectNatureId(SupportedProjectType.CONSUMER);
+				.getActiveRepositorySystem().getAssetRegistry()
+				.getSOAProject(project);
+		String consumerNatureId = GlobalRepositorySystem.instanceOf()
+				.getActiveRepositorySystem()
+				.getProjectNatureId(SupportedProjectType.CONSUMER);
 		if ((soaPrj instanceof SOAImplProject == true)
-				&& (project
-						.hasNature(consumerNatureId) == false)) {
+				&& (project.hasNature(consumerNatureId) == false)) {
 			// if this project is just a impl project
 			SOAImplMetadata metadata = ((SOAImplProject) soaPrj).getMetadata();
 			consumerIDStr = "";
@@ -129,23 +128,21 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 					+ SOAProjectConstants.CLIENT_PROJECT_SUFFIX;
 			environments
 					.add(SOAProjectConstants.DEFAULT_CLIENT_CONFIG_ENVIRONMENT);
-			baseConsumerSource = metadata.getBaseConsumerSrcDir();
 			clientPropEditable = true;
 			serviceLayerStr = metadata.getIntfMetadata().getServiceLayer();
-		} else if ((soaPrj instanceof SOAConsumerProject) && (project
-				.hasNature(consumerNatureId) == true)) {
+		} else if ((soaPrj instanceof SOAConsumerProject)
+				&& (project.hasNature(consumerNatureId) == true)) {
 			SOAConsumerMetadata metadata = ((SOAConsumerProject) soaPrj)
 					.getMetadata();
 			consumerIDStr = metadata.getConsumerId();
 			clientNameStr = metadata.getClientName();
 			try {
-				environments = SOAConsumerUtil.getClientEnvironmentList(soaPrj
-						.getProject(), null);
+				environments = SOAConsumerUtil.getClientEnvironmentList(
+						soaPrj.getProject(), null);
 			} catch (CoreException e) {
 				logger.error("Unable to load environments.", e);
 				UIUtil.showErrorDialog("Unable to load environments.", e);
 			}
-			baseConsumerSource = metadata.getBaseConsumerSrcDir();
 			clientPropEditable = false;
 		}
 	}
@@ -186,6 +183,62 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 	public void createControl(Composite parent) {
 		try {
 			final Composite container = super.createParentControl(parent, 4);
+			addWSDL(container);
+			
+			addWorkspaceRootChooser(container);
+			addServiceName(container, false);
+			this.adminText = addAdminName(container, false);
+
+			{
+				//advanced section
+				Composite advancedPanel = super.createAdvancedSettingsPanel(container, null);
+				if (serviceDomainList != null && domainClassifierList != null) {
+					this.serviceDomainList.select(-1);
+					this.serviceDomainList.clearSelection();
+					this.domainClassifierList.select(-1);
+					this.domainClassifierList.clearSelection();
+				}
+				{
+					if (this.resourceNameControlDecoration != null) {
+						// we do not want to show both WARNING and INFORMATION icons
+						resourceNameControlDecoration.hide();
+					}
+					ControlDecoration controlDecoration = new ControlDecoration(
+							adminText, SWT.LEFT | SWT.TOP);
+					controlDecoration.setShowOnlyOnFocus(false);
+					controlDecoration
+							.setDescriptionText(SOAMessages.WARNING_ADMIN_NAME_MANUAL_OVERRIDE);
+					FieldDecoration fieldDecoration = FieldDecorationRegistry
+							.getDefault().getFieldDecoration(
+									FieldDecorationRegistry.DEC_WARNING);
+					controlDecoration.setImage(fieldDecoration.getImage());
+				}
+				// intf related
+				addTargetNamespace(advancedPanel, "", false);
+				addServicePackage(advancedPanel);
+				// consumer related.
+				createServiceClient(advancedPanel, clientPropEditable);
+				createConsumerIDText(advancedPanel).setEditable(clientPropEditable);
+				createEnvironmentList(advancedPanel);
+				addWSDLPackageToNamespace(advancedPanel);
+				addTypeFolding(advancedPanel).setVisible(false);
+				super.setTypeFolding(false);
+				
+				if (clientPropEditable == true) {
+					adminText.addModifyListener(new ModifyListener() {
+
+						@Override
+						public void modifyText(ModifyEvent e) {
+							if (serviceClientText.getEditable() == false) {
+								serviceClientText
+										.setText(getDefaultValue(serviceClientText));
+							}
+						}
+
+					});
+				}
+			}
+			/*final Composite container = super.createParentControl(parent, 4);
 			// service related
 			Text wsdlText = addWSDL(container);
 			wsdlText.setFocus();
@@ -225,9 +278,6 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			// consumer related.
 			createServiceClient(container, clientPropEditable);
 			createConsumerIDText(container).setEditable(clientPropEditable);
-			Text baseConsumerSourceTxt = createBaseConsumerSource(container);
-			baseConsumerSourceTxt.setEditable(clientPropEditable);
-			baseConsumerSourceTxt.setText(baseConsumerSource);
 
 			createEnvironmentList(container);
 			addWSDLPackageToNamespace(container);
@@ -247,8 +297,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 					}
 
 				});
-			}
-			
+			}*/
 		} catch (Exception e) {
 			logger.error(e);
 			UIUtil.showErrorDialog(e);
@@ -470,6 +519,9 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 	@Override
 	protected boolean dialogChanged() {
 
+		if (super.dialogChanged() == false && isPageComplete() == false)
+			return false;
+		
 		if (publicServiceNameText != null
 				&& (validateName(
 						publicServiceNameText,
@@ -483,8 +535,6 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			return false;
 		}
 
-		if (super.dialogChanged() == false && isPageComplete() == false)
-			return false;
 
 		/*
 		 * 1) If service version in WSDL follows V3 format, like 1.2.3, service
@@ -499,7 +549,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		 * Otherwise, the wizard couldn�t continue.
 		 */
 
-		if ((versionFromWSDL != null)
+		if ((versionFromWSDL != null && resourceVersionText != null)
 				&& versionFromWSDL.equals(getResourceVersion()) == false) {
 			String errorMsg = StringUtil.formatString(
 					SOAMessages.DIFFERENT_SERVICE_VERSION_WITH_WSDL, getResourceVersion(),
@@ -580,6 +630,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 				String nsPart = StringUtils
 						.capitalize(getOrganizationProvider()
 								.getNamespacePartFromTargetNamespace(targetNs));
+				this.domainName = nsPart;
 				if (StringUtils.isNotBlank(nsPart)) {
 					this.adminText.setText(nsPart + getAdminName());
 				} else {
@@ -592,28 +643,33 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			}
 			String version = SOAIntfUtil.getServiceVersionFromWsdl(wsdl,
 					getPublicServiceName()).trim();
-			resourceVersionText.setEditable(true);
-			if (StringUtils.isNotBlank(version)) {
-				versionFromWSDL = version;
-				// has version
-				int versionPart = StringUtils.countMatches(version,
-						SOAProjectConstants.DELIMITER_DOT);
-				// add "dot number" to version. It will be changed to X.Y.Z
-				if (versionPart == 2) {
-					// is new version format, set version text read-only.
-					resourceVersionText.setEditable(false);
-				} else {
-					// is v2format
-					while (versionPart < 2) {
-						version += SOAProjectConstants.DELIMITER_DOT + "0";
-						versionPart++;
+			if (resourceVersionText != null) {
+				resourceVersionText.setEditable(true);
+				if (StringUtils.isNotBlank(version)) {
+					versionFromWSDL = version;
+					// has version
+					int versionPart = StringUtils.countMatches(version,
+							SOAProjectConstants.DELIMITER_DOT);
+					// add "dot number" to version. It will be changed to X.Y.Z
+					if (versionPart == 2) {
+						// is new version format, set version text read-only.
+						resourceVersionText.setEditable(false);
+					} else {
+						// is v2format
+						while (versionPart < 2) {
+							version += SOAProjectConstants.DELIMITER_DOT + "0";
+							versionPart++;
+						}
 					}
+					resourceVersionText.setText(version);
+				} else {
+					// don't have version, use default version.
+					resourceVersionText
+					.setText(SOAProjectConstants.DEFAULT_SERVICE_VERSION);
 				}
-				resourceVersionText.setText(version);
 			} else {
-				// don't have version, use default version.
-				resourceVersionText
-						.setText(SOAProjectConstants.DEFAULT_SERVICE_VERSION);
+				versionFromWSDL = version;
+				serviceVersionChanged(version);
 			}
 		}
 	}
@@ -697,6 +753,15 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 	public List<String> getEnvironments() {
 		return environments;
 	}
+	
+	@Override
+	public String getServiceVersion() {
+		String result = super.getServiceVersion();
+		if (StringUtils.isBlank(result) && StringUtils.isNotBlank(versionFromWSDL)) {
+			return versionFromWSDL;
+		}
+		return result;
+	}
 
 	/* (non-Javadoc)
 	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#getDefaultResourceName()
@@ -708,6 +773,14 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			return defaultName;
 		else
 			return "";
+	}
+	
+	@Override
+	public String getServiceDomain() {
+		if (serviceDomainList == null) {
+			return this.domainName;
+		}
+		return super.getServiceDomain();
 	}
 
 	/* (non-Javadoc)

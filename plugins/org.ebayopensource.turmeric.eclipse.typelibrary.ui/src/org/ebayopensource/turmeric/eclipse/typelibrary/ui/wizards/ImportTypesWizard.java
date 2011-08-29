@@ -12,9 +12,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.ImportTypesWizardPage;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.NewTypeLibraryWizardPage;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.AbstractTypeLibraryWizard;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
@@ -62,6 +62,9 @@ public class ImportTypesWizard extends AbstractTypeLibraryWizard {
 		this.mode = mode;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IWizardPage[] getContentPages() {
 		typeSelectPage = new ImportTypesWizardPage(DIALOG_LABELS[mode][0],

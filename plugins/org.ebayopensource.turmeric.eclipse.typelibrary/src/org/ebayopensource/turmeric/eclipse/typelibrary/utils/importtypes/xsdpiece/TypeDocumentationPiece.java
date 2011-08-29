@@ -1,28 +1,30 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece;
 
-
 /**
- * The Class TypeDocumentationPiece.
+ * represent document node in XSD
+ * 
+ * @author mzang
+ * 
  */
 public class TypeDocumentationPiece extends TypeRelatedContent {
 
 	/**
-	 * Instantiates a new type documentation piece.
-	 *
-	 * @param qName the q name
+	 * constructor with QName
+	 * 
+	 * @param qName
 	 */
 	public TypeDocumentationPiece(String qName) {
 		this.qName = qName;
 	}
 
 	/**
-	 * Instantiates a new type documentation piece.
+	 * default constructor
 	 */
 	public TypeDocumentationPiece() {
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece.IXSDPiece#getContent()
+	/**
+	 * content of document.
 	 */
 	@Override
 	public String getContent() {

@@ -21,7 +21,6 @@ import org.ebayopensource.turmeric.eclipse.exception.resources.SOAGetErrorLibrar
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAOperationNotAvailableException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
-import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.ui.actions.BaseEditorActionDelegate;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;

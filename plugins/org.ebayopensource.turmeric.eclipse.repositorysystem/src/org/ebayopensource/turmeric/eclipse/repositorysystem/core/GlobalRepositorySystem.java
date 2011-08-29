@@ -12,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceReader;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -70,6 +68,7 @@ public class GlobalRepositorySystem {
 						}
 					} catch (CoreException e) {
 						// The SOA logger is not available yet, need an altertinave way to report the error
+						e.printStackTrace();
 					}
 				}
 			}
@@ -83,8 +82,7 @@ public class GlobalRepositorySystem {
 				prefs.put(PreferenceConstants.PREF_REPOSITORY_SYSTEM, availableRepositorySystems.get(0).getId());
 				systemID = availableRepositorySystems.get(0).getId();
 			}
-			
-			SOALogger.setBuildSystemName(systemID);
+			//SOALogger.setBuildSystemName(systemID);
 		}
 
 	}
@@ -106,7 +104,7 @@ public class GlobalRepositorySystem {
 	public ISOARepositorySystem getActiveRepositorySystem() {
 		if (activeRepositorySystem == null) {
 			final String systemID = PreferenceReader.getCurrentRepositorySystemId();
-			SOALogger.setBuildSystemName(systemID);
+			//SOALogger.setBuildSystemName(systemID);
 			activeRepositorySystem = GlobalRepositorySystem.instanceOf()
 					.getRepositorySystem(systemID);
 		}

@@ -11,19 +11,18 @@
  */
 package org.ebayopensource.turmeric.eclipse.ui.wizards.pages;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.ServiceImplType;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceReader;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceReader;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.ISOAValidator;
-import org.ebayopensource.turmeric.eclipse.validator.utils.common.NameValidator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -36,7 +35,6 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
@@ -57,7 +55,6 @@ public abstract class AbstractNewServiceWizardPage extends
 	/** The type namespace text. */
 	protected Text typeNamespaceText;
 	private Button typeFoldingButton;
-	private Text baseConsumerSrcText;
 	
 	/** The admin name text. */
 	protected Text adminNameText;
@@ -74,6 +71,7 @@ public abstract class AbstractNewServiceWizardPage extends
 	/** The override service implementation button. */
 	protected Button overrideServiceImplementationButton;
 	private CCombo serviceLayer;
+	private CCombo serviceImplType;
 
 	/**
 	 * Instantiates a new abstract new service wizard page.
@@ -249,52 +247,7 @@ public abstract class AbstractNewServiceWizardPage extends
 				return false;
 		}
 
-		if (getBaseConsumerSrcControl() != null) {
-			if (StringUtils.isBlank(getBaseConsumerSrcDir())) {
-				updateStatus(getBaseConsumerSrcControl(),
-						"BaseConsumer Source Dir cannot be empty.");
-				return false;
-			}
-			IStatus valModel = null;
-			try {
-				valModel = NameValidator.getInstance().validate(
-						getBaseConsumerSrcDir());
-			} catch (ValidationInterruptedException e) {
-				processException(e);
-			}
-			if (checkValidationResult(getBaseConsumerSrcControl(), valModel) == false)
-				return false;
-
-			final IPath baseConsumerSrcPath = new Path(getBaseConsumerSrcDir());
-			for (final String srcDir : SOAProjectConstants.SOURCE_DIRECTORIES) {
-				final IPath srcPath = new Path(srcDir);
-				if (srcPath.isPrefixOf(baseConsumerSrcPath)
-						&& !ObjectUtils.equals(srcPath, baseConsumerSrcPath)) {
-					updateStatus(getBaseConsumerSrcControl(),
-							"BaseConsumer Source Dir: " + baseConsumerSrcPath
-									+ " is a subdirectory of " + srcPath);
-					return false;
-				}
-				if (baseConsumerSrcPath.isPrefixOf(srcPath)
-						&& !ObjectUtils.equals(srcPath, baseConsumerSrcPath)) {
-					updateStatus(getBaseConsumerSrcControl(),
-							"BaseConsumer Source Dir: " + baseConsumerSrcPath
-									+ " is a subdirectory of " + srcPath);
-					return false;
-				}
-			}
-		}
-
 		return true;
-	}
-
-	/**
-	 * Gets the base consumer src control.
-	 *
-	 * @return the base consumer src control
-	 */
-	protected Control getBaseConsumerSrcControl() {
-		return this.baseConsumerSrcText;
 	}
 
 	/**
@@ -425,24 +378,9 @@ public abstract class AbstractNewServiceWizardPage extends
 	}
 
 	/**
-	 * Creates the base consumer source.
-	 *
-	 * @param parent the parent
-	 * @return the text
-	 */
-	protected Text createBaseConsumerSource(final Composite parent) {
-		baseConsumerSrcText = super.createLabelTextField(parent,
-				"BaseCons&umer Source Dir:", SOAProjectConstants.FOLDER_SRC,
-				modifyListener,
-				"the source directory of the base consumer class");
-		return baseConsumerSrcText;
-	}
-
-	/**
-	 * Adds the service version.
-	 *
-	 * @param composite the composite
-	 * @return the text
+	 * add service version line to wizard panel
+	 * @param composite
+	 * @return
 	 */
 	protected Text addServiceVersion(final Composite composite) {
 		return super.createResourceVersionControl(composite,
@@ -471,6 +409,25 @@ public abstract class AbstractNewServiceWizardPage extends
 				"Select a service layer for the new service");
 		serviceLayer.select(2);
 		return serviceLayer;
+	}
+	
+	/**
+	 * create service impl type combo
+	 * @param parent
+	 */
+	protected void createServiceImplTypeCombo(final Composite parent) {
+		this.serviceImplType = super.createCCombo(parent, "Service Implementation T&ype:", 
+				false, new String[]{"Service Impl", "Service Impl Factory"}, "the implementation type of the new service");
+		this.serviceImplType.select(0);
+	}
+	
+	/**
+	 * Gets the service implementation type: Class|Factory.
+	 *
+	 * @return the service impl type
+	 */
+	public ServiceImplType getServiceImplType() {
+		return ServiceImplType.value(this.serviceImplType.getText());
 	}
 
 	/**
@@ -516,18 +473,8 @@ public abstract class AbstractNewServiceWizardPage extends
 	}
 
 	/**
-	 * Gets the base consumer src dir.
-	 *
-	 * @return the base consumer src dir
-	 */
-	public String getBaseConsumerSrcDir() {
-		return getTextValue(baseConsumerSrcText);
-	}
-
-	/**
-	 * Gets the admin name.
-	 *
-	 * @return the admin name
+	 * get admin name from wizard.
+	 * @return
 	 */
 	public String getAdminName() {
 		return getTextValue(getResourceNameText());
@@ -557,7 +504,11 @@ public abstract class AbstractNewServiceWizardPage extends
 	 * @return the service layer
 	 */
 	public String getServiceLayer() {
-		return getTextValue(serviceLayer);
+		String result = getTextValue(serviceLayer);
+		if (StringUtils.isBlank(result)) {
+			result = SOAProjectConstants.ServiceLayer.BUSINESS.name();
+		}
+		return result;
 	}
 
 	/**
@@ -595,17 +546,6 @@ public abstract class AbstractNewServiceWizardPage extends
 	}
 
 	/**
-	 * Sets the base consumer dir.
-	 *
-	 * @param baseConsumerDir the new base consumer dir
-	 */
-	protected void setBaseConsumerDir(final String baseConsumerDir) {
-		if (baseConsumerSrcText != null && baseConsumerDir != null) {
-			baseConsumerSrcText.setText(baseConsumerDir);
-		}
-	}
-
-	/**
 	 * Sets the type namespace.
 	 *
 	 * @param typeNamespace the new type namespace
@@ -625,16 +565,6 @@ public abstract class AbstractNewServiceWizardPage extends
 		if (typeFoldingButton != null) {
 			typeFoldingButton.setSelection(typeFolding);
 		}
-	}
-
-	/**
-	 * Sets the base consumer dir text editable.
-	 *
-	 * @param editable the new base consumer dir text editable
-	 */
-	protected void setBaseConsumerDirTextEditable(final boolean editable) {
-		if (baseConsumerSrcText != null)
-			baseConsumerSrcText.setEditable(editable);
 	}
 
 	/**

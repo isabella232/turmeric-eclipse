@@ -24,13 +24,13 @@ public class SOATypeLibraryConstants {
 	 * The Enum TypeCategory.
 	 */
 	public static enum TypeCategory {
-		
+
 		/** The SIMPLE. */
 		SIMPLE, 
- /** The COMPLEX. */
- COMPLEX, 
- /** The ENUM. */
- ENUM
+		/** The COMPLEX. */
+		COMPLEX, 
+		/** The ENUM. */
+		ENUM
 	}
 
 	/** The Constant FOLDER_GEN_SRC. */

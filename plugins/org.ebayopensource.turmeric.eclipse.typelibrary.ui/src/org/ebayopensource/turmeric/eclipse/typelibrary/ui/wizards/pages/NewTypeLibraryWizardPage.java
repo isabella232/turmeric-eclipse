@@ -21,9 +21,9 @@ import javax.xml.namespace.QName;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage;
 import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
@@ -155,6 +155,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 
 		boolean result = super.dialogChanged();
 		if (result) {
+			// IStatus validationModel = null;
 			try {
 				if (SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
 						.getTypeLibrary(getResourceName()) != null) {
@@ -300,6 +301,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 		final ModifyListener nsModifyListener = new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
+				// targetNamespaceModified(getNamespaceValue());
 				dialogChanged();
 			}
 		};

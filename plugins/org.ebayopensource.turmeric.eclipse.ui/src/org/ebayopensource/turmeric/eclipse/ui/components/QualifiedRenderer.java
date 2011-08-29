@@ -8,6 +8,7 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.ui.components;
 
+import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.eclipse.jface.viewers.LabelProvider;
 
@@ -29,7 +30,11 @@ public class QualifiedRenderer extends LabelProvider {
 	public String getText(final Object element) {
 		if (element instanceof AssetInfo) {
 			final AssetInfo info = (AssetInfo) element;
-			return info.getDescription() + " - " + info.getDir();
+			String postFix = "";
+			if (StringUtils.isNotBlank(info.getDir()) == true) {
+				postFix = " - " + info.getDir();
+			}
+			return info.getDescription() + postFix;
 		}
 		return super.getText(element);
 

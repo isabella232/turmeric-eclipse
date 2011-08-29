@@ -10,26 +10,39 @@ package org.ebayopensource.turmeric.eclipse.services.ui.properties;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ProjectProtoBufFileUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.PropertiesUtil;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.Binding;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.DataBinding;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.MessageProtocol;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
-import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientEnvironment;
+import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
+import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.EnvironmentItem;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.ui.components.SOAConsumerServicesViewer;
 import org.ebayopensource.turmeric.eclipse.ui.components.SimpleComboBoxEditor;
+import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -58,16 +71,12 @@ import org.eclipse.ui.IWorkbenchPropertyPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.jdom.JDOMException;
 
-
 /**
- * The Class SOAServiceDependenciesPage.
- *
  * @author yayu
+ * 
  */
 public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		implements IWorkbenchPropertyPage {
-	
-	/** The Constant REQUIRED_SERVICES_DELIMITER. */
 	public static final String REQUIRED_SERVICES_DELIMITER = ",";
 	private IProject project;
 	private boolean isOldClientConfigDirStructure = false;
@@ -81,20 +90,42 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 	private SimpleComboBoxEditor serviceResponseBindingEditor;
 	private SimpleComboBoxEditor messageProtocolEditor;
 
+	private String currentAdminName = null;
+	private boolean currentCanUseProtoBuf = false;
+
+	private String currentServiceLocation = "";
+
 	private static final SOALogger logger = SOALogger.getLogger();
 
-	/**
-	 * Instantiates a new sOA service dependencies page.
-	 */
+	private static String[][] FULL_PROTOCOL_LIST;
+
+	private static String[][] DEFAULT_PROTOCOL_LIST;
+	
+	private boolean isEnvEmpty = true;
+
+	static {
+		FULL_PROTOCOL_LIST = new String[DataBinding.values().length][2];
+		DEFAULT_PROTOCOL_LIST = new String[DataBinding.values().length - 1][2];
+		int index = 0;
+		int defaultIndex = 0;
+		for (DataBinding binding : DataBinding.values()) {
+			String bindingName = binding.name();
+			FULL_PROTOCOL_LIST[index][0] = bindingName;
+			FULL_PROTOCOL_LIST[index][1] = bindingName;
+			index++;
+			if ("PROTOBUF".equalsIgnoreCase(bindingName) == false) {
+				DEFAULT_PROTOCOL_LIST[defaultIndex][0] = bindingName;
+				DEFAULT_PROTOCOL_LIST[defaultIndex][1] = bindingName;
+				defaultIndex++;
+			}
+		}
+	}
+
 	public SOAServiceDependenciesPage() {
 		super(FieldEditorPreferencePage.GRID);
 		noDefaultAndApplyButton();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#createFieldEditors()
-	 */
 	@Override
 	protected void createFieldEditors() {
 		if (project != null) {
@@ -147,11 +178,6 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		return layout;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 *  @see org.eclipse.ui.IWorkbenchPropertyPage#getElement()
-	 */
-	@Override
 	public IAdaptable getElement() {
 		return null;
 	}
@@ -164,11 +190,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 				return null;
 
 			Object parentObj = item.getParentItem().getData();
+			currentAdminName = item.getData().toString();
 			if (parentObj instanceof EnvironmentItem) {
 				String envName = isOldClientConfigDirStructure ? null
 						: ((EnvironmentItem) parentObj).getName();
-				return new SOAClientEnvironment(envName, item.getData()
-						.toString());
+				return new SOAClientEnvironment(envName, currentAdminName);
 			}
 		}
 		return null;
@@ -176,6 +202,15 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 
 	private void addServiceDependenciesList() throws CoreException, IOException {
 		Composite parent = getFieldEditorParent();
+		/*
+		 * { Composite composite = new Composite(parent, SWT.NONE);
+		 * composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		 * composite.setLayout(new GridLayout(2, false)); Label label = new
+		 * Label(composite, SWT.NONE); label.setText("Client Name:"); Text text
+		 * = new Text(composite, SWT.BORDER); text.setEditable(false);
+		 * text.setText(SOAConsumerUtil.getServiceClientName(project));
+		 * text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL)); }
+		 */
 
 		final Group listComposite = new Group(parent, SWT.NONE);
 		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1);
@@ -185,12 +220,14 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		listComposite.setText("Client Configurations");
 
 		serviceList = new SOAConsumerServicesViewer(listComposite, false);
-		serviceList.setInput(SOAConsumerUtil.getClientConfigStructure(project));
+		List<EnvironmentItem> envList = SOAConsumerUtil
+				.getClientConfigStructure(project);
+		isEnvEmpty = envList == null || envList.isEmpty();
+		serviceList.setInput(envList);
 
 		this.serviceList
 				.addSelectionChangedListener(new ISelectionChangedListener() {
 
-					@Override
 					public void selectionChanged(SelectionChangedEvent event) {
 						try {
 							load();
@@ -206,15 +243,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 	private void addServiceLocation(Group group) {
 		serviceLocationEditor = new StringFieldEditor("", "Service Location: ",
 				group);
+		// serviceLocationEditor.getTextControl(group).setEnabled(false);
 		editorParentMap.put(serviceLocationEditor, group);
 		addField(serviceLocationEditor);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#initialize()
-	 */
 	@Override
 	protected void initialize() {
 		super.initialize();
@@ -265,8 +298,8 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 				config = SOAConsumerUtil.loadClientConfig(project, null,
 						clientEnv.getServiceName());
 			} else {
-				config = SOAConsumerUtil.loadClientConfig(project, clientEnv
-						.getEnvironment(), clientEnv.getServiceName());
+				config = SOAConsumerUtil.loadClientConfig(project,
+						clientEnv.getEnvironment(), clientEnv.getServiceName());
 			}
 		} catch (CoreException e) {
 			logger.error(e);
@@ -276,6 +309,12 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 			final String serviceLocation = config != null
 					&& config.getServiceLocation() != null ? config
 					.getServiceLocation() : "";
+			currentServiceLocation = serviceLocation;
+			currentCanUseProtoBuf = validateProtoBuf(serviceLocation);
+			String[][] nvPares = DEFAULT_PROTOCOL_LIST;
+			if (currentCanUseProtoBuf == true) {
+				nvPares = FULL_PROTOCOL_LIST;
+			}
 			final String serviceBinding = config != null
 					&& config.getServiceBinding() != null ? config
 					.getServiceBinding() : Binding.LOCAL.name();
@@ -291,43 +330,84 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 
 			serviceLocationEditor.setStringValue(serviceLocation);
 
-			serviceRequestBindingEditor.getComboBoxControl(
-					editorParentMap.get(serviceRequestBindingEditor)).setText(
-					requestBinding);
-			serviceResponseBindingEditor.getComboBoxControl(
-					editorParentMap.get(serviceResponseBindingEditor)).setText(
-					responseBinding);
+			serviceRequestBindingEditor.updateProtocolList(requestBinding,
+					nvPares);
+			serviceResponseBindingEditor.updateProtocolList(responseBinding,
+					nvPares);
+			// serviceRequestBindingEditor.getComboBoxControl(
+			// editorParentMap.get(serviceRequestBindingEditor)).setText(
+			// requestBinding);
+			// serviceResponseBindingEditor.getComboBoxControl(
+			// editorParentMap.get(serviceResponseBindingEditor)).setText(
+			// responseBinding);
 			messageProtocolEditor.getComboBoxControl(
 					editorParentMap.get(messageProtocolEditor)).setText(
 					messageProtocol);
 
-			final Combo bindingList = serviceBindingEditor
-					.getComboBoxControl(editorParentMap
-							.get(serviceBindingEditor));
-			bindingList.addModifyListener(new ModifyListener() {
-
-				@Override
-				public void modifyText(ModifyEvent e) {
-					String bindingStr = bindingList.getText();
-					Text svcLoctext = serviceLocationEditor
-							.getTextControl(editorParentMap
-									.get(serviceLocationEditor));
-					if (Binding.LOCAL.name().equals(bindingStr)) {
-						svcLoctext.setText(serviceLocation);
-						svcLoctext.setEditable(false);
-					} else {
-						svcLoctext.setEditable(true);
-					}
-				}
-
-			});
-
+			// invoke this so that the modify listener will be triggered.
 			serviceBindingEditor.getComboBoxControl(
 					editorParentMap.get(serviceBindingEditor)).setText(
 					serviceBinding);
 
 			setFieldEditorEnabled(true, false);
 		}
+	}
+
+	private boolean validateProtoBuf(String serviceLocation) {
+		try {
+			// if this project is intf project and have nonXSDFormats=protobuf
+			// in sipp, return true;
+			IProject project = WorkspaceUtil.getProject(currentAdminName);
+			if (project.isAccessible() == true) {
+				ISOAProject soaProject = GlobalRepositorySystem.instanceOf()
+						.getActiveRepositorySystem().getAssetRegistry()
+						.getSOAProject(project);
+				if (soaProject instanceof SOAIntfProject) {
+					IFile sipp = project
+							.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_INTERFACE);
+					if (sipp.isAccessible()) {
+						String noXSDSchema = PropertiesFileUtil
+								.getPropertyValueByKey(
+										sipp.getContents(),
+										SOAProjectConstants.PROP_KEY_NON_XSD_FORMATS);
+						if (noXSDSchema != null
+								&& noXSDSchema
+										.contains(SOAProjectConstants.SVC_PROTOCOL_BUF)) {
+							return true;
+						}
+					}
+					return false;
+				}
+			}
+			// try to find service in service jar
+
+			String noXSDSchema = getValueFromServiceProps(currentAdminName,
+					SOAProjectConstants.PROP_KEY_NON_XSD_FORMATS);
+			if (noXSDSchema != null
+					&& noXSDSchema
+							.contains(SOAProjectConstants.SVC_PROTOCOL_BUF)) {
+				return true;
+			}
+			// try to access service location?proto
+			String content = ProjectProtoBufFileUtil
+					.getProtoBufFile(serviceLocation);
+			return StringUtils.isNotBlank(content);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	private static String getValueFromServiceProps(final String serviceName,
+			final String key) throws Exception {
+		final ISOAAssetRegistry registry = GlobalRepositorySystem.instanceOf()
+				.getActiveRepositorySystem().getAssetRegistry();
+		final String assetLocation = registry.getAssetLocation(serviceName);
+		final Properties props = SOAIntfUtil.loadMetadataProps(assetLocation,
+				serviceName);
+		if (props != null) {
+			return StringUtils.trim(props.getProperty(key));
+		}
+		return null;
 	}
 
 	private void setFieldEditorEnabled(boolean enabled, boolean clearData) {
@@ -360,34 +440,54 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 				strArray, group);
 		addField(serviceBindingEditor);
 		editorParentMap.put(serviceBindingEditor, group);
+
+		final Combo bindingList = serviceBindingEditor
+				.getComboBoxControl(editorParentMap.get(serviceBindingEditor));
+		bindingList.addModifyListener(new ModifyListener() {
+
+			public void modifyText(ModifyEvent e) {
+				String bindingStr = bindingList.getText();
+				Text svcLoctext = serviceLocationEditor
+						.getTextControl(editorParentMap
+								.get(serviceLocationEditor));
+				if (Binding.LOCAL.name().equals(bindingStr)) {
+					svcLoctext.setText(currentServiceLocation);
+					svcLoctext.setEditable(false);
+				} else {
+					svcLoctext.setEditable(true);
+				}
+			}
+		});
 	}
 
 	private void addServiceRequestDataBinding(Group group) {
-		String strArray[][] = new String[DataBinding.values().length][2];
-		int index = 0;
-		for (DataBinding binding : DataBinding.values()) {
-			strArray[index][0] = binding.name();
-			strArray[index][1] = binding.name();
-			index++;
-		}
 		serviceRequestBindingEditor = new SimpleComboBoxEditor("",
-				"Request DataBinding:", strArray, group);
+				"Request DataBinding:", FULL_PROTOCOL_LIST, group);
 		addField(serviceRequestBindingEditor);
 		editorParentMap.put(serviceRequestBindingEditor, group);
 	}
 
 	private void addServiceResponseDataBinding(Group group) {
-		String strArray[][] = new String[DataBinding.values().length][2];
-		int index = 0;
-		for (DataBinding binding : DataBinding.values()) {
-			strArray[index][0] = binding.name();
-			strArray[index][1] = binding.name();
-			index++;
-		}
 		serviceResponseBindingEditor = new SimpleComboBoxEditor("",
-				"Response DataBinding:", strArray, group);
+				"Response DataBinding:", FULL_PROTOCOL_LIST, group);
 		addField(serviceResponseBindingEditor);
 		editorParentMap.put(serviceResponseBindingEditor, group);
+	}
+
+	private IStatus validateProtocol() {
+		if (currentCanUseProtoBuf == true) {
+			return Status.OK_STATUS;
+		}
+
+		String newRequestDataBinding = getText(serviceRequestBindingEditor);
+		String newResponseDataBinding = getText(serviceResponseBindingEditor);
+
+		if ("protobuf".equalsIgnoreCase(newRequestDataBinding)
+				|| "protobuf".equalsIgnoreCase(newResponseDataBinding)) {
+			return EclipseMessageUtils.createErrorStatus(
+					"ProtoBuf is not supported by current service.", null);
+		}
+		return Status.OK_STATUS;
 	}
 
 	private void addMessageProtocol(Group group) {
@@ -404,12 +504,6 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		editorParentMap.put(messageProtocolEditor, group);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.eclipse.ui.IWorkbenchPropertyPage#setElement(org.eclipse.core.runtime.IAdaptable)
-	 */
-	@Override
 	public void setElement(IAdaptable element) {
 		try {
 			if (element.getAdapter(IProject.class) instanceof IProject) {
@@ -431,11 +525,6 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 				editorParentMap.get(simpleComboEditor)).getText();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#performOk()
-	 */
 	@Override
 	public boolean performOk() {
 		try {
@@ -460,6 +549,16 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 			IStatus status = PropertiesUtil.validate(serviceName,
 					implProjectName, newServiceLocation, newServiceBinding);
 
+			IStatus statusProtocol = validateProtocol();
+
+			if (statusProtocol != Status.OK_STATUS) {
+				setErrorMessage(status.getMessage());
+				Throwable t = null;
+				UIUtil.showErrorDialog(getShell(), "Validation Failed",
+						status.getMessage(), t);
+				return false;
+			}
+
 			if (status == Status.OK_STATUS) {
 				setErrorMessage(null);
 				final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
@@ -473,11 +572,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 										+ serviceName,
 								ProgressUtil.PROGRESS_STEP * 15);
 						try {
-							PropertiesUtil.modifyServiceDependencies(
-									project, clientEnv.getEnvironment(),
-									serviceName, implProjectName,
-									newServiceLocation, newServiceBinding,
-									newMessageProtocol, newRequestDataBinding,
+							PropertiesUtil.modifyServiceDependencies(project,
+									clientEnv.getEnvironment(), serviceName,
+									implProjectName, newServiceLocation,
+									newServiceBinding, newMessageProtocol,
+									newRequestDataBinding,
 									newResponseDataBinding, requiredServices,
 									monitor);
 						} catch (Exception e) {
@@ -494,8 +593,8 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 			} else {
 				setErrorMessage(status.getMessage());
 				Throwable t = null;
-				UIUtil.showErrorDialog(getShell(), "Validation Failed", status
-						.getMessage(), t);
+				UIUtil.showErrorDialog(getShell(), "Validation Failed",
+						status.getMessage(), t);
 			}
 		} catch (Exception e) {
 			logger.error(e);
@@ -505,11 +604,6 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#checkState()
-	 */
 	@Override
 	protected void checkState() {
 		try {
@@ -523,7 +617,9 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 			UIUtil.showErrorDialog(e);
 		}
 		super.checkState();
+		if (isValid() == false && isEnvEmpty == true) {
+			setValid(true);
+		}
 	}
-	
 
 }

@@ -14,9 +14,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryDeltaVisitor;
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.utils.collections.CollectionUtil;
@@ -28,8 +29,6 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.MessageDialog;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * The Class TypeLibMoveDeleteHook.
@@ -58,7 +57,7 @@ public class TypeLibMoveDeleteHook implements IResourceChangeListener {
 				SOALogger.getLogger().error(e1);
 			}
 			ArrayList<IFile> deletedXSDs = typeLibraryDeltaVisitor
-					.getDeletedXSDList();
+			.getDeletedXSDList();
 
 			Map<LibraryType, List<LibraryType>> typesWithChildren = new ConcurrentHashMap<LibraryType, List<LibraryType>>();
 			Map<LibraryType, List<LibraryType>> typesWithParents = new ConcurrentHashMap<LibraryType, List<LibraryType>>();
@@ -68,27 +67,27 @@ public class TypeLibMoveDeleteHook implements IResourceChangeListener {
 				for (IFile file : deletedXSDs) {
 
 					LibraryType libraryType = SOAGlobalRegistryAdapter.getInstance()
-							.getGlobalRegistry().getType(
-									TypeLibraryUtil.toQName(file));
+					.getGlobalRegistry().getType(
+							TypeLibraryUtil.toQName(file));
 					if (libraryType == null)
 						return;
 					if (!CollectionUtil.isEmpty(SOAGlobalRegistryAdapter.getInstance()
 							.getGlobalRegistry().getDependentChildTypeFiles(
 									libraryType))) {
 						typesWithChildren
-								.put(libraryType,
-										SOAGlobalRegistryAdapter.getInstance()
-												.getGlobalRegistry()
-												.getDependentChildTypeFiles(
-														libraryType));
+						.put(libraryType,
+								SOAGlobalRegistryAdapter.getInstance()
+								.getGlobalRegistry()
+								.getDependentChildTypeFiles(
+										libraryType));
 					}
 					if (!CollectionUtil.isEmpty(SOAGlobalRegistryAdapter.getInstance()
 							.getGlobalRegistry().getDependentParentTypeFiles(
 									libraryType))) {
 						typesWithParents.put(libraryType,
 								SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry()
-										.getDependentParentTypeFiles(
-												libraryType));
+								.getDependentParentTypeFiles(
+										libraryType));
 					}
 					if (file.getProject() != null)
 						projectSet.add(file.getProject().getName());
@@ -99,36 +98,36 @@ public class TypeLibMoveDeleteHook implements IResourceChangeListener {
 							"Removing type library projects from the SOA type registry->", 
 							typeLibraryDeltaVisitor.getDeletedProject());
 					SOATypeRegistry typeRegistry = GlobalRepositorySystem
-							.instanceOf().getActiveRepositorySystem()
-							.getTypeRegistryBridge().getSOATypeRegistry();
+					.instanceOf().getActiveRepositorySystem()
+					.getTypeRegistryBridge().getSOATypeRegistry();
 					for (IProject deletedProject : typeLibraryDeltaVisitor.getDeletedProject()) {
 						typeRegistry.removeLibraryFromRegistry(deletedProject.getName());
 					}
-					
+
 				}
 
 			} catch (Exception exception) {
 				UIUtil
-						.openChoiceDialog(
-								"Possible Issues",
-								"There might be some issues in the build or registry. Please do a project clean and update the registry.",
-								MessageDialog.INFORMATION);
+				.openChoiceDialog(
+						"Possible Issues",
+						"There might be some issues in the build or registry. Please do a project clean and update the registry.",
+						MessageDialog.INFORMATION);
 				SOALogger.getLogger().error(exception);
 			}
 
 			StringBuffer errorStr = new StringBuffer(
-					"There are some modifications required in the TypeDependency.xml and/or TypeInformation.xml with respect to the delete action you performed now, Please ignore this message if you used Schema Type --> Delete Type context menu. ");
+			"There are some modifications required in the TypeDependency.xml and/or TypeInformation.xml with respect to the delete action you performed now, Please ignore this message if you used Schema Type --> Delete Type context menu. ");
 			boolean showFlag = false;
 			if (!typesWithChildren.isEmpty()) {
 				errorStr
-						.append("\n\r\n Severe Issue: The types you deleted is referred by some other types. Please make sure that while building it, either change the dependency from the parent type or please put this type back.");
+				.append("\n\r\n Severe Issue: The types you deleted is referred by some other types. Please make sure that while building it, either change the dependency from the parent type or please put this type back.");
 
 				showFlag = true;
 			}
 
 			if (!typesWithParents.isEmpty()) {
 				errorStr
-						.append("\n\r\n Minor Issue: The types you deleted refer to some other types. The typedependency/typeinformation file of this type needs to be modified. Right click project -- > Schema Type --> Synchronize Dependencies or Select Project --> Clean. \r\n\n");
+				.append("\n\r\n Minor Issue: The types you deleted refer to some other types. The typedependency/typeinformation file of this type needs to be modified. Right click project -- > Schema Type --> Synchronize Dependencies or Select Project --> Clean. \r\n\n");
 
 				showFlag = true;
 			}
@@ -138,5 +137,4 @@ public class TypeLibMoveDeleteHook implements IResourceChangeListener {
 			}
 		}
 	}
-
 }

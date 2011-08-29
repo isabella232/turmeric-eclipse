@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
@@ -29,8 +30,9 @@ import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
-import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.EnvironmentItem;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.ui.dialogs.DependenciesDialog;
 import org.ebayopensource.turmeric.eclipse.ui.dialogs.SOAClientConfigEnvironmentDialog;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
@@ -73,6 +75,25 @@ public abstract class AbstractSOAServiceListViewer {
 	private Map<String, ProjectInfo> allAvailableServiecs;
 	private IProject project;
 	private int helpID = -1;
+	
+	private boolean isZeroConfig = false;
+	
+	/**
+	 * if current service is zero config
+	 * @return
+	 */
+	public boolean isZeroConfig() {
+		return isZeroConfig;
+	}
+
+	/**
+	 * set zero config value
+	 * @param isZeroConfig
+	 */
+	public void setZeroConfig(boolean isZeroConfig) {
+		this.isZeroConfig = isZeroConfig;
+	}
+
 
 	/**
 	 * Instantiates a new abstract soa service list viewer.
@@ -122,7 +143,8 @@ public abstract class AbstractSOAServiceListViewer {
 		servicelistPanel.setLayout(layout);
 		servicelistPanel.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		serviceList = new SOAConsumerServicesViewer(servicelistPanel);
+
+		serviceList = new SOAConsumerServicesViewer(servicelistPanel, true, isZeroConfig);
 		final Tree tree = serviceList.getTree();
 		
 		tree.addSelectionListener(new SelectionListener() {
@@ -135,7 +157,9 @@ public abstract class AbstractSOAServiceListViewer {
 			public void widgetSelected(SelectionEvent e) {
 				Object obj = getSelectedObject();
 				boolean selectEnv = obj instanceof EnvironmentItem;
-				removeEnvButton.setEnabled(selectEnv);
+				if (removeEnvButton != null) {
+					removeEnvButton.setEnabled(selectEnv);
+				}
 				removeServiceButton.setEnabled(!selectEnv);
 			}
 		});
@@ -146,61 +170,63 @@ public abstract class AbstractSOAServiceListViewer {
 		buttonComposite.setLayout(new GridLayout(1, true));
 		buttonComposite
 				.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL));
-		addEnvButton = new Button(buttonComposite, SWT.PUSH);
-		addEnvButton.setText("Add Environment...");
-		final List<String> existingEnvs = SOAConsumerUtil.getClientEnvironmentList(project, null);
-		addEnvButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				SOAClientConfigEnvironmentDialog dialog = new SOAClientConfigEnvironmentDialog(
-						UIUtil.getActiveShell(), getServiceInfoList(), 
-						existingEnvs);
-				if (dialog.open() == Window.OK) {
-					List<EnvironmentItem> items = getServiceInfoList();
-					EnvironmentItem item = new EnvironmentItem(dialog.getEnvironmentName());
-					if (items.isEmpty() == false) {
-						//already has enviroment defined
-						item.setServiceData(items.get(0).getServiceData());
-						item.setServices(items.get(0).getServices());
-					}
-					items.add(item);
-					serviceList.setInput(items);
-					enviromentAdded(dialog.getEnvironmentName(), dialog.getCloneEnvironment());
-				}
-			}
-		});
 		
-		removeEnvButton = new Button(buttonComposite, SWT.PUSH);
-		removeEnvButton.setText("Remove Environment");
-		removeEnvButton.setEnabled(false);
-		removeEnvButton.addSelectionListener(new SelectionAdapter() {
 
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				Object obj = 
-					((IStructuredSelection)serviceList.getSelection()).getFirstElement();
-				if (obj instanceof EnvironmentItem) {
-					List<EnvironmentItem> items = getServiceInfoList();
-					items.remove(obj);
-					serviceList.setInput(items);
-					removeEnvButton.setEnabled(false);
-					environmentRemoved((EnvironmentItem)obj);
+		if (isZeroConfig() == false) {
+			addEnvButton = new Button(buttonComposite, SWT.PUSH);
+			addEnvButton.setText("Add Environment...");
+			final List<String> existingEnvs = SOAConsumerUtil.getClientEnvironmentList(project, null);
+			addEnvButton.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					SOAClientConfigEnvironmentDialog dialog = new SOAClientConfigEnvironmentDialog(
+							UIUtil.getActiveShell(), getServiceInfoList(), 
+							existingEnvs);
+					if (dialog.open() == Window.OK) {
+						List<EnvironmentItem> items = getServiceInfoList();
+						EnvironmentItem item = new EnvironmentItem(dialog.getEnvironmentName());
+						if (items.isEmpty() == false) {
+							//already has enviroment defined
+							item.setServiceData(items.get(0).getServiceData());
+							item.setServices(items.get(0).getServices());
+						}
+						items.add(item);
+						serviceList.setInput(items);
+						enviromentAdded(dialog.getEnvironmentName(), dialog.getCloneEnvironment());
+					}
 				}
-			}
-		});
-		
-		new Label(buttonComposite, SWT.NONE);
+			});
+
+			removeEnvButton = new Button(buttonComposite, SWT.PUSH);
+			removeEnvButton.setText("Remove Environment");
+			removeEnvButton.setEnabled(false);
+			removeEnvButton.addSelectionListener(new SelectionAdapter() {
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					Object obj = 
+						((IStructuredSelection)serviceList.getSelection()).getFirstElement();
+					if (obj instanceof EnvironmentItem) {
+						List<EnvironmentItem> items = getServiceInfoList();
+						items.remove(obj);
+						serviceList.setInput(items);
+						removeEnvButton.setEnabled(false);
+						environmentRemoved((EnvironmentItem)obj);
+					}
+				}
+			});
+
+			new Label(buttonComposite, SWT.NONE);
+		}
 		
 		addServiceButton = new Button(buttonComposite, SWT.PUSH);
 		addServiceButton.setText("&Add Service...");
 		
 		final SelectionListener selectionListener = new SelectionListener() {
-			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				widgetSelected(e);
 			}
 
-			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				if (serviceList.getTree().getItemCount() == 0) {
 					MessageDialog.openError(UIUtil.getActiveShell(), 
@@ -217,7 +243,6 @@ public abstract class AbstractSOAServiceListViewer {
 						final IStructuredContentProvider delegate = super
 								.getContentProvider();
 						final IStructuredContentProvider provider = new IStructuredContentProvider() {
-							@Override
 							public Object[] getElements(
 									final Object inputElement) {
 								
@@ -250,12 +275,13 @@ public abstract class AbstractSOAServiceListViewer {
 								}
 								
 								final Collection<AssetInfo> result = new ArrayList<AssetInfo>();
+								final ISOAAssetRegistry assetRegistry = GlobalRepositorySystem.instanceOf()
+								.getActiveRepositorySystem().getAssetRegistry();
 								try {
 									if (project != null && TurmericServiceUtils.isSOAImplProject(project)) {
 										//existing impl project
 										//we should only show services which are compatible for the underlying service 
-										final ISOAProject soaProject = GlobalRepositorySystem.instanceOf()
-										.getActiveRepositorySystem().getAssetRegistry().getSOAProject(project);
+										final ISOAProject soaProject = assetRegistry.getSOAProject(project);
 										if (soaProject instanceof SOAImplProject) {
 											final SOAImplProject implProject = (SOAImplProject) soaProject;
 											final SOAIntfMetadata metadata = implProject.getMetadata().getIntfMetadata();
@@ -274,8 +300,20 @@ public abstract class AbstractSOAServiceListViewer {
 														.isValidServiceLayer(info
 																.getServiceLayer()) == true
 																&& includedServices
-																.contains(info.getDescription()) == false)
-													result.add(info);
+																.contains(info.getDescription()) == false) {
+													if (isZeroConfig == false) {
+														result.add(info);
+													} else {
+														final String assetLocation = assetRegistry
+														.getAssetLocation(info);
+														final SOAIntfMetadata metadata = SOAIntfUtil.loadIntfMetadata(
+																assetLocation, info.getName());
+														if (metadata.isZeroConfig()) {
+															result.add(info);
+														}
+													}
+
+												}
 										}
 									}
 								} catch (Exception e) {
@@ -287,12 +325,10 @@ public abstract class AbstractSOAServiceListViewer {
 								return result.toArray();
 							}
 
-							@Override
 							public void dispose() {
 								delegate.dispose();
 							}
 
-							@Override
 							public void inputChanged(final Viewer viewer,
 									final Object oldInput, final Object newInput) {
 								delegate.inputChanged(viewer, oldInput,
@@ -328,7 +364,6 @@ public abstract class AbstractSOAServiceListViewer {
 				dialog.setFilteredServices(filteredServices.toArray(new AssetInfo[0]));
 				final List<Integer> statuses = new ArrayList<Integer>(1);
 				final Runnable runnable = new Runnable() {
-					@Override
 					public void run() {
 						statuses.add(dialog.open());
 					}
@@ -360,12 +395,10 @@ public abstract class AbstractSOAServiceListViewer {
 		removeServiceButton.setText("&Remove Service");
 		removeServiceButton.setEnabled(false);
 		final SelectionListener removeListener = new SelectionListener() {
-			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				widgetSelected(e);
 			}
 
-			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final List<EnvironmentItem> infos = getServiceInfoList();
 				final Object selectedService = getSelectedObject();
@@ -386,10 +419,16 @@ public abstract class AbstractSOAServiceListViewer {
 		removeServiceButton.addSelectionListener(removeListener);
 		
 		//calc proper width hint
-		UIUtil.setEqualWidthHintForButtons(addEnvButton, removeEnvButton, 
-				addServiceButton,removeServiceButton);
+		if (isZeroConfig() == false) {
+			UIUtil.setEqualWidthHintForButtons(addEnvButton, removeEnvButton, 
+					addServiceButton,removeServiceButton);
+		} else {
+			UIUtil.setEqualWidthHintForButtons( 
+					addServiceButton,removeServiceButton);
+		}
 		return container;
 	}
+	
 	
 	/**
 	 * Gets the selected object.

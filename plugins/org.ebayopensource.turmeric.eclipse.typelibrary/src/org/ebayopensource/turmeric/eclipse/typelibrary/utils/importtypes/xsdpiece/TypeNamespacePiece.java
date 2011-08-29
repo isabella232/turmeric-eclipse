@@ -2,26 +2,25 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpie
 
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 
-
 /**
- * The Class TypeNamespacePiece.
+ * represent type name piece
+ * @author mzang
+ *
  */
 public class TypeNamespacePiece extends TypeRelatedContent {
 
 	/**
-	 * Instantiates a new type namespace piece.
-	 *
-	 * @param qName the q name
+	 * create instance
+	 * @param qName
 	 */
 	public TypeNamespacePiece(String qName) {
 		this.qName = qName;
 	}
 	
 	/**
-	 * Instantiates a new type namespace piece.
-	 *
-	 * @param qName the q name
-	 * @param model the model
+	 * create instance
+	 * @param qName
+	 * @param model
 	 */
 	public TypeNamespacePiece(String qName, TypeModel model) {
 		this.qName = qName;
@@ -29,13 +28,13 @@ public class TypeNamespacePiece extends TypeRelatedContent {
 	}
 	
 	/**
-	 * Instantiates a new type namespace piece.
+	 * create default instance
 	 */
 	public TypeNamespacePiece() {
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece.IXSDPiece#getContent()
+	/**
+	 * return type namespace
 	 */
 	@Override
 	public String getContent() {

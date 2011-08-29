@@ -32,7 +32,9 @@ public final class SOAServiceConstants {
      */
     public static final String SOA_TOOLS = "codegen-tools";
     
-    /** The Constant SOA_FRAMEWORK_JARS. */
+    /**
+     * SOA framework jars
+     */
     public static final String[] SOA_FRAMEWORK_JARS = { SOA_CLIENT, SOA_SERVER, SOA_TOOLS };
     
     /**

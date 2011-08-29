@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.ErrorLibraryCreator;
@@ -24,11 +25,12 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.IErrorLibraryP
 import org.ebayopensource.turmeric.eclipse.errorlibrary.providers.ISOAErrorLibraryWizardPageProvider;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.ErrorLibraryParamModel;
+import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.SOAErrorLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAErrorTypeCreationFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAGetErrorLibraryProviderFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
@@ -69,7 +71,7 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 			return result;
 		}
 		try {
-			return factory.getPreferredProvider()
+			return ErrorLibraryProviderFactory.getInstance().getPreferredProvider()
 					.getErrorLibraryWizardPageProvider().preValidate();
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			return EclipseMessageUtils.createErrorStatus(e);
@@ -93,7 +95,8 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 		IErrorLibraryProvider errorLibProvider;
 		try {
 
-			errorLibProvider = factory.getPreferredProvider();
+			errorLibProvider = ErrorLibraryProviderFactory.getInstance()
+					.getPreferredProvider();
 			if (errorLibProvider != null
 					&& errorLibProvider.getErrorLibraryWizardPageProvider() != null) {
 				wizardProvider = errorLibProvider
@@ -120,7 +123,11 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 				if ((uimodel instanceof ErrorLibraryParamModel) == false) {
 					return false;
 				}
+				
 				final ErrorLibraryParamModel model = (ErrorLibraryParamModel) uimodel;
+				if (StringUtils.isBlank(model.getVersion()) == true) {
+					model.setVersion(SOAErrorLibraryConstants.DEFAULT_VERSION);
+				}
 				final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 
 					@Override
@@ -156,7 +163,7 @@ public class NewErrorLibraryWizard extends SOABaseWizard {
 					}
 
 				};
-				factory.getPreferredProvider()
+				ErrorLibraryProviderFactory.getInstance().getPreferredProvider()
 						.getErrorLibraryCreator().preCreation(model);
 				getContainer().run(false, true, operation);
 			} catch (Exception e) {

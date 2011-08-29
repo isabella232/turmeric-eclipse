@@ -25,12 +25,12 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 import org.ebayopensource.turmeric.eclipse.repositorysystem.ui.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
+import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject.SOAProjectSourceDirectory;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
-import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject.SOAProjectSourceDirectory;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
@@ -223,7 +223,6 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		consumerPropertyGroup.setText("Consumer Properties");
 		return consumerPropertyGroup;
 	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -548,7 +547,11 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 			if (soaProject instanceof SOAIntfProject) {
 				final SOAIntfProject intfProject = (SOAIntfProject) soaProject;
 				final Version newVer = new Version(serviceVersion.getText());
-				final Version existingVer = new Version(intfProject.getMetadata().getServiceVersion());
+				String curVersion = intfProject.getMetadata().getServiceVersion();
+				if (StringUtils.isEmpty(curVersion)) {
+					return true;
+				}
+				final Version existingVer = new Version(curVersion);
 				if (newVer.getMajor() != existingVer.getMajor()) {
 					setErrorMessage(SOAMessages.ERR_CHANGE_MAJOR_VERSION_NOT_ALLOWED);
 					return false;

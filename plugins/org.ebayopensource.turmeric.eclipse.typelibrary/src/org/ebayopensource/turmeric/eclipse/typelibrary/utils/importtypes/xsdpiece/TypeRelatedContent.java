@@ -3,62 +3,60 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpie
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 
 /**
- * The Class TypeRelatedContent.
+ * Type related content
+ * 
+ * @author mzang
+ * 
  */
 public abstract class TypeRelatedContent implements IXSDPiece {
 
-	/** The model. */
 	protected TypeModel model;
 
-	/** The q name. */
 	protected String qName;
 
 	/**
 	 * xmlns:typename or null. null means the current type.
-	 *
-	 * @param qName the q name
+	 * 
+	 * @param qName
 	 */
 	public TypeRelatedContent(String qName) {
 		this.qName = qName;
 	}
 
 	/**
-	 * Instantiates a new type related content.
+	 * default constructor
 	 */
 	public TypeRelatedContent() {
 	}
 
 	/**
-	 * Gets the model.
-	 *
-	 * @return the model
+	 * get the type model instance related with this type.
+	 * 
+	 * @return
 	 */
 	public TypeModel getModel() {
 		return model;
 	}
 
 	/**
-	 * Sets the model.
-	 *
-	 * @param model the new model
+	 * set model instance
+	 * @param model
 	 */
 	public void setModel(TypeModel model) {
 		this.model = model;
 	}
 
 	/**
-	 * Gets the q name.
-	 *
-	 * @return the q name
+	 * get the QName of the type
+	 * @return
 	 */
-	public String getqName() {
+	public String getQName() {
 		return qName;
 	}
 
 	/**
-	 * Sets the q name.
-	 *
-	 * @param qName the new q name
+	 * set the QName of the type
+	 * @return
 	 */
 	public void setqName(String qName) {
 		this.qName = qName;

@@ -30,24 +30,20 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.Enviro
 import org.ebayopensource.turmeric.eclipse.ui.components.AbstractSOAServiceListViewer;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
-import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.ErrorMessage;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.RegExConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 
 
@@ -61,7 +57,6 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 	private final IStructuredSelection selection;
 	private Text consumerID;
 	private Button retrieveConsumerIDBtn;
-	private CCombo baseConsumerDirs;
 	//whether for converting an existing Java project into a Consumer project
 	private boolean convertExistingJavaProject = false;
 	private static final SOALogger logger = SOALogger.getLogger();
@@ -101,7 +96,6 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 					container, "&Client Name:", modifyListener, true, 
 					"the client project name");
 			createConsumerIDText(container);
-			createBaseConsumerSource(container);
 			createServiceList(container);
 			dialogChanged();
 			serviceClientText.setFocus();
@@ -238,67 +232,6 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 			clientProjectName.setEditable(false);
 		}
 		serviceList.createControl(parent, items);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected Text createBaseConsumerSource(Composite parent) {
-		//final Text text = super.createBaseConsumerSource(parent);
-		final IProject project = this.getSelectedProject();
-		try {
-			if (project != null && convertExistingJavaProject == true 
-					&& project.isAccessible() 
-					&& TurmericServiceUtils.isSOAProject(project) == false) {
-				final List<IPath> dirs = JDTUtil.getSourceDirectories(project);
-				final List<String> items = new ArrayList<String>(dirs.size());
-				for (IPath path : dirs) {
-					items.add(project.getFullPath().isPrefixOf(path) ? 
-							path.removeFirstSegments(1).toString() : path.toString());
-				}
-				this.baseConsumerDirs = super.createCCombo(parent, "&BaseConsumer Source Dir:", 
-						false, items.toArray(new String[0]), "the source directory of the base consumer class");
-				if (items.contains(SOAProjectConstants.FOLDER_SRC)) {
-					this.baseConsumerDirs.setText(SOAProjectConstants.FOLDER_SRC);
-				} 
-				this.baseConsumerDirs.addSelectionListener(new SelectionAdapter() {
-
-					@Override
-					public void widgetSelected(SelectionEvent e) {
-						dialogChanged();
-					}
-				});
-			} else {
-				return super.createBaseConsumerSource(parent);
-			}
-		} catch (CoreException e) {
-			SOALogger.getLogger().error(e);
-			throw new RuntimeException(e);
-		}
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getBaseConsumerSrcDir() {
-		if (this.baseConsumerDirs != null) {
-			return getTextValue(this.baseConsumerDirs);
-		}
-		return super.getBaseConsumerSrcDir();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected Control getBaseConsumerSrcControl() {
-		if (this.baseConsumerDirs != null) {
-			return this.baseConsumerDirs;
-		}
-		return super.getBaseConsumerSrcControl();
 	}
 
 	/**

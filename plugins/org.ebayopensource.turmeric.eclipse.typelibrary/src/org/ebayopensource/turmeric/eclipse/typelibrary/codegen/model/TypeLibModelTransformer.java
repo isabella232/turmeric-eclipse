@@ -14,8 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
+import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProjectResolver;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -49,6 +51,14 @@ public class TypeLibModelTransformer {
 				.toString());
 		genTypeBaseTypeLibCodegenModel.setLibraryName(project.getName());
 		genTypeBaseTypeLibCodegenModel.setXjcClassPath(getXJCClassPath());
+		TypeLibraryParamModel model = SOATypeLibraryProjectResolver.loadTypeLibraryModel(project);
+		if (model != null) {
+			genTypeBaseTypeLibCodegenModel.setLibNamespace(model.getNamespace());
+			genTypeBaseTypeLibCodegenModel.setLibraryCategory(model.getCategory());
+			genTypeBaseTypeLibCodegenModel.setLibraryName(model.getTypeLibraryName());
+			genTypeBaseTypeLibCodegenModel.setLibraryVersion(model.getVersion());
+		}
+		
 		return genTypeBaseTypeLibCodegenModel;
 	}
 
@@ -86,6 +96,10 @@ public class TypeLibModelTransformer {
 				.getProjectRoot());
 		genTypeCleanBuildTypeLibrary.setXjcClassPath(baseTypeLibCodegenModel
 				.getXjcClassPath());
+		genTypeCleanBuildTypeLibrary.setLibraryName(baseTypeLibCodegenModel.getLibraryName());
+		genTypeCleanBuildTypeLibrary.setLibraryCategory(baseTypeLibCodegenModel.getLibraryCategory());
+		genTypeCleanBuildTypeLibrary.setLibraryVersion(baseTypeLibCodegenModel.getLibraryVersion());
+		genTypeCleanBuildTypeLibrary.setLibNamespace(baseTypeLibCodegenModel.getLibNamespace());
 		return genTypeCleanBuildTypeLibrary;
 	}
 

@@ -19,11 +19,13 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.ServiceImplType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAAssetRegistry;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAConfigurationRegistry;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
@@ -68,12 +70,21 @@ public class ProjectPropertiesFileUtil {
 		IFile file = soaIntfProject.getEclipseMetadata().getProject().getFile(
 				SOAProjectConstants.PROPS_FILE_SERVICE_INTERFACE);
 		OutputStream output = null;
-
 		try {
 			output = new ByteArrayOutputStream();
 			final Properties properties = new Properties();
 			final SOAIntfMetadata metadata = soaIntfProject.getMetadata();
 			addServiceMetadataProperties(properties, metadata);
+			if (metadata.getServiceNonXSDProtocols() == null) {
+				boolean protoBufCreated = ProjectProtoBufFileUtil
+						.createServiceProtoBufFile(soaIntfProject,
+								metadata.getServiceLocation());
+				if (protoBufCreated == true) {
+					properties.setProperty(
+							SOAProjectConstants.PROP_KEY_NON_XSD_FORMATS,
+							SOAProjectConstants.SVC_PROTOCOL_BUF);
+				}
+			}
 			if (SOAProjectConstants.InterfaceSourceType.WSDL.equals(metadata
 					.getSourceType())
 					|| SOAProjectConstants.InterfaceWsdlSourceType.EXISTIING
@@ -119,6 +130,8 @@ public class ProjectPropertiesFileUtil {
 			
 			properties.setProperty(SOAProjectConstants.PROPS_KEY_TYPE_FOLDING,
 					Boolean.toString(metadata.getTypeFolding()));
+			properties.setProperty(SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG, 
+					Boolean.TRUE.toString());
 			
 			ISOAConfigurationRegistry configReg = 
 				GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
@@ -136,7 +149,7 @@ public class ProjectPropertiesFileUtil {
 					metadata.getServiceInterface(), SOAProjectConstants.DELIMITER_DOT);
 			properties.setProperty(SOAProjectConstants.PROPS_KEY_SHORT_PATH_FOR_SHARED_CONSUMER, 
 					intfPkgName + SOAProjectConstants.DELIMITER_DOT + SOAProjectConstants.GEN);
-			
+
 			properties.store(output, SOAProjectConstants.PROPS_COMMENTS);
 			
 			WorkspaceUtil.writeToFile(output.toString(), file, monitor);
@@ -166,6 +179,11 @@ public class ProjectPropertiesFileUtil {
 				metadata.getServiceVersion());
 		props.setProperty(SOAProjectConstants.PROP_KEY_ADMIN_NAME, 
 				metadata.getServiceName());
+		String protocols = metadata.getServiceNonXSDProtocols();
+		if (protocols == null) {
+			protocols = "";
+		}
+		props.setProperty(SOAProjectConstants.PROP_KEY_NON_XSD_FORMATS, protocols);
 	}
 
 	/**
@@ -187,18 +205,28 @@ public class ProjectPropertiesFileUtil {
 		try {
 			output = new ByteArrayOutputStream();
 			Properties properties = new Properties();
-			final String baseConsumerSrcDir = soaImplProject.getMetadata()
-					.getBaseConsumerSrcDir() != null ? soaImplProject
-					.getMetadata().getBaseConsumerSrcDir()
-					: SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR_DEFAULT;
-			properties.setProperty(
-					SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR,
-					baseConsumerSrcDir);
+			SOAImplMetadata metadata = soaImplProject.getMetadata();
 			properties.setProperty(SOAProjectConstants.PROPS_KEY_SIMP_VERSION, 
 					SOAProjectConstants.PROPS_DEFAULT_SIMP_VERSION);
-			properties.setProperty(SOAProjectConstants.PROPS_KEY_USE_EXTERNAL_SERVICE_FACTORY, 
-					Boolean.FALSE.toString());
-			
+
+
+			boolean useServiceFactory = ServiceImplType.SERVICE_IMPL_FACTORY
+					.equals(metadata.getServiceImplType());
+
+			properties.setProperty(
+					SOAProjectConstants.PROPS_KEY_USE_EXTERNAL_SERVICE_FACTORY,
+					useServiceFactory ? Boolean.TRUE.toString() : Boolean.FALSE
+							.toString());
+
+			if (useServiceFactory == true) {
+				String implClassName = soaImplProject.getMetadata().getServiceImplClassName();
+				properties
+						.setProperty(
+								SOAProjectConstants.PROPS_KEY_SERVICE_FACTORY_CLASS_NAME,
+								implClassName
+										+SOAProjectConstants.PROPS_DEFAULT_VALUE_SERVICE_FACTORY_CLASS_NAME_POSTFIX);
+			}
+
 			properties.store(output, SOAProjectConstants.PROPS_COMMENTS);
 			WorkspaceUtil.writeToFile(output.toString(), file, null);
 		} finally {
@@ -230,9 +258,6 @@ public class ProjectPropertiesFileUtil {
 			properties.setProperty(SOAProjectConstants.PROPS_KEY_CLIENT_NAME, metadata.getClientName());
 			String consumerID = metadata.getConsumerId() != null ? metadata.getConsumerId() : "";
 			properties.setProperty(SOAProjectConstants.PROPS_KEY_CONSUMER_ID, consumerID);
-			properties.setProperty(
-					SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR,
-					metadata.getBaseConsumerSrcDir());
 			ISOAConfigurationRegistry configReg = 
 				GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 				.getConfigurationRegistry();
@@ -264,6 +289,7 @@ public class ProjectPropertiesFileUtil {
 			}
 			properties.setProperty(SOAProjectConstants.PROPS_NOT_GENERATE_BASE_CONSUMER, 
 					StringUtils.join(services, SOAProjectConstants.DELIMITER_COMMA));
+			properties.setProperty(SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG, Boolean.toString(metadata.isZeroConfig()));
 			
 			properties.store(output, SOAProjectConstants.PROPS_COMMENTS);
 			WorkspaceUtil.writeToFile(output.toString(), file, monitor);
@@ -273,38 +299,8 @@ public class ProjectPropertiesFileUtil {
 		return file;
 	}
 	
-	/**
-	 * Creates the props file for impl projects.
-	 *
-	 * @param implProject the impl project
-	 * @param clientName the client name
-	 * @param consumerId the consumer id
-	 * @param monitor the monitor
-	 * @return the i file
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws CoreException the core exception
-	 */
 	public static IFile createPropsFileForImplProjects(IProject implProject, 
-			String clientName, String consumerId, IProgressMonitor monitor)
-			throws IOException, CoreException {
-		return createPropsFileForImplProjects(implProject, clientName, consumerId, null, 
-				 monitor);
-	}
-	
-	/**
-	 * Creates the props file for impl projects.
-	 *
-	 * @param implProject the impl project
-	 * @param clientName the client name
-	 * @param consumerId the consumer id
-	 * @param baseconsumerDir the baseconsumer dir
-	 * @param monitor the monitor
-	 * @return the i file
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws CoreException the core exception
-	 */
-	public static IFile createPropsFileForImplProjects(IProject implProject, 
-			String clientName, String consumerId, String baseconsumerDir, 
+			String clientName, String consumerId, 
 			IProgressMonitor monitor)
 	throws IOException, CoreException {
 		IFile file = SOAConsumerUtil.getConsumerPropertiesFile(implProject);
@@ -316,11 +312,6 @@ public class ProjectPropertiesFileUtil {
 		properties.setProperty(SOAProjectConstants.PROPS_KEY_CLIENT_NAME, clientName);
 		String consumerID = consumerId != null ? consumerId : "";
 		properties.setProperty(SOAProjectConstants.PROPS_KEY_CONSUMER_ID, consumerID);
-		if (baseconsumerDir != null) {
-			properties.setProperty(
-					SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR,
-					baseconsumerDir);
-		}
 
 		properties.setProperty(SOAProjectConstants.PROPS_KEY_SCPP_VERSION, 
 				SOAProjectConstants.PROPS_DEFAULT_SCPP_VERSION);
@@ -332,6 +323,18 @@ public class ProjectPropertiesFileUtil {
 				properties.setProperty(SOAProjectConstants.PROPS_ENV_MAPPER, 
 						configReg.getEnvironmentMapperImpl());
 			}
+		}
+		
+		// set the default value of PROPS_SUPPORT_ZERO_CONFIG to false. if this
+		// is modify client name or client id, then no change.
+		if (properties
+				.containsKey(SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG) == false
+				&& StringUtils
+						.isEmpty(properties
+								.getProperty(SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG)) == true) {
+			properties.setProperty(
+					SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG,
+					Boolean.FALSE.toString());
 		}
 
 		SOAConsumerUtil.savePropsFileForConsumer(implProject, properties, monitor);

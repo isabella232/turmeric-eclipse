@@ -1,14 +1,17 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece;
 
 /**
- * The Interface IXSDPiece.
+ * represent a piece of XSD file.
+ * 
+ * @author mzang
+ * 
  */
 public interface IXSDPiece {
-	
+
 	/**
-	 * Gets the content.
-	 *
-	 * @return the content
+	 * get XSD content of the piece.
+	 * 
+	 * @return
 	 */
 	String getContent();
 

@@ -26,13 +26,13 @@ public abstract class AbstractSOAMetadata {
 		super();
 	}
 	
-//	public abstract IFile getMetadataFile();
-	
+	//	public abstract IFile getMetadataFile();
+
 	/**
- * Gets the metadata file name.
- *
- * @return the MetaDataFileName as a string.
- */
+	 * Gets the metadata file name.
+	 *
+	 * @return the MetaDataFileName as a string.
+	 */
 	public abstract String getMetadataFileName();
 
 }

@@ -19,8 +19,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ITypeRegistryBridge;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ITypeRegistryBridge;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;

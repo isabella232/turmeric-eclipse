@@ -26,8 +26,8 @@ import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.model.DomainParamModel;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAErrorTypeCreationFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAGetErrorLibraryProviderFailedException;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
@@ -41,14 +41,16 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
- * The Class NewErrorDomainWizard.
- *
+ * <<<<<<< HEAD The Class NewErrorDomainWizard.
+ * 
+ * @author yayu =======
  * @author yayu
+ * 
+ *         >>>>>>> TURMERIC-1351
  */
 public class NewErrorDomainWizard extends SOABaseWizard {
 	private ISOAErrorLibraryWizardPageProvider wizardProvider;
 	private static final SOALogger logger = SOALogger.getLogger();
-	private ErrorLibraryProviderFactory factory = ErrorLibraryProviderFactory.getInstance();
 
 	/**
 	 * Instantiates a new new error domain wizard.
@@ -57,29 +59,35 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 		super();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#preValidate()
 	 */
 	@Override
 	public IStatus preValidate() {
 		// checking if there is a provider
 		try {
-			factory.getPreferredProvider();
+			ErrorLibraryProviderFactory.getInstance().getPreferredProvider();
 		} catch (SOAGetErrorLibraryProviderFailedException e) {
 			return EclipseMessageUtils.createErrorStatus(e);
 		}
 		return Status.OK_STATUS;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#getContentPages()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#getContentPages()
 	 */
 	@Override
 	public IWizardPage[] getContentPages() {
 		final List<IWizardPage> pages = new ArrayList<IWizardPage>();
 		IErrorLibraryProvider errorLibProvider;
 		try {
-			errorLibProvider = factory.getPreferredProvider();
+			errorLibProvider = ErrorLibraryProviderFactory.getInstance()
+					.getPreferredProvider();
 			if (errorLibProvider != null
 					&& errorLibProvider.getErrorDomainWizardPageProvider() != null) {
 				wizardProvider = errorLibProvider
@@ -94,7 +102,9 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 		return pages.toArray(new IWizardPage[0]);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard#performFinish()
 	 */
 	@Override
@@ -117,20 +127,19 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 						final int totalWork = ProgressUtil.PROGRESS_STEP * 30;
 						monitor.beginTask(
 								StringUtil.formatString(
-										SOAMessages.CREATING_DOMAIN, model
-												.getDomain()), totalWork);
+										SOAMessages.CREATING_DOMAIN,
+										model.getDomain()), totalWork);
 						ProgressUtil.progressOneStep(monitor);
 						try {
 							ErrorDomainCreator
 									.createErrorDomain(model, monitor);
 							final TrackingEvent event = new TrackingEvent(
 									SOAMessages.NEW_ERR_DOMAIN, new Date(
-											startTime), System
-											.currentTimeMillis()
-											- startTime);
+											startTime),
+									System.currentTimeMillis() - startTime);
 							GlobalRepositorySystem.instanceOf()
-									.getActiveRepositorySystem().trackingUsage(
-											event);
+									.getActiveRepositorySystem()
+									.trackingUsage(event);
 						} catch (Exception e) {
 							logger.error(e);
 							throw new SOAErrorTypeCreationFailedException(
@@ -141,9 +150,13 @@ public class NewErrorDomainWizard extends SOABaseWizard {
 						}
 					}
 				};
-				factory.getPreferredProvider()
-						.getErrorDomainCreator().preCreation(model);
+				ErrorLibraryProviderFactory.getInstance()
+						.getPreferredProvider().getErrorDomainCreator()
+						.preCreation(model);
 				getContainer().run(false, true, operation);
+				// http://www.nbweekly.com/Print/Page/844,62.shtml
+				// No change if just resource created inside a project
+				// changePerspective();
 			} catch (Exception e) {
 				logger.error(e);
 				UIUtil.showErrorDialog(SOAMessages.CREATE_DOMAIN_ERR, e);

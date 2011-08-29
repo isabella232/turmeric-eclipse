@@ -75,7 +75,7 @@ public class RegistryView extends ViewPart {
 			logger.error(e);
 			throw new RuntimeException(e);
 		}
-		//createToolbar();
+		createToolbar();
 	}
 
 	/*
@@ -164,10 +164,9 @@ public class RegistryView extends ViewPart {
 		final Table typeTable = toolkit.createTable(typeGroup, SWT.H_SCROLL
 				| SWT.V_SCROLL | SWT.MULTI | SWT.FULL_SELECTION);
 		// typeTable.setLayoutData(new GridData(GridData.FILL_BOTH));
-		RefreshRegistryAction refreshAction = new RefreshRegistryAction(
-				typeLibraryViewer);
-		typeViewer = new TypeViewer(typeTable, refreshAction);
-		refreshAction.setTypeViewer(typeViewer);
+		// RefreshRegistryAction refreshAction = new RefreshRegistryAction(
+		// typeLibraryViewer);
+		typeViewer = new TypeViewer(typeTable);
 		typeViewer.setInput(typeRegistry);
 
 		typeLibrarySelectionChangedListener = new TypeLibrarySelectionChangedListener(
@@ -213,6 +212,19 @@ public class RegistryView extends ViewPart {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Creates the toolbar.
+	 */
+	private void createToolbar() {
+		// IToolBarManager mgr =
+		// getViewSite().getActionBars().getToolBarManager();
+		// RefreshRegistryAction refreshAction = new RefreshRegistryAction(
+		// typeLibraryViewer);
+		// refreshAction.setTypeViewer(typeViewer);
+		// mgr.add(refreshAction);
+		// mgr.add(new SortRegistryAction(typeViewer, getLibraryComparator()));
 	}
 	
 	/**

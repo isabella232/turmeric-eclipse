@@ -10,8 +10,6 @@
  -->
 <?eclipse version="3.2"?>
 <plugin>
-  <!-- UI COntributions-->
-  
   <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension targetID="org.ebayopensource.turmeric.eclipse.ui.soaPerspective">    
@@ -39,8 +37,7 @@
       </runtime>
       <builder id="org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryProjectBuilder"/>
    </extension>
-   
-   
+      
    <extension id="typeLibResolver" name="Type Library Resolver" point="org.eclipse.wst.common.uriresolver.resolverExtensions">
  		<resolverExtension class="org.ebayopensource.turmeric.eclipse.typelibrary.resolvers.TypeLibResolver" priority="high" stage="physical">
   			<projectNature value="%SOA.ProjectNatureID.TypeLibrary" /> 

@@ -2,5 +2,7 @@ bin
 target
 *.log
 temp_persis*
+*.orig
+
 
 

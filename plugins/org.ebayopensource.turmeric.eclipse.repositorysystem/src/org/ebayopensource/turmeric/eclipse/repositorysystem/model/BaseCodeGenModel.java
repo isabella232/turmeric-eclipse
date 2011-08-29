@@ -128,6 +128,9 @@ public class BaseCodeGenModel {
 	
 	/** The Constant PARAM_ERROR_LIBRARY_NAME. */
 	public static final String PARAM_ERROR_LIBRARY_NAME = "-errorlibname"; //the name of the error library
+	public static final String PARAM_NON_XSD_FORMATS = "-nonXSDFormats"; //the name of the nonxsdprotocol, such as protobuf
+	public static final String PARAM_XSD_PATHS_FOR_VALIDATION = "-xsdPathsForValidation";
+
 	
 	/*All|Client|ClientNoConfig|Server|ServerNoConfig|Proxy|Dispatcher|ConfigAll|ClientConfig|ServerConfig|
     GlobalServerConfig|GlocalClientConfig|Wsdl|Interface|Schema|SISkeleton|TypeMappings|WebXml|UnitTest|
@@ -215,7 +218,10 @@ public class BaseCodeGenModel {
 	
 	/** The Constant GENTYPE_ADDTYPE. */
 	public static final String GENTYPE_ADDTYPE = "genTypeAddType";
-	
+
+	/** The Constant GENTYPE_VALIDATEXSDSFORNONXSDFORMATES. */
+	public static final String GENTYPE_VALIDATEXSDSFORNONXSDFORMATES = "ValidateXSDsForNonXSDFormats";
+
 	/** The Constant GENTYPE_DELETETYPE. */
 	public static final String GENTYPE_DELETETYPE = "genTypeDeleteType";
 	
@@ -273,6 +279,7 @@ public class BaseCodeGenModel {
 		list.add(GENTYPE_DELETETYPE);
 		list.add(GENTYPE_COMMAND_LINE_ALL);
 		list.add(GENTYPE_ERROR_LIB_ALL);
+		list.add(GENTYPE_VALIDATEXSDSFORNONXSDFORMATES);
 		SUPPORTED_GENTYPES = Collections.unmodifiableList(list);
 	}
 
@@ -293,7 +300,23 @@ public class BaseCodeGenModel {
 	private String originalWsdlUrl; //-wsdl
 	private String ns2pkg; //-ns2pkg
 	private String genFolder; //jdesk
+	private String nonXSDFormats;// -nonXSDFormats
 	
+	public String getNonXSDFormats() {
+		return nonXSDFormats;
+	}
+
+	public void setNonXSDFormats(String nonXSDFormats) {
+		this.nonXSDFormats = nonXSDFormats;
+	}
+
+	/**
+	 * for impl project. identify use external factory or -sicn. If this is
+	 * true, then -sicn MUST not be added to codegen options. Otherwise the
+	 * -sicn is neede.
+	 */
+	private boolean useExternalServiceFactory = false;
+
 	/**
 	 * Instantiates a new base code gen model.
 	 */
@@ -625,6 +648,14 @@ public class BaseCodeGenModel {
 	 */
 	public void setGenFolder(String genFolder) {
 		this.genFolder = genFolder;
+	}
+	
+	public boolean useExternalServiceFactory(){
+		return useExternalServiceFactory;
+	}
+	
+	public void setUseExternalServiceFactory(boolean useExternalServiceFactory) {
+		this.useExternalServiceFactory = useExternalServiceFactory;
 	}
 
 	/**

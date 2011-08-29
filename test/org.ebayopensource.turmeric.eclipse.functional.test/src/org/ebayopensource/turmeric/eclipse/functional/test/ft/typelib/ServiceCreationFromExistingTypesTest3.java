@@ -28,9 +28,10 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-
+@Ignore
 public class ServiceCreationFromExistingTypesTest3 extends
 		AbstractTestCase {
 	static DialogMonitor monitor;

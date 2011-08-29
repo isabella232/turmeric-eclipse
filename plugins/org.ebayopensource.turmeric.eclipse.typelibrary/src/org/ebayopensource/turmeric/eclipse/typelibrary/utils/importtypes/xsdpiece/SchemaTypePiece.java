@@ -1,7 +1,9 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece;
 
 /**
- * The Class SchemaTypePiece.
+ * schema type in XSD file. Could be a basic type or external type
+ * @author mzang
+ *
  */
 public class SchemaTypePiece implements IXSDPiece {
 
@@ -10,18 +12,17 @@ public class SchemaTypePiece implements IXSDPiece {
 	private String namespace;
 
 	/**
-	 * Instantiates a new schema type piece.
-	 *
-	 * @param content the content
-	 * @param namespace the namespace
+	 * create instance
+	 * @param content
+	 * @param namespace
 	 */
 	public SchemaTypePiece(String content, String namespace) {
 		this.content = content;
 		this.namespace = namespace;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece.IXSDPiece#getContent()
+	/**
+	 * get the value
 	 */
 	@Override
 	public String getContent() {
@@ -29,9 +30,8 @@ public class SchemaTypePiece implements IXSDPiece {
 	}
 	
 	/**
-	 * Gets the namespace.
-	 *
-	 * @return the namespace
+	 * get space of the type
+	 * @return
 	 */
 	public String getNamespace(){
 		return namespace;

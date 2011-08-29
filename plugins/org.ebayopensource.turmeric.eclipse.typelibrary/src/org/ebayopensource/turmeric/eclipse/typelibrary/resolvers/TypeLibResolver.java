@@ -9,6 +9,10 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.resolvers;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.LibraryType;
+import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;
+import org.ebayopensource.turmeric.common.config.TypeDependencyType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.TypeDepMarshaller;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
@@ -16,11 +20,6 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegist
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.TypeLibraryUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.wst.common.uriresolver.internal.provisional.URIResolverExtension;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
-import org.ebayopensource.turmeric.common.config.ReferredTypeLibraryType;
-import org.ebayopensource.turmeric.common.config.TypeDependencyType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 
 /**
  * The Class TypeLibResolver.

@@ -8,11 +8,10 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * The Class TypeLabelProvider.

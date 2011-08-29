@@ -94,6 +94,8 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 	{COLUMN_NAME, COLUMN_INPUT_PARAM, COLUMN_OUTPUT_PARAM};
 	
 	private List<Operation> operations = new ArrayList<Operation>();
+	private List<Operation> newOperations = new ArrayList<Operation>();
+	private boolean needControlButtons = true;
 	
 	//UI controls
 	private TreeViewer operationViewer;
@@ -110,6 +112,20 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 	public ServiceFromNewWSDLAddOperationWizardPage() {
 		super("newSOAServiceProjectFromBlankWSDLAddOperationWizardPage", "Service from Template WSDL - Add Operation", 
 		"Add operations to the template WSDL");
+	}
+	
+	/**
+	 * Instantiates a new service from new wsdl add operation wizard page.
+	 * @param operations the operations
+	 * @param needControlButtons whether need control buttons
+	 */
+	public ServiceFromNewWSDLAddOperationWizardPage(List<Operation> operations, 
+			boolean needControlButtons) {
+		this();
+		this.needControlButtons = needControlButtons;
+		if (operations != null) {
+			this.operations = operations;
+		}
 	}
 
 	/**
@@ -255,7 +271,7 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 
 			@Override
 			public boolean canModify(Object element, String property) {
-				return (element instanceof Operation);
+				return needControlButtons ? (element instanceof Operation) : newOperations.contains(element);
 			}
 
 			@Override
@@ -333,16 +349,17 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 	}
 	
 	private void resetButtons(TemplateWSDLModel model) {
-		final boolean isOperation = model instanceof Operation;
-		removeOpBtn.setEnabled(isOperation);
-		upOpBtn.setEnabled(false);
-		downOpBtn.setEnabled(false);
-		final int index = operations.indexOf(model);
-		if( index >= 0) {
-			upOpBtn.setEnabled(index > 0);
-			downOpBtn.setEnabled(index + 1 < operations.size());
+		if (needControlButtons == true) {
+			final boolean isOperation = model instanceof Operation;
+			removeOpBtn.setEnabled(isOperation);
+			upOpBtn.setEnabled(false);
+			downOpBtn.setEnabled(false);
+			final int index = operations.indexOf(model);
+			if( index >= 0) {
+				upOpBtn.setEnabled(index > 0);
+				downOpBtn.setEnabled(index + 1 < operations.size());
+			}
 		}
-		
 	}
 	
 	private TemplateWSDLModel getSelectedModel(ISelection sel) {
@@ -405,8 +422,43 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 						"'" + opName + "' is not a valid operation name");
 				return false;
 			}
+			if(validateWSDLOperationName(opName) == false){
+				updateStatus(operationViewer.getControl(), 
+						"'" + opName + "' is not a valid WSDL operation name");
+				return false;
+			}
 			opNames.add(opName);
 		}
+		return true;
+	}
+	
+	private boolean validateWSDLOperationName(String optName) {
+		// no validation if it is an existing operation.
+		if (newOperations == null) {
+			return true;
+		}
+		boolean isNewOperation = false;
+		for (Operation oprt : newOperations) {
+			if (oprt.getName().equals(optName)) {
+				isNewOperation = true;
+				break;
+			}
+		}
+		
+		if(isNewOperation == false){
+			return true;
+		}
+
+		// check name is empty
+		if (optName.length() == 0) {
+			return false;
+		}
+		// check name is lower case started
+		char start = optName.charAt(0);
+		if (Character.isLowerCase(start) == false) {
+			return false;
+		}
+		// more validations may coming here...
 		return true;
 	}
 	
@@ -424,62 +476,69 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 			addOpBtn.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
-					operations.add(ServiceFromTemplateWsdlParamModel.createOperation("newOperation"));
+					Operation op = ServiceFromTemplateWsdlParamModel.createOperation("newOperation");
+					operations.add(op);
+					newOperations.add(op);
 					operationViewer.refresh();
 					resetButtons(null);
 					dialogChanged();
+					if (needControlButtons == false) {
+						addOpBtn.setEnabled(false);
+					}
 				}
 			});
 
-			removeOpBtn = new Button(container, SWT.PUSH);
-			removeOpBtn.setText("&Remove Operation");
-			removeOpBtn.setLayoutData(data);
-			removeOpBtn.setEnabled(false);
-			removeOpBtn.addSelectionListener(new SelectionAdapter() {
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					final TemplateWSDLModel model = getSelectedModel(null);
-					if (model instanceof Operation && operations.remove(model)) {
-						operationViewer.refresh();
-						resetButtons(null);
-						dialogChanged();
+			if (needControlButtons == true) {
+				removeOpBtn = new Button(container, SWT.PUSH);
+				removeOpBtn.setText("&Remove Operation");
+				removeOpBtn.setLayoutData(data);
+				removeOpBtn.setEnabled(false);
+				removeOpBtn.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						final TemplateWSDLModel model = getSelectedModel(null);
+						if (model instanceof Operation && operations.remove(model)) {
+							operationViewer.refresh();
+							resetButtons(null);
+							dialogChanged();
+						}
 					}
-				}
-			});
-			
-			new Label(container, SWT.LEFT);
-			
-			upOpBtn = new Button(container, SWT.PUSH);
-			upOpBtn.setText("&Up");
-			upOpBtn.setLayoutData(data);
-			upOpBtn.setEnabled(false);
-			upOpBtn.addSelectionListener(new SelectionAdapter() {
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					final TemplateWSDLModel model = getSelectedModel(null);
-					if (model instanceof Operation) {
-						ListUtil.moveOnePositionUp(operations, (Operation)model);
-						operationViewer.refresh();
-						resetButtons(model);
+				});
+
+				new Label(container, SWT.LEFT);
+
+				upOpBtn = new Button(container, SWT.PUSH);
+				upOpBtn.setText("&Up");
+				upOpBtn.setLayoutData(data);
+				upOpBtn.setEnabled(false);
+				upOpBtn.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						final TemplateWSDLModel model = getSelectedModel(null);
+						if (model instanceof Operation) {
+							ListUtil.moveOnePositionUp(operations, (Operation)model);
+							operationViewer.refresh();
+							resetButtons(model);
+						}
 					}
-				}
-			});
-			
-			downOpBtn = new Button(container, SWT.PUSH);
-			downOpBtn.setText("&Down");
-			downOpBtn.setLayoutData(data);
-			downOpBtn.setEnabled(false);
-			downOpBtn.addSelectionListener(new SelectionAdapter() {
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					final TemplateWSDLModel model = getSelectedModel(null);
-					if (model instanceof Operation) {
-						ListUtil.moveOnePositionDown(operations, (Operation)model);
-						operationViewer.refresh();
-						resetButtons(model);
+				});
+
+				downOpBtn = new Button(container, SWT.PUSH);
+				downOpBtn.setText("&Down");
+				downOpBtn.setLayoutData(data);
+				downOpBtn.setEnabled(false);
+				downOpBtn.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						final TemplateWSDLModel model = getSelectedModel(null);
+						if (model instanceof Operation) {
+							ListUtil.moveOnePositionDown(operations, (Operation)model);
+							operationViewer.refresh();
+							resetButtons(model);
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 	}
 	
@@ -493,9 +552,11 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 	}
 	
 	private Object getInputObject() {
-		final Operation op = ServiceFromTemplateWsdlParamModel.createOperation("getVersion");
-		op.getOutputParameter().getElements().clear();
-		operations.add(op);
+		if (this.operations.isEmpty() == true) {
+			final Operation op = ServiceFromTemplateWsdlParamModel.createOperation("getVersion");
+			op.getOutputParameter().getElements().clear();
+			operations.add(op);
+		}
 		return operations;
 	}
 	
@@ -582,4 +643,9 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 			return "";
 		}
 	}
+
+	public List<Operation> getNewOperations() {
+		return newOperations;
+	}
+	
 }

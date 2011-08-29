@@ -13,16 +13,24 @@ package org.ebayopensource.turmeric.eclipse.codegen.model;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+
 /**
- * This gentype is intended to be called during the service creation.
- * This is equivalent to gen types: Client + Proxy   
+ * This gentype is intended to be called during the service creation. This is
+ * equivalent to gen types: Client + Proxy
+ * 
  * @author yayu
- *
+ * 
  */
 public class GenTypeServiceFromWSDLIntf extends GenTypeClient {
+	
+	private static final SOALogger logger = SOALogger.getLogger();
+
+	private String metaDir;
 
 	/**
-	 * Instantiates a new gen type service from wsdl intf.
+	 * 
 	 */
 	public GenTypeServiceFromWSDLIntf() {
 		super();
@@ -55,22 +63,37 @@ public class GenTypeServiceFromWSDLIntf extends GenTypeClient {
 			String destination, String outputDirectory,
 			boolean generateFromWsdl, String genFolder,
 			String genInterfacePacakgeName, String genInterfaceClassName) {
-		super(GENTYPE_SERVICE_FROM_WSDL_INTF, 
-				namespace, serviceLayerFile, serviceInterface, serviceName,
-				serviceVersion, serviceImpl, projectRoot, serviceLayer,
-				sourceDirectory, destination, outputDirectory, generateFromWsdl,
-				genFolder, genInterfacePacakgeName, genInterfaceClassName);
-		
+		super(GENTYPE_SERVICE_FROM_WSDL_INTF, namespace, serviceLayerFile,
+				serviceInterface, serviceName, serviceVersion, serviceImpl,
+				projectRoot, serviceLayer, sourceDirectory, destination,
+				outputDirectory, generateFromWsdl, genFolder,
+				genInterfacePacakgeName, genInterfaceClassName);
+
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeClient#getCodeGenOptions()
-	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		final Map<String, String> options = super.getCodeGenOptions();
-		//options.remove(PARAM_PR);
-		//options = GenTypeTypeMappings.addCommonTypesNSOption(options);
+		String metaDir = getMetaDir();
+		String nonXSDFormat = this.getNonXSDFormats();
+		// if (metaDir != null) {
+		// options.put(PARAM_MDEST, metaDir);
+		// }
+		if (StringUtils.isNotBlank(nonXSDFormat) == true) {
+			options.put(PARAM_NON_XSD_FORMATS, nonXSDFormat);
+			logger.info("Calling codegen with option -nonXSDFormats="
+					+ nonXSDFormat);
+		} else {
+			logger.info("Calling codegen without option -nonXSDFormats");
+		}
 		return options;
+	}
+
+	public String getMetaDir() {
+		return metaDir;
+	}
+
+	public void setMetaDir(String metaDir) {
+		this.metaDir = metaDir;
 	}
 }

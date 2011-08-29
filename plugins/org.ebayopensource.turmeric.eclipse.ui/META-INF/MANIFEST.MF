@@ -33,7 +33,8 @@ Require-Bundle: org.eclipse.ui,
  javax.wsdl;bundle-version="1.6.2",
  org.eclipse.wst.xsd.core;bundle-version="1.1.0",
  org.eclipse.wst.xsd.ui;bundle-version="1.2.0",
- org.eclipse.search
+ org.eclipse.search,
+ org.ebayopensource.turmeric.eclipse.repositorysystem.ui;bundle-version="1.1.0"
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.ui.UIActivator
 Export-Package: org.ebayopensource.turmeric.eclipse.ui,
  org.ebayopensource.turmeric.eclipse.ui.actions,
@@ -42,6 +43,7 @@ Export-Package: org.ebayopensource.turmeric.eclipse.ui,
  org.ebayopensource.turmeric.eclipse.ui.extensions,
  org.ebayopensource.turmeric.eclipse.ui.handlers,
  org.ebayopensource.turmeric.eclipse.ui.model.typelib,
+ org.ebayopensource.turmeric.eclipse.ui.monitor.typelib,
  org.ebayopensource.turmeric.eclipse.ui.resources,
  org.ebayopensource.turmeric.eclipse.ui.util,
  org.ebayopensource.turmeric.eclipse.ui.views.registry,

@@ -36,9 +36,6 @@ public class TurmericSOAConfigPrefInitializer extends
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences()
-	 */
 	@Override
 	public void initializeDefaultPreferences() {
 		final IPreferenceStore store = getPreferenceStore();

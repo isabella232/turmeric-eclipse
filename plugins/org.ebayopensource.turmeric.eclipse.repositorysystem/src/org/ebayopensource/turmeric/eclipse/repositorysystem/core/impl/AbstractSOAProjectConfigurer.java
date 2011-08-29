@@ -27,7 +27,6 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAImplUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
-import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IFile;
@@ -88,8 +87,9 @@ public abstract class AbstractSOAProjectConfigurer implements
 					ProgressUtil.progressOneStep(monitor, 5);
 					final IFile svcConfigFile = imProject.getServiceConfigFile();
 					imProject.getMetadata().setImplVersion(newServiceVersion);
-					ConfigTool.saveServerConfig(imProject.getMetadata(),
-							svcConfigFile);
+					// plugin should never modify the ServiceConfig.xml since soa 2.9
+					// ConfigTool.saveServerConfig(imProject.getMetadata(),
+					// svcConfigFile);
 					svcConfigFile.refreshLocal(IResource.DEPTH_ZERO, monitor);
 					ProgressUtil.progressOneStep(monitor, 10);
 				}
@@ -130,8 +130,9 @@ public abstract class AbstractSOAProjectConfigurer implements
 	private boolean saveImplProject(final SOAImplProject implProject, IProgressMonitor monitor)
 	throws Exception {
 		final IFile svcConfigFile = implProject.getServiceConfigFile();
-		ConfigTool.saveServerConfig(implProject.getMetadata(),
-				svcConfigFile);
+		// plugin should never modify the ServiceConfig.xml since soa 2.9
+		// ConfigTool.saveServerConfig(implProject.getMetadata(),
+		// svcConfigFile);
 		svcConfigFile.refreshLocal(IResource.DEPTH_ZERO, monitor);
 		ProgressUtil.progressOneStep(monitor);
 		return true;

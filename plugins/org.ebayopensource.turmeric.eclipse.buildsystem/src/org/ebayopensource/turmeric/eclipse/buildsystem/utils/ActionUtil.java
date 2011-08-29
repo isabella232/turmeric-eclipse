@@ -39,7 +39,11 @@ import org.ebayopensource.turmeric.eclipse.registry.intf.IValidationStatus;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARootLocator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
+import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
+import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
@@ -59,8 +63,8 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.wst.wsdl.validation.internal.IValidationMessage;
 
 /**
- * All Action calls comes here.
- *
+ * All Action calls comes here
+ * 
  * @author smathew
  */
 public class ActionUtil {
@@ -323,21 +327,23 @@ public class ActionUtil {
 					.formatString(SOAMessages.ERR_LOC_ROOT_INCORRECT, locator
 							.getRoot()));
 		}
-		
+
 		IFile projectFile = project.getFile(SOAProjectConstants.FILE_PROJECT);
-		if (projectFile.exists() == true
-				&& projectFile.isReadOnly() == true) {
+		if (projectFile.exists() == true && projectFile.isReadOnly() == true) {
 			return EclipseMessageUtils.createErrorStatus(StringUtil
-					.formatString(SOAMessages.JAVA_CLASSPATH_READONLY, projectFile.getLocationURI().toString()));
+					.formatString(SOAMessages.JAVA_CLASSPATH_READONLY,
+							projectFile.getLocationURI().toString()));
 		}
-		
-		IFile classpathFile = project.getFile(SOAProjectConstants.FILE_CLASSPATH);
+
+		IFile classpathFile = project
+				.getFile(SOAProjectConstants.FILE_CLASSPATH);
 		if (classpathFile.exists() == true
 				&& classpathFile.isReadOnly() == true) {
 			return EclipseMessageUtils.createErrorStatus(StringUtil
-					.formatString(SOAMessages.JAVA_CLASSPATH_READONLY, classpathFile.getLocationURI().toString()));
+					.formatString(SOAMessages.JAVA_CLASSPATH_READONLY,
+							classpathFile.getLocationURI().toString()));
 		}
-		
+
 		return Status.OK_STATUS;
 	}
 
@@ -415,13 +421,14 @@ public class ActionUtil {
 							lineNumber = ((IValidationStatus) wsdlValidationStatus)
 									.getLineNumber();
 						}
-						// if need downgrade, only care about error status and change it to warning.
+						// if need downgrade, only care about error status and
+						// change it to warning.
 						if (needDowngrade == true) {
 							if (wsdlValidationStatus.getSeverity() == IStatus.ERROR) {
 								wsdlValidationStatus = EclipseMessageUtils
 										.createStatus(wsdlValidationStatus
 												.getMessage(), IStatus.WARNING);
-							}else{
+							} else {
 								continue;
 							}
 						}
@@ -440,8 +447,8 @@ public class ActionUtil {
 					IStatus statusDump = status;
 					if (needDowngrade == true) {
 						if (statusDump.getSeverity() == IStatus.ERROR) {
-							statusDump = EclipseMessageUtils.createStatus(statusDump
-									.getMessage(), IStatus.WARNING);
+							statusDump = EclipseMessageUtils.createStatus(
+									statusDump.getMessage(), IStatus.WARNING);
 						} else {
 							statusDump = null;
 						}
@@ -458,8 +465,7 @@ public class ActionUtil {
 						statuses.add(statusDump);
 					}
 				}
-			}
-			else {
+			} else {
 				logger.info("Validating WSDL with AS validator finsihed."
 						+ " No AS violations found.");
 			}
@@ -489,6 +495,8 @@ public class ActionUtil {
 			IProgressMonitor monitor) throws ValidationInterruptedException,
 			CoreException, MalformedURLException, IOException {
 
+		// TODO This WSDL validation is different with the one used in in
+		// codeGen.
 		logger
 				.info(
 						"Validating WSDL with WTP validator->",
@@ -573,10 +581,9 @@ public class ActionUtil {
 						"Exception occures while Running Assertion Service Validation: "
 								+ e.getMessage(), IStatus.WARNING);
 				statuses.add(status);
-//				UIUtil.showErrorDialog(
-//						SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED_TITLE,
-//						SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED, e);
-
+				// UIUtil.showErrorDialog(
+				// SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED_TITLE,
+				// SOAMessages.ERROR_SERVICE_RS_SERVICE_FAILED, e);
 			}
 		} else {
 			logger.info("AS validation skipped.");
@@ -608,25 +615,39 @@ public class ActionUtil {
 					.getFolder(SOAProjectConstants.FOLDER_GEN_META_SRC));
 			resources.add(project
 					.getFolder(SOAProjectConstants.FOLDER_GEN_TEST));
-			resources.add(project
-					.getFolder(SOAProjectConstants.FOLDER_GEN_SRC_CLIENT));
-			resources.add(project
-					.getFolder(SOAProjectConstants.FOLDER_GEN_SRC_SERVICE));
+			IFolder genClient = project
+					.getFolder(SOAProjectConstants.FOLDER_GEN_SRC_CLIENT);
+			IFolder genService = project
+					.getFolder(SOAProjectConstants.FOLDER_GEN_SRC_SERVICE);
+			if (genClient.isAccessible() == false
+					&& genService.isAccessible() == false) {
+				resources.add(project
+						.getFolder(SOAProjectConstants.FOLDER_GEN_SRC));
+
+			}
+			resources.add(genClient);
+			resources.add(genService);
 			resources.add(project
 					.getFolder(SOAProjectConstants.FOLDER_GEN_WEB_CONTENT));
-
+			logger.info("Start to clean project " + project.getName() + "...");
 			for (final IResource resource : resources) {
 				if (resource.isAccessible()) {
-					FileUtils.cleanDirectory(resource.getLocation().toFile());
-					ProgressUtil.progressOneStep(monitor);
+					try {
+						logger.info("Cleaning directory  "
+								+ resource.getLocation() + "...");
+						FileUtils.cleanDirectory(resource.getLocation()
+								.toFile());
+						ProgressUtil.progressOneStep(monitor);
+					} catch (Exception e) {
+						logger.error(e);
+						throw new SOAActionExecutionFailedException(e);
+					}
 				}
 			}
+			logger.info("Clean project " + project.getName() + " finished.");
 			project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-			ProgressUtil.progressOneStep(monitor);
 			project.build(IncrementalProjectBuilder.CLEAN_BUILD, monitor);
-		} catch (Exception e) {
-			logger.error(e);
-			throw new SOAActionExecutionFailedException(e);
+			ProgressUtil.progressOneStep(monitor);
 		} finally {
 			monitor.done();
 			WorkspaceUtil.refresh(monitor, project);
@@ -634,37 +655,64 @@ public class ActionUtil {
 		return Status.OK_STATUS;
 
 	}
+	
+	/**
+	 * generate config for zero config project
+	 * @param consumerProject
+	 * @param monitor
+	 * @return
+	 * @throws Exception
+	 */
+	public static IStatus generateConfigs(IProject consumerProject, IProgressMonitor monitor) throws Exception {
+		final List<AssetInfo> services = new ArrayList<AssetInfo>();
+		for (AssetInfo asset : GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+		.getAssetRegistry().getDependencies(consumerProject.getName())) {
+			if (IAssetInfo.TYPE_SERVICE_LIBRARY.equals(asset.getType())) {
+				services.add(asset);
+			}
+		}
+		logger.info("Generating configs for consumer project-> ", consumerProject.getName(), 
+				" with services ->", services );
+		final String clientName = SOAConsumerUtil.getClientName(consumerProject);
+		BuildSystemCodeGen
+		.generateArtifactsForAddedService(
+				consumerProject,
+				clientName,
+				ListUtil
+						.arrayList(SOAProjectConstants.DEFAULT_CLIENT_CONFIG_ENVIRONMENT),
+						services, monitor);
+		return Status.OK_STATUS;
+	}
 
 	/**
 	 * Wrapper to execute the job and schedule and show a message in the UI if
-	 * required.
+	 * required
+	 * 
 	 */
 	public static interface ActionJob {
-		
 		/**
-		 * Gets the target platform.
-		 *
-		 * @return the target platform
+		 * Gets the target platform
+		 * 
+		 * @return
 		 */
 		public String getTargetPlatform();
 
 		/**
-		 * Schedules the job for execution.
+		 * Schedules the job for execution
 		 */
 		public void schedule();
 
 		/**
-		 * Setting the sub job for the parent job.
-		 *
-		 * @param job the new sub job
+		 * Setting the sub job for the parent job
+		 * 
+		 * @param job
 		 */
 		public void setSubJob(Job job);
 
 		/**
-		 * Shows the message box in the UI.
-		 *
-		 * @param title the title
-		 * @param message the message
+		 * show message
+		 * @param title
+		 * @param message
 		 */
 		public void showMessage(String title, String message);
 	}

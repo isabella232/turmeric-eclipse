@@ -5,41 +5,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * The Class XSDContentList.
+ * represent a whole XSD file.
+ * @author mzang
+ *
  */
 public class XSDContentList {
 
 	private List<IXSDPiece> content = new LinkedList<IXSDPiece>();
 
 	/**
-	 * Instantiates a new xSD content list.
+	 * create instance
 	 */
 	public XSDContentList() {
 		super();
 	}
 
 	/**
-	 * Adds the.
-	 *
-	 * @param str the str
+	 * add a String piece to XSD
+	 * @param str
 	 */
 	public void add(String str) {
 		content.add(new StringPiece(str));
 	}
 
 	/**
-	 * Adds the.
-	 *
-	 * @param piece the piece
+	 * add a piece to XSD
+	 * @param str
 	 */
 	public void add(IXSDPiece piece) {
 		content.add(piece);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * generate XSD content
 	 */
-	@Override
 	public String toString() {
 		StringBuilder xsd = new StringBuilder();
 		for (IXSDPiece piece : content) {
@@ -49,19 +48,17 @@ public class XSDContentList {
 	}
 
 	/**
-	 * Size.
-	 *
-	 * @return the int
+	 * get piece count
+	 * @return
 	 */
 	public int size() {
 		return content.size();
 	}
 
 	/**
-	 * Insert.
-	 *
-	 * @param location the location
-	 * @param pieces the pieces
+	 * insert pieces to a location
+	 * @param location
+	 * @param pieces
 	 */
 	public void insert(int location, Object... pieces) {
 		List<IXSDPiece> listPieces = new ArrayList<IXSDPiece>();
@@ -78,19 +75,17 @@ public class XSDContentList {
 	}
 
 	/**
-	 * Insert.
-	 *
-	 * @param location the location
-	 * @param listPieces the list pieces
+	 * insert pieces to a location
+	 * @param location
+	 * @param listPieces
 	 */
 	public void insert(int location, List<IXSDPiece> listPieces) {
 		content.addAll(location, listPieces);
 	}
 
 	/**
-	 * Gets the content list.
-	 *
-	 * @return the content list
+	 * get all XSD pieces
+	 * @return
 	 */
 	public List<IXSDPiece> getContentList() {
 		return content;

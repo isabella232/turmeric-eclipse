@@ -33,11 +33,11 @@ import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject;
-import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
-import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientConfig;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientEnvironment;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject.SOAProjectSourceDirectory;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.io.PropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
@@ -96,6 +96,7 @@ public final class SOAConsumerUtil {
 							if (folder != null && folder.exists()) {
 								final File file = new File(folder.getLocation().toString());
 								FileUtils.deleteDirectory(file);
+								// folder.delete(true, new NullProgressMonitor()); TODO
 							}
 						}
 					}
@@ -205,6 +206,7 @@ public final class SOAConsumerUtil {
 					if (folder != null && folder.exists()) {
 						final File file = new File(folder.getLocation().toString());
 						FileUtils.deleteDirectory(file);
+						// folder.delete(true, new NullProgressMonitor()); TODO
 					}
 				}
 			}
@@ -309,9 +311,6 @@ public final class SOAConsumerUtil {
 			final SOAConsumerProject consumerProject) throws IOException,
 			CoreException {
 		Properties properties = loadConsumerProperties(consumerProject.getProject());
-		properties.setProperty(
-				SOAProjectConstants.PROPS_IMPL_BASE_CONSUMER_SRC_DIR,
-				consumerProject.getMetadata().getBaseConsumerSrcDir());
 		PropertiesFileUtil.writeToFile(properties, consumerProject.getProject()
 				.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_CONSUMER),
 				SOAProjectConstants.PROPS_COMMENTS);
@@ -364,7 +363,7 @@ public final class SOAConsumerUtil {
 
 		if (serviceNames != null) {
 			if (consumerProject instanceof SOAConsumerProject) {
-				consumerProject.getMetadata()
+				((SOAConsumerProject) consumerProject).getMetadata()
 						.setServiceNames(serviceNames);
 			}
 
@@ -388,18 +387,16 @@ public final class SOAConsumerUtil {
 	}
 	
 	/**
-	 * Gets the client config.
-	 *
-	 * @param project the project
-	 * @param serviceName the service name
-	 * @return the client config
-	 * @throws CoreException the core exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @deprecated This is only used for the old dir structure which
-	 * does not have environment in the path. Please use another overloaded
+	 * Gets the client config. 
+	 * @param project
+	 * @param serviceName
+	 * @return
+	 * @throws CoreException 
+	 * @throws IOException 
+	 * @deprecated This is only used for the old dir structure which 
+	 * does not have environment in the path. Please use another overloaded 
 	 * version which has environmentName as input option.
 	 */
-	@Deprecated
 	public static IFile getClientConfig(final IProject project,
 			final String serviceName) throws CoreException, IOException {
 		return getClientConfig(project, null, serviceName);
@@ -722,6 +719,23 @@ public final class SOAConsumerUtil {
 		return clientName;
 	}
 	
+	public static boolean isZeroConfigEnabled(IProject project) throws IOException, CoreException {
+		final IFile file = getConsumerPropertiesFile(project);
+		//the default name is same as the project name
+		boolean isZeroConfig = Boolean.FALSE;
+		if (file.exists() == true) {
+			final Properties props = loadConsumerProperties(project);
+			isZeroConfig = Boolean.valueOf(StringUtils.trim(
+					props.getProperty(SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG, 
+							Boolean.FALSE.toString())));
+		} else {
+			logger.warning(
+			"service_consumer_project.properties file is missing, so use the support_zero_config=false instead");
+		}
+		return isZeroConfig;
+
+	}
+
 	/**
 	 * Gets the client config client folder.
 	 *

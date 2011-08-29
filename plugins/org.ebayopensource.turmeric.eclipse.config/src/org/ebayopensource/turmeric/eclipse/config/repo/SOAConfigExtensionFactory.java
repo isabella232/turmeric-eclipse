@@ -235,9 +235,7 @@ public final class SOAConfigExtensionFactory {
 		
 		return null;
 	}
-	
-	
-	
+
 	/**
 	 * The Class SOAConfigTemplate.
 	 */

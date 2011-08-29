@@ -107,7 +107,7 @@ public final class SOALogger extends Logger{
 			String localConfigFile =  new StringBuilder().append(
                     System.getProperty("user.home")).append(File.separator) //$NON-NLS-1$
                     .append(".turmeric").append(File.separator).append( //$NON-NLS-1$
-                    		FILENAME_LOGGING_PROPERTIES).toString(); 
+                    		FILENAME_LOGGING_PROPERTIES).toString(); //$NON-NLS-1$
 			File configFile = new File(localConfigFile);
 			if (configFile.exists() == false) {
 				OutputStream output = null;
@@ -175,6 +175,8 @@ public final class SOALogger extends Logger{
 		// We want 1 logger per subsystem
 		String subsystem = "";
 		if (clazz != null) {
+//			TODO: after plugin added SOABinding in. add this back
+//			subsystem = BindingUtils.getPackageName(clazz);
 			if (subsystem.length() == 0) {
 				subsystem = clazz;
 			}

@@ -13,18 +13,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.SynchronizeWsdlAndDepXML;
 import org.ebayopensource.turmeric.eclipse.buildsystem.TypeLibSynhcronizer;
 import org.ebayopensource.turmeric.eclipse.core.compare.LibraryTypeComparator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryActivator;
-import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUIActivator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
+import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelector;
 import org.ebayopensource.turmeric.eclipse.ui.views.registry.TypeSelectorElementRenderer;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
@@ -37,8 +38,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDTypeDefinition;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * Updates the WSDL with latest versions of the XSDs for the existing types

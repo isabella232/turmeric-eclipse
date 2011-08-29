@@ -14,12 +14,14 @@ package org.ebayopensource.turmeric.eclipse.codegen.model;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
 /**
  * The Class GenTypeSISkeleton.
- *
+ * 
  * @author yayu
+ * 
  */
 public class GenTypeSISkeleton extends BaseCodeGenModel {
 	private boolean overwriteImplClass = false;

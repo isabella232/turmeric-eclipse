@@ -42,8 +42,8 @@ import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiExc
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenApiHelper;
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseUtil;
 import org.ebayopensource.turmeric.eclipse.mavenapi.intf.IMavenEclipseApi;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
@@ -100,12 +100,11 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * Configure as standard maven project.
-	 *
+	 * 
 	 * @param project a soa base project
 	 * @param monitor an eclipse progress monitor
 	 * @return a configured SOABaseProject
-	 * @throws CoreException the core exception
+	 * @throws CoreException 
 	 */
 	public static SOABaseProject configureAsStandardMavenProject(
 			final SOABaseProject project, IProgressMonitor monitor)
@@ -135,8 +134,7 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * Gets the artifact keys.
-	 *
+	 * 
 	 * @param mavenProject a maven project
 	 * @return a set of ArtifactKeys
 	 */
@@ -169,10 +167,10 @@ public class MavenCoreUtils {
 
 	/**
 	 * we only check for the existence of interface projects.
-	 *
+	 * 
 	 * @param serviceNames an Array of strings that contain service names
 	 * @return an boolean arry of results for the service names
-	 * @throws Exception the exception
+	 * @throws Exception 
 	 */
 	public static boolean[] serviceExists(final String... serviceNames)
 			throws Exception {
@@ -198,11 +196,10 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * Checks if is type library exist.
-	 *
+	 * 
 	 * @param typeLibName type library names
 	 * @return true if the type library exists
-	 * @throws Exception the exception
+	 * @throws Exception 
 	 */
 	public static boolean isTypeLibraryExist(final String typeLibName)
 			throws Exception {
@@ -225,11 +222,10 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * Artifact metadata.
-	 *
-	 * @param libs a list of libraries
+	 * 
+	 * @param libs a list of libraries 
 	 * @return a set of ArtifactMetadata for the libraries
-	 * @throws MavenEclipseApiException the maven eclipse api exception
+	 * @throws MavenEclipseApiException 
 	 */
 	public static Set<ArtifactMetadata> artifactMetadata(
 			final Collection<String> libs) throws MavenEclipseApiException {
@@ -256,8 +252,6 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * Library name.
-	 *
 	 * @param artifact artifact meta data
 	 * @return The full library name in Maven format
 	 */
@@ -268,8 +262,7 @@ public class MavenCoreUtils {
 	}
 
 	/**
-	 * Library name.
-	 *
+	 * 
 	 * @param artifact the artifact name
 	 * @return the libary name
 	 */
@@ -397,7 +390,7 @@ public class MavenCoreUtils {
 			}
 		}
 		
-		for (final Artifact artifact : mavenEclipseAPI()
+		for (final Artifact artifact : ((IMavenEclipseApi) mavenEclipseAPI())
 				.findArtifactByNameAndGroup(artifactID, groupID)) {
 			if (artifact != null
 					&& StringUtils.equals(artifact.getGroupId(), groupID)
@@ -508,7 +501,15 @@ public class MavenCoreUtils {
 				IPath jarPath = getServiceJarLocation(projectName);
 				if (jarPath != null)
 					return jarPath.toString();
-				
+				/*
+				 * final String[] groupIDs =
+				 * {SOAMavenConstants.SOA_TYPELIBRARY_GROUPID,
+				 * SOAMavenConstants.SOA_ERRORLIBRARY_GROUPID,
+				 * SOAMavenConstants.SOA_IMPL_GROUPID,
+				 * SOAMavenConstants.SOA_CLIENT_GROUPID,
+				 * SOAMavenConstants.SOA_FRAMEWORK_GROUPID};
+				 */
+				// FIXME we need SOA framework group ID here
 				for (String groupID : getMavenOrgProviderInstance()
 						.getAllProjectTypeGroupIds()) {
 					jarPath = getArtifactJarLocation(groupID, projectName);
@@ -798,6 +799,18 @@ public class MavenCoreUtils {
 
 			if (result != null) {
 				result.setImplementationProjectName(implProjectName);
+				/*
+				 * if (StringUtils.isNotBlank(implProjectName))
+				 * result.setImplementationProjectName(implProjectName); else {
+				 * //TODO the impl project name might not be available for those
+				 * project created in the old SOA plugin
+				 * result.setImplementationProjectName(serviceName +
+				 * SOAProjectConstants.IMPL_PROJECT_SUFFIX); logger.warning(
+				 * "Could not load the impl project name from the pom.xml of service->"
+				 * , projectName,
+				 * ", using the default logic with \"Impl\" as suffix ->",
+				 * result.getImplementationProjectName()); }
+				 */
 				processDependencies(mProject.getModel(), result);
 			}
 		}
@@ -988,6 +1001,18 @@ public class MavenCoreUtils {
 				serviceName, metadataProps);
 		if (result != null) {
 			result.setImplementationProjectName(implProjectName);
+			/*
+			 * if (StringUtils.isNotBlank(implProjectName))
+			 * result.setImplementationProjectName(implProjectName); else {
+			 * //TODO the impl project name might not be available for those
+			 * project created in the old SOA plugin
+			 * result.setImplementationProjectName(serviceName +
+			 * SOAProjectConstants.IMPL_PROJECT_SUFFIX); logger.warning(
+			 * "Could not load the impl project name from the pom.xml of service->"
+			 * , serviceName,
+			 * ", using the default logic with \"Impl\" as suffix ->",
+			 * result.getImplementationProjectName()); }
+			 */
 
 			processDependencies(pom, result);
 		}
@@ -1288,7 +1313,14 @@ public class MavenCoreUtils {
 						mProject.getModel());
 			} else if (getMavenOrgProviderInstance().getProjectGroupId(
 					SupportedProjectType.TYPE_LIBRARY).equals(groupID)) {
-			} 
+				// TODO return type library project info
+				// return MavenUtil.getTypeLibraryInfo(mProject);
+			} else if (SOAMavenConstants.SOA_FRAMEWORK_GROUPID.equals(groupID)) {
+				// this could be either the soa framework jars or the client
+				// projects
+				// return MavenUtil.get(projectName, mProject.getProperties(),
+				// mProject.getModel());
+			}
 		}
 
 		return null;
@@ -1500,7 +1532,11 @@ public class MavenCoreUtils {
 			containerInitializer.requestClasspathContainerUpdate(containerPath,
 					javaProject, mavenContainer);
 			containerInitializer.initialize(containerPath, javaProject);
-			// this is a hot fix for the Maven class path issue
+			/*
+			 * project.build(IncrementalProjectBuilder.FULL_BUILD,
+			 * ProgressUtil.getDefaultMonitor(null));
+			 */
+			// TODO this is a hot fix for the Maven class path issue
 			// it will continuously wait until the newly added service is
 			// available in the classpath
 			String tlGroupId = getMavenOrgProviderInstance().getProjectGroupId(

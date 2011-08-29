@@ -9,6 +9,7 @@
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.typelib;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeNoException;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,11 +28,11 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assume.*;
 
 
-
+@Ignore
 public class ImportTypeTest extends AbstractTestCase {
 
 	static DialogMonitor monitor;

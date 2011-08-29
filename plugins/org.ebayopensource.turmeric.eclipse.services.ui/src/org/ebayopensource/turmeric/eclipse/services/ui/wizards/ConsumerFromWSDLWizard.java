@@ -25,7 +25,6 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.services.buildsystem.ServiceCreator;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ConsumerFromExistingWSDLWizardPage;
-import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLPage;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
@@ -107,7 +106,6 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 		final String clientName = consumerFromWsdl.getClientName();
 		uiModel
 				.setWSDLSourceType(SOAProjectConstants.InterfaceWsdlSourceType.EXISTIING);
-		uiModel.setBaseConsumerSrcDir(consumerFromWsdl.getBaseConsumerSrcDir());
 		uiModel.setNamespaceToPacakgeMappings(consumerFromWsdl
 				.getNamespaceToPackageMappings());
 		uiModel.setClientName(clientName);
@@ -182,6 +180,6 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 	 */
 	@Override
 	public int getMinimumHeight() {
-		return super.getMinimumHeight() + 200;
+		return super.getMinimumHeight() - 100;
 	}
 }

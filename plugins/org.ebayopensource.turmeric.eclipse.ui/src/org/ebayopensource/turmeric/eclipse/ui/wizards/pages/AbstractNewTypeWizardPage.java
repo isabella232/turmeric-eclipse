@@ -23,16 +23,17 @@ import javax.xml.namespace.QName;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.config.repo.SOAConfigExtensionFactory.SOAConfigTemplate;
 import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.TemplateModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
-import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibraryConstants;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAResourceWizardPage;
 import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.eclipse.ui.UIConstants;
@@ -62,8 +63,6 @@ import org.eclipse.wst.xsd.ui.internal.common.util.XSDCommonUIUtils;
 import org.eclipse.xsd.XSDAnnotation;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDTypeDefinition;
-
-import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.w3c.dom.Element;
 
 /**
@@ -352,51 +351,55 @@ public abstract class AbstractNewTypeWizardPage extends
 		if (checkValidationResult(getResourceNameText(), validationModel) == false)
 			return false;
 
-		try {
-			if (StringUtils.isEmpty(typeLibraryNameText.getText())) {
-				updateStatus(typeLibraryNameText, "Select a type library.");
-				return false;
-			}
-			IProject project = WorkspaceUtil.getProject(typeLibraryNameText
-					.getText());
-			if (project.getFile(
-					TurmericCoreActivator.getXsdFileLocation(fileName, project))
-					.exists()
-					|| SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getType(
-							new QName(
-									UIActivator
-											.getNameSpace(typeLibraryNameText
-													.getText()), fileName)) != null) {
-				updateStatus(super.getResourceNameText(), 
-						"Type with the same name already exists in the specified namespace.");
-				return false;
-			}
-			for (final IResource resource : TurmericCoreActivator.getTypeLibProjectReadableResources(WorkspaceUtil
-							.getProject(typeLibraryNameText.getText()))) {
-				if (WorkspaceUtil.isResourceReadable(resource) == false) {
-					updateStatus(super.getResourceNameText(), 
-							resource.getName()
-							+ " does not exist or is not accessible.");
+		if (typeLibraryNameText != null) {
+			try {
+				if (StringUtils.isEmpty(typeLibraryNameText.getText())) {
+					updateStatus(typeLibraryNameText, "Select a type library.");
 					return false;
 				}
-			}
-			for (final IResource resource : TurmericCoreActivator.getTypeLibProjectWritableResources(WorkspaceUtil
-							.getProject(typeLibraryNameText.getText()))) {
-				if (WorkspaceUtil.isResourceModifiable(resource) == false) {
+				IProject project = WorkspaceUtil.getProject(typeLibraryNameText
+						.getText());
+				if (project.getFile(
+						TurmericCoreActivator.getXsdFileLocation(fileName, project))
+						.exists()
+						|| SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getType(
+								new QName(
+										UIActivator
+										.getNameSpace(typeLibraryNameText
+												.getText()), fileName)) != null) {
 					updateStatus(super.getResourceNameText(), 
-							resource.getName()
-							+ " does not exist or is not modifiable.");
+					"Type with the same name already exists in the specified namespace.");
 					return false;
 				}
+				for (final IResource resource : TurmericCoreActivator
+						.getTypeLibProjectReadableResources(WorkspaceUtil
+								.getProject(typeLibraryNameText.getText()))) {
+					if (WorkspaceUtil.isResourceReadable(resource) == false) {
+						updateStatus(super.getResourceNameText(), 
+								resource.getName()
+								+ " does not exist or is not accessible.");
+						return false;
+					}
+				}
+				for (final IResource resource : TurmericCoreActivator
+						.getTypeLibProjectWritableResources(WorkspaceUtil
+								.getProject(typeLibraryNameText.getText()))) {
+					if (WorkspaceUtil.isResourceModifiable(resource) == false) {
+						updateStatus(super.getResourceNameText(), 
+								resource.getName()
+								+ " does not exist or is not modifiable.");
+						return false;
+					}
+				}
+				if (SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getTypeLibrary(
+						typeLibraryNameText.getText()) == null) {
+					updateStatus("The Type registry seems to be out of sync. Please open the GlobalRegistry view, Window-->Show View-->SOA Plugin-->Global Registry and click the refresh button and try again.");
+					return false;
+				}
+			} catch (Exception exception) {
+				SOALogger.getLogger().warning("Validation Failure!", exception);
+				// Validation failure is Okay :).
 			}
-			if (SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getTypeLibrary(
-					typeLibraryNameText.getText()) == null) {
-				updateStatus("The Type registry seems to be out of sync. Please open the GlobalRegistry view, Window-->Show View-->SOA Plugin-->Global Registry and click the refresh button and try again.");
-				return false;
-			}
-		} catch (Exception exception) {
-			SOALogger.getLogger().warning("Validation Failure!", exception);
-			// Validation failure is Okay :).
 		}
 
 		return result;

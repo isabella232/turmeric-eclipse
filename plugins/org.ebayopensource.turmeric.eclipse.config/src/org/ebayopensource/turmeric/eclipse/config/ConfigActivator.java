@@ -21,7 +21,6 @@ import org.osgi.framework.BundleContext;
  */
 public class ConfigActivator extends Plugin {
 
-	// The plug-in ID
 	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "org.ebayopensource.turmeric.eclipse.config";
 

@@ -13,7 +13,6 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
 import org.ebayopensource.turmeric.eclipse.maven.core.utils.MavenCoreUtils;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
 import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseUtil;
-import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;

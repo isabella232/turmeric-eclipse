@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.MultiStatus;
 
 /**
  * The Class MarkerUtil.
- *
  * @author yayu
+ * 
  */
 public final class MarkerUtil {
 	/**
@@ -54,10 +54,10 @@ public final class MarkerUtil {
 
 	/**
 	 * Finds the SOA Error Markers given an IResource.
-	 *
+	 * 
 	 * @param resource the resource to check
 	 * @return An array of IMarkers that were found.  May be null or empty if nothing is found.
-	 * @throws CoreException the core exception
+	 * @throws CoreException 
 	 */
 	public static IMarker[] findSOAErrorMarkers(IResource resource)
 	throws CoreException {
@@ -73,10 +73,9 @@ public final class MarkerUtil {
 
 	/**
 	 * Finds the SOA Problem Markers given a resource.
-	 *
 	 * @param resource the resource to search
 	 * @return an array of IMarker entries. May be null or empty if noting is found.
-	 * @throws CoreException the core exception
+	 * @throws CoreException 
 	 */
 	public static IMarker[] findSOAProblemMarkers(IResource resource)
 	throws CoreException {
@@ -86,11 +85,11 @@ public final class MarkerUtil {
 
 	/**
 	 * Finds markers given a resource and type.
-	 *
-	 * @param resource the resource
+	 * 
+	 * @param resource the resource 
 	 * @param type the type of markert to find
 	 * @return An array of IMarkers that where found. May be empty or null if no markers found.
-	 * @throws CoreException the core exception
+	 * @throws CoreException 
 	 */
 	public static IMarker[] findMarkers(IResource resource, String type)
 	throws CoreException {

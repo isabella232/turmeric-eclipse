@@ -22,10 +22,10 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARootLocator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAOrganizationProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARootLocator;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.ErrorMessage;
@@ -299,7 +299,6 @@ AbstractSOAResourceWizardPage {
 				dialogChanged();
 			}
 		};
-		
 		serviceDomainList.addListener(SWT.DefaultSelection, new Listener() {
 			@Override
 			public void handleEvent(Event e) {

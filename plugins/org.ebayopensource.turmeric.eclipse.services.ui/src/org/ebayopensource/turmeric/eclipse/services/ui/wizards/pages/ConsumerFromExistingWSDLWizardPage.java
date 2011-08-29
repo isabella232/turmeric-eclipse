@@ -71,6 +71,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.events.ExpansionAdapter;
+import org.eclipse.ui.forms.events.ExpansionEvent;
 
 
 /**
@@ -86,6 +88,12 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	private ListViewer envrionmentList;
 	private List<String> environments = new ArrayList<String>();
 	private String versionFromWSDL = null;
+	private boolean simpleMode = true; //simple mode will not need to craete the consumer project
+	private String domainName = "";
+	
+	private static final String SIMPLE_MODE_TITLE = "Simple Mode reads a pre-existing WSDL document, creates a SOA Intf Project and a Consumer without ClientConfig.xml.";
+	
+	private static final String ADV_MODE_TITLE = "Advance Mode creates a SOA Intf Project and a Consumer from a pre-existing WSDL document.";
 
 	private static final SOALogger logger = SOALogger.getLogger();
 
@@ -96,10 +104,9 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	 */
 	public ConsumerFromExistingWSDLWizardPage(
 			final IStructuredSelection selection) {
-		super(
-				"newConsumerFromWSDLWizardPage",
+		super("newConsumerFromWSDLWizardPage",
 				"New Consumer From Existing WSDL Wizard",
-				"This wizard creates a new SOA Service Consumer from a pre-existing WSDL document.");
+				SIMPLE_MODE_TITLE);
 	}
 
 	/**
@@ -131,44 +138,50 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			
 			addWorkspaceRootChooser(container);
 			addServiceName(container, false);
+			
+			this.adminText = addAdminName(container, false);
+			{
+				if (this.resourceNameControlDecoration != null) {
+					// we do not want to show both WARNING and INFORMATION icons
+					resourceNameControlDecoration.hide();
+				}
+				ControlDecoration controlDecoration = new ControlDecoration(
+						adminText, SWT.LEFT | SWT.TOP);
+				controlDecoration.setShowOnlyOnFocus(false);
+				controlDecoration
+						.setDescriptionText(SOAMessages.WARNING_ADMIN_NAME_MANUAL_OVERRIDE);
+				FieldDecoration fieldDecoration = FieldDecorationRegistry
+						.getDefault().getFieldDecoration(
+								FieldDecorationRegistry.DEC_WARNING);
+				controlDecoration.setImage(fieldDecoration.getImage());
+			}
 			createServiceClient(container, false);
-			createConsumerIDText(container);
 			
 			{
 				//advanced section
-				Composite advancedPanel = super.createAdvancedSettingsPanel(container);
-				addServiceDomainList(advancedPanel, true);
+				ExpansionAdapter listener  = new ExpansionAdapter() {
+					public void expansionStateChanged(ExpansionEvent e) {
+						boolean status = e.getState();
+						if(status == true){
+							setDescription(ADV_MODE_TITLE);
+						}else {
+							setDescription(SIMPLE_MODE_TITLE);
+						}
+					}
+				};
+				Composite advancedPanel = super.createAdvancedSettingsPanel(container, listener);
 				if (serviceDomainList != null && domainClassifierList != null) {
 					this.serviceDomainList.select(-1);
 					this.serviceDomainList.clearSelection();
 					this.domainClassifierList.select(-1);
 					this.domainClassifierList.clearSelection();
 				}
-				addServiceVersion(advancedPanel);
-				addTargetNamespace(advancedPanel, null, false);
-				this.adminText = addAdminName(advancedPanel, false);
-				{
-					if (this.resourceNameControlDecoration != null) {
-						// we do not want to show both WARNING and INFORMATION icons
-						resourceNameControlDecoration.hide();
-					}
-					ControlDecoration controlDecoration = new ControlDecoration(
-							adminText, SWT.LEFT | SWT.TOP);
-					controlDecoration.setShowOnlyOnFocus(false);
-					controlDecoration
-							.setDescriptionText(SOAMessages.WARNING_ADMIN_NAME_MANUAL_OVERRIDE);
-					FieldDecoration fieldDecoration = FieldDecorationRegistry
-							.getDefault().getFieldDecoration(
-									FieldDecorationRegistry.DEC_WARNING);
-					controlDecoration.setImage(fieldDecoration.getImage());
-				}
-				
-				createBaseConsumerSource(advancedPanel);
+				addTargetNamespace(advancedPanel, "", false);
 				addServicePackage(advancedPanel);
-				addServiceLayer(advancedPanel);
-				createEnvironmentList(advancedPanel);
+				createConsumerIDText(advancedPanel);
+				createEnvironmentList(advancedPanel, true);
 				addWSDLPackageToNamespace(advancedPanel);
-				addTypeFolding(advancedPanel);
+				addTypeFolding(advancedPanel).setVisible(false);
 				super.setTypeFolding(false);
 			}
 			
@@ -246,6 +259,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			super.createEmptyLabel(parent, 1);
 		}
 
+		// TODO get consumer ID if possible
 		return this.consumerID;
 	}
 
@@ -255,7 +269,8 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	 * @param parent the parent
 	 * @return the list viewer
 	 */
-	protected ListViewer createEnvironmentList(Composite parent) {
+	protected ListViewer createEnvironmentList(Composite parent, boolean simpleMode) {
+		this.simpleMode = simpleMode;
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		group.setText("Environments");
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -318,7 +333,9 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			}
 			
 		});
-		environments.add(SOAProjectConstants.DEFAULT_CLIENT_CONFIG_ENVIRONMENT);
+		if (simpleMode == false) {
+			environments.add(SOAProjectConstants.DEFAULT_CLIENT_CONFIG_ENVIRONMENT);
+		}
 		envrionmentList.setInput(environments);
 		
 		Composite btnComposite = new Composite(group, SWT.NONE);
@@ -409,7 +426,6 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	protected Text createServiceClient(final Composite parent,
 			final boolean editable) {
 		final ModifyListener nsModifyListener = new ModifyListener() {
-			@Override
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
@@ -457,6 +473,9 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	 */
 	@Override
 	protected boolean dialogChanged() {
+		if (super.dialogChanged(false) == false && isPageComplete() == false){
+			return false;
+		}
 		
 		if (publicServiceNameText != null
 				&& (validateName(
@@ -468,11 +487,6 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 								+ "] in WSDL file is not valid against the pattern \""
 								+ RegExConstants.SERVICE_NAME_EXP
 								+ "\". Please correct service name in WSDL and run this wizard again.") == false)) {
-			return false;
-		}
-		
-		
-		if (super.dialogChanged(false) == false && isPageComplete() == false){
 			return false;
 		}
 
@@ -512,7 +526,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		}
 
 		if (envrionmentList != null) {
-			if (environments.isEmpty()) {
+			if (environments.isEmpty() && this.simpleMode == false) {
 				updateStatus(envrionmentList.getControl(),
 						"At least one environment must be added");
 				return false;
@@ -549,7 +563,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		 * Otherwise, the wizard couldn�t continue.
 		 */
 
-		if ((versionFromWSDL != null)
+		if ((versionFromWSDL != null && resourceVersionText != null)
 				&& versionFromWSDL.equals(getResourceVersion()) == false) {
 			String errorMsg = StringUtil.formatString(
 					SOAMessages.DIFFERENT_SERVICE_VERSION_WITH_WSDL, getResourceVersion(),
@@ -579,7 +593,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		if (StringUtils.isNotEmpty(getResourceName())
 				&& Character.isLowerCase(getResourceName().charAt(0))) {
 			updatePageStatus(getResourceNameText(), EclipseMessageUtils
-					.createStatus(SOAMessages.SVCNAME_ERR, IStatus.WARNING));
+					.createStatus(SOAMessages.SVCNAME_ERR, Status.WARNING));
 			return true;
 		}
 
@@ -608,6 +622,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 				String nsPart = StringUtils
 						.capitalize(getOrganizationProvider()
 								.getNamespacePartFromTargetNamespace(targetNs));
+				this.domainName = nsPart;
 				if (StringUtils.isNotBlank(nsPart)) {
 					this.adminText.setText(nsPart + getAdminName());
 				} else {
@@ -620,28 +635,33 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			}
 			String version = SOAIntfUtil.getServiceVersionFromWsdl(wsdl,
 					getPublicServiceName()).trim();
-			resourceVersionText.setEditable(true);
-			if (StringUtils.isNotBlank(version)) {
-				versionFromWSDL = version;
-				// has version
-				int versionPart = StringUtils.countMatches(version,
-						SOAProjectConstants.DELIMITER_DOT);
-				// add "dot number" to version. It will be changed to X.Y.Z
-				if (versionPart == 2) {
-					// is new version format, set version text read-only.
-					resourceVersionText.setEditable(false);
-				} else {
-					// is v2format
-					while (versionPart < 2) {
-						version += SOAProjectConstants.DELIMITER_DOT + "0";
-						versionPart++;
+			if (resourceVersionText != null) {
+				resourceVersionText.setEditable(true);
+				if (StringUtils.isNotBlank(version)) {
+					versionFromWSDL = version;
+					// has version
+					int versionPart = StringUtils.countMatches(version,
+							SOAProjectConstants.DELIMITER_DOT);
+					// add "dot number" to version. It will be changed to X.Y.Z
+					if (versionPart == 2) {
+						// is new version format, set version text read-only.
+						resourceVersionText.setEditable(false);
+					} else {
+						// is v2format
+						while (versionPart < 2) {
+							version += SOAProjectConstants.DELIMITER_DOT + "0";
+							versionPart++;
+						}
 					}
+					resourceVersionText.setText(version);
+				} else {
+					// don't have version, use default version.
+					resourceVersionText
+					.setText(SOAProjectConstants.DEFAULT_SERVICE_VERSION);
 				}
-				resourceVersionText.setText(version);
 			} else {
-				// don't have version, use default version.
-				resourceVersionText
-						.setText(SOAProjectConstants.DEFAULT_SERVICE_VERSION);
+				versionFromWSDL = version;
+				serviceVersionChanged(version);
 			}
 			serviceClientText.setText(getAdminName()
 					+ SOAProjectConstants.CLIENT_PROJECT_SUFFIX);
@@ -691,6 +711,18 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			this.serviceDomainList.clearSelection();
 			this.domainClassifierList.clearSelection();
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getServiceVersion() {
+		String result = super.getServiceVersion();
+		if (StringUtils.isBlank(result) && StringUtils.isNotBlank(versionFromWSDL)) {
+			return versionFromWSDL;
+		}
+		return result;
 	}
 
 	/**
@@ -753,6 +785,17 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			return defaultName;
 		else
 			return "";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getServiceDomain() {
+		if (serviceDomainList == null) {
+			return this.domainName;
+		}
+		return super.getServiceDomain();
 	}
 
 	/**

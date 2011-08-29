@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.SynchronizeWsdlAndDepXML;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
@@ -42,8 +43,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.progress.IProgressConstants;
-
-import org.ebayopensource.turmeric.common.config.LibraryType;
 
 /**
  * The Class DeleteTypeAction.
@@ -213,7 +212,6 @@ public class DeleteTypeAction implements IObjectActionDelegate {
 							ProgressUtil.progressOneStep(monitor);
 							synch.synchronizeTypeDepandProjectDep(monitor);
 							WorkspaceUtil.refresh(monitor, project);
-
 						} catch (Exception e) {
 							logger.error(e);
 							throw new CoreException(EclipseMessageUtils.createErrorStatus(e));

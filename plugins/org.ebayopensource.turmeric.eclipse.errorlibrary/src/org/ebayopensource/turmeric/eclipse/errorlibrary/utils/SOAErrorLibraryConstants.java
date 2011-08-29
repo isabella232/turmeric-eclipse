@@ -104,4 +104,8 @@ public class SOAErrorLibraryConstants {
 	/** The error library central location. */
 	public static String errorLibraryCentralLocation;
 	
+	/** Error Library default version*/
+	public static final String DEFAULT_VERSION = "1.0.0";
+
+	
 }

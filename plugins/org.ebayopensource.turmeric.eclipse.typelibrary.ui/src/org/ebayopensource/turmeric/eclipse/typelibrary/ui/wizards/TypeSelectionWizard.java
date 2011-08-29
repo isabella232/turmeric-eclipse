@@ -14,19 +14,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.SynchronizeWsdlAndDepXML;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAXSDTemplateSubType;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOATypeCreationFailedException;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.TrackingEvent;
-import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
+import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.buildsystem.TypeCreator;
 import org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.pages.TypeSelectionWizardPage;
-import org.ebayopensource.turmeric.eclipse.typelibrary.ui.TypeLibraryUtil;
 import org.ebayopensource.turmeric.eclipse.ui.SOABaseWizard;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeCCParamModel;
 import org.ebayopensource.turmeric.eclipse.ui.model.typelib.ComplexTypeParamModel;
@@ -37,14 +38,15 @@ import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeC
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeSCWizardGeneralPage;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardAttribPage;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardElementPage;
+import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardElementPage.ElementTableModel;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardGeneralPage;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.EnumTypeWizardDetailsPage;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.EnumTypeWizardGeneralPage;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.SimpleTypeWizardGeneralPage;
-import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.typelib.ComplexTypeWizardElementPage.ElementTableModel;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProgressUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
+import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -52,9 +54,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -80,6 +85,11 @@ public class TypeSelectionWizard extends SOABaseWizard {
 
 	private static final SOALogger logger = SOALogger.getLogger();
 	private String typeLibName = "";
+	protected IEditorPart editorPart = null;
+
+	public void setEditorPart(IEditorPart editorPart) {
+		this.editorPart = editorPart;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -320,6 +330,35 @@ public class TypeSelectionWizard extends SOABaseWizard {
 					}
 
 				});
+			}
+			
+			if (this.editorPart != null) {
+				//auto inline the type to the wsdl file
+				Job job = new Job("Auto Inline the New Schema Type...") {
+
+					@Override
+					protected IStatus run(IProgressMonitor monitor) {
+						monitor.beginTask(getName(), IProgressMonitor.UNKNOWN);
+						try {
+							SOATypeRegistry registry = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry();
+							LibraryType newType = null;
+							
+							while((newType = registry.getType(
+									paramModel.getTypeName(), typeLibName)) == null) {
+								MessageDialog.openInformation(null, "DDD", "Found the type->" + newType);
+							}
+						
+						} catch (Exception e) {
+							logger.error(e);
+						} finally {
+							monitor.done();
+						}
+						return Status.OK_STATUS;
+					}
+					
+				};
+				job.schedule();
+				
 			}
 			return true;
 		} catch (Exception exception) {

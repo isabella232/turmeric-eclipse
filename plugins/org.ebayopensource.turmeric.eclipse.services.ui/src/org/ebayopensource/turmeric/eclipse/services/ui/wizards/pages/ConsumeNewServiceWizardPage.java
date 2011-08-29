@@ -33,6 +33,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvide
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.EnvironmentItem;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
@@ -72,6 +73,7 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
     private Set<AssetInfo> existingServices = new LinkedHashSet<AssetInfo>();
     private List<String> existingEnvironments = new ArrayList<String>();
     private IProject project;
+    private boolean isZeroConfig = false;
     
     private Text clientName;
     private Text consumerId;
@@ -79,7 +81,11 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
     private Button retrieveConsumerIDBtn;
     private static final SOALogger logger = SOALogger.getLogger();
     
-	/**
+    private static String SIMPLE_TITLE = "Set up configurations for services.";
+    
+    private static String ADV_TITLE = "Set up configurations for environments and services.";
+    
+    /**
 	 * Instantiates a new consume new service wizard page.
 	 *
 	 * @param project the project
@@ -89,6 +95,10 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 		setTitle("Set Up Consumer Configurations");
 		setDescription("Set up configurations for environments and services.");
 		this.project = project;
+	}
+	
+	public boolean isZeroConfig() {
+		return this.isZeroConfig;
 	}
 
 	/**
@@ -114,6 +124,16 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 							SOAProjectConstants.PROPS_KEY_CONSUMER_ID, ""));
 					scppVersion = StringUtils.trim(props.getProperty(
 							SOAProjectConstants.PROPS_KEY_SCPP_VERSION, ""));
+					isZeroConfig = Boolean
+							.valueOf(StringUtils.trim(props
+									.getProperty(
+											SOAProjectConstants.PROPS_SUPPORT_ZERO_CONFIG,
+											Boolean.FALSE.toString())));
+					if (isZeroConfig) {
+						setDescription(SIMPLE_TITLE);
+					} else {
+						setDescription(ADV_TITLE);
+					}
 				} else {
 					logger.warning(
 							"The underlying projects do not have service_consumer_project.properties file->", 
@@ -251,20 +271,22 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 			dependencies.put(info.getName(), info);
 		}
 		
-		final List<EnvironmentItem> items = 
-			SOAConsumerUtil.getClientConfigStructure(project);
-		
-		for (EnvironmentItem item : items) {
-			for (String serviceName : item.getServices()) {
-				AssetInfo asset = dependencies.get(serviceName);
-				if (asset == null) {
-					logger.warning("Could not service->", serviceName, " in the project dependency list->", project);
-				} else {
-					item.addServiceData(asset);
-					existingServices.add(asset);
+		List<EnvironmentItem> items = new ArrayList<EnvironmentItem>();
+		if (isZeroConfig == false) {
+			items = SOAConsumerUtil.getClientConfigStructure(project);
+
+			for (EnvironmentItem item : items) {
+				for (String serviceName : item.getServices()) {
+					AssetInfo asset = dependencies.get(serviceName);
+					if (asset == null) {
+						logger.warning("Could not find service->", serviceName, " in the project dependency list->", project);
+					} else {
+						item.addServiceData(asset);
+						existingServices.add(asset);
+					}
 				}
+				existingEnvironments.add(item.getName());
 			}
-			existingEnvironments.add(item.getName());
 		}
 		
 		this.serviceList = new AbstractSOAServiceListViewer(project, 
@@ -285,6 +307,10 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 			@Override
 			protected void enviromentAdded(String environmentName,
 					EnvironmentItem environmentForCopy) {
+				if (environmentForCopy == null) {
+					//this would cause NPE with HashTable or ConcurrentHashMap
+					environmentForCopy = new EnvironmentItem(null);
+				}
 				addedEnvironments.put(environmentName, environmentForCopy);
 				dialogChanged();
 			}
@@ -296,9 +322,20 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 			}
 			
 		};
+		this.serviceList.setZeroConfig(isZeroConfig);
 		if (items.isEmpty()) {
 			//an impl project that does not have any environment yet
-			items.add(new EnvironmentItem(SOAProjectConstants.DEFAULT_CLIENT_CONFIG_ENVIRONMENT));
+			EnvironmentItem envItem = new EnvironmentItem(SOAProjectConstants.DEFAULT_CLIENT_CONFIG_ENVIRONMENT);
+			items.add(envItem);
+			if (isZeroConfig == true) {
+				for (AssetInfo asset : GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+				.getAssetRegistry().getDependencies(this.project.getName())) {
+					if (IAssetInfo.TYPE_SERVICE_LIBRARY.equals(asset.getType())) {
+						envItem.addServiceData(asset);
+						existingServices.add(asset);
+					}
+				}
+			}
 		}
 		final Composite container = this.serviceList.createControl(parent, items);
 		return container;

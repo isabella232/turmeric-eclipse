@@ -103,7 +103,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 			throw new MavenEclipseApiException(Messages.ERROR_NULL_SETTINGS);
 		}
 
-		List<String> activeProfiles = settings
+		List<String> activeProfiles = (List<String>) settings
 				.getActiveProfiles();
 		if (activeProfiles == null || activeProfiles.size() < 1) {
 			throw new MavenEclipseApiException(
@@ -117,7 +117,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 			// .lookup(org.apache.maven.MavenTools.class);
 			RepositorySystem rs = plexus.lookup(RepositorySystem.class);
 			if (needPluginRepo == false) {
-				for (Mirror mirror : settings.getMirrors()) {
+				for (Mirror mirror : (List<Mirror>) settings.getMirrors()) {
 					final org.apache.maven.model.Repository repo = new org.apache.maven.model.Repository();
 					repo.setId(mirror.getId());
 					// repo.setModelEncoding(mirror.getModelEncoding());
@@ -135,7 +135,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 				}
 			}
 
-			List<Profile> profiles = settings.getProfiles();
+			List<Profile> profiles = (List<Profile>) settings.getProfiles();
 			for (Profile p : profiles) {
 				if (activeProfiles.contains(p.getId())) {
 					org.apache.maven.model.Profile mp = SettingsUtils
@@ -274,6 +274,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 			if (md == null)
 				throw new MavenEclipseApiException(
 						"null metadata object supplied");
+			//FIXME below is a temp fix for the NPE from M2Eclipse, lets do this flow approach for now
 			RepositorySystem repoSystem = MavenApiHelper.getRepositorySystem();
 			Set<Artifact> data = new HashSet<Artifact>();
 			Artifact artifact = resolveArtifact(embedder, repoSystem, md);

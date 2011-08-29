@@ -8,8 +8,13 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.functional.test.ft.typelib;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Iterator;
 
+import org.ebayopensource.turmeric.common.config.TypeInformationType;
+import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 import org.ebayopensource.turmeric.eclipse.functional.test.AbstractTestCase;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
 import org.ebayopensource.turmeric.eclipse.test.util.DialogMonitor;
@@ -17,11 +22,10 @@ import org.ebayopensource.turmeric.eclipse.test.util.FunctionalTestHelper;
 import org.ebayopensource.turmeric.eclipse.test.utils.TLUtil;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.ebayopensource.turmeric.common.config.TypeInformationType;
-import org.ebayopensource.turmeric.common.config.TypeLibraryType;
 
+@Ignore
 public class SOAGlobalRegistryAdapterTest extends AbstractTestCase {
 	static DialogMonitor monitor;
 

@@ -2,40 +2,42 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpie
 
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 
-
 /**
- * The Class TypeLibraryNamePiece.
+ * represent the type lib name
+ * 
+ * @author mzang
+ * 
  */
 public class TypeLibraryNamePiece extends TypeRelatedContent {
 
 	/**
-	 * Instantiates a new type library name piece.
-	 *
-	 * @param qName the q name
+	 * creat instance
+	 * 
+	 * @param qName
 	 */
 	public TypeLibraryNamePiece(String qName) {
 		this.qName = qName;
 	}
-	
+
 	/**
-	 * Instantiates a new type library name piece.
-	 *
-	 * @param qName the q name
-	 * @param model the model
+	 * create instance
+	 * 
+	 * @param qName
+	 * @param model
 	 */
 	public TypeLibraryNamePiece(String qName, TypeModel model) {
 		this.qName = qName;
 		this.model = model;
 	}
-	
+
 	/**
-	 * Instantiates a new type library name piece.
+	 * default constructor
 	 */
 	public TypeLibraryNamePiece() {
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece.IXSDPiece#getContent()
+	/**
+	 * get content
 	 */
 	@Override
 	public String getContent() {
