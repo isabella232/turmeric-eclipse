@@ -13,6 +13,7 @@ import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TypeFilterHonLibrary.
  *
@@ -21,6 +22,7 @@ import org.eclipse.jface.viewers.ViewerFilter;
 public class TypeFilterHonLibrary extends ViewerFilter {
 	
 	//the currently selected node
+	/** The node. */
 	private IRegistryTreeNode node;
 
 	

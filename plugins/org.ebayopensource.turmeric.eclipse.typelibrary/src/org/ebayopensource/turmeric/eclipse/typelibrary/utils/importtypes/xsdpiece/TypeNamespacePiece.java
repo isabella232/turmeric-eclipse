@@ -2,25 +2,28 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpie
 
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 
+// TODO: Auto-generated Javadoc
 /**
- * represent type name piece
- * @author mzang
+ * represent type name piece.
  *
+ * @author mzang
  */
 public class TypeNamespacePiece extends TypeRelatedContent {
 
 	/**
-	 * create instance
-	 * @param qName
+	 * create instance.
+	 *
+	 * @param qName the q name
 	 */
 	public TypeNamespacePiece(String qName) {
 		this.qName = qName;
 	}
 	
 	/**
-	 * create instance
-	 * @param qName
-	 * @param model
+	 * create instance.
+	 *
+	 * @param qName the q name
+	 * @param model the model
 	 */
 	public TypeNamespacePiece(String qName, TypeModel model) {
 		this.qName = qName;
@@ -28,13 +31,15 @@ public class TypeNamespacePiece extends TypeRelatedContent {
 	}
 	
 	/**
-	 * create default instance
+	 * create default instance.
 	 */
 	public TypeNamespacePiece() {
 	}
 
 	/**
-	 * return type namespace
+	 * return type namespace.
+	 *
+	 * @return the content
 	 */
 	@Override
 	public String getContent() {

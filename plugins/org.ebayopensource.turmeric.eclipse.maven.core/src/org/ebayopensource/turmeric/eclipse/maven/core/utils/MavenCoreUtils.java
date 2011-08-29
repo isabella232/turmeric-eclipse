@@ -390,7 +390,7 @@ public class MavenCoreUtils {
 			}
 		}
 		
-		for (final Artifact artifact : ((IMavenEclipseApi) mavenEclipseAPI())
+		for (final Artifact artifact : mavenEclipseAPI()
 				.findArtifactByNameAndGroup(artifactID, groupID)) {
 			if (artifact != null
 					&& StringUtils.equals(artifact.getGroupId(), groupID)

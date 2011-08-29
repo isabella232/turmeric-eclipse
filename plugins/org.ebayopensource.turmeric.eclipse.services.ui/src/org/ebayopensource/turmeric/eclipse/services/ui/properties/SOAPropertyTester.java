@@ -13,6 +13,7 @@ import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.eclipse.core.expressions.PropertyTester;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAPropertyTester.
  *
@@ -22,6 +23,8 @@ public class SOAPropertyTester extends PropertyTester {
 	
 	/** The Constant IS_SERVICES_VIEW_ENABLED. */
 	public static final String IS_SERVICES_VIEW_ENABLED = "isServicesViewEnabled";
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**

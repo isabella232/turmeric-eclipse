@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GenTypeSISkeleton.
  * 
@@ -24,6 +25,8 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
  * 
  */
 public class GenTypeSISkeleton extends BaseCodeGenModel {
+	
+	/** The overwrite impl class. */
 	private boolean overwriteImplClass = false;
 
 	/**

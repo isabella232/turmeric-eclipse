@@ -15,6 +15,7 @@ import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GenTypeClient.
  *
@@ -22,8 +23,13 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
  */
 public class GenTypeClient extends BaseCodeGenModel {
 
+	/** The generate from wsdl. */
 	private boolean generateFromWsdl = false;
+	
+	/** The gen interface pacakge name. */
 	private String genInterfacePacakgeName; // -gip
+	
+	/** The gen interface class name. */
 	private String genInterfaceClassName; // -gin
 
 	/**

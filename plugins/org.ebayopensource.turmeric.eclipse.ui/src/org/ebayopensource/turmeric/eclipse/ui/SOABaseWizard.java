@@ -50,6 +50,9 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 		setNeedsProgressMonitor(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
+	 */
 	@Override
 	public boolean performFinish() {
 		return false;

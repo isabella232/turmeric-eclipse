@@ -31,6 +31,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * 
@@ -57,32 +58,45 @@ public class XSDTypeParser extends DefaultHandler {
 	/** The Constant documentMarker. */
 	public static final String documentMarker = "Document";
 
+	/** The current. */
 	private CommonTypeProp current = null;
 
 	// contains xml header and import.
+	/** The common header. */
 	private StringBuffer commonHeader = new StringBuffer(
 			"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
 
+	/** The curr type content. */
 	private StringBuffer currTypeContent = new StringBuffer();
 
+	/** The all types. */
 	private List<CommonTypeProp> allTypes = new ArrayList<CommonTypeProp>();
 
+	/** The Constant COMPLEX_TYPE. */
 	private static final String COMPLEX_TYPE = "complexType";
 
+	/** The Constant SIMPLE_TYPE. */
 	private static final String SIMPLE_TYPE = "simpleType";
 
+	/** The Constant IMPORT. */
 	private static final String IMPORT = "import";
 
+	/** The Constant SCHEMA_NODE_NAME. */
 	private static final String SCHEMA_NODE_NAME = "schema";
 
+	/** The Constant ANNOTATION_NODE_NAME. */
 	private static final String ANNOTATION_NODE_NAME = "annotation";
 
+	/** The Constant DOCUMENT_NODE_NAME. */
 	private static final String DOCUMENT_NODE_NAME = "documentation";
 
+	/** The Constant NAME_ATTR. */
 	private static final String NAME_ATTR = "name";
 
+	/** The Constant TARGET_NAMESPACE_ATTR. */
 	private static final String TARGET_NAMESPACE_ATTR = "targetNamespace";
 
+	/** The LEVE l2_ node. */
 	private static Set<String> LEVEL2_NODE = new HashSet<String>();
 
 	static {
@@ -95,14 +109,19 @@ public class XSDTypeParser extends DefaultHandler {
 	/** The status. */
 	ParseStatus status = ParseStatus.ProcessingCommon;
 
+	/** The target namespace. */
 	private String targetNamespace = null;
 
+	/** The node path. */
 	private List<String> nodePath = new ArrayList<String>();
 
+	/** The document index. */
 	private int documentIndex = -1;
 
+	/** The prefix. */
 	private String prefix = "xs";
 
+	/** The schema end. */
 	private String schemaEnd = null;
 
 	/**
@@ -133,21 +152,45 @@ public class XSDTypeParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * Checks if is type node.
+	 *
+	 * @param nodeName the node name
+	 * @return true, if is type node
+	 */
 	private static boolean isTypeNode(String nodeName) {
 		nodeName = getNodeName(nodeName);
 		return SIMPLE_TYPE.equalsIgnoreCase(nodeName)
 				|| COMPLEX_TYPE.equalsIgnoreCase(nodeName);
 	}
 
+	/**
+	 * Checks if is schema node.
+	 *
+	 * @param nodeName the node name
+	 * @return true, if is schema node
+	 */
 	private static boolean isSchemaNode(String nodeName) {
 		return SCHEMA_NODE_NAME.equalsIgnoreCase(getNodeName(nodeName));
 	}
 
+	/**
+	 * Should handle on level2.
+	 *
+	 * @param qName the q name
+	 * @return true, if successful
+	 */
 	private static boolean shouldHandleOnLevel2(String qName) {
 		String nodeName = getNodeName(qName);
 		return LEVEL2_NODE.contains(nodeName);
 	}
 
+	/**
+	 * Gets the node name.
+	 *
+	 * @param qName the q name
+	 * @return the node name
+	 */
 	private static String getNodeName(String qName) {
 		int index = qName.indexOf(':');
 		if (index > -1) {
@@ -156,6 +199,12 @@ public class XSDTypeParser extends DefaultHandler {
 		return qName;
 	}
 
+	/**
+	 * Gets the prefix.
+	 *
+	 * @param qName the q name
+	 * @return the prefix
+	 */
 	private static String getPrefix(String qName) {
 		int index = qName.indexOf(':');
 		if (index > -1) {
@@ -164,6 +213,11 @@ public class XSDTypeParser extends DefaultHandler {
 		return "xs";
 	}
 
+	/**
+	 * Checks if is type document.
+	 *
+	 * @return true, if is type document
+	 */
 	private boolean isTypeDocument() {
 		if (nodePath.size() == 4 && isSchemaNode(nodePath.get(0))
 				&& isTypeNode(nodePath.get(1))) {
@@ -232,6 +286,11 @@ public class XSDTypeParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * Gets the dummy document.
+	 *
+	 * @return the dummy document
+	 */
 	private String getDummyDocument() {
 		return "\r\n<" + prefix + ":annotation>" + "\r\n<" + prefix
 				+ ":documentation>" + "\r\n${" + documentMarker + "}"
@@ -294,6 +353,11 @@ public class XSDTypeParser extends DefaultHandler {
 
 	}
 
+	/**
+	 * Append xsd.
+	 *
+	 * @param content the content
+	 */
 	private void appendXSD(String content) {
 		if (status == ParseStatus.ProcessingType) {
 			currTypeContent.append(content);

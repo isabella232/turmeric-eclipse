@@ -17,6 +17,7 @@ import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TypeFilterHonSearch.
  *
@@ -24,7 +25,10 @@ import org.eclipse.jface.viewers.ViewerFilter;
  */
 public class TypeFilterHonSearch extends ViewerFilter {
 
+	/** The pattern. */
 	private Pattern pattern;
+	
+	/** The empty key. */
 	private boolean emptyKey = false;
 
 	/**
@@ -62,6 +66,12 @@ public class TypeFilterHonSearch extends ViewerFilter {
 		return true;
 	}
 
+	/**
+	 * Pattern match.
+	 *
+	 * @param searchStr the search str
+	 * @return true, if successful
+	 */
 	private boolean patternMatch(String searchStr) {
 		try {
 			return pattern.matcher(searchStr).matches();

@@ -1,5 +1,6 @@
 package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpiece;
 
+// TODO: Auto-generated Javadoc
 /**
  * represent a piece of XSD file.
  * 
@@ -10,8 +11,8 @@ public interface IXSDPiece {
 
 	/**
 	 * get XSD content of the piece.
-	 * 
-	 * @return
+	 *
+	 * @return the content
 	 */
 	String getContent();
 

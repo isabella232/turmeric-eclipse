@@ -10,6 +10,7 @@ package org.ebayopensource.turmeric.eclipse.codegen.model;
 
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * Simple Model class for type mappings generation. Gentype used is "Dispatcher"
  * 

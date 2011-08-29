@@ -21,6 +21,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+// TODO: Auto-generated Javadoc
 /**
  * This is the right side Type Viewer. Displays all types corresponding to the
  * left side library selection. For root selection it displays all types. Main
@@ -34,9 +35,12 @@ import org.eclipse.swt.widgets.TableColumn;
  */
 public class TypeViewer extends TableViewer {
 
+	/** The column headers. */
 	private final String columnHeaders[] = {
 			SOATypeLibraryConstants.REGISTRY_VIEW_COLUMN_NAME,
 			SOATypeLibraryConstants.REGISTRY_VIEW_COLUMN_VERSION };
+	
+	/** The column layouts. */
 	private ColumnLayoutData columnLayouts[] = { new ColumnWeightData(200),
 			new ColumnWeightData(100), new ColumnWeightData(200) };
 
@@ -49,7 +53,6 @@ public class TypeViewer extends TableViewer {
 	 * Instantiates a new type viewer.
 	 *
 	 * @param table the table
-	 * @param refreshRegistryAction the refresh registry action
 	 */
 	public TypeViewer(Table table) {
 		super(table);
@@ -60,6 +63,9 @@ public class TypeViewer extends TableViewer {
 		createColumns();
 	}
 
+	/**
+	 * Creates the columns.
+	 */
 	private void createColumns() {
 		TableLayout layout = new TableLayout();
 		getTable().setLayout(layout);

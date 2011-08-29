@@ -16,6 +16,7 @@ import java.util.Locale;
 import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Version;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class holds all the SOA Project and related constants.
  * 
@@ -194,7 +195,8 @@ public class SOAProjectConstants {
     	JSON, 
     	/** The FAS t_ infoset. */
     	FAST_INFOSET,
-    	/** ProtoBuf protocol*/
+    	
+	    /** ProtoBuf protocol. */
     	PROTOBUF;
 
 
@@ -391,7 +393,7 @@ public class SOAProjectConstants {
     /** Inside the jar wsdl goes inside meta inf. */
     public static final String META_INF_WSDL = "META-INF/soa/services/wsdl";
     
-    /** protobuf file location  */
+    /** protobuf file location. */
     public static final String META_PROTO_BUF = "META-INF/soa/services/proto";
     
     /** The Constant IMPL_SERVICE_CONFIG_DIR. */
@@ -644,7 +646,7 @@ public class SOAProjectConstants {
     public static final String PROPS_DEFAULT_PROPERTY_VERSION = "1.1";
     
     /**
-     * version for interface prop file is bumped up to 1.2 in SOA2.9
+     * version for interface prop file is bumped up to 1.2 in SOA2.9.
      */
     public static final String PROPS_INTERFACE_PROPERTY_VERSION = "1.2";
 
@@ -655,15 +657,13 @@ public class SOAProjectConstants {
     public static final Version DEFAULT_PROPERTY_VERSION = new Version(
             PROPS_DEFAULT_PROPERTY_VERSION);
     
-    /**
-     * The property version as a Version class for interface project
-     */
+    /** The property version as a Version class for interface project. */
     public static final Version INTERFACE_PROPERTY_VERSION = new Version(
     		PROPS_INTERFACE_PROPERTY_VERSION);
     
     
     /**
-     * version 1.2
+     * version 1.2.
      */
     public static final String PROPS_DEFAULT_SIPP_VERSION = PROPS_INTERFACE_PROPERTY_VERSION;
     
@@ -720,9 +720,7 @@ public class SOAProjectConstants {
      */
     public static final String XML_NAMESPACE_2001 = "http://www.w3.org/2001/XMLSchema";
 
-    /**
-     * string for protobuf
-     */
+    /** string for protobuf. */
 	public static final String SVC_PROTOCOL_BUF = "protobuf";
     
     static {
@@ -834,17 +832,21 @@ public class SOAProjectConstants {
     }
     
     /**
-     * the type of the service implementation
-     *
+     * the type of the service implementation.
      */
     public static enum ServiceImplType {
-    	SERVICE_IMPL, SERVICE_IMPL_FACTORY;
+    	
+	    /** The SERVIC e_ impl. */
+	    SERVICE_IMPL, 
+ /** The SERVIC e_ imp l_ factory. */
+ SERVICE_IMPL_FACTORY;
     	
     	 /**
-         * 
-         * @param name 
-         * @return value of the binding
-         */
+ 	     * Value.
+ 	     *
+ 	     * @param name the name
+ 	     * @return value of the binding
+ 	     */
         public static ServiceImplType value(final String name) {
         	String upperName = name.toUpperCase(Locale.US);
             return StringUtils.isNotBlank(upperName) && upperName.endsWith("FACTORY") 

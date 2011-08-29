@@ -39,6 +39,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAServiceUtil.
  *
@@ -53,6 +54,7 @@ import org.eclipse.core.runtime.CoreException;
  */
 public class SOAServiceUtil {
 
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 	
 	/**
@@ -690,8 +692,9 @@ public class SOAServiceUtil {
 	
 	/**
 	 * Get the major version of the given service version.
-	 * @param version
-	 * @return
+	 *
+	 * @param version the version
+	 * @return the service major version
 	 */
 	public static String getServiceMajorVersion(String version) {
 		if (StringUtils.isBlank(version))

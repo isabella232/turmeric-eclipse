@@ -47,18 +47,30 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ConsumerFromJavaWizardPage.
  *
  * @author yayu
  */
 public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
+	
+	/** The service list. */
 	private AbstractSOAServiceListViewer serviceList;
+	
+	/** The selection. */
 	private final IStructuredSelection selection;
+	
+	/** The consumer id. */
 	private Text consumerID;
+	
+	/** The retrieve consumer id btn. */
 	private Button retrieveConsumerIDBtn;
 	//whether for converting an existing Java project into a Consumer project
+	/** The convert existing java project. */
 	private boolean convertExistingJavaProject = false;
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
@@ -165,6 +177,11 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		return this.consumerID;
 	}
 	
+	/**
+	 * Sets the retrieve consumer id enabled.
+	 *
+	 * @throws CoreException the core exception
+	 */
 	private void setRetrieveConsumerIDEnabled() throws CoreException {
 		if (retrieveConsumerIDBtn != null) {
 			retrieveConsumerIDBtn.setEnabled(
@@ -304,6 +321,11 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		return super.getProjectNames();
 	}
 
+	/**
+	 * Gets the selected project.
+	 *
+	 * @return the selected project
+	 */
 	private IProject getSelectedProject() {
 		if (selection == null)
 			return null;
@@ -341,6 +363,13 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		return getResourceName();
 	}
 
+	/**
+	 * Gets the selected service info.
+	 *
+	 * @param project the project
+	 * @return the selected service info
+	 * @throws Exception the exception
+	 */
 	private static AssetInfo getSelectedServiceInfo(final IProject project) 
 	throws Exception {
 		if (project != null && project.isAccessible() 

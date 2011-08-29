@@ -10,6 +10,7 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 import org.apache.commons.lang.StringUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class CategoryTreeNode.
  *

@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ServiceFromExistingInterfaceWizardPage.
  *
@@ -36,6 +37,8 @@ import org.eclipse.swt.widgets.Text;
 @Deprecated
 public class ServiceFromExistingInterfaceWizardPage extends
 		AbstractNewServiceWizardPage {
+	
+	/** The service interface text. */
 	private Text serviceInterfaceText;
 
 	/**
@@ -63,6 +66,12 @@ public class ServiceFromExistingInterfaceWizardPage extends
 		dialogChanged();
 	}
 	
+	/**
+	 * Adds the service interface file.
+	 *
+	 * @param parent the parent
+	 * @return the composite
+	 */
 	private Composite addServiceInterfaceFile(final Composite parent) {
 		final Composite composite = new Composite( parent, SWT.None );
 		composite.setLayout( new GridLayout( 3, false ) );

@@ -52,12 +52,15 @@ import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAIntfUtil.
  *
  * @author smathew
  */
 public class SOAIntfUtil {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 	
 	/**
@@ -326,17 +329,12 @@ public class SOAIntfUtil {
 
 	/**
 	 * This is only supposed to be used for modifying service layers and version.
-<<<<<<< HEAD
+	 * <<<<<<< HEAD
 	 *
 	 * @param intfProject the intf project
 	 * @param monitor the monitor
 	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws CoreException the core exception
-=======
-	 * @param intfProject
-	 * @throws IOException
-	 * @throws CoreException
->>>>>>> TURMERIC-1351
+	 * @throws CoreException >>>>>>> TURMERIC-1351
 	 */
 	public static void saveMetadataProps(SOAIntfProject intfProject, 
 			IProgressMonitor monitor)
@@ -382,20 +380,15 @@ public class SOAIntfUtil {
 
 	/**
 	 * Get the IFile instance of the
-<<<<<<< HEAD
+	 * <<<<<<< HEAD
 	 * [PROJECT]/gen-meta-src/META-INF/soa/common/config/[SERVICE_NAME]/service_metadata.properties.
 	 *
 	 * @param project the project
 	 * @param serviceName The interface project name or the service name
 	 * @return the new metadata file
-=======
+	 * =======
 	 * [PROJECT]/gen-meta-src/META-INF/soa/common/config/[SERVICE_NAME]/service_metadata.properties
-	 * 
-	 * @param project
-	 * @param serviceName
-	 *            The interface project name or the service name
-	 * @return
->>>>>>> TURMERIC-1351
+	 * >>>>>>> TURMERIC-1351
 	 */
 	public static IFile getNewMetadataFile(final IProject project,
 			final String serviceName) {
@@ -422,6 +415,14 @@ public class SOAIntfUtil {
 			return getNewMetadataFile(project, serviceName);
 	}
 	
+	/**
+	 * Gets the metadata file.
+	 *
+	 * @param project the project
+	 * @param root the root
+	 * @param serviceName the service name
+	 * @return the metadata file
+	 */
 	private static IFile getMetadataFile(final IProject project, 
 			final String root, final String serviceName) {
 		return project.getFile(StringUtil.toString(
@@ -484,11 +485,23 @@ public class SOAIntfUtil {
 				.getFile(SOAProjectConstants.PROPS_FILE_SERVICE_INTERFACE);
 	}
 	
+	/**
+	 * Gets the intf proto buf file.
+	 *
+	 * @param project the project
+	 * @return the intf proto buf file
+	 */
 	public static IFile getIntfProtoBufFile(final IProject project) {
 		String protoBufPath = getIntfProtoBufFilePath(project.getName());
 		return project.getFile(protoBufPath);
 	}
 	
+	/**
+	 * Gets the intf proto buf file path.
+	 *
+	 * @param adminName the admin name
+	 * @return the intf proto buf file path
+	 */
 	public static String getIntfProtoBufFilePath(String adminName) {
 		return SOAProjectConstants.FOLDER_META_SRC + "/"
 				+ SOAProjectConstants.META_PROTO_BUF + "/" + adminName + "/"
@@ -789,9 +802,16 @@ public class SOAIntfUtil {
 				serviceName);
 	}
 	
+	/** The Constant ELEM_NAME_SERVICE. */
 	private static final String ELEM_NAME_SERVICE = "service";
+	
+	/** The Constant ELEM_NAME_DOCUMENTATION. */
 	private static final String ELEM_NAME_DOCUMENTATION = "documentation";
+	
+	/** The Constant ELEM_NAME_VERSION_V2_CAMEL_CASE. */
 	private static final String ELEM_NAME_VERSION_V2_CAMEL_CASE = "Version";
+	
+	/** The Constant ELEM_NAME_VERSION_V3_CAMEL_CASE. */
 	private static final String ELEM_NAME_VERSION_V3_CAMEL_CASE = "version";
 	
 	/**
@@ -933,6 +953,15 @@ public class SOAIntfUtil {
 		monitor.worked(10);
 	}
 
+	/**
+	 * Gets the wSDL url from project.
+	 *
+	 * @param project the project
+	 * @param requiredServiceProjectPath the required service project path
+	 * @param serviceName the service name
+	 * @return the wSDL url from project
+	 * @throws Exception the exception
+	 */
 	private static Definition getWSDLUrlFromProject(final IProject project,
 			String requiredServiceProjectPath, final String serviceName)
 			throws Exception {

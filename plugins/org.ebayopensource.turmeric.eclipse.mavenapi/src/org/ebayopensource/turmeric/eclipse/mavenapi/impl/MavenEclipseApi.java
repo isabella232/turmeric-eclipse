@@ -53,13 +53,11 @@ import org.eclipse.m2e.core.internal.index.IIndex;
 import org.eclipse.m2e.core.internal.index.IndexedArtifact;
 import org.eclipse.m2e.core.internal.index.StringSearchExpression;
 import org.eclipse.m2e.core.internal.index.nexus.NexusIndexManager;
-import org.eclipse.m2e.core.internal.repository.RepositoryInfo;
 import org.eclipse.m2e.core.project.IMavenProjectFacade;
 import org.eclipse.m2e.core.project.IProjectConfigurationManager;
 import org.eclipse.m2e.core.project.MavenProjectInfo;
 import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.eclipse.m2e.core.project.ResolverConfiguration;
-import org.eclipse.m2e.core.repository.IRepositoryRegistry;
 
 /**
  * The Class MavenEclipseApi.
@@ -200,8 +198,9 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 			// around, use NullProgressMonitor instead.
 			monitor = new NullProgressMonitor();
 
-			final IProjectConfigurationManager configManager = MavenPlugin
-					.getDefault().getProjectConfigurationManager();
+			MavenPlugin
+					.getDefault();
+			final IProjectConfigurationManager configManager = MavenPlugin.getProjectConfigurationManager();
 			final Collection<MavenProjectInfo> projects = new ArrayList<MavenProjectInfo>(
 					1);
 			projects.add(info);

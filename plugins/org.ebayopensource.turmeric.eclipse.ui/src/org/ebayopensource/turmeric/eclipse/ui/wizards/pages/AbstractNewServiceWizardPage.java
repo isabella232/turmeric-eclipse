@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractNewServiceWizardPage.
  *
@@ -54,6 +55,8 @@ public abstract class AbstractNewServiceWizardPage extends
 	
 	/** The type namespace text. */
 	protected Text typeNamespaceText;
+	
+	/** The type folding button. */
 	private Button typeFoldingButton;
 	
 	/** The admin name text. */
@@ -70,7 +73,11 @@ public abstract class AbstractNewServiceWizardPage extends
 	
 	/** The override service implementation button. */
 	protected Button overrideServiceImplementationButton;
+	
+	/** The service layer. */
 	private CCombo serviceLayer;
+	
+	/** The service impl type. */
 	private CCombo serviceImplType;
 
 	/**
@@ -378,9 +385,10 @@ public abstract class AbstractNewServiceWizardPage extends
 	}
 
 	/**
-	 * add service version line to wizard panel
-	 * @param composite
-	 * @return
+	 * add service version line to wizard panel.
+	 *
+	 * @param composite the composite
+	 * @return the text
 	 */
 	protected Text addServiceVersion(final Composite composite) {
 		return super.createResourceVersionControl(composite,
@@ -412,8 +420,9 @@ public abstract class AbstractNewServiceWizardPage extends
 	}
 	
 	/**
-	 * create service impl type combo
-	 * @param parent
+	 * create service impl type combo.
+	 *
+	 * @param parent the parent
 	 */
 	protected void createServiceImplTypeCombo(final Composite parent) {
 		this.serviceImplType = super.createCCombo(parent, "Service Implementation T&ype:", 
@@ -474,7 +483,8 @@ public abstract class AbstractNewServiceWizardPage extends
 
 	/**
 	 * get admin name from wizard.
-	 * @return
+	 *
+	 * @return the admin name
 	 */
 	public String getAdminName() {
 		return getTextValue(getResourceNameText());

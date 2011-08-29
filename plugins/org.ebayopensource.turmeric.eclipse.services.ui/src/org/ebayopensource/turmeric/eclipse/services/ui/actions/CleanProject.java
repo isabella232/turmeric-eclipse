@@ -38,14 +38,21 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Removing all gen folders for the selected project.
  *
  * @author yayu
  */
 public class CleanProject implements IObjectActionDelegate{
+	
+	/** The selection. */
 	private IStructuredSelection selection;
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
+	
+	/** The shell. */
 	private Shell shell;
 	
 	/**

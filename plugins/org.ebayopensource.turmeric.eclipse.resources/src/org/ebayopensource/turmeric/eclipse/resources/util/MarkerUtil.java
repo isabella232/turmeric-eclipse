@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class MarkerUtil.
  * @author yayu
@@ -46,7 +47,7 @@ public final class MarkerUtil {
 	+ ".wsdlproblem";
 
 	/**
-	 * 
+	 * Instantiates a new marker util.
 	 */
 	private MarkerUtil() {
 		super();
@@ -54,10 +55,10 @@ public final class MarkerUtil {
 
 	/**
 	 * Finds the SOA Error Markers given an IResource.
-	 * 
+	 *
 	 * @param resource the resource to check
 	 * @return An array of IMarkers that were found.  May be null or empty if nothing is found.
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public static IMarker[] findSOAErrorMarkers(IResource resource)
 	throws CoreException {
@@ -73,9 +74,10 @@ public final class MarkerUtil {
 
 	/**
 	 * Finds the SOA Problem Markers given a resource.
+	 *
 	 * @param resource the resource to search
 	 * @return an array of IMarker entries. May be null or empty if noting is found.
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public static IMarker[] findSOAProblemMarkers(IResource resource)
 	throws CoreException {
@@ -85,11 +87,11 @@ public final class MarkerUtil {
 
 	/**
 	 * Finds markers given a resource and type.
-	 * 
-	 * @param resource the resource 
+	 *
+	 * @param resource the resource
 	 * @param type the type of markert to find
 	 * @return An array of IMarkers that where found. May be empty or null if no markers found.
-	 * @throws CoreException 
+	 * @throws CoreException the core exception
 	 */
 	public static IMarker[] findMarkers(IResource resource, String type)
 	throws CoreException {
@@ -128,6 +130,12 @@ public final class MarkerUtil {
 		}
 	}
 
+	/**
+	 * Gets the marker severity.
+	 *
+	 * @param status the status
+	 * @return the marker severity
+	 */
 	private static int getMarkerSeverity(IStatus status) {
 		switch (status.getSeverity()) {
 		case IStatus.ERROR:
@@ -235,6 +243,15 @@ public final class MarkerUtil {
 		return result.toArray(new IMarker[0]);
 	}
 
+	/**
+	 * Creates the root cause marker.
+	 *
+	 * @param status the status
+	 * @param resource the resource
+	 * @param type the type
+	 * @return the i marker
+	 * @throws CoreException the core exception
+	 */
 	private static IMarker createRootCauseMarker(IStatus status,
 			IResource resource, String type) throws CoreException {
 		Throwable cause = status.getException();
@@ -251,6 +268,15 @@ public final class MarkerUtil {
 		return createSingleMarker(rootStatus, resource, type);
 	}
 
+	/**
+	 * Creates the single marker.
+	 *
+	 * @param status the status
+	 * @param resource the resource
+	 * @param type the type
+	 * @return the i marker
+	 * @throws CoreException the core exception
+	 */
 	private static IMarker createSingleMarker(IStatus status,
 			IResource resource, String type) throws CoreException {
 		IMarker result = null;

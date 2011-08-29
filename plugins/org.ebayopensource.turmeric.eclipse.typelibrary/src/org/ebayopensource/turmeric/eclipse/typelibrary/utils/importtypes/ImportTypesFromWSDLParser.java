@@ -20,6 +20,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class is used to cut XSD schema from WSDL. It uses
  * ImportTypesFromXSDParser to handle XSD content.
@@ -29,15 +30,16 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class ImportTypesFromWSDLParser extends DefaultHandler {
 
+	/** The path. */
 	String path = null;
 
 	/**
-	 * cut XSD files from WSDL
-	 * 
-	 * @param wsdlPath
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws ParserConfigurationException
+	 * cut XSD files from WSDL.
+	 *
+	 * @param wsdlPath the wsdl path
+	 * @throws SAXException the sAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
 	 */
 	public void cutWSDL(String wsdlPath) throws SAXException, IOException,
 			ParserConfigurationException {
@@ -53,48 +55,71 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 	}
 
 	// variables for all types in current wsdl.
+	/** The xsds. */
 	private Map<String, TypeModel> xsds = new HashMap<String, TypeModel>();
 
+	/** The refered tl types. */
 	private Map<String, TypeModel> referedTLTypes = new HashMap<String, TypeModel>();
 
+	/** The ns mapping wsdl. */
 	private Map<String, String> nsMappingWSDL = new HashMap<String, String>();
 
+	/** The xml path. */
 	private List<NodeQName> xmlPath = new ArrayList<NodeQName>();
 
 	// node QNames
 
+	/** The Constant WSDL_NS. */
 	private static final String WSDL_NS = "http://schemas.xmlsoap.org/wsdl[/]{0,}";
 
+	/** The Constant WSDL_NS_PATTERN. */
 	private static final Pattern WSDL_NS_PATTERN = Pattern.compile(WSDL_NS,
 			Pattern.CASE_INSENSITIVE);
 
+	/** The Constant TYPE_NS. */
 	private static final String TYPE_NS = "http://www.w3.org/[0-9]{4}/XMLSchema[/]{0,}";
 
+	/** The Constant SCHEMA_NS_PATTERN. */
 	private static final Pattern SCHEMA_NS_PATTERN = Pattern.compile(TYPE_NS,
 			Pattern.CASE_INSENSITIVE);
 
+	/** The XM l_ ns. */
 	private static String XML_NS = "xmlns:";
 
+	/** The WSD l_ de f_ name. */
 	private static String WSDL_DEF_NAME = "definitions";
 
+	/** The WSD l_ typ e_ de f_ name. */
 	private static String WSDL_TYPE_DEF_NAME = "types";
 
+	/** The SCHEM a_ de f_ name. */
 	private static String SCHEMA_DEF_NAME = "schema";
 
 	/**
-	 * get Type Models
-	 * 
-	 * @return
+	 * get Type Models.
+	 *
+	 * @return the type models
 	 */
 	public Collection<TypeModel> getTypeModels() {
 		return this.xsds.values();
 	}
 
+	/**
+	 * Checks if is wSDLNS.
+	 *
+	 * @param namespace the namespace
+	 * @return true, if is wSDLNS
+	 */
 	private static boolean isWSDLNS(String namespace) {
 		Matcher matcher = WSDL_NS_PATTERN.matcher(namespace);
 		return matcher.matches();
 	}
 
+	/**
+	 * Wsdl def.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean wsdlDef() {
 		if (xmlPath.size() < 1) {
 			return false;
@@ -103,6 +128,11 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		return (qName.ns == NS.WSDL) && WSDL_DEF_NAME.equals(qName.localName);
 	}
 
+	/**
+	 * Wsdl types def.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean wsdlTypesDef() {
 		if (xmlPath.size() < 2) {
 			return false;
@@ -112,6 +142,11 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 				&& WSDL_TYPE_DEF_NAME.equals(qName.localName);
 	}
 
+	/**
+	 * Schema def.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean schemaDef() {
 		if (xmlPath.size() < 3) {
 			return false;
@@ -121,6 +156,11 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 				&& SCHEMA_DEF_NAME.equals(qName.localName);
 	}
 
+	/**
+	 * Checks if is wSDL node.
+	 *
+	 * @return true, if is wSDL node
+	 */
 	private boolean isWSDLNode() {
 		if (xmlPath.size() != 1) {
 			return false;
@@ -128,6 +168,11 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		return wsdlDef();
 	}
 
+	/**
+	 * Checks if is schema node start.
+	 *
+	 * @return true, if is schema node start
+	 */
 	private boolean isSchemaNodeStart() {
 		if (xmlPath.size() != 3) {
 			return false;
@@ -135,6 +180,13 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		return wsdlDef() && wsdlTypesDef() && schemaDef();
 	}
 
+	/**
+	 * Checks if is schema node end.
+	 *
+	 * @param uri the uri
+	 * @param localName the local name
+	 * @return true, if is schema node end
+	 */
 	private boolean isSchemaNodeEnd(String uri, String localName) {
 		if (xmlPath.size() != 3) {
 			return false;
@@ -176,26 +228,27 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 	 * Notice that we need to check 2) first because a type may have the same
 	 * namespace with an existing type library. just like a class named MyClass
 	 * in java.lang package.
-	 * 
-	 * @param xsds
-	 *            TypeModels to be processed
+	 *
 	 * @return TypeModel that no need to be imported.
+	 * @throws SAXException the sAX exception
 	 */
 	private void postProcessTypes() throws SAXException {
 		referedTLTypes = ImportTypesFromXSDParser.postProcessTypes(xsds);
 	}
 
 	/**
-	 * get referred types
-	 * 
-	 * @return
+	 * get referred types.
+	 *
+	 * @return the refered tl types
 	 */
 	public Map<String, TypeModel> getReferedTLTypes() {
 		return referedTLTypes;
 	}
 
 	/**
-	 * document end, post process
+	 * document end, post process.
+	 *
+	 * @throws SAXException the sAX exception
 	 */
 	@Override
 	public void endDocument() throws SAXException {
@@ -206,8 +259,8 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 
 	/**
 	 * this is for test purpose only.
-	 * 
-	 * @throws SAXException
+	 *
+	 * @throws SAXException the sAX exception
 	 */
 	public void test() throws SAXException {
 		File file = new File(path);
@@ -262,15 +315,28 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * Checks if is schema ns.
+	 *
+	 * @param namespace the namespace
+	 * @return true, if is schema ns
+	 */
 	private static boolean isSchemaNS(String namespace) {
 		Matcher matcher = SCHEMA_NS_PATTERN.matcher(namespace);
 		return matcher.matches();
 	}
 
+	/** The schma handler. */
 	private ImportTypesFromXSDParser schmaHandler = null;
 
 	/**
-	 * start to handle an element
+	 * start to handle an element.
+	 *
+	 * @param uri the uri
+	 * @param localName the local name
+	 * @param qName the q name
+	 * @param attributes the attributes
+	 * @throws SAXException the sAX exception
 	 */
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
@@ -310,7 +376,12 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 	}
 
 	/**
-	 * element end
+	 * element end.
+	 *
+	 * @param uri the uri
+	 * @param localName the local name
+	 * @param qName the q name
+	 * @throws SAXException the sAX exception
 	 */
 	@Override
 	public void endElement(String uri, String localName, String qName)
@@ -329,6 +400,9 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
+	 */
 	@Override
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {
@@ -338,11 +412,12 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 	}
 
 	/**
-	 * for test only
-	 * @param args
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws ParserConfigurationException
+	 * for test only.
+	 *
+	 * @param args the arguments
+	 * @throws SAXException the sAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
 	 */
 	public static void main(String[] args) throws SAXException, IOException,
 			ParserConfigurationException {
@@ -362,6 +437,12 @@ public class ImportTypesFromWSDLParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * Checks if is wSDL.
+	 *
+	 * @param f the f
+	 * @return true, if is wSDL
+	 */
 	private static boolean isWSDL(File f) {
 		if (f.isFile() == false) {
 			return false;

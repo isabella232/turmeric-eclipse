@@ -2,28 +2,28 @@ package org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.xsdpie
 
 import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeModel;
 
+// TODO: Auto-generated Javadoc
 /**
- * represent the type lib name
- * 
+ * represent the type lib name.
+ *
  * @author mzang
- * 
  */
 public class TypeLibraryNamePiece extends TypeRelatedContent {
 
 	/**
-	 * creat instance
-	 * 
-	 * @param qName
+	 * creat instance.
+	 *
+	 * @param qName the q name
 	 */
 	public TypeLibraryNamePiece(String qName) {
 		this.qName = qName;
 	}
 
 	/**
-	 * create instance
-	 * 
-	 * @param qName
-	 * @param model
+	 * create instance.
+	 *
+	 * @param qName the q name
+	 * @param model the model
 	 */
 	public TypeLibraryNamePiece(String qName, TypeModel model) {
 		this.qName = qName;
@@ -31,13 +31,15 @@ public class TypeLibraryNamePiece extends TypeRelatedContent {
 	}
 
 	/**
-	 * default constructor
+	 * default constructor.
 	 */
 	public TypeLibraryNamePiece() {
 	}
 
 	/**
-	 * get content
+	 * get content.
+	 *
+	 * @return the content
 	 */
 	@Override
 	public String getContent() {

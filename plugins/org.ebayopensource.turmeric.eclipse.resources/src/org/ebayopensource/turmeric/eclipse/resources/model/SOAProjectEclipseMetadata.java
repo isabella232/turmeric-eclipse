@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAProjectEclipseMetadata.
  *
@@ -22,10 +23,13 @@ import org.eclipse.core.runtime.Path;
  */
 public class SOAProjectEclipseMetadata {
 
+	/** The proj name. */
 	private String projName;
 
+	/** The workspace location. */
 	private IPath workspaceLocation;
 	
+	/** The project. */
 	private IProject project;
 
 	/**
@@ -52,6 +56,9 @@ public class SOAProjectEclipseMetadata {
 		return metadata;
 	}
 
+	/**
+	 * Instantiates a new sOA project eclipse metadata.
+	 */
 	private SOAProjectEclipseMetadata() {
 	}
 

@@ -76,6 +76,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractNewServiceFromWSDLWizardPage.
  *
@@ -83,13 +84,23 @@ import org.eclipse.swt.widgets.Text;
  */
 public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		AbstractNewServiceWizardPage {
+	
+	/** The wsdl url text. */
 	private Text wsdlURLText;
+	
+	/** The import wsdl file button. */
 	private Button importWSDLFileButton;
 	
 	/** The ns2pkg viewer. */
 	protected TableViewer ns2pkgViewer;
+	
+	/** The has wsdl error. */
 	private boolean hasWSDLError;
+	
+	/** The override namespace btn. */
 	private Button overrideNamespaceBtn;
+	
+	/** The namespace text. */
 	private Text namespaceText;
 	
 	/** The public service name text. */
@@ -505,6 +516,12 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		});
 	}
 
+	/**
+	 * Validate package name.
+	 *
+	 * @param newPkgValue the new pkg value
+	 * @return the i status
+	 */
 	private IStatus validatePackageName(final String newPkgValue) {
 		if (StringUtils.isBlank(newPkgValue)) {
 			return EclipseMessageUtils
@@ -533,16 +550,32 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		return result;
 	}
 
+	/**
+	 * The Class NamespaceToPackageModel.
+	 */
 	private static class NamespaceToPackageModel {
+		
+		/** The namespace. */
 		private String namespace;
+		
+		/** The pacakge name. */
 		private String pacakgeName = SOAProjectConstants.EMPTY_STRING;
 
+		/**
+		 * Instantiates a new namespace to package model.
+		 *
+		 * @param namespace the namespace
+		 * @param pacakgeName the pacakge name
+		 */
 		public NamespaceToPackageModel(String namespace, String pacakgeName) {
 			super();
 			this.namespace = namespace;
 			this.pacakgeName = pacakgeName;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#hashCode()
+		 */
 		@Override
 		public int hashCode() {
 			final int prime = 31;
@@ -552,6 +585,9 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 			return result;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
@@ -570,9 +606,18 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		}
 	}
 
+	/** The Constant PROP_NAME_NAMESPACE. */
 	private static final String PROP_NAME_NAMESPACE = "namespace";
+	
+	/** The Constant PROP_NAME_PACKAGE. */
 	private static final String PROP_NAME_PACKAGE = "package";
 
+	/**
+	 * Sets the service name from wsdl.
+	 *
+	 * @param wsdlURL the wsdl url
+	 * @return true, if successful
+	 */
 	private boolean setServiceNameFromWSDL(final String wsdlURL) {
 		final Definition oldWsdl = this.wsdl;
 		try {
@@ -868,15 +913,17 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 	
 	/**
 	 * get service location specified in wsdl.
-	 * @return
+	 *
+	 * @return the service location
 	 */
 	public String getServiceLocation() {
 		return serviceLocation;
 	}
 
 	/**
-	 * set service location of selected wsdl
-	 * @param serviceLocation
+	 * set service location of selected wsdl.
+	 *
+	 * @param serviceLocation the new service location
 	 */
 	public void setServiceLocation(String serviceLocation) {
 		this.serviceLocation = serviceLocation;

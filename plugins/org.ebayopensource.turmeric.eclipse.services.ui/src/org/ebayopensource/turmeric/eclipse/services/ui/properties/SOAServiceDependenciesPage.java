@@ -71,36 +71,64 @@ import org.eclipse.ui.IWorkbenchPropertyPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.jdom.JDOMException;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class SOAServiceDependenciesPage.
+ *
  * @author yayu
- * 
  */
 public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		implements IWorkbenchPropertyPage {
+	
+	/** The Constant REQUIRED_SERVICES_DELIMITER. */
 	public static final String REQUIRED_SERVICES_DELIMITER = ",";
+	
+	/** The project. */
 	private IProject project;
+	
+	/** The is old client config dir structure. */
 	private boolean isOldClientConfigDirStructure = false;
 
+	/** The editor parent map. */
 	private Map<FieldEditor, Composite> editorParentMap = new ConcurrentHashMap<FieldEditor, Composite>();
 	// single selection list
+	/** The service list. */
 	private SOAConsumerServicesViewer serviceList;
+	
+	/** The service location editor. */
 	private StringFieldEditor serviceLocationEditor;
+	
+	/** The service binding editor. */
 	private SimpleComboBoxEditor serviceBindingEditor;
+	
+	/** The service request binding editor. */
 	private SimpleComboBoxEditor serviceRequestBindingEditor;
+	
+	/** The service response binding editor. */
 	private SimpleComboBoxEditor serviceResponseBindingEditor;
+	
+	/** The message protocol editor. */
 	private SimpleComboBoxEditor messageProtocolEditor;
 
+	/** The current admin name. */
 	private String currentAdminName = null;
+	
+	/** The current can use proto buf. */
 	private boolean currentCanUseProtoBuf = false;
 
+	/** The current service location. */
 	private String currentServiceLocation = "";
 
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/** The FUL l_ protoco l_ list. */
 	private static String[][] FULL_PROTOCOL_LIST;
 
+	/** The DEFAUL t_ protoco l_ list. */
 	private static String[][] DEFAULT_PROTOCOL_LIST;
 	
+	/** The is env empty. */
 	private boolean isEnvEmpty = true;
 
 	static {
@@ -121,11 +149,17 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		}
 	}
 
+	/**
+	 * Instantiates a new sOA service dependencies page.
+	 */
 	public SOAServiceDependenciesPage() {
 		super(FieldEditorPreferencePage.GRID);
 		noDefaultAndApplyButton();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#createFieldEditors()
+	 */
 	@Override
 	protected void createFieldEditors() {
 		if (project != null) {
@@ -164,6 +198,13 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		}
 	}
 
+	/**
+	 * Inits the grid layout.
+	 *
+	 * @param layout the layout
+	 * @param margins the margins
+	 * @return the grid layout
+	 */
 	private GridLayout initGridLayout(GridLayout layout, boolean margins) {
 		layout.horizontalSpacing = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_SPACING);
 		layout.verticalSpacing = convertVerticalDLUsToPixels(IDialogConstants.VERTICAL_SPACING);
@@ -178,10 +219,19 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		return layout;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public IAdaptable getElement() {
 		return null;
 	}
 
+	/**
+	 * Gets the current selected service.
+	 *
+	 * @return the current selected service
+	 */
 	private SOAClientEnvironment getCurrentSelectedService() {
 		if (serviceList != null
 				&& serviceList.getTree().getSelectionCount() == 1) {
@@ -200,6 +250,12 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		return null;
 	}
 
+	/**
+	 * Adds the service dependencies list.
+	 *
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void addServiceDependenciesList() throws CoreException, IOException {
 		Composite parent = getFieldEditorParent();
 		/*
@@ -228,6 +284,7 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		this.serviceList
 				.addSelectionChangedListener(new ISelectionChangedListener() {
 
+					@Override
 					public void selectionChanged(SelectionChangedEvent event) {
 						try {
 							load();
@@ -240,6 +297,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 				});
 	}
 
+	/**
+	 * Adds the service location.
+	 *
+	 * @param group the group
+	 */
 	private void addServiceLocation(Group group) {
 		serviceLocationEditor = new StringFieldEditor("", "Service Location: ",
 				group);
@@ -248,6 +310,9 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		addField(serviceLocationEditor);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#initialize()
+	 */
 	@Override
 	protected void initialize() {
 		super.initialize();
@@ -284,6 +349,12 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 
 	}
 
+	/**
+	 * Load.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws JDOMException the jDOM exception
+	 */
 	private void load() throws IOException, JDOMException {
 		final SOAClientEnvironment clientEnv = getCurrentSelectedService();
 		if (clientEnv == null) {
@@ -353,6 +424,12 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		}
 	}
 
+	/**
+	 * Validate proto buf.
+	 *
+	 * @param serviceLocation the service location
+	 * @return true, if successful
+	 */
 	private boolean validateProtoBuf(String serviceLocation) {
 		try {
 			// if this project is intf project and have nonXSDFormats=protobuf
@@ -397,6 +474,14 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		}
 	}
 
+	/**
+	 * Gets the value from service props.
+	 *
+	 * @param serviceName the service name
+	 * @param key the key
+	 * @return the value from service props
+	 * @throws Exception the exception
+	 */
 	private static String getValueFromServiceProps(final String serviceName,
 			final String key) throws Exception {
 		final ISOAAssetRegistry registry = GlobalRepositorySystem.instanceOf()
@@ -410,6 +495,12 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		return null;
 	}
 
+	/**
+	 * Sets the field editor enabled.
+	 *
+	 * @param enabled the enabled
+	 * @param clearData the clear data
+	 */
 	private void setFieldEditorEnabled(boolean enabled, boolean clearData) {
 		for (FieldEditor editor : editorParentMap.keySet()) {
 			if (editor instanceof SimpleComboBoxEditor) {
@@ -428,6 +519,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		}
 	}
 
+	/**
+	 * Adds the service binding.
+	 *
+	 * @param group the group
+	 */
 	private void addServiceBinding(Group group) {
 		String strArray[][] = new String[Binding.values().length][2];
 		int index = 0;
@@ -445,6 +541,7 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 				.getComboBoxControl(editorParentMap.get(serviceBindingEditor));
 		bindingList.addModifyListener(new ModifyListener() {
 
+			@Override
 			public void modifyText(ModifyEvent e) {
 				String bindingStr = bindingList.getText();
 				Text svcLoctext = serviceLocationEditor
@@ -460,6 +557,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		});
 	}
 
+	/**
+	 * Adds the service request data binding.
+	 *
+	 * @param group the group
+	 */
 	private void addServiceRequestDataBinding(Group group) {
 		serviceRequestBindingEditor = new SimpleComboBoxEditor("",
 				"Request DataBinding:", FULL_PROTOCOL_LIST, group);
@@ -467,6 +569,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		editorParentMap.put(serviceRequestBindingEditor, group);
 	}
 
+	/**
+	 * Adds the service response data binding.
+	 *
+	 * @param group the group
+	 */
 	private void addServiceResponseDataBinding(Group group) {
 		serviceResponseBindingEditor = new SimpleComboBoxEditor("",
 				"Response DataBinding:", FULL_PROTOCOL_LIST, group);
@@ -474,6 +581,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		editorParentMap.put(serviceResponseBindingEditor, group);
 	}
 
+	/**
+	 * Validate protocol.
+	 *
+	 * @return the i status
+	 */
 	private IStatus validateProtocol() {
 		if (currentCanUseProtoBuf == true) {
 			return Status.OK_STATUS;
@@ -490,6 +602,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * Adds the message protocol.
+	 *
+	 * @param group the group
+	 */
 	private void addMessageProtocol(Group group) {
 		String strArray[][] = new String[MessageProtocol.values().length][2];
 		int index = 0;
@@ -504,6 +621,10 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		editorParentMap.put(messageProtocolEditor, group);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void setElement(IAdaptable element) {
 		try {
 			if (element.getAdapter(IProject.class) instanceof IProject) {
@@ -515,16 +636,31 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		}
 	}
 
+	/**
+	 * Gets the text.
+	 *
+	 * @param stringFieldEditor the string field editor
+	 * @return the text
+	 */
 	private String getText(StringFieldEditor stringFieldEditor) {
 		return stringFieldEditor.getTextControl(
 				editorParentMap.get(stringFieldEditor)).getText();
 	}
 
+	/**
+	 * Gets the text.
+	 *
+	 * @param simpleComboEditor the simple combo editor
+	 * @return the text
+	 */
 	private String getText(SimpleComboBoxEditor simpleComboEditor) {
 		return simpleComboEditor.getComboBoxControl(
 				editorParentMap.get(simpleComboEditor)).getText();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#performOk()
+	 */
 	@Override
 	public boolean performOk() {
 		try {
@@ -604,6 +740,9 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#checkState()
+	 */
 	@Override
 	protected void checkState() {
 		try {

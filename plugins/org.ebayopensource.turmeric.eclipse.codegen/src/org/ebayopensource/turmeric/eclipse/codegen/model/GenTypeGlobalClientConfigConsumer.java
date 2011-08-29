@@ -10,6 +10,7 @@ package org.ebayopensource.turmeric.eclipse.codegen.model;
 
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * Simple Model class for type mappings generation. Gentype used is
  * "GlobalClientConfig".This is an on demand file and is now context menu
@@ -20,6 +21,7 @@ import java.util.Map;
  */
 public class GenTypeGlobalClientConfigConsumer extends ConsumerCodeGenModel {
 
+	/** The metadata directory. */
 	private String metadataDirectory; // -mdest Destination location for
 
 	// generated configuration and other XML

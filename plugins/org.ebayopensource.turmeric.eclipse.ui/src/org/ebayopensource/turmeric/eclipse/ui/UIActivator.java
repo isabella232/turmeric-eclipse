@@ -36,7 +36,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 
@@ -97,34 +96,9 @@ public class UIActivator extends AbstractUIPlugin {
 		registryJob.setUser(false);
 		registryJob.schedule(1000);
 		SOALogger.getLogger().info(buf);
-//		initImageRegistry(context);
-	}
-<<<<<<< HEAD
-		
-=======
-	
-	/**
-	 * Ensure m2 ecipse being inited.
-	 *
-	 * @throws Exception the exception
-	 */
-	public void ensureM2EcipseBeingInited()
-			throws Exception {
-		// TODO: disable this because Maven is not available in V3. Working on solutions later.
-		// maybe we can put it in Repo system.
-//		BundleContext context = MavenPlugin.getDefault().getBundleContext();
-//		MavenPlugin.getDefault().start(context);
-//		int state = MavenPlugin.getDefault().getBundle().getState();
-//		
-//		while(state != Bundle.ACTIVE) {
-//			System.out.println("M2 Eclipse still not started.  Sleeping and trying again.");
-//			Thread.sleep(5000L);
-//			state = MavenPlugin.getDefault().getBundle().getState();
-//		}
 	}
 	
->>>>>>> master
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -143,30 +117,6 @@ public class UIActivator extends AbstractUIPlugin {
 		return plugin;
 	}
 
-	/*private void initImageRegistry(final BundleContext context) {
-		final ImageRegistry registry = getImageRegistry();
-		try {
-			final URL url = FileLocator.resolve(context.getBundle()
-					.getResource(ICON_PATH));
-
-			final File location = new File(url.getPath());
-			if (location != null && location.exists()) {
-				for (String file : location.list(new FilenameFilter() {
-					public boolean accept(File dir, String name) {
-						return name.endsWith(".gif") || name.endsWith(".png");
-					}
-				})) {
-					ImageDescriptor image = imageDescriptorFromPlugin(
-							PLUGIN_ID, ICON_PATH + file);
-					if (image != null) {
-						registry.put(ICON_PATH + file, image);
-					}
-				}
-			}
-		} catch (Exception e) {
-			logger.warning("Image Registry Initialization Failed!", e);
-		}
-	}*/
 	
 	/**
 	 * Gets the image from registry.

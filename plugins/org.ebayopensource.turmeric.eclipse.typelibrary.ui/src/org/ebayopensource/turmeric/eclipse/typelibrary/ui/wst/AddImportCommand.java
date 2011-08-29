@@ -17,6 +17,7 @@ import org.eclipse.xsd.XSDInclude;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDSchemaDirective;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AddImportCommand.
  *
@@ -24,8 +25,13 @@ import org.eclipse.xsd.XSDSchemaDirective;
  */
 public class AddImportCommand {
 
+	/** The xsd schema. */
 	private XSDSchema xsdSchema;
+	
+	/** The schema location. */
 	private String schemaLocation;
+	
+	/** The resolved schema. */
 	private XSDSchema resolvedSchema;
 
 	/**
@@ -61,6 +67,12 @@ public class AddImportCommand {
 			xsdSchema.getContents().add(0, xsdSchemaDirective);
 	}
 
+	/**
+	 * Checks if is duplicate.
+	 *
+	 * @param xsdSchemaDirective the xsd schema directive
+	 * @return true, if is duplicate
+	 */
 	private boolean isDuplicate(XSDSchemaDirective xsdSchemaDirective) {
 		try {
 			boolean isInclude = xsdSchemaDirective instanceof XSDInclude;

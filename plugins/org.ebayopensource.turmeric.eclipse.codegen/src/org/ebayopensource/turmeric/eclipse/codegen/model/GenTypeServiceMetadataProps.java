@@ -14,6 +14,7 @@ import java.util.TreeMap;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * Simple Model class for type mappings generation. Clients might want to
  * generate the type mappings file multiple times, since changes in wsdl(related to types) might

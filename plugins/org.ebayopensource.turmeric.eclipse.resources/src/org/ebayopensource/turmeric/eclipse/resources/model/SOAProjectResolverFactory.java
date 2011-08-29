@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * A factory for creating SOAProjectResolver objects.
  *
@@ -44,6 +45,8 @@ public final class SOAProjectResolverFactory {
 	 * Project Resolver Class.
 	 */
 	public static final String ID_RESOLVER_CLASS = "projectResolverClass";
+	
+	/** The Constant SOA_PROJECT_RESOLVERS. */
 	private static final Map<String, ISOAProjectResolver<?>> SOA_PROJECT_RESOLVERS;
 	
 	static {
@@ -51,7 +54,7 @@ public final class SOAProjectResolverFactory {
 	}
 	
 	/**
-	 * 
+	 * Instantiates a new sOA project resolver factory.
 	 */
 	private SOAProjectResolverFactory() {
 		super();
@@ -67,6 +70,11 @@ public final class SOAProjectResolverFactory {
 		return SOA_PROJECT_RESOLVERS.get(projectNature);
 	}
 
+	/**
+	 * Load project resolvers.
+	 *
+	 * @return the map
+	 */
 	private static Map<String, ISOAProjectResolver<?>> loadProjectResolvers() {
 		final Map<String, ISOAProjectResolver<?>> result = new ConcurrentHashMap<String, ISOAProjectResolver<?>>();
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();

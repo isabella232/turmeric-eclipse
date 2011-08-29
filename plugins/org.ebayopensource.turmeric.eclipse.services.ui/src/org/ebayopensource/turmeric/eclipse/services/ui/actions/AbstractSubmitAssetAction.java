@@ -37,6 +37,7 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractSubmitAssetAction.
  *
@@ -45,6 +46,8 @@ import org.eclipse.ui.IWorkbenchPart;
  */
 public abstract class AbstractSubmitAssetAction implements
 		IObjectActionDelegate {
+
+/** The selection. */
 private IStructuredSelection selection;
 	
 	/**
@@ -167,8 +170,9 @@ private IStructuredSelection selection;
 	public abstract IStatus submitAsset(IAction action, IProject project) throws Exception;
 	
 	/**
-	 * Indicate whether to popup a dialog when the submission succeed
-	 * @return
+	 * Indicate whether to popup a dialog when the submission succeed.
+	 *
+	 * @return true, if successful
 	 */
 	protected boolean needOKDialog() {
 		return false;

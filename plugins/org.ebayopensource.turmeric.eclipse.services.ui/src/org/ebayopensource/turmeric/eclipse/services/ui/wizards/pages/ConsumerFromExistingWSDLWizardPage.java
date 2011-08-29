@@ -75,26 +75,48 @@ import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ConsumerFromExistingWSDLWizardPage.
  *
  * @author yayu
  */
 public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWSDLWizardPage{
+	
+	/** The service client text. */
 	private Text serviceClientText;
+	
+	/** The consumer id. */
 	private Text consumerID;
+	
+	/** The admin text. */
 	private Text adminText;
+	
+	/** The retrieve consumer id btn. */
 	private Button retrieveConsumerIDBtn;
+	
+	/** The envrionment list. */
 	private ListViewer envrionmentList;
+	
+	/** The environments. */
 	private List<String> environments = new ArrayList<String>();
+	
+	/** The version from wsdl. */
 	private String versionFromWSDL = null;
+	
+	/** The simple mode. */
 	private boolean simpleMode = true; //simple mode will not need to craete the consumer project
+	
+	/** The domain name. */
 	private String domainName = "";
 	
+	/** The Constant SIMPLE_MODE_TITLE. */
 	private static final String SIMPLE_MODE_TITLE = "Simple Mode reads a pre-existing WSDL document, creates a SOA Intf Project and a Consumer without ClientConfig.xml.";
 	
+	/** The Constant ADV_MODE_TITLE. */
 	private static final String ADV_MODE_TITLE = "Advance Mode creates a SOA Intf Project and a Consumer from a pre-existing WSDL document.";
 
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
@@ -267,6 +289,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	 * Creates the environment list.
 	 *
 	 * @param parent the parent
+	 * @param simpleMode the simple mode
 	 * @return the list viewer
 	 */
 	protected ListViewer createEnvironmentList(Composite parent, boolean simpleMode) {

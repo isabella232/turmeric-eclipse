@@ -16,6 +16,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 
+// TODO: Auto-generated Javadoc
 /**
  * This gentype is intended to be called during the service creation. This is
  * equivalent to gen types: Client + Proxy
@@ -25,12 +26,14 @@ import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
  */
 public class GenTypeServiceFromWSDLIntf extends GenTypeClient {
 	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/** The meta dir. */
 	private String metaDir;
 
 	/**
-	 * 
+	 * Instantiates a new gen type service from wsdl intf.
 	 */
 	public GenTypeServiceFromWSDLIntf() {
 		super();
@@ -71,6 +74,9 @@ public class GenTypeServiceFromWSDLIntf extends GenTypeClient {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.codegen.model.GenTypeClient#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		final Map<String, String> options = super.getCodeGenOptions();
@@ -89,10 +95,20 @@ public class GenTypeServiceFromWSDLIntf extends GenTypeClient {
 		return options;
 	}
 
+	/**
+	 * Gets the meta dir.
+	 *
+	 * @return the meta dir
+	 */
 	public String getMetaDir() {
 		return metaDir;
 	}
 
+	/**
+	 * Sets the meta dir.
+	 *
+	 * @param metaDir the new meta dir
+	 */
 	public void setMetaDir(String metaDir) {
 		this.metaDir = metaDir;
 	}

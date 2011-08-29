@@ -10,6 +10,7 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TypeTreeRoot.
  *

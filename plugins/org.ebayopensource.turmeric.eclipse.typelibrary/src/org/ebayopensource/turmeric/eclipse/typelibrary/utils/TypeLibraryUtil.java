@@ -46,6 +46,7 @@ import org.eclipse.xsd.util.XSDParser;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TypeLibraryUtil.
  *
@@ -133,8 +134,9 @@ public class TypeLibraryUtil {
 	
 	/**
 	 * Adding the TypeLibProtocal to the name for the xsd entry.
-	 * @param project
-	 * @return
+	 *
+	 * @param project the project
+	 * @return the dependency file
 	 */
 	public static IFile getDependencyFile(IProject project) {
 		return project.getFile(SOATypeLibraryConstants.FOLDER_META_SRC_META_INF
@@ -312,6 +314,12 @@ public class TypeLibraryUtil {
 		return retValue;
 	}
 
+	/**
+	 * Checks if is new style prototocol.
+	 *
+	 * @param typeLibString the type lib string
+	 * @return true, if is new style prototocol
+	 */
 	private static boolean isNewStylePrototocol(String typeLibString) {
 		return StringUtils.countMatches(typeLibString,
 				SOATypeLibraryConstants.PROTOCOL_DELIMITER) == 2;
@@ -545,12 +553,28 @@ public class TypeLibraryUtil {
 		return path.lastSegment();
 	}
 
+	/**
+	 * Gets the jar file.
+	 *
+	 * @param baseLocation the base location
+	 * @return the jar file
+	 */
 	private static File getJarFile(String baseLocation) {
 		String[] parts = StringUtils.splitByWholeSeparator(baseLocation, "!/");
 		File file = new File(parts[0]);
 		return file;
 	}
 
+	/**
+	 * Gets the type lib name.
+	 *
+	 * @param entry the entry
+	 * @param jarFile the jar file
+	 * @return the type lib name
+	 * @throws SAXException the sAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
+	 */
 	private static String getTypeLibName(JarEntry entry, JarFile jarFile)
 			throws SAXException, IOException, ParserConfigurationException {
 		String typeLibName = "Lib Not Found";
@@ -720,6 +744,8 @@ public class TypeLibraryUtil {
 	// TypeLibraryProjectPropertiesGenerator.TYPE_LIB_PRJ_PROPERTIES_FILE_NAME
 	/** The Constant TYPE_LIB_PRJ_PROPERTIES_FILE_NAME. */
 	public static final String TYPE_LIB_PRJ_PROPERTIES_FILE_NAME = "type_library_project.properties";
+	
+	/** The Constant COMMENT. */
 	private static final String COMMENT = "*** Generated file, any changes will be lost upon regeneration ***";
 
 }

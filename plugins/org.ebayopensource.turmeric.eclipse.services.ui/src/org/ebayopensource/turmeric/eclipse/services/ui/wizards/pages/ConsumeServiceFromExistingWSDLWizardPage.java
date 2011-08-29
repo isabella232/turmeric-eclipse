@@ -72,6 +72,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ConsumeServiceFromExistingWSDLWizardPage.
  *
@@ -79,26 +80,50 @@ import org.eclipse.swt.widgets.Text;
  */
 public class ConsumeServiceFromExistingWSDLWizardPage extends
 		AbstractNewServiceFromWSDLWizardPage {
+	
+	/** The service client text. */
 	private Text serviceClientText;
+	
+	/** The consumer id. */
 	private Text consumerID;
+	
+	/** The admin text. */
 	private Text adminText;
+	
+	/** The retrieve consumer id btn. */
 	private Button retrieveConsumerIDBtn;
+	
+	/** The envrionment list. */
 	private ListViewer envrionmentList;
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/** The version from wsdl. */
 	private String versionFromWSDL = null;
 
+	/** The soa prj. */
 	private ISOAProject soaPrj;
 
 	/** The client prop editable. */
 	boolean clientPropEditable = false;
 
+	/** The consumer id str. */
 	private String consumerIDStr = "";
+	
+	/** The client name str. */
 	private String clientNameStr = "";
+	
+	/** The environments. */
 	private List<String> environments = new ArrayList<String>();
+	
+	/** The service layer str. */
 	private String serviceLayerStr = "";
+	
+	/** The domain name. */
 	private String domainName = "";
 	
+	/** The Constant ADV_MODE_TITLE. */
 	private static final String ADV_MODE_TITLE = "This wizard creates a SOA Intf Project from a pre-existing WSDL document and add it to selected consumer.";
 
 	/**
@@ -754,6 +779,9 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		return environments;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#getServiceVersion()
+	 */
 	@Override
 	public String getServiceVersion() {
 		String result = super.getServiceVersion();
@@ -775,6 +803,9 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			return "";
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage#getServiceDomain()
+	 */
 	@Override
 	public String getServiceDomain() {
 		if (serviceDomainList == null) {

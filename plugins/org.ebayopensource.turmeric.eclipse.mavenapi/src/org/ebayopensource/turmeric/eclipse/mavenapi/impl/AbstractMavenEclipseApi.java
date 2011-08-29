@@ -135,7 +135,8 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	public void writePom(final OutputStream output, final Model model)
 	throws MavenEclipseApiException {
 		try {
-			MavenPlugin.getDefault().getMaven().writeModel(model, output);
+			MavenPlugin.getDefault();
+			MavenPlugin.getMaven().writeModel(model, output);
 		} catch (final Exception e) {
 			throw new MavenEclipseApiException(e);
 		} finally {
@@ -327,7 +328,8 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public void refreshAllIndices() throws MavenEclipseApiException {
-		for (IRepository repo : MavenPlugin.getDefault()
+		MavenPlugin.getDefault();
+		for (IRepository repo : MavenPlugin
 				.getRepositoryRegistry()
 				.getRepositories(IRepositoryRegistry.SCOPE_UNKNOWN)) {
 			 NexusIndexManager nm = ((NexusIndexManager) _getIndexManager());

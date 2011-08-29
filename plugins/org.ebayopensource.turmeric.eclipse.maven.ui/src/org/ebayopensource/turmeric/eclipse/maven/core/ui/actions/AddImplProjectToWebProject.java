@@ -165,7 +165,7 @@ public class AddImplProjectToWebProject implements IObjectActionDelegate {
 				public String getText(Object element) {
 					String text = super.getText(element);
 					if (element instanceof IProject) {
-						final Model pom = targetProjects.get((IProject)element);
+						final Model pom = targetProjects.get(element);
 						if (pom != null && pom.getParent() != null) {
 							text = new StringBuilder(text).append(" - ").append(pom.getParent()).toString();
 						}
@@ -205,7 +205,7 @@ public class AddImplProjectToWebProject implements IObjectActionDelegate {
 							public void widgetSelected(SelectionEvent e) {
 								Object[] data = fFilteredList.getSelection();
 								if (data != null && data.length > 0 && data[0] instanceof IProject) {
-									Model pom = targetProjects.get((IProject)data[0]);
+									Model pom = targetProjects.get(data[0]);
 									if (pom != null) {
 										button.setEnabled(pom.getParent() == null);
 									}

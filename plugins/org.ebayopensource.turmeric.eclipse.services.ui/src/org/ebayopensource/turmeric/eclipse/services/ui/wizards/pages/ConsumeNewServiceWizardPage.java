@@ -61,28 +61,54 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ConsumeNewServiceWizardPage.
  *
  * @author yayu
  */
 public class ConsumeNewServiceWizardPage extends SOABasePage {
+	
+	/** The service list. */
 	private AbstractSOAServiceListViewer serviceList;
+    
+    /** The added services. */
     private Set<AssetInfo> addedServices = new LinkedHashSet<AssetInfo>();
+    
+    /** The added environments. */
     private Map<String, EnvironmentItem> addedEnvironments = new ConcurrentHashMap<String, EnvironmentItem>();
+    
+    /** The existing services. */
     private Set<AssetInfo> existingServices = new LinkedHashSet<AssetInfo>();
+    
+    /** The existing environments. */
     private List<String> existingEnvironments = new ArrayList<String>();
+    
+    /** The project. */
     private IProject project;
+    
+    /** The is zero config. */
     private boolean isZeroConfig = false;
     
+    /** The client name. */
     private Text clientName;
+    
+    /** The consumer id. */
     private Text consumerId;
+    
+    /** The scpp version. */
     private String scppVersion;
+    
+    /** The retrieve consumer id btn. */
     private Button retrieveConsumerIDBtn;
+    
+    /** The Constant logger. */
     private static final SOALogger logger = SOALogger.getLogger();
     
+    /** The SIMPL e_ title. */
     private static String SIMPLE_TITLE = "Set up configurations for services.";
     
+    /** The AD v_ title. */
     private static String ADV_TITLE = "Set up configurations for environments and services.";
     
     /**
@@ -97,6 +123,11 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 		this.project = project;
 	}
 	
+	/**
+	 * Checks if is zero config.
+	 *
+	 * @return true, if is zero config
+	 */
 	public boolean isZeroConfig() {
 		return this.isZeroConfig;
 	}
@@ -248,6 +279,11 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 		return consumerId;
 	}
 	
+	/**
+	 * Sets the retrieve consumer id enabled.
+	 *
+	 * @throws CoreException the core exception
+	 */
 	private void setRetrieveConsumerIDEnabled() throws CoreException {
 		if (retrieveConsumerIDBtn != null) {
 			retrieveConsumerIDBtn.setEnabled(

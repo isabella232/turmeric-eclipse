@@ -11,6 +11,7 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.eclipse.jface.viewers.LabelProvider;
 
+// TODO: Auto-generated Javadoc
 /**
  * Label Provider for Type Library selector. This provider is designed to hack
  * the unique label restriction posed by the Renderer framework by appending the

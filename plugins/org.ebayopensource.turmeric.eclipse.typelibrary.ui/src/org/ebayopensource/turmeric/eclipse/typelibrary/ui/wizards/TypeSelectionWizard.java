@@ -62,6 +62,7 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
+// TODO: Auto-generated Javadoc
 /**
  * Wizard for selection of types.
  *
@@ -70,23 +71,53 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 public class TypeSelectionWizard extends SOABaseWizard {
 
+	/** The type selection wizard page. */
 	private TypeSelectionWizardPage typeSelectionWizardPage = null;
+	
+	/** The simple type wizard general page. */
 	private SimpleTypeWizardGeneralPage simpleTypeWizardGeneralPage = null;
+	
+	/** The complex type wizard general page. */
 	private ComplexTypeWizardGeneralPage complexTypeWizardGeneralPage = null;
+	
+	/** The complex type cc wizard element page. */
 	private ComplexTypeWizardElementPage complexTypeCCWizardElementPage = null;
+	
+	/** The complex type wizard element page. */
 	private ComplexTypeWizardElementPage complexTypeWizardElementPage = null;
+	
+	/** The complex type wizard attribute page. */
 	private ComplexTypeWizardAttribPage complexTypeWizardAttributePage = null;
+	
+	/** The enum type wizard general page. */
 	private EnumTypeWizardGeneralPage enumTypeWizardGeneralPage = null;
+	
+	/** The enum type wizard details page. */
 	private EnumTypeWizardDetailsPage enumTypeWizardDetailsPage = null;
+	
+	/** The complex type sc wizard general page. */
 	private ComplexTypeSCWizardGeneralPage complexTypeSCWizardGeneralPage = null;
+	
+	/** The complex type cc wizard general page. */
 	private ComplexTypeCCWizardGeneralPage complexTypeCCWizardGeneralPage = null;
 
+	/** The template category map. */
 	private Map<SOAXSDTemplateSubType, String> templateCategoryMap;
 
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
+	
+	/** The type lib name. */
 	private String typeLibName = "";
+	
+	/** The editor part. */
 	protected IEditorPart editorPart = null;
 
+	/**
+	 * Sets the editor part.
+	 *
+	 * @param editorPart the new editor part
+	 */
 	public void setEditorPart(IEditorPart editorPart) {
 		this.editorPart = editorPart;
 	}
@@ -237,6 +268,7 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		return true;
 	}
 
+	/** The param model. */
 	private TypeParamModel paramModel = null;
 
 	/* (non-Javadoc)
@@ -379,6 +411,11 @@ public class TypeSelectionWizard extends SOABaseWizard {
 		}
 	}
 
+	/**
+	 * Delete xsd on error.
+	 *
+	 * @throws Exception the exception
+	 */
 	private void deleteXSDOnError() throws Exception {
 		String typeName = "";
 		if (typeSelectionWizardPage.isSimpleType()) {

@@ -64,6 +64,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.osgi.framework.Version;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAProjectPropertyPage.
  *
@@ -71,16 +72,27 @@ import org.osgi.framework.Version;
  */
 public class SOAProjectPropertyPage extends PreferencePage implements
 		IWorkbenchPropertyPage {
+	
+	/** The soa project. */
 	private ISOAProject soaProject;
 
 
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/** The service layer. */
 	private Combo serviceLayer;
+	
+	/** The service version. */
 	private Text serviceVersion;
+	
+	/** The impl version. */
 	private Text implVersion;
+	
+	/** The base consumer dir. */
 	private Text baseConsumerDir;
 	
+	/** The old version. */
 	private String oldVersion;
 	
 	
@@ -116,8 +128,9 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 
 	/**
 	 * Create Groups.
-	 * @param parent
-	 * @throws Exception
+	 *
+	 * @param parent the parent
+	 * @throws Exception the exception
 	 */
 	private void createGroups(Composite parent) throws Exception {
 
@@ -131,6 +144,12 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 
 	}
 
+	/**
+	 * Creates the intf groups.
+	 *
+	 * @param parent the parent
+	 * @throws Exception the exception
+	 */
 	private void createIntfGroups(Composite parent) throws Exception {
 		Group group = createServicePropertyGroup(parent);
 		boolean newSvc = SOAIntfUtil.getOldMetadataFile(soaProject.getProject(), 
@@ -152,6 +171,11 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		this.validateAll();
 	}
 
+	/**
+	 * Creates the consumer groups.
+	 *
+	 * @param parent the parent
+	 */
 	private void createConsumerGroups(Composite parent) {
 		Group group = createConsumerPropertyGroup(parent);
 		addClientName(group);
@@ -159,6 +183,12 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		addBaseConsumerSrcDir(group);// consumer
 	}
 
+	/**
+	 * Creates the impl groups.
+	 *
+	 * @param parent the parent
+	 * @throws Exception the exception
+	 */
 	private void createImplGroups(Composite parent) throws Exception {
 		Group serviceGroup = createServicePropertyGroup(parent);		
 		final String adminName = getIntfMetadata().getServiceName();
@@ -190,8 +220,10 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 	}
 
 	/**
-	 * @param parent
-	 * @return
+	 * Creates the service property group.
+	 *
+	 * @param parent the parent
+	 * @return the group
 	 */
 	private Group createServicePropertyGroup(Composite parent) {
 		Group servicePropertyGroup = new Group(parent, SWT.NONE);
@@ -203,8 +235,10 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 	}
 
 	/**
-	 * @param parent
-	 * @return
+	 * Creates the impl property group.
+	 *
+	 * @param parent the parent
+	 * @return the group
 	 */
 	private Group createImplPropertyGroup(Composite parent) {
 		Group implPropertyGroup = new Group(parent, SWT.NONE);
@@ -215,6 +249,12 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		return implPropertyGroup;
 	}
 	
+	/**
+	 * Creates the consumer property group.
+	 *
+	 * @param parent the parent
+	 * @return the group
+	 */
 	private Group createConsumerPropertyGroup(Composite parent) {
 		Group consumerPropertyGroup = new Group(parent, SWT.NONE);
 		consumerPropertyGroup.setLayout(new GridLayout(2, false));
@@ -328,13 +368,13 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 	}
 
 	/**
-	 * 
 	 * create a text and a label.
-	 * 
-	 * @param composite
-	 * @param label
-	 * @param isEditable
-	 * @param defaultValue
+	 *
+	 * @param composite the composite
+	 * @param label the label
+	 * @param isEditable the is editable
+	 * @param defaultValue the default value
+	 * @return the text
 	 */
 	private Text createLabeledText(Composite composite, String label,
 			boolean isEditable, String defaultValue) {
@@ -347,18 +387,33 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		return text;
 	}
 
+	/**
+	 * Adds the service intf class name.
+	 *
+	 * @param group the group
+	 */
 	private void addServiceIntfClassName(Composite group) {
 		createLabeledText(group, "Interface Class:", false, getIntfMetadata()
 				.getServiceInterface());
 
 	}
 
+	/**
+	 * Adds the service impl class name.
+	 *
+	 * @param group the group
+	 */
 	private void addServiceImplClassName(Group group) {
 		createLabeledText(group, "Impl Class:", false,
 				((SOAImplProject) getSoaProject()).getMetadata()
 						.getServiceImplClassName());
 	}
 
+	/**
+	 * Adds the impl version.
+	 *
+	 * @param group the group
+	 */
 	private void addImplVersion(Group group) {
 		String defaultValue = ((SOAImplProject) getSoaProject()).getMetadata()
 				.getImplVersion();
@@ -380,6 +435,12 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 
 	}
 
+	/**
+	 * Adds the service version.
+	 *
+	 * @param group the group
+	 * @param editable the editable
+	 */
 	private void addServiceVersion(Composite group, final boolean editable) {
 
 		oldVersion = getIntfMetadata().getServiceVersion();
@@ -400,20 +461,41 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 
 	}
 	
+	/**
+	 * Adds the admin name.
+	 *
+	 * @param group the group
+	 */
 	private void addAdminName(Composite group) {
 		createLabeledText(group, "Admin Name:", false, getIntfMetadata()
 				.getServiceName());
 	}
 
+	/**
+	 * Adds the service name.
+	 *
+	 * @param group the group
+	 * @param svcName the svc name
+	 */
 	private void addServiceName(Composite group, final String svcName) {
 		createLabeledText(group, "Service Name:", false, svcName);
 	}
 	
+	/**
+	 * Adds the client name.
+	 *
+	 * @param comp the comp
+	 */
 	private void addClientName(Composite comp) {
 		createLabeledText(comp, "Client Name:", false,
 				getConsumerMetadata().getClientName());
 	}
 	
+	/**
+	 * Adds the consumer id.
+	 *
+	 * @param comp the comp
+	 */
 	private void addConsumerId(Composite comp) {
 		final String conId = getConsumerMetadata().getConsumerId() != null 
 		? getConsumerMetadata().getConsumerId() : "";
@@ -421,6 +503,13 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 				conId);
 	}
 
+	/**
+	 * Checks if is valid layer.
+	 *
+	 * @param svcLayer the svc layer
+	 * @param requiredSvcLayers the required svc layers
+	 * @return true, if is valid layer
+	 */
 	private boolean isValidLayer(final String svcLayer,
 			final List<String> requiredSvcLayers) {
 		for (final String requiredSvcLayer : requiredSvcLayers) {
@@ -430,6 +519,13 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		return true;
 	}
 
+	/**
+	 * Adds the service layer combo.
+	 *
+	 * @param group the group
+	 * @param enabled the enabled
+	 * @throws Exception the exception
+	 */
 	private void addServiceLayerCombo(Composite group, final boolean enabled)
 			throws Exception {
 		new Label(group, SWT.LEFT).setText("Service Layer:");
@@ -487,6 +583,11 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 				&& StringUtils.isNotBlank(serviceLayer.getText()));
 	}
 
+	/**
+	 * Adds the base consumer src dir.
+	 *
+	 * @param group the group
+	 */
 	private void addBaseConsumerSrcDir(Composite group) {
 		final List<SOAProjectSourceDirectory> srcDirs = soaProject
 				.getSourceDirectories();
@@ -495,6 +596,11 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 				getConsumerMetadata().getBaseConsumerSrcDir());
 	}
 
+	/**
+	 * Gets the intf metadata.
+	 *
+	 * @return the intf metadata
+	 */
 	private SOAIntfMetadata getIntfMetadata() {
 		if (soaProject instanceof SOAIntfProject) {
 			return ((SOAIntfProject) soaProject).getMetadata();
@@ -505,6 +611,11 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		return null;
 	}
 
+	/**
+	 * Gets the consumer metadata.
+	 *
+	 * @return the consumer metadata
+	 */
 	private SOAConsumerMetadata getConsumerMetadata() {
 		if (soaProject instanceof SOAImplProject) {
 			return ((SOAImplProject) soaProject).getMetadata();
@@ -514,6 +625,11 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		return null;
 	}
 
+	/**
+	 * Validate all.
+	 *
+	 * @throws ValidationInterruptedException the validation interrupted exception
+	 */
 	private void validateAll() throws ValidationInterruptedException {
 
 		boolean result = true;
@@ -533,6 +649,12 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		setErrorMessage(null);
 	}
 
+	/**
+	 * Validate intf project fields.
+	 *
+	 * @return true, if successful
+	 * @throws ValidationInterruptedException the validation interrupted exception
+	 */
 	private boolean validateIntfProjectFields()
 			throws ValidationInterruptedException {
 		if (serviceVersion != null) {
@@ -568,6 +690,12 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		return true;
 	}
 
+	/**
+	 * Validate impl project fields.
+	 *
+	 * @return true, if successful
+	 * @throws ValidationInterruptedException the validation interrupted exception
+	 */
 	private boolean validateImplProjectFields()
 			throws ValidationInterruptedException {
 		if (implVersion != null) {
@@ -626,6 +754,11 @@ public class SOAProjectPropertyPage extends PreferencePage implements
 		return soaProject;
 	}
 
+	/**
+	 * Process exception.
+	 *
+	 * @param exception the exception
+	 */
 	private void processException(Exception exception) {
 		if (exception != null) {
 			UIUtil.showErrorDialog(exception);

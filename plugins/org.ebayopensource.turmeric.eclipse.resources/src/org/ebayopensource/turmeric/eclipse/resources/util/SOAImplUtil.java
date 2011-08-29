@@ -28,12 +28,15 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IClasspathEntry;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAImplUtil.
  *
  * @author smathew
  */
 public class SOAImplUtil {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 	
 	/**

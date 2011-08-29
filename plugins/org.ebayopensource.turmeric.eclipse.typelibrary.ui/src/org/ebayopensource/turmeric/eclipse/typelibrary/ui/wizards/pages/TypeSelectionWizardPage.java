@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Type Selection Page.
  *
@@ -34,8 +35,13 @@ import org.eclipse.swt.widgets.Text;
 
 public class TypeSelectionWizardPage extends SOABasePage {
 
+	/** The container. */
 	private Composite container;
+	
+	/** The type buttons. */
 	private List<Button> typeButtons = new ArrayList<Button>();
+	
+	/** The template category map. */
 	private static Map<SOAXSDTemplateSubType, String> templateCategoryMap;
 
 

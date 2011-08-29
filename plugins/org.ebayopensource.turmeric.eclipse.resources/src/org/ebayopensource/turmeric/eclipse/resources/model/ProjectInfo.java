@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ProjectInfo.
  *
@@ -25,11 +26,22 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
  */
 public class ProjectInfo extends AssetInfo {
 
+	/** The service layer. */
 	private final String serviceLayer; //we still need this in order to show the service layer info
+	
+	/** The interface project name. */
 	private String interfaceProjectName;
+	
+	/** The implementation project name. */
 	private String implementationProjectName;
+	
+	/** The required libraries. */
 	private Set<String> requiredLibraries = new TreeSet<String>();
+	
+	/** The required projects. */
 	private Set<String> requiredProjects = new TreeSet<String>();
+	
+	/** The required services. */
 	private Set<String> requiredServices = new TreeSet<String>();
 	
 	/**

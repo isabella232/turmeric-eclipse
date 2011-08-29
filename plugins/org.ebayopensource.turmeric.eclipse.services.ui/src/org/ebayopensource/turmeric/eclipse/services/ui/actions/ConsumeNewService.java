@@ -38,13 +38,18 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ConsumeNewService.
  *
  * @author smathew
  */
 public class ConsumeNewService implements IObjectActionDelegate {
+	
+	/** The selection. */
 	private IStructuredSelection selection;
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**

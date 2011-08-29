@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IAction;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UpdateExistingServiceVersion.
  *
@@ -27,6 +28,8 @@ import org.eclipse.jface.action.IAction;
  * @since 1.0.0
  */
 public class UpdateExistingServiceVersion extends AbstractSubmitAssetAction {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 	
 	/**

@@ -21,6 +21,7 @@ import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TypeLibraryContentProvider.
  *
@@ -113,6 +114,12 @@ public class TypeLibraryContentProvider implements ITreeContentProvider {
 
 	}
 
+	/**
+	 * Gets the predicate.
+	 *
+	 * @param typeLibraryCategory the type library category
+	 * @return the predicate
+	 */
 	private Predicate getPredicate(final String typeLibraryCategory) {
 		return new Predicate() {
 			@Override

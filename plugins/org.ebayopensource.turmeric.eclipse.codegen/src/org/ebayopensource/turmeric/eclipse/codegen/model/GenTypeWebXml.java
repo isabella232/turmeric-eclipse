@@ -13,6 +13,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * Simple Model class for web xml generation. Gentype used is "WebXml"
  * 
@@ -21,6 +22,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
  */
 public class GenTypeWebXml extends BaseCodeGenModel {
 
+	/** The meta dir. */
 	private String metaDir;
 
 	/**

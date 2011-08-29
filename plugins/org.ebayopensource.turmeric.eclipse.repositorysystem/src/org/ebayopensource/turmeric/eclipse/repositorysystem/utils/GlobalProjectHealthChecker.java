@@ -28,6 +28,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IStatus;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GlobalProjectHealthChecker.
  *
@@ -36,7 +37,7 @@ import org.eclipse.core.runtime.IStatus;
 public final class GlobalProjectHealthChecker {
 
 	/**
-	 * 
+	 * Instantiates a new global project health checker.
 	 */
 	private GlobalProjectHealthChecker() {
 		super();
@@ -135,11 +136,13 @@ public final class GlobalProjectHealthChecker {
 	}
 
 	/**
-	 * @param project
+	 * Gets the sOA project writable resources.
+	 *
+	 * @param project the project
 	 * @return A list of resources that are supposed to be writable or NOT
-	 *         EXISTS for the provided SOA project. It will return an empty list
-	 *         if not a valid SOA project.
-	 * @throws Exception
+	 * EXISTS for the provided SOA project. It will return an empty list
+	 * if not a valid SOA project.
+	 * @throws Exception the exception
 	 */
 	public static List<IResource> getSOAProjectWritableResources(
 			final IProject project) throws Exception {

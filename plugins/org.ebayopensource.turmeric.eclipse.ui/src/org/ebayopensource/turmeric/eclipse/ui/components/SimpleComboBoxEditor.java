@@ -183,6 +183,12 @@ public class SimpleComboBoxEditor extends FieldEditor {
         return itemList;
     }
     
+	/**
+	 * Update protocol list.
+	 *
+	 * @param selection the selection
+	 * @param newNameValuePairs the new name value pairs
+	 */
 	public void updateProtocolList(String selection,
 			String[][] newNameValuePairs) {
 		if (itemList == null) {

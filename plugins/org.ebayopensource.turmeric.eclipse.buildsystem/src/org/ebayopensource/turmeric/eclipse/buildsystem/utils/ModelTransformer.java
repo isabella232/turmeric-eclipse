@@ -42,6 +42,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transforms the projects available at run time to callable code generation
  * models. This has some critical functionalities. It parse a projects and finds
@@ -86,6 +87,7 @@ public class ModelTransformer {
 	 * @param project - the project will be again used to get the rest of the
 	 * codegen parameter values.
 	 * @return the gen type service from wsdl intf
+	 * @throws WSDLException the wSDL exception
 	 */
 	public static GenTypeServiceFromWSDLIntf transformToGenTypeServiceFromWSDLIntf(
 			BaseCodeGenModel model, IProject project) throws WSDLException {
@@ -277,21 +279,20 @@ public class ModelTransformer {
 	}
 
 	/**
-	 * Wrapper on the
-	 * 
+	 * Wrapper on the.
+	 *
+	 * @param model the model
+	 * @param project the project
+	 * @return the gen type si skeleton
 	 * @see {@link ModelTransformer}
-	 *      {@link #transformToGenTypeSISkelton(BaseCodeGenModel, IProject)}
+	 * {@link #transformToGenTypeSISkelton(BaseCodeGenModel, IProject)}
 	 * 
-	 *      method, additionally it has the overwrite implementation class flag
-	 *      set to true. Setting it to true will over write the implementation
-	 *      java class. The reason for having an additional flag is because
-	 *      there is a high chance that there might be some additional business
-	 *      logic added to the implementation class and for the same reason we
-	 *      don't want to overwrite it without a confirmation.
-	 * 
-	 * @param model
-	 * @param project
-	 * @return
+	 * method, additionally it has the overwrite implementation class flag
+	 * set to true. Setting it to true will over write the implementation
+	 * java class. The reason for having an additional flag is because
+	 * there is a high chance that there might be some additional business
+	 * logic added to the implementation class and for the same reason we
+	 * don't want to overwrite it without a confirmation.
 	 */
 	public static GenTypeSISkeleton transformToGenTypeSISkeltonOverwriteImplClass(
 			BaseCodeGenModel model, IProject project) {
@@ -463,15 +464,13 @@ public class ModelTransformer {
 	 * base model data. Meaning the rest of the data is inferred from the both
 	 * of them. This is not generated in all the projects, but is generated on
 	 * demand. Additional SOA Tools bug fixes are added here.
-	 * 
-	 * @param model
-	 *            - The base model has the general information from a project
-	 *            already parsed and fed into
-	 * @param project
-	 *            - the project will be again used to get the rest of the
-	 *            codegen parameter values.
-	 * @return
-	 * @throws WSDLException
+	 *
+	 * @param model - The base model has the general information from a project
+	 * already parsed and fed into
+	 * @param project - the project will be again used to get the rest of the
+	 * codegen parameter values.
+	 * @return the gen type service config
+	 * @throws Exception the exception
 	 */
 	public static GenTypeServiceConfig transformToGenTypeServiceConfig(
 			BaseCodeGenModel model, IProject project) throws Exception {
@@ -527,15 +526,13 @@ public class ModelTransformer {
 	 * base model data. Meaning the rest of the data is inferred from the both
 	 * of them. This is not generated in all the projects, but is generated on
 	 * demand. Additional SOA Tools bug fixes are added here.
-	 * 
-	 * @param model
-	 *            - The base model has the general information from a project
-	 *            already parsed and fed into
-	 * @param project
-	 *            - the project will be again used to get the rest of the
-	 *            codegen parameter values.
-	 * @return
-	 * @throws WSDLException
+	 *
+	 * @param model - The base model has the general information from a project
+	 * already parsed and fed into
+	 * @param project - the project will be again used to get the rest of the
+	 * codegen parameter values.
+	 * @return the gen type type mappings
+	 * @throws WSDLException the wSDL exception
 	 */
 	public static GenTypeTypeMappings transformToGenTypeTypeMappings(
 			BaseCodeGenModel model, IProject project) throws WSDLException {

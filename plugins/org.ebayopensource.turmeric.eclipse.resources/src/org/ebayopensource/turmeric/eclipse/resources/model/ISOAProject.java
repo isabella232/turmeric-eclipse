@@ -16,6 +16,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Represents a SOA project instance.
  * 
@@ -134,9 +135,17 @@ public interface ISOAProject {
 	 * The Class SOAProjectSourceDirectory.
 	 */
 	public static class SOAProjectSourceDirectory implements Comparable<SOAProjectSourceDirectory>{
+		
+		/** The location. */
 		private String location;
+		
+		/** The is test. */
 		private boolean isTest;
+		
+		/** The output location. */
 		private String outputLocation;
+		
+		/** The exclude patterns. */
 		private String[] excludePatterns;
 		
 		/**

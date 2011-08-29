@@ -103,7 +103,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 			throw new MavenEclipseApiException(Messages.ERROR_NULL_SETTINGS);
 		}
 
-		List<String> activeProfiles = (List<String>) settings
+		List<String> activeProfiles = settings
 				.getActiveProfiles();
 		if (activeProfiles == null || activeProfiles.size() < 1) {
 			throw new MavenEclipseApiException(
@@ -117,7 +117,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 			// .lookup(org.apache.maven.MavenTools.class);
 			RepositorySystem rs = plexus.lookup(RepositorySystem.class);
 			if (needPluginRepo == false) {
-				for (Mirror mirror : (List<Mirror>) settings.getMirrors()) {
+				for (Mirror mirror : settings.getMirrors()) {
 					final org.apache.maven.model.Repository repo = new org.apache.maven.model.Repository();
 					repo.setId(mirror.getId());
 					// repo.setModelEncoding(mirror.getModelEncoding());
@@ -135,7 +135,7 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 				}
 			}
 
-			List<Profile> profiles = (List<Profile>) settings.getProfiles();
+			List<Profile> profiles = settings.getProfiles();
 			for (Profile p : profiles) {
 				if (activeProfiles.contains(p.getId())) {
 					org.apache.maven.model.Profile mp = SettingsUtils
@@ -314,8 +314,9 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 						Messages.ERROR_NO_REPOSITORIES);
 			}
 
+			MavenPlugin.getDefault();
 			//PlexusContainer plexus = embedder.getPlexusContainer();
-			ArtifactRepository localRepository = MavenPlugin.getDefault().getMaven().getLocalRepository();
+			ArtifactRepository localRepository = MavenPlugin.getMaven().getLocalRepository();
 			List<ArtifactRepository> remoteRepositories = _getKnownRepositories(
 					embedder, md.getType());
 
@@ -339,7 +340,8 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 	public Model parsePom(final File file)
 			throws MavenEclipseApiException {
 		try {
-			return MavenPlugin.getDefault().getMaven().readModel(file);
+			MavenPlugin.getDefault();
+			return MavenPlugin.getMaven().readModel(file);
 		} catch (Exception ex) {
 			throw new MavenEclipseApiException(ex);
 		}

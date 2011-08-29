@@ -9,6 +9,7 @@
 package org.ebayopensource.turmeric.eclipse.core.resources.constants;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAServiceConstants.
  *
@@ -32,9 +33,7 @@ public final class SOAServiceConstants {
      */
     public static final String SOA_TOOLS = "codegen-tools";
     
-    /**
-     * SOA framework jars
-     */
+    /** SOA framework jars. */
     public static final String[] SOA_FRAMEWORK_JARS = { SOA_CLIENT, SOA_SERVER, SOA_TOOLS };
     
     /**

@@ -22,7 +22,6 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOALibraryDepe
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.eclipse.jface.window.Window;
-import org.eclipse.m2e.core.internal.index.IIndex;
 import org.eclipse.m2e.core.internal.index.IndexedArtifactFile;
 import org.eclipse.m2e.core.ui.internal.dialogs.MavenRepositorySearchDialog;
 import org.eclipse.swt.widgets.Shell;

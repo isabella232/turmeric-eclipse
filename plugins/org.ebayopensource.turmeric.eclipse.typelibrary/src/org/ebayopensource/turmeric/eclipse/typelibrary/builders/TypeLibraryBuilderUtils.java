@@ -38,6 +38,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.JavaCore;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * Standard Type Library Builder Utils.
@@ -46,6 +47,8 @@ import org.eclipse.jdt.core.JavaCore;
  * 
  */
 public class TypeLibraryBuilderUtils {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
@@ -205,6 +208,12 @@ public class TypeLibraryBuilderUtils {
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * Gets the intf project writable resources.
+	 *
+	 * @param project the project
+	 * @return the intf project writable resources
+	 */
 	private static List<IResource> getIntfProjectWritableResources(
 			IProject project) {
 		final List<IResource> resources = new ArrayList<IResource>();
@@ -212,6 +221,12 @@ public class TypeLibraryBuilderUtils {
 		return resources;
 	}
 
+	/**
+	 * Gets the intf project readable resources.
+	 *
+	 * @param project the project
+	 * @return the intf project readable resources
+	 */
 	private static List<IResource> getIntfProjectReadableResources(
 			IProject project) {
 		final List<IResource> resources = new ArrayList<IResource>();
@@ -223,11 +238,11 @@ public class TypeLibraryBuilderUtils {
 	 * Mainly used to validate a type library project. These are the minimum
 	 * files that should be readable for the SOA plugin and codegen to work. For
 	 * now its just the type dependency file.
-	 * 
-	 * @param project
+	 *
+	 * @param project the project
 	 * @return list of resources that are supposed to exist in a valid type
-	 *         library project.
-	 * @throws Exception
+	 * library project.
+	 * @throws Exception the exception
 	 */
 	public static List<IResource> getTypeLibProjectReadableResources(
 			final IProject project) throws Exception {
@@ -241,11 +256,11 @@ public class TypeLibraryBuilderUtils {
 	 * files that should be writable for the SOA plugin and codegen to modify.
 	 * The returned list of files could be modified either by codegen or soa
 	 * plugin. For now its just the type dependency file.
-	 * 
-	 * @param project
+	 *
+	 * @param project the project
 	 * @return list of resources that are supposed tobe writable in a valid type
-	 *         library project.
-	 * @throws Exception
+	 * library project.
+	 * @throws Exception the exception
 	 */
 	public static List<IResource> getTypeLibProjectWritableResources(
 			final IProject project) throws Exception {

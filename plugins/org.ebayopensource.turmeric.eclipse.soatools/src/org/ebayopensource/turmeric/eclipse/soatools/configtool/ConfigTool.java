@@ -84,6 +84,7 @@ public class ConfigTool {
 	 * @throws Exception the exception
 	 * @deprecated plugin should never modify the ServiceConfig.xml
 	 */
+	@Deprecated
 	public static void saveServerConfig(final ISOAServiceConfig serviceConfig, 
 			final IFile fileLocation) throws Exception {
 		final ClassLoader loader = Thread.currentThread()

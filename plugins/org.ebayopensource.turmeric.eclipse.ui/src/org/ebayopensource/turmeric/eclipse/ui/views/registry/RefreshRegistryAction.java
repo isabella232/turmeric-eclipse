@@ -24,10 +24,21 @@ import org.eclipse.swt.custom.BusyIndicator;
  */
 @Deprecated
 public class RefreshRegistryAction extends Action{
+	
+	/** The type library viewer. */
 	private StructuredViewer typeLibraryViewer;
+	
+	/** The type viewer. */
 	private StructuredViewer typeViewer;
+	
+	/** The Constant TEXT. */
 	private static final String TEXT = "Refresh the Type Registry";
 
+	/**
+	 * Instantiates a new refresh registry action.
+	 *
+	 * @param typeLibraryViewer the type library viewer
+	 */
 	public RefreshRegistryAction(StructuredViewer typeLibraryViewer) {
 		super(TEXT, AS_PUSH_BUTTON);
 		this.setToolTipText(TEXT);
@@ -35,13 +46,23 @@ public class RefreshRegistryAction extends Action{
 		this.setImageDescriptor(UIActivator.getImageDescriptor("icons/refresh.gif"));
 	}
 	
+	/**
+	 * Sets the type viewer.
+	 *
+	 * @param typeViewer the new type viewer
+	 */
 	public void setTypeViewer(StructuredViewer typeViewer) {
 		this.typeViewer = typeViewer;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void run() {
 		if (typeLibraryViewer != null) {
 			final Runnable runnable = new Runnable() {
+				@Override
 				public void run() {
 					SOAGlobalRegistryAdapter.getInstance().invalidateRegistry();
 					try {

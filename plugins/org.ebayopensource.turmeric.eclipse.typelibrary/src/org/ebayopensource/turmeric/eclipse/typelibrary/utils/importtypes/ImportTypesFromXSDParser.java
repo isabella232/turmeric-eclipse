@@ -35,6 +35,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class is used to parse XSD content and cut XSD content from it. Also it
  * will handle dependencies, add document node to type.
@@ -44,6 +45,14 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class ImportTypesFromXSDParser extends DefaultHandler {
 
+	/**
+	 * Cut xsd.
+	 *
+	 * @param wsdlPath the wsdl path
+	 * @throws SAXException the sAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
+	 */
 	public void cutXSD(String wsdlPath) throws SAXException, IOException,
 			ParserConfigurationException {
 		SAXParserFactory saxfac = SAXParserFactory.newInstance();
@@ -56,159 +65,240 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		saxParser.parse(wsdlPath, this);
 	}
 
+	/** The Constant REPLACE. */
 	private static final String REPLACE = "${IMPORT_TYPE_REPLACEMENT}";
 
+	/** The Constant REPLACE_SPLITER. */
 	private static final String REPLACE_SPLITER = "\\$\\{IMPORT_TYPE_REPLACEMENT\\}";
 
 	// variables that need to be clear up once a type is processed.
 
+	/** The content. */
 	private XSDContentList content = new XSDContentList();
 
+	/** The type name. */
 	private String typeName = null;
 
+	/** The tl name. */
 	private String tlName = null;
 
+	/** The tl namespace. */
 	private String tlNamespace = null;
 
+	/** The documentation. */
 	private String documentation = null;
 
+	/** The document index. */
 	private int documentIndex = -1;
 
+	/** The document annotation index. */
 	private int documentAnnotationIndex = -1;
 
+	/** The accept content. */
 	private boolean acceptContent = false;
 
+	/** The errors. */
 	private List<String> errors = new ArrayList<String>();
 
+	/** The warnings. */
 	private List<String> warnings = new ArrayList<String>();
 
 	// variables for all types in the same schema node.
+	/** The ns mapping schema. */
 	private Map<String, String> nsMappingSchema = new HashMap<String, String>();
 
+	/** The target namespace. */
 	private String targetNamespace = null;
 
+	/** The schema xmlns. */
 	private String schemaXMLNS = null;
 
+	/** The schema q name. */
 	private String schemaQName = null;
 
+	/** The tpye attrs. */
 	private Map<String, String> tpyeAttrs = new HashMap<String, String>();
 
 	// variables for all types in current wsdl.
+	/** The xsds. */
 	private Map<String, TypeModel> xsds = new HashMap<String, TypeModel>();
 
+	/** The reffered tl types. */
 	private Map<String, TypeModel> refferedTLTypes = null;
 
+	/** The outer ns mapping. */
 	private Map<String, String> outerNSMapping = new HashMap<String, String>();
 
+	/** The xml path. */
 	private List<NodeQName> xmlPath = new ArrayList<NodeQName>();
 
+	/** The no type name counter. */
 	private static int noTypeNameCounter = 0;
 
+	/**
+	 * Clear no type name counter.
+	 */
 	public static void clearNoTypeNameCounter() {
 		noTypeNameCounter = 0;
 	}
 
+	/**
+	 * Sets the outer ns mappint.
+	 *
+	 * @param outerNSMapping the outer ns mapping
+	 */
 	public void setOuterNSMappint(Map<String, String> outerNSMapping) {
 		this.outerNSMapping = outerNSMapping;
 	}
 
 	// node QNames
 
+	/** The Constant TYPE_NS. */
 	private static final String TYPE_NS = "http://www.w3.org/[0-9]{4}/XMLSchema[/]{0,}";
 
+	/** The Constant SCHEMA_NS_PATTERN. */
 	private static final Pattern SCHEMA_NS_PATTERN = Pattern.compile(TYPE_NS,
 			Pattern.CASE_INSENSITIVE);
 
+	/** The SCHEM a_ de f_ name. */
 	private static String SCHEMA_DEF_NAME = "schema";
 
+	/** The COMPLE x_ typ e_ node. */
 	private static String COMPLEX_TYPE_NODE = "complexType";
 
+	/** The SIMPL e_ typ e_ node. */
 	private static String SIMPLE_TYPE_NODE = "simpleType";
 
+	/** The ANNOTATIO n_ node. */
 	private static String ANNOTATION_NODE = "annotation";
 
+	/** The TYP e_ documentatio n_ node. */
 	private static String TYPE_DOCUMENTATION_NODE = "documentation";
 
+	/** The APPINF o_ node. */
 	private static String APPINFO_NODE = "appinfo";
 
+	/** The T l_ sourc e_ node. */
 	private static String TL_SOURCE_NODE = "typeLibrarySource";
 
+	/** The ELEMEN t_ node. */
 	private static String ELEMENT_NODE = "element";
 
+	/** The ATTRIBUT e_ node. */
 	private static String ATTRIBUTE_NODE = "attribute";
 
+	/** The UNIO n_ node. */
 	private static String UNION_NODE = "union";
 
+	/** The SEQUENC e_ node. */
 	private static String SEQUENCE_NODE = "sequence";
 
+	/** The CHOIC e_ node. */
 	private static String CHOICE_NODE = "choice";
 
+	/** The X s_ an y_ node. */
 	private static String XS_ANY_NODE = "any";
 
 	// attribute names
+	/** The ATT r_ targe t_ n s_ lb. */
 	private static String ATTR_TARGET_NS_LB = "targetNamespace";
 
+	/** The TYP e_ librar y_ attr. */
 	private static String TYPE_LIBRARY_ATTR = "library";
 
+	/** The TYP e_ n s_ attr. */
 	private static String TYPE_NS_ATTR = "namespace";
 
+	/** The TYP e_ nam e_ attr. */
 	private static String TYPE_NAME_ATTR = "name";
 
+	/** The TYP e_ bas e_ attr. */
 	private static String TYPE_BASE_ATTR = "base";
 
+	/** The TYP e_ typ e_ attr. */
 	private static String TYPE_TYPE_ATTR = "type";
 
+	/** The ELEMEN t_ ref. */
 	private static String ELEMENT_REF = "ref";
 
 	// namespace in attribute value
+	/** The X s_ ns. */
 	private static String XS_NS = "xs:";
+	
+	/** The XM l_ ns. */
 	private static String XML_NS = "xmlns:";
+	
+	/** The XM l_ n s_ attr. */
 	private static String XML_NS_ATTR = "xmlns";
 
 	// import statement and included statement.
+	/** The Constant TYPE_INCLUDE_NODE. */
 	private static final String TYPE_INCLUDE_NODE = "\r\n\t<xs:include schemaLocation=\"typelib://"
 			+ REPLACE + "//" + REPLACE + ".xsd\" />";
+	
+	/** The Constant TYPE_IMPORT_NODE. */
 	private static final String TYPE_IMPORT_NODE = "\r\n\t<xs:import namespace=\"{0}\" \r\n"
 			+ "\t\tschemaLocation=\"typelib://{1}//{2}.xsd\" />";
 	// document node
+	/** The Constant ANNOTATION_DOC_NODE. */
 	private static final String ANNOTATION_DOC_NODE = "\r\n\t<xs:annotation>\r\n"
 			+ "\t\t<xs:documentation>\r\n"
 			+ "\t\t\t"
 			+ REPLACE
 			+ "\r\n\t\t</xs:documentation>\r\n" + "\t</xs:annotation>\r\n";
 
+	/** The Constant DOC_NODE. */
 	private static final String DOC_NODE = "\r\n\t\t<xs:documentation>\r\n"
 			+ "\t\t\t" + REPLACE + "\r\n\t\t</xs:documentation>\r\n";
 
 	/*
 	 * fill with all external type namespace. and real type library namespace
 	 */
+	/** The Constant TYPE_SCHEMA_NODE_1. */
 	private static final String TYPE_SCHEMA_NODE_1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 			+ "<xs:schema ";
 
+	/** The Constant TYPE_SCHEMA_NODE_2. */
 	private static final String TYPE_SCHEMA_NODE_2 = "\r\n"
 			+ "\t attributeFormDefault=\"unqualified\" elementFormDefault=\"qualified\" "
 			+ "targetNamespace=\"";
 
+	/** The Constant TYPE_SCHEMA_NODE_3. */
 	private static final String TYPE_SCHEMA_NODE_3 = "\" version=\"1.0.0\">\r\n";
 
+	/** The Constant TYPE_SCHEMA_NODE_END. */
 	private static final String TYPE_SCHEMA_NODE_END = "\r\n</xs:schema>";
 
+	/** The schema start index. */
 	private int schemaStartIndex = 0;
 
+	/**
+	 * Use wsdl model.
+	 */
 	public void useWSDLModel() {
 		this.schemaStartIndex = 2;
 	}
 
+	/**
+	 * Sets the schema start index.
+	 *
+	 * @param schemaStartIndex the new schema start index
+	 */
 	public void setSchemaStartIndex(int schemaStartIndex) {
 		this.schemaStartIndex = schemaStartIndex;
 	}
 
+	/**
+	 * Gets the name for no type without name.
+	 *
+	 * @return the name for no type without name
+	 */
 	private String getNameForNoTypeWithoutName() {
 		noTypeNameCounter++;
 		return "NoNameType" + noTypeNameCounter;
 	}
 
+	/** The LI b_ typ e_ mapping. */
 	private static Map<String, LibraryType> LIB_TYPE_MAPPING = new HashMap<String, LibraryType>();
 
 	static {
@@ -226,19 +316,40 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * Gets the type models.
+	 *
+	 * @return the type models
+	 */
 	public Collection<TypeModel> getTypeModels() {
 		return this.xsds.values();
 	}
 
+	/**
+	 * Gets the type model map.
+	 *
+	 * @return the type model map
+	 */
 	public Map<String, TypeModel> getTypeModelMap() {
 		return this.xsds;
 	}
 
+	/**
+	 * Checks if is schema ns.
+	 *
+	 * @param namespace the namespace
+	 * @return true, if is schema ns
+	 */
 	private static boolean isSchemaNS(String namespace) {
 		Matcher matcher = SCHEMA_NS_PATTERN.matcher(namespace);
 		return matcher.matches();
 	}
 
+	/**
+	 * Schema def.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean schemaDef() {
 		if (xmlPath.size() < schemaStartIndex + 1) {
 			return false;
@@ -248,6 +359,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 				&& SCHEMA_DEF_NAME.equals(qName.localName);
 	}
 
+	/**
+	 * Type def.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean typeDef() {
 		if (xmlPath.size() < schemaStartIndex + 2) {
 			return false;
@@ -258,6 +374,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 						.equals(qName.localName));
 	}
 
+	/**
+	 * Type anotation def.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean typeAnotationDef() {
 		if (xmlPath.size() < schemaStartIndex + 3) {
 			return false;
@@ -267,6 +388,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 				&& (ANNOTATION_NODE.equals(qName.localName));
 	}
 
+	/**
+	 * Type anotation doc def.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean typeAnotationDocDef() {
 		if (xmlPath.size() < schemaStartIndex + 4) {
 			return false;
@@ -276,6 +402,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 				&& (TYPE_DOCUMENTATION_NODE.equals(qName.localName));
 	}
 
+	/**
+	 * Type anotation app info def.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean typeAnotationAppInfoDef() {
 		if (xmlPath.size() < schemaStartIndex + 4) {
 			return false;
@@ -285,6 +416,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 				&& (APPINFO_NODE.equals(qName.localName));
 	}
 
+	/**
+	 * Type anotation tl source def.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean typeAnotationTLSourceDef() {
 		if (xmlPath.size() < schemaStartIndex + 5) {
 			return false;
@@ -301,6 +437,12 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 	// && (ELEMENT_NODE.equals(qName.localName));
 	// }
 
+	/**
+	 * Type any ele def.
+	 *
+	 * @param qName the q name
+	 * @return true, if successful
+	 */
 	private boolean typeAnyEleDef(NodeQName qName) {
 		if (qName == null) {
 			return false;
@@ -308,6 +450,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return (qName.ns == NS.SCHEMA) && (XS_ANY_NODE.equals(qName.localName));
 	}
 
+	/**
+	 * Checks if is schema node.
+	 *
+	 * @return true, if is schema node
+	 */
 	private boolean isSchemaNode() {
 		if (xmlPath.size() != schemaStartIndex + 1) {
 			return false;
@@ -322,6 +469,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 	// return wsdlDef() && schemaDef();
 	// }
 
+	/**
+	 * Checks if is type node.
+	 *
+	 * @return true, if is type node
+	 */
 	private boolean isTypeNode() {
 		if (xmlPath.size() != schemaStartIndex + 2) {
 			return false;
@@ -329,6 +481,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return schemaDef() && typeDef();
 	}
 
+	/**
+	 * Checks if is in type node.
+	 *
+	 * @return true, if is in type node
+	 */
 	private boolean isInTypeNode() {
 		if (xmlPath.size() < schemaStartIndex + 3) {
 			return false;
@@ -336,6 +493,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return schemaDef() && typeDef();
 	}
 
+	/**
+	 * Checks if is type library source node.
+	 *
+	 * @return true, if is type library source node
+	 */
 	private boolean isTypeLibrarySourceNode() {
 		if (xmlPath.size() != schemaStartIndex + 5) {
 			return false;
@@ -344,6 +506,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 				&& typeAnotationAppInfoDef() && typeAnotationTLSourceDef();
 	}
 
+	/**
+	 * Checks if is type documentation node.
+	 *
+	 * @return true, if is type documentation node
+	 */
 	private boolean isTypeDocumentationNode() {
 		if (xmlPath.size() != schemaStartIndex + 4) {
 			return false;
@@ -352,6 +519,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 				&& typeAnotationDocDef();
 	}
 
+	/**
+	 * Checks if is type annotation node.
+	 *
+	 * @return true, if is type annotation node
+	 */
 	private boolean isTypeAnnotationNode() {
 		if (xmlPath.size() != schemaStartIndex + 3) {
 			return false;
@@ -359,6 +531,13 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return schemaDef() && typeDef() && typeAnotationDef();
 	}
 
+	/**
+	 * Checks if is type dependency related.
+	 *
+	 * @param attrName the attr name
+	 * @param attrValue the attr value
+	 * @return true, if is type dependency related
+	 */
 	private boolean isTypeDependencyRelated(String attrName, String attrValue) {
 		if (TYPE_BASE_ATTR.equals(attrName) == false
 				&& TYPE_TYPE_ATTR.equals(attrName) == false) {
@@ -368,6 +547,12 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return true;
 	}
 
+	/**
+	 * Checks if is basic type schema namespace.
+	 *
+	 * @param namespace the namespace
+	 * @return true, if is basic type schema namespace
+	 */
 	private static boolean isBasicTypeSchemaNamespace(String namespace) {
 		if (namespace == null) {
 			return false;
@@ -376,6 +561,14 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return mather.matches();
 	}
 
+	/**
+	 * Checks if is in w3 c basic schema type namespace.
+	 *
+	 * @param uri the uri
+	 * @param typeQName the type q name
+	 * @return true, if is in w3 c basic schema type namespace
+	 * @throws SAXException the sAX exception
+	 */
 	private boolean isInW3CBasicSchemaTypeNamespace(String uri, String typeQName)
 			throws SAXException {
 		String[] qName = typeQName.split(":");
@@ -391,6 +584,13 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return isBasicTypeSchemaNamespace(namespace);
 	}
 
+	/**
+	 * Find type in type library.
+	 *
+	 * @param namespace the namespace
+	 * @param typeName the type name
+	 * @return the library type
+	 */
 	private static LibraryType findTypeInTypeLibrary(String namespace,
 			String typeName) {
 		return LIB_TYPE_MAPPING.get(namespace + ":" + typeName);
@@ -428,11 +628,10 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 	 * Notice that we need to check 2) first because a type may have the same
 	 * namespace with an existing type library. just like a class named MyClass
 	 * in java.lang package.
-	 * 
-	 * @param xsds
-	 *            TypeModels to be processed
+	 *
+	 * @param xsds TypeModels to be processed
 	 * @return TypeModel that no need to be imported.
-	 * 
+	 * @throws SAXException the sAX exception
 	 */
 	public static Map<String, TypeModel> postProcessTypes(
 			Map<String, TypeModel> xsds) throws SAXException {
@@ -763,6 +962,12 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		return referToTLType;
 	}
 
+	/**
+	 * Creates the new xmlns.
+	 *
+	 * @param existingXMLNS the existing xmlns
+	 * @return the string
+	 */
 	private static String createNewXMLNS(Collection<String> existingXMLNS) {
 		int counter = 1;
 		String startXMLNS = "tns";
@@ -775,16 +980,30 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#endDocument()
+	 */
 	@Override
 	public void endDocument() throws SAXException {
 		refferedTLTypes = postProcessTypes(xsds);
 		// test();
 	}
 
+	/**
+	 * Gets the refered tl types.
+	 *
+	 * @return the refered tl types
+	 */
 	public Map<String, TypeModel> getReferedTLTypes() {
 		return refferedTLTypes;
 	}
 
+	/**
+	 * Test.
+	 *
+	 * @param path the path
+	 * @throws SAXException the sAX exception
+	 */
 	public void test(String path) throws SAXException {
 		File file = new File(path);
 		File parentFile = file.getParentFile();
@@ -838,6 +1057,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * Checks for type in element.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean hasTypeInElement() {
 		if (xmlPath.size() < 2) {
 			return false;
@@ -850,6 +1074,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 						.equals(typeNode.localName));
 	}
 
+	/**
+	 * Checks for union in type.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean hasUnionInType() {
 		if (xmlPath.size() < 2) {
 			return false;
@@ -861,6 +1090,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 						.equals(typeNode.localName));
 	}
 
+	/**
+	 * Checks for choice in type.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean hasChoiceInType() {
 		if (xmlPath.size() < 3) {
 			return false;
@@ -874,6 +1108,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 						.equals(typeNode.localName));
 	}
 
+	/**
+	 * Checks if is element node.
+	 *
+	 * @return true, if is element node
+	 */
 	private boolean isElementNode() {
 		if (xmlPath.size() < 0) {
 			return false;
@@ -883,7 +1122,13 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 	}
 
 	/**
-	 * start to parse an element
+	 * start to parse an element.
+	 *
+	 * @param uri the uri
+	 * @param localName the local name
+	 * @param qName the q name
+	 * @param attributes the attributes
+	 * @throws SAXException the sAX exception
 	 */
 	@Override
 	public void startElement(String uri, String localName, String qName,
@@ -1070,9 +1315,10 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 	 * due to the String.spliter method. if two replacement mark next to each
 	 * other, it will fail. this is a private method and there is no such a
 	 * usecase.
-	 * 
-	 * @param strContentBuilder
-	 * @param pieces
+	 *
+	 * @param strContent the str content
+	 * @param pieces the pieces
+	 * @return the list
 	 */
 	private static List<IXSDPiece> addToXSDContentListBatch(String strContent,
 			IXSDPiece... pieces) {
@@ -1097,7 +1343,12 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 	}
 
 	/**
-	 * end of an element
+	 * end of an element.
+	 *
+	 * @param uri the uri
+	 * @param localName the local name
+	 * @param qName the q name
+	 * @throws SAXException the sAX exception
 	 */
 	@Override
 	public void endElement(String uri, String localName, String qName)
@@ -1190,10 +1441,10 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 	 * xmlns="namespace" and there is no prefix. this method is used to replace
 	 * the redefined "xs:" to expected value: empty or their own prefix. the
 	 * target prefix comes from schemaQName prefix.
-	 * 
-	 * @param str
-	 * @param schemaQName
-	 * @return
+	 *
+	 * @param str the str
+	 * @param schemaQName the schema q name
+	 * @return the string
 	 */
 	private static String syncXSDPrefix(String str, String schemaQName) {
 		if (schemaQName == null) {
@@ -1218,6 +1469,11 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 
 	/**
 	 * handle content.
+	 *
+	 * @param ch the ch
+	 * @param start the start
+	 * @param length the length
+	 * @throws SAXException the sAX exception
 	 */
 	@Override
 	public void characters(char[] ch, int start, int length)
@@ -1241,6 +1497,14 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws SAXException the sAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
+	 */
 	public static void main(String[] args) throws SAXException, IOException,
 			ParserConfigurationException {
 		// File f = new File(args[0]);
@@ -1261,6 +1525,12 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * Checks if is xSD.
+	 *
+	 * @param f the f
+	 * @return true, if is xSD
+	 */
 	private static boolean isXSD(File f) {
 		if (f.isFile() == false) {
 			return false;

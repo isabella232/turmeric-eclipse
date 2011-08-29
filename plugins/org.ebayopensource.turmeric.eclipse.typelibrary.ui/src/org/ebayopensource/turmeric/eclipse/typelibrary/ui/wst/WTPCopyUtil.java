@@ -43,6 +43,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+// TODO: Auto-generated Javadoc
 /**
  * The WTP Copy Utility Class. WTP has its own mechanism to copy existing xsds
  * to wsdl files. SOA reuse that functionality rather than re inventing the
@@ -53,6 +54,13 @@ import org.w3c.dom.NodeList;
  */
 public class WTPCopyUtil {
 
+	/**
+	 * Load using wtp.
+	 *
+	 * @param url the url
+	 * @return the i structured model
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private static IStructuredModel loadUsingWTP(URL url) throws IOException {
 		IStructuredDocument document = null;
 		IStructuredModel model = null;
@@ -72,6 +80,12 @@ public class WTPCopyUtil {
 		return retModel;
 	}
 
+	/**
+	 * Gets the mark supported stream.
+	 *
+	 * @param inputStream the input stream
+	 * @return the mark supported stream
+	 */
 	private static InputStream getMarkSupportedStream(InputStream inputStream) {
 		if (!inputStream.markSupported()) {
 			inputStream = new BufferedInputStream(inputStream,
@@ -81,6 +95,18 @@ public class WTPCopyUtil {
 		return inputStream;
 	}
 	
+	/**
+	 * Copy.
+	 *
+	 * @param dstSchema the dst schema
+	 * @param srcSchema the src schema
+	 * @param typeName the type name
+	 * @param srcURL the src url
+	 * @param typeFolding the type folding
+	 * @param libraryName the library name
+	 * @param libraryNamespace the library namespace
+	 * @throws SOABadParameterException the sOA bad parameter exception
+	 */
 	public static void copy(XSDSchema dstSchema, XSDSchema srcSchema, String typeName,
 			URL srcURL,
 			boolean typeFolding, String libraryName, String libraryNamespace) throws SOABadParameterException {
@@ -133,6 +159,14 @@ public class WTPCopyUtil {
 		
 	}
 
+	/**
+	 * Transform q name prefix.
+	 *
+	 * @param dstSchema the dst schema
+	 * @param srcSchema the src schema
+	 * @param typeFolding the type folding
+	 * @throws SOABadParameterException the sOA bad parameter exception
+	 */
 	public static void transformQNamePrefix(XSDSchema dstSchema,
 			XSDSchema srcSchema, boolean typeFolding)
 			throws SOABadParameterException {
@@ -206,6 +240,12 @@ public class WTPCopyUtil {
 
 	}
 
+	/**
+	 * Update prefixes.
+	 *
+	 * @param element the element
+	 * @param prefixMap the prefix map
+	 */
 	private static void updatePrefixes(Element element,
 			Map<String, String> prefixMap) {
 		NamedNodeMap namedNodeMap = element.getAttributes();
@@ -245,7 +285,7 @@ public class WTPCopyUtil {
 	 * Adds the annotation.
 	 *
 	 * @param typeDefinition the type definition
-	 * @param libraryType the library type
+	 * @param type the type
 	 */
 	public static void addAnnotation(XSDTypeDefinition typeDefinition, 
 			LibraryType type) {
@@ -257,7 +297,7 @@ public class WTPCopyUtil {
 	 * Adds the annotation.
 	 *
 	 * @param typeDefinition the type definition
-	 * @param libraryType the library type
+	 * @param libraryName the library name
 	 * @param libraryNamespace the namespace
 	 */
 	public static void addAnnotation(XSDTypeDefinition typeDefinition,
@@ -280,6 +320,13 @@ public class WTPCopyUtil {
 		annotation.getElement().appendChild(appInfoElement);
 	}
 
+	/**
+	 * Fill app info.
+	 *
+	 * @param appInfoElement the app info element
+	 * @param libraryName the library name
+	 * @param libraryNamespace the library namespace
+	 */
 	public static void fillAppInfo(Element appInfoElement,
 			String libraryName, String libraryNamespace) {
 		NodeList children = appInfoElement.getChildNodes();

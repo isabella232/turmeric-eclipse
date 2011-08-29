@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOABaseProject.
  *
@@ -26,22 +27,31 @@ import org.eclipse.core.runtime.IPath;
  */
 public abstract class SOABaseProject implements ISOAProject{
 
+	/** The repository path. */
 	private IPath repositoryPath;
 
+	/** The required libraries. */
 	private Set<String> requiredLibraries = new TreeSet<String>();
 
+	/** The required projects. */
 	private Set<String> requiredProjects = new TreeSet<String>();
 
+	/** The source directories. */
 	private List<SOAProjectSourceDirectory> sourceDirectories;
 	
+	/** The eclipse metadata. */
 	private SOAProjectEclipseMetadata eclipseMetadata;
 	
+	/** The metadata. */
 	private AbstractSOAMetadata metadata;
 	
+	/** The output folder. */
 	private String outputFolder = SOAProjectConstants.FOLDER_OUTPUT_DIR;
 	
+	/** The eclipse natures. */
 	private final List<String> eclipseNatures = new ArrayList<String>(5);
 	
+	/** The linked resources. */
 	private final List<ProjectLinkedResource> linkedResources = new ArrayList<ProjectLinkedResource>(3);
 	
 	/**
@@ -282,8 +292,13 @@ public abstract class SOABaseProject implements ISOAProject{
 		/** The Constant LINK_TYPE_FOLDER. */
 		public static final int LINK_TYPE_FOLDER = 2;
 		
+		/** The name. */
 		private String name;
+		
+		/** The type. */
 		private int type = LINK_TYPE_RESOURCE;
+		
+		/** The location. */
 		private String location;
 		
 		/**

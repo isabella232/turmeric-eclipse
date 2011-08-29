@@ -38,6 +38,7 @@ import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDSchemaDirective;
 import org.eclipse.xsd.XSDTypeDefinition;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class RemoveType.
  *
@@ -216,6 +217,13 @@ public class RemoveType extends AbastractTypeLibraryAtion {
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * Perform delete tasks for xsd editor.
+	 *
+	 * @param parentXSDSchema the parent xsd schema
+	 * @param selectedType the selected type
+	 * @param importedTypesMap the imported types map
+	 */
 	private void performDeleteTasksForXSDEditor(XSDSchema parentXSDSchema,
 			LibraryType selectedType,
 			Map<LibraryType, XSDSchemaDirective> importedTypesMap) {
@@ -225,6 +233,12 @@ public class RemoveType extends AbastractTypeLibraryAtion {
 
 	}
 
+	/**
+	 * Refresh global registry.
+	 *
+	 * @param libraryName the library name
+	 * @throws Exception the exception
+	 */
 	private void refreshGlobalRegistry(String libraryName) throws Exception {
 		SOAGlobalRegistryAdapter.getInstance().populateRegistry(libraryName);
 	}

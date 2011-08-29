@@ -79,16 +79,18 @@ public abstract class AbstractSOAServiceListViewer {
 	private boolean isZeroConfig = false;
 	
 	/**
-	 * if current service is zero config
-	 * @return
+	 * if current service is zero config.
+	 *
+	 * @return true, if is zero config
 	 */
 	public boolean isZeroConfig() {
 		return isZeroConfig;
 	}
 
 	/**
-	 * set zero config value
-	 * @param isZeroConfig
+	 * set zero config value.
+	 *
+	 * @param isZeroConfig the new zero config
 	 */
 	public void setZeroConfig(boolean isZeroConfig) {
 		this.isZeroConfig = isZeroConfig;

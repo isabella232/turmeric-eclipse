@@ -26,23 +26,24 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class ProjectProtoBufFileUtil.
+ *
  * @author mzang
- * 
- * 
  */
 public class ProjectProtoBufFileUtil {
 
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/** The Constant protoBufPostFixURL. */
 	private static final String protoBufPostFixURL = "?proto";
 
 	// private static final String PROTOBUF_HEADER_KEY =
 	// "X-EBAY-SOA-CUSTOM-CONTENT-TYPE";
 
-	/**
-	 * match a message block:
-	 */
+	/** match a message block:. */
 	private static final String PROTO_FILE_SIGNATURE =
 	/**
 	 * 1)Start with "message"
@@ -65,9 +66,17 @@ public class ProjectProtoBufFileUtil {
 	 */
 	"\\{[^\\}]*\\}";
 
+	/** The Constant PROTO_FILE_SIGNATURE_PATTERN. */
 	private static final Pattern PROTO_FILE_SIGNATURE_PATTERN = Pattern
 			.compile(PROTO_FILE_SIGNATURE, Pattern.CASE_INSENSITIVE);
 
+	/**
+	 * Creates the service proto buf file.
+	 *
+	 * @param soaIntfProject the soa intf project
+	 * @param serviceLocation the service location
+	 * @return true, if successful
+	 */
 	public static boolean createServiceProtoBufFile(
 			SOAIntfProject soaIntfProject, String serviceLocation) {
 		try {
@@ -93,11 +102,23 @@ public class ProjectProtoBufFileUtil {
 	// return false;
 	// }
 
+	/**
+	 * Check proto buf content.
+	 *
+	 * @param content the content
+	 * @return true, if successful
+	 */
 	private static boolean checkProtoBufContent(String content) {
 		Matcher matcher = PROTO_FILE_SIGNATURE_PATTERN.matcher(content);
 		return matcher.find();
 	}
 
+	/**
+	 * Gets the proto buf file.
+	 *
+	 * @param serviceLocation the service location
+	 * @return the proto buf file
+	 */
 	public static String getProtoBufFile(String serviceLocation) {
 		if (serviceLocation == null) {
 			logger.info("Service location is null, return.");
@@ -142,6 +163,13 @@ public class ProjectProtoBufFileUtil {
 		}
 	}
 
+	/**
+	 * Creates the proto buf file.
+	 *
+	 * @param intfProject the intf project
+	 * @param fileContent the file content
+	 * @return true, if successful
+	 */
 	private static boolean createProtoBufFile(SOAIntfProject intfProject,
 			String fileContent) {
 		logger.info("Writing protoBuf file to " + intfProject.getProjectName());

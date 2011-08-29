@@ -17,6 +17,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 
+// TODO: Auto-generated Javadoc
 /**
  * Selects the library back on type selection. Stores an instance of the type
  * library viewer to select the corresponding type library when a type is
@@ -30,6 +31,7 @@ import org.eclipse.jface.viewers.TreeViewer;
  */
 public class TypeSelectionListener implements ISelectionChangedListener {
 
+	/** The tree viewer. */
 	private TreeViewer treeViewer = null;
 
 	/**

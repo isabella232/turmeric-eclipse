@@ -15,6 +15,7 @@ import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TypeContentProvider.
  *

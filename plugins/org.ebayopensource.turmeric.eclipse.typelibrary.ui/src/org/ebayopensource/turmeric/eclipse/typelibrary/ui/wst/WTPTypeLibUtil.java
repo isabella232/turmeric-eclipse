@@ -61,6 +61,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+// TODO: Auto-generated Javadoc
 /**
  * WTP Type Library Utility contains the WTP related utility functions. The WSDL
  * is manipulated using the wtp emf model. Here in SOA it is used for both
@@ -78,10 +79,10 @@ public class WTPTypeLibUtil {
 	 * protocol. Remember this will not return the normal XSD imports.ie the
 	 * imports without the typelib: protocol. The registry is being queried for
 	 * the type name before adding it to the returned map.
-	 * 
-	 * @param xsdSchema
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param xsdSchema the xsd schema
+	 * @return the all type lib imports
+	 * @throws Exception the exception
 	 */
 	public static Map<LibraryType, XSDSchemaDirective> getAllTypeLibImports(
 			XSDSchema xsdSchema) throws Exception {
@@ -124,10 +125,10 @@ public class WTPTypeLibUtil {
 	 * types and then query the Global registry with the type name and will add
 	 * it to the returned map only if the registry has the type. In short it
 	 * returns all the type library types in the WSDL definition.
-	 * 
-	 * @param definition
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param definition the definition
+	 * @return the type library types
+	 * @throws Exception the exception
 	 */
 	public static Map<LibraryType, XSDTypeDefinition> getTypeLibraryTypes(
 			Definition definition) throws Exception {
@@ -155,6 +156,13 @@ public class WTPTypeLibUtil {
 		return allSchemas;
 	}
 
+	/**
+	 * Gets the name space.
+	 *
+	 * @param xsdTypeDefinition the xsd type definition
+	 * @return the name space
+	 * @throws SOABadParameterException the sOA bad parameter exception
+	 */
 	public static String getNameSpace(XSDTypeDefinition xsdTypeDefinition)
 			throws SOABadParameterException {
 		for (XSDAnnotation annotation : xsdTypeDefinition.getAnnotations()) {
@@ -288,6 +296,13 @@ public class WTPTypeLibUtil {
 		return false;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param definition the definition
+	 * @param qname the qname
+	 * @return the type
+	 */
 	private static XSDTypeDefinition getType(Definition definition, QName qname) {
 		XSDTypeDefinition typeDefinition = null;
 		for (XSDSchema schema : getXSDSchema(definition, qname
@@ -386,6 +401,12 @@ public class WTPTypeLibUtil {
 
 	}
 
+	/**
+	 * Adds the import directive.
+	 *
+	 * @param schema the schema
+	 * @param libElementNamespace the lib element namespace
+	 */
 	private static void addImportDirective(XSDSchema schema,
 			String libElementNamespace) {
 		if (!StringUtil.broadEquals(schema.getTargetNamespace(),
@@ -398,6 +419,13 @@ public class WTPTypeLibUtil {
 		}
 	}
 
+	/**
+	 * Import exists.
+	 *
+	 * @param schema the schema
+	 * @param libElementNamespace the lib element namespace
+	 * @return true, if successful
+	 */
 	private static boolean importExists(XSDSchema schema,
 			String libElementNamespace) {
 		for (Iterator i = schema.getContents().iterator(); i.hasNext();) {
@@ -509,6 +537,13 @@ public class WTPTypeLibUtil {
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * Gets the xSD type definition.
+	 *
+	 * @param schema the schema
+	 * @param typeQName the type q name
+	 * @return the xSD type definition
+	 */
 	private static XSDTypeDefinition getXSDTypeDefinition(XSDSchema schema,
 			QName typeQName) {
 
@@ -527,6 +562,13 @@ public class WTPTypeLibUtil {
 		return null;
 	}
 
+	/**
+	 * Gets the xSD schema.
+	 *
+	 * @param definition the definition
+	 * @param targetNamespace the target namespace
+	 * @return the xSD schema
+	 */
 	public static List<XSDSchema> getXSDSchema(Definition definition,
 			String targetNamespace) {
 		List<XSDSchema> schemaList = getTypes(definition).getSchemas(
@@ -542,6 +584,13 @@ public class WTPTypeLibUtil {
 		return schemaList;
 	}
 
+	/**
+	 * Checks for schema.
+	 *
+	 * @param definition the definition
+	 * @param targetNamespace the target namespace
+	 * @return true, if successful
+	 */
 	private static boolean hasSchema(Definition definition,
 			String targetNamespace) {
 		List<XSDSchema> schemaList = getTypes(definition).getSchemas(
@@ -567,10 +616,13 @@ public class WTPTypeLibUtil {
 	}
 
 	/**
-	 * @param typeName
-	 * @param definition
-	 * @param nameSpace
-	 * @return
+	 * Checks if is type already inlined.
+	 *
+	 * @param typeName the type name
+	 * @param definition the definition
+	 * @param nameSpace the name space
+	 * @param typeFolding the type folding
+	 * @return true, if is type already inlined
 	 */
 	private static boolean isTypeAlreadyInlined(String typeName,
 			Definition definition, String nameSpace, boolean typeFolding) {

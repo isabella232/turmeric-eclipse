@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.part.ViewPart;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Types Explorer view. The main class that represents the types
  * available for consumption in one place. Other actions like refresh, import
@@ -49,11 +50,23 @@ public class RegistryView extends ViewPart {
 	
 	/** The Constant VIEW_ID. */
 	public static final String VIEW_ID = "org.ebayopensource.turmeric.eclipse.typelibrary.registryView"; 
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
+	
+	/** The type library viewer. */
 	private TreeViewer typeLibraryViewer;
+	
+	/** The type viewer. */
 	private TypeViewer typeViewer;
+	
+	/** The type name text. */
 	private Text typeNameText;
+	
+	/** The type library selection changed listener. */
 	private TypeLibrarySelectionChangedListener typeLibrarySelectionChangedListener;
+	
+	/** The type selection listener. */
 	private TypeSelectionListener typeSelectionListener;
 
 	/*
@@ -105,6 +118,12 @@ public class RegistryView extends ViewPart {
 		super.dispose();
 	}
 
+	/**
+	 * Creates the search area.
+	 *
+	 * @param parent the parent
+	 * @param toolkit the toolkit
+	 */
 	private void createSearchArea(final Composite parent, FormToolkit toolkit) {
 		final Composite composite = toolkit.createComposite(parent);
 		composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -121,6 +140,13 @@ public class RegistryView extends ViewPart {
 		typeNameText.setToolTipText(SOAMessages.SEARCH_TIP);
 	}
 
+	/**
+	 * Creates the client area.
+	 *
+	 * @param parent the parent
+	 * @param toolkit the toolkit
+	 * @throws Exception the exception
+	 */
 	private void createClientArea(Composite parent, FormToolkit toolkit)
 			throws Exception {
 		SOATypeRegistry typeRegistry = null;

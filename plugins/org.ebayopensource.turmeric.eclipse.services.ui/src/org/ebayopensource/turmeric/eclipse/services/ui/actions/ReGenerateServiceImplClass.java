@@ -47,13 +47,18 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ReGenerateServiceImplClass.
  *
  * @author yayu
  */
 public class ReGenerateServiceImplClass implements IObjectActionDelegate {
+	
+	/** The selection. */
 	private IStructuredSelection selection;
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 	
 	/**

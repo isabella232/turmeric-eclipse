@@ -37,6 +37,7 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GenerateServiceImplSkeleton.
  *
@@ -45,7 +46,11 @@ import org.eclipse.ui.IWorkbenchPart;
  */
 @Deprecated
 public class GenerateServiceImplSkeleton implements IObjectActionDelegate {
+	
+	/** The selection. */
 	private IStructuredSelection selection;
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**

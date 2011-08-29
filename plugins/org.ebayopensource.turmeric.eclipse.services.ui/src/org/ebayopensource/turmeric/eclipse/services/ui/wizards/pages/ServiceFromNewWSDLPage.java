@@ -36,6 +36,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Wizard for Service from template WSDL option. Here user decided to create the
  * service from template WSDL. This page takes all the initial inputs like the
@@ -54,8 +55,11 @@ import org.eclipse.swt.widgets.Control;
  */
 public class ServiceFromNewWSDLPage extends
 		AbstractNewServiceFromWSDLWizardPage {
+
+/** The template file combo. */
 private CCombo templateFileCombo;
 	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
@@ -251,6 +255,9 @@ private CCombo templateFileCombo;
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#wsdlChanged(javax.wsdl.Definition)
+	 */
 	@Override
 	public void wsdlChanged(Definition wsdl) {
 

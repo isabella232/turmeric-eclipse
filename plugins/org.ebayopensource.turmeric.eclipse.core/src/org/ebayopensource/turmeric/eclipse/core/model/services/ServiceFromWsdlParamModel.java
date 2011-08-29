@@ -18,6 +18,7 @@ import org.ebayopensource.turmeric.eclipse.core.model.BaseServiceParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.ServiceImplType;
 
+// TODO: Auto-generated Javadoc
 /**
  * UI Model for service from WSDL Flow. This is a pure java object that
  * undergoes multiple transformation or is the root class for all service from
@@ -145,9 +146,7 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 	 */
 	URL originalWsdlUrl;
 
-	/**
-	 * 
-	 */
+	/** The service impl type. */
 	ServiceImplType serviceImplType;
 
 	/**
@@ -156,7 +155,8 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 	String serviceNonXSDProtocols;
 
 	/**
-	 * 
+	 * Gets the public service name.
+	 *
 	 * @return the public service name
 	 */
 	public String getPublicServiceName() {
@@ -559,30 +559,36 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 	}
 
 	/**
-	 * @return
+	 * Gets the service impl type.
+	 *
+	 * @return the service impl type
 	 */
 	public ServiceImplType getServiceImplType() {
 		return serviceImplType;
 	}
 
 	/**
-	 * @param serviceImplType
+	 * Sets the service impl type.
+	 *
+	 * @param serviceImplType the new service impl type
 	 */
 	public void setServiceImplType(ServiceImplType serviceImplType) {
 		this.serviceImplType = serviceImplType;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Gets the service protocols.
+	 *
+	 * @return the service protocols
 	 */
 	public String getServiceProtocols() {
 		return serviceNonXSDProtocols;
 	}
 
 	/**
-	 * 
-	 * @param serviceProtocols
+	 * Sets the service non xsd protocols.
+	 *
+	 * @param serviceProtocols the new service non xsd protocols
 	 */
 	public void setServiceNonXSDProtocols(String serviceProtocols) {
 		this.serviceNonXSDProtocols = serviceProtocols;

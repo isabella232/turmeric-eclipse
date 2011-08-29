@@ -14,6 +14,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
 
+// TODO: Auto-generated Javadoc
 /**
  * The listener interface for receiving typeLibrarySelectionChanged events.
  * The class that is interested in processing a typeLibrarySelectionChanged
@@ -27,8 +28,11 @@ import org.eclipse.jface.viewers.ViewerFilter;
  */
 public class TypeLibrarySelectionChangedListener implements
 		ISelectionChangedListener {
+	
+	/** The filter. */
 	private ViewerFilter filter = null;
 
+	/** The type viewer. */
 	private TableViewer typeViewer;
 
 	/**

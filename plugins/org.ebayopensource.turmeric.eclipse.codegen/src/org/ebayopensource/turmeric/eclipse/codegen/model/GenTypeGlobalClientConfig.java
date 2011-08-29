@@ -12,6 +12,7 @@
 package org.ebayopensource.turmeric.eclipse.codegen.model;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GenTypeGlobalClientConfig.
  *

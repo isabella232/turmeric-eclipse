@@ -67,6 +67,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+// TODO: Auto-generated Javadoc
 /**
  * Extract type definitions from XSD file or WSDL file.
  * 
@@ -77,45 +78,62 @@ import org.w3c.dom.NodeList;
 public final class XSDUtils {
 
 	// basic type namespace
+	/** The Constant BASE_TYPE_NS. */
 	private static final String BASE_TYPE_NS = "http://www.w3.org/[0-9]*/XMLSchema";
 
+	/** The reg ex pattern. */
 	private static Pattern regExPattern = Pattern.compile(BASE_TYPE_NS);
 
+	/** The logger. */
 	private static SOALogger logger = SOALogger.getLogger();
 
 	// documentation node
+	/** The Constant DOCUMENT_NODE_NAME. */
 	private static final String DOCUMENT_NODE_NAME = "documentation";
 
 	// app node
+	/** The Constant APP_NODE_NAME. */
 	private static final String APP_NODE_NAME = "appinfo";
 
 	// typeLibrarySource node
+	/** The Constant TL_SOURCE_NODE_NAME. */
 	private static final String TL_SOURCE_NODE_NAME = "typeLibrarySource";
 
 	// typeLibrarySource node
+	/** The Constant TL_ARRT_NAME. */
 	private static final String TL_ARRT_NAME = "library";
 
 	// typeLibrarySource node
+	/** The Constant TL_NS_ATTR_NAME. */
 	private static final String TL_NS_ATTR_NAME = "namespace";
 
 	// base type name when no base type specified.
+	/** The Constant ANY_TYPE. */
 	private static final String ANY_TYPE = "anyType";
 
 	// attribute names
+	/** The Constant ATTR_MAX_OCCUR. */
 	private static final String ATTR_MAX_OCCUR = "maxOccurs";
 
+	/** The Constant ATTR_MIN_OCCUR. */
 	private static final String ATTR_MIN_OCCUR = "minOccurs";
 
+	/** The Constant ATTR_TYPE_NAME. */
 	private static final String ATTR_TYPE_NAME = "type";
 
+	/** The Constant ATTR_NAME. */
 	private static final String ATTR_NAME = "name";
 
+	/** The Constant UNBOUNDED. */
 	private static final String UNBOUNDED = "unbounded";
 
+	/** The Constant TYPE_VERSION. */
 	private static final String TYPE_VERSION = "1.0.0";
 
+	/** The tl source map. */
 	private Map<QName, LibraryType> tlSourceMap = new ConcurrentHashMap<QName, LibraryType>();
 
+	/** The all types. */
 	private LibraryType[] allTypes;
 
 	/**
@@ -187,6 +205,12 @@ public final class XSDUtils {
 		return types;
 	}
 
+	/**
+	 * Handle internal dependencies.
+	 *
+	 * @param types the types
+	 * @throws ImportTypeException the import type exception
+	 */
 	private void handleInternalDependencies(List<ImportTypeModel> types)
 			throws ImportTypeException {
 		Map<QName, ImportTypeModel> typeMap = new ConcurrentHashMap<QName, ImportTypeModel>();
@@ -231,6 +255,15 @@ public final class XSDUtils {
 		}
 	}
 
+	/**
+	 * Handel wsdl file.
+	 *
+	 * @param sourceFilePath the source file path
+	 * @return the list
+	 * @throws WSDLException the wSDL exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ImportTypeException the import type exception
+	 */
 	private List<ImportTypeModel> handelWSDLFile(String sourceFilePath)
 			throws WSDLException, IOException, ImportTypeException {
 		SAXParserForTypesInWSDL parser = new SAXParserForTypesInWSDL();
@@ -249,10 +282,10 @@ public final class XSDUtils {
 	/**
 	 * create an instance of ComplexTypeCCParamModel and extract Complex Content
 	 * specified properties.
-	 * 
-	 * @param complex
-	 * @return
-	 * @throws ImportTypeException
+	 *
+	 * @param complex the complex
+	 * @return the import type model
+	 * @throws ImportTypeException the import type exception
 	 */
 	private ImportTypeModel handleComplexTypeComplexContent(
 			XSDComplexTypeDefinition complex) throws ImportTypeException {
@@ -296,10 +329,10 @@ public final class XSDUtils {
 	/**
 	 * create an instance of ComplexTypeSCParamModel and extract Simple Content
 	 * specified properties.
-	 * 
-	 * @param complex
-	 * @return
-	 * @throws ImportTypeException
+	 *
+	 * @param complex the complex
+	 * @return the import type model
+	 * @throws ImportTypeException the import type exception
 	 */
 	private ImportTypeModel handleComplexTypeSimpleContent(
 			XSDComplexTypeDefinition complex) throws ImportTypeException {
@@ -351,10 +384,10 @@ public final class XSDUtils {
 	/**
 	 * create an instance of ComplexTypeParamModel and extract complex type
 	 * specified properties.
-	 * 
-	 * @param complex
-	 * @return
-	 * @throws ImportTypeException
+	 *
+	 * @param complex the complex
+	 * @return the import type model
+	 * @throws ImportTypeException the import type exception
 	 */
 	private ImportTypeModel handleComplexType(XSDComplexTypeDefinition complex)
 			throws ImportTypeException {
@@ -419,6 +452,12 @@ public final class XSDUtils {
 		}
 	}
 
+	/**
+	 * Parses the occur.
+	 *
+	 * @param number the number
+	 * @return the int
+	 */
 	private int parseOccur(String number) {
 		if (UNBOUNDED.equalsIgnoreCase(number)) {
 			return TypeLibraryUIActivator.UNBOUND;
@@ -432,6 +471,12 @@ public final class XSDUtils {
 		}
 	}
 
+	/**
+	 * Gets the type name.
+	 *
+	 * @param typeName the type name
+	 * @return the type name
+	 */
 	private String getTypeName(String typeName) {
 		String[] names = typeName.split(SOATypeLibraryConstants.COLON);
 		if (names.length == 2) {
@@ -443,11 +488,11 @@ public final class XSDUtils {
 	}
 
 	/**
-	 * process XSDComplexTypeDefinition instance
-	 * 
-	 * @param complex
-	 * @return
-	 * @throws ImportTypeException
+	 * process XSDComplexTypeDefinition instance.
+	 *
+	 * @param complex the complex
+	 * @return the import type model
+	 * @throws ImportTypeException the import type exception
 	 */
 	private ImportTypeModel processComplexTypeDef(
 			XSDComplexTypeDefinition complex) throws ImportTypeException {
@@ -500,6 +545,13 @@ public final class XSDUtils {
 		return importModel;
 	}
 
+	/**
+	 * Gets the template file.
+	 *
+	 * @param typeEnu the type enu
+	 * @return the template file
+	 * @throws ImportTypeException the import type exception
+	 */
 	private String getTemplateFile(SOAXSDTemplateSubType typeEnu)
 			throws ImportTypeException {
 		List<SOAConfigTemplate> templateFiles = UIActivator
@@ -514,9 +566,9 @@ public final class XSDUtils {
 	/**
 	 * get the first un-empty description from annotations. Return empty string
 	 * if there is no un-empty description.
-	 * 
-	 * @param annotations
-	 * @return
+	 *
+	 * @param annotations the annotations
+	 * @return the description from annotations
 	 */
 	private String getDescriptionFromAnnotations(
 			EList<XSDAnnotation> annotations) {
@@ -540,6 +592,12 @@ public final class XSDUtils {
 		return description;
 	}
 
+	/**
+	 * Gets the description from annotation.
+	 *
+	 * @param annotation the annotation
+	 * @return the description from annotation
+	 */
 	private String getDescriptionFromAnnotation(XSDAnnotation annotation) {
 		String description = "";
 		if (annotation == null) {
@@ -560,9 +618,9 @@ public final class XSDUtils {
 	}
 
 	/**
-	 * get the real namespace of the type
-	 * 
-	 * @param annotations
+	 * get the real namespace of the type.
+	 *
+	 * @param annotations the annotations
 	 * @return null if this is a type inside wsdl, not from TL outside
 	 */
 	private String getSourceNamespaceAnnotations(
@@ -609,11 +667,11 @@ public final class XSDUtils {
 	}
 
 	/**
-	 * process XSDSimpleTypeDefinition instance
-	 * 
-	 * @param complex
-	 * @return
-	 * @throws ImportTypeException
+	 * process XSDSimpleTypeDefinition instance.
+	 *
+	 * @param simple the simple
+	 * @return the import type model
+	 * @throws ImportTypeException the import type exception
 	 */
 	private ImportTypeModel processSimpleTypeDef(XSDSimpleTypeDefinition simple)
 			throws ImportTypeException {
@@ -741,11 +799,10 @@ public final class XSDUtils {
 
 	/**
 	 * fine specified Library Type.
-	 * 
-	 * @param schema
-	 * @param typeName
-	 * @param nameSpace
-	 * @return
+	 *
+	 * @param namespace the namespace
+	 * @param typeName the type name
+	 * @return the library type
 	 */
 
 	private LibraryType getLibraryType(String namespace, String typeName) {
@@ -772,6 +829,14 @@ public final class XSDUtils {
 		return null;
 	}
 
+	/**
+	 * Gets the import model type.
+	 *
+	 * @param schema the schema
+	 * @param ns the ns
+	 * @param typeName the type name
+	 * @return the import model type
+	 */
 	private Object getImportModelType(XSDSchema schema, String ns,
 			String typeName) {
 		try {
@@ -798,6 +863,12 @@ public final class XSDUtils {
 		return null;
 	}
 
+	/**
+	 * Checks if is basic type namespace.
+	 *
+	 * @param namespace the namespace
+	 * @return true, if is basic type namespace
+	 */
 	private boolean isBasicTypeNamespace(String namespace) {
 		Matcher matcher = regExPattern.matcher(namespace);
 		boolean match = matcher.matches();

@@ -13,6 +13,7 @@ package org.ebayopensource.turmeric.eclipse.codegen.model;
 
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * A code gen model that should be executed more than once.
  *

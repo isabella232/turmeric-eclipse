@@ -45,18 +45,32 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class GenerateConfigs.
+ *
  * @author yayu
- * 
  */
 public class GenerateConfigs implements IObjectActionDelegate {
+	
+	/** The selection. */
 	private IStructuredSelection selection;
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void run(final IAction action) {
 		if (SOALogger.DEBUG)
 			logger.entering(action, selection);
@@ -94,10 +108,12 @@ public class GenerateConfigs implements IObjectActionDelegate {
 			}
 			WorkspaceJob buildJob = new WorkspaceJob("Generating Configs for"
 					+ project.getName()) {
+				@Override
 				public boolean belongsTo(Object family) {
 					return false;
 				}
 
+				@Override
 				public IStatus runInWorkspace(IProgressMonitor monitor)
 						throws CoreException {
 					try {
@@ -152,6 +168,10 @@ public class GenerateConfigs implements IObjectActionDelegate {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		this.selection = (IStructuredSelection) selection;

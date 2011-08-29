@@ -12,12 +12,15 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GenTypeServiceConfig.
  *
  * @author smathew
  */
 public class GenTypeServiceConfig extends AbstractGenTypeGlobalConfig{
+	
+	/** The service config group. */
 	private String serviceConfigGroup;
 	
 	/**

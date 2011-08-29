@@ -49,6 +49,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The standard Utility class for the builder. Most builders will need the code
  * generation models and engine in their functions. This utility mainly caters
@@ -102,10 +103,10 @@ public class BuilderUtil {
 	/**
 	 * Parses the delta and returns true if the WSDL file is changed. Recursive
 	 * function but does not use the visitor pattern.
-	 * 
-	 * @param delta
-	 * @param wsdlPath
-	 * @return
+	 *
+	 * @param delta the delta
+	 * @param wsdlPath the wsdl path
+	 * @return true, if is wSDL file changed
 	 */
 	private static boolean isWSDLFileChanged(IResourceDelta delta,
 			IPath wsdlPath) {

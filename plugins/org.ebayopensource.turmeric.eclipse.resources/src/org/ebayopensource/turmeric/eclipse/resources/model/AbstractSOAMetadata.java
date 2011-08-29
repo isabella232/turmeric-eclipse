@@ -12,6 +12,7 @@
 package org.ebayopensource.turmeric.eclipse.resources.model;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractSOAMetadata.
  *

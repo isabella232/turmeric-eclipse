@@ -16,6 +16,7 @@ import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.TwoPaneElementSelector;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TypeSelector.
  *
@@ -25,6 +26,7 @@ import org.eclipse.ui.dialogs.TwoPaneElementSelector;
  */
 public class TypeSelector extends TwoPaneElementSelector {
 
+	/** The selected types. */
 	private ArrayList<LibraryType> selectedTypes = new ArrayList<LibraryType>();
 
 	/* (non-Javadoc)

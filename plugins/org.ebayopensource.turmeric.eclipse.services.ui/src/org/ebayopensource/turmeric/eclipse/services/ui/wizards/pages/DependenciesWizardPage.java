@@ -29,6 +29,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class DependenciesWizardPage.
  *
@@ -38,8 +39,11 @@ import org.eclipse.swt.widgets.Composite;
  * and library dependency
  */
 public class DependenciesWizardPage extends WizardPage implements IWizardPage {
+	
+	/** The projects editor. */
 	private DependencyListEditor projectsEditor;
 
+	/** The library editor. */
 	private DependencyListEditor libraryEditor;
 
 	/**

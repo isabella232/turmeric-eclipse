@@ -16,21 +16,35 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class SortRegistryAction.
+ *
  * @author yayu
- * 
  */
 public class SortRegistryAction extends SOASortAction {
 
+	/**
+	 * Instantiates a new sort registry action.
+	 *
+	 * @param viewer the viewer
+	 * @param sorter the sorter
+	 */
 	public SortRegistryAction(StructuredViewer viewer, ViewerComparator sorter) {
 		super(viewer, sorter);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.actions.SOASortAction#getTitle()
+	 */
 	@Override
 	public String getTitle() {
 		return "Sort Types";
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.ui.actions.SOASortAction#getToolTip()
+	 */
 	@Override
 	public String getToolTip() {
 		return "Sort Types";

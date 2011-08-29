@@ -16,14 +16,21 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GenTypeConsumer.
  *
  * @author yayu
  */
 public class GenTypeConsumer extends ConsumerCodeGenModel implements IMultiCodeGenModel {
+	
+	/** The default environment name. */
 	private String defaultEnvironmentName;
+	
+	/** The service location. */
 	private String serviceLocation; //-sl
+	
+	/** The env mapper. */
 	private String envMapper;
 	
 	/**

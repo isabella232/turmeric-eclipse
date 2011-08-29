@@ -22,6 +22,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAConsumerProject.
  *
@@ -49,7 +50,10 @@ public class SOAConsumerProject extends SOABaseProject implements ISOAConsumerPr
 	public static final String META_SRC_ClIENT_CONFIG = SOAProjectConstants.META_SRC_META_INF
 	+ FOLDER_CLIENT_CONFIG;
 	
+    /** The required services. */
     private Map<String, SOAIntfMetadata> requiredServices = new TreeMap<String, SOAIntfMetadata>();
+    
+    /** The client configs. */
     private Map<SOAClientEnvironment, SOAClientConfig> clientConfigs = new TreeMap<SOAClientEnvironment, SOAClientConfig>();
 
     /**

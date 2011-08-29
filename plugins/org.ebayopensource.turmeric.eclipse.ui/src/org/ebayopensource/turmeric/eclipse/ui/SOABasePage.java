@@ -301,6 +301,7 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 	 * Creates the advanced settings panel.
 	 *
 	 * @param parent the parent
+	 * @param listener the listener
 	 * @return the composite
 	 */
 	protected Composite createAdvancedSettingsPanel(final Composite parent,

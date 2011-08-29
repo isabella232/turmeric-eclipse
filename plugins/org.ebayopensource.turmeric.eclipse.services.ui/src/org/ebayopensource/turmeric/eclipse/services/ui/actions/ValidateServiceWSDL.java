@@ -46,6 +46,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.progress.IProgressService;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ValidateServiceWSDL.
  *
@@ -54,9 +55,16 @@ import org.eclipse.ui.progress.IProgressService;
  */
 public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorActionDelegate {
 
+	/** The selection. */
 	private IStructuredSelection selection;
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
+	
+	/** The reg status. */
 	private IStatus regStatus;
+	
+	/** The target editor. */
 	private IEditorPart targetEditor;
 
 	/**
@@ -84,6 +92,13 @@ public class ValidateServiceWSDL implements IObjectActionDelegate, IEditorAction
 		super();
 	}
 	
+	/**
+	 * Validate soa project.
+	 *
+	 * @param project the project
+	 * @throws InvocationTargetException the invocation target exception
+	 * @throws InterruptedException the interrupted exception
+	 */
 	private void validateSOAProject(final IProject project) throws InvocationTargetException, InterruptedException {
 		if (project == null)
 			return;

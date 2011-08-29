@@ -16,7 +16,6 @@ import org.eclipse.m2e.core.embedder.IMaven;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.eclipse.m2e.core.internal.embedder.MavenImpl;
 import org.eclipse.m2e.core.internal.index.IndexManager;
-import org.eclipse.m2e.core.internal.project.registry.MavenProjectManager;
 import org.eclipse.m2e.core.project.IMavenProjectRegistry;
 
 /**
@@ -60,7 +59,8 @@ public class MavenApiHelper {
 	 * @throws MavenEclipseApiException the maven eclipse api exception
 	 */
 	public static MavenImpl getMavenEmbedder() throws MavenEclipseApiException {
-		IMaven embedder = MavenPlugin.getDefault().getMaven();
+		MavenPlugin.getDefault();
+		IMaven embedder = MavenPlugin.getMaven();
 		if (!(embedder instanceof MavenImpl)) {
 			throw new MavenEclipseApiException(Messages.ERROR_NO_MAVEN_IMPL);
 		}

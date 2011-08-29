@@ -20,6 +20,7 @@ import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaPa
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAConsumerMetadata.
  *
@@ -27,17 +28,30 @@ import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
  */
 public class SOAConsumerMetadata extends AbstractSOAMetadata{
 
+	/** The consumer id. */
 	private String consumerId;
+	
+	/** The base consumer src dir. */
 	private String baseConsumerSrcDir;
+	
+	/** The env mapper. */
 	private String envMapper;
+	
+	/** The is zero config. */
 	private boolean isZeroConfig = false;
 	
 	/**
 	 * The name used for storing ClientConfig.xml files
 	 */
 	private String clientName;
+	
+	/** The source type. */
 	private SOAProjectConstants.ConsumerSourceType sourceType;
+	
+	/** The service names. */
 	private List<String> serviceNames = new ArrayList<String>();
+	
+	/** The environments. */
 	private List<String> environments = new ArrayList<String>();
 	
 	/**
@@ -48,9 +62,10 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 	
 	/**
-	 * 
-	 * @param clientName 
-	 * @param baseConsumerSrcDir 
+	 * Creates the.
+	 *
+	 * @param clientName the client name
+	 * @param baseConsumerSrcDir the base consumer src dir
 	 * @return the created SOAConsumerMetadata instance
 	 */
 	
@@ -62,8 +77,9 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 
 	/**
-	 * 
-	 * @param paramModel 
+	 * Creates the.
+	 *
+	 * @param paramModel the param model
 	 * @return the created SOAConsumerMetaData instance
 	 */
 	public static SOAConsumerMetadata create(ConsumerFromWsdlParamModel paramModel) {
@@ -79,8 +95,9 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	}
 	
 	/**
-	 * 
-	 * @param paramModel 
+	 * Creates the.
+	 *
+	 * @param paramModel the param model
 	 * @return the created SOAConsumerMetadata instance
 	 */
 	public static SOAConsumerMetadata create(ConsumerFromJavaParamModel paramModel) {
@@ -101,6 +118,11 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 		return isZeroConfig;
 	}
 
+	/**
+	 * Sets the zero config.
+	 *
+	 * @param isZeroConfig the new zero config
+	 */
 	public void setZeroConfig(boolean isZeroConfig) {
 		this.isZeroConfig = isZeroConfig;
 	}

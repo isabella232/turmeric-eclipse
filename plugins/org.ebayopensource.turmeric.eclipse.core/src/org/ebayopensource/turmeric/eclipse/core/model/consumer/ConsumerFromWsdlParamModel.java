@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ConsumerFromWsdlParamModel.
  *
@@ -23,9 +24,16 @@ import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlPa
  */
 public class ConsumerFromWsdlParamModel extends ServiceFromWsdlParamModel {
 
+	/** The client name. */
 	private String clientName;
+	
+	/** The consumer id. */
 	private String consumerId;
+	
+	/** The service location. */
 	private String serviceLocation;
+	
+	/** The environments. */
 	private List<String> environments = new ArrayList<String>();
 	/**
 	 * Instantiates a new consumer from wsdl param model.
@@ -98,10 +106,20 @@ public class ConsumerFromWsdlParamModel extends ServiceFromWsdlParamModel {
 		return this.environments.add(environment);
 	}
 	
+	/**
+	 * Gets the service location.
+	 *
+	 * @return the service location
+	 */
 	public String getServiceLocation() {
 		return serviceLocation;
 	}
 
+	/**
+	 * Sets the service location.
+	 *
+	 * @param serviceLocation the new service location
+	 */
 	public void setServiceLocation(String serviceLocation) {
 		this.serviceLocation = serviceLocation;
 	}

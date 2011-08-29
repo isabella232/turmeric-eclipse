@@ -54,6 +54,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.jdom.JDOMException;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAConsumerUtil.
  *
@@ -61,9 +62,12 @@ import org.jdom.JDOMException;
  * @since 1.0.0
  */
 public final class SOAConsumerUtil {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
+	
 	/**
-	 * 
+	 * Instantiates a new sOA consumer util.
 	 */
 	private SOAConsumerUtil() {
 		super();
@@ -116,6 +120,8 @@ public final class SOAConsumerUtil {
 		
 		/** The old client configs. */
 		final List<SOAClientConfig> oldClientConfigs = new ArrayList<SOAClientConfig>();
+		
+		/** The properties. */
 		private Properties properties = null;
 		
 		/**
@@ -387,14 +393,15 @@ public final class SOAConsumerUtil {
 	}
 	
 	/**
-	 * Gets the client config. 
-	 * @param project
-	 * @param serviceName
-	 * @return
-	 * @throws CoreException 
-	 * @throws IOException 
-	 * @deprecated This is only used for the old dir structure which 
-	 * does not have environment in the path. Please use another overloaded 
+	 * Gets the client config.
+	 *
+	 * @param project the project
+	 * @param serviceName the service name
+	 * @return the client config
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @deprecated This is only used for the old dir structure which
+	 * does not have environment in the path. Please use another overloaded
 	 * version which has environmentName as input option.
 	 */
 	public static IFile getClientConfig(final IProject project,
@@ -719,6 +726,14 @@ public final class SOAConsumerUtil {
 		return clientName;
 	}
 	
+	/**
+	 * Checks if is zero config enabled.
+	 *
+	 * @param project the project
+	 * @return true, if is zero config enabled
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static boolean isZeroConfigEnabled(IProject project) throws IOException, CoreException {
 		final IFile file = getConsumerPropertiesFile(project);
 		//the default name is same as the project name
@@ -918,8 +933,14 @@ public final class SOAConsumerUtil {
 	 * The Class EnvironmentItem.
 	 */
 	public static class EnvironmentItem {
+		
+		/** The name. */
 		private String name;
+		
+		/** The services. */
 		private List<String> services = new ArrayList<String>();
+		
+		/** The service data. */
 		private Map<String, AssetInfo> serviceData = new ConcurrentHashMap<String, AssetInfo>();
 		
 		/**

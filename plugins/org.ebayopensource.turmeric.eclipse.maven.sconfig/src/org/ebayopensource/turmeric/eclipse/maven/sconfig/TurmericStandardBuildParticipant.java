@@ -13,7 +13,6 @@ import java.util.Set;
 
 import org.apache.maven.plugin.MojoExecution;
 import org.codehaus.plexus.util.Scanner;
-import org.eclipse.core.internal.resources.Project;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;

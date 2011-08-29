@@ -20,6 +20,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Visits the resource tree and decides whether Builder needs to run as far as
  * SOA andCodegen is concerned. Follows the visitor pattern and visits each node
@@ -29,9 +30,17 @@ import org.eclipse.jdt.core.JavaCore;
  * @author smathew
  */
 public class BuildResourceDeltaVisitor implements IResourceDeltaVisitor {
+	
+	/** The java project. */
 	private IJavaProject javaProject;
+	
+	/** The build required. */
 	private boolean buildRequired = false;
+	
+	/** The criteria list. */
 	private ArrayList<String> criteriaList = new ArrayList<String>();
+	
+	/** The DEFAUL t_ criteria. */
 	private String DEFAULT_CRITERIA = SOAProjectConstants.WSDL_EXT;
 
 	/**

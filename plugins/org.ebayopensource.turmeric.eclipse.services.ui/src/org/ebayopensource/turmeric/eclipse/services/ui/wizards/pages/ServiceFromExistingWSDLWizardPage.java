@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.widgets.Composite;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ServiceFromExistingWSDLWizardPage.
  *
@@ -40,8 +41,11 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class ServiceFromExistingWSDLWizardPage extends
 		AbstractNewServiceFromWSDLWizardPage {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
+	/** The version from wsdl. */
 	private String versionFromWSDL = null;
 
 	/**

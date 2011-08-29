@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IAction;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SubmitNewAsset.
  *
@@ -28,6 +29,8 @@ import org.eclipse.jface.action.IAction;
  * @since 1.0.0
  */
 public class SubmitNewAsset extends AbstractSubmitAssetAction {
+
+/** The Constant logger. */
 private static final SOALogger logger = SOALogger.getLogger();
 	
 	/**

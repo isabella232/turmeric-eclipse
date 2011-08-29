@@ -66,6 +66,7 @@ import org.eclipse.ui.progress.IProgressService;
 import org.eclipse.ui.progress.UIJob;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Standard Utility class for UI operations. Most of these will be used form
  * wizards, editors and views.
@@ -114,11 +115,18 @@ public class UIUtil {
 	}
 	
 	/**
-	 * @author yayu
+	 * The Interface IRunnable.
 	 *
-	 * @param <T>
+	 * @param <T> the generic type
+	 * @author yayu
 	 */
 	public static interface IRunnable<T> {
+		
+		/**
+		 * Run.
+		 *
+		 * @return the t
+		 */
 		public T run();
 	}
 
@@ -648,6 +656,12 @@ public class UIUtil {
 		setButtonWidthHint(button, getButtonWidthHint(button));
 	}
 
+	/**
+	 * Sets the button width hint.
+	 *
+	 * @param button the button
+	 * @param widthHint the width hint
+	 */
 	private static void setButtonWidthHint(Button button, int widthHint) {
 		Assert.isNotNull(button);
 		Object gd = button.getLayoutData();
@@ -700,8 +714,16 @@ public class UIUtil {
 	 * @param <T> the generic type
 	 */
 	public static final class UIRunner<T> extends UIJob {
+		
+		/**
+		 * The Enum Sync.
+		 */
 		private enum Sync {
-			SYNC, ASYNC
+			
+			/** The SYNC. */
+			SYNC, 
+ /** The ASYNC. */
+ ASYNC
 		}
 
 		/**
@@ -756,12 +778,25 @@ public class UIUtil {
 			return doExec(new UIRunner<U>(name, runner), Sync.ASYNC);
 		}
 
+		/**
+		 * Check null.
+		 *
+		 * @param o the o
+		 */
 		private static void checkNull(Object o) {
 			if (null == o) {
 				throw new IllegalArgumentException("null runner");
 			}
 		}
 
+		/**
+		 * Do exec.
+		 *
+		 * @param <U> the generic type
+		 * @param runner the runner
+		 * @param sync the sync
+		 * @return the u
+		 */
 		private static final <U> U doExec(UIRunner<U> runner, Sync sync) {
 			if (sync == Sync.ASYNC) {
 				runner.asyncExec();
@@ -771,14 +806,26 @@ public class UIUtil {
 			return runner.returnValue();
 		}
 
+		/**
+		 * Non null name.
+		 *
+		 * @param name the name
+		 * @return the string
+		 */
 		private static String nonNullName(String name) {
 			return null == name ? DEFAULT_NAME : name;
 		}
 
+		/** The Constant DEFAULT_NAME. */
 		private static final String DEFAULT_NAME = "UIUtil";
 
+		/** The runnable. */
 		private final Runnable runnable;
+		
+		/** The irunner. */
 		private final IRunnable<T> irunner;
+		
+		/** The return value. */
 		private T returnValue;
 
 		/**
@@ -916,37 +963,82 @@ public class UIUtil {
 				|| "EAR Libraries Update Job".equals(family);
 	}
 
+	/**
+	 * The Class WorkBenchWindowWrapper.
+	 */
 	private static class WorkBenchWindowWrapper {
+		
+		/** The workbench window. */
 		private IWorkbenchWindow workbenchWindow;
 
+		/**
+		 * Gets the workbench window.
+		 *
+		 * @return the workbench window
+		 */
 		public IWorkbenchWindow getWorkbenchWindow() {
 			return workbenchWindow;
 		}
 
+		/**
+		 * Sets the workbench window.
+		 *
+		 * @param workbenchWindow the new workbench window
+		 */
 		public void setWorkbenchWindow(IWorkbenchWindow workbenchWindow) {
 			this.workbenchWindow = workbenchWindow;
 		}
 	}
 
+	/**
+	 * The Class WorkBenchPageWrapper.
+	 */
 	private static class WorkBenchPageWrapper {
+		
+		/** The workbench page. */
 		private IWorkbenchPage workbenchPage = null;
 
+		/**
+		 * Gets the workbench page.
+		 *
+		 * @return the workbench page
+		 */
 		public IWorkbenchPage getWorkbenchPage() {
 			return workbenchPage;
 		}
 
+		/**
+		 * Sets the workbench page.
+		 *
+		 * @param workbenchPage the new workbench page
+		 */
 		public void setWorkbenchPage(IWorkbenchPage workbenchPage) {
 			this.workbenchPage = workbenchPage;
 		}
 	}
 
+	/**
+	 * The Class EditorWrapper.
+	 */
 	private static class EditorWrapper {
+		
+		/** The editor part. */
 		private IEditorPart editorPart = null;
 
+		/**
+		 * Gets the editor part.
+		 *
+		 * @return the editor part
+		 */
 		public IEditorPart getEditorPart() {
 			return editorPart;
 		}
 
+		/**
+		 * Sets the editor part.
+		 *
+		 * @param editorPart the new editor part
+		 */
 		public void setEditorPart(IEditorPart editorPart) {
 			this.editorPart = editorPart;
 		}

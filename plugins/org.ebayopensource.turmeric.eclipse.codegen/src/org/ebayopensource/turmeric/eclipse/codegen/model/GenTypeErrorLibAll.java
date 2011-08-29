@@ -17,13 +17,18 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GenTypeErrorLibAll.
  *
  * @author yayu
  */
 public class GenTypeErrorLibAll extends BaseCodeGenModel {
+	
+	/** The error library name. */
 	private String errorLibraryName;
+	
+	/** The domains. */
 	private final Collection<String> domains = new ArrayList<String>();
 
 	/**

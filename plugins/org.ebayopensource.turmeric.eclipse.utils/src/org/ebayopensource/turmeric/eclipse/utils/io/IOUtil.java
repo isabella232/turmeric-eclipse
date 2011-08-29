@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Standard SOA IO Utility class. Basic IO operations are being used from here.
  * Most of the APIs deals with files and directories even if the name says it is
@@ -47,11 +48,9 @@ public class IOUtil {
 	 * incrementally. Basically, here we first create the parent directory and
 	 * then create the child incrementally. It checks for the readability of the
 	 * parent and the validity of the segment before creating every child.
-	 * 
-	 * @param root
-	 *            the File base directory (ignored if null or not readable
-	 * @param segment
-	 *            the String[] of path elements to add to root (ignored if null)
+	 *
+	 * @param root the File base directory (ignored if null or not readable
+	 * @param segments the segments
 	 * @return null if root not readable or File otherwise
 	 */
 	public static File newFile(File root, String... segments) {
@@ -68,6 +67,12 @@ public class IOUtil {
 		return null;
 	}
 
+	/**
+	 * Valid segment.
+	 *
+	 * @param segment the segment
+	 * @return true, if successful
+	 */
 	private static boolean validSegment(String segment) {
 		return null != segment && 0 < segment.length();
 	}
@@ -94,6 +99,9 @@ public class IOUtil {
 		return dirStr;
 	}
 
+	/**
+	 * Instantiates a new iO util.
+	 */
 	private IOUtil() {
 	}
 

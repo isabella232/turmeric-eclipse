@@ -19,6 +19,7 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * This gentype is intended to be called during the service creation.
  * This is equivalent to gen types: SISkeleton + UnitTest + WebXml + Dispatcher + ServiceOpProps
@@ -27,8 +28,13 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
  */
 public class GenTypeServiceFromWSDLImpl extends BaseCodeGenModel {
 	// Java source files
+	/** The client name. */
 	private String clientName;
+	
+	/** The service config group. */
 	private String serviceConfigGroup;
+	
+	/** The meta dir. */
 	private String metaDir;
 	
 	/**

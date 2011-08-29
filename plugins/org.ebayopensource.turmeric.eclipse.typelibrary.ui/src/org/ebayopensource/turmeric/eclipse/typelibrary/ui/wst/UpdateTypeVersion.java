@@ -39,6 +39,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDTypeDefinition;
 
+// TODO: Auto-generated Javadoc
 /**
  * Updates the WSDL with latest versions of the XSDs for the existing types
  * being consumed in the WSDL. Scans the WSDL and find out all the types, then
@@ -159,7 +160,11 @@ public class UpdateTypeVersion extends AbastractTypeLibraryAtion {
 	 * The Class CustomTypeSelectorRenderer.
 	 */
 	static class CustomTypeSelectorRenderer extends TypeSelectorElementRenderer {
+		
+		/** The new types. */
 		private Set<LibraryType> newTypes;
+		
+		/** The image. */
 		private Image image = null;
 
 		/**

@@ -28,6 +28,7 @@ import org.eclipse.xsd.XSDSchema;
 import org.osgi.framework.Version;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class IncrementVersionCommand.
  *
@@ -39,6 +40,8 @@ import org.osgi.framework.Version;
  * Increments the version based on SOA Governance rules
  */
 public class IncrementVersionCommand extends AbastractTypeLibraryAtion {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
@@ -86,6 +89,11 @@ public class IncrementVersionCommand extends AbastractTypeLibraryAtion {
 		}
 	}
 
+	/**
+	 * Perform version change xsd editor.
+	 *
+	 * @param schema the schema
+	 */
 	private void performVersionChangeXSDEditor(XSDSchema schema) {
 
 		try {

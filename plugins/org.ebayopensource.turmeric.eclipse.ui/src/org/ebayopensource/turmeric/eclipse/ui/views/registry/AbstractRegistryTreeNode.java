@@ -13,6 +13,7 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractRegistryTreeNode.
  *
@@ -20,8 +21,10 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
  */
 public abstract class AbstractRegistryTreeNode implements IRegistryTreeNode {
 
+	/** The node. */
 	private Object node;
 	
+	/** The parent. */
 	private IRegistryTreeNode parent;
 	
 	/**

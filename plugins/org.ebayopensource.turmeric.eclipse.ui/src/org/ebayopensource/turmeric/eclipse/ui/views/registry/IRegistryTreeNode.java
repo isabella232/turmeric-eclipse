@@ -11,6 +11,7 @@
  */
 package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface IRegistryTreeNode.
  *

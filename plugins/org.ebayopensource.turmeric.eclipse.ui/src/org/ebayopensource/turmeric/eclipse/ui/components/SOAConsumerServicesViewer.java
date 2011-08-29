@@ -81,10 +81,20 @@ public class SOAConsumerServicesViewer extends TreeViewer {
 		init();
 	}
 
+	/**
+	 * Checks if is zero config.
+	 *
+	 * @return true, if is zero config
+	 */
 	public boolean isZeroConfig() {
 		return isZeroConfig;
 	}
 
+	/**
+	 * Sets the zero config.
+	 *
+	 * @param isZeroConfig the new zero config
+	 */
 	public void setZeroConfig(boolean isZeroConfig) {
 		this.isZeroConfig = isZeroConfig;
 	}

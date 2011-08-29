@@ -1,5 +1,6 @@
 package org.ebayopensource.turmeric.eclipse.core.resources.constants;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Enum SOAXSDTemplateSubType.
  */

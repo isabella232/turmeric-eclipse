@@ -12,30 +12,47 @@ import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * Gen Type - validate if one or more xsd file are validate for non schema
- * protocols, such as protobuf
- * 
+ * protocols, such as protobuf.
+ *
  * @author mzang
- * 
  */
 public class GenTypeValidateXSDsForNonXSDFormats extends BaseCodeGenModel {
 
+	/** The xsds path. */
 	private String xsdsPath = null;
 
+	/**
+	 * Gets the xsds path.
+	 *
+	 * @return the xsds path
+	 */
 	public String getXsdsPath() {
 		return xsdsPath;
 	}
 
+	/**
+	 * Sets the xsds path.
+	 *
+	 * @param xsdsPath the new xsds path
+	 */
 	public void setXsdsPath(String xsdsPath) {
 		this.xsdsPath = xsdsPath;
 	}
 
+	/**
+	 * Instantiates a new gen type validate xs ds for non xsd formats.
+	 */
 	public GenTypeValidateXSDsForNonXSDFormats() {
 		super();
 		setGenType(GENTYPE_VALIDATEXSDSFORNONXSDFORMATES);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel#getCodeGenOptions()
+	 */
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		Map<String, String> options = super.getCodeGenOptions();

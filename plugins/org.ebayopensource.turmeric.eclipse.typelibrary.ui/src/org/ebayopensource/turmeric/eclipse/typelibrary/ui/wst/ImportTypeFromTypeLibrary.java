@@ -60,6 +60,7 @@ import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.xsd.XSDSchema;
 
+// TODO: Auto-generated Javadoc
 /**
  * Represents the import functionality of SOA type library. Contributes the
  * context menu to WTP editor context and import types to both WSDL and XSD.
@@ -75,6 +76,8 @@ import org.eclipse.xsd.XSDSchema;
  * 
  */
 public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
@@ -436,11 +439,23 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 
 	}
 
+	/**
+	 * Show format error dialog.
+	 */
 	private void showFormatErrorDialog() {
 		MessageDialog.openInformation(UIUtil.getActiveShell(),
 				SOAMessages.FORMAT_ERR, SOAMessages.FORMAT_ERR_DETAILS);
 	}
 
+	/**
+	 * Run import command in xsd editor.
+	 *
+	 * @param parentXSDSchema the parent xsd schema
+	 * @param selectedType the selected type
+	 * @throws MalformedURLException the malformed url exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws Exception the exception
+	 */
 	private static void runImportCommandInXSDEditor(XSDSchema parentXSDSchema,
 			LibraryType selectedType) throws MalformedURLException,
 			IOException, Exception {
@@ -454,6 +469,17 @@ public class ImportTypeFromTypeLibrary extends AbastractTypeLibraryAtion {
 
 	}
 
+	/**
+	 * Fill duplicate imports.
+	 *
+	 * @param selectedTypes the selected types
+	 * @param selectedFile the selected file
+	 * @param schema the schema
+	 * @param duplicatedType the duplicated type
+	 * @param duplicatedName the duplicated name
+	 * @param isNamespaceFoldingEnabled the is namespace folding enabled
+	 * @throws Exception the exception
+	 */
 	private static void fillDuplicateImports(LibraryType[] selectedTypes,
 			IFile selectedFile, Object schema, Set<QName> duplicatedType,
 			Set<QName> duplicatedName, boolean isNamespaceFoldingEnabled)

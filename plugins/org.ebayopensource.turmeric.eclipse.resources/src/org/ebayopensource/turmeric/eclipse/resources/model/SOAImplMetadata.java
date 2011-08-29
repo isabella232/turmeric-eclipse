@@ -15,6 +15,7 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectCo
 import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool.ISOAServiceConfig;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAImplMetadata.
  *
@@ -23,15 +24,34 @@ import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool.ISOASe
 public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceConfig{
 	
 
+	/** The intf metadata. */
 	private SOAIntfMetadata intfMetadata;
+	
+	/** The service impl project name. */
 	private String serviceImplProjectName;
+	
+	/** The impl version. */
 	private String implVersion;
+	
+	/** The supported version. */
 	private String supportedVersion;
+	
+	/** The group. */
 	private String group;
+	
+	/** The target namespace. */
 	private String targetNamespace;
+	
+	/** The fully qualified service name. */
 	private String fullyQualifiedServiceName;
+	
+	/** The service impl class name. */
 	private String serviceImplClassName;
+	
+	/** The message protocol. */
 	private String messageProtocol;
+	
+	/** The service impl type. */
 	private ServiceImplType serviceImplType = ServiceImplType.SERVICE_IMPL;
 
 	/**
@@ -268,14 +288,18 @@ public class SOAImplMetadata extends SOAConsumerMetadata implements ISOAServiceC
 	}
 
 	/**
-	 * @return
+	 * Gets the service impl type.
+	 *
+	 * @return the service impl type
 	 */
 	public ServiceImplType getServiceImplType() {
 		return serviceImplType;
 	}
 
 	/**
-	 * @param serviceImplType
+	 * Sets the service impl type.
+	 *
+	 * @param serviceImplType the new service impl type
 	 */
 	public void setServiceImplType(ServiceImplType serviceImplType) {
 		this.serviceImplType = serviceImplType;

@@ -73,6 +73,7 @@ import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ServiceFromNewWSDLAddOperationWizardPage.
  *
@@ -93,15 +94,29 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 	public static final String[] OPERATION_COLUMN_PROPERTIES = 
 	{COLUMN_NAME, COLUMN_INPUT_PARAM, COLUMN_OUTPUT_PARAM};
 	
+	/** The operations. */
 	private List<Operation> operations = new ArrayList<Operation>();
+	
+	/** The new operations. */
 	private List<Operation> newOperations = new ArrayList<Operation>();
+	
+	/** The need control buttons. */
 	private boolean needControlButtons = true;
 	
 	//UI controls
+	/** The operation viewer. */
 	private TreeViewer operationViewer;
+	
+	/** The add op btn. */
 	private Button addOpBtn;
+	
+	/** The remove op btn. */
 	private Button removeOpBtn;
+	
+	/** The up op btn. */
 	private Button upOpBtn;
+	
+	/** The down op btn. */
 	private Button downOpBtn;
 	
 	
@@ -153,6 +168,12 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 		}
 	}
 	
+	/**
+	 * Creates the operation viewer.
+	 *
+	 * @param parent the parent
+	 * @return the tree viewer
+	 */
 	private TreeViewer createOperationViewer(Composite parent) {
 		operationViewer = new TreeViewer(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL 
 				| SWT.FULL_SELECTION | SWT.SINGLE);
@@ -348,6 +369,11 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 		return operationViewer;
 	}
 	
+	/**
+	 * Reset buttons.
+	 *
+	 * @param model the model
+	 */
 	private void resetButtons(TemplateWSDLModel model) {
 		if (needControlButtons == true) {
 			final boolean isOperation = model instanceof Operation;
@@ -362,6 +388,12 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 		}
 	}
 	
+	/**
+	 * Gets the selected model.
+	 *
+	 * @param sel the sel
+	 * @return the selected model
+	 */
 	private TemplateWSDLModel getSelectedModel(ISelection sel) {
 		IStructuredSelection selection = null; 
 		if (sel == null && this.operationViewer != null) {
@@ -432,6 +464,12 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 		return true;
 	}
 	
+	/**
+	 * Validate wsdl operation name.
+	 *
+	 * @param optName the opt name
+	 * @return true, if successful
+	 */
 	private boolean validateWSDLOperationName(String optName) {
 		// no validation if it is an existing operation.
 		if (newOperations == null) {
@@ -462,6 +500,11 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 		return true;
 	}
 	
+	/**
+	 * Creates the control buttons.
+	 *
+	 * @param parent the parent
+	 */
 	private void createControlButtons(Composite parent) {
 		final Composite container = new Composite(parent, SWT.NONE);
 		container.setLayoutData(new GridData(GridData.FILL_VERTICAL));
@@ -551,6 +594,11 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 		return operations;
 	}
 	
+	/**
+	 * Gets the input object.
+	 *
+	 * @return the input object
+	 */
 	private Object getInputObject() {
 		if (this.operations.isEmpty() == true) {
 			final Operation op = ServiceFromTemplateWsdlParamModel.createOperation("getVersion");
@@ -560,18 +608,37 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 		return operations;
 	}
 	
+	/**
+	 * The Class SOADialogCellEditor.
+	 */
 	private class SOADialogCellEditor extends DialogCellEditor{
+		
+		/** The input. */
 		private boolean input;
 		
+		/**
+		 * Instantiates a new sOA dialog cell editor.
+		 *
+		 * @param composite the composite
+		 */
 		public SOADialogCellEditor(Composite composite) {
 			this(composite, true);
 		}
 
+		/**
+		 * Instantiates a new sOA dialog cell editor.
+		 *
+		 * @param composite the composite
+		 * @param input the input
+		 */
 		public SOADialogCellEditor(Composite composite, boolean input) {
 			super(composite);
 			this.input = input;
 		}
 
+		/* (non-Javadoc)
+		 * @see org.eclipse.jface.viewers.DialogCellEditor#openDialogBox(org.eclipse.swt.widgets.Control)
+		 */
 		@Override
 		protected Object openDialogBox(Control cellEditorWindow) {
 			final TemplateWSDLModel model = getSelectedModel(null);
@@ -644,6 +711,11 @@ public class ServiceFromNewWSDLAddOperationWizardPage extends SOABasePage {
 		}
 	}
 
+	/**
+	 * Gets the new operations.
+	 *
+	 * @return the new operations
+	 */
 	public List<Operation> getNewOperations() {
 		return newOperations;
 	}

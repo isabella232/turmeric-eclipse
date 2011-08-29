@@ -39,13 +39,18 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GenerateGlobalClientConfig.
  *
  * @author smathew
  */
 public class GenerateGlobalClientConfig implements IObjectActionDelegate {
+	
+	/** The selection. */
 	private IStructuredSelection selection;
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**

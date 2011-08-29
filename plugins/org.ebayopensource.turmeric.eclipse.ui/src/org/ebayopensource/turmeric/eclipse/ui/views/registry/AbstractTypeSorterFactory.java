@@ -14,6 +14,7 @@ import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOATypeLibra
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Factory pattern gateway to expose the sorter. Right now the table has
  * only two columns and so the factory now handles only two columns. Later
@@ -69,6 +70,9 @@ public class AbstractTypeSorterFactory {
 		 */
 		private int column;
 
+		/**
+		 * Instantiates a new type sorter.
+		 */
 		private TypeSorter() {
 		}
 
@@ -121,6 +125,9 @@ public class AbstractTypeSorterFactory {
 		 */
 		private int column;
 
+		/**
+		 * Instantiates a new version sorter.
+		 */
 		private VersionSorter() {
 		}
 

@@ -20,15 +20,24 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ConsumerCodeGenModel.
  *
  * @author yayu
  */
 public class ConsumerCodeGenModel extends BaseCodeGenModel{
+	
+	/** The client name. */
 	private String clientName;
+	
+	/** The consumer id. */
 	private String consumerId;
+	
+	/** The client config group. */
 	private String clientConfigGroup;
+	
+	/** The required services. */
 	private Map<String, Map<String, String>> requiredServices = new TreeMap<String, Map<String, String>>();
 	
 	/**

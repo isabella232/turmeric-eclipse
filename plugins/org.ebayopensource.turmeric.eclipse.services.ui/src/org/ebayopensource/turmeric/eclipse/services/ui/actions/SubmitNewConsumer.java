@@ -38,6 +38,7 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SubmitNewConsumer.
  *
@@ -45,8 +46,11 @@ import org.eclipse.ui.IWorkbenchPart;
  * @since 1.0.0
  */
 public class SubmitNewConsumer implements IObjectActionDelegate {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 	
+	/** The selection. */
 	private IStructuredSelection selection;
 	
 	/**

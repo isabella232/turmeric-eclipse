@@ -39,6 +39,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.osgi.framework.Version;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The SOA plugin specific project properties files are created here. Includes
  * interface project properties file, consumer properties file and
@@ -160,10 +161,10 @@ public class ProjectPropertiesFileUtil {
 	}
 	
 	/**
-	 * 
-	 * adding service metadata properties
-	 * @param props
-	 * @param intfProject
+	 * adding service metadata properties.
+	 *
+	 * @param props the props
+	 * @param metadata the metadata
 	 */
 	private static void addServiceMetadataProperties(final Properties props, 
 			final SOAIntfMetadata metadata) {
@@ -299,6 +300,17 @@ public class ProjectPropertiesFileUtil {
 		return file;
 	}
 	
+	/**
+	 * Creates the props file for impl projects.
+	 *
+	 * @param implProject the impl project
+	 * @param clientName the client name
+	 * @param consumerId the consumer id
+	 * @param monitor the monitor
+	 * @return the i file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws CoreException the core exception
+	 */
 	public static IFile createPropsFileForImplProjects(IProject implProject, 
 			String clientName, String consumerId, 
 			IProgressMonitor monitor)

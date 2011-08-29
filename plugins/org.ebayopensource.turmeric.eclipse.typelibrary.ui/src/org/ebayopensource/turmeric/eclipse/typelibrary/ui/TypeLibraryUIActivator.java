@@ -53,6 +53,7 @@ import org.osgi.framework.BundleContext;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+// TODO: Auto-generated Javadoc
 /**
  * The activator class controls the plug-in life cycle.
  */
@@ -66,8 +67,10 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 	public static final String ICON_PATH = "icons/";
 
 	// The shared instance
+	/** The plugin. */
 	private static TypeLibraryUIActivator plugin;
 
+	/** The type lib move delete hook. */
 	private TypeLibMoveDeleteHook typeLibMoveDeleteHook;
 
 	/**
@@ -243,6 +246,16 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		return formatProcessor.formatContent(contents);
 	}
 
+	/**
+	 * Adds the import.
+	 *
+	 * @param importType the import type
+	 * @param typeDefinition the type definition
+	 * @param typeName the type name
+	 * @param version the version
+	 * @param typeLibraryName the type library name
+	 * @throws CommandFailedException the command failed exception
+	 */
 	private static void addImport(LibraryType importType,
 			XSDTypeDefinition typeDefinition, String typeName, String version,
 			String typeLibraryName) throws CommandFailedException {
@@ -518,6 +531,13 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 		return particle;
 	}
 
+	/**
+	 * Creates the xsd attr declaration.
+	 *
+	 * @param strName the str name
+	 * @param strType the str type
+	 * @return the xSD attribute use
+	 */
 	private static XSDAttributeUse createXSDAttrDeclaration(String strName,
 			String strType) {
 
@@ -590,6 +610,14 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 	}
 
+	/**
+	 * Process template model.
+	 *
+	 * @param inputStream the input stream
+	 * @return the template model
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static TemplateModel processTemplateModel(InputStream inputStream)
 			throws CoreException, IOException {
 		TemplateModel templateModel = new TemplateModel();

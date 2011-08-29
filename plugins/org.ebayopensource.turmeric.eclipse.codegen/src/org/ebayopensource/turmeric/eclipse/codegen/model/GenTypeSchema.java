@@ -15,6 +15,7 @@ import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GenTypeSchema.
  *
@@ -22,6 +23,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
  */
 public class GenTypeSchema extends BaseCodeGenModel {
 
+	/** The metadata directory. */
 	private String metadataDirectory; //-mdest Destination location for generated configuration and other XML files
 	
 	/**

@@ -13,6 +13,7 @@ import java.util.Map;
 
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * Simple Model class for unit test class generation. Gentype used is "UnitTest"
  * 
@@ -20,9 +21,12 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
  * 
  */
 public class GenTypeUnitTest extends BaseCodeGenModel {
+	
+	/** The gen folder. */
 	private String genFolder; // -jdest Destination location for generated
 								// Java source files
-	private String clientName;
+	/** The client name. */
+								private String clientName;
 
 	/**
 	 * Instantiates a new gen type unit test.

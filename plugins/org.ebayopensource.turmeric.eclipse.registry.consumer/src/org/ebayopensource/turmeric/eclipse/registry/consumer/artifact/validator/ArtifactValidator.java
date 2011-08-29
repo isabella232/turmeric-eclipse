@@ -127,7 +127,7 @@ public class ArtifactValidator implements IArtifactValidator, IArtifactValidator
 					Activator.getDefault().logArgumentMessage(Messages.VALIDATION_RESULT_MUST, artifactValidationResult.getArtifactValidationResultMessage());
 				}
 			}
-			IStatus multiStatus = SOAMessageUtils.createMultiStatus(Activator.PLUGIN_ID, 0, (IStatus [])statusList.toArray(new IStatus[0]), 
+			IStatus multiStatus = SOAMessageUtils.createMultiStatus(Activator.PLUGIN_ID, 0, statusList.toArray(new IStatus[0]), 
 					"", null);
 			String validationResultMessage = "";
 			if (multiStatus.getSeverity() == IStatus.ERROR) 
@@ -137,7 +137,7 @@ public class ArtifactValidator implements IArtifactValidator, IArtifactValidator
 			
 			if (Activator.DEBUG)
 				Activator.getDefault().logArgumentMessage(Messages.VALIDATION_RESULT_METHOD_END, validationResultMessage, "getArtifactValidationResultStatus");
-			return SOAMessageUtils.createMultiStatus(Activator.PLUGIN_ID, 0, (IStatus [])statusList.toArray(new IStatus[0]), 
+			return SOAMessageUtils.createMultiStatus(Activator.PLUGIN_ID, 0, statusList.toArray(new IStatus[0]), 
 					validationResultMessage, null);
 		}		
 		if (Activator.DEBUG)

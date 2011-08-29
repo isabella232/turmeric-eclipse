@@ -14,6 +14,7 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TurmericServiceUtils.
  *
@@ -22,7 +23,7 @@ import org.eclipse.core.runtime.CoreException;
 public final class TurmericServiceUtils {
 
 	/**
-	 * 
+	 * Instantiates a new turmeric service utils.
 	 */
 	private TurmericServiceUtils() {
 		super();

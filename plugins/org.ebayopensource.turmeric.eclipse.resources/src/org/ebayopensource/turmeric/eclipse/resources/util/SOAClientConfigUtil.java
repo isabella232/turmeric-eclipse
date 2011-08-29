@@ -25,6 +25,7 @@ import org.jdom.JDOMException;
 import org.jdom.Namespace;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAClientConfigUtil.
  *
@@ -32,29 +33,76 @@ import org.jdom.Namespace;
  */
 public class SOAClientConfigUtil {
 
+	/** The Constant CLIENT_CONFIG. */
 	private static final String CLIENT_CONFIG = "client-config";
+	
+	/** The Constant SERVICE_NAME. */
 	private static final String SERVICE_NAME = "service-name";
+	
+	/** The Constant SERVICE_INTERFACE_CLASS_NAME. */
 	private static final String SERVICE_INTERFACE_CLASS_NAME = "service-interface-class-name";
+	
+	/** The Constant SERVICE_LOCATION. */
 	private static final String SERVICE_LOCATION = "service-location";
+	
+	/** The Constant CLIENT_INSTANCE_CONFIG. */
 	private static final String CLIENT_INSTANCE_CONFIG = "client-instance-config";
+	
+	/** The Constant INVOCATION_OPTIONS. */
 	private static final String INVOCATION_OPTIONS = "invocation-options";
+	
+	/** The Constant PREFERRED_TRANSPORT. */
 	private static final String PREFERRED_TRANSPORT = "preferred-transport";
+	
+	/** The Constant REQUEST_DATA_BINDING. */
 	private static final String REQUEST_DATA_BINDING = "request-data-binding";
+	
+	/** The Constant RESPONSE_DATA_BINDING. */
 	private static final String RESPONSE_DATA_BINDING = "response-data-binding";
+	
+	/** The Constant INVOCATION_USE_CASE. */
 	private static final String INVOCATION_USE_CASE = "invocation-use-case";
+	
+	/** The Constant MESSAGE_PROTOCOL. */
 	private static final String MESSAGE_PROTOCOL = "message-protocol";
+	
+	/** The Constant NAME. */
 	private static final String NAME = "name";
+	
+	/** The Constant PROTOCOL_PROCESSOR. */
 	private static final String PROTOCOL_PROCESSOR = "protocol-processor";
+	
+	/** The Constant VERSION. */
 	private static final String VERSION = "version";
+	
+	/** The Constant INDICATOR. */
 	private static final String INDICATOR = "indicator";
+	
+	/** The Constant URL_PATTERN. */
 	private static final String URL_PATTERN = "URL-pattern";
+	
+	/** The Constant TRANSPORT_HEADER. */
 	private static final String TRANSPORT_HEADER = "transport-header";
+	
+	/** The Constant CONSUMER_ID. */
 	private static final String CONSUMER_ID = "consumer-id";
+	
+	/** The Constant TRANSPORT_HEADER_NAME. */
 	private static final String TRANSPORT_HEADER_NAME = "X-TURMERIC-MESSAGE-PROTOCOL";
+	
+	/** The Constant SOAP12. */
 	private static final String SOAP12 = "SOAP12";
+	
+	/** The Constant SOAP11. */
 	private static final String SOAP11 = "SOAP11";
+	
+	/** The Constant SOAP11_VERSION. */
 	private static final String SOAP11_VERSION = "1.1";
+	
+	/** The Constant SOAP12_VERSION. */
 	private static final String SOAP12_VERSION = "1.2";
+	
+	/** The Constant CLASS_NAME. */
 	private static final String CLASS_NAME = "class-name";
 
 	// private static final String CLASS_NAME_VALUE =
@@ -160,6 +208,12 @@ public class SOAClientConfigUtil {
 		return soaClientConfig;
 	}
 
+	/**
+	 * Gets the service name from client config service name.
+	 *
+	 * @param serviceName the service name
+	 * @return the service name from client config service name
+	 */
 	private static String getServiceNameFromClientConfigServiceName(
 			String serviceName) {
 		// this has bracket {namespace}serviceName
@@ -305,6 +359,12 @@ public class SOAClientConfigUtil {
 		JDOMUtil.outputDocument(document, config.getFile());
 	}
 
+	/**
+	 * Removes the protocol processor.
+	 *
+	 * @param parentElement the parent element
+	 * @param document the document
+	 */
 	private static void removeProtocolProcessor(Element parentElement,
 			Document document) {
 		Element protocolProcessorElement = parentElement.getChild(
@@ -312,6 +372,15 @@ public class SOAClientConfigUtil {
 		parentElement.removeContent(protocolProcessorElement);
 	}
 
+	/**
+	 * Adds the protocol processor.
+	 *
+	 * @param name the name
+	 * @param version the version
+	 * @param parentElement the parent element
+	 * @param document the document
+	 * @param protocalProcessorClassName the protocal processor class name
+	 */
 	private static void addProtocolProcessor(String name, String version,
 			Element parentElement, Document document, String protocalProcessorClassName) {
 

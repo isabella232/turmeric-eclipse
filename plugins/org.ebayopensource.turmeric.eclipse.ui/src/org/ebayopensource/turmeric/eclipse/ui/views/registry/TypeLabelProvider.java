@@ -13,6 +13,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TypeLabelProvider.
  *

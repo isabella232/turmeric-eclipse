@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.jdom.Document;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface ISOAConsumerProject.
  *
@@ -88,7 +89,11 @@ public interface ISOAConsumerProject extends ISOAProject {
 	 *
 	 */
 	public static class SOAClientEnvironment implements Comparable<SOAClientEnvironment>{
+		
+		/** The environment. */
 		private String environment;
+		
+		/** The service name. */
 		private String serviceName;
 		/**
 		 * Constructor that setups a SOAClient Enviroment taking in environment name and serviceName.
@@ -194,20 +199,50 @@ public interface ISOAConsumerProject extends ISOAProject {
 	 *
 	 */
 	public static class SOAClientConfig implements ISOAClientConfig{
+		
+		/** The target namespace. */
 		private String targetNamespace;
+		
+		/** The service name. */
 		private String serviceName;
+		
+		/** The fully qualified service name. */
 		private String fullyQualifiedServiceName;
+		
+		/** The group. */
 		private String group;
+		
+		/** The service interface class name. */
 		private String serviceInterfaceClassName;
+		
+		/** The service location. */
 		private String serviceLocation;
+		
+		/** The wsdl location. */
 		private String wsdlLocation;
+		
+		/** The service binding. */
 		private String serviceBinding;
+		
+		/** The consumer id. */
 		private String consumerId;
+		
+		/** The invocation use case. */
 		private String invocationUseCase;
+		
+		/** The request data binding. */
 		private String requestDataBinding;
+		
+		/** The response data binding. */
 		private String responseDataBinding;
+		
+		/** The message protocol. */
 		private String messageProtocol;
+		
+		/** The document. */
 		private Document document;
+		
+		/** The file. */
 		private IFile file;
 		
 		/**

@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AssetInfo.
  *
@@ -35,11 +36,20 @@ public class AssetInfo implements IAssetInfo, Comparable<AssetInfo> {
 	 * The version prefix. "v."
 	 */
 	public static final String VERSION_PREFIX = " v.";
+	
+	/** The name. */
 	private final String name;
+	
+	/** The version. */
 	private final String version;
+	
+	/** The dir. */
 	private final String dir;
+	
+	/** The jar names. */
 	private List<String> jarNames = new ArrayList<String>();
 	// can be project or library. Enum avoided.
+	/** The type. */
 	private String type;
 
 	

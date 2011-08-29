@@ -65,6 +65,7 @@ import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDTypeDefinition;
 import org.w3c.dom.Element;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractNewTypeWizardPage.
  *
@@ -72,12 +73,26 @@ import org.w3c.dom.Element;
  */
 public abstract class AbstractNewTypeWizardPage extends
 		AbstractSOAResourceWizardPage {
+	
+	/** The namespace text. */
 	private Text namespaceText;
+	
+	/** The template combo. */
 	private CCombo templateCombo;
+	
+	/** The type library name text. */
 	private Text typeLibraryNameText;
+	
+	/** The type lib name browse btn. */
 	private Button typeLibNameBrowseBtn;
+	
+	/** The type lib name. */
 	private String typeLibName;
+	
+	/** The parent type text. */
 	private Text parentTypeText;
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/** The container. */
@@ -88,6 +103,8 @@ public abstract class AbstractNewTypeWizardPage extends
 	
 	/** The base type comp. */
 	protected CCombo baseTypeComp;
+	
+	/** The current template. */
 	private String currentTemplate;
 
 	/**
@@ -178,6 +195,14 @@ public abstract class AbstractNewTypeWizardPage extends
 		}
 	}
 	
+	/**
+	 * Process template model.
+	 *
+	 * @param inputStream the input stream
+	 * @return the template model
+	 * @throws CoreException the core exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private TemplateModel processTemplateModel(InputStream inputStream)
 			throws CoreException, IOException {
 		TemplateModel templateModel = new TemplateModel();
@@ -414,6 +439,11 @@ public abstract class AbstractNewTypeWizardPage extends
 		return getTextValue(namespaceText);
 	}
 
+	/**
+	 * Sets the namespace field.
+	 *
+	 * @param typeLibName the new namespace field
+	 */
 	private void setNamespaceField(String typeLibName) {
 		TypeLibraryType typeLibraryType = null;
 		try {

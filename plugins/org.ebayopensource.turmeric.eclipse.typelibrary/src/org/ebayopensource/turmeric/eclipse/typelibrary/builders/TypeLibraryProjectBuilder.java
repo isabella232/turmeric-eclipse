@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Type Library builder. This builder calls codegen(internally xjc) for xsd to
  * java code generation

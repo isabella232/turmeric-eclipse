@@ -62,13 +62,15 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.wst.wsdl.validation.internal.IValidationMessage;
 
+// TODO: Auto-generated Javadoc
 /**
- * All Action calls comes here
- * 
+ * All Action calls comes here.
+ *
  * @author smathew
  */
 public class ActionUtil {
 
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 	
 	/** The Constant WST_FACET_NATURE_ID. */
@@ -76,7 +78,11 @@ public class ActionUtil {
 	
 	/** The Constant WST_MODULECORE_NATURE_ID. */
 	public static final String WST_MODULECORE_NATURE_ID = "org.eclipse.wst.common.modulecore.ModuleCoreNature";
+	
+	/** The Constant WSI_PREFIX. */
 	private static final String WSI_PREFIX = "WSI";
+	
+	/** The Constant AS_PREFIX. */
 	private static final String AS_PREFIX = "AS";
 
 	/**
@@ -347,6 +353,17 @@ public class ActionUtil {
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * Validate using as.
+	 *
+	 * @param wsdlWorkspaceFile the wsdl workspace file
+	 * @param wsdlFile the wsdl file
+	 * @param statuses the statuses
+	 * @param needDowngrade the need downgrade
+	 * @param monitor the monitor
+	 * @return the i status
+	 * @throws Exception the exception
+	 */
 	private static IStatus validateUsingAS(IFile wsdlWorkspaceFile,
 			URL wsdlFile, List<IStatus> statuses, boolean needDowngrade,
 			IProgressMonitor monitor) throws Exception {
@@ -657,11 +674,12 @@ public class ActionUtil {
 	}
 	
 	/**
-	 * generate config for zero config project
-	 * @param consumerProject
-	 * @param monitor
-	 * @return
-	 * @throws Exception
+	 * generate config for zero config project.
+	 *
+	 * @param consumerProject the consumer project
+	 * @param monitor the monitor
+	 * @return the i status
+	 * @throws Exception the exception
 	 */
 	public static IStatus generateConfigs(IProject consumerProject, IProgressMonitor monitor) throws Exception {
 		final List<AssetInfo> services = new ArrayList<AssetInfo>();
@@ -686,33 +704,34 @@ public class ActionUtil {
 
 	/**
 	 * Wrapper to execute the job and schedule and show a message in the UI if
-	 * required
-	 * 
+	 * required.
 	 */
 	public static interface ActionJob {
+		
 		/**
-		 * Gets the target platform
-		 * 
-		 * @return
+		 * Gets the target platform.
+		 *
+		 * @return the target platform
 		 */
 		public String getTargetPlatform();
 
 		/**
-		 * Schedules the job for execution
+		 * Schedules the job for execution.
 		 */
 		public void schedule();
 
 		/**
-		 * Setting the sub job for the parent job
-		 * 
-		 * @param job
+		 * Setting the sub job for the parent job.
+		 *
+		 * @param job the new sub job
 		 */
 		public void setSubJob(Job job);
 
 		/**
-		 * show message
-		 * @param title
-		 * @param message
+		 * show message.
+		 *
+		 * @param title the title
+		 * @param message the message
 		 */
 		public void showMessage(String title, String message);
 	}

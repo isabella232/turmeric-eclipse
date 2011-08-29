@@ -16,20 +16,23 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.codegen.model.GenTypeVali
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
+// TODO: Auto-generated Javadoc
 /**
- * 
+ * The Class XSDSchemaValidationUtil.
+ *
  * @author mzang
- * 
  */
 public class XSDSchemaValidationUtil {
 
+	/** The logger. */
 	private static SOALogger logger = SOALogger.getLogger();
 
 	/**
 	 * check if given types are validated.
-	 * @param project
-	 * @param types
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param types the types
+	 * @throws Exception the exception
 	 */
 	public static void validateType(IProject project, LibraryType... types)
 			throws Exception {
@@ -86,16 +89,12 @@ public class XSDSchemaValidationUtil {
 	 * the base model and the rest of the values are populated after parsing the
 	 * project data and the base model data. Meaning the rest of the data is
 	 * inferred from the both of them.
-	 * 
-	 * @param model
-	 *            - The base model has the general information from a project
-	 *            already parsed and fed into
-	 * @param project
-	 *            - the project will be again used to get the rest of the
-	 *            codegen parameter values.
-	 * @param model
-	 * @return
-	 * @throws WSDLException
+	 *
+	 * @param model the model
+	 * @param project - the project will be again used to get the rest of the
+	 * codegen parameter values.
+	 * @return the gen type validate xs ds for non xsd formats
+	 * @throws WSDLException the wSDL exception
 	 */
 	
 	public static GenTypeValidateXSDsForNonXSDFormats transformToGenTypeValidateXSDsForNonXSDFormats(

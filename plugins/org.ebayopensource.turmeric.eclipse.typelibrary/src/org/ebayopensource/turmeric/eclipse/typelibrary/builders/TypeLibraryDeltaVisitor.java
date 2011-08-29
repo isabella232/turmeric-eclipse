@@ -21,6 +21,7 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Following the visitor pattern, this class is responsible for build trigger
  * algorithm. It will kick in (ideally :)) ) only if there is a change in XSD
@@ -30,9 +31,16 @@ import org.eclipse.core.runtime.CoreException;
  */
 public class TypeLibraryDeltaVisitor implements IResourceDeltaVisitor {
 
+	/** The project. */
 	private IProject project;
+	
+	/** The deleted type lib projects. */
 	private List<IProject> deletedTypeLibProjects = new ArrayList<IProject>();
+	
+	/** The modified x sd list. */
 	private ArrayList<IFile> modifiedXSdList = new ArrayList<IFile>();
+	
+	/** The deleted xsd list. */
 	private ArrayList<IFile> deletedXSDList = new ArrayList<IFile>();
 
 	/**

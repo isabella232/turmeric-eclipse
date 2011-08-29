@@ -21,6 +21,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Configures the project with necessary add on supports like JDT, SOA. Support
  * includes adding builders natures and the containers if required.

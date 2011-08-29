@@ -51,6 +51,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractElementManagementWizardPage.
  *
@@ -88,6 +89,8 @@ public static final String COLUMN_NAME = "name";
 	
 	/** The param cell editor. */
 	protected CellEditor paramCellEditor;
+	
+	/** The minimum required element num. */
 	private int minimumRequiredElementNum = 1;
 
 	/**
@@ -185,6 +188,12 @@ public static final String COLUMN_NAME = "name";
 		createTypesViewer(container);
 	}
 	
+	/**
+	 * Creates the types viewer.
+	 *
+	 * @param parent the parent
+	 * @return the table viewer
+	 */
 	private TableViewer createTypesViewer(Composite parent) {
 		final List<ColumnDef> columns = new ArrayList<ColumnDef>(4);
 		{

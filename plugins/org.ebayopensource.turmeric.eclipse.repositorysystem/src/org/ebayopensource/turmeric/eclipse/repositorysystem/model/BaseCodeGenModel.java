@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class BaseCodeGenModel.
  *
@@ -128,7 +129,11 @@ public class BaseCodeGenModel {
 	
 	/** The Constant PARAM_ERROR_LIBRARY_NAME. */
 	public static final String PARAM_ERROR_LIBRARY_NAME = "-errorlibname"; //the name of the error library
+	
+	/** The Constant PARAM_NON_XSD_FORMATS. */
 	public static final String PARAM_NON_XSD_FORMATS = "-nonXSDFormats"; //the name of the nonxsdprotocol, such as protobuf
+	
+	/** The Constant PARAM_XSD_PATHS_FOR_VALIDATION. */
 	public static final String PARAM_XSD_PATHS_FOR_VALIDATION = "-xsdPathsForValidation";
 
 	
@@ -283,29 +288,74 @@ public class BaseCodeGenModel {
 		SUPPORTED_GENTYPES = Collections.unmodifiableList(list);
 	}
 
+	/** The admin name. */
 	private String adminName; //-adminname
+	
+	/** The gen type. */
 	private String genType; //-genType
+	
+	/** The namespace. */
 	private String namespace; //-namespace
+	
+	/** The service layer file. */
 	private String serviceLayerFile; //-asl
+	
+	/** The service interface. */
 	private String serviceInterface; //-interface
+	
+	/** The service name. */
 	private String serviceName; //-serviceName
+	
+	/** The service version. */
 	private String serviceVersion; //-scv
+	
+	/** The service impl class name. */
 	private String serviceImplClassName; //-sicn
+	
+	/** The project root. */
 	private String projectRoot; //-pr
+	
+	/** The service layer. */
 	private String serviceLayer; //-slayer
+	
+	/** The source directory. */
 	private String sourceDirectory; //-src
+	
+	/** The destination. */
 	private String destination; //-dest This is the project location in most cases
+	
+	/** The output directory. */
 	private String outputDirectory; //-bin
+	
+	/** The project name. */
 	private String projectName;
+	
+	/** The original wsdl url. */
 	private String originalWsdlUrl; //-wsdl
+	
+	/** The ns2pkg. */
 	private String ns2pkg; //-ns2pkg
+	
+	/** The gen folder. */
 	private String genFolder; //jdesk
+	
+	/** The non xsd formats. */
 	private String nonXSDFormats;// -nonXSDFormats
 	
+	/**
+	 * Gets the non xsd formats.
+	 *
+	 * @return the non xsd formats
+	 */
 	public String getNonXSDFormats() {
 		return nonXSDFormats;
 	}
 
+	/**
+	 * Sets the non xsd formats.
+	 *
+	 * @param nonXSDFormats the new non xsd formats
+	 */
 	public void setNonXSDFormats(String nonXSDFormats) {
 		this.nonXSDFormats = nonXSDFormats;
 	}
@@ -650,10 +700,20 @@ public class BaseCodeGenModel {
 		this.genFolder = genFolder;
 	}
 	
+	/**
+	 * Use external service factory.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean useExternalServiceFactory(){
 		return useExternalServiceFactory;
 	}
 	
+	/**
+	 * Sets the use external service factory.
+	 *
+	 * @param useExternalServiceFactory the new use external service factory
+	 */
 	public void setUseExternalServiceFactory(boolean useExternalServiceFactory) {
 		this.useExternalServiceFactory = useExternalServiceFactory;
 	}

@@ -34,6 +34,7 @@ import org.eclipse.xsd.XSDSchema;
  * Registry View
  * @deprecated Use AddImportHandler and the commands/handler framework instead.
  */
+@Deprecated
 public class AddImportAction extends Action {
 	private static final SOALogger logger = SOALogger.getLogger();
 

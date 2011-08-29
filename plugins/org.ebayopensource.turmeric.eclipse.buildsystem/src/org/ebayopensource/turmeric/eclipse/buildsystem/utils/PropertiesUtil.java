@@ -41,16 +41,19 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class PropertiesUtil.
  *
  * @author yayu
  */
 public final class PropertiesUtil {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
-	 * 
+	 * Instantiates a new properties util.
 	 */
 	private PropertiesUtil() {
 		super();
@@ -180,6 +183,16 @@ public final class PropertiesUtil {
 				StringUtils.equals(Binding.LOCAL.name(), newServiceBinding));
 	}
 
+	/**
+	 * Validate.
+	 *
+	 * @param serviceName the service name
+	 * @param implProjectName the impl project name
+	 * @param newServiceLocation the new service location
+	 * @param isLocalBindingSelected the is local binding selected
+	 * @return the i status
+	 * @throws Exception the exception
+	 */
 	private static IStatus validate(String serviceName, String implProjectName,
 			String newServiceLocation, boolean isLocalBindingSelected)
 			throws Exception {
@@ -192,6 +205,15 @@ public final class PropertiesUtil {
 				isLocalBindingSelected);
 	}
 
+	/**
+	 * Validate binding.
+	 *
+	 * @param serviceName the service name
+	 * @param implProjectName the impl project name
+	 * @param isLocalBindingSelected the is local binding selected
+	 * @return the i status
+	 * @throws Exception the exception
+	 */
 	private static IStatus validateBinding(String serviceName,
 			String implProjectName, boolean isLocalBindingSelected)
 			throws Exception {
@@ -217,6 +239,17 @@ public final class PropertiesUtil {
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * Checks if is change required.
+	 *
+	 * @param clientConfig the client config
+	 * @param newServiceLocation the new service location
+	 * @param newServiceBinding the new service binding
+	 * @param newMessageProtocol the new message protocol
+	 * @param newRequestDataBinding the new request data binding
+	 * @param newResponseDataBinding the new response data binding
+	 * @return true, if is change required
+	 */
 	private static boolean isChangeRequired(final SOAClientConfig clientConfig,
 			final String newServiceLocation, final String newServiceBinding,
 			final String newMessageProtocol,
@@ -302,13 +335,16 @@ public final class PropertiesUtil {
 	}
 
 	/**
-	 * @param consumerProject
-	 * @param serviceName
-	 * @param implProjectName
-	 * @param isLocalBindingSelected
-	 * @param requiredServices
-	 * @param monitor
-	 * @throws Exception
+	 * Perform project dependency changes.
+	 *
+	 * @param consumerProject the consumer project
+	 * @param envName the env name
+	 * @param serviceName the service name
+	 * @param implProjectName the impl project name
+	 * @param isLocalBindingSelected the is local binding selected
+	 * @param requiredServices the required services
+	 * @param monitor the monitor
+	 * @throws Exception the exception
 	 */
 	private static void performProjectDependencyChanges(
 			final IProject consumerProject, String envName, final String serviceName,
@@ -417,6 +453,14 @@ public final class PropertiesUtil {
 	 * SOAProjectConstants.SERVICE_METADATA_PROPS_SERVICE_LAYER); }
 	 */
 
+	/**
+	 * Gets the value from service props.
+	 *
+	 * @param serviceName the service name
+	 * @param key the key
+	 * @return the value from service props
+	 * @throws Exception the exception
+	 */
 	private static String getValueFromServiceProps(final String serviceName,
 			final String key) throws Exception {
 		final ISOAAssetRegistry registry = GlobalRepositorySystem.instanceOf()

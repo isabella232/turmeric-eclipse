@@ -54,6 +54,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ServiceFromNewWSDLAddBindingWizardPage.
  *
@@ -61,6 +62,7 @@ import org.eclipse.swt.widgets.Text;
  */
 public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 
+	/** The binding viewer. */
 	private TableButtonPanelViewer bindingViewer;
 	
 	/** The Constant COLUMN_TYPE. */
@@ -68,6 +70,8 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 	
 	/** The Constant BINDING_COLUMN_PROPERTIES. */
 	public static final String[] BINDING_COLUMN_PROPERTIES = {COLUMN_TYPE};
+	
+	/** The bindings. */
 	private Set<Binding> bindings = new LinkedHashSet<Binding>();
 
 	/**
@@ -96,6 +100,11 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 		createBindingViewer(container);
 	}
 	
+	/**
+	 * Creates the binding viewer.
+	 *
+	 * @param parent the parent
+	 */
 	private void createBindingViewer(Composite parent) {
 		final ColumnDef[] columns = new ColumnDef[]{
 				new ColumnDef("Binding Type", 150, UIActivator.getImageFromRegistry("binding.gif"))};
@@ -302,6 +311,12 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 		return bindings;
 	}
 	
+	/**
+	 * Gets the selected model.
+	 *
+	 * @param sel the sel
+	 * @return the selected model
+	 */
 	private TemplateWSDLModel getSelectedModel(ISelection sel) {
 		IStructuredSelection selection = null; 
 		if (sel == null && this.bindingViewer != null) {
@@ -319,6 +334,11 @@ public class ServiceFromNewWSDLAddBindingWizardPage extends SOABasePage {
 		return null;
 	}
 	
+	/**
+	 * Gets the input object.
+	 *
+	 * @return the input object
+	 */
 	private Object getInputObject() {
 		bindings.addAll(ServiceFromTemplateWsdlParamModel.getDefaultBindings());
 		return bindings;

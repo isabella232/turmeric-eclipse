@@ -59,6 +59,7 @@ import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -574,7 +575,7 @@ public class ConsumeNewServiceWizard extends SOABaseWizard {
 						e);
 			} finally {
 				consumerProject.refreshLocal(
-						IProject.DEPTH_INFINITE, monitor);
+						IResource.DEPTH_INFINITE, monitor);
 			}
 		}		
 	}

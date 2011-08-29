@@ -15,21 +15,36 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ServiceProtocolSelectionWizardPage.
+ */
 public class ServiceProtocolSelectionWizardPage extends WizardPage implements
 		IWizardPage {
 
+	/** The non xsd protocols. */
 	private List<Button> nonXSDProtocols = new ArrayList<Button>();
 
+	/** The proto buf. */
 	private Button protoBuf;
 
+	/** The wizard page. */
 	private AbstractNewServiceFromWSDLWizardPage wizardPage;
 
+	/**
+	 * Instantiates a new service protocol selection wizard page.
+	 */
 	public ServiceProtocolSelectionWizardPage() {
 		super("newSOAServiceProjectServiceProtocolWizardPage");
 		this.setTitle("Service Protocol Selection Page");
 		this.setDescription("Please select the protocols to be used by this service.");
 	}
 
+	/**
+	 * Gets the non xsd protocol string.
+	 *
+	 * @return the non xsd protocol string
+	 */
 	public String getNonXSDProtocolString() {
 		boolean typeFolding = wizardPage.getTypeFolding();
 		if (typeFolding == false) {
@@ -48,10 +63,18 @@ public class ServiceProtocolSelectionWizardPage extends WizardPage implements
 		return procos.toString();
 	}
 
+	/**
+	 * Sets the wizard page.
+	 *
+	 * @param wizardPage the new wizard page
+	 */
 	public void setWizardPage(AbstractNewServiceFromWSDLWizardPage wizardPage) {
 		this.wizardPage = wizardPage;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+	 */
 	@Override
 	public void setVisible(boolean visible) {
 		boolean typeFolding = wizardPage.getTypeFolding();
@@ -60,6 +83,9 @@ public class ServiceProtocolSelectionWizardPage extends WizardPage implements
 		super.setVisible(visible);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	public void createControl(Composite parent) {
 		final Composite container = new Composite(parent, SWT.NONE);
@@ -84,6 +110,16 @@ public class ServiceProtocolSelectionWizardPage extends WizardPage implements
 		setControl(container);
 	}
 
+	/**
+	 * Creates the protocal line.
+	 *
+	 * @param parent the parent
+	 * @param text the text
+	 * @param value the value
+	 * @param selected the selected
+	 * @param enabled the enabled
+	 * @return the button
+	 */
 	private Button createProtocalLine(Composite parent, String text,
 			String value, boolean selected, boolean enabled) {
 		Button button = new Button(parent, SWT.CHECK);

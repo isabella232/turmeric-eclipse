@@ -24,6 +24,7 @@ import org.eclipse.wst.xsd.core.internal.validation.XSDValidationConfiguration;
 import org.eclipse.wst.xsd.core.internal.validation.eclipse.XSDValidator;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SOAXSDValidator.
  *

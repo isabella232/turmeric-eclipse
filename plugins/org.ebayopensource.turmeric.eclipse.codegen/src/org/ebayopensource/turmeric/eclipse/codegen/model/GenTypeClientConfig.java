@@ -17,6 +17,7 @@ import org.ebayopensource.turmeric.eclipse.codegen.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.SOAClientEnvironment;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Simple Model class for type mappings generation. Gentype used is
  * "ClientConfig".
@@ -26,7 +27,11 @@ import org.ebayopensource.turmeric.eclipse.resources.model.ISOAConsumerProject.S
  */
 public class GenTypeClientConfig extends ConsumerCodeGenModel implements
 		IMultiCodeGenModel {
+	
+	/** The metadata directory. */
 	private String metadataDirectory;
+	
+	/** The environments. */
 	private List<String> environments = new ArrayList<String>();
 
 	/**

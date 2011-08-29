@@ -40,15 +40,24 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class NewTypeLibraryWizardPage.
  *
  * @author yayu
  */
 public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
+	
+	/** The category combo. */
 	private CCombo categoryCombo;
+	
+	/** The namespace text. */
 	private Text namespaceText;
+	
+	/** The override namespace btn. */
 	private Button overrideNamespaceBtn;
+	
+	/** The types. */
 	private List<TypeModel> types;
 
 	/**
@@ -140,6 +149,11 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 		}
 	}
 
+	/**
+	 * Populate type library target namespace.
+	 *
+	 * @return the string
+	 */
 	private String populateTypeLibraryTargetNamespace() {
 		String namespacePart = domainClassifierList == null ? null
 				: getDomainClassifier();
@@ -210,6 +224,11 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 		return result;
 	}
 
+	/**
+	 * Validate namespace and types duplicated.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean validateNamespaceAndTypesDuplicated() {
 		if (types == null) {
 			return true;

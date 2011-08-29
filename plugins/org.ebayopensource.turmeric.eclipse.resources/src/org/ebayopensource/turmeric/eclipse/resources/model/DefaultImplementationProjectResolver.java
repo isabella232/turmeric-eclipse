@@ -16,6 +16,7 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class DefaultImplementationProjectResolver.
  *
@@ -23,6 +24,8 @@ import org.eclipse.core.runtime.CoreException;
  */
 public abstract class DefaultImplementationProjectResolver implements
 		ISOAProjectResolver<SOAImplProject> {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**

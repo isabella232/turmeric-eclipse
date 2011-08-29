@@ -38,19 +38,22 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.UIJob;
 import org.osgi.framework.Version;
 
+// TODO: Auto-generated Javadoc
 /**
- * action util class
+ * action util class.
  * 
  */
 public class ActionUtil {
+	
+	/** The Constant logger. */
 	private static final SOALogger logger = SOALogger.getLogger();
 
 	/**
 	 * get assert model of the project.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @return the asset model
+	 * @throws Exception the exception
 	 */
 	public static SubmitAssetModel getAssetModel(IProject project)
 			throws Exception {
@@ -99,9 +102,9 @@ public class ActionUtil {
 	 * root cause of the exception and create an error status for the exception,
 	 * using a description
 	 * SOAMessages.ERROR_FAIL_TO_SUBMIT_SERVICE_VERSION_TO_AR
-	 * 
-	 * @param e
-	 * @return
+	 *
+	 * @param e the e
+	 * @return the i status
 	 */
 	private static IStatus handleExceptionFromAR(Throwable e) {
 		logger.error(e);
@@ -128,10 +131,11 @@ public class ActionUtil {
 	 * Submite a service maintenance version. For Backward Compatibility, using
 	 * reflect to call new added method. Show error message if method not found
 	 * and notify users to update to latest version.
-	 * 
-	 * @param project
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param project the project
+	 * @param newVersion the new version
+	 * @return the i status
+	 * @throws Exception the exception
 	 */
 	public static IStatus submitServiceMaintenanceVersion(IProject project,
 			String newVersion) throws Exception {
@@ -178,17 +182,13 @@ public class ActionUtil {
 	 * click menu.
 	 * 
 	 * This method is meant to be invoked in the UI thread.
-	 * 
-	 * @param soaIntfProject
-	 *            the interface project that need to be updated
-	 * @param oldVersion
-	 *            service old version
-	 * @param newVersion
-	 *            service new version.
-	 * @param silence
-	 *            just for the repos that need build after version change.
-	 * @param monitor
-	 *            the progress monitor
+	 *
+	 * @param soaIntfProject the interface project that need to be updated
+	 * @param oldVersion service old version
+	 * @param newVersion service new version.
+	 * @param silence just for the repos that need build after version change.
+	 * @param monitor the progress monitor
+	 * @throws Exception the exception
 	 */
 	public static void updateInterfaceProjectVersion(
 			final SOAIntfProject soaIntfProject, String oldVersion,
@@ -290,10 +290,10 @@ public class ActionUtil {
 
 	/**
 	 * submit a new minor version to AR.
-	 * 
-	 * @param project
-	 * @param newVersion
-	 * @return
+	 *
+	 * @param project the project
+	 * @param newVersion the new version
+	 * @return the i status
 	 */
 	public static IStatus submitNewVersionAssetToSOARegistry(IProject project,
 			String newVersion) {
@@ -325,14 +325,14 @@ public class ActionUtil {
 	}
 
 	/**
-	 * submit version to assert repo
-	 * 
-	 * @param newVersion
-	 * @param oldVersion
-	 * @param svcIntfName
-	 * @param monitor
-	 * @return
-	 * @throws Exception
+	 * submit version to assert repo.
+	 *
+	 * @param newVersion the new version
+	 * @param oldVersion the old version
+	 * @param svcIntfName the svc intf name
+	 * @param monitor the monitor
+	 * @return the i status
+	 * @throws Exception the exception
 	 */
 	public static IStatus submitVersionToAssetRepository(Object newVersion,
 			Object oldVersion, String svcIntfName, IProgressMonitor monitor)

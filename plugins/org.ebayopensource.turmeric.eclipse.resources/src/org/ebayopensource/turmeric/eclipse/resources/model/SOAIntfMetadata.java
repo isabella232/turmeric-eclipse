@@ -22,6 +22,7 @@ import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaPa
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Holds the meta data information corresponding to an interface project.
  * Interface meta data is computed from the UI model and also from the project
@@ -34,25 +35,61 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
  */
 public class SOAIntfMetadata extends AbstractSOAMetadata {
 
+	/** The public service name. */
 	private String publicServiceName; //this now means the serviceName
+	
+	/** The service name. */
 	private String serviceName; //this now means the adminName
+	
+	/** The service version. */
 	private String serviceVersion;
+	
+	/** The service interface. */
 	private String serviceInterface;
+	
+	/** The service layer. */
 	private String serviceLayer;
+	
+	/** The service domain name. */
 	private String serviceDomainName;
+	
+	/** The service namespace part. */
 	private String serviceNamespacePart;
+	
+	/** The imlementation project name. */
 	private String imlementationProjectName;
+	
+	/** The source type. */
 	private SOAProjectConstants.InterfaceSourceType sourceType;
+	
+	/** The wsdl source type. */
 	private SOAProjectConstants.InterfaceWsdlSourceType wsdlSourceType;
+	
+	/** The original wsdl url. */
 	private URL originalWSDLUrl;
+	
+	/** The target namespace. */
 	private String targetNamespace;
+	
+	/** The type namespace. */
 	private String typeNamespace;
+	
+	/** The type folding. */
 	private boolean typeFolding;
+	
+	/** The service location. */
 	private String serviceLocation;
+	
+	/** The is zero config. */
 	private boolean isZeroConfig;
+	
+	/** The metadata version. */
 	private String metadataVersion = SOAProjectConstants.DEFAULT_VERSION;
+	
+	/** The namespace to package mappings. */
 	private Map<String, String> namespaceToPackageMappings = new ConcurrentHashMap<String, String>();
 	
+	/** The service non xsd protocols. */
 	private String serviceNonXSDProtocols;
 
 	/**
@@ -128,14 +165,27 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	}
 
 	
+	/**
+	 * Instantiates a new sOA intf metadata.
+	 */
 	private SOAIntfMetadata() {
 
 	}
 
+	/**
+	 * Checks if is zero config.
+	 *
+	 * @return true, if is zero config
+	 */
 	public boolean isZeroConfig() {
 		return isZeroConfig;
 	}
 
+	/**
+	 * Sets the zero config.
+	 *
+	 * @param isZeroConfig the new zero config
+	 */
 	public void setZeroConfig(boolean isZeroConfig) {
 		this.isZeroConfig = isZeroConfig;
 	}
@@ -456,10 +506,20 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 		this.namespaceToPackageMappings = namespaceToPackageMappings;
 	}
 
+	/**
+	 * Gets the service non xsd protocols.
+	 *
+	 * @return the service non xsd protocols
+	 */
 	public String getServiceNonXSDProtocols() {
 		return serviceNonXSDProtocols;
 	}
 
+	/**
+	 * Sets the service non xsd protocols.
+	 *
+	 * @param serviceNonXSDProtocol the new service non xsd protocols
+	 */
 	public void setServiceNonXSDProtocols(String serviceNonXSDProtocol) {
 		this.serviceNonXSDProtocols = serviceNonXSDProtocol;
 	}

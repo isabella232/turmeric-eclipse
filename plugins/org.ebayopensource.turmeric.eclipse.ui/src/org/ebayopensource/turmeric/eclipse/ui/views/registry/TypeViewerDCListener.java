@@ -12,6 +12,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDTypeDefinition;
 
+// TODO: Auto-generated Javadoc
 /**
  * The listener interface for receiving typeViewerDC events.
  * The class that is interested in processing a typeViewerDC
