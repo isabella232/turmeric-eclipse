@@ -20,6 +20,7 @@
 					<goal>gen-implementation</goal>
 					<goal>gen-typelibrary</goal>
 					<goal>gen-errorlibrary</goal>
+					<goal>gen-interface-java</goal>
 				</goals>
 			</pluginExecutionFilter>
 			<action>
