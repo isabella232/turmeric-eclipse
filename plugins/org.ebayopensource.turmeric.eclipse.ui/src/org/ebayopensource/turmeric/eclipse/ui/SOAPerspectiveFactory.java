@@ -18,7 +18,6 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.progress.IProgressConstants;
-import org.eclipse.ui.texteditor.templates.TemplatesView;
 
 /**
  * A factory for creating SOAPerspective objects.
@@ -79,7 +78,7 @@ public final class SOAPerspectiveFactory implements IPerspectiveFactory{
 		IFolderLayout outlineFolder = layout.createFolder("right", IPageLayout.RIGHT, (float)0.75, editorArea); //$NON-NLS-1$
 		outlineFolder.addView(IPageLayout.ID_OUTLINE);
 
-		outlineFolder.addPlaceholder(TemplatesView.ID);
+		outlineFolder.addPlaceholder("org.eclipse.ui.texteditor.TemplatesView");
 
 		layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
 		layout.addActionSet(JavaUI.ID_ACTION_SET);
@@ -106,7 +105,7 @@ public final class SOAPerspectiveFactory implements IPerspectiveFactory{
 		layout.addShowViewShortcut(IPageLayout.ID_TASK_LIST);
 		layout.addShowViewShortcut(IProgressConstants.PROGRESS_VIEW_ID);
 		layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);
-		layout.addShowViewShortcut(TemplatesView.ID);
+		layout.addShowViewShortcut("org.eclipse.ui.texteditor.TemplatesView");
 
 		// new actions - Java project creation wizard
 		layout.addNewWizardShortcut(JAVA_PROJECT_WIZARD); 
