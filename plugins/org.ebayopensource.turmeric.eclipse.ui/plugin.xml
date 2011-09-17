@@ -187,6 +187,24 @@
             commandId="org.ebayopensource.turmeric.eclipse.ui.registry.sort"
             class="org.ebayopensource.turmeric.eclipse.ui.handlers.SortRegistryHandler">
       </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.ebayopensource.turmeric.eclipse.ui.soaPerspective">
+            <view
+                  id="org.ebayopensource.turmeric.eclipse.typelibrary.registryView"
+                  relationship="stack"
+                  visible="true"
+                  relative="org.eclipse.ui.views.ProblemView"
+                  />
+            <view
+            	id="org.eclipse.ui.views.PropertySheet"
+            	relationship="stack"
+            	visible="true"
+            	relative="org.eclipse.ui.views.ProblemView"/>
+            
+      </perspectiveExtension>
    </extension>  
           
 </plugin>
