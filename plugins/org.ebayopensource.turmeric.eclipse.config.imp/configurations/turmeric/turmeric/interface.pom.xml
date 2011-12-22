@@ -81,6 +81,7 @@
 					<legacy>true</legacy>
 					<resourcesOutputDirectory>${project.basedir}/gen-meta-src</resourcesOutputDirectory>
 					<outputDirectory>${project.basedir}/gen-src/client</outputDirectory>
+					<sharedConsumer>true</sharedConsumer>
 				</configuration>
 			</plugin>
 		</plugins>
