@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension point="org.maven.ide.eclipse.indexes">
+	   <index
+          indexId="ebayopensource-release"
+	      isShort="false"
+	      repositoryUrl="http://www.ebayopensource.org/nexus/content/repositories/releases/"/>          
+	   <index
+          indexId="ebayopensource-snapshots"
+	      isShort="true"
+	      repositoryUrl="http://www.ebayopensource.org/nexus/content/repositories/snapshots/"/>          
+	   <index
+          indexId="eviware"
+	      isShort="false"
+	      repositoryUrl="http://www.eviware.com/repository/maven2/"/>          
+	   <index
+          indexId="bonecp"
+	      isShort="false"
+	      repositoryUrl="http://www.ebayopensource.org/nexus/content/repositories/BoneCP/"/>          
+	   <index
+          indexId="cas"
+	      isShort="false"
+	      repositoryUrl="http://www.ebayopensource.org/nexus/content/repositories/jassig/"/>          
+	   <index
+	      indexId="gwt-test-utils"
+	      isShort="false"
+	      repositoryUrl="http://forge.octo.com/nexus/content/repositories/releases/"/>
+	   <index
+	      indexId="kaptcha"
+	      isShort="false"
+	      repositoryUrl="http://www.ebayopensource.org/nexus/content/repositories/Kaptcha/"/>
+	   <index
+	      indexId="Sonatype"
+	      isShort="false"
+	      repositoryUrl="https://repository.sonatype.org/content/groups/forge/"/>
+	   <index
+	      indexId="WSO2 Public Repository"
+	      isShort="false"
+	      repositoryUrl="http://www.ebayopensource.org/nexus/content/repositories/wso2-public/"/> 
+	</extension>
+</plugin>

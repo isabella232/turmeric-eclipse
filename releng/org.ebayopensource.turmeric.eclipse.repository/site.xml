@@ -9,7 +9,7 @@
    <feature url="features/org.ebayopensource.turmeric.eclipse.core.sdk.feature_1.1.0.qualifier.jar" id="org.ebayopensource.turmeric.eclipse.core.sdk.feature" version="1.1.0.qualifier">
       <category name="turmeric_core"/>
    </feature>
-   <feature url="features/org.ebayopensource.turmeric.eclipse.maven.feature_1.1.0.qualifier.jar" id="org.ebayopensource.turmeric.eclipse.maven.feature" version="1.1.0.qualifier">
+   <feature url="features/org.ebayopensource.turmeric.eclipse.maven.feature_1.1.100.qualifier.jar" id="org.ebayopensource.turmeric.eclipse.maven.feature" version="1.1.100.qualifier">
       <category name="turmeric_maven_integration"/>
    </feature>
    <feature url="features/org.ebayopensource.turmeric.eclipse.mavenstd.feature_1.1.0.qualifier.jar" id="org.ebayopensource.turmeric.eclipse.mavenstd.feature" version="1.1.0.qualifier">

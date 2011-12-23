@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-ActivationPolicy: lazy
 Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.mavenapi;singleton:=true
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.1.100.qualifier
 Bundle-Activator: org.ebayopensource.turmeric.eclipse.mavenapi.MavenApiPlugin
 Bundle-Vendor: %pluginProvider
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.5.0",
