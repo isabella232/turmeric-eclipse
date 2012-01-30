@@ -39,7 +39,7 @@
 <unit id="org.jdom.source" version="1.0.0.v201005080400"/>
 <unit id="javax.wsdl.source" version="1.6.2.v201005080631"/>
 <unit id="javax.wsdl" version="1.6.2.v201005080631"/>
-<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20100519200754/repository"/>
+<repository location="http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/repository"/>
 </location>
 </locations>
 </target>
