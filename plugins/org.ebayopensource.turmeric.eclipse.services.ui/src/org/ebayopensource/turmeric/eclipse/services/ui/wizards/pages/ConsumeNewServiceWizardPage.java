@@ -402,7 +402,25 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 						updateStatus(this.clientName, 
 								"Client name should not be same as the name of an existing consumer project->" + clientName);
 						return false;
+					}	
+					final ISOARepositorySystem activeRepositorySystem = 
+						GlobalRepositorySystem
+						.instanceOf().getActiveRepositorySystem();
+					try {
+						IStatus validationModel = activeRepositorySystem.getServiceValidator()
+						.validate(clientName);
+						if (checkValidationResult(this.clientName, 
+								validationModel) == false){
+							updateStatus(this.clientName,
+							"Project already exists in the workspace or file system with this name -->"+clientName);
+							return false;
+						}
+							
+					} catch (ValidationInterruptedException e) {
+						// TODO Auto-generated catch block
+						processException(e);
 					}
+					
 				}
 				
 				try {

@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
  * Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,11 +24,13 @@ import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
+import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
 import org.ebayopensource.turmeric.eclipse.registry.intf.IClientRegistryProvider;
 import org.ebayopensource.turmeric.eclipse.registry.models.ClientAssetModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
@@ -587,6 +589,23 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 				updateStatus(this.serviceClientText,
 						"Client name must be capitalized.");
 				return false;
+			}
+			final ISOARepositorySystem activeRepositorySystem = 
+				GlobalRepositorySystem
+				.instanceOf().getActiveRepositorySystem();
+			try {
+				IStatus validationModel = activeRepositorySystem.getServiceValidator()
+				.validate(serviceClientText);
+				if (checkValidationResult(serviceClientText, 
+						validationModel) == false){
+					updateStatus(this.serviceClientText,
+					"Project already exists in the workspace or file system with this name -->"+serviceClientText);
+					return false;
+				}
+					
+			} catch (ValidationInterruptedException e) {
+				// TODO Auto-generated catch block
+				processException(e);
 			}
 			if (validateName(this.serviceClientText, getClientName(),
 					RegExConstants.PROJECT_NAME_EXP,

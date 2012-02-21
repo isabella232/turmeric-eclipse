@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
  * Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import org.ebayopensource.turmeric.eclipse.registry.intf.IClientRegistryProvider
 import org.ebayopensource.turmeric.eclipse.registry.models.ClientAssetModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
@@ -515,6 +516,24 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 						"Client name must be capitalized.");
 				return false;
 			}
+			//Adding check to validate client name post project xml split, so that project catalog uniqueness is maintained
+			final ISOARepositorySystem activeRepositorySystem = 
+				GlobalRepositorySystem
+				.instanceOf().getActiveRepositorySystem();
+			try {
+				IStatus validationModel = activeRepositorySystem.getServiceValidator()
+				.validate(getClientName());
+				if (checkValidationResult(serviceClientText, 
+						validationModel) == false){
+					updateStatus(this.serviceClientText,
+					"Project already exists in the workspace or file system with this name -->"+getClientName());
+					return false;
+				}
+					
+			} catch (ValidationInterruptedException e) {
+				// TODO Auto-generated catch block
+				processException(e);
+			}
 			if (validateName(this.serviceClientText, getClientName(),
 					RegExConstants.PROJECT_NAME_EXP,
 					ErrorMessage.PROJECT_NAME_ERRORMSG + " The name ["
@@ -523,6 +542,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 							+ RegExConstants.PROJECT_NAME_EXP + "\"") == false) {
 				return false;
 			}
+			
 		}
 
 		if (envrionmentList != null) {

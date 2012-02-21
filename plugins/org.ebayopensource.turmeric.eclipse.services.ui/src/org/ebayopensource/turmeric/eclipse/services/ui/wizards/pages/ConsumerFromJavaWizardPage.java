@@ -18,12 +18,14 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.registry.ExtensionPointFactory;
 import org.ebayopensource.turmeric.eclipse.registry.exception.ClientProviderException;
 import org.ebayopensource.turmeric.eclipse.registry.intf.IClientRegistryProvider;
 import org.ebayopensource.turmeric.eclipse.registry.models.ClientAssetModel;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil.EnvironmentItem;
@@ -36,6 +38,7 @@ import org.ebayopensource.turmeric.eclipse.validator.utils.common.RegExConstants
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -272,7 +275,23 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 					"Client name must not be empty");
 			return false;
 		}
-		
+		final ISOARepositorySystem activeRepositorySystem = 
+			GlobalRepositorySystem
+			.instanceOf().getActiveRepositorySystem();
+		try {
+			IStatus validationModel = activeRepositorySystem.getServiceValidator()
+			.validate(clientName);
+			if (checkValidationResult( 
+					validationModel) == false){
+				updateStatus(
+				"Project already exists in the workspace or file system with this name -->"+clientName);
+				return false;
+			}
+				
+		} catch (ValidationInterruptedException e) {
+			// TODO Auto-generated catch block
+			processException(e);
+		}
 		if (validateName(super.getResourceNameText(), 
 				clientName,
 				RegExConstants.PROJECT_NAME_EXP,

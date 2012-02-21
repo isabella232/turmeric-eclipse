@@ -62,6 +62,7 @@ public class ErrorLibraryCreator {
 		SOAErrorLibraryProject errorLibraryProject = SOAErrorLibraryProject
 				.createSOAProjectErrorLibrary(eclipseMetadata, metadata);
 		
+		//In the v3 world, addProjectLinkedResources no longer adds the linked resource, do-nothing method
 		GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 		.getProjectConfigurer().addProjectLinkedResources(errorLibraryProject);
 		for (UIModelProjectLinkedResource lRes : model.getLinkedResources()) {
