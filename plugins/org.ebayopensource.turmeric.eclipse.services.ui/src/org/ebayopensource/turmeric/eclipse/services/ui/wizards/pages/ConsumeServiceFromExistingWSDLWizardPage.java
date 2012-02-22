@@ -1,4 +1,4 @@
-﻿/*******************************************************************************
+/*******************************************************************************
  * Copyright (c) 2006-2010 eBay Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -541,14 +541,14 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 		/*
 		 * 1) If service version in WSDL follows V3 format, like 1.2.3, service
 		 * version text will not be editable. 2) If service version in WSDL
-		 * doesn�t follow V3 format, like 1.2, 1.2,3, 1, 1.a, 1.2.a, then
+		 * doesn?t follow V3 format, like 1.2, 1.2,3, 1, 1.a, 1.2.a, then
 		 * service version text is editable. BUT even user specified a correct
 		 * V3 version, there will be an error marker on the service version text
 		 * says Specified service version [1.2.3] does not match service version
 		 * in WSDL [1.2]. Please modify service version in source WSDL and
-		 * follow format {major.minor.maintenance}�. It means the WSDL file used
+		 * follow format {major.minor.maintenance}?. It means the WSDL file used
 		 * in wizard must contain a correct V3 format service version.
-		 * Otherwise, the wizard couldn�t continue.
+		 * Otherwise, the wizard couldn?t continue.
 		 */
 
 		if ((versionFromWSDL != null && resourceVersionText != null)
@@ -595,11 +595,11 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 				.instanceOf().getActiveRepositorySystem();
 			try {
 				IStatus validationModel = activeRepositorySystem.getServiceValidator()
-				.validate(serviceClientText);
+				.validate(serviceClientText.getText());
 				if (checkValidationResult(serviceClientText, 
 						validationModel) == false){
 					updateStatus(this.serviceClientText,
-					"Project already exists in the workspace or file system with this name -->"+serviceClientText);
+					"Project already exists in the workspace or file system with this name -->"+serviceClientText.getText());
 					return false;
 				}
 					

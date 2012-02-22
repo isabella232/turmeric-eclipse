@@ -307,13 +307,13 @@ reason of your accepting any such warranty or additional liability.
          version="0.0.0"
          unpack="false"/>
 
-   <!--<plugin
+   <plugin
          id="org.ebayopensource.turmeric.eclipse.config.imp"
          download-size="0"
          install-size="0"
          version="0.0.0"
          fragment="true"
-         unpack="false"/>-->
+         unpack="false"/>
 
    <plugin
          id="org.ebayopensource.turmeric.eclipse.services.ui"
@@ -336,11 +336,5 @@ reason of your accepting any such warranty or additional liability.
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
-         id="org.ebayopensource.turmeric.eclipse.logging"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
+   
 </feature>
