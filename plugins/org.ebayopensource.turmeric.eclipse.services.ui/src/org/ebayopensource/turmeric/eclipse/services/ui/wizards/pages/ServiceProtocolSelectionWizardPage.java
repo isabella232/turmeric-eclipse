@@ -35,7 +35,7 @@ public class ServiceProtocolSelectionWizardPage extends WizardPage implements
 		if (typeFolding == false) {
 			return "";
 		}
-		StringBuilder procos = new StringBuilder();
+		StringBuilder procos = new StringBuilder("");
 		for (Button button : nonXSDProtocols) {
 			if (button.getSelection() == true) {
 				procos.append(button.getData());
@@ -55,7 +55,7 @@ public class ServiceProtocolSelectionWizardPage extends WizardPage implements
 	@Override
 	public void setVisible(boolean visible) {
 		boolean typeFolding = wizardPage.getTypeFolding();
-		protoBuf.setSelection(typeFolding);
+//		protoBuf.setSelection(typeFolding);
 		protoBuf.setEnabled(typeFolding);
 		super.setVisible(visible);
 	}
@@ -72,9 +72,10 @@ public class ServiceProtocolSelectionWizardPage extends WizardPage implements
 		protocolGroup.setLayout(new GridLayout(2, false));
 
 		protoBuf = createProtocalLine(protocolGroup,
-				"Protocol Buffers (Namespace Folding needs to be enabled for Protobuf)",
-				SOAProjectConstants.SVC_PROTOCOL_BUF, true, true);
+				"Protocol Buffers(Folding needs to be enabled for Protobuf)",
+				SOAProjectConstants.SVC_PROTOCOL_BUF, false, true);
 		nonXSDProtocols.add(protoBuf);
+
 		createProtocalLine(protocolGroup, "XML", "xml", true, false);
 		createProtocalLine(protocolGroup, "JSON", "json", true, false);
 		createProtocalLine(protocolGroup, "NV", "nv", true, false);
