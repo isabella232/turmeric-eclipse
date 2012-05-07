@@ -11,6 +11,7 @@ package org.ebayopensource.turmeric.eclipse.ui.views.registry;
 import org.ebayopensource.turmeric.common.config.LibraryType;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
+import org.ebayopensource.turmeric.eclipse.ui.TypeLibRegistryJob;
 import org.ebayopensource.turmeric.eclipse.ui.resources.SOAMessages;
 import org.ebayopensource.turmeric.tools.library.SOATypeRegistry;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -55,7 +56,7 @@ public class RegistryView extends ViewPart {
 	private Text typeNameText;
 	private TypeLibrarySelectionChangedListener typeLibrarySelectionChangedListener;
 	private TypeSelectionListener typeSelectionListener;
-
+	static int i =0;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -85,6 +86,13 @@ public class RegistryView extends ViewPart {
 	 */
 	@Override
 	public void setFocus() {
+		if(RegistryView.i==0){
+			RegistryView.i++;		
+		TypeLibRegistryJob registryJob = new TypeLibRegistryJob("Initialize Type library");
+		registryJob.setUser(false);
+		registryJob.schedule(1000);
+		}
+		//SOALogger.getLogger().info(buf);
 	}
 
 	/*
