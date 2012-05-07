@@ -44,6 +44,7 @@ import org.ebayopensource.turmeric.eclipse.template.wsdl.processors.WSDLTemplate
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
 import org.ebayopensource.turmeric.eclipse.ui.actions.SOAStatusReportingRunnable;
+import org.ebayopensource.turmeric.eclipse.ui.views.registry.RegistryView;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
@@ -58,6 +59,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.ide.IDE;
 
@@ -386,6 +390,25 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 					final int totalWork = ProgressUtil.PROGRESS_STEP * 50;
 					monitor.beginTask(StringUtil.formatString(
 							SOAMessages.SVC_CREATE, adminName), totalWork);
+					//Try to set focus to types explorer if available
+					IViewPart viewPart=null;
+					IViewReference viewReferences[] = PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getActivePage().getViewReferences();
+					for (int i = 0; i < viewReferences.length; i++) {
+					if (RegistryView.VIEW_ID.equals(viewReferences[i].getId())) {
+					viewPart= viewReferences[i].getView(false);
+					}
+					}
+					
+					
+					
+					if ((viewPart==null)||!(viewPart instanceof RegistryView)) {
+						//Ignore
+					}else{
+					
+					RegistryView view = (RegistryView) viewPart;
+					view.setFocus();
+					}
 					ProgressUtil.progressOneStep(monitor);
 					try {
 						String wsdlSource = "Existing";
