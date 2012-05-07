@@ -3,10 +3,10 @@
 <plugin>
  <extension
        point="org.eclipse.ui.preferencePages">
-    <page
+   <!-- <page
           class="org.ebayopensource.turmeric.eclipse.repositorysystem.ui.pref.PreferencePage"
           id="org.ebayopensource.turmeric.eclipse.ui.preferences"
-          name="%PrefPage.SOAPlugin.Name"/>
+          name="%PrefPage.SOAPlugin.Name"/>-->
  </extension>
 
 </plugin>

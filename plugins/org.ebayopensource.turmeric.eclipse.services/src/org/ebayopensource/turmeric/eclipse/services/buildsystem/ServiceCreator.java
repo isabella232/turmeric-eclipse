@@ -11,16 +11,19 @@ package org.ebayopensource.turmeric.eclipse.services.buildsystem;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemCodeGen;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.consumer.ConsumerFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAConsumeNewServiceFailedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
@@ -102,14 +105,48 @@ public class ServiceCreator {
 		
 		InterfaceCreator
 				.createIntfProjectFromExistingWsdl(intfProject, monitor);
-		
-		//skip the consumer creation for simple mode
-		SOAConsumerProject consumerProject = ConsumerCreator
-		.createConsumerModelFromExistingWsdl(paramModel, intfProject,
-				monitor);
 
-		ConsumerCreator.createConsumerProjectFromExistingWsdl(consumerProject,
-				intfProject, monitor);
+		
+		SOAIntfMetadata metadata = intfProject.getMetadata();		
+		//Add consumer support to the interface project
+		BuildSystemUtil.addSOAConsumerSupport(
+				intfProject.getProject(),
+						GlobalRepositorySystem
+								.instanceOf()
+								.getActiveRepositorySystem()
+								.getProjectNatureId(
+										SupportedProjectType.CONSUMER),
+						monitor);
+		SOAConsumerMetadata consumerMetadata = SOAConsumerMetadata.create(paramModel);
+		//Generate properties file
+		SOAResourceCreator.createConsumerPropertiesFileForImplProjects(
+						intfProject.getProject(),consumerMetadata.getClientName(), consumerMetadata.getConsumerId(),
+						monitor);
+		//Transfer consumer metadata to interface metadata
+		metadata.setClientName(consumerMetadata.getClientName());
+		metadata.setConsumerId(consumerMetadata.getConsumerId());
+		//Genertae clientConfig files
+		BuildSystemCodeGen.generateClientConfigXmlForAddedService(
+				intfProject, Arrays.asList(intfProject.getMetadata()), paramModel
+						.getEnvironments(), monitor);
+
+		try {
+			//Add not genbase consumer property
+			SOAConsumerUtil.modifyNotGenerateBaseConsumers(intfProject
+					.getProject(), Arrays.asList(metadata.getServiceName()),
+					new ArrayList<String>(), monitor);
+			ProgressUtil.progressOneStep(monitor);
+			//UpdateClassPathContainer
+			BuildSystemUtil.updateSOAClasspathContainer(intfProject
+					.getProject());
+			ProgressUtil.progressOneStep(monitor);
+
+		} catch (Exception e) {
+
+			throw new SOAConsumeNewServiceFailedException(
+					"Failed to add new service to consumer project->"
+							+ intfProject.getProjectName(), e);
+		}		
 	}
 
 	/**

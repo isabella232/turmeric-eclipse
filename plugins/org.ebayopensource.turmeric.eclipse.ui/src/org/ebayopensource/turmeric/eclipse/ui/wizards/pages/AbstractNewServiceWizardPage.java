@@ -54,7 +54,7 @@ public abstract class AbstractNewServiceWizardPage extends
 	
 	/** The type namespace text. */
 	protected Text typeNamespaceText;
-	private Button typeFoldingButton;
+	protected Button typeFoldingButton;
 	
 	/** The admin name text. */
 	protected Text adminNameText;
@@ -123,7 +123,7 @@ public abstract class AbstractNewServiceWizardPage extends
 	public String getDefaultServicePackageName() {
 		return generateServicePackageName(getDefaultServicePackageNamePrefix());
 	}
-
+	
 	/**
 	 * Gets the default service package name prefix.
 	 *
@@ -623,5 +623,10 @@ public abstract class AbstractNewServiceWizardPage extends
 			return getDefaultTypeNamespace();
 		else
 			return super.getDefaultValue(text);
+	}
+
+	protected boolean getDefaultEnabledNSValue() {
+		
+		return true;
 	}
 }

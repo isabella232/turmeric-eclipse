@@ -8,15 +8,18 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.resources.model;
 
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 
 /**
  * The Class DefaultInterfaceProjectResolver.
  *
  * @author yayu
  */
-public class DefaultInterfaceProjectResolver implements ISOAProjectResolver<SOAIntfProject> {
+public abstract class DefaultInterfaceProjectResolver implements ISOAProjectResolver<SOAIntfProject> {
 
 	/**
 	 * Instantiates a new default interface project resolver.
@@ -39,7 +42,12 @@ public class DefaultInterfaceProjectResolver implements ISOAProjectResolver<SOAI
 		
 		SOAIntfMetadata intfMetadata = SOAServiceUtil.getSOAIntfMetadata(eclipseMetadata);
 		SOAIntfUtil.fillMetadata(eclipseMetadata.getProject(), intfMetadata);
-		return SOAIntfProject.create(intfMetadata, eclipseMetadata);
+		SOAIntfProject intfProject = SOAIntfProject.create(intfMetadata, eclipseMetadata);
+		if (isConsumerProject(eclipseMetadata.getProject())) {
+			SOAConsumerUtil.loadClientConfigs(intfProject);
+		}
+		return intfProject;
 	}
+	public abstract boolean isConsumerProject(IProject project) throws CoreException;
 
 }

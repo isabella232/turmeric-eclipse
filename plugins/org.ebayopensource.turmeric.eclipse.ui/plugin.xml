@@ -59,7 +59,7 @@
      </category>
   </extension>
   
-   <extension
+   <!--<extension
           point="org.eclipse.search.searchPages">
        <page
              canSearchEnclosingProjects="false"
@@ -71,7 +71,7 @@
              showScopeSection="false"
              sizeHint="500,200">
        </page>
-    </extension>  
+    </extension>  -->
   
   <extension
           point="org.eclipse.ui.cheatsheets.cheatSheetContent">

@@ -429,9 +429,11 @@ public class SOAServiceDependenciesPage extends FieldEditorPreferencePage
 	}
 
 	private void addServiceBinding(Group group) {
-		String strArray[][] = new String[Binding.values().length][2];
+		String strArray[][] = new String[Binding.values().length-1][2];
 		int index = 0;
 		for (Binding binding : Binding.values()) {
+			if(binding.name().equals(Binding.LOCAL.name()))
+				continue;
 			strArray[index][0] = binding.name();
 			strArray[index][1] = binding.name();
 			index++;

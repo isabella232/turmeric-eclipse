@@ -14,7 +14,7 @@
     <extension-point id="soaErrorLibModelProvider" name="Turmeric Error Library Model  Provider" schema="schema/soaErrorLibViewModelProvider.exsd"/>
    <extension
          point="org.eclipse.ui.newWizards">
-         <wizard
+        <!-- <wizard
                category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
                class="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.wizards.NewErrorLibraryWizard"
                finalPerspective="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
@@ -50,7 +50,7 @@
                <description>
                   %Wizard.Error.Shortcut.Description
                </description>
-      </wizard>
+      </wizard>-->
    </extension>  
    <extension
          point="org.eclipse.ui.popupMenus">       
@@ -77,7 +77,7 @@
             projectResolverClass="org.ebayopensource.turmeric.eclipse.errorlibrary.resources.model.SOAErrorLibraryProjectResolver">
       </soaProjectResolver>
    </extension>
-   <extension
+   <!--<extension
           point="org.eclipse.search.searchPages">
        <page
              canSearchEnclosingProjects="false"
@@ -89,7 +89,7 @@
              showScopeSection="false"
              sizeHint="500,200">
        </page>
-    </extension>
+    </extension>-->
    
    <extension
          point="org.eclipse.ui.perspectiveExtensions">

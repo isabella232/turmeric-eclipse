@@ -36,6 +36,7 @@ public class ProjectMavenizationRequest extends
 	private String testOutputPath;
 	private Collection<Plugin> buildPlugins = new ArrayList<Plugin>();
 	private final Properties properties = new Properties();
+	private String packaging;
 
 	// -----------------------------------------------------------------------------
 	/**
@@ -276,6 +277,15 @@ public class ProjectMavenizationRequest extends
 	 */
 	public boolean addBuildPlugin(Plugin buildPlugin) {
 		return this.buildPlugins.add(buildPlugin);
+	}
+
+	public void setPackaging(String packaging) {
+		
+		this.packaging = packaging;
+	}
+	public String getPackaging()
+	{
+		return packaging;
 	}
 
 	// -----------------------------------------------------------------------------

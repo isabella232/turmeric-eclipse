@@ -3,7 +3,7 @@
 <plugin>
   <extension
          point="org.eclipse.ui.newWizards">
-      <wizard
+      <!--<wizard
             category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
             class="org.ebayopensource.turmeric.eclipse.typelibrary.ui.wizards.NewTypeLibraryWizard"
             finalPerspective="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
@@ -27,7 +27,7 @@
          <description>
             %Wizard.SchemaType.Description
          </description>
-      </wizard>
+      </wizard>-->
   </extension>
   
    <extension
@@ -133,7 +133,7 @@
       </objectContribution>
       
       <!-- wsdl popup menus-->
-      <viewerContribution
+      <!--<viewerContribution
             id="org.ebayopensource.turmeric.eclipse.typelibrary.wsdlmenucontrib_source"
             targetID="org.eclipse.wst.wsdl.wsdlsource.source.EditorContext">
          <menu
@@ -201,7 +201,7 @@
                label="%Menu.ExportTypesToATypeLibrary.Label"
                menubarPath="typeMenu/type">
          </action>
-      </viewerContribution>
+      </viewerContribution>-->
       
       <!-- xsd popup menus-->
       

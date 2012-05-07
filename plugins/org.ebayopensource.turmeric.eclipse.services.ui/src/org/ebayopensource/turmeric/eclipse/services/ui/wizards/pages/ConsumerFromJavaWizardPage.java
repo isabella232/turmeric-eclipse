@@ -275,6 +275,8 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 					"Client name must not be empty");
 			return false;
 		}
+		//fixing issue for existing projects
+		if(!convertExistingJavaProject){
 		final ISOARepositorySystem activeRepositorySystem = 
 			GlobalRepositorySystem
 			.instanceOf().getActiveRepositorySystem();
@@ -297,7 +299,7 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 				RegExConstants.PROJECT_NAME_EXP,
 				ErrorMessage.CLIENT_NAME_ERRORMSG) == false) {
 			return false;
-		}
+		}}
 		
 		if (StringUtils
 				.equals(StringUtils.capitalize(getClientName()),

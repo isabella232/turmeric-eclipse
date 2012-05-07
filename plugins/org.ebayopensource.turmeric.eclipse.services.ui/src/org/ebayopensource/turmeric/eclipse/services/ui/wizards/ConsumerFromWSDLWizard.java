@@ -101,7 +101,12 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 		uiModel.setWorkspaceRootDirectory(workspaceRootDirectory);
 		uiModel.setServiceImpl(consumerFromWsdl
 				.getFullyQualifiedServiceImplementation());
+		if(!StringUtils.isEmpty(consumerFromWsdl.getServiceVersion()))
 		uiModel.setServiceVersion(consumerFromWsdl.getServiceVersion());
+		else{
+			uiModel.setServiceVersion("1.0.0");
+		}
+		//adding a line here to set the version as 1.0.0 if empty to fix cons from wsdl flow, as the text box is now missing in the new wizard..
 		uiModel.setServiceLayer(consumerFromWsdl.getServiceLayer());
 		final String clientName = consumerFromWsdl.getClientName();
 		uiModel

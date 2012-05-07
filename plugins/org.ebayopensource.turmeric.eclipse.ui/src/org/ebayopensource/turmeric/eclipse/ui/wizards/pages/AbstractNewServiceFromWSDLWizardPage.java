@@ -799,6 +799,7 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		return SOAServiceUtil.generatePackageNamePrefix(getTargetNamespace());
 	}
 	
+	
 	/**
 	 * Gets the target namespace.
 	 *

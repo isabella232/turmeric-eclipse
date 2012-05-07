@@ -91,8 +91,13 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 		model.setArtifactId(artifact.getArtifactId());
 		model.setVersion(artifact.getVersion());
 		model.setName(req.getEclipseProject().getName());
-
-		if (isNotBlank(artifact.getType())
+		//RIDE changes
+		if(isNotBlank(req.getPackaging())){
+			model.setPackaging(req.getPackaging());
+		}
+		//overriding
+		
+		if (isNotBlank(model.getPackaging())&&isNotBlank(artifact.getType())
 				&& !StringUtils.equalsIgnoreCase(artifact.getType().trim(),
 						"jar"))
 			model.setPackaging(artifact.getType());

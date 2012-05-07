@@ -302,9 +302,9 @@ public final class MavenEclipseUtil {
 		dependency.setVersion(metadata.getVersion());
 		dependency.setClassifier(metadata.getClassifier());
 		dependency.setType(metadata.getType());
-		if (metadata.getScope() != null
-				&& ArtifactScopeEnum.DEFAULT_SCOPE.getScope().equals(
-						metadata.getScope()) == false)
+//		if (metadata.getScope() != null
+//				&& ArtifactScopeEnum.DEFAULT_SCOPE.getScope().equals(
+//						metadata.getScope()) == false)
 			dependency.setScope(metadata.getScope());
 		return dependency;
 	}

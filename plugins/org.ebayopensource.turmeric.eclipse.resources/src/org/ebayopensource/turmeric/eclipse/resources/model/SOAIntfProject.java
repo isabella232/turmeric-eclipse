@@ -22,7 +22,7 @@ import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
  * @author smathew
  * Intf Project model
  */
-public class SOAIntfProject extends SOABaseProject {
+public class SOAIntfProject extends SOAConsumerProject implements ISOAConsumerProject {
 
 	/**
 	 * An array of source directories.

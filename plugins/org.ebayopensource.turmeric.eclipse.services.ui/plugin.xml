@@ -4,7 +4,7 @@
 <extension
          point="org.eclipse.ui.newWizards">
     
-      <wizard
+     <!--<wizard
             category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
             class="org.ebayopensource.turmeric.eclipse.services.ui.wizards.ServiceFromWSDLWizard"
             finalPerspective="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
@@ -17,7 +17,7 @@
             %Wizard.NewService.Description
          </description>
       </wizard>
-      <wizard
+       <wizard
             category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
             class="org.ebayopensource.turmeric.eclipse.services.ui.wizards.ConsumerFromJavaWizard"
             finalPerspective="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
@@ -29,7 +29,7 @@
          <description>
             %Wizard.NewConsumer.Description
          </description>
-      </wizard>
+      </wizard>-->
       <wizard
             category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
             class="org.ebayopensource.turmeric.eclipse.services.ui.wizards.ConsumerFromWSDLWizard"
@@ -108,7 +108,7 @@
        <extension
          point="org.eclipse.ui.popupMenus">
          
-        <objectContribution
+       <!-- <objectContribution
             adaptable="true"
             id="org.ebayopensource.turmeric.eclipse.services.ui.actions.soaProject"
             objectClass="org.eclipse.core.resources.IProject">         
@@ -131,6 +131,13 @@
                   id="org.ebayopensource.turmeric.eclipse.services.ui.actions.CleanProject"
                   label="%Menu.CleanProject.Label"
                   menubarPath="soaMenu/soa"/>
+                   <action
+                  class="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateConfigs"
+                  enablesFor="1"
+                  helpContextId="%helpIdSOATutorial"
+                  id="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateConfigs"
+                  label="What%Menu.GenerateConfigs.Label"
+                  menubarPath="soaMenu/soa"/>
             <visibility>
             	<or>
 	               <objectState
@@ -144,7 +151,7 @@
 	                     value="%SOA.ProjectNatureID.Consumer"/>
                 </or>
             </visibility>                       
-       </objectContribution>
+       </objectContribution>-->
        
        <objectContribution
             adaptable="true"
@@ -181,6 +188,7 @@
          label="%Menu.ChangeServiceVersion.Label"
          menubarPath="soaMenu/intf">
    </action>
+  
             <visibility>
                <objectState
                      name="nature"
@@ -256,33 +264,34 @@
                   id="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateGlobalClientConfig"
                   label="%Menu.GenerateGlobalClientConfig.Label"
                   menubarPath="soaMenu/consumer"/>            
-			<action
+		<!--<action
                   class="org.ebayopensource.turmeric.eclipse.services.ui.actions.ConsumeNewService"
                   enablesFor="1"
                   helpContextId="%helpIdSOATutorial"
                   id="org.ebayopensource.turmeric.eclipse.services.ui.actions.ConsumeNewService"
                   label="%Menu.SetUpConsumerConfigurations.Label"
                   menubarPath="soaMenu/consumer"/>
-		   <action
+		   	<action
 		         class="org.ebayopensource.turmeric.eclipse.services.ui.actions.ConsumeServiceFromWSDL"
 		         helpContextId="%helpIdSOATutorial"
 		         id="org.ebayopensource.turmeric.eclipse.services.consumeServiceFromWSDL"
 		         label="%Menu.ConsumeNewServicesFromWSDL.Label"
 		         menubarPath="soaMenu/consumer">
-		   </action>
+		   </action>-->
    
-   			<action
+   			<!--<action
                   class="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateConfigs"
                   enablesFor="1"
                   helpContextId="%helpIdSOATutorial"
                   id="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateConfigs"
                   label="%Menu.GenerateConfigs.Label"
-                  menubarPath="soaMenu/consumer"/>
+                  menubarPath="soaMenu/consumer"/>-->
             <visibility>
             	<or>
 	               <objectState
 	                     name="nature"
 	                     value="%SOA.ProjectNatureID.Consumer"/>
+	                      
                    <objectState
                      name="nature"
                      value="%SOA.ProjectNatureID.Implementation"/>
@@ -360,7 +369,7 @@
     <!-- Service Explorer View and Related Navigator Components-->
     <extension
           point="org.eclipse.ui.views">
-       <view
+       <!--<view
              allowMultiple="false"
              category="org.ebayopensource.turmeric.eclipse.ui.category"
              class="org.eclipse.ui.navigator.CommonNavigator"
@@ -371,7 +380,7 @@
        <category
              id="org.ebayopensource.turmeric.eclipse.ui.category"
              name="%View.Category.SOAPlugin.Name">
-       </category>
+       </category>-->
     </extension>
     
     <extension
@@ -422,7 +431,7 @@
       
        </navigatorContent>     
     </extension>
-    <extension
+   <!-- <extension
           point="org.eclipse.search.searchPages">
        <page
              canSearchEnclosingProjects="false"
@@ -434,7 +443,7 @@
              showScopeSection="false"
              sizeHint="500,200">
        </page>
-    </extension>
+    </extension>-->
     <extension
           point="org.eclipse.search.searchResultViewPages">
        <viewPage

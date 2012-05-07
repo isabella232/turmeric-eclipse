@@ -60,5 +60,6 @@ public class ProgressUtil {
 		monitor.internalWorked(oneStep);
 		if (monitor.isCanceled())
 			throw new OperationCanceledException();
+		
 	}
 }

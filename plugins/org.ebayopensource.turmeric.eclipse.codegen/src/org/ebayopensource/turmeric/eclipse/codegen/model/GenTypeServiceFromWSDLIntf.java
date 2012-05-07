@@ -74,7 +74,7 @@ public class GenTypeServiceFromWSDLIntf extends GenTypeClient {
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		final Map<String, String> options = super.getCodeGenOptions();
-		String metaDir = getMetaDir();
+		
 		String nonXSDFormat = this.getNonXSDFormats();
 		// if (metaDir != null) {
 		// options.put(PARAM_MDEST, metaDir);

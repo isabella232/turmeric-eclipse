@@ -15,7 +15,6 @@ import org.ebayopensource.turmeric.common.config.TypeDependencyType;
 import org.ebayopensource.turmeric.common.config.TypeLibraryDependencyType;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.core.TurmericCoreActivator;
-import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
@@ -33,10 +32,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -74,40 +70,23 @@ public class SynchronizeWsdlAndDepXML {
 	 */
 	public void syncronizeWsdlandDepXml() throws CoreException, Exception {
 		final IFile wsdlFile = SOAServiceUtil.getWsdlFile(project.getName());
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource.Factory.Registry registry = resourceSet
+				.getResourceFactoryRegistry();
+		Map<String, Object> extensionToFactoryMap = registry
+				.getExtensionToFactoryMap();
+		extensionToFactoryMap.put(SOAProjectConstants.WSDL,
+				new WSDLResourceFactoryImpl());
+		URI uri = URI.createFileURI(wsdlFile.getLocation()
+				.toString());
 
-		Job job = new Job("Synchronize WSDL and Dependent XML") {
-
-			@Override
-			protected IStatus run(IProgressMonitor monitor) {
-				try {
-					monitor.beginTask("Synchronize", IProgressMonitor.UNKNOWN);
-					ResourceSet resourceSet = new ResourceSetImpl();
-					Resource.Factory.Registry registry = resourceSet
-							.getResourceFactoryRegistry();
-					Map<String, Object> extensionToFactoryMap = registry
-							.getExtensionToFactoryMap();
-					extensionToFactoryMap.put(SOAProjectConstants.WSDL,
-							new WSDLResourceFactoryImpl());
-					URI uri = URI.createFileURI(wsdlFile.getLocation()
-							.toString());
-
-					WSDLResourceImpl wsdlResource = (WSDLResourceImpl) resourceSet
-							.createResource(uri);
-					wsdlResource.load(null);
-					definition = wsdlResource.getDefinition();
-					syncronizeWSDLandDepXml(definition);
-				} catch (Exception e) {
-					SOALogger.getLogger().error(e);
-					monitor.done();
-					return Status.CANCEL_STATUS;
-				}
-				monitor.done();
-				return Status.OK_STATUS;
-			}
-		};
+		WSDLResourceImpl wsdlResource = (WSDLResourceImpl) resourceSet
+				.createResource(uri);
+		wsdlResource.load(null);
+		definition = wsdlResource.getDefinition();
+		syncronizeWSDLandDepXml(definition);	
 		
-		job.setUser(false);
-		job.schedule();
+
 	}
 
 	/**
@@ -402,6 +381,9 @@ public class SynchronizeWsdlAndDepXML {
 						.instanceOf().getActiveRepositorySystem()
 						.getProjectConfigurer();
 				String projectName = project.getName();
+				//The added libraries should remove these two ilbs always, for RIDE.
+				addedLibraries.remove("SOACommonTypeLibrary");
+				addedLibraries.remove("MarketPlaceServiceCommonTypeLibrary");
 				for (String addedLibrary : addedLibraries) {
 					projectConfigurer.addTypeLibraryDependency(projectName,
 							addedLibrary, IAssetInfo.TYPE_LIBRARY, true,

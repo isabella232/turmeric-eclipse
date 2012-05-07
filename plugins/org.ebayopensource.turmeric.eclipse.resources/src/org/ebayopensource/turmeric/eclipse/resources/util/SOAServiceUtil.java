@@ -176,8 +176,8 @@ public class SOAServiceUtil {
 		SOAIntfMetadata metadata = project.getMetadata();
 		SOAProjectEclipseMetadata eclipseMetadata = project
 				.getEclipseMetadata();
-		if (metadata.getSourceType().equals(
-				SOAProjectConstants.InterfaceSourceType.WSDL)) {
+		if (metadata.getSourceType().toString().equals(
+				SOAProjectConstants.InterfaceSourceType.WSDL.toString())) {
 			if (SOALogger.DEBUG)
 				logger.debug("The source type of this intf project is WSDL->",
 						project.getProject());

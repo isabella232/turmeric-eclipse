@@ -39,6 +39,7 @@ import org.ebayopensource.turmeric.eclipse.registry.intf.IValidationStatus;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARootLocator;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenModel;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.IAssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
@@ -671,9 +672,14 @@ public class ActionUtil {
 				services.add(asset);
 			}
 		}
+		//RIDE:Change to add the service to the list since no dep is therein its pom For a consumerized Interface.
+		if(TurmericServiceUtils.isSOAInterfaceProject(consumerProject)){
+			services.add((AssetInfo) GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()	
+		.getAssetRegistry().getAsset(consumerProject));
+		}
 		logger.info("Generating configs for consumer project-> ", consumerProject.getName(), 
 				" with services ->", services );
-		final String clientName = SOAConsumerUtil.getClientName(consumerProject);
+		final String clientName =SOAConsumerUtil.getClientName(consumerProject);
 		BuildSystemCodeGen
 		.generateArtifactsForAddedService(
 				consumerProject,

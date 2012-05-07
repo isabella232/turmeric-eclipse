@@ -38,6 +38,7 @@ import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFr
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
+import org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.ErrorMessage;
 import org.ebayopensource.turmeric.eclipse.validator.core.InputObject;
 import org.ebayopensource.turmeric.eclipse.validator.utils.ValidateUtil;
@@ -82,7 +83,7 @@ import org.eclipse.ui.forms.events.ExpansionEvent;
  * @author yayu
  */
 public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWSDLWizardPage{
-	private Text serviceClientText;
+	private Text serviceClientText;	
 	private Text consumerID;
 	private Text adminText;
 	private Button retrieveConsumerIDBtn;
@@ -156,7 +157,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 								FieldDecorationRegistry.DEC_WARNING);
 				controlDecoration.setImage(fieldDecoration.getImage());
 			}
-			createServiceClient(container, false);
+			createServiceClient(container, false);			
 			
 			{
 				//advanced section
@@ -182,8 +183,8 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 				createConsumerIDText(advancedPanel);
 				createEnvironmentList(advancedPanel, true);
 				addWSDLPackageToNamespace(advancedPanel);
-				addTypeFolding(advancedPanel).setVisible(false);
-				super.setTypeFolding(false);
+				addTypeFolding(advancedPanel).setVisible(true);
+				super.setTypeFolding(true);
 			}
 			
 			adminText.addModifyListener(new ModifyListener(){
@@ -334,9 +335,10 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			}
 			
 		});
-		if (simpleMode == false) {
+		//if (simpleMode == false) {
+		//Removed on ride, since users need to be able to use ZCC only if they want to.
 			environments.add(SOAProjectConstants.DEFAULT_CLIENT_CONFIG_ENVIRONMENT);
-		}
+		//}
 		envrionmentList.setInput(environments);
 		
 		Composite btnComposite = new Composite(group, SWT.NONE);
@@ -442,6 +444,8 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		return serviceClientText;
 	}
 	
+	
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -455,6 +459,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 				return adminName + SOAProjectConstants.CLIENT_PROJECT_SUFFIX;
 			}
 		}
+		
 		return super.getDefaultValue(text);
 	}
 
@@ -490,7 +495,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 								+ "\". Please correct service name in WSDL and run this wizard again.") == false)) {
 			return false;
 		}
-
+		
 		// Client name is consumer project name and admin name is the service
 		// interface project name. They should not be the same.
 		if (this.serviceClientText != null && adminNameText != null) {
@@ -685,6 +690,9 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			}
 			serviceClientText.setText(getAdminName()
 					+ SOAProjectConstants.CLIENT_PROJECT_SUFFIX);
+			setTypeFolding(getDefaultEnabledNSValue());
+			typeFoldingButton.setEnabled(false);
+			
 		} else {
 			serviceClientText.setText(DEFAULT_TEXT_VALUE);
 		}
@@ -754,7 +762,12 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		if (serviceClientText != null)
 			serviceClientText.setText(DEFAULT_TEXT_VALUE);
 	}
-	
+	@Override
+	protected boolean getDefaultEnabledNSValue(){
+		Collection<String> allTNS=WSDLUtil.getAllTargetNamespaces(wsdl);
+		if(allTNS.size()>1) return false;
+		return true;
+	}
 	/**
 	 * Gets the client name.
 	 *
@@ -763,6 +776,11 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	public String getClientName() {
 		return super.getTextValue(this.serviceClientText);
 	}
+	/**
+	 * Gets the parent version.
+	 *
+	 * @return the parent version
+	 */
 	
 	/**
 	 * Gets the consumer id.

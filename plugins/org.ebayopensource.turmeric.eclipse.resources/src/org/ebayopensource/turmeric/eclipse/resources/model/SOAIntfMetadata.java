@@ -18,8 +18,11 @@ import javax.wsdl.WSDLException;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.ConsumerSourceType;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.InterfaceSourceType;
 import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
+import org.omg.CORBA.INTF_REPOS;
 
 
 /**
@@ -32,7 +35,7 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
  * 
  * @author smathew
  */
-public class SOAIntfMetadata extends AbstractSOAMetadata {
+public class SOAIntfMetadata extends SOAConsumerMetadata {
 
 	private String publicServiceName; //this now means the serviceName
 	private String serviceName; //this now means the adminName
@@ -42,7 +45,7 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	private String serviceDomainName;
 	private String serviceNamespacePart;
 	private String imlementationProjectName;
-	private SOAProjectConstants.InterfaceSourceType sourceType;
+	private SOAProjectConstants.ConsumerSourceType sourceType;
 	private SOAProjectConstants.InterfaceWsdlSourceType wsdlSourceType;
 	private URL originalWSDLUrl;
 	private String targetNamespace;
@@ -85,6 +88,7 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 		metadata.setServiceDomainName(paramModel.getServiceDomain());
 		metadata.setServiceNonXSDProtocols(paramModel.getServiceProtocols());
 		metadata.setZeroConfig(true);
+		
 		SOAIntfUtil.setInformationFromWsdl(paramModel.getOriginalWsdlUrl(),
 				metadata);
 		return metadata;
@@ -114,7 +118,7 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	 * @param paramModel the Consumer from Java Parameter Model.
 	 * @return creates a Map with servicen anem and SOAIntfMetadata
 	 */
-	public static Map<String, SOAIntfMetadata> create(
+	/*public static Map<String, SOAIntfMetadata> create(
 			ConsumerFromJavaParamModel paramModel) {
 		Map<String, SOAIntfMetadata> metadatas = new TreeMap<String, SOAIntfMetadata>();
 		for (String serviceName : paramModel.getServiceNames()) {
@@ -125,7 +129,7 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 		}
 		
 		return metadatas;
-	}
+	}*/
 
 	
 	private SOAIntfMetadata() {
@@ -351,7 +355,7 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	 *
 	 * @return the interface source type
 	 */
-	public SOAProjectConstants.InterfaceSourceType getSourceType() {
+	public ConsumerSourceType getSourceType() {
 		return sourceType;
 	}
 
@@ -361,7 +365,8 @@ public class SOAIntfMetadata extends AbstractSOAMetadata {
 	 * @param sourceType the source type
 	 */
 	public void setSourceType(SOAProjectConstants.InterfaceSourceType sourceType) {
-		this.sourceType = sourceType;
+		
+		this.sourceType = ConsumerSourceType.valueOf(sourceType.toString());
 	}
 
 	/**
