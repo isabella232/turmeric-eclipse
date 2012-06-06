@@ -68,6 +68,8 @@ public class BuildSystemUtil {
 	 */
 	public static void updateSOAClasspathContainer(final IProject project)
 			throws CoreException {
+		GlobalRepositorySystem.instanceOf()
+		.getActiveRepositorySystem().refreshCache();
 		final IJavaProject javaProject = (IJavaProject) project
 				.getNature(JavaCore.NATURE_ID);
 		final String containerId = GlobalRepositorySystem.instanceOf()

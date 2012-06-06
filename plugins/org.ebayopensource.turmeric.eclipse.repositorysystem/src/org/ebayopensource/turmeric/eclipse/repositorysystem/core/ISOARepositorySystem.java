@@ -252,4 +252,6 @@ public interface ISOARepositorySystem extends IAdaptable {
 	 */
 	public IProjectHealthChecker getProjectHealthChecker();
 
+	public void refreshCache();
+
 }
