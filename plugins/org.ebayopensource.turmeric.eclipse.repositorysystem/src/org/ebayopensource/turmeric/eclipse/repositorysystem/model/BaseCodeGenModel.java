@@ -301,7 +301,17 @@ public class BaseCodeGenModel {
 	private String ns2pkg; //-ns2pkg
 	private String genFolder; //jdesk
 	private String nonXSDFormats;// -nonXSDFormats
+	private String clientName; // -cn
 	
+	//For consumerized interface project client name is a part of the interface
+	//RIDE changes
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
 	public String getNonXSDFormats() {
 		return nonXSDFormats;
 	}
@@ -358,6 +368,7 @@ public class BaseCodeGenModel {
 		this.sourceDirectory = sourceDirectory;
 		this.destination = destination;
 		this.outputDirectory = outputDirectory;
+		
 	}
 
 	/**
@@ -694,6 +705,8 @@ public class BaseCodeGenModel {
 			result.put(PARAM_NS2PKG, this.ns2pkg);
 		if (this.genFolder != null)
 			result.put(PARAM_JDEST, this.genFolder);
+		if(this.clientName!=null)
+			result.put(PARAM_CN, this.clientName);
 		return result;
 	}
 	

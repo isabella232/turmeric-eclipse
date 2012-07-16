@@ -11,10 +11,17 @@
  */
 package org.ebayopensource.turmeric.eclipse.services.ui.wizards;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.logging.Level;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.consumer.ConsumerFromWsdlParamModel;
@@ -34,9 +41,13 @@ import org.ebayopensource.turmeric.eclipse.validator.core.ISOAPreValidator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.ide.IDE;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * The Class ConsumerFromWSDLWizard.
@@ -72,14 +83,63 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 		return ISOAPreValidator.CONSUMER_FROM_WSDL;
 	}
 
+	public class Bundle {
+
+		private String version;
+
+		private String bundleName;
+
+		private String uri;
+
+		private String severity;
+
+		public String getSeverity() {
+			return severity;
+		}
+
+		public void setSeverity(String severity) {
+			this.severity = severity;
+		}
+
+		public String getVersion() {
+			return version;
+		}
+
+		public void setVersion(String version) {
+			this.version = version;
+		}
+
+		
+
+		public String getBundleName() {
+			return bundleName;
+		}
+
+		public void setBundleName(String bundleName) {
+			this.bundleName = bundleName;
+		}
+
+		public String getUri() {
+			return uri;
+		}
+
+		public void setUri(String uri) {
+			this.uri = uri;
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean performFinish() {
+		
+		
 		// saving the user selected project dir
 		if (SOALogger.DEBUG)
 			logger.entering();
+		
+		
 		final boolean overrideWorkspaceRoot = consumerFromWsdl
 				.isOverrideProjectRootDirectory();
 		final String workspaceRootDirectory = consumerFromWsdl
@@ -89,10 +149,89 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 
 		final String serviceName = consumerFromWsdl.getAdminName();
 		final String servicePackage = consumerFromWsdl.getServicePackage();
-		final String serviceInterface = StringUtils.isBlank(servicePackage) ? serviceName
+		
+		
+		String serviceInterface = StringUtils.isBlank(servicePackage) ? serviceName
 				: servicePackage + SOAProjectConstants.CLASS_NAME_SEPARATOR
 						+ serviceName;
+	
+		
+		
+		StringBuilder sbuilder = new StringBuilder();
+		// repo url
+		sbuilder.append("http://crp-wsoaexps002.corp.ebay.com/OsgiPackageService/package/split?");
+		sbuilder.append("package=");
+		sbuilder.append(servicePackage.toLowerCase());
+		Map<String,String> allNSToPackMappings= consumerFromWsdl.getNamespaceToPackageMappings();
+		for(String namespace: allNSToPackMappings.keySet()){
+			sbuilder.append("&package=");
+			sbuilder.append(allNSToPackMappings.get(namespace.toLowerCase()));
+		}
+		sbuilder.append("&bundleSymbolicName=");
+		sbuilder.append("com.ebay.soa.interface."+consumerFromWsdl.getAdminName());
+		HttpClient client = new HttpClient();
+		GetMethod method = new GetMethod(sbuilder.toString());
+		try {
+			client.setConnectionTimeout(3000);
+			client.executeMethod(method);
+			if(method.getStatusCode()!=204){
+			String responseAsString = method.getResponseBodyAsString();
+			try {
+				JSONObject response = new JSONObject(responseAsString);
+				Iterator k =response.keys();
+				int count = 1;
+				StringBuilder errorMessage=new StringBuilder();
+				if(response.length()>0){
+					errorMessage.append("Split package errors detected for package(s) \n");
+				}
+				while (k.hasNext()){
+					String ErrorPackageName = (String) k.next();
+					
+					errorMessage.append("\n"+count+".\""+ErrorPackageName + "\" with the following bundles:\n");
+					JSONArray bundlesList = response.getJSONArray(ErrorPackageName);
+					for(int i =0;i<bundlesList.length();i++){
+						JSONObject object = bundlesList.getJSONObject(i);
+						errorMessage.append(">>"+(i+1)+".Name:"+object.getString("bundleName"));
+						errorMessage.append(" Version:" +object.getString("version")+"\n");						
+						errorMessage.append(">>Repository:" +object.getString("uri")+"\n\n");
+					}
+					count++;
+				}
+				if(!errorMessage.toString().isEmpty()){
+					errorMessage.append("\nWould you still like to continue with these packages? Click OK to continue, or Cancel to change the package names.");
+				logger.log(Level.WARNING, errorMessage.toString());
+				
+				}
+				
+				MessageDialog dialog = new MessageDialog(getShell(), "Detected duplicates while validating package names for split packages", null, errorMessage.toString(),MessageDialog.WARNING , new String[]{"OK","Cancel"}, 0);
+				int answer = dialog.open();
+				if(answer == 1){
+					//User choses to cancel and go back to change packages
+					logger.log(Level.INFO, "Discarding packages due to split package warnings");
+					return false;
+				}
+				else{
+					logger.log(Level.INFO, "Ignoring split package warnings and using the same packages");
+				}
+				
 
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			//Succesful
+		} catch (HttpException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		//Flag to let the wsdl field focus lost listener know that OK button has been pressed
+		//To avoid the https:// message box from reappearing once the focus is lost
+		//Can be used by other events too
+		consumerFromWsdl.done=1;
 		final ConsumerFromWsdlParamModel uiModel = new ConsumerFromWsdlParamModel();
 		uiModel.setServiceName(serviceName);
 		uiModel.setPublicServiceName(consumerFromWsdl.getPublicServiceName());
@@ -177,6 +316,7 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 		}
 		if (SOALogger.DEBUG)
 			logger.exiting(true);
+		
 		return true;
 	}
 

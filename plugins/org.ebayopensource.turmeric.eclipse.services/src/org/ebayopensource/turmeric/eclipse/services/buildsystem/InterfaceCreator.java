@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.core.BuildSystemConfigurer;
 import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ProjectPropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromTemplateWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
@@ -146,7 +147,7 @@ public class InterfaceCreator {
 		SOAIntfProject intfProject = SOAIntfProject.create(metadata,
 				soaEclipseMetadata);
 		ProgressUtil.progressOneStep(monitor);
-
+		 
 		final ISOAOrganizationProvider orgProvider = GlobalRepositorySystem.instanceOf()
 		.getActiveRepositorySystem().getActiveOrganizationProvider();
 		Set<String> requiredLibraries = paramModel.getInterfaceLibs();
@@ -218,9 +219,12 @@ public class InterfaceCreator {
 		ProgressUtil.progressOneStep(monitor);
 		SOAResourceCreator.createPropertiesFile(intfProject, monitor);
 		ProgressUtil.progressOneStep(monitor);
+		ProjectPropertiesFileUtil.createPrefsFile(intfProject.getProject(), monitor);
+		
 		BuildSystemConfigurer.performRepositorySpecificTasks(intfProject,
 				monitor);
 		ProgressUtil.progressOneStep(monitor);
+		//ProjectPropertiesFileUtil.createPrefsFile(project, monitor);
 		BuildSystemConfigurer.configure(intfProject, monitor);
 		ProgressUtil.progressOneStep(monitor);
 

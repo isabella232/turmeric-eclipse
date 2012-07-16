@@ -79,31 +79,47 @@ public class SOAGlobalRegistryAdapter {
 			long startTime = System.currentTimeMillis();
 			synchronized (SOAGlobalRegistryAdapter.class) {
 				if (soaTypeRegistry == null) {
-					Job job = new GlobalRegistryJob("Retrieve Global Registry");
-					job.setUser(false);
-					job.schedule();
-					
+					 final ClassLoader originalClassLoader = Thread
+					              .currentThread().getContextClassLoader();
 					try {
-//						if (Display.getCurrent() == null) {
-//							// non-UI thread
-//							runnable.run(ProgressUtil.getDefaultMonitor(null));
-//						} else {
-//							final IProgressService service = PlatformUI
-//							.getWorkbench().getProgressService();
-//							service.run(false, false, runnable);
-//						}
-					    int cnt = 0;
-//						while ((job.getState() == Job.RUNNING || job.getState() == Job.WAITING)) {
-					    while (cnt < 5 && soaTypeRegistry == null) {
-							logger.warning("SOA types registry not initialized yet, sleeping...");
-							Thread.sleep(1000);
-							cnt++;
-						}
-					} finally {
+						 init();
+						            Thread thread = Thread.currentThread();
+						            ClassLoader loader = thread.getContextClassLoader();
+						            thread.setContextClassLoader(SOAGlobalRegistryFactory.class.getClassLoader());
+						            SOATypeRegistry typeReg = GlobalRepositorySystem
+						            .instanceOf().getActiveRepositorySystem()
+						            .getTypeRegistryBridge().getSOATypeRegistry();
+						            thread.setContextClassLoader(loader);
+						            typeLibclassLoader.setPluginBundles(
+						                (GlobalRepositorySystem
+						                    .instanceOf().getActiveRepositorySystem()
+						                    .getTypeRegistryBridge().getPluginBundles()));
+						            Thread.currentThread().setContextClassLoader(
+						                typeLibclassLoader);
+						            List<RegistryUpdateDetails> libraries = 
+						              typeReg.populateRegistryWithTypeLibrariesDetailed(ListUtil.arrayList(
+						                typeLibNamesForSOATools));
+						            if (libraries != null) {
+						              for (RegistryUpdateDetails details : libraries) {
+						                if (details.isUpdateSucess() == false) {
+						                  logger.warning("Invalid type library->", 
+						                      details.getLibraryName(), ". Detailed Error: ", details.getMessage());
+						                }
+						              }
+						             }
+						            soaTypeRegistry = typeReg;
+						          } catch (Exception e) {
+						            logger.error(e);
+						           } finally {
+
+
 						if (SOALogger.DEBUG) {
 							long duration = System.currentTimeMillis() - startTime;
 							logger.info("Time taken for initializing SOA global type registry is ", 
 									duration, " ms.");
+							Thread.currentThread().setContextClassLoader(
+								                originalClassLoader);
+
 						}
 					}
 				}
@@ -221,7 +237,7 @@ public class SOAGlobalRegistryAdapter {
 		// adding type lib projects in workspace
 		for (IProject project : WorkspaceUtil.getAllProjectsInWorkSpace()) {
 			if (project.isAccessible()
-					&& project.hasNature("org.ebayopensource.turmeric.eclipse.typelibrary.TypeLibraryProjectNature")) {
+					&& project.hasNature("com.ebay.tools.soa.typelibrary.TypeLibraryProjectNature")) {
 				urlsSet.add(project.getFolder(
 						SOATypeLibraryConstants.FOLDER_GEN_META_SRC)
 						.getLocation().toFile().toURI().toURL());

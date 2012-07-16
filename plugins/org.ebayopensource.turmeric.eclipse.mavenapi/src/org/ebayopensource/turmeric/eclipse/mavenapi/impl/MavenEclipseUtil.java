@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.ArtifactScopeEnum;
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Exclusion;
 import org.apache.maven.model.Model;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
@@ -305,7 +306,21 @@ public final class MavenEclipseUtil {
 //		if (metadata.getScope() != null
 //				&& ArtifactScopeEnum.DEFAULT_SCOPE.getScope().equals(
 //						metadata.getScope()) == false)
-			dependency.setScope(metadata.getScope());
+		//Exclusion exclude = new Exclusion("org.apache", "axis2", null, null) ;
+		if(dependency.getArtifactId().equals("soaMerged")&&(dependency.getGroupId().equals("com.ebay.soa"))){
+		Exclusion exclusion = new Exclusion();
+		exclusion.setArtifactId("axis2");
+		exclusion.setGroupId("org.apache");
+		dependency.addExclusion(exclusion);
+		}
+		if(dependency.getArtifactId().equals("MiscServiceMerged")&&(dependency.getGroupId().equals("com.ebay.services"))){
+			Exclusion exclusion = new Exclusion();
+			exclusion.setArtifactId("xjc");
+			exclusion.setGroupId("com.ebay.thirdparty.jaxb");
+			dependency.addExclusion(exclusion);
+			}
+	
+		dependency.setScope(metadata.getScope());
 		return dependency;
 	}
 

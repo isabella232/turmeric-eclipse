@@ -91,6 +91,7 @@ public class ModelTransformer {
 			BaseCodeGenModel model, IProject project) throws WSDLException {
 		GenTypeServiceFromWSDLIntf genTypeServiceFromWsdlIntf = new GenTypeServiceFromWSDLIntf();
 		genTypeServiceFromWsdlIntf.setAdminName(model.getAdminName());
+		genTypeServiceFromWsdlIntf.setClientName(model.getClientName());
 		genTypeServiceFromWsdlIntf.setNamespace(model.getNamespace());
 		genTypeServiceFromWsdlIntf.setServiceInterface(model
 				.getServiceInterface());

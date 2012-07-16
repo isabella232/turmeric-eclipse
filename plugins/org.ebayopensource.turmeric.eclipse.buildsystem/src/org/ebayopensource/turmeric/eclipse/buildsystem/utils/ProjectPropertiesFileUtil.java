@@ -8,8 +8,10 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.buildsystem.utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,6 +35,7 @@ import org.ebayopensource.turmeric.eclipse.resources.util.SOAConsumerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -64,6 +67,32 @@ public class ProjectPropertiesFileUtil {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws CoreException the core exception
 	 */
+	public static void createPrefsFile(IProject project, IProgressMonitor monitor){
+		
+		IFolder parentfolder = project.getFolder(".settings");
+		try {if(!parentfolder.exists())
+			parentfolder.create(true, true, null);
+		} catch (CoreException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		IFile file = parentfolder.getFile(SOAProjectConstants.PREFS_FILE);
+		
+		InputStream source =null;
+		try{
+		  String contents = SOAProjectConstants.RIDE_PREFS_KEY_BUNDLE+
+				  "="+SOAProjectConstants.RIDE_PREFS_VALUE_BUNDLE;
+		  if(!file.exists()){
+					  source= new ByteArrayInputStream(contents.getBytes());
+					  file.create(source, false, null);						
+		}
+		 
+		  }catch (Exception e){//Catch exception if any
+			  System.out.println(e.getStackTrace());
+		  }	finally{
+			  IOUtils.closeQuietly(source);
+		  }
+	}
 	public static IFile createPropsFile(SOAIntfProject soaIntfProject, 
 			IProgressMonitor monitor)
 			throws IOException, CoreException {
@@ -143,7 +172,10 @@ public class ProjectPropertiesFileUtil {
 			
 			properties.setProperty(SOAProjectConstants.PROPS_KEY_SIPP_VERSION, 
 					SOAProjectConstants.PROPS_DEFAULT_SIPP_VERSION);
-			
+			properties.setProperty(SOAProjectConstants.PROPS_KEY_RAPTOR_CONSUMER_GENERATION,
+					SOAProjectConstants.PROPS_DEFAULT_RAPTOR_CONSUMER_GENERATION);	
+			properties.setProperty(SOAProjectConstants.PROPS_OBJECT_FACT_PACK_INFO_DEL, 
+					SOAProjectConstants.PROPS_DEFAULT_OBJECT_FACT_PACK_INFO_DEL);
 			//short package name for shared consumer
 			final String intfPkgName = StringUtils.substringBeforeLast(
 					metadata.getServiceInterface(), SOAProjectConstants.DELIMITER_DOT);

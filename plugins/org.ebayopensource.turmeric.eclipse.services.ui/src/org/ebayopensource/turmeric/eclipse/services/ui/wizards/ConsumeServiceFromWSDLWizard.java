@@ -117,6 +117,12 @@ public class ConsumeServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		uiModel.setServiceImpl(consumerFromWsdl
 				.getFullyQualifiedServiceImplementation());
 		uiModel.setServiceVersion(consumerFromWsdl.getServiceVersion());
+		 if(!StringUtils.isEmpty(consumerFromWsdl.getServiceVersion()))
+			       uiModel.setServiceVersion(consumerFromWsdl.getServiceVersion());
+			      else{
+			        //adding a line here to set the version as 1.0.0 as default, as the text box that sets this value is now missing in the wizard..
+			        uiModel.setServiceVersion("1.0.0");
+			      }    
 		uiModel.setServiceLayer(consumerFromWsdl.getServiceLayer());
 		final String clientName = consumerFromWsdl.getClientName();
 		final String clientID = consumerFromWsdl.getConsumerId();

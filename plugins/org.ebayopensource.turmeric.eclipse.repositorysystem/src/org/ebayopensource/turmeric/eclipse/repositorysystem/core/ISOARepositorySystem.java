@@ -251,5 +251,6 @@ public interface ISOARepositorySystem extends IAdaptable {
 	 * @return the project health checker instance for the underlying system
 	 */
 	public IProjectHealthChecker getProjectHealthChecker();
+	
 
 }

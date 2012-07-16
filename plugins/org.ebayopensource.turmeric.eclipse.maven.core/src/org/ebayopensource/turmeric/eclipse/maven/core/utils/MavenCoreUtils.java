@@ -9,6 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.maven.core.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -617,8 +619,46 @@ public class MavenCoreUtils {
 	 * @throws Exception the exception
 	 */
 	public static Set<AssetInfo> getAllTypeLibraries() throws Exception {
-		return getAllLibraries(getMavenOrgProviderInstance()
+		Set<AssetInfo> allTypeLibraries= getAllLibraries(getMavenOrgProviderInstance()
 				.getProjectGroupId(SupportedProjectType.TYPE_LIBRARY));
+		String userHomeDirectory = System.getProperty("user.home");
+		String propertiesFileLocation= userHomeDirectory+File.separator+System.getProperty("ide.version").replace(".", "_");
+		File home = new File(propertiesFileLocation);
+		if(!home.exists()){
+				home.mkdir();
+		}
+		File raptorParentFile = new File(home,"raptorSoa.properties");
+		if(raptorParentFile.exists()){
+			FileInputStream in=null;
+			try {
+				in = new FileInputStream(raptorParentFile);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			Properties properties = new Properties();
+			try {
+				properties.load(in);
+				String typeLibrariesGroups=properties.getProperty("typeLibGroups");
+				if((typeLibrariesGroups!=null)&&(!StringUtils.isBlank(typeLibrariesGroups))){
+				for(String typeLibraryGroup:typeLibrariesGroups.split(",")){
+					allTypeLibraries.addAll(getAllLibraries(typeLibraryGroup));
+				}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			finally{
+				try {
+					in.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		}
+		return allTypeLibraries;
 	}
 
 	private static Set<AssetInfo> getAllLibraries(String groupID)

@@ -70,6 +70,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -226,6 +227,10 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 	 * @param composite the composite
 	 * @return the text
 	 */
+	//Flag to let the wsdl field focus lost listener know that OK button has been pressed
+	//To avoid the https:// message box from reappearing once the focus is lost
+	//Can be used by other events too
+	public int done=0;
 	protected Text addWSDL(final Composite composite) {
 		final Label label = new Label(composite, SWT.NULL);
 		label.setText("&WSDL: ");
@@ -238,9 +243,28 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 				final Runnable runnable = new Runnable() {
 					@Override
 					public void run() {
-						if (StringUtils.isNotBlank(getWSDLURL())
-								&& setServiceNameFromWSDL(getWSDLURL())) {
+						String wsdlURL=getWSDLURL();
+						if (StringUtils.isNotBlank(wsdlURL)){
+							if((wsdlURL.startsWith("http"))&&(done==0)){
+								MessageBox httpBox = new MessageBox(composite.getShell(),SWT.ICON_WARNING|SWT.OK|SWT.CANCEL);
+								httpBox.setText("Warning!!");
+								httpBox.setMessage("It is highly recommended to download the WSDL to your local machine first and then use the browse button to choose the WSDL for faster project creation. \n\n Choose \n\tOK to go back and change the WSDL location \n\t[or] \n\tCancel to continue.");
+								int result = httpBox.open();
+								if(result==SWT.OK){
+									//User hit OK, so clear the wsdl entry and return
+									wsdlURLText.setText(SOAProjectConstants.EMPTY_STRING);
+									return;
+								}
+								else if(result==SWT.CANCEL){
+									//User hit Cancel. Continue
+								}
+							}
+								if(setServiceNameFromWSDL(getWSDLURL())) {
 							dialogChanged(true);
+								}
+								else{
+									dialogChanged(false);
+								}
 						} else {
 							dialogChanged(false);
 						}
@@ -532,6 +556,17 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 		}
 		return result;
 	}
+	public void setNamespaceToPackageMappings(Map<String, String> mappings,String packageName) {
+		//final Map<String, String> result = new LinkedHashMap<String, String>();
+		
+		
+		for (final TableItem item : ns2pkgViewer.getTable().getItems()) {
+			NamespaceToPackageModel oldModel = (NamespaceToPackageModel)item.getData();
+		item.setData(new NamespaceToPackageModel(oldModel.namespace,packageName));
+		item.setText(1,packageName);
+		}
+		
+	}
 
 	private static class NamespaceToPackageModel {
 		private String namespace;
@@ -584,7 +619,9 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 				final Service service = (Service) services.toArray()[0];
 				setServiceName(service.getQName().getLocalPart());
 			} else
+				{
 				setServiceName(SOAProjectConstants.EMPTY_STRING);
+			}
 			if (!StringUtils.equals(wsdlURL, getWSDLURL()))
 				wsdlURLText.setText(wsdlURL);
 			this.ns2pkgViewer.setInput(definition);
@@ -677,7 +714,6 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 			if ((getResourceNameText() == adminNameText
 					&& overrideAdminNameButton != null 
 					&& overrideAdminNameButton.getSelection() == true) == false) {
-				//admin name is available and user choose NOT to override
 				AbstractNewServiceFromWSDLWizardPage
 				.super.setServiceName(computeServiceName());
 			}

@@ -26,7 +26,7 @@ import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfMetadata;
  * @author yayu
  */
 public class ConsumerCodeGenModel extends BaseCodeGenModel{
-	private String clientName;
+	
 	private String consumerId;
 	private String clientConfigGroup;
 	private Map<String, Map<String, String>> requiredServices = new TreeMap<String, Map<String, String>>();
@@ -88,7 +88,7 @@ public class ConsumerCodeGenModel extends BaseCodeGenModel{
 	 * @return the client name
 	 */
 	public String getClientName() {
-		return clientName;
+		return super.getClientName();
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class ConsumerCodeGenModel extends BaseCodeGenModel{
 	 * @param clientName the new client name
 	 */
 	public void setClientName(String clientName) {
-		this.clientName = clientName;
+		super.setClientName(clientName);
 	}
 
 	/**
@@ -142,8 +142,8 @@ public class ConsumerCodeGenModel extends BaseCodeGenModel{
 	@Override
 	public Map<String, String> getCodeGenOptions() {
 		final Map<String, String> result = super.getCodeGenOptions();
-		if (this.clientName != null) {
-			result.put(PARAM_CN, this.clientName);
+		if (getClientName()!= null) {
+			result.put(PARAM_CN, getClientName());
 		}
 		if (StringUtils.isNotBlank(this.consumerId)) {
 			result.put(PARAM_CONSUMER_ID, this.consumerId);

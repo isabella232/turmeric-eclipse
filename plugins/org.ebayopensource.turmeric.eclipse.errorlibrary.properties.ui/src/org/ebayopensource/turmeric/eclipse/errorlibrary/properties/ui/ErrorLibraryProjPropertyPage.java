@@ -222,8 +222,7 @@ IWorkbenchPropertyPage {
 	public void setElement(IAdaptable element) {
         try {
             if (element.getAdapter(IProject.class) instanceof IProject) {
-                IProject project = (IProject) element
-                        .getAdapter(IProject.class);
+             
 
                /* model = SOATypeLibraryProjectResolver
                         .loadTypeLibraryModel(project);

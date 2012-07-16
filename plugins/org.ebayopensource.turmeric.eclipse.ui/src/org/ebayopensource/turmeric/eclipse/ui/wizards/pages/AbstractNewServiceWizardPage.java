@@ -528,7 +528,7 @@ public abstract class AbstractNewServiceWizardPage extends
 	 * @param servicePacakge the new service package
 	 */
 	protected void setServicePackage(final String servicePacakge) {
-		if (servicePackageText != null && servicePacakge != null) {
+		if (servicePackageText != null && servicePacakge != null && !overrideServicePackageButton.getSelection()) {
 			servicePackageText.setText(servicePacakge);
 		}
 	}

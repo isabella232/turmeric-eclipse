@@ -55,7 +55,6 @@ public class WTPCopyUtil {
 
 	private static IStructuredModel loadUsingWTP(URL url) throws IOException {
 		IStructuredDocument document = null;
-		IStructuredModel model = null;
 		ModelHandlerForXML xmlModelHandler = new ModelHandlerForXML();
 		IDocumentLoader loader = xmlModelHandler.getDocumentLoader();
 		InputStream inputStream = getMarkSupportedStream(url.openStream());

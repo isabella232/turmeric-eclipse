@@ -25,7 +25,7 @@ public class GenTypeClient extends BaseCodeGenModel {
 	private boolean generateFromWsdl = false;
 	private String genInterfacePacakgeName; // -gip
 	private String genInterfaceClassName; // -gin
-
+	private String clientName;// -cn
 	/**
 	 * Instantiates a new gen type client.
 	 */
@@ -59,7 +59,7 @@ public class GenTypeClient extends BaseCodeGenModel {
 			String serviceImpl, String projectRoot, String serviceLayer,
 			String sourceDirectory, String destination, String outputDirectory,
 			boolean generateFromWsdl, String genFolder,
-			String genInterfacePacakgeName, String genInterfaceClassName) {
+			String genInterfacePacakgeName, String genInterfaceClassName,String clientName) {
 		super(genType, namespace, serviceLayerFile, serviceInterface,
 				serviceName, serviceVersion, serviceImpl, projectRoot,
 				serviceLayer, sourceDirectory, destination, outputDirectory);
@@ -67,6 +67,7 @@ public class GenTypeClient extends BaseCodeGenModel {
 		super.setGenFolder(genFolder);
 		this.genInterfacePacakgeName = genInterfacePacakgeName;
 		this.genInterfaceClassName = genInterfaceClassName;
+		this.clientName=clientName;
 	}
 
 	/**
@@ -93,12 +94,12 @@ public class GenTypeClient extends BaseCodeGenModel {
 			String serviceImpl, String projectRoot, String serviceLayer,
 			String sourceDirectory, String destination, String outputDirectory,
 			boolean generateFromWsdl, String genFolder,
-			String genInterfacePacakgeName, String genInterfaceClassName) {
+			String genInterfacePacakgeName, String genInterfaceClassName, String clientName) {
 		this(GENTYPE_CLIENT, namespace, serviceLayerFile, serviceInterface,
 				serviceName, serviceVersion, serviceImpl, projectRoot,
 				serviceLayer, sourceDirectory, destination, outputDirectory, 
 				generateFromWsdl, genFolder, genInterfacePacakgeName, 
-				genInterfaceClassName);
+				genInterfaceClassName,clientName);
 	}
 
 	/**

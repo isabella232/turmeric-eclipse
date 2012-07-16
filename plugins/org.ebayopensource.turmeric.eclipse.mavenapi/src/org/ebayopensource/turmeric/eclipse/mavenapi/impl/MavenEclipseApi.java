@@ -24,7 +24,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.Query;
 import org.apache.lucene.search.WildcardQuery;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Build;
@@ -360,7 +359,6 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 		try {
 			BooleanQuery bq = new BooleanQuery();
 			BooleanQuery.setMaxClauseCount(Integer.MAX_VALUE);
-			Query query = null;
 			if (StringUtils.isNotBlank(name)) {
 				bq.add(new WildcardQuery(new Term(ArtifactInfo.ARTIFACT_ID,
 						name.toLowerCase())), Occur.MUST);

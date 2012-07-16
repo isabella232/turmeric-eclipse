@@ -51,7 +51,6 @@ public class GlobalRepositorySystem {
 		IExtensionPoint extensionPoint = registry
 				.getExtensionPoint(RepositorySystemActivator.PLUGIN_ID
 						+ ".repositorysystem");
-		String systemID = PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM;
 		if (extensionPoint != null) {
 			IExtension[] extensions = extensionPoint.getExtensions();
 			boolean foundV3 = false;
@@ -80,7 +79,6 @@ public class GlobalRepositorySystem {
 				//the default V3 plugin is not installed, we should use the first available repo system
 				IEclipsePreferences prefs = RepositorySystemActivator.getDefault().getPreferences();
 				prefs.put(PreferenceConstants.PREF_REPOSITORY_SYSTEM, availableRepositorySystems.get(0).getId());
-				systemID = availableRepositorySystems.get(0).getId();
 			}
 			//SOALogger.setBuildSystemName(systemID);
 		}

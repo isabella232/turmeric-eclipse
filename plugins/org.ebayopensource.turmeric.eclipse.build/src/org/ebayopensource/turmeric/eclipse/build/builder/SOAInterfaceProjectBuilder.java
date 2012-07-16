@@ -11,6 +11,7 @@ package org.ebayopensource.turmeric.eclipse.build.builder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.ebayopensource.turmeric.eclipse.build.SOAFrameworkBuilderActivator;
 import org.ebayopensource.turmeric.eclipse.buildsystem.SynchronizeWsdlAndDepXML;
@@ -72,10 +73,7 @@ public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 			try {
 				SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
  				synch.syncronizeWsdlandDepXml();
-				synch.synchronizeTypeDepandProjectDep(monitor);
-				//TypeLibSynhcronizer.syncronizeWsdlandDepXml(project);
-				//TypeLibSynhcronizer.synchronizeTypeDepandProjectDep(project,
-				//		monitor);
+				synch.synchronizeTypeDepandProjectDep(monitor);				
 			} catch (Exception e) {
 				SOAExceptionHandler.silentHandleException(e);
 				// Silently ignore. This is just an attempt
@@ -113,7 +111,9 @@ public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 		BaseCodeGenModel codeGenModel = ModelTransformer
 		.transformToGenTypeServiceFromWSDLIntf(
 				baseCodeGenModel, project);
+		Properties propertyStore =System.getProperties();
 		codegenInvoker.execute(codeGenModel);		
+		System.setProperties(propertyStore);		
 		return null;
 	}
 

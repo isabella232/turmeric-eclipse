@@ -309,7 +309,7 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 				ExpandableComposite.COMPACT | ExpandableComposite.TWISTIE | ExpandableComposite.EXPANDED);
 		GridData data = new GridData(GridData.FILL_BOTH);
 		data.verticalIndent = 7;
-		data.horizontalSpan = 4;
+		data.horizontalSpan = 4;		
 		eComposite.setLayoutData(data);
 		eComposite.setText("Advanced");
 		eComposite.addExpansionListener(new ExpansionAdapter() {
@@ -326,9 +326,11 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 		if (listener != null) {
 			eComposite.addExpansionListener(listener);
 		}
+		eComposite.setExpanded(true);
+		System.out.println(eComposite.isExpanded());
 		Composite composite = createParentControl(eComposite, 4);
-		eComposite.setClient(composite);
-
+		eComposite.setClient(composite);		
+		
 		return composite;
 	}
 

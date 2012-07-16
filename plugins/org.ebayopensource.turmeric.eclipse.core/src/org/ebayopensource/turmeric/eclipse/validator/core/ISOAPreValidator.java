@@ -48,4 +48,6 @@ public interface ISOAPreValidator extends ISOAValidator {
 	 * @throws ValidationInterruptedException the validation interrupted exception
 	 */
 	public IStatus validateProjectCreation(Object obj) throws ValidationInterruptedException ;
+
+	public IStatus validatePluginStartUp();
 }

@@ -345,6 +345,7 @@ public class SynchronizeWsdlAndDepXML {
 			if (allXmlDepLibs.contains(project.getName())) {
 				allXmlDepLibs.remove(project.getName());
 			}
+			
 
 			List<AssetInfo> dependencies = GlobalRepositorySystem.instanceOf()
 					.getActiveRepositorySystem().getAssetRegistry()
@@ -356,9 +357,12 @@ public class SynchronizeWsdlAndDepXML {
 				// with any other dependency
 				if (typeRegistry.getTypeLibrary(assetInfo.getName()) != null
 						|| allXmlDepLibs.contains(assetInfo.getName())) {
+					
 					//we also accept the required dependencies for TL which are 
 					//not necessarily a type library.
+					
 						projTypeLibDeps.add(assetInfo.getName());
+					
 					
 				} else if (allXmlDepLibs.contains(assetInfo.getShortDescription())) {
 					projTypeLibDeps.add(assetInfo.getShortDescription());
@@ -380,11 +384,11 @@ public class SynchronizeWsdlAndDepXML {
 				ISOAProjectConfigurer projectConfigurer = GlobalRepositorySystem
 						.instanceOf().getActiveRepositorySystem()
 						.getProjectConfigurer();
-				String projectName = project.getName();
-				//The added libraries should remove these two ilbs always, for RIDE.
+				String projectName = project.getName();				
 				addedLibraries.remove("SOACommonTypeLibrary");
 				addedLibraries.remove("MarketPlaceServiceCommonTypeLibrary");
 				for (String addedLibrary : addedLibraries) {
+					
 					projectConfigurer.addTypeLibraryDependency(projectName,
 							addedLibrary, IAssetInfo.TYPE_LIBRARY, true,
 							monitor);

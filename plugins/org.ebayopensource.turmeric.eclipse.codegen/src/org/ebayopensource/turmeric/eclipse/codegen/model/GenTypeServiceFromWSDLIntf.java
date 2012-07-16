@@ -62,12 +62,12 @@ public class GenTypeServiceFromWSDLIntf extends GenTypeClient {
 			String projectRoot, String serviceLayer, String sourceDirectory,
 			String destination, String outputDirectory,
 			boolean generateFromWsdl, String genFolder,
-			String genInterfacePacakgeName, String genInterfaceClassName) {
+			String genInterfacePacakgeName, String genInterfaceClassName, String clientName) {
 		super(GENTYPE_SERVICE_FROM_WSDL_INTF, namespace, serviceLayerFile,
 				serviceInterface, serviceName, serviceVersion, serviceImpl,
 				projectRoot, serviceLayer, sourceDirectory, destination,
 				outputDirectory, generateFromWsdl, genFolder,
-				genInterfacePacakgeName, genInterfaceClassName);
+				genInterfacePacakgeName, genInterfaceClassName,clientName);
 
 	}
 

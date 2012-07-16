@@ -359,9 +359,7 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 
 		List documentationList = xsdAnnotation.getUserInformation();
 		Element documentationElement = null;
-		boolean documentationExists = false;
 		if (documentationList.size() > 0) {
-			documentationExists = true;
 			documentationElement = (Element) documentationList.get(0);
 		}
 

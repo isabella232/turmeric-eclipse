@@ -33,6 +33,7 @@ import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -87,8 +88,12 @@ public class UIActivator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		
-		ensureM2EcipseBeingInited();
+		IStatus status = GlobalRepositorySystem.instanceOf()
+        .getActiveRepositorySystem().getPreValidator().validatePluginStartUp();
+		if(!status.isOK()){
+			logger.error(status.getMessage());
+			logger.warning("Type library registry initialization put off temporarily as indexing failed");
+		}
 		
 		StringBuffer buf = new StringBuffer();
 		buf.append("SOAPlugin.start - ");

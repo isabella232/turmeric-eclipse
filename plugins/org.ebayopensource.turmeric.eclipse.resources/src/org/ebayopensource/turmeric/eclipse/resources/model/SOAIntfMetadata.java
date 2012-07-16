@@ -10,7 +10,6 @@ package org.ebayopensource.turmeric.eclipse.resources.model;
 
 import java.net.URL;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.wsdl.WSDLException;
@@ -19,10 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.ConsumerSourceType;
-import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.InterfaceSourceType;
-import org.ebayopensource.turmeric.eclipse.resources.ui.model.ConsumerFromJavaParamModel;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
-import org.omg.CORBA.INTF_REPOS;
 
 
 /**

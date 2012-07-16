@@ -675,7 +675,32 @@ public class SOAProjectConstants {
      * Default version. 1.1 
      */
     public static final String PROPS_DEFAULT_SIMP_VERSION = PROPS_DEFAULT_PROPERTY_VERSION;
-
+    /*
+     * Property for enabling raptor consumer generation
+     */
+    public static final String PROPS_KEY_RAPTOR_CONSUMER_GENERATION = "raptorConsumerGeneration";
+    
+    /*
+     * Default value for enabling raptor consumer generation in RIDE
+     */
+    public static final String PROPS_DEFAULT_RAPTOR_CONSUMER_GENERATION = "false";
+    /*
+     * Property for enabling deletion of object factory and package info in RIDE
+     */
+    public static final String PROPS_OBJECT_FACT_PACK_INFO_DEL = "deleteObjectFactoryPackinfo";
+    /*
+     * Property for enabling deletion of object factory and package info in RIDE
+     */
+    public static final String PROPS_DEFAULT_OBJECT_FACT_PACK_INFO_DEL = "true";
+    
+    /*
+     * Default preference file name in RIDE
+     */
+    public static final String PREFS_FILE = "org.eclipse.pde.core.prefs";
+    public static final String RIDE_PREFS_KEY_BUNDLE="BUNDLE_ROOT_PATH";
+    public static final String RIDE_PREFS_VALUE_BUNDLE="src/main/resources";
+    
+    
     // preference properties
     /** The Constant PROP_REQUIRED_SERVICES. */
     public static final String PROP_REQUIRED_SERVICES = "requiredServices";
