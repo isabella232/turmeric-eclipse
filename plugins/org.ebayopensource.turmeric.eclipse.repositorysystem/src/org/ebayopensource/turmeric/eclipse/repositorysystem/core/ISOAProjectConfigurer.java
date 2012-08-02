@@ -220,5 +220,7 @@ public interface ISOAProjectConfigurer {
 	public void postServiceVersionUpdated(SOAIntfProject soaIntfProject,
 			String oldVersion, String newVersion, boolean silence, IProgressMonitor monitor)
 			throws Exception;
+
+	public String getClientGroupName(IProject project);
 	
 }

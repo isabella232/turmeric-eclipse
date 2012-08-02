@@ -185,9 +185,10 @@ public class BuildSystemCodeGen {
 				.toString()
 				+ WorkspaceUtil.PATH_SEPERATOR
 				+ SOAProjectConstants.FOLDER_META_SRC);
-		final ISOAConfigurationRegistry config = GlobalRepositorySystem.instanceOf()
-		.getActiveRepositorySystem().getConfigurationRegistry();
-		genTypeClientConfig.setClientConfigGroup(config.getClientConfigGroup());
+		
+		String clientConfigGroupName= GlobalRepositorySystem.instanceOf()
+		.getActiveRepositorySystem().getProjectConfigurer().getClientGroupName(consumerProject);
+		genTypeClientConfig.setClientConfigGroup(clientConfigGroupName);
 		// these are all the service related data
 		final Map<String, Map<String, String>> requiredServices = new LinkedHashMap<String, Map<String, String>>();
 		for (final SOAIntfMetadata addedService : addedServices) {
