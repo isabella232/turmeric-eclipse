@@ -280,7 +280,7 @@ public final class SOAConsumerUtil {
 				for (final IResource clientFolder : folder.getParent().members()) {
 					if (clientFolder instanceof IFolder) {
 						//service name
-						if (clientFolder instanceof IFolder &&((IFolder) clientFolder)
+						if (((IFolder) clientFolder)
 								.getFile(ISOAConsumerProject.FILE_ClIENT_CONFIG).isAccessible()) {
 							//the sub folder contains valid ClientConfig.xml file
 							final String clientFolderName = clientFolder.getName();

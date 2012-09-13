@@ -64,7 +64,7 @@ public final class ExtensionPointFactory {
 	 * @return the sOA registry provider
 	 * @throws CoreException the core exception
 	 */
-	public static IRegistryProvider getSOARegistryProvider() throws CoreException{
+	public synchronized static IRegistryProvider getSOARegistryProvider() throws CoreException{
 		if (registryProvider == null) {
 			final IExtensionRegistry registry = Platform.getExtensionRegistry();
 			IExtensionPoint extensionPoint = registry
@@ -90,7 +90,7 @@ public final class ExtensionPointFactory {
 	 * @return the artifact validators
 	 * @throws CoreException the core exception
 	 */
-	public static List<IArtifactValidator> getArtifactValidators() 
+	public synchronized static List<IArtifactValidator> getArtifactValidators() 
 	throws CoreException {
 		if (validators == null) {
 			final IExtensionRegistry registry = Platform.getExtensionRegistry();
@@ -138,7 +138,7 @@ public final class ExtensionPointFactory {
 	 * @return the sOA client registry provider
 	 * @throws CoreException the core exception
 	 */
-	public static IClientRegistryProvider getSOAClientRegistryProvider() throws CoreException{
+	public synchronized static IClientRegistryProvider getSOAClientRegistryProvider() throws CoreException{
 		if (clientRegistryProvider == null) {
 			final IExtensionRegistry registry = Platform.getExtensionRegistry();
 			IExtensionPoint extensionPoint = registry

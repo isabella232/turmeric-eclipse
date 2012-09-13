@@ -3,12 +3,14 @@
 <plugin>
   <extension
         point="org.eclipse.ui.preferencePages">
+        
+     <!-- Removing for RIDe since RIDE does not use a prefernces page and error libraries
      <page
      	   category="org.ebayopensource.turmeric.eclipse.ui.preferences"
            class="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences.ErrorIdServicePreferencePage"
            id="org.ebayopensource.turmeric.eclipse.errorlibrary.properties.preferences.ErrorIdServicePreferencePage"
            name="ErrorIdService Preferences">
-     </page>
+     </page>-->
   </extension>
   
   <extension

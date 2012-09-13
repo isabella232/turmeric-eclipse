@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -26,8 +27,10 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.text.html.parser.Element;
 import javax.wsdl.Definition;
 import javax.wsdl.Import;
 import javax.wsdl.Types;
@@ -38,6 +41,9 @@ import javax.wsdl.extensions.schema.SchemaReference;
 import javax.wsdl.factory.WSDLFactory;
 import javax.wsdl.xml.WSDLReader;
 import javax.wsdl.xml.WSDLWriter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
@@ -52,7 +58,15 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+
+
 
 
 /**
@@ -618,6 +632,52 @@ public final class WSDLUtil {
 			}
 		}
 		return result;
+	}
+	public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws ParserConfigurationException, SAXException, IOException{
+		
+		Map<String,String> typeLibraryPackageSet = new HashMap<String,String>();
+		
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+
+		builder = factory.newDocumentBuilder();
+		Document m_Document = builder.parse(wsdl.getDocumentBaseURI());
+		
+		NodeList list = m_Document.getElementsByTagName("typeLibrarySource");
+		for(int i =0;i<list.getLength();i++){
+			Node n = list.item(i);
+			
+			if(((n.getParentNode().getNodeName().endsWith(":appinfo")) 
+					||(n.getParentNode().getNodeName().equalsIgnoreCase("appinfo")))
+				&&(n.hasAttributes()) ){
+				Node typeLibrary = n.getAttributes().getNamedItem("library");
+				Node nameSpace = n.getAttributes().getNamedItem("namespace");
+				if(typeLibrary!=null&&nameSpace!=null){
+					//Calling the ns to package mapper from codegen to maintain consistency
+					
+					//String packageName = XJC.getDefaultPackageName(nameSpace.getNodeValue());
+					typeLibraryPackageSet.put(typeLibrary.getNodeValue(), nameSpace.getNodeValue());
+					//com.sun.tools.xjc.api.XJC.
+				}
+			}
+		}
+//		if (wsdl.getTypes() != null) {
+//			
+//			for (Object obj : wsdl.getTypes().getExtensibilityElements()) {
+//				if (obj instanceof Schema) {
+//				Schema xs = (Schema)obj;
+//				NodeList list =xs.getElement().getChildNodes();
+//				for(int i =0;i<list.getLength();i++){
+//					Node a = list.item(i);
+//					System.out.println(a.getNodeName());
+//					
+//				}
+//				NamedNodeMap nodemapr=list.item(0).getAttributes();
+//				System.out.println(nodemapr.getLength());
+//				}
+//			}
+//		}
+		return typeLibraryPackageSet;
 	}
 	
 	private static void getAllTargetNamespaces(final Schema schema, final Collection<String> namespaces, 

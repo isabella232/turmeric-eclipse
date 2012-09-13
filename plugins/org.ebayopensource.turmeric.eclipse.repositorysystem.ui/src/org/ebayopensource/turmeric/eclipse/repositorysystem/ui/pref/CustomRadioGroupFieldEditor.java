@@ -48,7 +48,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 	 * The first level key is repo ID, the second level key is org ID/Name, then
 	 * the value is org display name
 	 */
-	private Map<String, Map<String, String>> organizations;
+	
 
 	private int numColumns;
 
@@ -56,9 +56,9 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 
 	private String value;
 
-	private String subPreferenceName;
+	
 
-	private String subValue;
+	
 
 	private Composite chooseArea;
 
@@ -66,9 +66,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 
 	private boolean useGroup;
 
-	private Map<FieldEditor, Composite> subFieldEditors = new ConcurrentHashMap<FieldEditor, Composite>();
-
-	private Map<String, List<Button>> subButtons = new ConcurrentHashMap<String, List<Button>>();
+	
 
 	/**
 	 * Instantiates a new custom radio group field editor.
@@ -107,9 +105,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 		init(name, labelText);
 		Assert.isTrue(validateKeyValuePair(labelAndValues));
 		Assert.isNotNull(organizations);
-		this.subPreferenceName = PreferenceConstants.PREF_ORGANIZATION;
-		this.labelsAndValues = labelAndValues;
-		this.organizations = organizations;
+		this.labelsAndValues = labelAndValues;	
 		this.numColumns = numColumns;
 		this.useGroup = useGroup;
 		createControl(parent);
@@ -120,11 +116,10 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 	 */
 	@Override
 	protected void doLoad() {
+		
 		String value = getPreferenceStore().getString(getPreferenceName());
 		updateValue(value);
-		setSubButtonsEnabled(value);
-		updateSubValue(value,
-				getPreferenceStore().getString(getSubPreferenceName()));
+		
 	}
 
 	/**
@@ -135,18 +130,10 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 		String value = getPreferenceStore().getDefaultString(
 				getPreferenceName());
 		updateValue(value);
-		updateSubValue(value,
-				getPreferenceStore().getDefaultString(getSubPreferenceName()));
+		
 	}
 
-	/**
-	 * Gets the sub preference name.
-	 *
-	 * @return the sub preference name
-	 */
-	public String getSubPreferenceName() {
-		return subPreferenceName;
-	}
+	
 
 	/**
 	 * {@inheritDoc}
@@ -158,14 +145,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 			return;
 		}
 
-		getPreferenceStore().setValue(getPreferenceName(), value);
-
-		if (subValue == null) {
-			getPreferenceStore().setToDefault(getSubPreferenceName());
-			return;
-		}
-
-		getPreferenceStore().setValue(getSubPreferenceName(), subValue);
+		getPreferenceStore().setValue(getPreferenceName(), value);		
 	}
 
 	/**
@@ -272,7 +252,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 			radio.setText(labelAndValue[0]);
 			radio.setData(labelAndValue[1]);
 			radio.setFont(font);
-			radio.setEnabled(organizations.size() > 1);
+			radio.setEnabled(true);
 			radio.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(SelectionEvent event) {
@@ -280,38 +260,12 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 					String oldValue = value;
 					value = (String) event.widget.getData();
 					setPresentsDefaultValue(false);
-					setSubButtonsEnabled(value);
 					fireValueChanged(VALUE, oldValue, value);
 				}
 			});
 
-			final Composite composite = new Composite(chooseArea, SWT.NONE);
-			final GridLayout layout = new GridLayout(1, true);
-			composite.setLayout(layout);
-			List<Button> buttons = new ArrayList<Button>();
-			subButtons.put(labelAndValue[1], buttons);
-			for (String orgId : organizations.get(labelAndValue[1]).keySet()) {
-				final Button radio1 = new Button(composite, SWT.RADIO
-						| SWT.LEFT);
-				GridData data = new GridData();
-				data.horizontalIndent = 30;
-				radio1.setLayoutData(data);
-				radio1.setText(organizations.get(labelAndValue[1]).get(orgId));
-				radio1.setData(orgId);
-				radio1.setFont(font);
-				radio1.setEnabled(organizations.get(labelAndValue[1]).size() > 1);
-				radio1.addSelectionListener(new SelectionAdapter() {
-					@Override
-					public void widgetSelected(SelectionEvent event) {
-						CustomRadioGroupFieldEditor.this.clearErrorMessage();
-						String oldValue = subValue;
-						subValue = (String) event.widget.getData();
-						setPresentsDefaultValue(false);
-						fireValueChanged(SUB_VALUE, oldValue, subValue);
-					}
-				});
-				buttons.add(radio1);
-			}
+		
+		
 
 			final Composite panel = new Composite(chooseArea, SWT.NONE);
 			GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -325,7 +279,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 				data = new GridData();
 				data.horizontalIndent = 15;
 				label.setLayoutData(data);
-				subFieldEditors.put(fieldEditor, panel);
+			
 				fieldEditor.setEnabled(
 						radio.getText().equals(
 								getPreferenceStore().getString(
@@ -339,7 +293,6 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 
 					@Override
 					public void widgetSelected(SelectionEvent e) {
-						setSubFieldEditorEnabled(false);
 						fieldEditor.setEnabled(radio.getSelection(), panel);
 						fieldEditor.setFocus();
 					}
@@ -358,15 +311,6 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 		return chooseArea;
 	}
 
-	private void setSubButtonsEnabled(String id) {
-		for (String key : subButtons.keySet()) {
-			for (Button btn : subButtons.get(key)) {
-				btn.setEnabled(id.equals(key));
-				btn.setSelection(false);
-			}
-		}
-		updateSubValue(id, "");
-	}
 
 	/**
 	 * Creates the choice sub field editor.
@@ -381,12 +325,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 		return null;
 	}
 
-	private void setSubFieldEditorEnabled(boolean enabled) {
-		for (FieldEditor fieldEditor : this.subFieldEditors.keySet()) {
-			fieldEditor.setEnabled(enabled,
-					this.subFieldEditors.get(fieldEditor));
-		}
-	}
+	
 
 	/**
 	 * Sets the indent used for the first column of the radion button matrix.
@@ -432,36 +371,7 @@ public class CustomRadioGroupFieldEditor extends FieldEditor {
 		return;
 	}
 
-	private void updateSubValue(String firstValue, String selectedValue) {
-		this.subValue = selectedValue;
-		if (subButtons == null) {
-			return;
-		}
-
-		if (this.subValue != null) {
-			boolean found = false;
-			for (Button radio : subButtons.get(this.value)) {
-				boolean selection = false;
-				if (((String) radio.getData()).equals(this.subValue)) {
-					selection = true;
-					found = true;
-				}
-				radio.setSelection(selection);
-				radio.setEnabled(this.organizations.get(this.value).size() > 1);
-			}
-			if (found) {
-				return;
-			}
-		}
-
-		// if value is not found, the first radio button will be selected.
-		if (subButtons.get(firstValue).isEmpty() == false) {
-			subButtons.get(firstValue).get(0).setSelection(true);
-			this.subValue = (String) subButtons.get(firstValue).get(0)
-					.getData();
-		}
-		return;
-	}
+	
 
 	/**
 	 * {@inheritDoc}

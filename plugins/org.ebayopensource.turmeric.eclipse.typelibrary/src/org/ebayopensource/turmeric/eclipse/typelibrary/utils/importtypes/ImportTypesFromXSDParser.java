@@ -820,6 +820,7 @@ public class ImportTypesFromXSDParser extends DefaultHandler {
 				}
 				xsdFile.createNewFile();
 				PrintWriter pw = new PrintWriter(xsdFile);
+				if(xsdRealContent!=null)
 				pw.write(xsdRealContent);
 				pw.flush();
 				pw.close();

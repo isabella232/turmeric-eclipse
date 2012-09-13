@@ -113,6 +113,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			final IStructuredSelection selection) throws Exception {
 		super("ConsumeServiceFromWSDLWizardPage",
 				"Consume Service From Existing WSDL Wizard", ADV_MODE_TITLE);
+		if(selection!=null){
 		IProject project = (IProject) selection.getFirstElement();
 		soaPrj = GlobalRepositorySystem.instanceOf()
 				.getActiveRepositorySystem().getAssetRegistry()
@@ -146,6 +147,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 				UIUtil.showErrorDialog("Unable to load environments.", e);
 			}
 			clientPropEditable = false;
+		}
 		}
 	}
 

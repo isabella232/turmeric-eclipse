@@ -76,8 +76,9 @@ public class SOAClientConfigUtil {
 		File soaConfFile = iFile.getLocation().toFile();
 		Document document = JDOMUtil.readXML(soaConfFile);
 		Element clientConfigList = document.getRootElement();
-		Namespace nameSpace = clientConfigList.getNamespace();
+
 		if (clientConfigList != null) {
+			Namespace nameSpace = clientConfigList.getNamespace();
 			Element clientConfig = clientConfigList.getChild(CLIENT_CONFIG,
 					nameSpace);
 
@@ -210,8 +211,9 @@ public class SOAClientConfigUtil {
 		// the config tool parsing
 		// service location
 		Element clientConfigList = document.getRootElement();
-		Namespace nameSpace = clientConfigList.getNamespace();
+		
 		if (clientConfigList != null) {
+			Namespace nameSpace = clientConfigList.getNamespace();
 			Element clientConfig = clientConfigList.getChild(CLIENT_CONFIG,
 					nameSpace);
 			if (clientConfig != null) {

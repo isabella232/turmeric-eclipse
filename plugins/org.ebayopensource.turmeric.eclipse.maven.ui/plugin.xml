@@ -3,12 +3,13 @@
 <plugin>
    <extension
          point="org.eclipse.ui.preferencePages">
+      <!-- Removing prefernces page on RIDE
       <page
             category="org.ebayopensource.turmeric.eclipse.ui.preferences"
             class="org.ebayopensource.turmeric.eclipse.maven.ui.preferences.TurmericSOAConfigPrefPage"
             id="org.ebayopensource.turmeric.eclipse.maven.core.page1"
             name="Turmeric SOA Configurations">
-      </page>
+      </page>-->
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">

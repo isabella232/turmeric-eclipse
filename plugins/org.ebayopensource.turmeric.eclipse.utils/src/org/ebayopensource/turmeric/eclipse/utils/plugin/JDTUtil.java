@@ -137,7 +137,7 @@ public class JDTUtil {
 		final IJavaProject javaProject = JavaCore.create(project);
 		final List<IClasspathEntry> classpath = JDTUtil.rawClasspath(
 				javaProject, true);
-		if (outputLocation.equals(javaProject.getOutputLocation()) == false) {
+		if (outputLocation.equals(javaProject.getOutputLocation().toString()) == false) {
 			final IFolder outputDirClasses = project.getFolder(outputLocation);
 			javaProject.setOutputLocation(outputDirClasses.getFullPath(), monitor);
 			changedClasspath = true;

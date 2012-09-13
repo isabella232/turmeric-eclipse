@@ -106,7 +106,7 @@ public class SOAGlobalConfigAccessor {
 	 * @return the global configurations
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static Properties getGlobalConfigurations() throws IOException {
+	public synchronized static  Properties getGlobalConfigurations() throws IOException {
 		if (globalConfigurations == null) {
 			globalConfigurations = loadConfigurations(GLOBAL_CONFIG_PATH);
 		}
@@ -235,7 +235,7 @@ public class SOAGlobalConfigAccessor {
 	 * @return the service configuration
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static SOAServiceConfiguration getServiceConfiguration(
+	public synchronized static SOAServiceConfiguration getServiceConfiguration(
 			String buildSystemName, String organization) throws IOException {
 		if (soaServiceConfiguration == null) {
 			final Properties props = getOrganizationConfigurations(buildSystemName, organization);

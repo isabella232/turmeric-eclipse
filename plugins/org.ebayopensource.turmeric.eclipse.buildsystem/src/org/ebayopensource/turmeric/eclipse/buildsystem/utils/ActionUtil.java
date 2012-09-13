@@ -103,8 +103,10 @@ public class ActionUtil {
 		final IProject project = (IProject) ((IAdaptable) selectedObject)
 				.getAdapter(IProject.class);
 		if (project == null || !project.isAccessible()) {
+			String projectName = "Invalid Project"; 
+			if(project!=null) {projectName=project.getName();}
 			logger.warning(StringUtil.formatString(SOAMessages.INVALIDPROJECT,
-					project.getName()));
+					projectName));
 			return null;
 		}
 		return project;

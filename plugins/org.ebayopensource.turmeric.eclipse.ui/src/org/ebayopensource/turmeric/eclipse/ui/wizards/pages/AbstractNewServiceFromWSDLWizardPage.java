@@ -198,7 +198,7 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 			} catch (ValidationInterruptedException e) {
 				processException(e);
 			}
-			if (validationModel.isOK() == false) {
+			if( (validationModel==null)||(validationModel.isOK() == false) ){
 				updatePageStatus(wsdlURLText, validationModel);
 				hasWSDLError = true;
 				return false;
@@ -558,12 +558,14 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 	}
 	public void setNamespaceToPackageMappings(Map<String, String> mappings,String packageName) {
 		//final Map<String, String> result = new LinkedHashMap<String, String>();
-		
+		try{
 		
 		for (final TableItem item : ns2pkgViewer.getTable().getItems()) {
 			NamespaceToPackageModel oldModel = (NamespaceToPackageModel)item.getData();
 		item.setData(new NamespaceToPackageModel(oldModel.namespace,packageName));
 		item.setText(1,packageName);
+		}}catch(Exception e){
+			
 		}
 		
 	}

@@ -8,24 +8,46 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.buildsystem.eclipse;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuilderUtil;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAActionExecutionFailedException;
+import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceNotAccessibleException;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.RepositorySystemActivator;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.preferences.core.PreferenceConstants;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.GlobalProjectHealthChecker;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.ProjectUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
+import org.ebayopensource.turmeric.eclipse.utils.ui.ProjectUtils;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.PackageFragment;
+import org.eclipse.jdt.internal.core.PackageFragmentRoot;
 
 /**
  * The Class AbstractSOAProjectBuilder.
@@ -73,7 +95,9 @@ public abstract class AbstractSOAProjectBuilder extends
 					MarkerUtil.createSOAProblemMarkerRecursive(status, project);
 				}
 				BuilderUtil.generateSourceDirectories(project, monitor);
-				return doBuild(kind, args, project, delta, monitor);
+				IProject[] toReturn= doBuild(kind, args, project, delta, monitor);
+				//ProjectUtils.callSplitPackageServiceAndProcessOutPut(getbundleName(project), getPackages(project), project, getErrorLevel(),false);
+				return toReturn;
 			} else {
 				if (SOALogger.DEBUG) {
 					logger
@@ -97,7 +121,47 @@ public abstract class AbstractSOAProjectBuilder extends
 		}
 		return null;
 	}
-
+	/*
+	 * Gets all the codegenerated packages which need to be validate for split package after every full clean build
+	 */
+	private Set<String> getPackages(IProject project) throws CoreException
+	{
+		Set<String> packages = new HashSet<String>();
+		IJavaProject javaProject = JavaCore.create(project);
+		IFolder folder =project.getFolder("gen-src\\client");
+		List<IFile> files = WorkspaceUtil.getFilesWithExtensions(folder, true, "java");
+		for(IFile file:files){
+			IPath sandwitch = file.getProjectRelativePath().removeFirstSegments(2).removeLastSegments(1);
+			packages.add(sandwitch.toString().replace("/", "."));
+		}
+		return packages;
+	}
+	/*
+	 * Gets the bundle symbolic Name from manifest. If not available, uses the common group name + project name
+	 * as the default bundle symbolic name
+	 */
+	private String getbundleName(IProject project){
+		String bundleName = null;
+		try{
+		bundleName= ProjectUtils.getBundleSymbolicNameFromManifest(project);
+		}catch(Exception e){
+		}
+		if(bundleName==null){
+			bundleName="com.ebay.soa.interface"+project.getName();
+		}
+		return bundleName;
+	}
+	/*
+	 * Gets the error Prefernence level for Split Package Validation
+	 */
+	private boolean getErrorLevel(){
+		String errorlevel = RepositorySystemActivator.getDefault().getPreferences()
+				.get(PreferenceConstants.PREF_ERROR_LEVEL_NAME,PreferenceConstants.PREF__WARNING);
+		if(errorlevel.equals(PreferenceConstants.PREF__WARNING)){
+			return false;
+		}
+		return true;
+	}
 	/**
 	 * Do build.
 	 *

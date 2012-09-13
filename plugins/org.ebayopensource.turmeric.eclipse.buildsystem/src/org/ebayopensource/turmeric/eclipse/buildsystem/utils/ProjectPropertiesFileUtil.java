@@ -88,7 +88,7 @@ public class ProjectPropertiesFileUtil {
 		}
 		 
 		  }catch (Exception e){//Catch exception if any
-			  System.out.println(e.getStackTrace());
+			  SOALogger.getLogger().error(e.getMessage());
 		  }	finally{
 			  IOUtils.closeQuietly(source);
 		  }
@@ -114,8 +114,8 @@ public class ProjectPropertiesFileUtil {
 							SOAProjectConstants.SVC_PROTOCOL_BUF);
 				}
 			}
-			if (SOAProjectConstants.InterfaceSourceType.WSDL.equals(metadata
-					.getSourceType())
+			if (SOAProjectConstants.InterfaceSourceType.WSDL.toString().equals(metadata
+					.getSourceType().toString())
 					|| SOAProjectConstants.InterfaceWsdlSourceType.EXISTIING
 							.equals(metadata.getWsdlSourceType())) {
 				properties.setProperty(

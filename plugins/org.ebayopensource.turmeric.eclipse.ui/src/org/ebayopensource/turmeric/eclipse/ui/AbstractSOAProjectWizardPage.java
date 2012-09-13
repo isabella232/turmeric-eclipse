@@ -155,8 +155,9 @@ AbstractSOAResourceWizardPage {
 									 * .getDefaultProjectLocation() :
 									 * DEFAULT_TEXT_VALUE;
 									 */
-		final boolean shouldOverrideProjectRootDirectory = locator
-				.shouldOverrideProjectRootDirectory();
+		boolean shouldOverrideProjectRootDirectory = true;
+		if(locator!=null)
+			{shouldOverrideProjectRootDirectory=locator.shouldOverrideProjectRootDirectory();}
 		boolean saveLocation = false; // whether to save the location to pref
 										// store
 		if (shouldOverrideProjectRootDirectory) {

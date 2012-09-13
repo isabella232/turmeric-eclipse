@@ -441,6 +441,11 @@ public class WorkspaceUtil {
 		description.setAutoBuilding(bool);
 		getWorkspace().setDescription(description);
 	}
+	
+	public static boolean isBuildAutomatically() throws CoreException {
+		IWorkspaceDescription description = getWorkspace().getDescription();
+		return description.isAutoBuilding();
+	}
 
 	/**
 	 * Right now used for testing purpose.
@@ -596,7 +601,8 @@ public class WorkspaceUtil {
 		file.create(IOUtils.toInputStream(" "), true, monitor);
 		return file;
 	}
-
+	
+	
 	/**
 	 * Gets the files with extensions.
 	 *

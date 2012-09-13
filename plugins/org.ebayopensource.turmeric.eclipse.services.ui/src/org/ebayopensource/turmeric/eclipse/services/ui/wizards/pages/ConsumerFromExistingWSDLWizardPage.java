@@ -11,14 +11,21 @@
  */
 package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.wsdl.Definition;
 import javax.wsdl.Service;
+import javax.wsdl.Types;
+import javax.wsdl.WSDLException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
@@ -33,6 +40,7 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositoryS
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
+import org.ebayopensource.turmeric.eclipse.services.ui.wizards.ConsumerFromWSDLWizard;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
@@ -44,6 +52,8 @@ import org.ebayopensource.turmeric.eclipse.validator.core.InputObject;
 import org.ebayopensource.turmeric.eclipse.validator.utils.ValidateUtil;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.NameValidator;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.RegExConstants;
+import org.ebayopensource.turmeric.tools.codegen.external.wsdl.parser.WSDLConversionToSingleNsHelper;
+import org.ebayopensource.turmeric.tools.codegen.external.wsdl.parser.util.WSDLParserUtil;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -61,6 +71,7 @@ import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -75,6 +86,13 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import com.sun.tools.xjc.api.XJC;
 
 
 /**
@@ -93,6 +111,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	private String versionFromWSDL = null;
 	private boolean simpleMode = false; //simple mode will not need to craete the consumer project
 	private String domainName = "";
+	public Map<String,String> typeLibNameAndPackage;
 	
 	private static final String SIMPLE_MODE_TITLE = "Simple Mode reads a pre-existing WSDL document, creates a consumerized SOA Intf Project with a ClientConfig.xml.";
 	
@@ -129,21 +148,20 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 			dialogChanged(true);
 		}
 	}
-
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void createControl(Composite parent) {
 		try {
-			final Composite container = super.createParentControl(parent, 4);
+		final Composite container = super.createParentControl(parent, 4);
 			Text wsdlText = addWSDL(container);
 			
 			addWorkspaceRootChooser(container);
 			addServiceName(container, false);
 			
 			this.adminText = addAdminName(container, false);
-			{
+			
 				if (this.resourceNameControlDecoration != null) {
 					// we do not want to show both WARNING and INFORMATION icons
 					resourceNameControlDecoration.hide();
@@ -157,10 +175,10 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 						.getDefault().getFieldDecoration(
 								FieldDecorationRegistry.DEC_WARNING);
 				controlDecoration.setImage(fieldDecoration.getImage());
-			}
+			
 			createServiceClient(container, false);			
 			
-			{
+			
 				//advanced section
 				ExpansionAdapter listener  = new ExpansionAdapter() {
 					public void expansionStateChanged(ExpansionEvent e) {
@@ -188,7 +206,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 				
 				addTypeFolding(advancedPanel).setVisible(true);				
 				super.setTypeFolding(true);
-			}
+			
 			
 			adminText.addModifyListener(new ModifyListener(){
 
@@ -209,6 +227,8 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		}
 	}
 
+	
+	
 	/**
 	 * Creates the consumer id text.
 	 *
@@ -613,7 +633,7 @@ if(this.applicationPackage==null)
 				return false;
 			}
 		}
-
+//Til this only
 		// String version = resourceVersionText.getText();
 		// if (StringUtils.isNotBlank(version) &&
 		// (isV2Format == true)) {
@@ -643,7 +663,7 @@ if(this.applicationPackage==null)
 		 * in wizard must contain a correct V3 format service version.
 		 * Otherwise, the wizard couldn?t continue.
 		 */
-
+//after this only
 		if ((versionFromWSDL != null && resourceVersionText != null)
 				&& versionFromWSDL.equals(getResourceVersion()) == false) {
 			String errorMsg = StringUtil.formatString(
@@ -680,7 +700,60 @@ if(this.applicationPackage==null)
 
 		return true;
 	}
-
+//public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws ParserConfigurationException, SAXException, IOException{
+//		
+//		Map<String,String> typeLibraryPackageSet = new HashMap<String,String>();
+//		try{
+//		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//		DocumentBuilder builder;
+//
+//		builder = factory.newDocumentBuilder();
+//		Document m_Document = builder.parse(wsdl.getDocumentBaseURI());
+//		
+//		NodeList list = m_Document.getElementsByTagName("typeLibrarySource");
+//		for(int i =0;i<list.getLength();i++){
+//			Node n = list.item(i);
+//			
+//			if(((n.getParentNode().getNodeName().endsWith(":appinfo")) 
+//					||(n.getParentNode().getNodeName().equalsIgnoreCase("appinfo")))
+//				&&(n.hasAttributes()) ){
+//				Node typeLibrary = n.getAttributes().getNamedItem("library");
+//				Node nameSpace = n.getAttributes().getNamedItem("namespace");
+//				if(typeLibrary!=null&&nameSpace!=null){
+//					//Calling the ns to package mapper from XJC to maintain consistency
+//					
+//					String packageName = XJC.getDefaultPackageName(nameSpace.getNodeValue());
+//					//lets call the service here if we do not know which bundles it belongs to already.
+//					//Then lets populate some datasructure with thegroup id, art id, tl name, version.
+//					//lets return that data structure here.
+//					typeLibraryPackageSet.put(typeLibrary.getNodeValue(), nameSpace.getNodeValue());
+//
+//				}
+//			}
+//		}
+////		if (wsdl.getTypes() != null) {
+////			
+////			for (Object obj : wsdl.getTypes().getExtensibilityElements()) {
+////				if (obj instanceof Schema) {
+////				Schema xs = (Schema)obj;
+////				NodeList list =xs.getElement().getChildNodes();
+////				for(int i =0;i<list.getLength();i++){
+////					Node a = list.item(i);
+////					System.out.println(a.getNodeName());
+////					
+////				}
+////				NamedNodeMap nodemapr=list.item(0).getAttributes();
+////				System.out.println(nodemapr.getLength());
+////				}
+////			}
+////		}}
+//		}
+//		catch(Exception e){
+//			logger.error(e);
+//		}
+//		return typeLibraryPackageSet;
+//	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -748,6 +821,27 @@ if(this.applicationPackage==null)
 					+ SOAProjectConstants.CLIENT_PROJECT_SUFFIX);
 			setTypeFolding(getDefaultEnabledNSValue());
 			typeFoldingButton.setEnabled(false);
+			
+			
+//			try {
+//				typeLibNameAndPackage=ConsumerFromExistingWSDLWizardPage.getAllTypeLibraryNames(wsdl);
+//				// for each entry in r,
+//				// If no conflicting bundle exists,
+//					//Display a mesg asking user to move tl to library and then add it as a dep and rebuild library.
+//				// If conflicting bundle exists,
+//					//Display a mesg asking user to add it as a possible dependency.
+//			} catch (ParserConfigurationException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (SAXException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+				
+			
 			
 		} else {
 			serviceClientText.setText(DEFAULT_TEXT_VALUE);

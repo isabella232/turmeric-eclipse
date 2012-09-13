@@ -121,6 +121,7 @@ public class BuildSystemConfigurer {
 	public static void performRepositorySpecificTasks(
 			SOAIntfProject intfProject, IProgressMonitor monitor)
 			throws Exception {
+		//JDTUtil.addJavaNature(intfProject.getProject(), monitor);
 		GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 				.getProjectConfigurer().initializeProject(intfProject, monitor);
 	}

@@ -92,7 +92,7 @@ public abstract class SOABaseWizard extends Wizard implements INewWizard,
 	 * overriding this page should call super to get the validation done
 	 */
 	@Override
-	public final void addPages() {
+	public void addPages() {
 		// center the wizard
 		if (getContainer() != null)
 			setShellAtCenter(getContainer().getShell());

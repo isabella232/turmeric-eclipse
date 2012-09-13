@@ -31,8 +31,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.maven.ide.eclipse.core.IMavenConstants;
-import org.maven.ide.eclipse.index.IndexedArtifactFile;
+import org.eclipse.m2e.core.internal.IMavenConstants;
+import org.eclipse.m2e.core.internal.index.IndexedArtifactFile;
 
 /**
  * The Class MavenEclipseUtil.

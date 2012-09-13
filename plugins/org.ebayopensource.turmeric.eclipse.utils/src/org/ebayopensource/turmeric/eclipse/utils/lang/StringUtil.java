@@ -105,8 +105,12 @@ public class StringUtil {
 	 * @return the int
 	 */
 	static int nextWhitespaceAfter(String error, int start, int lineLength) {
+		
+		if (null == error) {
+			return -1;
+		}
 		final int LENGTH = error.length();
-		if ((null == error) || (start >= LENGTH)) {
+		if  (start >= LENGTH) {
 			return -1;
 		}
 		int index = start + lineLength;

@@ -238,14 +238,14 @@ IWorkbenchPropertyPage {
         }
     }
 
-    /**
-     * Gets the soa project.
-     *
-     * @return the soa project
-     */
-    public ISOAProject getSoaProject() {
-        return errorLibProject;
-    }
+//    /**
+//     * Gets the soa project.
+//     *
+//     * @return the soa project
+//     */
+//    public ISOAProject getSoaProject() {
+//        return errorLibProject;
+//    }
 
 
 }

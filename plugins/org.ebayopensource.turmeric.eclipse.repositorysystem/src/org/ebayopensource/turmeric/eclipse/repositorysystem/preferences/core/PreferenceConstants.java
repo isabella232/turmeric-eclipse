@@ -38,6 +38,13 @@ public class PreferenceConstants {
 	/** The Constant PREF_DEFAULT_ORGANIZATION_DISPLAY_NAME. */
 	public static final String PREF_DEFAULT_ORGANIZATION_DISPLAY_NAME = 
 		"Default";
+	
+	public static final String PREF__WARNING = 
+			"Warning";
+	public static final String PREF__ERROR = 
+			"Error";
+	public static final String PREF_ERROR_LEVEL_NAME = 
+			"ErrorLevel";
 	// there will be new preference field for this which accepts
 	// a new service file
 	/** The Constant PREF_SERVICE_LAYERS. */

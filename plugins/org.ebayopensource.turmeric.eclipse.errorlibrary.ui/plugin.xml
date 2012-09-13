@@ -3,13 +3,13 @@
 <plugin>
  <extension
          point="org.eclipse.ui.views">
-      <view
+      <!--<view
             category="org.ebayopensource.turmeric.eclipse.ui.category"
             class="org.ebayopensource.turmeric.eclipse.errorlibrary.ui.views.ErrorRegistryView"
             icon="icons/script_obj.gif"
             id="org.ebayopensource.turmeric.eclipse.errorlibrary.errorRegistryView"
             name="%View.ErrorRegistry.Name">
-      </view>
+      </view>-->
    </extension>
 
 </plugin>

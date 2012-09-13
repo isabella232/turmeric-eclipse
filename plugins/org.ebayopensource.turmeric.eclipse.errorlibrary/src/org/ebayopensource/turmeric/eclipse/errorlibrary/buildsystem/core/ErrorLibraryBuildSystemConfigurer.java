@@ -121,7 +121,7 @@ public class ErrorLibraryBuildSystemConfigurer {
 				javaProject, true);
 		final List<IClasspathEntry> classpathContainers = new ArrayList<IClasspathEntry>();
 		// TODO Lets see if we need this
-		if (outputLocation.equals(javaProject.getOutputLocation()) == false) {
+		if (outputLocation.equals(javaProject.getOutputLocation().toString()) == false) {
 			final IFolder outputDirClasses = project.getFolder(outputLocation);
 			javaProject.setOutputLocation(outputDirClasses.getFullPath(),
 					monitor);

@@ -22,7 +22,7 @@ package org.ebayopensource.turmeric.eclipse.maven.core.utils;
 public final class SOAMavenConstants {
 	
 	/** The Constant MAVEN_CLASSPATH_CONTAINER_ID. */
-	public static final String MAVEN_CLASSPATH_CONTAINER_ID = "org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER";
+	public static final String MAVEN_CLASSPATH_CONTAINER_ID = "org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER";
 
 	/** The Constant LIBRARY_JUNIT. */
 	public static final String LIBRARY_JUNIT = "junit:junit:jar:4.4:test";

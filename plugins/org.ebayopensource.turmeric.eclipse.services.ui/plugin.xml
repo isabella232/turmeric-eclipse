@@ -263,7 +263,8 @@
                   helpContextId="%helpIdSOATutorial"
                   id="org.ebayopensource.turmeric.eclipse.services.ui.actions.GenerateGlobalClientConfig"
                   label="%Menu.GenerateGlobalClientConfig.Label"
-                  menubarPath="soaMenu/consumer"/>            
+                  menubarPath="soaMenu/consumer"/> 
+                
 		<!--<action
                   class="org.ebayopensource.turmeric.eclipse.services.ui.actions.ConsumeNewService"
                   enablesFor="1"
@@ -376,11 +377,11 @@
              icon="icons/sample.gif"
              id="org.ebayopensource.turmeric.eclipse.services.ui.views.ServicesExplorerView"
              name="%View.SOAServiceExplorer.Name">
-       </view>
+       </view>-->
        <category
              id="org.ebayopensource.turmeric.eclipse.ui.category"
              name="%View.Category.SOAPlugin.Name">
-       </category>-->
+       </category>
     </extension>
     
     <extension

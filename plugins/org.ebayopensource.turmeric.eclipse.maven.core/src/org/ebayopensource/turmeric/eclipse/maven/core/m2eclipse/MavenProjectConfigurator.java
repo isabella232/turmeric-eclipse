@@ -40,8 +40,8 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.jdom.Document;
 import org.jdom.Element;
-import org.maven.ide.eclipse.project.configurator.AbstractProjectConfigurator;
-import org.maven.ide.eclipse.project.configurator.ProjectConfigurationRequest;
+import org.eclipse.m2e.core.project.configurator.AbstractProjectConfigurator;
+import org.eclipse.m2e.core.project.configurator.ProjectConfigurationRequest;
 
 
 /**
@@ -68,7 +68,7 @@ public class MavenProjectConfigurator extends AbstractProjectConfigurator {
 			return;
 		}
 		
-		if (request.isProjectImport() == true) {
+		
 			IProject project = request.getProject();
 			SupportedProjectType projectType = null;
 			if (isValidInterfaceProject(project)
@@ -162,7 +162,7 @@ public class MavenProjectConfigurator extends AbstractProjectConfigurator {
 					IOUtils.closeQuietly(input);
 				}
 			}
-		}
+		
 	}
 	
 	private static boolean containsSourcePath(List<IClasspathEntry> entries, IPath srcPath) {

@@ -390,14 +390,11 @@ public class TypeLibraryUIActivator extends AbstractUIPlugin {
 					end = last.getEndOffset();
 				}
 
-				if (domElement != null) {
-
-					domElement
+				domElement
 							.getModel()
 							.getStructuredDocument()
 							.replaceText(documentationElement, start,
 									end - start, docText);
-				}
 			}
 		} else {
 			if (docText.length() > 0) {

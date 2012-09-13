@@ -19,12 +19,13 @@
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
+      <!-- Removing for RIDE since RIDE does not have AR nor a soa preferences page category
       <page
       		category="org.ebayopensource.turmeric.eclipse.ui.preferences"
             class="org.ebayopensource.turmeric.eclipse.registry.consumer.preferences.AssertionServicePreferencePage"
             id="org.ebayopensource.turmeric.registry.consumer.preferences.AssertionServicePreferencePage"
             name="%Preference.Page.AssertionService.Title">
-      </page>
+      </page>-->
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">

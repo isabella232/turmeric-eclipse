@@ -623,8 +623,8 @@ public class SOAIntfUtil {
 				.getServiceName());
 		if (properties != null) {
 			getMetadataFromProperties(properties, metadata);
-			if (SOAProjectConstants.InterfaceSourceType.WSDL.equals(metadata
-					.getSourceType())) {
+			if (SOAProjectConstants.InterfaceSourceType.WSDL.toString().equals(metadata
+					.getSourceType().toString())) {
 				final IFile wsdlFile = SOAServiceUtil.getWsdlFile(project,
 						project.getName());
 				if (wsdlFile != null)

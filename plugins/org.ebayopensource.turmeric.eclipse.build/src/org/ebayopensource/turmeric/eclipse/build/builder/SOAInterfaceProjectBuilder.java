@@ -28,6 +28,8 @@ import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.ProjectUtil;
+import org.ebayopensource.turmeric.eclipse.utils.ui.ProjectUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceDelta;
@@ -113,7 +115,9 @@ public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 				baseCodeGenModel, project);
 		Properties propertyStore =System.getProperties();
 		codegenInvoker.execute(codeGenModel);		
-		System.setProperties(propertyStore);		
+		System.setProperties(propertyStore);	
+//		ProjectUtils.callSplitPackageServiceAndProcessOutPut("",
+//				ProjectUtils.getGeneratedPackages(project),project, true);
 		return null;
 	}
 

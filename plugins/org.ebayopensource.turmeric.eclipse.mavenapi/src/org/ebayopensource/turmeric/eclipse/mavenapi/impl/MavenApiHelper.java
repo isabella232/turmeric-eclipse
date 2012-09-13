@@ -11,12 +11,16 @@ package org.ebayopensource.turmeric.eclipse.mavenapi.impl;
 import org.apache.maven.repository.RepositorySystem;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
 import org.ebayopensource.turmeric.eclipse.mavenapi.internal.resources.Messages;
-import org.maven.ide.eclipse.MavenPlugin;
-import org.maven.ide.eclipse.embedder.IMaven;
-import org.maven.ide.eclipse.embedder.MavenModelManager;
-import org.maven.ide.eclipse.index.IndexManager;
-import org.maven.ide.eclipse.internal.embedder.MavenImpl;
-import org.maven.ide.eclipse.project.MavenProjectManager;
+import org.eclipse.m2e.core.MavenPlugin;
+import org.eclipse.m2e.core.embedder.IMaven;
+import org.eclipse.m2e.core.embedder.MavenModelManager;
+
+
+import org.eclipse.m2e.core.internal.index.IndexManager;
+
+import org.eclipse.m2e.core.internal.embedder.MavenImpl;
+import org.eclipse.m2e.core.project.IMavenProjectRegistry;
+
 
 /**
  * The Class MavenApiHelper.
@@ -31,7 +35,7 @@ public class MavenApiHelper {
 	 * @return the IndexManager
 	 */
 	public static IndexManager getMavenIndexManager() {
-		return MavenPlugin.getDefault().getIndexManager();
+		return MavenPlugin.getIndexManager();
 	}
 
 	/**
@@ -39,8 +43,8 @@ public class MavenApiHelper {
 	 *
 	 * @return the maven ProjectManager
 	 */
-	public static MavenProjectManager getMavenProjectManager() {
-		return MavenPlugin.getDefault().getMavenProjectManager();
+	public static IMavenProjectRegistry getMavenProjectRegistry() {
+		return MavenPlugin.getMavenProjectRegistry();
 	}
 
 	/**
@@ -49,7 +53,7 @@ public class MavenApiHelper {
 	 * @return the maven model manager
 	 */
 	public static MavenModelManager getMavenModelManager() {
-		return MavenPlugin.getDefault().getMavenModelManager();
+		return MavenPlugin.getMavenModelManager();
 	}
 
 	/**

@@ -58,7 +58,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.jdom.Document;
-import org.maven.ide.eclipse.core.IMavenConstants;
+import org.eclipse.m2e.core.internal.*;
 import org.osgi.framework.Version;
 
 /**

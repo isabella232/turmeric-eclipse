@@ -327,8 +327,13 @@ public abstract class SOABasePage extends WizardPage implements ISOAControlDecor
 			eComposite.addExpansionListener(listener);
 		}
 		eComposite.setExpanded(true);
-		System.out.println(eComposite.isExpanded());
-		Composite composite = createParentControl(eComposite, 4);
+		
+		Composite composite =  new Composite(eComposite, SWT.NONE);
+		GridLayout layout = new GridLayout(4, false);
+		layout.verticalSpacing = 8;
+		layout.marginLeft = 5;
+		composite.setLayout(layout);
+		
 		eComposite.setClient(composite);		
 		
 		return composite;

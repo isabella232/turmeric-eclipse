@@ -77,9 +77,9 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.maven.ide.eclipse.embedder.ArtifactKey;
-import org.maven.ide.eclipse.embedder.ArtifactRef;
-import org.maven.ide.eclipse.project.IMavenProjectFacade;
+import org.eclipse.m2e.core.embedder.ArtifactKey;
+import org.eclipse.m2e.core.embedder.ArtifactRef;
+import org.eclipse.m2e.core.project.IMavenProjectFacade;
 
 /**
  * The Class MavenCoreUtils.
@@ -145,7 +145,7 @@ public class MavenCoreUtils {
 		if (mavenProject == null)
 			return SetUtil.set();
 		final IMavenProjectFacade projectFacade = MavenApiHelper
-				.getMavenProjectManager()
+				.getMavenProjectRegistry()
 				.getMavenProject(mavenProject.getGroupId(),
 						mavenProject.getArtifactId(), mavenProject.getVersion());
 		return ArtifactRef.toArtifactKey(projectFacade
@@ -563,6 +563,7 @@ public class MavenCoreUtils {
 			final String artifactName, final String version)
 			throws MavenEclipseApiException {
 		Artifact artifact = null;
+		
 		if (StringUtils.isNotBlank(version)) {
 			artifact = MavenEclipseUtil.artifact(MavenEclipseUtil
 					.artifactMetadata(groupID, artifactName, version,
@@ -622,6 +623,8 @@ public class MavenCoreUtils {
 		Set<AssetInfo> allTypeLibraries= getAllLibraries(getMavenOrgProviderInstance()
 				.getProjectGroupId(SupportedProjectType.TYPE_LIBRARY));
 		String userHomeDirectory = System.getProperty("user.home");
+		if((System.getProperty("ide.version")==null)||(System.getProperty("ide.version").equals("")))
+		System.setProperty("ide.version", "2.0.0");
 		String propertiesFileLocation= userHomeDirectory+File.separator+System.getProperty("ide.version").replace(".", "_");
 		File home = new File(propertiesFileLocation);
 		if(!home.exists()){
@@ -649,7 +652,7 @@ public class MavenCoreUtils {
 				e.printStackTrace();
 			}
 			finally{
-				try {
+				try {if(in!=null)
 					in.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -904,7 +907,7 @@ public class MavenCoreUtils {
 			projectInfo.getRequiredServices().addAll(
 					SetUtil.set(StringUtils.split(requiredServices,
 							SOAProjectConstants.DELIMITER_COMMA)));
-		}
+		}if(pom!=null)
 		processDependencies(pom, projectInfo);
 		return projectInfo;
 	}

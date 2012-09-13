@@ -221,6 +221,7 @@ public class InterfaceCreator {
 		ProgressUtil.progressOneStep(monitor);
 		ProjectPropertiesFileUtil.createPrefsFile(intfProject.getProject(), monitor);
 		
+		
 		BuildSystemConfigurer.performRepositorySpecificTasks(intfProject,
 				monitor);
 		ProgressUtil.progressOneStep(monitor);

@@ -463,9 +463,9 @@ public final class XSDUtils {
 			} else {
 				importModel = handleComplexTypeComplexContent(complex);
 			}
-		}
+		}if(importModel!=null){
 		model = importModel.getTypeModel();
-
+		}
 		String typeName = complex.getName();
 		if (typeName == null) {
 			typeName = "";
@@ -594,11 +594,12 @@ public final class XSDUtils {
 					Node tlNameNode = tlSourceAttrs.getNamedItem(TL_ARRT_NAME);
 					Node typeNSNode = tlSourceAttrs
 							.getNamedItem(TL_NS_ATTR_NAME);
-					String tlName = tlNameNode.getNodeValue();
-					String typeNS = typeNSNode.getNodeValue();
+					
 					if(typeNSNode == null || tlNameNode == null){
 						return null;
 					}
+					String tlName = tlNameNode.getNodeValue();
+					String typeNS = typeNSNode.getNodeValue();
 					if (SOALogger.DEBUG)
 						logger.debug(tlName + "\t" + typeNS);
 					return typeNS;

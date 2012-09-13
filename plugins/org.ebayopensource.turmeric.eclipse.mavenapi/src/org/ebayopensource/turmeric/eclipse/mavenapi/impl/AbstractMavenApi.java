@@ -37,8 +37,8 @@ import org.ebayopensource.turmeric.eclipse.mavenapi.internal.collections.ListUti
 import org.ebayopensource.turmeric.eclipse.mavenapi.internal.resources.Messages;
 import org.ebayopensource.turmeric.eclipse.mavenapi.internal.util.MavenApiUtil;
 import org.ebayopensource.turmeric.eclipse.mavenapi.intf.IMavenEclipseApi;
-import org.maven.ide.eclipse.MavenPlugin;
-import org.maven.ide.eclipse.internal.embedder.MavenImpl;
+import org.eclipse.m2e.core.MavenPlugin;
+import org.eclipse.m2e.core.internal.embedder.MavenImpl;
 
 /**
  * The Class AbstractMavenApi.

@@ -9,7 +9,7 @@
 package org.ebayopensource.turmeric.eclipse.mavenapi.impl;
 
 import static org.apache.commons.lang.StringUtils.isNotBlank;
-import static org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenApiHelper.getMavenProjectManager;
+import static org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenApiHelper.getMavenProjectRegistry;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -19,12 +19,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.search.BooleanClause.Occur;
-import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.WildcardQuery;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
@@ -45,18 +42,23 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.JavaCore;
-import org.maven.ide.eclipse.MavenPlugin;
-import org.maven.ide.eclipse.core.IMavenConstants;
-import org.maven.ide.eclipse.index.IndexedArtifact;
-import org.maven.ide.eclipse.internal.index.NexusIndexManager;
-import org.maven.ide.eclipse.internal.repository.RepositoryInfo;
-import org.maven.ide.eclipse.project.IMavenProjectFacade;
-import org.maven.ide.eclipse.project.IProjectConfigurationManager;
-import org.maven.ide.eclipse.project.MavenProjectInfo;
-import org.maven.ide.eclipse.project.ProjectImportConfiguration;
-import org.maven.ide.eclipse.project.ResolverConfiguration;
-import org.maven.ide.eclipse.repository.IRepositoryRegistry;
-import org.sonatype.nexus.index.ArtifactInfo;
+import org.eclipse.m2e.core.MavenPlugin;
+
+import org.eclipse.m2e.core.internal.index.IIndex;
+import org.eclipse.m2e.core.internal.index.IndexedArtifact;
+import org.eclipse.m2e.core.internal.index.StringSearchExpression;
+import org.eclipse.m2e.core.internal.index.nexus.NexusIndexManager;
+
+import org.eclipse.m2e.core.internal.IMavenConstants;
+
+
+import org.eclipse.m2e.core.project.IMavenProjectFacade;
+import org.eclipse.m2e.core.project.IProjectConfigurationManager;
+import org.eclipse.m2e.core.project.MavenProjectInfo;
+import org.eclipse.m2e.core.project.ProjectImportConfiguration;
+import org.eclipse.m2e.core.project.ResolverConfiguration;
+
+
 
 /**
  * The Class MavenEclipseApi.
@@ -225,10 +227,11 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 			final ResolverConfiguration rc = new ResolverConfiguration();
 			if (proj.hasNature(JavaCore.NATURE_ID) == false
 					|| proj.hasNature(IMavenConstants.NATURE_ID) == false)
-				;
 			{// during the import project process, the JDT/Maven natures will
 				// not be added if the project already exists
+				ClassLoader original =Thread.currentThread().getContextClassLoader();
 				configManager.enableMavenNature(proj, rc, monitor);
+				Thread.currentThread().setContextClassLoader(original);
 			}
 
 			// this function consumes too much memory
@@ -298,14 +301,18 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 			throws MavenEclipseApiException {
 		if (artifact == null)
 			return null;
-		final IMavenProjectFacade facade = getMavenProjectManager()
+		final IMavenProjectFacade facade = getMavenProjectRegistry()
 				.getMavenProject(artifact.getGroupId(),
 						artifact.getArtifactId(), artifact.getVersion());
 
 		try {
 			if (facade != null)
 				return facade.getMavenProject(new NullProgressMonitor());
+			try{
 			resolveArtifact(artifact);
+			}catch (Exception e){
+			System.out.println("uhmuhm");
+			}
 			final File pomFile = MavenEclipseUtil.getArtifactPOMFile(artifact);
 			if (pomFile.exists() == false) {
 				final ArtifactMetadata pomArtifact = MavenEclipseUtil
@@ -356,32 +363,30 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 			String name, String group, String repositoryUrl)
 			throws MavenEclipseApiException {
 		Collection<ArtifactMetadata> ams = null;
+		
 		try {
-			BooleanQuery bq = new BooleanQuery();
-			BooleanQuery.setMaxClauseCount(Integer.MAX_VALUE);
-			if (StringUtils.isNotBlank(name)) {
-				bq.add(new WildcardQuery(new Term(ArtifactInfo.ARTIFACT_ID,
-						name.toLowerCase())), Occur.MUST);
-			} else {
-				bq.add(new WildcardQuery(
-						new Term(ArtifactInfo.ARTIFACT_ID, "*")), Occur.MUST);
+			StringSearchExpression se = new StringSearchExpression(name.toLowerCase());
+			@SuppressWarnings("restriction")
+			Map<String, IndexedArtifact> resultsbyArtifactName;
+			resultsbyArtifactName = ((NexusIndexManager) _getIndexManager())
+						.search(se,IIndex.SEARCH_ARTIFACT);			
+			final Map<String, IndexedArtifact> resultsWithArtifactAndGroup =new TreeMap<String,IndexedArtifact>();
+			//final Map<String, IndexedArtifact> results = new M
+			for(String artifactDetails:resultsbyArtifactName.keySet()){
+				try{
+				if(artifactDetails.split(":")[2].trim().equalsIgnoreCase(group)){
+					resultsWithArtifactAndGroup.put(artifactDetails, resultsbyArtifactName.get(artifactDetails));					
+				}}
+				catch(Exception e){
+					//Incorrect Indexed artifact, not added to resultsWithArtifactAndGroup.
+				}
 			}
-			if (StringUtils.isNotBlank(group)) {
-				bq.add(new WildcardQuery(new Term(ArtifactInfo.GROUP_ID, group
-						.toLowerCase())), Occur.MUST);
-			} else {
-				bq.add(new WildcardQuery(new Term(ArtifactInfo.GROUP_ID, "*")),
-						Occur.MUST);
-			}
-			
-			RepositoryInfo repository = new RepositoryInfo(null, repositoryUrl,
-					IRepositoryRegistry.SCOPE_UNKNOWN, null);
-			final Map<String, IndexedArtifact> results = ((NexusIndexManager) _getIndexManager())
-					.search(repository, bq);
-			ams = _returnFindings(results);
-		} catch (final CoreException e) {
-			throw new MavenEclipseApiException(e);
+			ams = _returnFindings(resultsWithArtifactAndGroup);
+		} catch (CoreException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+	
 		return _toArtifactCollection(ams);
 	}
 

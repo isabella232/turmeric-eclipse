@@ -111,4 +111,5 @@ public class BuildSystemUtil {
 		GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 		.getProjectConfigurer().addBuildSystemClasspathContainer(javaProject, monitor);
 	}
+	
 }

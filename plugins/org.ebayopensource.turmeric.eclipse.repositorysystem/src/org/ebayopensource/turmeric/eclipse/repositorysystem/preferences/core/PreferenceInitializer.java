@@ -54,6 +54,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 				PreferenceConstants._PREF_DEFAULT_REPOSITORY_SYSTEM);
 		node.put(PreferenceConstants.PREF_SERVICE_LAYERS,
 				PreferenceConstants.getDefaultServiceLayers());
+		node.put(PreferenceConstants.PREF_ERROR_LEVEL_NAME, 
+				PreferenceConstants.PREF__WARNING);
 	}
 	
 

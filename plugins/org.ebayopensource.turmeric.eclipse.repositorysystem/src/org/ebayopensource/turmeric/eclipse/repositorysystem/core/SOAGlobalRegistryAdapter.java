@@ -85,11 +85,15 @@ public class SOAGlobalRegistryAdapter {
 						 init();
 						            Thread thread = Thread.currentThread();
 						            ClassLoader loader = thread.getContextClassLoader();
-						            thread.setContextClassLoader(SOAGlobalRegistryFactory.class.getClassLoader());
-						            SOATypeRegistry typeReg = GlobalRepositorySystem
+						            SOATypeRegistry typeReg=null;
+						            try{
+						            	thread.setContextClassLoader(SOAGlobalRegistryFactory.class.getClassLoader());						            
+						             typeReg = GlobalRepositorySystem
 						            .instanceOf().getActiveRepositorySystem()
 						            .getTypeRegistryBridge().getSOATypeRegistry();
+						            }finally{
 						            thread.setContextClassLoader(loader);
+						            }
 						            typeLibclassLoader.setPluginBundles(
 						                (GlobalRepositorySystem
 						                    .instanceOf().getActiveRepositorySystem()
@@ -116,11 +120,11 @@ public class SOAGlobalRegistryAdapter {
 						if (SOALogger.DEBUG) {
 							long duration = System.currentTimeMillis() - startTime;
 							logger.info("Time taken for initializing SOA global type registry is ", 
-									duration, " ms.");
-							Thread.currentThread().setContextClassLoader(
-								                originalClassLoader);
-
+									duration, " ms.");	
 						}
+						Thread.currentThread().setContextClassLoader(
+				                originalClassLoader);
+						
 					}
 				}
 			}
@@ -294,11 +298,15 @@ public class SOAGlobalRegistryAdapter {
 						monitor.worked(20);
 						Thread thread = Thread.currentThread();
 						ClassLoader loader = thread.getContextClassLoader();
-						thread.setContextClassLoader(SOAGlobalRegistryFactory.class.getClassLoader());
-						SOATypeRegistry typeReg = GlobalRepositorySystem
+						SOATypeRegistry typeReg=null;
+						 try{
+							 thread.setContextClassLoader(SOAGlobalRegistryFactory.class.getClassLoader());
+							 typeReg= GlobalRepositorySystem
 						.instanceOf().getActiveRepositorySystem()
 						.getTypeRegistryBridge().getSOATypeRegistry();
+						 }finally{
 						thread.setContextClassLoader(loader);
+						 }
 
 						monitor.worked(40);
 						typeLibclassLoader.setPluginBundles(

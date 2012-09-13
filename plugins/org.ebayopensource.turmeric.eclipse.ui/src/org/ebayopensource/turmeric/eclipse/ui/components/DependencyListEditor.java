@@ -234,7 +234,7 @@ public class DependencyListEditor extends ListEditor {
 				libInfo = (AssetInfo) selector.getFirstResult();
 		}
 
-		if (StringUtils.isBlank(libInfo.getName()))
+		if ((libInfo==null)||(StringUtils.isBlank(libInfo.getName())))
 			return null;
 		this.availableLibs.put(libInfo.getDescription(), libInfo);
 		return libInfo.getDescription();

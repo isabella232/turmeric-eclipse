@@ -40,15 +40,17 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.maven.ide.eclipse.MavenPlugin;
-import org.maven.ide.eclipse.index.IIndex;
-import org.maven.ide.eclipse.index.IndexManager;
-import org.maven.ide.eclipse.index.IndexedArtifact;
-import org.maven.ide.eclipse.index.IndexedArtifactFile;
-import org.maven.ide.eclipse.internal.embedder.MavenImpl;
-import org.maven.ide.eclipse.internal.index.NexusIndexManager;
-import org.maven.ide.eclipse.repository.IRepository;
-import org.maven.ide.eclipse.repository.IRepositoryRegistry;
+import org.eclipse.m2e.core.MavenPlugin;
+import org.eclipse.m2e.core.internal.index.IIndex;
+import org.eclipse.m2e.core.internal.index.IndexManager;
+import org.eclipse.m2e.core.internal.index.IndexedArtifact;
+import org.eclipse.m2e.core.internal.index.IndexedArtifactFile;
+import org.eclipse.m2e.core.internal.index.SearchExpression;
+import org.eclipse.m2e.core.internal.index.StringSearchExpression;
+import org.eclipse.m2e.core.internal.embedder.MavenImpl;
+import org.eclipse.m2e.core.internal.index.nexus.NexusIndexManager;
+import org.eclipse.m2e.core.repository.IRepository;
+import org.eclipse.m2e.core.repository.IRepositoryRegistry;
 
 /**
  * The Class AbstractMavenEclipseApi.
@@ -288,8 +290,12 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 			final IndexManager indexManager, final String groupRegEx)
 			throws MavenEclipseApiException {
 		try {
-			final Map<String, IndexedArtifact> results = indexManager.search(
-					groupRegEx, IIndex.SEARCH_GROUP);
+//			final Map<String, IndexedArtifact> results = indexManager.search(
+//					groupRegEx, IIndex.SEARCH_GROUP);
+			SearchExpression se = new StringSearchExpression(groupRegEx);
+			final Map<String, IndexedArtifact> results = ((NexusIndexManager)indexManager).search(
+					se, IIndex.SEARCH_GROUP);
+
 			return _returnFindings(results);
 		} catch (final CoreException e) {
 			throw new MavenEclipseApiException(e);
@@ -308,8 +314,12 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 			final IndexManager indexManager, final String query)
 			throws MavenEclipseApiException {
 		try {
-			final Map<String, IndexedArtifact> results = indexManager.search(
-					query, IIndex.SEARCH_ARTIFACT);
+//			final Map<String, IndexedArtifact> results = indexManager.search(
+//					query, IIndex.SEARCH_ARTIFACT);
+			 SearchExpression se = new StringSearchExpression(query);
+			 final Map<String, IndexedArtifact> results = ((NexusIndexManager)indexManager).search(
+					 se, IIndex.SEARCH_ARTIFACT);
+
 			return _returnFindings(results);
 		} catch (final CoreException e) {
 			throw new MavenEclipseApiException(e);
@@ -325,8 +335,16 @@ public abstract class AbstractMavenEclipseApi extends AbstractMavenApi {
 		for (IRepository repo : MavenPlugin.getDefault()
 				.getRepositoryRegistry()
 				.getRepositories(IRepositoryRegistry.SCOPE_UNKNOWN)) {
-			((NexusIndexManager) _getIndexManager()).scheduleIndexUpdate(repo,
-					true);
+//			((NexusIndexManager) _getIndexManager()).scheduleIndexUpdate(repo,
+//					true);
+			 NexusIndexManager nm = ((NexusIndexManager) _getIndexManager());
+			 nm.getIndexDetails(repo);
+			 try {
+				 nm.setIndexDetails(repo, nm.getIndexDetails(repo), new NullProgressMonitor());
+				 } catch (CoreException ex) {
+					 throw new MavenEclipseApiException(ex);
+					 }
+
 		}
 	}
 }
