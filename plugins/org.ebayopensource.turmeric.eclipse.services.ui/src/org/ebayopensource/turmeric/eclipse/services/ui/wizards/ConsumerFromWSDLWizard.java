@@ -268,7 +268,9 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 		String serviceInterface = StringUtils.isBlank(servicePackage) ? serviceName
 				: servicePackage + SOAProjectConstants.CLASS_NAME_SEPARATOR
 						+ serviceName;
-		if(!callSplitPackageService(serviceName,allNSToPackMappings))
+		//During creation service Name is hardcoded
+		String fullServiceName = "com.ebay.soa.interface."+serviceName;
+		if(!callSplitPackageService(fullServiceName,allNSToPackMappings))
 			//Cancel has been Pressed on the dialog box
 			return false;
 		

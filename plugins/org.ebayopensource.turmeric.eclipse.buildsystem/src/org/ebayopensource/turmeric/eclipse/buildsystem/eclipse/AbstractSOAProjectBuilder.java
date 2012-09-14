@@ -147,7 +147,7 @@ public abstract class AbstractSOAProjectBuilder extends
 		}catch(Exception e){
 		}
 		if(bundleName==null){
-			bundleName="com.ebay.soa.interface"+project.getName();
+			bundleName="com.ebay.soa.interface."+project.getName();
 		}
 		return bundleName;
 	}
