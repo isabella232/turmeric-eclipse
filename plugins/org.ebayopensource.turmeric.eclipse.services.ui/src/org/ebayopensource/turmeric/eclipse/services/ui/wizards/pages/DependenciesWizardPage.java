@@ -14,12 +14,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.httpclient.HttpException;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
@@ -27,9 +30,15 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegist
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.RepositoryUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
+import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.ui.components.DependencyListEditor;
 import org.ebayopensource.turmeric.eclipse.ui.components.DependencyListEditor.IDependencyLazyLoader;
+import org.ebayopensource.turmeric.eclipse.utils.ui.ProjectUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -39,6 +48,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -88,7 +100,7 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 			guidlinesText.append(newLine);
 		}
 		guideLines.setText(guidlinesText.toString());
-		//updateRaptorProperties(getTypeLibArtifactsToAdd(page.typeLibNameAndPackage));	
+		updateRaptorProperties(getTypeLibArtifactsToAdd(page.typeLibNameAndPackage, page.getAdminName()));	
 		//reset types explorer, try
 		SOAGlobalRegistryAdapter.getInstance().invalidateRegistry();
 		try {
@@ -101,7 +113,7 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 		}
 		
 	}
-	private void getTypeLibArtifactsToAdd(Map<String,String> typeLibNameAndPackage){
+	private Set<String> getTypeLibArtifactsToAdd(Map<String,String> typeLibNameAndPackage, String adminName){
 		//preparing the inputs to split package service
 		Set<String> allKnownTls=null;
 		try {
@@ -113,18 +125,92 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 		Set<String> packageList = new HashSet<String>();
 		StringBuilder toBeAppended=new StringBuilder();
 		for (String typeLibrary: typeLibNameAndPackage.keySet()){
-			if(!allKnownTls.contains(typeLibrary)){
+			{
 				//unKnown, so need to call split package service on this
 				packageList.add(typeLibNameAndPackage.get(typeLibrary));
 			}
-			else{
-				//Known so adding info
-			//	SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().
-			}
 		}
+		//Project is not yet created so assum bundle name  to be default
+		String bundleName = "com.ebay.soa.interface"+adminName;
 		//If no new packages, then no need to call split package service and find the bundles.
+		JSONObject response = null;
+		try {
+			response = ProjectUtils.callSplitPackageService(bundleName, packageList);
+		} catch (HttpException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Map<String,Set<String>> packageLibMap = new HashMap<String,Set<String>>();
+		
+		if(response!=null)
+		{
+			Iterator k =response.keys();
+		
+		while (k.hasNext()){
+			 StringBuilder errorMessage=new StringBuilder();
+			Map<String,String> bundleVersion = new HashMap<String, String>();
+			String ErrorPackageName = (String) k.next();
+			JSONArray bundlesList = null;
+			//Removing same bundle conflicts
+			try {
+				bundlesList = response.getJSONArray(ErrorPackageName);
+				for (int i = 0; i < bundlesList.length(); i++) {
+					JSONObject object = bundlesList.getJSONObject(i);
+					String conflictBundleName = object.getString("bundleName");
+					String conflictingVersion = object.getString("version");
+					if(conflictBundleName.matches(bundleName+"\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$")){							
+						continue;
+						//Ignoring Same Bundles
+					}
+					bundleVersion.put(conflictBundleName, conflictingVersion);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			//If valid conflicts were found for this package
+			if(bundleVersion.size()>0){
+				//display errors if any, for each erroneous bundle
+				errorMessage.append("Split package errors detected for package "+ErrorPackageName
+						+ " with the following bundles:");
+				for(String bundle:bundleVersion.keySet()){
+					
+					Set<String> orig = packageLibMap.get(ErrorPackageName);
+					if(orig==null){orig = new HashSet();}
+					if(bundle.matches("(.*)\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$")){
+						//REgexM
+						//Dosome regex processing.
+					}
+					int index =bundle.lastIndexOf(".");
+					String groupid =bundle.substring(0, index);
+					String artifactID = bundle.substring(index+1);
+					orig.add(groupid+":"+artifactID+":"+bundleVersion.get(bundle));
+					packageLibMap.put(ErrorPackageName, orig);
+				}
+			//End of valid conflicts processing
+			}
+		//End of Each PAckage Processing
+		}
+		//End of  Not null response processing
+		}
+		Set<String> toWrite = new HashSet<String>();
+		for (String typeLibrary: typeLibNameAndPackage.keySet()){
+			Set <String> toWriteLet =packageLibMap.get(typeLibNameAndPackage.get(typeLibrary));
+			if(toWriteLet!=null)
+			for (String entry: toWriteLet){
+				toWrite.add(entry+":"+typeLibrary);
+			}
+			
+		}
+		return toWrite;
 	}
-	private void updateRaptorProperties() {
+	private void updateRaptorProperties(Set<String> toWrite) {
 		String userHomeDirectory = System.getProperty("user.home");
 		String propertiesFileLocation= userHomeDirectory+File.separator+System.getProperty("ide.version").replace(".", "_");
 		String updatedTipLibArtifacts=null;
@@ -155,8 +241,13 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 			updatedTipLibArtifacts=properties.getProperty("TypeLibArtifacts");
 		}
 		if(updatedTipLibArtifacts==null)updatedTipLibArtifacts="";
-		else updatedTipLibArtifacts+=",";
-		updatedTipLibArtifacts+="com.ebay.libraries.search.sharedsearchtypelibrary:SharedSearchServiceTypeLibrary:1.0.0:SharedSearchServiceTypeLibrary";
+		for(String entry:toWrite){
+			if(!updatedTipLibArtifacts.contains(entry)){
+				//make the netry
+				updatedTipLibArtifacts+=",";
+				updatedTipLibArtifacts+=entry;
+			}
+		}
 		properties.setProperty("TypeLibArtifacts", updatedTipLibArtifacts);
 		OutputStream o =null;
 		try {

@@ -45,4 +45,7 @@ Export-Package: org.ebayopensource.turmeric.eclipse.services.search,
  org.ebayopensource.turmeric.eclipse.services.ui.views,
  org.ebayopensource.turmeric.eclipse.services.ui.wizards,
  org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/jaxb-api.jar,
+ lib/jaxb-impl.jar,
+ lib/jaxb-xjc.jar

@@ -74,7 +74,7 @@ import org.json.JSONObject;
  */
 public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 	private ConsumerFromExistingWSDLWizardPage consumerFromWsdl = null;
-	//private DependenciesWizardPage intfDependenciesPage = null;
+	private DependenciesWizardPage intfDependenciesPage = null;
 	
 	private static final SOALogger logger = SOALogger.getLogger();
 
@@ -92,11 +92,11 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 	public IWizardPage[] getContentPages() {
 		consumerFromWsdl = new ConsumerFromExistingWSDLWizardPage(
 				getSelection());
-		//intfDependenciesPage = new DependenciesWizardPage(SOAMessages.SVC_INTF);
+		intfDependenciesPage = new DependenciesWizardPage(SOAMessages.SVC_INTF);
 		List<IWizardPage> pages = new ArrayList<IWizardPage>();
 		
 		pages.add(consumerFromWsdl);
-		//pages.add(intfDependenciesPage);
+		pages.add(intfDependenciesPage);
 		
 		return pages.toArray(new IWizardPage[pages.size()]);
 	}
@@ -159,10 +159,9 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 	
 	@Override
 	public boolean canFinish() {
-		// TODO Auto-generated method stub
-//		if(getContainer().getCurrentPage() == consumerFromWsdl){
-//			return false;
-//		}
+		if(getContainer().getCurrentPage() == consumerFromWsdl){
+			return false;
+		}
 		return true;
 	}
 	
@@ -268,7 +267,9 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 		String serviceInterface = StringUtils.isBlank(servicePackage) ? serviceName
 				: servicePackage + SOAProjectConstants.CLASS_NAME_SEPARATOR
 						+ serviceName;
-		if(!callSplitPackageService(serviceName,allNSToPackMappings))
+		//Assuming group ID since we create it this way
+		String fullServiceName = "com.ebay.soa.interface"+serviceName;
+		if(!callSplitPackageService(fullServiceName,allNSToPackMappings))
 			//Cancel has been Pressed on the dialog box
 			return false;
 		

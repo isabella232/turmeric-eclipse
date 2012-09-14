@@ -700,59 +700,59 @@ if(this.applicationPackage==null)
 
 		return true;
 	}
-//public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws ParserConfigurationException, SAXException, IOException{
-//		
-//		Map<String,String> typeLibraryPackageSet = new HashMap<String,String>();
-//		try{
-//		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//		DocumentBuilder builder;
-//
-//		builder = factory.newDocumentBuilder();
-//		Document m_Document = builder.parse(wsdl.getDocumentBaseURI());
-//		
-//		NodeList list = m_Document.getElementsByTagName("typeLibrarySource");
-//		for(int i =0;i<list.getLength();i++){
-//			Node n = list.item(i);
+public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws ParserConfigurationException, SAXException, IOException{
+		
+		Map<String,String> typeLibraryPackageSet = new HashMap<String,String>();
+		try{
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+
+		builder = factory.newDocumentBuilder();
+		Document m_Document = builder.parse(wsdl.getDocumentBaseURI());
+		
+		NodeList list = m_Document.getElementsByTagName("typeLibrarySource");
+		for(int i =0;i<list.getLength();i++){
+			Node n = list.item(i);
+			
+			if(((n.getParentNode().getNodeName().endsWith(":appinfo")) 
+					||(n.getParentNode().getNodeName().equalsIgnoreCase("appinfo")))
+				&&(n.hasAttributes()) ){
+				Node typeLibrary = n.getAttributes().getNamedItem("library");
+				Node nameSpace = n.getAttributes().getNamedItem("namespace");
+				if(typeLibrary!=null&&nameSpace!=null){
+					//Calling the ns to package mapper from XJC to maintain consistency
+					
+					String packageName = XJC.getDefaultPackageName(nameSpace.getNodeValue());
+					//lets call the service here if we do not know which bundles it belongs to already.
+					//Then lets populate some datasructure with thegroup id, art id, tl name, version.
+					//lets return that data structure here.
+					typeLibraryPackageSet.put(typeLibrary.getNodeValue(), packageName);
+
+				}
+			}
+		}
+//		if (wsdl.getTypes() != null) {
 //			
-//			if(((n.getParentNode().getNodeName().endsWith(":appinfo")) 
-//					||(n.getParentNode().getNodeName().equalsIgnoreCase("appinfo")))
-//				&&(n.hasAttributes()) ){
-//				Node typeLibrary = n.getAttributes().getNamedItem("library");
-//				Node nameSpace = n.getAttributes().getNamedItem("namespace");
-//				if(typeLibrary!=null&&nameSpace!=null){
-//					//Calling the ns to package mapper from XJC to maintain consistency
+//			for (Object obj : wsdl.getTypes().getExtensibilityElements()) {
+//				if (obj instanceof Schema) {
+//				Schema xs = (Schema)obj;
+//				NodeList list =xs.getElement().getChildNodes();
+//				for(int i =0;i<list.getLength();i++){
+//					Node a = list.item(i);
+//					System.out.println(a.getNodeName());
 //					
-//					String packageName = XJC.getDefaultPackageName(nameSpace.getNodeValue());
-//					//lets call the service here if we do not know which bundles it belongs to already.
-//					//Then lets populate some datasructure with thegroup id, art id, tl name, version.
-//					//lets return that data structure here.
-//					typeLibraryPackageSet.put(typeLibrary.getNodeValue(), nameSpace.getNodeValue());
-//
+//				}
+//				NamedNodeMap nodemapr=list.item(0).getAttributes();
+//				System.out.println(nodemapr.getLength());
 //				}
 //			}
-//		}
-////		if (wsdl.getTypes() != null) {
-////			
-////			for (Object obj : wsdl.getTypes().getExtensibilityElements()) {
-////				if (obj instanceof Schema) {
-////				Schema xs = (Schema)obj;
-////				NodeList list =xs.getElement().getChildNodes();
-////				for(int i =0;i<list.getLength();i++){
-////					Node a = list.item(i);
-////					System.out.println(a.getNodeName());
-////					
-////				}
-////				NamedNodeMap nodemapr=list.item(0).getAttributes();
-////				System.out.println(nodemapr.getLength());
-////				}
-////			}
-////		}}
-//		}
-//		catch(Exception e){
-//			logger.error(e);
-//		}
-//		return typeLibraryPackageSet;
-//	}
+//		}}
+		}
+		catch(Exception e){
+			logger.error(e);
+		}
+		return typeLibraryPackageSet;
+	}
 	
 	/**
 	 * {@inheritDoc}
@@ -823,23 +823,23 @@ if(this.applicationPackage==null)
 			typeFoldingButton.setEnabled(false);
 			
 			
-//			try {
-//				typeLibNameAndPackage=ConsumerFromExistingWSDLWizardPage.getAllTypeLibraryNames(wsdl);
-//				// for each entry in r,
-//				// If no conflicting bundle exists,
-//					//Display a mesg asking user to move tl to library and then add it as a dep and rebuild library.
-//				// If conflicting bundle exists,
-//					//Display a mesg asking user to add it as a possible dependency.
-//			} catch (ParserConfigurationException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (SAXException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			try {
+				typeLibNameAndPackage=ConsumerFromExistingWSDLWizardPage.getAllTypeLibraryNames(wsdl);
+				// for each entry in r,
+				// If no conflicting bundle exists,
+					//Display a mesg asking user to move tl to library and then add it as a dep and rebuild library.
+				// If conflicting bundle exists,
+					//Display a mesg asking user to add it as a possible dependency.
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				
 			
 			
