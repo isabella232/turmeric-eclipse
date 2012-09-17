@@ -225,8 +225,8 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 					.importProjects(projects, importConfiguration, monitor);
 
 			final ResolverConfiguration rc = new ResolverConfiguration();
-			if (proj.hasNature(JavaCore.NATURE_ID) == false
-					|| proj.hasNature(IMavenConstants.NATURE_ID) == false)
+			if ((proj.hasNature(JavaCore.NATURE_ID) == false
+					|| proj.hasNature(IMavenConstants.NATURE_ID) == false))
 			{// during the import project process, the JDT/Maven natures will
 				// not be added if the project already exists
 				ClassLoader original =Thread.currentThread().getContextClassLoader();
