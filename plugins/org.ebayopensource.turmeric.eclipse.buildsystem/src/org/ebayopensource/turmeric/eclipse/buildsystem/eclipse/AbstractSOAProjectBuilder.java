@@ -96,7 +96,7 @@ public abstract class AbstractSOAProjectBuilder extends
 				}
 				BuilderUtil.generateSourceDirectories(project, monitor);
 				IProject[] toReturn= doBuild(kind, args, project, delta, monitor);
-				//ProjectUtils.callSplitPackageServiceAndProcessOutPut(getbundleName(project), getPackages(project), project, getErrorLevel(),false);
+				ProjectUtils.callSplitPackageServiceAndProcessOutPut(getbundleName(project), getPackages(project), project, getErrorLevel(),false);
 				return toReturn;
 			} else {
 				if (SOALogger.DEBUG) {
