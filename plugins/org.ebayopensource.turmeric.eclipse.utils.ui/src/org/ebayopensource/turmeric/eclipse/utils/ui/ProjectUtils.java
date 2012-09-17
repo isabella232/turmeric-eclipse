@@ -55,6 +55,7 @@ import org.osgi.framework.BundleException;
 public class ProjectUtils {
 
 	private static final SOALogger logger = SOALogger.getLogger();
+	public static String SPLIT_PACKAGE_SERVICE_LATEST_PARAM = "allVersions";
 	public static String HEADER_BUNDLE_NAME = "Bundle-SymbolicName";
 	public static String HEADER_EXPORT_PACKAGE="Export-Package";
 	public static String SPLIT_PACKAGE_SERVICE_ENDPOINT="http://crp-wsoaexps002.corp.ebay.com/OsgiPackageService/package/split?";
@@ -146,7 +147,7 @@ public class ProjectUtils {
 		try { 
 			if (packageList.isEmpty())
 			return;
-			response = ProjectUtils.callSplitPackageService(bundleName, packageList);
+			response = ProjectUtils.callSplitPackageService(bundleName, packageList,true);
 		} catch (HttpException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -276,7 +277,7 @@ public class ProjectUtils {
 			}
 		}
 	}
-	public static JSONObject  callSplitPackageService(String serviceName, Set<String> packageList) throws HttpException, IOException, JSONException{
+	public static JSONObject  callSplitPackageService(String serviceName, Set<String> packageList, boolean latest) throws HttpException, IOException, JSONException{
 
 		StringBuilder sbuilder = new StringBuilder();
 		// repo url
@@ -290,6 +291,8 @@ public class ProjectUtils {
 		}
 		sbuilder.append(SPLIT_PACKAGE_SERVICE_BUNDLE_PARAM);
 		sbuilder.append(serviceName);
+		sbuilder.append(SPLIT_PACKAGE_SERVICE_LATEST_PARAM);
+		sbuilder.append(!latest);
 		HttpClient client = new HttpClient();
 		GetMethod method = new GetMethod(sbuilder.toString());
 		client.setConnectionTimeout(3000);

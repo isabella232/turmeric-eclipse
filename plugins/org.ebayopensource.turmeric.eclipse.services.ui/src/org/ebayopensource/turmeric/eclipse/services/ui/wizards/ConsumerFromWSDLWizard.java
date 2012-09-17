@@ -175,7 +175,7 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 	
 	private boolean callSplitPackageService(String serviceName, Map<String,String> allNSToPackMappings){
 		try {
-			JSONObject response = ProjectUtils.callSplitPackageService(serviceName, allNSToPackMappings.keySet());
+			JSONObject response = ProjectUtils.callSplitPackageService(serviceName, allNSToPackMappings.keySet(),true);
 			StringBuilder errorMessage = new StringBuilder();
 			if(response!=null)
 			{Iterator k = response.keys();
@@ -273,6 +273,10 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 			//Cancel has been Pressed on the dialog box
 			return false;
 		
+		
+		
+		intfDependenciesPage.finished();
+		
 		//Flag to let the wsdl field focus lost listener know that OK button has been pressed
 		//To avoid the https:// message box from reappearing once the focus is lost
 		//Can be used by other events too
@@ -307,7 +311,7 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 		uiModel.setNamespacePart(consumerFromWsdl.getDomainClassifier());
 		uiModel.setTypeFolding(consumerFromWsdl.getTypeFolding());
 		//Adding library dependencies
-		//uiModel.setInterfaceLibs(intfDependenciesPage.getLibraries());
+		uiModel.setInterfaceLibs(intfDependenciesPage.getLibraries());
 		try {
 			uiModel.setOriginalWsdlUrl(new URL(consumerFromWsdl.getWSDLURL()));
 			final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {

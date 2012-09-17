@@ -731,6 +731,9 @@ public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws 
 				}
 			}
 		}
+		//Removing default dependencies
+		typeLibraryPackageSet.remove("MarketPlaceServiceCommonTypeLibrary");
+		typeLibraryPackageSet.remove("SOACommonTypeLibrary");
 //		if (wsdl.getTypes() != null) {
 //			
 //			for (Object obj : wsdl.getTypes().getExtensibilityElements()) {

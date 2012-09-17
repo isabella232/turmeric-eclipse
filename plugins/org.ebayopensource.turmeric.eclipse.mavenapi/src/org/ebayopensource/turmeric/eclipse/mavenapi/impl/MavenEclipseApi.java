@@ -311,7 +311,7 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 			try{
 			resolveArtifact(artifact);
 			}catch (Exception e){
-			System.out.println("uhmuhm");
+			
 			}
 			final File pomFile = MavenEclipseUtil.getArtifactPOMFile(artifact);
 			if (pomFile.exists() == false) {

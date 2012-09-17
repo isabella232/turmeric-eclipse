@@ -23,6 +23,7 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Exclusion;
 import org.apache.maven.model.Model;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
+import org.ebayopensource.turmeric.eclipse.mavenapi.MavenApiPlugin;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
 import org.ebayopensource.turmeric.eclipse.mavenapi.internal.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.mavenapi.internal.util.EclipseUtil;
@@ -31,6 +32,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.m2e.core.internal.IMavenConstants;
 import org.eclipse.m2e.core.internal.index.IndexedArtifactFile;
 
@@ -112,7 +114,23 @@ public final class MavenEclipseUtil {
 			throw ThrowableUtil.adaptToRuntimeException(e);
 		}
 	}
-
+/*
+ * Resolves an artifact from artifact data
+ */
+	public static boolean resolveFromArtifactData(String artifactData){
+			String artifactDataSplit[]=artifactData.split(":");
+			if(artifactDataSplit.length!=4)return false;
+			ArtifactMetadata metadata = MavenEclipseUtil.artifactMetadata(artifactDataSplit[0], artifactDataSplit[1], artifactDataSplit[2], "jar");
+			try {
+				Artifact artifact = MavenApiPlugin
+						.getDefault().getMavenEclipseApi().resolveArtifact(metadata);
+				if (artifact != null)
+					return true;
+			} catch (Exception e) {
+				//Fail silently
+			}
+		return false;
+	}
 	/**
 	 * Gets the all project artifact ids in workspace.
 	 *

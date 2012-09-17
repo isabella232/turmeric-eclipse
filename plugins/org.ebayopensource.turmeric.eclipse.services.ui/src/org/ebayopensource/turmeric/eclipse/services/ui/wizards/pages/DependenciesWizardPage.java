@@ -21,9 +21,13 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpException;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
+import org.ebayopensource.turmeric.eclipse.maven.core.model.MavenAssetInfo;
+import org.ebayopensource.turmeric.eclipse.mavenapi.impl.MavenEclipseUtil;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAHelpProvider;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.SOAGlobalRegistryAdapter;
@@ -68,6 +72,7 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 	private Text guideLines;
 	private Composite composite;
 	private DependencyListEditor libraryEditor;
+	Map<String,Set<String>> packageLibMap = new HashMap<String,Set<String>>();
 	
 
 	/**
@@ -82,36 +87,54 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 						"to avoid regeneration of types in the consumer project. Below, you will find"+
 				"our suggestions for bundles that may contain type libraries referred by your wsdl.");
 	}
+	
 	@Override
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
 		if(visible){
 		ConsumerFromExistingWSDLWizardPage page = (ConsumerFromExistingWSDLWizardPage) this.getWizard().getPreviousPage(this);
+		resolveAllCandidateLibraries(getTypeLibArtifactsToAdd(page.typeLibNameAndPackage, page.getAdminName()));
+		
+
 		StringBuilder guidlinesText = new StringBuilder();
 		final String newLine = System.getProperty("line.separator");
 		guidlinesText.append(newLine);
+		// Adding default dependencies
+		guidlinesText.append("MarketPlaceServiceCommonTypeLibrary --> is a default dependency");
+		guidlinesText.append(newLine);
+		guidlinesText.append(newLine);
+		guidlinesText.append("SOACommonTypeLibrary --> is a default dependency");
+		guidlinesText.append(newLine);
+		guidlinesText.append(newLine);
+		
 		for (String typeLibrary: page.typeLibNameAndPackage.keySet()){
-			String packageName =page.typeLibNameAndPackage.get(typeLibrary);
+			Set<String> librarySet =packageLibMap.get(page.typeLibNameAndPackage.get(typeLibrary));
 			//call the service if any new type librraries are present.
-		
+			if((librarySet==null)&&(librarySet.size()==0)){
+				guidlinesText.append(typeLibrary+" --> is not yet uploaded on nxraptor repo. Please do so, and add the dependencies to your wsdl to avoid regeneration of types in your consumer bundle");
+			}
+			else{
+				guidlinesText.append(typeLibrary+" --> is available at ");
+				guidlinesText.append(newLine);
+				for (String libDetail:librarySet){			
+					guidlinesText.append("                             "+libDetail);
+					guidlinesText.append(newLine);
+				}
+			guidlinesText.append(newLine);
+			guidlinesText.append(newLine);
 			
-			guidlinesText.append("Library " + typeLibrary +" is found at Package "+packageName);
-			guidlinesText.append(newLine);
+		}
 			guidlinesText.append(newLine);
 		}
-		guideLines.setText(guidlinesText.toString());
-		updateRaptorProperties(getTypeLibArtifactsToAdd(page.typeLibNameAndPackage, page.getAdminName()));	
-		//reset types explorer, try
-		SOAGlobalRegistryAdapter.getInstance().invalidateRegistry();
-		try {
-			SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-				
+		guideLines.setText(guidlinesText.toString());		
 		
 		}
 		
+	}
+	private void resolveAllCandidateLibraries(Set<String> candidates){
+		for (String candidate:candidates){
+			MavenEclipseUtil.resolveFromArtifactData(candidate);
+		}
 	}
 	private Set<String> getTypeLibArtifactsToAdd(Map<String,String> typeLibNameAndPackage, String adminName){
 		//preparing the inputs to split package service
@@ -131,11 +154,11 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 			}
 		}
 		//Project is not yet created so assum bundle name  to be default
-		String bundleName = "com.ebay.soa.interface"+adminName;
+		String bundleName = "com.ebay.soa.interface."+adminName;
 		//If no new packages, then no need to call split package service and find the bundles.
 		JSONObject response = null;
 		try {
-			response = ProjectUtils.callSplitPackageService(bundleName, packageList);
+			response = ProjectUtils.callSplitPackageService(bundleName, packageList,true);
 		} catch (HttpException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -146,7 +169,7 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Map<String,Set<String>> packageLibMap = new HashMap<String,Set<String>>();
+		
 		
 		if(response!=null)
 		{
@@ -183,15 +206,21 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 					
 					Set<String> orig = packageLibMap.get(ErrorPackageName);
 					if(orig==null){orig = new HashSet();}
-					if(bundle.matches("(.*)\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$")){
-						//REgexM
-						//Dosome regex processing.
+					Pattern p = Pattern.compile("^(.*)\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$");
+					Matcher m = p.matcher(bundle);
+					String versionLessBundle = bundle;
+					if(m.find()){
+						//Version available, strip it and use the rest as groupid:artifactid
+						versionLessBundle = m.group(1);
 					}
-					int index =bundle.lastIndexOf(".");
-					String groupid =bundle.substring(0, index);
-					String artifactID = bundle.substring(index+1);
+					int index =versionLessBundle.lastIndexOf(".");
+					if(index!=-1){
+						//WATCHOUT
+						//Invalid group name artifact name other wise, so ignore
+					String groupid =versionLessBundle.substring(0, index);
+					String artifactID = versionLessBundle.substring(index+1);
 					orig.add(groupid+":"+artifactID+":"+bundleVersion.get(bundle));
-					packageLibMap.put(ErrorPackageName, orig);
+					packageLibMap.put(ErrorPackageName, orig);}
 				}
 			//End of valid conflicts processing
 			}
@@ -204,11 +233,50 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 			Set <String> toWriteLet =packageLibMap.get(typeLibNameAndPackage.get(typeLibrary));
 			if(toWriteLet!=null)
 			for (String entry: toWriteLet){
+				if((entry!=null)&&(!entry.isEmpty()))
 				toWrite.add(entry+":"+typeLibrary);
 			}
 			
 		}
 		return toWrite;
+	}
+	public void finished(){
+		Set<String> libraries = getLibraries();
+		Set<String> filteredTypeLibraries = new HashSet<String>();
+		ConsumerFromExistingWSDLWizardPage page = (ConsumerFromExistingWSDLWizardPage) this.getWizard().getPreviousPage(this);
+		for (String typeLibrary: page.typeLibNameAndPackage.keySet()){
+			Set <String> toWriteLet =packageLibMap.get(page.typeLibNameAndPackage.get(typeLibrary));
+			if(toWriteLet!=null)
+			for (String entry: toWriteLet){
+				if((entry!=null)&&(!entry.isEmpty())){
+						String [] typeDetails =entry.split(":");
+						for (String selLib:libraries){
+							String [] libDetails = selLib.split(":");
+							if((typeDetails.length!=3)||(libDetails.length!=4))
+							continue;
+							if((typeDetails[1].equalsIgnoreCase(libDetails[1])) //art id
+									&&(typeDetails[0].equalsIgnoreCase(libDetails[0]))//group id
+									&&(typeDetails[2].equalsIgnoreCase(libDetails[3]))) //version
+							{
+								filteredTypeLibraries.add(entry+":"+typeLibrary);
+							}
+						}
+				}
+				
+			}
+			
+		}
+		//updat raptor file with filtered libraries
+		updateRaptorProperties(filteredTypeLibraries);
+		//Invalidate registry
+		SOAGlobalRegistryAdapter.getInstance().invalidateRegistry();
+		try {
+			SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		
 	}
 	private void updateRaptorProperties(Set<String> toWrite) {
 		String userHomeDirectory = System.getProperty("user.home");
@@ -244,7 +312,7 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 		for(String entry:toWrite){
 			if(!updatedTipLibArtifacts.contains(entry)){
 				//make the netry
-				updatedTipLibArtifacts+=",";
+				if( !updatedTipLibArtifacts.isEmpty())updatedTipLibArtifacts+=",";
 				updatedTipLibArtifacts+=entry;
 			}
 		}
