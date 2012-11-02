@@ -700,6 +700,7 @@ if(this.applicationPackage==null)
 
 		return true;
 	}
+	
 public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws ParserConfigurationException, SAXException, IOException{
 		
 		Map<String,String> typeLibraryPackageSet = new HashMap<String,String>();
@@ -713,7 +714,7 @@ public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws 
 		NodeList list = m_Document.getElementsByTagName("typeLibrarySource");
 		for(int i =0;i<list.getLength();i++){
 			Node n = list.item(i);
-			
+			//add check for annotation tag
 			if(((n.getParentNode().getNodeName().endsWith(":appinfo")) 
 					||(n.getParentNode().getNodeName().equalsIgnoreCase("appinfo")))
 				&&(n.hasAttributes()) ){
@@ -1000,6 +1001,16 @@ public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws 
 		return GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 				.getHelpProvider().getHelpContextID(
 						ISOAHelpProvider.PAGE_CREATE_CONSUMER_FROM_WSDL);
+	}
+	
+	@Override
+	public boolean canFlipToNextPage() {
+		
+		if((super.canFlipToNextPage())&&(typeLibNameAndPackage!=null))
+				if (typeLibNameAndPackage.keySet().size()>0){
+					return true;
+				}
+		return false;
 	}
 	
 	

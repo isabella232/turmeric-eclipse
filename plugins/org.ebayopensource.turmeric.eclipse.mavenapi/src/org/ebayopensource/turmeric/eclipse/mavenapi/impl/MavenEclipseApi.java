@@ -230,8 +230,11 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 			{// during the import project process, the JDT/Maven natures will
 				// not be added if the project already exists
 				ClassLoader original =Thread.currentThread().getContextClassLoader();
+				try{
 				configManager.enableMavenNature(proj, rc, monitor);
+				}finally{
 				Thread.currentThread().setContextClassLoader(original);
+				}
 			}
 
 			// this function consumes too much memory

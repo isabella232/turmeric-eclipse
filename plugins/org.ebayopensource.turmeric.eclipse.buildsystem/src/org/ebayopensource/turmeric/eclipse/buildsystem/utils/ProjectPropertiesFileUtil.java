@@ -176,6 +176,8 @@ public class ProjectPropertiesFileUtil {
 					SOAProjectConstants.PROPS_DEFAULT_RAPTOR_CONSUMER_GENERATION);	
 			properties.setProperty(SOAProjectConstants.PROPS_OBJECT_FACT_PACK_INFO_DEL, 
 					SOAProjectConstants.PROPS_DEFAULT_OBJECT_FACT_PACK_INFO_DEL);
+			properties.setProperty(SOAProjectConstants.PROPS_GENERATE_BINDING,
+					SOAProjectConstants.PROPS_DEFAULT_GENERATE_BINDING);
 			//short package name for shared consumer
 			final String intfPkgName = StringUtils.substringBeforeLast(
 					metadata.getServiceInterface(), SOAProjectConstants.DELIMITER_DOT);

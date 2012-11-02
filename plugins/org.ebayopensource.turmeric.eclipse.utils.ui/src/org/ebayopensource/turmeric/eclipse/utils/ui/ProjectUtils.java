@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 import java.util.jar.Attributes.Name;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -140,7 +142,16 @@ public class ProjectUtils {
 		callSplitPackageServiceAndProcessOutPut(bundleName,packageList,project,error,true);
 		}
 	
-	
+	private static String stripVersion(String bundle){
+		Pattern p = Pattern.compile("^(.*)\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$");
+		Matcher m = p.matcher(bundle);
+		String versionLessBundle = bundle;
+		if(m.find()){
+			//Version available, strip it and use the rest as groupid:artifactid
+			versionLessBundle = m.group(1);
+		}
+		return versionLessBundle;
+	}
 	public static void callSplitPackageServiceAndProcessOutPut(String bundleName,Set<String> packageList, IProject project,boolean error,boolean showCompletionDialog){
 		//Calling Service
 		JSONObject response=null;
@@ -182,7 +193,7 @@ public class ProjectUtils {
 		if(response!=null)
 		{Iterator k =response.keys();
 		 final String newLine = System.getProperty("line.separator");
-		
+		String versionLessBundleName= stripVersion(bundleName);
 		
 		while (k.hasNext()){
 			 StringBuilder errorMessage=new StringBuilder();
@@ -196,7 +207,7 @@ public class ProjectUtils {
 					JSONObject object = bundlesList.getJSONObject(i);
 					String conflictBundleName = object.getString("bundleName");
 					String conflictingVersion = object.getString("version");
-					if(conflictBundleName.matches(bundleName+"\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$")){							
+					if(conflictBundleName.matches(versionLessBundleName+"\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$")){							
 						continue;
 						//Ignoring Same Bundles
 					}

@@ -689,6 +689,14 @@ public class SOAProjectConstants {
      */
     public static final String PROPS_OBJECT_FACT_PACK_INFO_DEL = "deleteObjectFactoryPackinfo";
     /*
+     * Property for enabling bindings generation in RIDE
+     */
+    public static final String PROPS_GENERATE_BINDING = "generateBinding";
+    /*
+     * Default value for property for enabling bindings generation in RIDE
+     */
+    public static final String PROPS_DEFAULT_GENERATE_BINDING = "true";
+    /*
      * Property for enabling deletion of object factory and package info in RIDE
      */
     public static final String PROPS_DEFAULT_OBJECT_FACT_PACK_INFO_DEL = "true";

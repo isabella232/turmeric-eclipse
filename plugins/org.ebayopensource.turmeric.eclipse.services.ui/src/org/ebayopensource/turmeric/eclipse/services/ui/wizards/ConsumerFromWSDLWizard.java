@@ -160,9 +160,12 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 	@Override
 	public boolean canFinish() {
 		if(getContainer().getCurrentPage() == consumerFromWsdl){
+			if((super.canFinish())&&(consumerFromWsdl.canFlipToNextPage()==false))
+			return true;
 			return false;
 		}
 		return true;
+		
 	}
 	
 	/**
