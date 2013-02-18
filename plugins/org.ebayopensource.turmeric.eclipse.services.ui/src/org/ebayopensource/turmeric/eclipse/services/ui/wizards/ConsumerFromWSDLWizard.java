@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +75,6 @@ import org.json.JSONObject;
  */
 public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 	private ConsumerFromExistingWSDLWizardPage consumerFromWsdl = null;
-	private DependenciesWizardPage intfDependenciesPage = null;
 	
 	private static final SOALogger logger = SOALogger.getLogger();
 
@@ -92,11 +92,11 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 	public IWizardPage[] getContentPages() {
 		consumerFromWsdl = new ConsumerFromExistingWSDLWizardPage(
 				getSelection());
-		intfDependenciesPage = new DependenciesWizardPage(SOAMessages.SVC_INTF);
+		//intfDependenciesPage = new DependenciesWizardPage(SOAMessages.SVC_INTF);
 		List<IWizardPage> pages = new ArrayList<IWizardPage>();
 		
 		pages.add(consumerFromWsdl);
-		pages.add(intfDependenciesPage);
+		//pages.add(intfDependenciesPage);
 		
 		return pages.toArray(new IWizardPage[pages.size()]);
 	}
@@ -176,9 +176,9 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 	 */
 	
 	
-	private boolean callSplitPackageService(String serviceName, Map<String,String> allNSToPackMappings){
+	private boolean callSplitPackageService(String serviceName, Set<String> mappedPackages){
 		try {
-			JSONObject response = ProjectUtils.callSplitPackageService(serviceName, allNSToPackMappings.keySet(),true);
+			JSONObject response = ProjectUtils.callSplitPackageService(serviceName, mappedPackages,true);
 			StringBuilder errorMessage = new StringBuilder();
 			if(response!=null)
 			{Iterator k = response.keys();
@@ -273,14 +273,18 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 
 		//During creation service Name is hardcoded
 		String fullServiceName = "com.ebay.soa.interface."+serviceName;
-
-		if(!callSplitPackageService(fullServiceName,allNSToPackMappings))
+		
+		Set<String> mappedPackages = new HashSet<String>();
+		mappedPackages.addAll(allNSToPackMappings.values());
+		
+		
+		if(!callSplitPackageService(fullServiceName,mappedPackages))
 			//Cancel has been Pressed on the dialog box
 			return false;
 		
 		
 		
-		intfDependenciesPage.finished();
+	
 		
 		//Flag to let the wsdl field focus lost listener know that OK button has been pressed
 		//To avoid the https:// message box from reappearing once the focus is lost
@@ -316,7 +320,7 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 		uiModel.setNamespacePart(consumerFromWsdl.getDomainClassifier());
 		uiModel.setTypeFolding(consumerFromWsdl.getTypeFolding());
 		//Adding library dependencies
-		uiModel.setInterfaceLibs(intfDependenciesPage.getLibraries());
+	
 		try {
 			uiModel.setOriginalWsdlUrl(new URL(consumerFromWsdl.getWSDLURL()));
 			final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {

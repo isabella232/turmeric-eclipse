@@ -695,7 +695,7 @@ public class SOAProjectConstants {
     /*
      * Default value for property for enabling bindings generation in RIDE
      */
-    public static final String PROPS_DEFAULT_GENERATE_BINDING = "true";
+    public static final String PROPS_DEFAULT_GENERATE_BINDING = "false";
     /*
      * Property for enabling deletion of object factory and package info in RIDE
      */

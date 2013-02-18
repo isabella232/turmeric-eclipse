@@ -111,7 +111,7 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	private String versionFromWSDL = null;
 	private boolean simpleMode = false; //simple mode will not need to craete the consumer project
 	private String domainName = "";
-	public Map<String,String> typeLibNameAndPackage;
+	//public Map<String,String> typeLibNameAndPackage;
 	
 	private static final String SIMPLE_MODE_TITLE = "Simple Mode reads a pre-existing WSDL document, creates a consumerized SOA Intf Project with a ClientConfig.xml.";
 	
@@ -825,28 +825,7 @@ public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws 
 					+ SOAProjectConstants.CLIENT_PROJECT_SUFFIX);
 			setTypeFolding(getDefaultEnabledNSValue());
 			typeFoldingButton.setEnabled(false);
-			
-			
-			try {
-				typeLibNameAndPackage=ConsumerFromExistingWSDLWizardPage.getAllTypeLibraryNames(wsdl);
-				// for each entry in r,
-				// If no conflicting bundle exists,
-					//Display a mesg asking user to move tl to library and then add it as a dep and rebuild library.
-				// If conflicting bundle exists,
-					//Display a mesg asking user to add it as a possible dependency.
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-				
-			
-			
+					
 		} else {
 			serviceClientText.setText(DEFAULT_TEXT_VALUE);
 		}
@@ -918,9 +897,10 @@ public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws 
 	}
 	@Override
 	protected boolean getDefaultEnabledNSValue(){
-		Collection<String> allTNS=WSDLUtil.getAllTargetNamespaces(wsdl);
-		if(allTNS.size()>1) return false;
-		return true;
+//		Collection<String> allTNS=WSDLUtil.getAllTargetNamespaces(wsdl);
+//		if(allTNS.size()>1) return false;
+//		return true;
+		return false;
 	}
 	/**
 	 * Gets the client name.
@@ -1006,10 +986,6 @@ public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws 
 	@Override
 	public boolean canFlipToNextPage() {
 		
-		if((super.canFlipToNextPage())&&(typeLibNameAndPackage!=null))
-				if (typeLibNameAndPackage.keySet().size()>0){
-					return true;
-				}
 		return false;
 	}
 	
