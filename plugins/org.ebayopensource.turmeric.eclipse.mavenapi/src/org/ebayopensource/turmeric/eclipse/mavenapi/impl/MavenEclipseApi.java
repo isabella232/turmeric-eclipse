@@ -151,10 +151,15 @@ public class MavenEclipseApi extends AbstractMavenEclipseApi {
 
 		if (req.getBuildPlugins() != null
 				&& req.getBuildPlugins().isEmpty() == false) {
-			final Build build = model.getBuild() != null ? model.getBuild()
-					: new Build();
+			Build build = model.getBuild();
+			if(build==null)
+				build = new Build();
+			
 			for (Plugin buildPlugin : req.getBuildPlugins()) {
 				build.addPlugin(buildPlugin);
+			}
+			if(model.getBuild()==null){
+				model.setBuild(build);
 			}
 		}
 

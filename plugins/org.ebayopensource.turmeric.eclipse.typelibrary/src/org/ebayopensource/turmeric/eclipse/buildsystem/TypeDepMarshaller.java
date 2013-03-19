@@ -209,12 +209,13 @@ public class TypeDepMarshaller {
 	 */
 	public static ReferredTypeLibraryType getReferredTypeLibrary(
 			TypeDependencyType typeDependencyType, String libraryName) {
+		if((typeDependencyType!=null)&&(typeDependencyType.getReferredTypeLibrary()!=null)){
 		for (ReferredTypeLibraryType refType : typeDependencyType
 				.getReferredTypeLibrary()) {
 			if (StringUtils.equals(libraryName, refType.getName())) {
 				return refType;
 			}
-		}
+		}}
 		return null;
 	}
 
@@ -233,11 +234,13 @@ public class TypeDepMarshaller {
 	 */
 	public static ReferredType getReferredType(
 			ReferredTypeLibraryType referredTypeLibraryType, String typeName) {
+		if((referredTypeLibraryType!=null)&&(referredTypeLibraryType.getReferredType()!=null)){
 		for (ReferredType referredType : referredTypeLibraryType
 				.getReferredType()) {
 			if (StringUtils.equals(typeName, referredType.getName())) {
 				return referredType;
 			}
+		}
 		}
 		return null;
 	}

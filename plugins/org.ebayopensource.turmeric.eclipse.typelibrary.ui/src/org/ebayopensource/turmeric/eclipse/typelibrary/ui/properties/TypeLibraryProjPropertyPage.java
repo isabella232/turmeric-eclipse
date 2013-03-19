@@ -13,11 +13,13 @@ import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeLibraryParamModel;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.exception.resources.SOAResourceModifyFailedException;
 import org.ebayopensource.turmeric.eclipse.exception.validation.ValidationInterruptedException;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.utils.TurmericServiceUtils;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
+import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProject;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProjectResolver;
@@ -299,7 +301,9 @@ public class TypeLibraryProjPropertyPage extends PreferencePage implements
                 model = SOATypeLibraryProjectResolver
                         .loadTypeLibraryModel(project);
 
-                if (TurmericServiceUtils.isSOATypeLibraryProject(project)) {
+                if (SOAServiceUtil.hasNatures(project,   
+						GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+						.getProjectNatureId(SupportedProjectType.TYPE_LIBRARY))) {
                     typelibProject = (SOATypeLibraryProject) GlobalRepositorySystem
                             .instanceOf().getActiveRepositorySystem()
                             .getAssetRegistry().getSOAProject(project);

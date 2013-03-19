@@ -10,6 +10,7 @@ package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 
 import java.util.List;
 
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject;
@@ -222,5 +223,12 @@ public interface ISOAProjectConfigurer {
 			throws Exception;
 
 	public String getClientGroupName(IProject project);
+
+	
+
+	public void addRequiredBundle(IProject selectedProject, String name,
+			IProgressMonitor defaultMonitor, SupportedProjectType errorLibrary);
+
+	
 	
 }

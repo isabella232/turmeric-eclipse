@@ -15,6 +15,8 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeLibraryParamModel;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryBuilderUtils;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProjectResolver;
@@ -23,6 +25,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
 
 
 /**
@@ -128,6 +131,23 @@ public class TypeLibModelTransformer {
 			xjcClassPath.append(typeLibProject.getLocation().toFile()
 					.getCanonicalPath());
 			xjcClassPath.append(File.pathSeparatorChar);
+		}
+		List<AssetInfo> allTLs=null;
+		try {
+			allTLs = GlobalRepositorySystem
+					.instanceOf().getActiveRepositorySystem()
+					.getTypeRegistryBridge().getAllLatestTypeLibraries();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(AssetInfo type:allTLs){
+			if(type.getJarNames().size()>0){
+				String pathToJAR=type.getDir()+File.separator+type.getJarNames().get(0);
+				pathToJAR=pathToJAR.replaceAll("%20"," " );
+				//xjcClassPath.append(pathToJAR); //No changes needed here as all libraries are already as dependant libs to codegen
+			}
+			
 		}
 		return StringUtils.substringBeforeLast(xjcClassPath.toString(),
 				File.pathSeparator);

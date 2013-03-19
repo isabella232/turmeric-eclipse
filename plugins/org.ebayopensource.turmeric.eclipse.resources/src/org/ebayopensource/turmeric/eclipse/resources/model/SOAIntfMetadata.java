@@ -51,9 +51,8 @@ public class SOAIntfMetadata extends SOAConsumerMetadata {
 	private boolean isZeroConfig;
 	private String metadataVersion = SOAProjectConstants.DEFAULT_VERSION;
 	private Map<String, String> namespaceToPackageMappings = new ConcurrentHashMap<String, String>();
-	
 	private String serviceNonXSDProtocols;
-
+	private boolean raptorSvcImpl=true;
 	/**
 	 * This is called from the UI processors. Since we have the user entered
 	 * information at the creation flow the UI object is passed and is converted
@@ -84,7 +83,7 @@ public class SOAIntfMetadata extends SOAConsumerMetadata {
 		metadata.setServiceDomainName(paramModel.getServiceDomain());
 		metadata.setServiceNonXSDProtocols(paramModel.getServiceProtocols());
 		metadata.setZeroConfig(true);
-		
+		metadata.setRaptorSvcImpl (paramModel.isRaptorSvcImpl());
 		SOAIntfUtil.setInformationFromWsdl(paramModel.getOriginalWsdlUrl(),
 				metadata);
 		return metadata;
@@ -463,5 +462,13 @@ public class SOAIntfMetadata extends SOAConsumerMetadata {
 
 	public void setServiceNonXSDProtocols(String serviceNonXSDProtocol) {
 		this.serviceNonXSDProtocols = serviceNonXSDProtocol;
+	}
+
+	public boolean isRaptorSvcImpl() {
+		return raptorSvcImpl;
+	}
+
+	public void setRaptorSvcImpl(boolean raptorSvcImpl) {
+		this.raptorSvcImpl = raptorSvcImpl;
 	}
 }

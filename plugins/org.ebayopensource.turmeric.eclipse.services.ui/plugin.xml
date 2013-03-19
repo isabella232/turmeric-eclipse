@@ -4,7 +4,7 @@
 <extension
          point="org.eclipse.ui.newWizards">
     
-     <!--<wizard
+    <wizard
             category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
             class="org.ebayopensource.turmeric.eclipse.services.ui.wizards.ServiceFromWSDLWizard"
             finalPerspective="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"
@@ -17,7 +17,7 @@
             %Wizard.NewService.Description
          </description>
       </wizard>
-       <wizard
+       <!-- <wizard
             category="org.ebayopensource.turmeric.eclipse.core.ui.newWizards"
             class="org.ebayopensource.turmeric.eclipse.services.ui.wizards.ConsumerFromJavaWizard"
             finalPerspective="org.ebayopensource.turmeric.eclipse.ui.soaPerspective"

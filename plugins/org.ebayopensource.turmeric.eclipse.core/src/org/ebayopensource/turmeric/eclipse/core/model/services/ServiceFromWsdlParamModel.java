@@ -154,6 +154,11 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 	 * Protocols used by a service. separated by ,
 	 */
 	String serviceNonXSDProtocols;
+	
+	/*
+	 * Indicates whether the interface project is created as part of raptor service impl
+	 */
+	private boolean raptorSvcImpl;
 
 	/**
 	 * 
@@ -586,6 +591,14 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 	 */
 	public void setServiceNonXSDProtocols(String serviceProtocols) {
 		this.serviceNonXSDProtocols = serviceProtocols;
+	}
+
+	public boolean isRaptorSvcImpl() {
+		return raptorSvcImpl;
+	}
+
+	public void setRaptorSvcImpl(boolean raptorSvcImpl) {
+		this.raptorSvcImpl = raptorSvcImpl;
 	}
 
 }

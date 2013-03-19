@@ -12,6 +12,7 @@
 package org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ProjectPropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.core.model.AbstractSOAProjetParamModel.UIModelProjectLinkedResource;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.buildsystem.core.ErrorLibraryBuildSystemConfigurer;
@@ -85,6 +86,8 @@ public class ErrorLibraryCreator {
 		SOAResourceCreator.createFolders(project, errorLibraryProject, monitor);
 		ProgressUtil.progressOneStep(monitor);
 
+		//Create pref file
+		ProjectPropertiesFileUtil.createPrefsFile(errorLibraryProject.getProject(), monitor);
 		// call BuildSystem
 		GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 				.getProjectConfigurer().initializeErrorLibProject(

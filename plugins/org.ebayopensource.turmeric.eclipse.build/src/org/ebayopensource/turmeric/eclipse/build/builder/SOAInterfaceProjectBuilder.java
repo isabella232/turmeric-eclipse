@@ -17,6 +17,7 @@ import org.ebayopensource.turmeric.eclipse.build.SOAFrameworkBuilderActivator;
 import org.ebayopensource.turmeric.eclipse.buildsystem.SynchronizeWsdlAndDepXML;
 import org.ebayopensource.turmeric.eclipse.buildsystem.eclipse.AbstractSOAProjectBuilder;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ActionUtil;
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuilderUtil;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ModelTransformer;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
@@ -75,7 +76,9 @@ public class SOAInterfaceProjectBuilder extends AbstractSOAProjectBuilder {
 			try {
 				SynchronizeWsdlAndDepXML synch = new SynchronizeWsdlAndDepXML(project);
  				synch.syncronizeWsdlandDepXml();
-				synch.synchronizeTypeDepandProjectDep(monitor);				
+				if(synch.synchronizeTypeDepandProjectDep(monitor)){
+					BuildSystemUtil.updateSOAClasspathContainer(project);
+				}
 			} catch (Exception e) {
 				SOAExceptionHandler.silentHandleException(e);
 				// Silently ignore. This is just an attempt

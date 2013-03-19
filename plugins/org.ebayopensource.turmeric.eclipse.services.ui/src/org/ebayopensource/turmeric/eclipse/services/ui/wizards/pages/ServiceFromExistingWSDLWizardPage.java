@@ -8,12 +8,20 @@
  *******************************************************************************/
 package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 
+import java.io.IOException;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.wsdl.Definition;
 import javax.wsdl.WSDLException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
@@ -31,6 +39,12 @@ import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.widgets.Composite;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import com.sun.tools.xjc.api.XJC;
 
 
 /**
@@ -41,7 +55,7 @@ import org.eclipse.swt.widgets.Composite;
 public class ServiceFromExistingWSDLWizardPage extends
 		AbstractNewServiceFromWSDLWizardPage {
 	private static final SOALogger logger = SOALogger.getLogger();
-
+	public Map<String,String> typeLibNameAndPackage;
 	private String versionFromWSDL = null;
 
 	/**
@@ -212,7 +226,12 @@ public class ServiceFromExistingWSDLWizardPage extends
 		}
 		return true;
 	}
-	
+	@Override
+	protected boolean getDefaultEnabledNSValue(){
+		Collection<String> allTNS=WSDLUtil.getAllTargetNamespaces(wsdl);
+		if(allTNS.size()>1) return false;
+		return true;
+	}
 	/* (non-Javadoc)
 	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWizardPage#getDefaultTypeNamespace()
 	 */
@@ -236,6 +255,17 @@ public class ServiceFromExistingWSDLWizardPage extends
 	/* (non-Javadoc)
 	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#wsdlChanged(javax.wsdl.Definition)
 	 */
+		
+  public boolean customCanFlipToNextPage() {
+ 		
+    if((super.canFlipToNextPage())&&(typeLibNameAndPackage!=null))
+ 	 	
+       if (typeLibNameAndPackage.keySet().size()>0){
+          return true;
+        }
+    return false;
+  }
+	
 	@Override
 	public void wsdlChanged(Definition wsdl) {
 		boolean nsChanged = false;
@@ -297,11 +327,76 @@ public class ServiceFromExistingWSDLWizardPage extends
 						.setText(SOAProjectConstants.DEFAULT_SERVICE_VERSION);
 			}
 		}
-
+		setTypeFolding(getDefaultEnabledNSValue());
 		if (nsChanged == false) {
 			setTargetNamespace("");
 			setTypeNamespace("");
 		}
+		try {
+			typeLibNameAndPackage=ServiceFromExistingWSDLWizardPage.getAllTypeLibraryNames(wsdl);
+			// for each entry in r,
+			// If no conflicting bundle exists,
+				//Display a mesg asking user to move tl to library and then add it as a dep and rebuild library.
+			// If conflicting bundle exists,
+				//Display a mesg asking user to add it as a possible dependency.
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	public boolean canFlipTOTL(){
+		 if((typeLibNameAndPackage!=null))
+		        if (typeLibNameAndPackage.keySet().size()>0){
+		          return true;
+		        }
+		 return false;
+	}
+public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws ParserConfigurationException, SAXException, IOException{
+		
+		Map<String,String> typeLibraryPackageSet = new HashMap<String,String>();
+		try{
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+
+		builder = factory.newDocumentBuilder();
+		Document m_Document = builder.parse(wsdl.getDocumentBaseURI());
+		
+		NodeList list = m_Document.getElementsByTagName("typeLibrarySource");
+		for(int i =0;i<list.getLength();i++){
+			Node n = list.item(i);
+			//add check for annotation tag
+			if(((n.getParentNode().getNodeName().endsWith(":appinfo")) 
+					||(n.getParentNode().getNodeName().equalsIgnoreCase("appinfo")))
+				&&(n.hasAttributes()) ){
+				Node typeLibrary = n.getAttributes().getNamedItem("library");
+				Node nameSpace = n.getAttributes().getNamedItem("namespace");
+				if(typeLibrary!=null&&nameSpace!=null){
+					//Calling the ns to package mapper from XJC to maintain consistency
+					
+					String packageName = XJC.getDefaultPackageName(nameSpace.getNodeValue());
+					//lets call the service here if we do not know which bundles it belongs to already.
+					//Then lets populate some datasructure with thegroup id, art id, tl name, version.
+					//lets return that data structure here.
+					typeLibraryPackageSet.put(typeLibrary.getNodeValue(), packageName);
+
+				}
+			}
+		}
+		//Removing default dependencies
+		typeLibraryPackageSet.remove("MarketPlaceServiceCommonTypeLibrary");
+		typeLibraryPackageSet.remove("SOACommonTypeLibrary");
+		}
+		catch(Exception e){
+			logger.error(e);
+		}
+		return typeLibraryPackageSet;
 	}
 
 }

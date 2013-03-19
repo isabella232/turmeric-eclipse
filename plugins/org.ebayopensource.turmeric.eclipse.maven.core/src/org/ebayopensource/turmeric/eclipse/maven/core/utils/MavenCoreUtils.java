@@ -27,10 +27,13 @@ import java.util.jar.JarFile;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.model.Build;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
@@ -134,6 +137,7 @@ public class MavenCoreUtils {
 				.createFolders(project.getProject(), project, monitor);
 		return project;
 	}
+	 
 
 	/**
 	 * 
@@ -571,15 +575,39 @@ public class MavenCoreUtils {
 		} else {
 			artifact = getLatestArtifact(groupID, artifactName);
 		}
-
+		MavenProject mProject = null;
 		if (artifact != null) {
-			final MavenProject mProject = mavenEclipseAPI()
+			try{
+			mProject= mavenEclipseAPI()
 					.resolveArtifactAsProject(artifact);
+			}catch(Exception e){
+				
+		}
+		}if(mProject!=null){
 			IPath jarPath = new Path(mProject.getFile().toString());
 			// resolve the jar file path in the file system
 			jarPath = jarPath.removeFileExtension().addFileExtension(
 					SOAProjectConstants.FILE_EXTENSION_JAR);
 			return jarPath;
+		}
+		if((mProject==null)&&(groupID.equalsIgnoreCase("com.ebay.soa.typelib"))){
+			//Check if there is any type library with the name as artifactName
+			List<AssetInfo> allTLs=null;
+			try {
+				allTLs = GlobalRepositorySystem
+						.instanceOf().getActiveRepositorySystem()
+						.getTypeRegistryBridge().getAllLatestTypeLibraries();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			for(AssetInfo type:allTLs){
+				if(type.getName().equalsIgnoreCase(artifactName)){
+					String pathToJAR=type.getDir()+File.separator+type.getJarNames().get(0);
+					pathToJAR=pathToJAR.replaceAll("%20"," " );
+					return new Path(pathToJAR);
+				}
+			}
 		}
 		return null;
 	}

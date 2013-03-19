@@ -693,6 +693,10 @@ public class SOAProjectConstants {
      */
     public static final String PROPS_GENERATE_BINDING = "generateBinding";
     /*
+     * Property for denoting an interface created via service impl flow.
+     */
+    public static final String PROPS_GEN_SHARED_CONSUMER = "generateSharedConsumer";
+    /*
      * Default value for property for enabling bindings generation in RIDE
      */
     public static final String PROPS_DEFAULT_GENERATE_BINDING = "false";

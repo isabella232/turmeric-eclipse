@@ -156,7 +156,7 @@ public class GenTypeServiceFromWSDLImpl extends BaseCodeGenModel {
 		
 		if (StringUtils.isNotBlank(this.serviceConfigGroup))
 			result.put(PARAM_SCGN, this.serviceConfigGroup);
-		
+		result.put("-raptorOsgiImplActivator", null); //Modify and add teh bundleactivator generator here.		
 		//Unit Test		
 		result.put(PARAM_CN, getClientName());
 		result.put(PARAM_GT, null);

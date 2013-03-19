@@ -176,75 +176,7 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 	 */
 	
 	
-	private boolean callSplitPackageService(String serviceName, Set<String> mappedPackages){
-		try {
-			JSONObject response = ProjectUtils.callSplitPackageService(serviceName, mappedPackages,true);
-			StringBuilder errorMessage = new StringBuilder();
-			if(response!=null)
-			{Iterator k = response.keys();
-			final String newLine = System.getProperty("line.separator");
-			while (k.hasNext()) {
-				Map<String,String> bundleVersion = new HashMap<String, String>();
-				String ErrorPackageName = (String) k.next();
-				JSONArray bundlesList = null;
-				try {
-					bundlesList = response.getJSONArray(ErrorPackageName);
-					for (int i = 0; i < bundlesList.length(); i++) {
-						JSONObject object = bundlesList.getJSONObject(i);
-						String conflictBundleName = object.getString("bundleName");
-						String conflictingVersion = object.getString("version");
-						if(conflictBundleName.matches(serviceName+"\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$")){							
-							continue;
-							//Ignoring Same Bundles with Differing versions
-						}
-						bundleVersion.put(conflictBundleName, conflictingVersion);
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				//display errors if any, for each erroneous bundle
-				if(bundleVersion.size()>0){
-					errorMessage.append("Split package errors detected for package "+ErrorPackageName
-							+ " with the following bundles:");
-					errorMessage.append(newLine);
-					for(String bundle:bundleVersion.keySet()){
-						errorMessage.append("     "+ bundle+":"+bundleVersion.get(bundle));
-						errorMessage.append(newLine);
-					}
-					errorMessage.append(newLine);
-				}
-			}
-			if(!errorMessage.toString().isEmpty()){
-				errorMessage.append("For more details about resolving split package errors follow this wiki: http://short/splitPackage");
-				errorMessage.append(newLine);	
-				errorMessage.append("\nWould you still like to continue with these packages? Click OK to continue, or Cancel, go back and provide a unique Application Package to avoid conflicts.");
-				logger.log(Level.WARNING, errorMessage.toString());
-				MessageBox messageDialog = new MessageBox(getShell(),SWT.ICON_WARNING|SWT.OK| SWT.CANCEL);
-				messageDialog.setMessage(errorMessage.toString());
-				messageDialog.setText("Split Packages Detected!");
-			int answer = messageDialog.open();
-			if(answer == SWT.CANCEL){
-				//User choses to cancel and go back to change packages
-				logger.log(Level.INFO, "Discarding packages due to split package warnings");
-				return false;
-			}
-			else{
-				logger.log(Level.INFO, "Ignoring split package warnings and using the same packages");
-			}
-			
-			}
-			}
-		} catch (JSONException e) {
-			logger.log(Level.WARNING,e.getMessage());
-		}		
-		//Succesful validation
-	catch (HttpException e1) {
-		logger.log(Level.WARNING,e1.getMessage());
-	} catch (IOException e1) {
-		logger.log(Level.WARNING,e1.getMessage());
-	}
-	return true;
-	}
+	
 	
 	@Override
 	public boolean performFinish() {
@@ -278,7 +210,7 @@ public class ConsumerFromWSDLWizard extends AbstractSOADomainWizard {
 		mappedPackages.addAll(allNSToPackMappings.values());
 		
 		
-		if(!callSplitPackageService(fullServiceName,mappedPackages))
+		if(!callSplitPackageService(fullServiceName,mappedPackages,true))
 			//Cancel has been Pressed on the dialog box
 			return false;
 		

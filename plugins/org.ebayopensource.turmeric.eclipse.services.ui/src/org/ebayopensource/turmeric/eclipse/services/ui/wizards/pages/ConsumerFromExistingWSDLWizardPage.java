@@ -11,22 +11,14 @@
  */
 package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.wsdl.Definition;
 import javax.wsdl.Service;
-import javax.wsdl.Types;
-import javax.wsdl.WSDLException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
@@ -40,20 +32,16 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositoryS
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAIntfUtil;
 import org.ebayopensource.turmeric.eclipse.resources.util.SOAServiceUtil;
 import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
-import org.ebayopensource.turmeric.eclipse.services.ui.wizards.ConsumerFromWSDLWizard;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
-import org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.ErrorMessage;
 import org.ebayopensource.turmeric.eclipse.validator.core.InputObject;
 import org.ebayopensource.turmeric.eclipse.validator.utils.ValidateUtil;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.NameValidator;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.RegExConstants;
-import org.ebayopensource.turmeric.tools.codegen.external.wsdl.parser.WSDLConversionToSingleNsHelper;
-import org.ebayopensource.turmeric.tools.codegen.external.wsdl.parser.util.WSDLParserUtil;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -71,7 +59,6 @@ import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
-import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -86,13 +73,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import com.sun.tools.xjc.api.XJC;
 
 
 /**
@@ -111,13 +91,29 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	private String versionFromWSDL = null;
 	private boolean simpleMode = false; //simple mode will not need to craete the consumer project
 	private String domainName = "";
-	//public Map<String,String> typeLibNameAndPackage;
 	
 	private static final String SIMPLE_MODE_TITLE = "Simple Mode reads a pre-existing WSDL document, creates a consumerized SOA Intf Project with a ClientConfig.xml.";
 	
 	private static final String ADV_MODE_TITLE = "Advance Mode creates a consumerized SOA Intf Project from a pre-existing WSDL document.";
 
 	private static final SOALogger logger = SOALogger.getLogger();
+	@Override
+	public String computeServiceName() {
+		final String serviceName = getPublicServiceName();
+		if (StringUtils.isEmpty(serviceName))
+			return DEFAULT_TEXT_VALUE;
+		
+		String domainClassifier = getDomainClassifier();
+		if (StringUtils.isBlank(domainClassifier)) {
+			domainClassifier = getOrganizationProvider().getNamespacePartFromTargetNamespace(getTargetNamespace());
+		}
+		
+		return SOAServiceUtil.computeAdminName(serviceName, domainClassifier, getServiceVersion())+"Client";
+	}
+	@Override
+	public String getDefaultServicePackageName() {
+		return generateServicePackageName(getDefaultServicePackageNamePrefix())+".client";
+	}
 
 	/**
 	 * Instantiates a new consumer from existing wsdl wizard page.
@@ -520,6 +516,9 @@ if(this.applicationPackage==null)
 	 */
 	@Override
 	public String getDefaultValue(Text text) {
+//		if (text == adminNameText) {
+//		
+//		}
 		if (text == serviceClientText) {
 			String adminName = getAdminName();
 			if (StringUtils.isEmpty(adminName) == true) {
@@ -701,63 +700,6 @@ if(this.applicationPackage==null)
 		return true;
 	}
 	
-public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws ParserConfigurationException, SAXException, IOException{
-		
-		Map<String,String> typeLibraryPackageSet = new HashMap<String,String>();
-		try{
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder;
-
-		builder = factory.newDocumentBuilder();
-		Document m_Document = builder.parse(wsdl.getDocumentBaseURI());
-		
-		NodeList list = m_Document.getElementsByTagName("typeLibrarySource");
-		for(int i =0;i<list.getLength();i++){
-			Node n = list.item(i);
-			//add check for annotation tag
-			if(((n.getParentNode().getNodeName().endsWith(":appinfo")) 
-					||(n.getParentNode().getNodeName().equalsIgnoreCase("appinfo")))
-				&&(n.hasAttributes()) ){
-				Node typeLibrary = n.getAttributes().getNamedItem("library");
-				Node nameSpace = n.getAttributes().getNamedItem("namespace");
-				if(typeLibrary!=null&&nameSpace!=null){
-					//Calling the ns to package mapper from XJC to maintain consistency
-					
-					String packageName = XJC.getDefaultPackageName(nameSpace.getNodeValue());
-					//lets call the service here if we do not know which bundles it belongs to already.
-					//Then lets populate some datasructure with thegroup id, art id, tl name, version.
-					//lets return that data structure here.
-					typeLibraryPackageSet.put(typeLibrary.getNodeValue(), packageName);
-
-				}
-			}
-		}
-		//Removing default dependencies
-		typeLibraryPackageSet.remove("MarketPlaceServiceCommonTypeLibrary");
-		typeLibraryPackageSet.remove("SOACommonTypeLibrary");
-//		if (wsdl.getTypes() != null) {
-//			
-//			for (Object obj : wsdl.getTypes().getExtensibilityElements()) {
-//				if (obj instanceof Schema) {
-//				Schema xs = (Schema)obj;
-//				NodeList list =xs.getElement().getChildNodes();
-//				for(int i =0;i<list.getLength();i++){
-//					Node a = list.item(i);
-//					System.out.println(a.getNodeName());
-//					
-//				}
-//				NamedNodeMap nodemapr=list.item(0).getAttributes();
-//				System.out.println(nodemapr.getLength());
-//				}
-//			}
-//		}}
-		}
-		catch(Exception e){
-			logger.error(e);
-		}
-		return typeLibraryPackageSet;
-	}
-	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -788,9 +730,13 @@ public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws 
 							.setText(getPublicServiceName()
 									+ SOAProjectConstants.MAJOR_VERSION_PREFIX
 									+ SOAServiceUtil
-											.getServiceMajorVersion(getServiceVersion()));
+											.getServiceMajorVersion(getServiceVersion())+"Client");
 				}
 			}
+			System.out.println(adminText.getText());
+			this.adminText.setText(this.adminText.getText()+"Client");
+			System.out.println(adminText.getText());
+			this.adminNameText.setText(this.adminNameText.getText()+"Client");
 			String version = SOAIntfUtil.getServiceVersionFromWsdl(wsdl,
 					getPublicServiceName()).trim();
 			if (resourceVersionText != null) {
@@ -897,9 +843,6 @@ public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws 
 	}
 	@Override
 	protected boolean getDefaultEnabledNSValue(){
-//		Collection<String> allTNS=WSDLUtil.getAllTargetNamespaces(wsdl);
-//		if(allTNS.size()>1) return false;
-//		return true;
 		return false;
 	}
 	/**

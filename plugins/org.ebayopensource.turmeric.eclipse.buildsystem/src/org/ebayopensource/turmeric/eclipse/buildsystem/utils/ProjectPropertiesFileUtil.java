@@ -178,6 +178,10 @@ public class ProjectPropertiesFileUtil {
 					SOAProjectConstants.PROPS_DEFAULT_OBJECT_FACT_PACK_INFO_DEL);
 			properties.setProperty(SOAProjectConstants.PROPS_GENERATE_BINDING,
 					SOAProjectConstants.PROPS_DEFAULT_GENERATE_BINDING);
+			//To denote if interface being created is via raptor service creation flow
+			if(metadata.isRaptorSvcImpl()){
+				properties.setProperty(SOAProjectConstants.PROPS_GEN_SHARED_CONSUMER, Boolean.toString(false));
+			}
 			//short package name for shared consumer
 			final String intfPkgName = StringUtils.substringBeforeLast(
 					metadata.getServiceInterface(), SOAProjectConstants.DELIMITER_DOT);

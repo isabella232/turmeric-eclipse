@@ -216,7 +216,8 @@ public abstract class AbstractMavenApi implements IMavenEclipseApi {
 			return artifact;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new MavenEclipseApiException(e);
+			return null;
+		//	throw new MavenEclipseApiException(e);
 		}
 	}
 

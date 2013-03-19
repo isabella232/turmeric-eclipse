@@ -44,7 +44,7 @@ import org.eclipse.ui.dialogs.ListDialog;
  */
 public final class ErrorLibraryProviderFactory {
 
-	private static String preferredProviderID = null;
+	private static String preferredProviderID ="V4ContentErrorLibraryProvider";//Setting V4 library as default on RIDE
 	private static Map<String, IErrorLibraryProvider> errorProviders = 
 		new LinkedHashMap<String, IErrorLibraryProvider>();
 	private static final SOALogger logger = SOALogger.getLogger();

@@ -14,6 +14,7 @@ import java.util.Set;
 import org.ebayopensource.turmeric.eclipse.buildsystem.TypeDepMarshaller;
 import org.ebayopensource.turmeric.eclipse.buildsystem.core.TypeLibraryBuildSystemConfigurer;
 import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ProjectPropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.codegen.utils.CodegenInvoker;
 import org.ebayopensource.turmeric.eclipse.core.model.typelibrary.TypeLibraryParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
@@ -72,7 +73,8 @@ public class TypeLibraryCreator {
 				eclipseMetadata, monitor);
 		// Folder Creation
 		SOAResourceCreator.createFolders(project, typeLibraryProject, monitor);
-
+		//Creates the pref file for RIDE
+		ProjectPropertiesFileUtil.createPrefsFile(typeLibraryProject.getProject(), monitor);
 		// Create the type reference xml.
 		TypeDepMarshaller.createDefaultDepXml(typeLibraryProject, monitor);
 

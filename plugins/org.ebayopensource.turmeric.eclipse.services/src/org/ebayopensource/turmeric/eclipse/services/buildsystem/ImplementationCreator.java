@@ -13,6 +13,7 @@ import java.util.Set;
 import org.ebayopensource.turmeric.eclipse.buildsystem.core.BuildSystemConfigurer;
 import org.ebayopensource.turmeric.eclipse.buildsystem.services.SOAResourceCreator;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemCodeGen;
+import org.ebayopensource.turmeric.eclipse.buildsystem.utils.ProjectPropertiesFileUtil;
 import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
@@ -165,6 +166,7 @@ public class ImplementationCreator {
 		
 		SOAResourceCreator.createPropertiesFile(implProject);
 		ProgressUtil.progressOneStep(monitor);
+		ProjectPropertiesFileUtil.createPrefsFile(implProject.getProject(), monitor);
 		
 		BuildSystemConfigurer.performRepositorySpecificTasks(implProject
 				, monitor);

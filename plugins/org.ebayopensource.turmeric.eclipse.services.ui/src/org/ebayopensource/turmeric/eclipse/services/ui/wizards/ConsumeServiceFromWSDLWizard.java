@@ -138,6 +138,7 @@ public class ConsumeServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		uiModel.setEnvironments(consumerFromWsdl.getEnvironments());
 		uiModel.setTypeFolding(consumerFromWsdl.getTypeFolding());
 		uiModel.setServiceLocation(consumerFromWsdl.getServiceLocation());
+		
 		try {
 			uiModel.setOriginalWsdlUrl(new URL(consumerFromWsdl.getWSDLURL()));
 			WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {

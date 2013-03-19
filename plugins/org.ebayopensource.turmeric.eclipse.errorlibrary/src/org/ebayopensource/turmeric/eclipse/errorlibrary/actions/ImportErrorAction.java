@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.core.exception.SOAExceptionHandler;
+import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.resources.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.ui.components.ErrorSelector;
 import org.ebayopensource.turmeric.eclipse.errorlibrary.utils.ErrorLibraryUtil;
@@ -104,6 +105,10 @@ public class ImportErrorAction extends BaseEditorActionDelegate {
 								.getName(), error.getDomain().getLibrary()
 								.getName(), IAssetInfo.TYPE_LIBRARY, true,
 								ProgressUtil.getDefaultMonitor(null));
+						projectConfigurer.addRequiredBundle(getSelectedProject(), error.getDomain().getLibrary()
+								.getName(), ProgressUtil.getDefaultMonitor(null),SupportedProjectType.ERROR_LIBRARY);
+						
+						
 					} catch (Exception e) {
 						SOAExceptionHandler.silentHandleException(e);
 						UIUtil.showErrorDialog(

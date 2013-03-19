@@ -313,7 +313,7 @@ public class SynchronizeWsdlAndDepXML {
 	 * @param monitor the monitor
 	 * @throws Exception the exception
 	 */
-	public void synchronizeTypeDepandProjectDep(IProgressMonitor monitor)
+	public boolean synchronizeTypeDepandProjectDep(IProgressMonitor monitor)
 			throws Exception {
 		monitor = ProgressUtil.getDefaultMonitor(monitor);
 		IFile typeDepFile = TurmericCoreActivator.getDependencyFile(project);
@@ -385,22 +385,27 @@ public class SynchronizeWsdlAndDepXML {
 						.instanceOf().getActiveRepositorySystem()
 						.getProjectConfigurer();
 				String projectName = project.getName();				
-				addedLibraries.remove("SOACommonTypeLibrary");
-				addedLibraries.remove("MarketPlaceServiceCommonTypeLibrary");
+				//addedLibraries.remove("SOACommonTypeLibrary");
+				//addedLibraries.remove("MarketPlaceServiceCommonTypeLibrary");
+				boolean updateSuccess = true;
 				for (String addedLibrary : addedLibraries) {
 					
-					projectConfigurer.addTypeLibraryDependency(projectName,
+					updateSuccess = updateSuccess & projectConfigurer.addTypeLibraryDependency(projectName,
 							addedLibrary, IAssetInfo.TYPE_LIBRARY, true,
 							monitor);
 				}
 				for (String removedLibrary : removedLibraries) {
-					projectConfigurer.addTypeLibraryDependency(projectName,
+					updateSuccess= updateSuccess &projectConfigurer.addTypeLibraryDependency(projectName,
 							removedLibrary, IAssetInfo.TYPE_LIBRARY, false,
 							monitor);
 				}
+				if(updateSuccess)
 				BuildSystemUtil.updateSOAClasspathContainer(project);
+				
+				return true;
 			}
 		}
+		return false;
 	}
 	
 }

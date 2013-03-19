@@ -67,6 +67,7 @@ public class TypeLibSynhcronizer {
 			ReferredType refType = TypeDepMarshaller
 					.getReferredType(refTypeLib, selType
 							.getName());
+			if(refType!=null)
 			refType.setVersion(selType.getVersion());
 		}
 		if (marshallReqd) {
