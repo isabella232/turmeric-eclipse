@@ -34,6 +34,8 @@ import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceWi
 import org.ebayopensource.turmeric.eclipse.utils.collections.ListUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.ErrorMessage;
+import org.ebayopensource.turmeric.eclipse.validator.core.InputObject;
+import org.ebayopensource.turmeric.eclipse.validator.utils.common.NameValidator;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.RegExConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -47,6 +49,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 
 
@@ -311,6 +314,7 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 		updateStatus(null);
 		return true;
 	}
+	
 	
 	/**
 	 * {@inheritDoc}

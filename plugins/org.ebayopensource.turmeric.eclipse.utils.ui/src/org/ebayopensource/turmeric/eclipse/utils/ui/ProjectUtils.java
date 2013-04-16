@@ -302,7 +302,7 @@ public class ProjectUtils {
 		}
 		sbuilder.append(SPLIT_PACKAGE_SERVICE_BUNDLE_PARAM);
 		sbuilder.append(serviceName);
-		sbuilder.append(SPLIT_PACKAGE_SERVICE_LATEST_PARAM);
+		sbuilder.append("&"+SPLIT_PACKAGE_SERVICE_LATEST_PARAM+"=");
 		sbuilder.append(!latest);
 		HttpClient client = new HttpClient();
 		GetMethod method = new GetMethod(sbuilder.toString());

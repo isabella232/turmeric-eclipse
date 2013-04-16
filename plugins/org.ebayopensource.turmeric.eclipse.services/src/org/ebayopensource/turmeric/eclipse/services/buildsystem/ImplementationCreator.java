@@ -97,7 +97,7 @@ public class ImplementationCreator {
 		
 		SOAResourceCreator.createPropertiesFile(implProject);
 		ProgressUtil.progressOneStep(monitor);
-		
+		ProjectPropertiesFileUtil.createPrefsFile(implProject.getProject(), monitor);
 		BuildSystemConfigurer.performRepositorySpecificTasks(implProject
 				, monitor);
 		ProgressUtil.progressOneStep(monitor);

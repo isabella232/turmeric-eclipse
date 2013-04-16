@@ -46,6 +46,7 @@ import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFrom
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLAddOperationWizardPage;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceFromNewWSDLPage;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.ServiceProtocolSelectionWizardPage;
+import org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages.WebProjectLinkingPage;
 import org.ebayopensource.turmeric.eclipse.template.wsdl.processors.WSDLTemplateProcessor;
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
@@ -90,6 +91,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 	private ServiceFromNewWSDLAddOperationWizardPage addOperationPage = null;
 	private ServiceFromNewWSDLAddBindingWizardPage addBindingPage = null;
 	private ServiceProtocolSelectionWizardPage protocolPage = null;
+	private WebProjectLinkingPage webProjectPage = null;
 
 	/**
 	 * Instantiates a new service from wsdl wizard.
@@ -104,31 +106,44 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 	@Override
 	public boolean canFinish() {
 		
-		
-			
-			
-		
-		if (			
-				serviceFromExsitingWSDL == null
-			
-				) {
-			logger.warning(StringUtil.formatString(SOAMessages.INITIALIZE_ERR));
+		if (chooseWsdlSource == null || serviceFromExsitingWSDL == null
+				|| serviceFromNewWSDL == null||webProjectPage==null) {
+			logger.warning(StringUtil.formatString(SOAMessages.INITIALIZE_ERR,
+					chooseWsdlSource, serviceFromExsitingWSDL,
+					serviceFromNewWSDL));
 			return false;
 		}
-		if(getContainer().getCurrentPage() == serviceFromExsitingWSDL){
-			return serviceFromExsitingWSDL.isPageComplete()&&(serviceFromExsitingWSDL.customCanFlipToNextPage()==false);
-		}
+		
+		final boolean fromExistingWsdl = chooseWsdlSource
+				.isStartFromExistingWSDL();
+		if (fromExistingWsdl) {
+			if(getContainer().getCurrentPage() == serviceFromExsitingWSDL){
+				return serviceFromExsitingWSDL.isPageComplete()&&(serviceFromExsitingWSDL.customCanFlipToNextPage()==false)&& webProjectPage.isPageComplete();
+			}
 			return serviceFromExsitingWSDL.isPageComplete()
-					&& getContainer().getCurrentPage() != chooseWsdlSource;
+					&& getContainer().getCurrentPage() != chooseWsdlSource && webProjectPage.isPageComplete();
+		} else {
+			return serviceFromNewWSDL.isPageComplete()
+					&& getContainer().getCurrentPage() != chooseWsdlSource
+					&& addOperationPage.getOperations().size() > 0 && webProjectPage.isPageComplete();
+		}
 
 	}
-	public boolean doCheck(){
-		final String serviceName = serviceFromExsitingWSDL.getAdminName();
-		final String servicePackage = serviceFromExsitingWSDL.getServicePackage();
-		Map<String,String> allNSToPackMappings= serviceFromExsitingWSDL.getNamespaceToPackageMappings();
+	public String getWorkspaceRootDirectory(){
+		String workspaceRootDirectory = null;
+		final boolean fromExistingWsdl = chooseWsdlSource
+				.isStartFromExistingWSDL();
+		if (fromExistingWsdl) {
+			return serviceFromExsitingWSDL.getWorkspaceRoot();
+		} return serviceFromNewWSDL.getWorkspaceRoot();
+	}
+	public boolean doCheck(AbstractNewServiceFromWSDLWizardPage wizardpage){
+		final String serviceName = wizardpage.getAdminName();
+		final String servicePackage = wizardpage.getServicePackage();
+		Map<String,String> allNSToPackMappings= wizardpage.getNamespaceToPackageMappings();
 		allNSToPackMappings.put(servicePackage.toLowerCase(),servicePackage.toLowerCase());
 		allNSToPackMappings.put(servicePackage.toLowerCase()+".gen",servicePackage.toLowerCase()+".gen");
-		final String adminName = serviceFromExsitingWSDL.getAdminName();
+		final String adminName = wizardpage.getAdminName();
 		final String serviceInterface = SOAServiceUtil
 				.generateInterfaceClassName(adminName, servicePackage);
 
@@ -151,7 +166,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 	public boolean performFinish() {
 		if (SOALogger.DEBUG)
 			logger.entering();
-		final boolean fromExistingWsdl = true;
+		final boolean fromExistingWsdl = chooseWsdlSource.isStartFromExistingWSDL();
 		final AbstractNewServiceFromWSDLWizardPage wizardPage = fromExistingWsdl ? serviceFromExsitingWSDL
 				: serviceFromNewWSDL;
 		// saving the user selected project dir
@@ -166,7 +181,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		final String adminName = wizardPage.getAdminName();
 		final String serviceInterface = SOAServiceUtil
 				.generateInterfaceClassName(adminName, servicePackage);
-		if(! doCheck())
+		if(! doCheck(wizardPage))
 			return false;
 		intfDependenciesPage.finished();		
 
@@ -199,6 +214,22 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		uiModel.setNamespaceToPacakgeMappings(wizardPage
 				.getNamespaceToPackageMappings());
 		uiModel.setRaptorSvcImpl(true);
+		//Archetype
+		uiModel.setWebProjectArchetypeGid(webProjectPage.getWebProjectArchetypeGid());
+		uiModel.setWebProjectArchetypeArtId(webProjectPage.getWebProjectArchetypeArtId());
+		uiModel.setWebProjectArchetypeVsn(webProjectPage.getWebProjectArchetypeVsn());
+		uiModel.setReuse(webProjectPage.getReuse());
+		//Reuse BAsedinputs
+		if(!webProjectPage.getReuse()){
+		uiModel.setWebProjectName(webProjectPage.getWebProjectName());
+		uiModel.setAppName(webProjectPage.getArchetypeUIProperties().getProperty("appName"));
+		uiModel.setWebProjectDesc(webProjectPage.getArchetypeUIProperties().getProperty("webProjectDescription"));
+		uiModel.setWebProjectGroupID(webProjectPage.getArchetypeUIProperties().getProperty("groupId"));
+		uiModel.setWebProjectDomainParentVersion(webProjectPage.getArchetypeUIProperties().getProperty("domainParentVersion"));
+		}
+		else{
+			uiModel.setWebProjectName(webProjectPage.getSelectedDU());
+		}		
 		try {
 			if (fromExistingWsdl) {
 				uiModel
@@ -491,6 +522,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		}
 		// avoiding service from wsdl page coming up two times
 		else if (page == serviceFromNewWSDL) {
+			protocolPage.setWizardPage(serviceFromNewWSDL);
 			return addOperationPage;
 		} else if (page == serviceFromExsitingWSDL) {
 			protocolPage.setWizardPage(serviceFromExsitingWSDL);
@@ -501,11 +533,13 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		} else if (page == addOperationPage) {
 			return addBindingPage;
 		} else if (page == addBindingPage) {
-			return intfDependenciesPage;
+			return protocolPage;
 		} else if (page == intfDependenciesPage) {
 			return protocolPage;
 		} else if (page == implDependenciesPage) {
 			return protocolPage;
+		}else if (page == protocolPage){
+			return webProjectPage;
 		}
 
 		return null;
@@ -516,26 +550,27 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 	 */
 	@Override
 	public IWizardPage[] getContentPages() {
-		//chooseWsdlSource = new ChooseWSDLSourcePage();
-		//serviceFromNewWSDL = new ServiceFromNewWSDLPage();
+		chooseWsdlSource = new ChooseWSDLSourcePage();
+		serviceFromNewWSDL = new ServiceFromNewWSDLPage();
 		serviceFromExsitingWSDL = new ServiceFromExistingWSDLWizardPage();
 		intfDependenciesPage = new DependenciesWizardPage(SOAMessages.SVC_INTF);
 		//implDependenciesPage = new DependenciesWizardPage(
 		//		"Service Implementation");
-		//addOperationPage = new ServiceFromNewWSDLAddOperationWizardPage();
-		//addBindingPage = new ServiceFromNewWSDLAddBindingWizardPage();
+		addOperationPage = new ServiceFromNewWSDLAddOperationWizardPage();
+		addBindingPage = new ServiceFromNewWSDLAddBindingWizardPage();
 
 		protocolPage = new ServiceProtocolSelectionWizardPage();
-
+		webProjectPage = new WebProjectLinkingPage("Link Service to a Web Project", "Link Service to a Web Project", "Links your service to a new or existing deployable");
 		List<IWizardPage> pages = new ArrayList<IWizardPage>();
-		//pages.add(chooseWsdlSource);
-		//pages.add(serviceFromNewWSDL);
+		pages.add(chooseWsdlSource);
+		pages.add(serviceFromNewWSDL);
 		pages.add(serviceFromExsitingWSDL);
-		//pages.add(addOperationPage);
-		//pages.add(addBindingPage);
+		pages.add(addOperationPage);
+		pages.add(addBindingPage);
 		pages.add(intfDependenciesPage);
 	//	pages.add(implDependenciesPage);
 		pages.add(protocolPage);
+		pages.add(webProjectPage);
 		return pages.toArray(new IWizardPage[pages.size()]);
 
 	}

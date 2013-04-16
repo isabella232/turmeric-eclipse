@@ -159,6 +159,100 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 	 * Indicates whether the interface project is created as part of raptor service impl
 	 */
 	private boolean raptorSvcImpl;
+	
+	/*
+	 * Soa deployable unit- web project name
+	 */
+	
+	private String webProjectName;
+	/*
+	 * Soa app name, defaults to lowercase web project name;
+	 */
+	private String appName;
+	/*
+	 * web project Description
+	 */
+	private String webProjectDesc;
+	/*
+	 * web project group id
+	 */
+	private String webProjectGroupID;
+	/*
+	 * web project archetype details;
+	 */
+	
+	private String webProjectArchetypeGid;
+	/*
+	 * ReUseOFWebapps
+	 */
+	private Boolean reuse;
+	public Boolean getReuse() {
+		return reuse;
+	}
+
+	public void setReuse(Boolean reuse) {
+		this.reuse = reuse;
+	}
+	private String webProjectArchetypeArtId;
+	public String getWebProjectArchetypeGid() {
+		return webProjectArchetypeGid;
+	}
+
+	public void setWebProjectArchetypeGid(String webProjectArchetypeGid) {
+		this.webProjectArchetypeGid = webProjectArchetypeGid;
+	}
+
+	public String getWebProjectArchetypeArtId() {
+		return webProjectArchetypeArtId;
+	}
+
+	public void setWebProjectArchetypeArtId(String webProjectArchetypeArtId) {
+		this.webProjectArchetypeArtId = webProjectArchetypeArtId;
+	}
+
+	public String getWebProjectArchetypeVsn() {
+		return webProjectArchetypeVsn;
+	}
+
+	public void setWebProjectArchetypeVsn(String webProjectArchetypeVsn) {
+		this.webProjectArchetypeVsn = webProjectArchetypeVsn;
+	}
+
+	private String webProjectArchetypeVsn;
+
+	private String domainParentVersion;
+
+	public String getAppName() {
+		return appName;
+	}
+
+	public void setAppName(String appName) {
+		this.appName = appName;
+	}
+
+	public String getWebProjectDesc() {
+		return webProjectDesc;
+	}
+
+	public void setWebProjectDesc(String webProjectDesc) {
+		this.webProjectDesc = webProjectDesc;
+	}
+
+	public String getWebProjectGroupID() {
+		return webProjectGroupID;
+	}
+
+	public void setWebProjectGroupID(String webProjectGroupID) {
+		this.webProjectGroupID = webProjectGroupID;
+	}
+
+	public String getWebProjectName() {
+		return webProjectName;
+	}
+
+	public void setWebProjectName(String webProjectName) {
+		this.webProjectName = webProjectName;
+	}
 
 	/**
 	 * 
@@ -599,6 +693,15 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 
 	public void setRaptorSvcImpl(boolean raptorSvcImpl) {
 		this.raptorSvcImpl = raptorSvcImpl;
+	}
+
+	public void setWebProjectDomainParentVersion(String property) {
+		// TODO Auto-generated method stub
+		this.domainParentVersion = property;
+	}
+
+	public String getDomainParentVersion() {
+		return domainParentVersion;
 	}
 
 }

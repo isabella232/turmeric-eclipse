@@ -323,8 +323,19 @@ public class WTPTypeLibUtil {
 				return;
 			} else {
 				XSDSchema dstSchema = null;
-				XSDSchema srcSchema = TypeLibraryUtil
+				XSDSchema srcSchema = null;
+				try{
+				srcSchema=TypeLibraryUtil
 						.parseSchema(TypeLibraryUtil.getXSD(libraryType));
+				}
+				catch(NullPointerException e){
+					String errorMessage="XSD Schema not available";
+					if((libraryType.getLibraryInfo()!=null)&&(libraryType.getLibraryInfo().getLibraryName()!=null))
+					 errorMessage+=" : "+libraryType.getLibraryInfo().getLibraryName();
+					if(libraryType.getName()!=null)
+						errorMessage+=" : "+libraryType.getName();
+					throw new RuntimeException(errorMessage);
+				}
 				String typeNamespace = libraryType.getLibraryInfo()
 						.getLibraryNamespace();
 				if (typeFolding)

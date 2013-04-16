@@ -626,6 +626,7 @@ public abstract class AbstractNewServiceFromWSDLWizardPage extends
 			}
 			if (!StringUtils.equals(wsdlURL, getWSDLURL()))
 				wsdlURLText.setText(wsdlURL);
+			if(this.ns2pkgViewer!=null)
 			this.ns2pkgViewer.setInput(definition);
 			wsdlChanged(definition);
 			serviceLocation = WSDLUtil.getServiceLocationFromWSDL(definition);

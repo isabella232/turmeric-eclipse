@@ -106,7 +106,7 @@ public class InterfaceCreator {
 		
 		SOAResourceCreator.createPropertiesFile(intfProject, monitor);
 		ProgressUtil.progressOneStep(monitor);
-		
+		ProjectPropertiesFileUtil.createPrefsFile(intfProject.getProject(), monitor);
 		BuildSystemConfigurer.performRepositorySpecificTasks(intfProject,
 				implProject, monitor);
 		ProgressUtil.progressOneStep(monitor);

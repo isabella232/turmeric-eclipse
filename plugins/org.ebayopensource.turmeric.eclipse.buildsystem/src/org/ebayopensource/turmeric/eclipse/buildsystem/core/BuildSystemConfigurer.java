@@ -9,17 +9,22 @@
 package org.ebayopensource.turmeric.eclipse.buildsystem.core;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.resources.model.RaptorArchetype;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 
@@ -126,6 +131,7 @@ public class BuildSystemConfigurer {
 				.getProjectConfigurer().initializeProject(intfProject, monitor);
 	}
 
+
 	/**
 	 * Perform repository specific tasks.
 	 *
@@ -156,6 +162,25 @@ public class BuildSystemConfigurer {
 		GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 				.getProjectConfigurer().initializeProject(consumerProject,
 						serviceVersion, convertingJavaProject, monitor);
+	}
+
+	public static void performRepositorySpecificTasks(IProject project,
+			IPath location, String groupId,
+			String artifactId, String version, String javaPackage,
+			Properties properties, IProgressMonitor monitor) {
+		GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+		.getProjectConfigurer().initializeArchetypeProject( project,
+			 location,    groupId,
+			 artifactId,  version,  
+			 properties,  monitor);
+		
+	}
+
+	public static void performRepositorySpecificTasks(IProject webProject,
+			ServiceFromWsdlParamModel paramModel,IProgressMonitor monitor) {
+		// TODO Auto-generated method stub
+		GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
+		.getProjectConfigurer().updateWebProject(webProject,paramModel,monitor);
 	}
 
 }

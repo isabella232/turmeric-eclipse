@@ -9,10 +9,13 @@
 package org.ebayopensource.turmeric.eclipse.repositorysystem.core;
 
 import java.util.List;
+import java.util.Properties;
 
+import org.ebayopensource.turmeric.eclipse.core.model.services.ServiceFromWsdlParamModel;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants.SupportedProjectType;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
 import org.ebayopensource.turmeric.eclipse.resources.model.ISOAProject;
+import org.ebayopensource.turmeric.eclipse.resources.model.RaptorArchetype;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOABaseProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
@@ -228,6 +231,14 @@ public interface ISOAProjectConfigurer {
 
 	public void addRequiredBundle(IProject selectedProject, String name,
 			IProgressMonitor defaultMonitor, SupportedProjectType errorLibrary);
+
+	public void initializeArchetypeProject(IProject project, IPath location,
+			 String groupId, String artifactId,
+			String version, Properties properties,
+			IProgressMonitor monitor);
+
+	public void updateWebProject(IProject webProject,
+			ServiceFromWsdlParamModel paramModel,IProgressMonitor monitor);
 
 	
 	

@@ -113,7 +113,7 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
 		if(visible){
-			ServiceFromExistingWSDLWizardPage page = (ServiceFromExistingWSDLWizardPage) this.getWizard().getPreviousPage(this);
+			ServiceFromExistingWSDLWizardPage page = (ServiceFromExistingWSDLWizardPage) this.getWizard().getPage("newSOAServiceProjectFromWSDLWizardPage");
 		resolveAllCandidateLibraries(getTypeLibArtifactsToAdd(page.typeLibNameAndPackage, page.getAdminName()));
 
 
@@ -139,7 +139,7 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 		}
 		else{
 			action=typeLibrary+ " should be added as a dependency to your interface project.";
-			String action2 = "Please check and follow the steps at htpp:\\\\short\\addTypeLib. ";
+			String action2 = "Please check and follow the steps at http:\\\\short\\addTypeLib. ";
 			String action3= "One of these bundles could contain your type library. " ;
 
 			guidlinesText.append(newLine);
@@ -284,6 +284,9 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 		Set<String> libraries = getLibraries();
 		if(libraries.size()==0)return;
 		Set<String> filteredTypeLibraries = new HashSet<String>();
+		if (!(this.getWizard().getPreviousPage(this) instanceof ServiceFromExistingWSDLWizardPage) ){
+			return;
+		}
 		ServiceFromExistingWSDLWizardPage page = (ServiceFromExistingWSDLWizardPage) this.getWizard().getPreviousPage(this);
 		for (String typeLibrary: page.typeLibNameAndPackage.keySet()){
 			Set <String> toWriteLet =packageLibMap.get(page.typeLibNameAndPackage.get(typeLibrary));

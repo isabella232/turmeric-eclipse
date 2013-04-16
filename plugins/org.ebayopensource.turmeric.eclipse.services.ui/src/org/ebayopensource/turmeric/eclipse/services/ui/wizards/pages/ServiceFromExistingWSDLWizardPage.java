@@ -77,7 +77,7 @@ public class ServiceFromExistingWSDLWizardPage extends
 			dialogChanged(true);
 		}
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */

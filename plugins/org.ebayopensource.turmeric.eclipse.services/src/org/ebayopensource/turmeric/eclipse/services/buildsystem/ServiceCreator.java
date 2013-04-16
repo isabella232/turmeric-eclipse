@@ -23,6 +23,7 @@ import org.ebayopensource.turmeric.eclipse.exception.resources.projects.SOAConsu
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOAProjectConfigurer;
 import org.ebayopensource.turmeric.eclipse.resources.model.AssetInfo;
+import org.ebayopensource.turmeric.eclipse.resources.model.RaptorArchetype;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
@@ -65,6 +66,12 @@ public class ServiceCreator {
 				wsdlTemplateProcessor, monitor);
 		ImplementationCreator.createImplProjectFromBlankWsdl(implProject,
 				intfProject, monitor);
+		if(!paramModel.getReuse())
+		WebProjectCreator.createWebProject(paramModel,monitor);
+		else{
+			WebProjectCreator.updateWebProject(paramModel,monitor);
+		}
+
 
 	}
 
@@ -83,12 +90,16 @@ public class ServiceCreator {
 		SOAImplProject implProject = ImplementationCreator
 				.createImplModelFromExistingWsdl(paramModel, intfProject,
 						monitor);
+		
 		InterfaceCreator.createIntfProjectFromExistingWsdl(intfProject,
 				implProject, paramModel.getTargetNamespace(), monitor);
 		ImplementationCreator.createImplProjectFromExistingWsdl(implProject,
 				intfProject, monitor);
-		
-
+		if(!paramModel.getReuse())
+		WebProjectCreator.createWebProject(paramModel,monitor);
+		else{
+			WebProjectCreator.updateWebProject(paramModel,monitor);
+		}
 	}
 
 	/**

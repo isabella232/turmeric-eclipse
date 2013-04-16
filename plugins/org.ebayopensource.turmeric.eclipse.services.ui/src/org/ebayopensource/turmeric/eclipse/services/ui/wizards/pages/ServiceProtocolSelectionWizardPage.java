@@ -19,7 +19,7 @@ public class ServiceProtocolSelectionWizardPage extends WizardPage implements
 		IWizardPage {
 
 	private List<Button> nonXSDProtocols = new ArrayList<Button>();
-
+	private boolean first;
 	private Button protoBuf;
 
 	private AbstractNewServiceFromWSDLWizardPage wizardPage;
@@ -54,9 +54,14 @@ public class ServiceProtocolSelectionWizardPage extends WizardPage implements
 
 	@Override
 	public void setVisible(boolean visible) {
+		
+		if((visible)&&(!first)){
+		first=true;
 		boolean typeFolding = wizardPage.getTypeFolding();
 		protoBuf.setSelection(typeFolding);
 		protoBuf.setEnabled(typeFolding);
+		
+		}
 		super.setVisible(visible);
 	}
 
