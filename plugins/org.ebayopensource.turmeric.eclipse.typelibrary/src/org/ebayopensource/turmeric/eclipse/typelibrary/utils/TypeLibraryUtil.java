@@ -521,7 +521,6 @@ public class TypeLibraryUtil {
 		// this is a jar location if base location starts with jar for eg:
 		// "jar:file:/D:/Views/soapost22/v3jars/services/MarketPlaceServiceCommonTypeLibrary/3.0.0/java50/MarketPlaceServiceCommonTypeLibrary.jar!/types/BaseServiceResponse.xsd"
 		if (baseLocationStr.toLowerCase().startsWith("jar:file:/")) {
-			//JarFile jarFile = new JarFile("C:/Documents and Settings/nnachiappan/maven.repo/com/ebay/services/MiscServiceMerged/1.4.8/MiscServiceMerged-1.4.8.jar");
 			baseLocationStr=baseLocationStr.replaceAll("%20", " ");
 			JarFile jarFile = new JarFile(getJarFile(baseLocationStr.substring(
 					10, baseLocationStr.length())));

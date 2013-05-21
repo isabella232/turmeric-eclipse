@@ -304,12 +304,6 @@ public class ConsumerFromJavaWizardPage extends AbstractNewServiceWizardPage {
 			return false;
 		}}
 		
-		if (StringUtils
-				.equals(StringUtils.capitalize(getClientName()),
-						getClientName()) == false) {
-			updateStatus(super.getResourceNameText(), "Client name must be capitalized.");
-			return false;
-		}
 		
 		updateStatus(null);
 		return true;

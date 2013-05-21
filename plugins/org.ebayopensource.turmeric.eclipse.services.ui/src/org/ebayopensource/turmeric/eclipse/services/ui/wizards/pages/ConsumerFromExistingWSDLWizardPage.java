@@ -696,7 +696,6 @@ if(this.applicationPackage==null)
 					.createStatus(SOAMessages.SVCNAME_ERR, Status.WARNING));
 			return true;
 		}
-
 		return true;
 	}
 	
