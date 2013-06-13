@@ -29,6 +29,5 @@ Export-Package: com.sun.java.xml.ns.jaxb,
  org.ebayopensource.turmeric.tools.library.exception,
  org.ebayopensource.turmeric.tools.library.utils,
  org.ebayopensource.turmeric.tools.monitoring.report
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Eclipse-BuddyPolicy: registered, global
-

@@ -37,7 +37,7 @@ Require-Bundle: org.eclipse.ui,
  org.ebayopensource.turmeric.eclipse.mavenapi;bundle-version="1.1.0",
  org.ebayopensource.turmeric.eclipse.maven.core;bundle-version="1.1.0",
  org.json;bundle-version="1.0.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.ebayopensource.turmeric.eclipse.services.search,
  org.ebayopensource.turmeric.eclipse.services.ui,
@@ -48,6 +48,5 @@ Export-Package: org.ebayopensource.turmeric.eclipse.services.search,
  org.ebayopensource.turmeric.eclipse.services.ui.wizards,
  org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages
 Bundle-ClassPath: .,
- lib/jaxb-api.jar,
- lib/jaxb-impl.jar,
- lib/jaxb-xjc.jar
+ lib/jaxb-xjc.jar,
+ lib/jaxb-impl.jar

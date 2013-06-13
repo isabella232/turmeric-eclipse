@@ -45,5 +45,5 @@ Export-Package: org.ebayopensource.turmeric.eclipse.buildsystem.core,
  org.ebayopensource.turmeric.eclipse.buildsystem.utils
 Bundle-Version: 1.1.0.qualifier
 Bundle-ManifestVersion: 2
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 
