@@ -23,7 +23,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.m2e.maven.runtime;bundle-version="1.1.0",
  org.eclipse.m2e.core.ui;bundle-version="1.1.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.ebayopensource.turmeric.eclipse.maven.ui,
  org.ebayopensource.turmeric.eclipse.maven.ui.dialogs,
  org.ebayopensource.turmeric.eclipse.maven.ui.preferences,

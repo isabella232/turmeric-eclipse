@@ -93,6 +93,11 @@ public final class MavenEclipseUtil {
 			return null;
 		return getMavenModelManager().readMavenModel(file);
 	}
+	public static Model readPOM(File pomFile) throws CoreException{
+		if (pomFile.exists() == false)
+			return null;
+		return getMavenModelManager().readMavenModel(pomFile);
+	}
 
 	/**
 	 * Gets the all project artifacts in workspace.
@@ -321,15 +326,16 @@ public final class MavenEclipseUtil {
 		dependency.setVersion(metadata.getVersion());
 		dependency.setClassifier(metadata.getClassifier());
 		dependency.setType(metadata.getType());
-//		if (metadata.getScope() != null
-//				&& ArtifactScopeEnum.DEFAULT_SCOPE.getScope().equals(
-//						metadata.getScope()) == false)
-		//Exclusion exclude = new Exclusion("org.apache", "axis2", null, null) ;
 		if(dependency.getArtifactId().equals("soaMerged")&&(dependency.getGroupId().equals("com.ebay.soa"))){
+			
 		Exclusion exclusion = new Exclusion();
 		exclusion.setArtifactId("axis2");
 		exclusion.setGroupId("org.apache");
 		dependency.addExclusion(exclusion);
+		Exclusion exclusion2 = new Exclusion();
+		exclusion2.setArtifactId("woodstox");
+		exclusion2.setGroupId("org.apache.geronimo.bundles");
+		dependency.addExclusion(exclusion2);
 		}
 		if(dependency.getArtifactId().equals("MiscServiceMerged")&&(dependency.getGroupId().equals("com.ebay.services"))){
 			Exclusion exclusion = new Exclusion();

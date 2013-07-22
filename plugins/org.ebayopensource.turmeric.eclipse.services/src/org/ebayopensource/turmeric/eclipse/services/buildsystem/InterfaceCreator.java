@@ -86,7 +86,7 @@ public class InterfaceCreator {
 	 */
 	public static void createIntfProjectFromBlankWsdl(
 			SOAIntfProject intfProject, SOAImplProject implProject,
-			String nameSpace, WSDLTemplateProcessor wsdlTemplateProcessor,
+			ServiceFromTemplateWsdlParamModel paramModel, WSDLTemplateProcessor wsdlTemplateProcessor,
 			IProgressMonitor monitor) throws Exception {
 		IProject project = SOAResourceCreator.createProject(intfProject
 				.getEclipseMetadata(), monitor);
@@ -108,7 +108,8 @@ public class InterfaceCreator {
 		ProgressUtil.progressOneStep(monitor);
 		ProjectPropertiesFileUtil.createPrefsFile(intfProject.getProject(), monitor);
 		BuildSystemConfigurer.performRepositorySpecificTasks(intfProject,
-				implProject, monitor);
+				implProject,paramModel.getDomainParentVersion(),
+				paramModel.getReuse(),paramModel.getWebProjectName(), monitor);
 		ProgressUtil.progressOneStep(monitor);
 		
 		BuildSystemConfigurer.configure(intfProject, monitor);
@@ -169,7 +170,7 @@ public class InterfaceCreator {
 	 */
 	public static void createIntfProjectFromExistingWsdl(
 			SOAIntfProject intfProject, SOAImplProject implProject,
-			String nameSpace, IProgressMonitor monitor) throws Exception {
+			ServiceFromWsdlParamModel paramModel, IProgressMonitor monitor) throws Exception {
 		IProject project = SOAResourceCreator.createProject(intfProject
 				.getEclipseMetadata(), monitor);
 		ProgressUtil.progressOneStep(monitor);
@@ -186,7 +187,7 @@ public class InterfaceCreator {
 		ProjectPropertiesFileUtil.createPrefsFile(intfProject.getProject(), monitor);
 		
 		BuildSystemConfigurer.performRepositorySpecificTasks(intfProject,
-				implProject, monitor);
+				implProject,paramModel.getDomainParentVersion(),paramModel.getReuse(),paramModel.getWebProjectName(), monitor);
 		ProgressUtil.progressOneStep(monitor);
 		
 		BuildSystemConfigurer.configure(intfProject, monitor);

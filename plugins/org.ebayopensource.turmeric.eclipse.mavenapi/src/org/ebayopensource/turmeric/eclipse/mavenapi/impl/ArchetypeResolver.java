@@ -61,15 +61,16 @@ public class ArchetypeResolver {
 			List<Archetype> archtypeList= factory.getArchetypeCatalog().getArchetypes();
 			List<Archetype> toCompare = new ArrayList<Archetype>();
 			Archetype archetype = null;
+			String minimumVersion = getMinimumVersion(properties.getProperty("raptorParentVersion"));
 			for(Archetype arctype :archtypeList){
 				if((arctype.getArtifactId().equalsIgnoreCase(artifactId))
 						&&(arctype.getGroupId().equalsIgnoreCase(groupId))
-						&&(arctype.getVersion().startsWith(("1.0."))))
+						&&(arctype.getVersion().startsWith((minimumVersion))))
 						toCompare.add(arctype);
 								//archetype = arctype;
 			}
 			archetype = bringLatest(toCompare);
-			System.out.println(archetype.getVersion());
+			System.out.println("yo"+archetype.getVersion());
 			if(archetype==null) throw new RuntimeException("Archetype cannot be resolved : "+ artifactId +" : " + groupId + " : "+ version +" at "+ DEFAULT_REMOTE_REPO_URL);
 	      Set<MavenProjectInfo> projectSet = createMavenProjectsByArchetype(project, location, archetype, properties.getProperty("groupId"), properties.getProperty("artifactId"), properties.getProperty("version"), javaPackage, properties, configuration, monitor);
 
@@ -99,6 +100,11 @@ public class ArchetypeResolver {
 	    catch (Exception ex) {
 	      throw new CoreException(new Status(IStatus.ERROR, "org.maven.ide.eclipse", "Failed to create project.", ex));
 	    }
+	}
+	private String getMinimumVersion(String version) {
+		version = version.substring(0,version.indexOf("-"));
+		if(compare(version, "1.7.0")<0) return "1.0";
+		return "1.7";
 	}
 	private void removeParentProject(Set<MavenProjectInfo> projectSet) {
 		MavenProjectInfo parent = getParentProject(projectSet);

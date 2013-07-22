@@ -34,5 +34,6 @@ public abstract class AbstractSOAMetadata {
 	 * @return the MetaDataFileName as a string.
 	 */
 	public abstract String getMetadataFileName();
+	public abstract String getSuperVersion();
 
 }

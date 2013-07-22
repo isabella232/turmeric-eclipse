@@ -339,7 +339,7 @@ public class WebProjectLinkingPage extends SOABasePage {
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
 		layout.numColumns = 1;
-		addCoreDomainOrNotGroup();
+		
 		selectSoaRaptorWeb();
 		Group createOrReuseGroup = new Group(container, SWT.NONE);
 		createOrReuseGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -360,6 +360,7 @@ public class WebProjectLinkingPage extends SOABasePage {
 		
 		setArchetypeUIProperties(getDefaultPropertiesForNonCore());
 		addPropertiesTable();
+		addCoreDomainOrNotGroup();
 		setControl(container);
 		setPageComplete(false);
 	}
@@ -388,54 +389,65 @@ private void addPropertiesTable(){
 	propertiesGroup.createControl(this.container);
 }
 	private void addCoreDomainOrNotGroup() {
-		Group coreDomainDepGroup = new Group(container, SWT.NONE);
-		coreDomainDepGroup
-				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		coreDomainDepGroup
-				.setText("Will your service contain core domain dependencies?:");
-
-		coreDomainDepGroup.setLayout(new GridLayout(2, false));
-		coreDependeneciesListener = new SelectionListener() {
-
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				Boolean sel = ((Button) (arg0.widget)).getSelection();
-				if (sel) {
-					availableDUexpln.setText(WITHOUT_CORE_EXPLN);
-					selectedProject=null;
-					//switch properties
-					setPreferredCoreNature(false);
-					String[] items = WebProjectCreator.getAllWebProjects(getPreferredCoreNature()).toArray(
-							new String[0]);
-					availableDUCombo.setItems(items);
-					setArchetypeUIProperties(getDefaultPropertiesForNonCore());
-					selectSoaRaptorWeb();
-					propertiesGroup.update(null, null);
-					dialogChanged();
-				} else {
-					availableDUexpln.setText(WITH_CORE_EXPLN);
-					//switch properties
-					selectedProject=null;
-					setPreferredCoreNature(true);
-					String[] items = WebProjectCreator.getAllWebProjects(getPreferredCoreNature()).toArray(
-							new String[0]);
-					availableDUCombo.setItems(items);
-					setArchetypeUIProperties(getDefaultPropertiesForCore());
-					selectSoaRaptorDomainWeb();
-					propertiesGroup.update(null, null);
-					dialogChanged();
-				}
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
-
-			}
-		};
-		createProtocalLine(coreDomainDepGroup, "YES", "yes", false, true);
-		Button noCoreDep = createProtocalLine(coreDomainDepGroup, "NO", "no",
-				true, true);
-		noCoreDep.addSelectionListener(coreDependeneciesListener);
+		availableDUexpln.setText(WITH_CORE_EXPLN);
+		//switch properties
+		selectedProject=null;
+		setPreferredCoreNature(true);
+		String[] items = WebProjectCreator.getAllWebProjects(getPreferredCoreNature()).toArray(
+				new String[0]);
+		availableDUCombo.setItems(items);
+		setArchetypeUIProperties(getDefaultPropertiesForCore());
+		selectSoaRaptorDomainWeb();
+		propertiesGroup.update(null, null);
+		dialogChanged();
+//		Group coreDomainDepGroup = new Group(container, SWT.NONE);
+//		coreDomainDepGroup
+//				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+//		coreDomainDepGroup
+//				.setText("Will your service contain core domain dependencies?:");
+//
+//		coreDomainDepGroup.setLayout(new GridLayout(2, false));
+//		coreDependeneciesListener = new SelectionListener() {
+//
+//			@Override
+//			public void widgetSelected(SelectionEvent arg0) {
+//				Boolean sel = ((Button) (arg0.widget)).getSelection();
+//				if (sel) {
+//					availableDUexpln.setText(WITHOUT_CORE_EXPLN);
+//					selectedProject=null;
+//					//switch properties
+//					setPreferredCoreNature(false);
+//					String[] items = WebProjectCreator.getAllWebProjects(getPreferredCoreNature()).toArray(
+//							new String[0]);
+//					availableDUCombo.setItems(items);
+//					setArchetypeUIProperties(getDefaultPropertiesForNonCore());
+//					selectSoaRaptorWeb();
+//					propertiesGroup.update(null, null);
+//					dialogChanged();
+//				} else {
+//					availableDUexpln.setText(WITH_CORE_EXPLN);
+//					//switch properties
+//					selectedProject=null;
+//					setPreferredCoreNature(true);
+//					String[] items = WebProjectCreator.getAllWebProjects(getPreferredCoreNature()).toArray(
+//							new String[0]);
+//					availableDUCombo.setItems(items);
+//					setArchetypeUIProperties(getDefaultPropertiesForCore());
+//					selectSoaRaptorDomainWeb();
+//					propertiesGroup.update(null, null);
+//					dialogChanged();
+//				}
+//			}
+//
+//			@Override
+//			public void widgetDefaultSelected(SelectionEvent arg0) {
+//
+//			}
+//		};
+		//createProtocalLine(coreDomainDepGroup, "YES", "yes", false, true);
+		//Button noCoreDep = createProtocalLine(coreDomainDepGroup, "NO", "no",
+		//		true, true);
+		//noCoreDep.addSelectionListener(coreDependeneciesListener);
 	}
 
 	private void addWebProjectNameText(Composite createOrReuseGroup) {

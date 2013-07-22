@@ -4,5 +4,5 @@ Bundle-Name: Turmeric
 Bundle-SymbolicName: org.ebayopensource.turmeric.eclipse.config.imp;singleton:=true
 Bundle-Version: 1.1.0.qualifier
 Fragment-Host: org.ebayopensource.turmeric.eclipse.config;bundle-version="1.0.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: eBay Open Source

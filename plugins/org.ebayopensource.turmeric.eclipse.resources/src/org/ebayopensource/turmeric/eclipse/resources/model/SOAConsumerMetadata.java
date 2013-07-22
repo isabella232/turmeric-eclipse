@@ -31,6 +31,7 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	private String baseConsumerSrcDir;
 	private String envMapper;
 	private boolean isZeroConfig = false;
+	private String superVersion;
 	
 	/**
 	 * The name used for storing ClientConfig.xml files
@@ -236,5 +237,14 @@ public class SOAConsumerMetadata extends AbstractSOAMetadata{
 	 */
 	public void setEnvMapper(String envMapper) {
 		this.envMapper = envMapper;
+	}
+
+	@Override
+	public String getSuperVersion() {
+		// TODO Auto-generated method stub
+		return superVersion;
+	}
+	public void setSuperVersion(String superVersion){
+		this.superVersion=superVersion;
 	}
 }

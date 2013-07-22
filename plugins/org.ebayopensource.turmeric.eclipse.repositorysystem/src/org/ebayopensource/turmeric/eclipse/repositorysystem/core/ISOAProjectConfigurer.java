@@ -69,7 +69,7 @@ public interface ISOAProjectConfigurer {
 	 * @param monitor the monitor
 	 * @throws Exception the exception
 	 */
-	public void initializeProject(SOAIntfProject intfProject,SOAImplProject implProject, IProgressMonitor monitor) throws Exception;
+	public void initializeProject(SOAIntfProject intfProject,SOAImplProject implProject, String parentVersion,boolean reuse,String webProjectName,IProgressMonitor monitor) throws Exception;
 	
 	/**
 	 * Initialize project.
@@ -87,7 +87,7 @@ public interface ISOAProjectConfigurer {
 	 * @param monitor the monitor
 	 * @throws Exception the exception
 	 */
-	public void initializeProject(SOAImplProject implProject, IProgressMonitor monitor) throws Exception;
+	public void initializeProject(SOAImplProject implProject,String parentVersion, boolean reuse,String webProjectName,IProgressMonitor monitor) throws Exception;
 	
 	/**
 	 * Initialize project.
@@ -122,6 +122,7 @@ public interface ISOAProjectConfigurer {
 	 */
 	public void initializeErrorLibProject(SOABaseProject errorLibProject, String version, IProgressMonitor monitor) throws Exception;
 	
+	public String getSuperVersion();
 	/**
 	 * this is equivalent to updateProject(soaProject, true);.
 	 *

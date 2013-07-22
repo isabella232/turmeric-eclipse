@@ -25,6 +25,8 @@ import org.apache.maven.repository.metadata.MetadataResolutionRequest;
 import org.apache.maven.repository.metadata.MetadataResolutionResult;
 import org.apache.maven.repository.metadata.MetadataTreeNode;
 import org.ebayopensource.turmeric.eclipse.mavenapi.exception.MavenEclipseApiException;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.m2e.core.MavenPlugin;
 
 /**
  * The Class MavenApiUtil.
@@ -112,8 +114,18 @@ public final class MavenApiUtil {
 		request.setLocalRepository(localRepository);
 		request.setRemoteRepositories(remoteRepositories);
 		request.setResolveTransitively(resolveDependencies);
-		
-		return embedder.resolve(request);
+		ArtifactResolutionResult result =null;
+		try{
+		result = embedder.resolve(request);
+		}catch(NullPointerException e){
+			try {
+				MavenPlugin.getDefault().getMaven().resolve(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "",
+				        MavenPlugin.getDefault().getMaven().getArtifactRepositories(), null);
+			} catch (CoreException e1) {
+				throw e;
+			}
+		}
+		return result;
 	}
 
 	/**

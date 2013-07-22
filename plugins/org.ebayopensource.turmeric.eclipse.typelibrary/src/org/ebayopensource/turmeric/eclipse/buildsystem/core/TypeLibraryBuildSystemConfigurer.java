@@ -15,6 +15,7 @@ import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProject;
+import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.ProjectUtil;
 import org.eclipse.core.runtime.CoreException;
@@ -45,12 +46,19 @@ public class TypeLibraryBuildSystemConfigurer {
 	 * be one as we are using all the jkdt apis here
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
+	public static  String getCompilerVersion(String superVersion) throws IOException{
+		String compilerVersion=SOAGlobalConfigAccessor.getDefaultCompilerLevel();
+		if((superVersion!=null)&&(VersionUtil.compare(superVersion,"1.7.0")<0)){
+			compilerVersion="1.6";
+		}
+		return compilerVersion;
+	}
 	public static void configure(SOATypeLibraryProject typeLibraryProject,
 			IProgressMonitor monitor) throws CoreException, IOException {
 		// add java support
 		JDTUtil.addJavaSupport(typeLibraryProject.getEclipseMetadata()
 				.getProject(), typeLibraryProject.getSourceDirectoryNames(),
-				SOAGlobalConfigAccessor.getDefaultCompilerLevel(), 
+				getCompilerVersion(typeLibraryProject.getMetadata().getSuperVersion()), 
 				SOAProjectConstants.FOLDER_OUTPUT_DIR, monitor);
 		// add TypeLib support
 		addTypeLibSupport(typeLibraryProject, monitor);

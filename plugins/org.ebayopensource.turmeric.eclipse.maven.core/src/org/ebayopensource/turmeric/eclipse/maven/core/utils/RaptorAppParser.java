@@ -1,10 +1,13 @@
 package org.ebayopensource.turmeric.eclipse.maven.core.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +18,7 @@ import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.FreeMarkerUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.JDOMUtil;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.jdom.Content;
@@ -22,21 +26,32 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.Namespace;
+import org.jdom.filter.ElementFilter;
+import org.jdom.input.SAXBuilder;
 
 public class RaptorAppParser {
 	public static String RAPTOR_APP_XML_TEMPLATE_NAME="webService_Template";
+	public static String RAPTOR_APP_XML_WITH_REGISTERER_TEMPLATE_NAME="webService_Template_WithRegisterer";
 	private static final String ADMIN_NAME_KEY = "adminName";
 	private static final String ARTIFACT_NAME_KEY = "artifactId";
+	private static final String SERVICE_REGISTERE_KEY="serviceRegisterer";
+	public static final String raptorAppXmlFilePath="/src/main/webapp/META-INF/raptor_app.xml";
 
 	public static Document getSourceDocument(String adminName,
-			String artifactId,String description) throws Exception {
-
+			String artifactId,String serviceRegisterer,String description) throws Exception {
+		
 		final String org = GlobalRepositorySystem.instanceOf()
 				.getActiveRepositorySystem().getActiveOrganizationProvider()
 				.getName();
 
-		URL templateURL = SOAConfigExtensionFactory.getXMLTemplate(org,
+		URL templateURL = null;
+		if(serviceRegisterer==null){
+			templateURL=SOAConfigExtensionFactory.getXMLTemplate(org,
 				RAPTOR_APP_XML_TEMPLATE_NAME);
+		}else{
+			templateURL=SOAConfigExtensionFactory.getXMLTemplate(org,
+					RAPTOR_APP_XML_WITH_REGISTERER_TEMPLATE_NAME);
+		}
 		
 		if (templateURL == null) {
 			throw new IllegalArgumentException(
@@ -48,6 +63,7 @@ public class RaptorAppParser {
 
 		data.put(ADMIN_NAME_KEY, adminName);
 		data.put(ARTIFACT_NAME_KEY, artifactId);
+		data.put(SERVICE_REGISTERE_KEY, serviceRegisterer);
 
 		FreeMarkerUtil.generate(data, templateURL, "webxml", writer);
 
@@ -58,7 +74,28 @@ public class RaptorAppParser {
 
 		return sourceDoc;
 	}
-
+	public static List<String> getRegisters(IProject webProject,List<String> registererNames) throws JDOMException, IOException, CoreException {
+		IFile file = webProject.getFile(raptorAppXmlFilePath);
+		List<String> registreres = new ArrayList<String>();
+//		InputStream inputStream = file.getContents();
+			SAXBuilder builder = new SAXBuilder();
+			Document document = builder.build(file.getContents());
+			ElementFilter filter=new ElementFilter("serviceRegisterer");
+			Element root=document.getRootElement();
+			Iterator iter = root.getDescendants(filter);
+			while(iter.hasNext()){
+				Element Registerer = (Element) iter.next();
+				String regFullClass = Registerer.getText();
+				String className="";
+				if((regFullClass!=null)&&(regFullClass.lastIndexOf(".")!=-1)){
+				className=regFullClass.substring(regFullClass.lastIndexOf(".")+1);	
+				}
+				registreres.add(regFullClass);
+				registererNames.add(className);				
+			}		
+		return registreres;
+	}
+	
 	public static void addWebServiceElementsToRaptorAppXML(Document sourceDoc,
 			InputStream target, IFile targetFile,String description) throws CoreException, IOException, JDOMException {
 		try {

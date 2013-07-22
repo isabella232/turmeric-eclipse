@@ -24,6 +24,7 @@ import org.ebayopensource.turmeric.eclipse.resources.model.AbstractSOAMetadata;
 public class SOAErrorLibraryMetadata extends AbstractSOAMetadata {
 	private String errorLibraryName;
 	private String locale;
+	private String superVersion;
 	
 	/**
 	 * Instantiates a new sOA error library metadata.
@@ -87,6 +88,17 @@ public class SOAErrorLibraryMetadata extends AbstractSOAMetadata {
 	 */
 	public void setLocale(String locale) {
 		this.locale = locale;
+	}
+
+	@Override
+	public String getSuperVersion() {
+		// TODO Auto-generated method stub
+		return superVersion;
+	}
+
+	public void setSuperVersion(String version) {
+		// TODO Auto-generated method stub
+		superVersion=version;
 	}
 
 }

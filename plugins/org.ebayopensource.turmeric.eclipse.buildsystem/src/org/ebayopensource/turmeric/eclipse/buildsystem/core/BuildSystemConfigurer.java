@@ -21,11 +21,13 @@ import org.ebayopensource.turmeric.eclipse.resources.model.RaptorArchetype;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAImplProject;
 import org.ebayopensource.turmeric.eclipse.resources.model.SOAIntfProject;
+import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+
 
 
 /**
@@ -53,7 +55,7 @@ public class BuildSystemConfigurer {
 		// add java support
 		JDTUtil.addJavaSupport(intfProject.getEclipseMetadata().getProject(),
 				intfProject.getSourceDirectoryNames(), 
-				SOAGlobalConfigAccessor.getDefaultCompilerLevel(), 
+				getCompilerVersion(intfProject.getMetadata().getSuperVersion()), 
 				SOAProjectConstants.FOLDER_OUTPUT_DIR, monitor);
 		// add SOA support
 		
@@ -73,7 +75,7 @@ public class BuildSystemConfigurer {
 		// add java support
 		JDTUtil.addJavaSupport(implProject.getEclipseMetadata().getProject(),
 				implProject.getSourceDirectoryNames(),
-				SOAGlobalConfigAccessor.getDefaultCompilerLevel(), 
+				getCompilerVersion(implProject.getMetadata().getSuperVersion()), 
 				SOAProjectConstants.FOLDER_OUTPUT_DIR, monitor);
 		// add SOA support
 		BuildSystemUtil.addSOASupport(implProject, GlobalRepositorySystem.instanceOf()
@@ -88,12 +90,24 @@ public class BuildSystemConfigurer {
 	 * @throws CoreException the core exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
+	public static  String getCompilerVersion(String superVersion) throws IOException{
+		String compilerVersion=SOAGlobalConfigAccessor.getDefaultCompilerLevel();
+		//Ignoring superVersion
+		if(superVersion==null)
+		superVersion=GlobalRepositorySystem.instanceOf().getActiveRepositorySystem().getProjectConfigurer().getSuperVersion();
+		
+		if((VersionUtil.compare(superVersion,"1.7.0")<0)){
+			compilerVersion="1.6";
+		}
+		return compilerVersion;
+	}
 	public static void configure(SOAConsumerProject consumerProject,
 			IProgressMonitor monitor) throws CoreException, IOException {
 		// add java support
+		
 		JDTUtil.addJavaSupport(consumerProject.getEclipseMetadata()
-				.getProject(), consumerProject.getSourceDirectoryNames(),
-				SOAGlobalConfigAccessor.getDefaultCompilerLevel(), 
+				.getProject(), consumerProject.getSourceDirectoryNames(),getCompilerVersion(consumerProject.getMetadata().getSuperVersion())
+				, 
 				SOAProjectConstants.FOLDER_OUTPUT_DIR, monitor);
 		// add SOA support
 		BuildSystemUtil.addSOASupport(consumerProject, GlobalRepositorySystem.instanceOf()
@@ -109,11 +123,11 @@ public class BuildSystemConfigurer {
 	 * @throws Exception the exception
 	 */
 	public static void performRepositorySpecificTasks(
-			SOAIntfProject intfProject, SOAImplProject implProject,
+			SOAIntfProject intfProject, SOAImplProject implProject, String version,boolean reuse,String webProjectName,
 			IProgressMonitor monitor) throws Exception {
 		GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
 				.getProjectConfigurer().initializeProject(intfProject,
-						implProject, monitor);
+						implProject, version, reuse,webProjectName,monitor);
 	}
 
 	/**
@@ -140,10 +154,10 @@ public class BuildSystemConfigurer {
 	 * @throws Exception the exception
 	 */
 	public static void performRepositorySpecificTasks(
-			SOAImplProject implProject, IProgressMonitor monitor)
+			SOAImplProject implProject,String parentVersion,boolean reuse,String webProjectName, IProgressMonitor monitor)
 			throws Exception {
 		GlobalRepositorySystem.instanceOf().getActiveRepositorySystem()
-				.getProjectConfigurer().initializeProject(implProject, monitor);
+				.getProjectConfigurer().initializeProject(implProject, parentVersion,reuse,webProjectName, monitor);
 	}
 
 	/**

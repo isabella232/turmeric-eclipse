@@ -62,10 +62,10 @@ public class ServiceCreator {
 		SOAImplProject implProject = ImplementationCreator
 				.createImplModelFromBlankWsdl(paramModel, intfProject, monitor);
 		InterfaceCreator.createIntfProjectFromBlankWsdl(intfProject,
-				implProject, paramModel.getTargetNamespace(),
+				implProject, paramModel,
 				wsdlTemplateProcessor, monitor);
 		ImplementationCreator.createImplProjectFromBlankWsdl(implProject,
-				intfProject, monitor);
+				intfProject,paramModel, monitor);
 		if(!paramModel.getReuse())
 		WebProjectCreator.createWebProject(paramModel,monitor);
 		else{
@@ -92,9 +92,10 @@ public class ServiceCreator {
 						monitor);
 		
 		InterfaceCreator.createIntfProjectFromExistingWsdl(intfProject,
-				implProject, paramModel.getTargetNamespace(), monitor);
+				implProject, paramModel, monitor);
+		
 		ImplementationCreator.createImplProjectFromExistingWsdl(implProject,
-				intfProject, monitor);
+				intfProject,paramModel, monitor);
 		if(!paramModel.getReuse())
 		WebProjectCreator.createWebProject(paramModel,monitor);
 		else{

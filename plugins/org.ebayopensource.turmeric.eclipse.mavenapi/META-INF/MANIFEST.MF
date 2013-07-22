@@ -43,5 +43,5 @@ Export-Package: org.ebayopensource.turmeric.eclipse.mavenapi;
  org.ebayopensource.turmeric.eclipse.mavenapi.internal.util;x-friends:="org.ebayopensource.turmeric.eclipse.mavenapi.test",
  org.ebayopensource.turmeric.eclipse.mavenapi.intf,
  org.ebayopensource.turmeric.eclipse.mavenapi.request
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 

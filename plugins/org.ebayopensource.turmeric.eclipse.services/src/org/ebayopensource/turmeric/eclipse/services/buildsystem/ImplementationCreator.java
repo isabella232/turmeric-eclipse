@@ -86,7 +86,7 @@ public class ImplementationCreator {
 	 * @throws Exception the exception
 	 */
 	public static void createImplProjectFromBlankWsdl(
-			SOAImplProject implProject, SOAIntfProject intfProject,
+			SOAImplProject implProject, SOAIntfProject intfProject,ServiceFromWsdlParamModel paramModel,
 			IProgressMonitor monitor) throws Exception {
 		IProject project = SOAResourceCreator.createProject(implProject
 				.getEclipseMetadata(), monitor);
@@ -98,8 +98,9 @@ public class ImplementationCreator {
 		SOAResourceCreator.createPropertiesFile(implProject);
 		ProgressUtil.progressOneStep(monitor);
 		ProjectPropertiesFileUtil.createPrefsFile(implProject.getProject(), monitor);
-		BuildSystemConfigurer.performRepositorySpecificTasks(implProject
-				, monitor);
+		BuildSystemConfigurer.performRepositorySpecificTasks(implProject,paramModel.getDomainParentVersion(),
+				paramModel.getReuse(),paramModel.getWebProjectName(),
+				 monitor);
 		ProgressUtil.progressOneStep(monitor);
 		
 		BuildSystemConfigurer.configure(implProject, monitor);
@@ -155,7 +156,7 @@ public class ImplementationCreator {
 	 * @throws Exception the exception
 	 */
 	public static void createImplProjectFromExistingWsdl(
-			SOAImplProject implProject, SOAIntfProject intfProject,
+			SOAImplProject implProject, SOAIntfProject intfProject, ServiceFromWsdlParamModel paramModel,
 			IProgressMonitor monitor) throws Exception {
 		IProject project = SOAResourceCreator.createProject(implProject
 				.getEclipseMetadata(), monitor);
@@ -168,8 +169,9 @@ public class ImplementationCreator {
 		ProgressUtil.progressOneStep(monitor);
 		ProjectPropertiesFileUtil.createPrefsFile(implProject.getProject(), monitor);
 		
-		BuildSystemConfigurer.performRepositorySpecificTasks(implProject
-				, monitor);
+		BuildSystemConfigurer.performRepositorySpecificTasks(implProject,paramModel.getDomainParentVersion(),
+				paramModel.getReuse(),paramModel.getWebProjectName(),
+				 monitor);
 		ProgressUtil.progressOneStep(monitor);
 		
 		BuildSystemConfigurer.configure(implProject, monitor);

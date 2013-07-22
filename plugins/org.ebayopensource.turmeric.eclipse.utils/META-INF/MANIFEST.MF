@@ -54,5 +54,5 @@ Export-Package: freemarker,
  org.ebayopensource.turmeric.eclipse.utils.xml
 Bundle-Version: 1.1.0.qualifier
 Bundle-ManifestVersion: 2
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 

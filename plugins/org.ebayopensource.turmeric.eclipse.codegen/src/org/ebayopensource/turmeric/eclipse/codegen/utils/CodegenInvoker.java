@@ -22,7 +22,13 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.model.BaseCodeGenMod
 import org.ebayopensource.turmeric.eclipse.utils.classloader.SOAPluginClassLoader;
 import org.ebayopensource.turmeric.eclipse.utils.collections.MapUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.JDTUtil;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 
 /**
  * This is the main class involved in code generation and can be thought of as
@@ -63,6 +69,15 @@ public class CodegenInvoker {
 			throw new NullArgumentException("Project can not be null");
 		}
 		Set<URL> urls = JDTUtil.resolveClasspathToURLs(project);
+		try{
+		      final IJavaProject javaProject = JavaCore.create(project);
+		      IPath path = javaProject.getOutputLocation();
+		      IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		      IFolder folder = root.getFolder(path);
+		      URL outputDirectory = new URL("file:///" + folder.getLocation() + "/");
+		      urls.add(outputDirectory);
+	      } catch (Exception e) {
+	      }
 
 		SOAPluginClassLoader classLoader = new SOAPluginClassLoader("Codegen",
 				urls.toArray(new URL[0]));

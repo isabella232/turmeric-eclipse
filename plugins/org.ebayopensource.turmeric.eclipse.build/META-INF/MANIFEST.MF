@@ -24,4 +24,4 @@ Bundle-Activator: org.ebayopensource.turmeric.eclipse.build.SOAFrameworkBuilderA
 Export-Package: org.ebayopensource.turmeric.eclipse.build.builder
 Bundle-Version: 1.1.0.qualifier
 Bundle-ManifestVersion: 2
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

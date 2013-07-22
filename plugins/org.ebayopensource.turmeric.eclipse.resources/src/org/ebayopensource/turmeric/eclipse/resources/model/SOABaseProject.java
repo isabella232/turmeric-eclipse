@@ -44,6 +44,7 @@ public abstract class SOABaseProject implements ISOAProject{
 	
 	private final List<ProjectLinkedResource> linkedResources = new ArrayList<ProjectLinkedResource>(3);
 	
+	
 	/**
 	 * Instantiates a new sOA base project.
 	 */

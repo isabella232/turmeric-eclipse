@@ -98,43 +98,7 @@ public class WebProjectCreator {
 		return implProject;
 	}
 
-	/**
-	 * Creates the impl project from blank wsdl.
-	 * 
-	 * @param implProject
-	 *            the impl project
-	 * @param intfProject
-	 *            the intf project
-	 * @param monitor
-	 *            the monitor
-	 * @throws Exception
-	 *             the exception
-	 */
-	public static void createImplProjectFromBlankWsdl(
-			SOAImplProject implProject, SOAIntfProject intfProject,
-			IProgressMonitor monitor) throws Exception {
-		IProject project = SOAResourceCreator.createProject(
-				implProject.getEclipseMetadata(), monitor);
-		ProgressUtil.progressOneStep(monitor);
-
-		SOAResourceCreator.createFolders(project, implProject, monitor);
-		ProgressUtil.progressOneStep(monitor);
-
-		SOAResourceCreator.createPropertiesFile(implProject);
-		ProgressUtil.progressOneStep(monitor);
-		ProjectPropertiesFileUtil.createPrefsFile(implProject.getProject(),
-				monitor);
-		BuildSystemConfigurer.performRepositorySpecificTasks(implProject,
-				monitor);
-		ProgressUtil.progressOneStep(monitor);
-
-		BuildSystemConfigurer.configure(implProject, monitor);
-		ProgressUtil.progressOneStep(monitor);
-
-		BuildSystemCodeGen.generateServiceConfigXml(implProject);
-		ProgressUtil.progressOneStep(monitor);
-	}
-
+	
 	public static Set<String> getAllWebProjects(boolean core) {
 		ArrayList<IProject> soaWebProjects = new ArrayList<IProject>();
 		Set<String> allWebProjectNames = new HashSet<String>();
@@ -199,44 +163,7 @@ public class WebProjectCreator {
 		return implProject;
 	}
 
-	/**
-	 * Creates the impl project from existing wsdl.
-	 * 
-	 * @param implProject
-	 *            the impl project
-	 * @param intfProject
-	 *            the intf project
-	 * @param monitor
-	 *            the monitor
-	 * @throws Exception
-	 *             the exception
-	 */
-	public static void createImplProjectFromExistingWsdl(
-			SOAImplProject implProject, SOAIntfProject intfProject,
-			IProgressMonitor monitor) throws Exception {
-		IProject project = SOAResourceCreator.createProject(
-				implProject.getEclipseMetadata(), monitor);
-		ProgressUtil.progressOneStep(monitor);
-
-		SOAResourceCreator.createFolders(project, implProject, monitor);
-		ProgressUtil.progressOneStep(monitor);
-
-		SOAResourceCreator.createPropertiesFile(implProject);
-		ProgressUtil.progressOneStep(monitor);
-		ProjectPropertiesFileUtil.createPrefsFile(implProject.getProject(),
-				monitor);
-
-		BuildSystemConfigurer.performRepositorySpecificTasks(implProject,
-				monitor);
-		ProgressUtil.progressOneStep(monitor);
-
-		BuildSystemConfigurer.configure(implProject, monitor);
-		ProgressUtil.progressOneStep(monitor);
-
-		BuildSystemCodeGen.generateServiceConfigXml(implProject);
-		ProgressUtil.progressOneStep(monitor);
-	}
-
+	
 	public static void createWebProject(ServiceFromWsdlParamModel soaModel,
 			IProgressMonitor monitor) {
 
@@ -260,6 +187,9 @@ public class WebProjectCreator {
 		properties.put("version", "1.0.0-SNAPSHOT");
 		String activatorName = soaModel.getServiceName() + "Activator";
 		properties.put("activatorName", activatorName);
+		String registererName= soaModel.getServiceName() + "Registerer";
+		properties.put("serviceRegistry", registererName);
+		
 		if(soaModel.getDomainParentVersion()!=null)
 		properties.put("domainParentVersion",soaModel.getDomainParentVersion());
 
@@ -275,6 +205,8 @@ public class WebProjectCreator {
 		}
 		// Add the bundle activator
 		properties.put("activatorPackageName", activatorPackageName);
+		properties.put("serviceRegisterersFullClassName", implPackage+".gen."+registererName);
+		properties.put("dummy", activatorPackageName+"."+registererName);
 		IProject projectMine = WorkspaceUtil.getProject(soaModel
 				.getWebProjectName() + "Parent");
 
@@ -333,6 +265,7 @@ public class WebProjectCreator {
 		} 
 		
 	}
+	
 	private static void prepare(IFolder folder) throws CoreException {
 		if (!folder.exists()) {
 	        prepare((IFolder) folder.getParent());

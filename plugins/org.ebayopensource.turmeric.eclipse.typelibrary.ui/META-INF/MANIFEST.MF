@@ -36,7 +36,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wst.wsdl.validation;bundle-version="1.1.501",
  org.eclipse.wst.xsd.core;bundle-version="1.1.503",
  org.eclipse.wst.wsdl.ui;bundle-version="1.2.500"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: org.ebayopensource.turmeric.eclipse.typelibrary.ui,
  org.ebayopensource.turmeric.eclipse.typelibrary.ui.actions,
