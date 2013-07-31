@@ -13,6 +13,9 @@ import java.io.IOException;
 import org.ebayopensource.turmeric.eclipse.buildsystem.utils.BuildSystemUtil;
 import org.ebayopensource.turmeric.eclipse.config.core.SOAGlobalConfigAccessor;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
+import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositorySystem;
+import org.ebayopensource.turmeric.eclipse.resources.model.AbstractSOAMetadata;
+import org.ebayopensource.turmeric.eclipse.resources.model.SOAConsumerMetadata;
 import org.ebayopensource.turmeric.eclipse.typelibrary.builders.TypeLibraryProjectNature;
 import org.ebayopensource.turmeric.eclipse.typelibrary.resources.model.SOATypeLibraryProject;
 import org.ebayopensource.turmeric.eclipse.utils.core.VersionUtil;
@@ -48,7 +51,11 @@ public class TypeLibraryBuildSystemConfigurer {
 	 */
 	public static  String getCompilerVersion(String superVersion) throws IOException{
 		String compilerVersion=SOAGlobalConfigAccessor.getDefaultCompilerLevel();
-		if((superVersion!=null)&&(VersionUtil.compare(superVersion,"1.7.0")<0)){
+		//Ignoring superVersion
+		if(superVersion==null)
+		superVersion=GlobalRepositorySystem.instanceOf().getActiveRepositorySystem().getProjectConfigurer().getSuperVersion();
+		
+		if((VersionUtil.compare(superVersion,"1.7.0")<0)){
 			compilerVersion="1.6";
 		}
 		return compilerVersion;
@@ -56,6 +63,7 @@ public class TypeLibraryBuildSystemConfigurer {
 	public static void configure(SOATypeLibraryProject typeLibraryProject,
 			IProgressMonitor monitor) throws CoreException, IOException {
 		// add java support
+	
 		JDTUtil.addJavaSupport(typeLibraryProject.getEclipseMetadata()
 				.getProject(), typeLibraryProject.getSourceDirectoryNames(),
 				getCompilerVersion(typeLibraryProject.getMetadata().getSuperVersion()), 
