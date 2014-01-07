@@ -42,7 +42,7 @@ import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.osgi.framework.Version;
 
 public class ArchetypeResolver {
-	final static String DEFAULT_REMOTE_REPO_URL = "http://nxraptor/content/repositories/releases/";
+	final static String DEFAULT_REMOTE_REPO_URL = "http://ebaycentral/content/repositories/releases/";
 	final static String ARCHETYPE_CATALOG = "archetype-catalog.xml";
 	Collection<Archetype> currentArchetypes;
 	
@@ -55,13 +55,13 @@ public class ArchetypeResolver {
 
 		try{
 			String url = System.getProperty("user.home") + File.separator +".m2" + File.separator + "archetype-catalog.xml";
-			ArchetypeCatalogFactory factory = new RemoteCatalogFactory(DEFAULT_REMOTE_REPO_URL, "Raptor Remote Catalog", false);
-					//new LocalCatalogFactory(url,"Default Local",false);
+			ArchetypeCatalogFactory factory = //new RemoteCatalogFactory(DEFAULT_REMOTE_REPO_URL, "Raptor Remote Catalog", false);
+					new LocalCatalogFactory(url,"Default Local",false);
 			//get the right artifact and send it
 			List<Archetype> archtypeList= factory.getArchetypeCatalog().getArchetypes();
 			List<Archetype> toCompare = new ArrayList<Archetype>();
 			Archetype archetype = null;
-			String minimumVersion = getMinimumVersion(properties.getProperty("raptorParentVersion"));
+			String minimumVersion = getMinimumVersion(properties.getProperty("RaptorPlatformVersion"));
 			for(Archetype arctype :archtypeList){
 				if((arctype.getArtifactId().equalsIgnoreCase(artifactId))
 						&&(arctype.getGroupId().equalsIgnoreCase(groupId))
@@ -70,7 +70,6 @@ public class ArchetypeResolver {
 								//archetype = arctype;
 			}
 			archetype = bringLatest(toCompare);
-			System.out.println("yo"+archetype.getVersion());
 			if(archetype==null) throw new RuntimeException("Archetype cannot be resolved : "+ artifactId +" : " + groupId + " : "+ version +" at "+ DEFAULT_REMOTE_REPO_URL);
 	      Set<MavenProjectInfo> projectSet = createMavenProjectsByArchetype(project, location, archetype, properties.getProperty("groupId"), properties.getProperty("artifactId"), properties.getProperty("version"), javaPackage, properties, configuration, monitor);
 
@@ -102,9 +101,8 @@ public class ArchetypeResolver {
 	    }
 	}
 	private String getMinimumVersion(String version) {
-		version = version.substring(0,version.indexOf("-"));
-		if(compare(version, "1.7.0")<0) return "1.0";
-		return "1.7";
+		
+		return "2.0";
 	}
 	private void removeParentProject(Set<MavenProjectInfo> projectSet) {
 		MavenProjectInfo parent = getParentProject(projectSet);

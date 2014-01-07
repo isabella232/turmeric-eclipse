@@ -98,7 +98,7 @@ public class ImplementationCreator {
 		SOAResourceCreator.createPropertiesFile(implProject);
 		ProgressUtil.progressOneStep(monitor);
 		ProjectPropertiesFileUtil.createPrefsFile(implProject.getProject(), monitor);
-		BuildSystemConfigurer.performRepositorySpecificTasks(implProject,paramModel.getDomainParentVersion(),
+		BuildSystemConfigurer.performRepositorySpecificTasks(implProject,paramModel.getRaptorPlatformVersion(),
 				paramModel.getReuse(),paramModel.getWebProjectName(),
 				 monitor);
 		ProgressUtil.progressOneStep(monitor);
@@ -169,7 +169,7 @@ public class ImplementationCreator {
 		ProgressUtil.progressOneStep(monitor);
 		ProjectPropertiesFileUtil.createPrefsFile(implProject.getProject(), monitor);
 		
-		BuildSystemConfigurer.performRepositorySpecificTasks(implProject,paramModel.getDomainParentVersion(),
+		BuildSystemConfigurer.performRepositorySpecificTasks(implProject,paramModel.getRaptorPlatformVersion(),
 				paramModel.getReuse(),paramModel.getWebProjectName(),
 				 monitor);
 		ProgressUtil.progressOneStep(monitor);

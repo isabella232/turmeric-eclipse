@@ -42,7 +42,7 @@ public class PropertiesGroup extends Observable implements Observer{
 	
 
 	protected Set<String> requiredProperties; //it's only for properties table show.
-	protected String[] raptorParentVersionList; //it's only for properties table show.
+	protected String[] RaptorPlatformVersionList; //it's only for properties table show.
 
 	private Properties userInputProperties;
 
@@ -100,7 +100,7 @@ public class PropertiesGroup extends Observable implements Observer{
 	    		  return false;
 	    	  }
 
-	    	  if (((TableItem)element).getText().equals("raptorParentVersion")){
+	    	  if (((TableItem)element).getText().equals("RaptorPlatformVersion")){
 	    		  updatePropertyEditors((TableItem)element);
 	    	  }else{
 	    		  cellEditors[VALUE_INDEX].dispose();
@@ -210,7 +210,7 @@ public class PropertiesGroup extends Observable implements Observer{
 
 				//by default, is visible.
 				//if (property.isVisible()){
-					if (isDomainParentVersion(key)){
+					if (isRaptorPlatformVersion(key)){
 
 						List<String> list = null;
 								//property.getVersionList();
@@ -220,10 +220,10 @@ public class PropertiesGroup extends Observable implements Observer{
 
 							list.add(value==null?"":value);
 						}
-						raptorParentVersionList = list.toArray(new String[list.size()]);
+						RaptorPlatformVersionList = list.toArray(new String[list.size()]);
 
-						if (raptorParentVersionList!=null && raptorParentVersionList.length>0){
-							value = raptorParentVersionList[0];
+						if (RaptorPlatformVersionList!=null && RaptorPlatformVersionList.length>0){
+							value = RaptorPlatformVersionList[0];
 						}
 					}
 
@@ -253,14 +253,14 @@ public class PropertiesGroup extends Observable implements Observer{
 		// TODO Auto-generated method stub
 		if(key.equalsIgnoreCase("webProjectDescription")) return "This field is mandatory for registering your application and deploying to QA/ Production";
 		if(key.equalsIgnoreCase("appName")) return "This field will be used as consumer name when registering your application and if not specified, will default to lowercase ArtifactId";
-		if(key.equalsIgnoreCase("domainParentVersion")) return "This field will be used as the domain parent version. Ensure it uses the same raptor parent as the soa projects (From raptorSoa.properties in <users home directory>\\<RIDE version>)";
+		if(key.equalsIgnoreCase("RaptorPlatformVersion")) return "This field will be used as the raptor parent version. Ensure it uses the same raptor parent as the soa projects (From raptorSoa.properties in <users home directory>\\<RIDE version>)";
 	return "";
 		
 	}
 
-	private boolean isDomainParentVersion(String key){
+	private boolean isRaptorPlatformVersion(String key){
 
-		if (!"domainParentVersion".equals(key)){
+		if (!"RaptorPlatformVersion".equals(key)){
 			return false;
 		}
 
@@ -307,13 +307,13 @@ public class PropertiesGroup extends Observable implements Observer{
 				ce[VALUE_INDEX] = comboEditor;
 			}
 
-			if (raptorParentVersionList==null || raptorParentVersionList.length==0){
+			if (RaptorPlatformVersionList==null || RaptorPlatformVersionList.length==0){
 
 				return;
 			}
 
-			comboEditor.setItems(raptorParentVersionList);
-			item.setText(VALUE_INDEX, raptorParentVersionList[0]);
+			comboEditor.setItems(RaptorPlatformVersionList);
+			item.setText(VALUE_INDEX, RaptorPlatformVersionList[0]);
 		}
 	}
 }

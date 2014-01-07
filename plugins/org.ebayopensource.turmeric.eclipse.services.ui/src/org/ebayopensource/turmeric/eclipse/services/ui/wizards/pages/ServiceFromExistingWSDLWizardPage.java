@@ -55,7 +55,7 @@ import com.sun.tools.xjc.api.XJC;
 public class ServiceFromExistingWSDLWizardPage extends
 		AbstractNewServiceFromWSDLWizardPage {
 	private static final SOALogger logger = SOALogger.getLogger();
-	public Map<String,String> typeLibNameAndPackage;
+	//public Map<String,String> typeLibNameAndPackage;
 	private String versionFromWSDL = null;
 
 	/**
@@ -257,13 +257,14 @@ public class ServiceFromExistingWSDLWizardPage extends
 	 */
 		
   public boolean customCanFlipToNextPage() {
- 		
-    if((super.canFlipToNextPage())&&(typeLibNameAndPackage!=null))
- 	 	
-       if (typeLibNameAndPackage.keySet().size()>0){
-          return true;
-        }
-    return false;
+ 	
+	  return super.canFlipToNextPage();
+//    if((super.canFlipToNextPage())&&(typeLibNameAndPackage!=null))
+// 	 	
+//       if (typeLibNameAndPackage.keySet().size()>0){
+//          return true;
+//        }
+//    return false;
   }
 	
 	@Override
@@ -332,32 +333,32 @@ public class ServiceFromExistingWSDLWizardPage extends
 			setTargetNamespace("");
 			setTypeNamespace("");
 		}
-		try {
-			typeLibNameAndPackage=ServiceFromExistingWSDLWizardPage.getAllTypeLibraryNames(wsdl);
-			// for each entry in r,
-			// If no conflicting bundle exists,
-				//Display a mesg asking user to move tl to library and then add it as a dep and rebuild library.
-			// If conflicting bundle exists,
-				//Display a mesg asking user to add it as a possible dependency.
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			typeLibNameAndPackage=ServiceFromExistingWSDLWizardPage.getAllTypeLibraryNames(wsdl);
+//			// for each entry in r,
+//			// If no conflicting bundle exists,
+//				//Display a mesg asking user to move tl to library and then add it as a dep and rebuild library.
+//			// If conflicting bundle exists,
+//				//Display a mesg asking user to add it as a possible dependency.
+//		} catch (ParserConfigurationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SAXException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 	}
-	public boolean canFlipTOTL(){
-		 if((typeLibNameAndPackage!=null))
-		        if (typeLibNameAndPackage.keySet().size()>0){
-		          return true;
-		        }
-		 return false;
-	}
+//	public boolean canFlipTOTL(){
+//		 if((typeLibNameAndPackage!=null))
+//		        if (typeLibNameAndPackage.keySet().size()>0){
+//		          return true;
+//		        }
+//		 return false;
+//	}
 public static Map<String,String> getAllTypeLibraryNames(Definition wsdl) throws ParserConfigurationException, SAXException, IOException{
 		
 		Map<String,String> typeLibraryPackageSet = new HashMap<String,String>();

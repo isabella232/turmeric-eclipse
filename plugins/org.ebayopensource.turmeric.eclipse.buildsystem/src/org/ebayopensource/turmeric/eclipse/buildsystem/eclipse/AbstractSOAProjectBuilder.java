@@ -96,7 +96,6 @@ public abstract class AbstractSOAProjectBuilder extends
 				}
 				BuilderUtil.generateSourceDirectories(project, monitor);
 				IProject[] toReturn= doBuild(kind, args, project, delta, monitor);
-				ProjectUtils.callSplitPackageServiceAndProcessOutPut(getbundleName(project), getPackages(project), project, getErrorLevel(),false);
 				return toReturn;
 			} else {
 				if (SOALogger.DEBUG) {
@@ -121,47 +120,9 @@ public abstract class AbstractSOAProjectBuilder extends
 		}
 		return null;
 	}
-	/*
-	 * Gets all the codegenerated packages which need to be validate for split package after every full clean build
-	 */
-	private Set<String> getPackages(IProject project) throws CoreException
-	{
-		Set<String> packages = new HashSet<String>();
-		IJavaProject javaProject = JavaCore.create(project);
-		IFolder folder =project.getFolder("gen-src\\client");
-		List<IFile> files = WorkspaceUtil.getFilesWithExtensions(folder, true, "java");
-		for(IFile file:files){
-			IPath sandwitch = file.getProjectRelativePath().removeFirstSegments(2).removeLastSegments(1);
-			packages.add(sandwitch.toString().replace("/", "."));
-		}
-		return packages;
-	}
-	/*
-	 * Gets the bundle symbolic Name from manifest. If not available, uses the common group name + project name
-	 * as the default bundle symbolic name
-	 */
-	private String getbundleName(IProject project){
-		String bundleName = null;
-		try{
-		bundleName= ProjectUtils.getBundleSymbolicNameFromManifest(project);
-		}catch(Exception e){
-		}
-		if(bundleName==null){
-			bundleName="com.ebay.soa.interface."+project.getName();
-		}
-		return bundleName;
-	}
-	/*
-	 * Gets the error Prefernence level for Split Package Validation
-	 */
-	private boolean getErrorLevel(){
-		String errorlevel = RepositorySystemActivator.getDefault().getPreferences()
-				.get(PreferenceConstants.PREF_ERROR_LEVEL_NAME,PreferenceConstants.PREF__WARNING);
-		if(errorlevel.equals(PreferenceConstants.PREF__WARNING)){
-			return false;
-		}
-		return true;
-	}
+	
+	
+	
 	/**
 	 * Do build.
 	 *

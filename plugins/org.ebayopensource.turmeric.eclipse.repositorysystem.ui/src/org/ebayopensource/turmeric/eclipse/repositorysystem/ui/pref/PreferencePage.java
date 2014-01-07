@@ -65,51 +65,7 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 	 */
 	@Override
 	public void createFieldEditors() {
-		final List<ISOARepositorySystem> reposList = GlobalRepositorySystem
-				.instanceOf().getAvailableRepositorySystems();
-		final List<String[]> choices = new ArrayList<String[]>();
-		final Map<String, Map<String, String>> organizations = new LinkedHashMap<String, Map<String, String>>();
-			choices.add(new String[] { PreferenceConstants.PREF__WARNING,
-					PreferenceConstants.PREF__WARNING });
-			choices.add(new String[] { PreferenceConstants.PREF__ERROR,
-			PreferenceConstants.PREF__ERROR });
 		
-		final Composite buildSystemComposite = getFieldEditorParent();
-		
-		final CustomRadioGroupFieldEditor buildSystem = new CustomRadioGroupFieldEditor(
-				PreferenceConstants.PREF_ERROR_LEVEL_NAME, "Error Level For Split Package Validation", 1,
-				choices.toArray(new String[0][]), organizations, 
-				buildSystemComposite, true) {
-			@Override
-			protected FieldEditor createChoiceSubFieldEditor(
-					final Composite parent, final Button radioBtn) {
-
-				// will be implemented when stand alone comes into picture
-				return null;
-			}
-
-			@Override
-			protected void fireValueChanged(final String property,
-					final Object oldValue, Object newValue) {
-				super.fireValueChanged(property, oldValue, newValue);
-				if (ObjectUtils.equals(oldValue, newValue))
-					return;
-				RepositorySystemActivator.getDefault().getPluginPreferences().setValue(
-							PreferenceConstants.PREF_ERROR_LEVEL_NAME,
-							(String)newValue);
-					doLoad();
-			}
-
-			@Override
-			protected void doLoadDefault() {
-				final String defaultValue = getPreferenceStore()
-						.getDefaultString(getPreferenceName());
-					setPresentsDefaultValue(false);
-					doLoad();
-					return;
-				} 
-		};
-		addField(buildSystem);
 
 	}
 

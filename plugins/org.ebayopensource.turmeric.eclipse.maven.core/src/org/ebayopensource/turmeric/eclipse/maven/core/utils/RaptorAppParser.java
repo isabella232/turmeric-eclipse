@@ -31,27 +31,21 @@ import org.jdom.input.SAXBuilder;
 
 public class RaptorAppParser {
 	public static String RAPTOR_APP_XML_TEMPLATE_NAME="webService_Template";
-	public static String RAPTOR_APP_XML_WITH_REGISTERER_TEMPLATE_NAME="webService_Template_WithRegisterer";
 	private static final String ADMIN_NAME_KEY = "adminName";
 	private static final String ARTIFACT_NAME_KEY = "artifactId";
-	private static final String SERVICE_REGISTERE_KEY="serviceRegisterer";
 	public static final String raptorAppXmlFilePath="/src/main/webapp/META-INF/raptor_app.xml";
 
 	public static Document getSourceDocument(String adminName,
-			String artifactId,String serviceRegisterer,String description) throws Exception {
+			String artifactId,String description) throws Exception {
 		
 		final String org = GlobalRepositorySystem.instanceOf()
 				.getActiveRepositorySystem().getActiveOrganizationProvider()
 				.getName();
 
 		URL templateURL = null;
-		if(serviceRegisterer==null){
-			templateURL=SOAConfigExtensionFactory.getXMLTemplate(org,
+		templateURL=SOAConfigExtensionFactory.getXMLTemplate(org,
 				RAPTOR_APP_XML_TEMPLATE_NAME);
-		}else{
-			templateURL=SOAConfigExtensionFactory.getXMLTemplate(org,
-					RAPTOR_APP_XML_WITH_REGISTERER_TEMPLATE_NAME);
-		}
+		
 		
 		if (templateURL == null) {
 			throw new IllegalArgumentException(
@@ -63,7 +57,6 @@ public class RaptorAppParser {
 
 		data.put(ADMIN_NAME_KEY, adminName);
 		data.put(ARTIFACT_NAME_KEY, artifactId);
-		data.put(SERVICE_REGISTERE_KEY, serviceRegisterer);
 
 		FreeMarkerUtil.generate(data, templateURL, "webxml", writer);
 
@@ -74,27 +67,7 @@ public class RaptorAppParser {
 
 		return sourceDoc;
 	}
-	public static List<String> getRegisters(IProject webProject,List<String> registererNames) throws JDOMException, IOException, CoreException {
-		IFile file = webProject.getFile(raptorAppXmlFilePath);
-		List<String> registreres = new ArrayList<String>();
-//		InputStream inputStream = file.getContents();
-			SAXBuilder builder = new SAXBuilder();
-			Document document = builder.build(file.getContents());
-			ElementFilter filter=new ElementFilter("serviceRegisterer");
-			Element root=document.getRootElement();
-			Iterator iter = root.getDescendants(filter);
-			while(iter.hasNext()){
-				Element Registerer = (Element) iter.next();
-				String regFullClass = Registerer.getText();
-				String className="";
-				if((regFullClass!=null)&&(regFullClass.lastIndexOf(".")!=-1)){
-				className=regFullClass.substring(regFullClass.lastIndexOf(".")+1);	
-				}
-				registreres.add(regFullClass);
-				registererNames.add(className);				
-			}		
-		return registreres;
-	}
+	
 	
 	public static void addWebServiceElementsToRaptorAppXML(Document sourceDoc,
 			InputStream target, IFile targetFile,String description) throws CoreException, IOException, JDOMException {

@@ -108,7 +108,7 @@ public class InterfaceCreator {
 		ProgressUtil.progressOneStep(monitor);
 		ProjectPropertiesFileUtil.createPrefsFile(intfProject.getProject(), monitor);
 		BuildSystemConfigurer.performRepositorySpecificTasks(intfProject,
-				implProject,paramModel.getDomainParentVersion(),
+				implProject,paramModel.getRaptorPlatformVersion(),
 				paramModel.getReuse(),paramModel.getWebProjectName(), monitor);
 		ProgressUtil.progressOneStep(monitor);
 		
@@ -187,7 +187,7 @@ public class InterfaceCreator {
 		ProjectPropertiesFileUtil.createPrefsFile(intfProject.getProject(), monitor);
 		
 		BuildSystemConfigurer.performRepositorySpecificTasks(intfProject,
-				implProject,paramModel.getDomainParentVersion(),paramModel.getReuse(),paramModel.getWebProjectName(), monitor);
+				implProject,paramModel.getRaptorPlatformVersion(),paramModel.getReuse(),paramModel.getWebProjectName(), monitor);
 		ProgressUtil.progressOneStep(monitor);
 		
 		BuildSystemConfigurer.configure(intfProject, monitor);

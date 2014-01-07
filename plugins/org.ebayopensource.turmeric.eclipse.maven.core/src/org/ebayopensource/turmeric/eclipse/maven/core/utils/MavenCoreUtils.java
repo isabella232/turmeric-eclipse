@@ -658,11 +658,11 @@ public class MavenCoreUtils {
 		if(!home.exists()){
 				home.mkdir();
 		}
-		File raptorParentFile = new File(home,"raptorSoa.properties");
-		if(raptorParentFile.exists()){
+		File RaptorPlatformFile = new File(home,"raptorSoa.properties");
+		if(RaptorPlatformFile.exists()){
 			FileInputStream in=null;
 			try {
-				in = new FileInputStream(raptorParentFile);
+				in = new FileInputStream(RaptorPlatformFile);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}

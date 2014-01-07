@@ -175,7 +175,7 @@ public class WebProjectCreator {
 		}
 		properties.put("webProjectName", soaModel.getWebProjectName());
 		properties.put("webProjectDescription", soaModel.getWebProjectDesc());
-		// todoforlaterproperties.put("raptorParentVersion", );
+		// todoforlaterproperties.put("RaptorPlatformVersion", );
 		properties.put("appName", soaModel.getAppName());
 		properties.put("groupId", soaModel.getWebProjectGroupID());
 
@@ -183,15 +183,15 @@ public class WebProjectCreator {
 		properties.put("implProjectArtifactId", soaModel.getImplName());
 		properties.put("implVersion", soaModel.getServiceVersion());
 		properties.put("admin_name", soaModel.getServiceName());
-		properties.put("artifactId", soaModel.getWebProjectName() + "Parent");
+		properties.put("artifactId", soaModel.getWebProjectName());
 		properties.put("version", "1.0.0-SNAPSHOT");
 		String activatorName = soaModel.getServiceName() + "Activator";
 		properties.put("activatorName", activatorName);
 		String registererName= soaModel.getServiceName() + "Registerer";
 		properties.put("serviceRegistry", registererName);
 		
-		if(soaModel.getDomainParentVersion()!=null)
-		properties.put("domainParentVersion",soaModel.getDomainParentVersion());
+		if(soaModel.getRaptorPlatformVersion()!=null)
+		properties.put("RaptorPlatformVersion",soaModel.getRaptorPlatformVersion());
 
 		String activatorPackageName = null;
 		String implPackage = null;
@@ -208,7 +208,7 @@ public class WebProjectCreator {
 		properties.put("serviceRegisterersFullClassName", implPackage+".gen."+registererName);
 		properties.put("dummy", activatorPackageName+"."+registererName);
 		IProject projectMine = WorkspaceUtil.getProject(soaModel
-				.getWebProjectName() + "Parent");
+				.getWebProjectName());
 
 		properties
 				.put("javaPackage", implPackage + "." + soaModel.getServiceName()+"."+soaModel.getWebProjectName().toLowerCase());

@@ -326,23 +326,6 @@ public final class MavenEclipseUtil {
 		dependency.setVersion(metadata.getVersion());
 		dependency.setClassifier(metadata.getClassifier());
 		dependency.setType(metadata.getType());
-		if(dependency.getArtifactId().equals("soaMerged")&&(dependency.getGroupId().equals("com.ebay.soa"))){
-			
-		Exclusion exclusion = new Exclusion();
-		exclusion.setArtifactId("axis2");
-		exclusion.setGroupId("org.apache");
-		dependency.addExclusion(exclusion);
-		Exclusion exclusion2 = new Exclusion();
-		exclusion2.setArtifactId("woodstox");
-		exclusion2.setGroupId("org.apache.geronimo.bundles");
-		dependency.addExclusion(exclusion2);
-		}
-		if(dependency.getArtifactId().equals("MiscServiceMerged")&&(dependency.getGroupId().equals("com.ebay.services"))){
-			Exclusion exclusion = new Exclusion();
-			exclusion.setArtifactId("xjc");
-			exclusion.setGroupId("com.ebay.thirdparty.jaxb");
-			dependency.addExclusion(exclusion);
-			}
 	
 		dependency.setScope(metadata.getScope());
 		return dependency;

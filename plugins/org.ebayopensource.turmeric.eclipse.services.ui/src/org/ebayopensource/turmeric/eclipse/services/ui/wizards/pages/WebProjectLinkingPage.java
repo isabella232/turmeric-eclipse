@@ -95,12 +95,8 @@ public class WebProjectLinkingPage extends SOABasePage {
 		//Handle reuse case with only validation on picking a web project form the worskpace
 		if(getReuse()){
 			if(availableDUCombo.getItemCount()==0){
-				String errorMsg = "";
-				if(getPreferredCoreNature()){
-					errorMsg = "No Web Projects with core domain dependencies available in the workspace";
-				}else{
-					errorMsg = "No Web Projects without core domain dependencies available in the workspace";
-				}
+				String errorMsg = "";				
+				errorMsg = "No SOA Web Projects available in the workspace";
 				updateStatus(availableDUCombo, errorMsg);
 				return false;
 			}
@@ -136,18 +132,8 @@ public class WebProjectLinkingPage extends SOABasePage {
 		if (checkValidationResult(validationModel, 
 				webProjectName) == false)
 			return false;
-		IStatus validationModel2 = validateProject(null, parentFolderName, getWebProjectName()+".eba");
-		//Validating eba project
-		if (checkValidationResult(validationModel2, 
-				webProjectName) == false)
-			return false;
-		//Validating web project's parent project
 		
-		IStatus validationModel3 = validateProject(null, parentFolderName, getWebProjectName()+"Parent");
-		//Validating eba project
-		if (checkValidationResult(validationModel3, 
-				webProjectName) == false)
-			return false;
+		//Validating web project's parent project
 		
 		//Validate group id valid
 		if(getArchetypeUIProperties().getProperty("groupId")==null){
@@ -186,19 +172,19 @@ public class WebProjectLinkingPage extends SOABasePage {
 			return false;
 				}
 		//Version should be present and valid
-		if(getPreferredCoreNature()){
+		
 			//Should not be null
-			String domainVersion =getArchetypeUIProperties().getProperty("domainParentVersion"); 
+			String domainVersion =getArchetypeUIProperties().getProperty("RaptorPlatformVersion"); 
 			if((domainVersion==null)||(domainVersion.equals(""))){
-				String errorMsg = "Enter a Domain Parent Version";
+				String errorMsg = "Enter a Platform Parent Version";
 				updateStatus(errorMsg);
 				return false;
-			}//Should be valid
-			if(validateName(propertiesGroup.getPropertiesViewer(),domainVersion, 				
-					RegExConstants.MAVEN_VERSION_EXP,
-					"Invalid Domain Parent Version") == false){
-				return false;
-					}
+			
+//		if(validateName(propertiesGroup.getPropertiesViewer(),domainVersion, 				
+//					RegExConstants.MAVEN_VERSION_EXP,
+//					"Invalid Domain Parent Version") == false){
+//				return false;
+//					}
 		}
 		return super.dialogChanged();
 		
@@ -376,7 +362,7 @@ public class WebProjectLinkingPage extends SOABasePage {
 		properties.put("appName","$");
 		properties.put("groupId","com.ebay.app.raptor");
 		properties.put("webProjectDescription","[description]");
-		properties.put("domainParentVersion","");
+		properties.put("RaptorPlatformVersion","");
 		return properties;
 	}
 	@Override

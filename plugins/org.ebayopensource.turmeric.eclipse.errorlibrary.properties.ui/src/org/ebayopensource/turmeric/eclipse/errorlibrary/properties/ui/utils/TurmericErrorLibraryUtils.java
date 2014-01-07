@@ -154,11 +154,11 @@ public final class TurmericErrorLibraryUtils {
 	public static Collection<String> getAllErrorDomains(IProject project) throws CoreException {
 		final Collection<String> domains = new ArrayList<String>();
 		if (project != null && project.isAccessible() == true) {
-			IFolder domainParentFolder = project.getFolder(PropertiesSOAConstants.FOLDER_ERROR_DOMAIN);
-			if (domainParentFolder.isAccessible() == false) {
+			IFolder RaptorPlatformFolder = project.getFolder(PropertiesSOAConstants.FOLDER_ERROR_DOMAIN);
+			if (RaptorPlatformFolder.isAccessible() == false) {
 				return domains;
 			}
-			for (IResource res : domainParentFolder.members()) {
+			for (IResource res : RaptorPlatformFolder.members()) {
 				if (res instanceof IFolder) {
 					final IFolder folder = (IFolder)res;
 					if (folder.findMember(

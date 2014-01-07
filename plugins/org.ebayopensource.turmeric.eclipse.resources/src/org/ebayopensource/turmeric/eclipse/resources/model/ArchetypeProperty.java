@@ -33,7 +33,7 @@ public class ArchetypeProperty {
 		return versionList;
 	}
 
-	public void setRaptorParentVersionList(List<String> versionList) {
+	public void setRaptorPlatformVersionList(List<String> versionList) {
 		this.versionList = versionList;
 	}
 

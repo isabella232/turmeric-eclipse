@@ -220,7 +220,7 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 
 	private String webProjectArchetypeVsn;
 
-	private String domainParentVersion;
+	private String RaptorPlatformVersion;
 
 	public String getAppName() {
 		return appName;
@@ -695,13 +695,13 @@ public class ServiceFromWsdlParamModel extends BaseServiceParamModel {
 		this.raptorSvcImpl = raptorSvcImpl;
 	}
 
-	public void setWebProjectDomainParentVersion(String property) {
+	public void setWebProjectRaptorPlatformVersion(String property) {
 		// TODO Auto-generated method stub
-		this.domainParentVersion = property;
+		this.RaptorPlatformVersion = property;
 	}
 
-	public String getDomainParentVersion() {
-		return domainParentVersion;
+	public String getRaptorPlatformVersion() {
+		return RaptorPlatformVersion;
 	}
 
 }

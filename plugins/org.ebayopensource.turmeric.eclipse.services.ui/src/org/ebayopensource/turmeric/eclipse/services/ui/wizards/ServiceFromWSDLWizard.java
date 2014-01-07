@@ -85,7 +85,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 
 	private ChooseWSDLSourcePage chooseWsdlSource = null;
 	private ServiceFromNewWSDLPage serviceFromNewWSDL = null;
-	private DependenciesWizardPage intfDependenciesPage = null;
+	//private DependenciesWizardPage intfDependenciesPage = null;
 	private DependenciesWizardPage implDependenciesPage = null;
 	private ServiceFromExistingWSDLWizardPage serviceFromExsitingWSDL = null;
 	private ServiceFromNewWSDLAddOperationWizardPage addOperationPage = null;
@@ -118,7 +118,8 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 				.isStartFromExistingWSDL();
 		if (fromExistingWsdl) {
 			if(getContainer().getCurrentPage() == serviceFromExsitingWSDL){
-				return serviceFromExsitingWSDL.isPageComplete()&&(serviceFromExsitingWSDL.customCanFlipToNextPage()==false)&& webProjectPage.isPageComplete();
+				return serviceFromExsitingWSDL.isPageComplete()&&(serviceFromExsitingWSDL.customCanFlipToNextPage()==false)&& 
+						webProjectPage.isPageComplete();
 			}
 			return serviceFromExsitingWSDL.isPageComplete()
 					&& getContainer().getCurrentPage() != chooseWsdlSource && webProjectPage.isPageComplete();
@@ -137,28 +138,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 			return serviceFromExsitingWSDL.getWorkspaceRoot();
 		} return serviceFromNewWSDL.getWorkspaceRoot();
 	}
-	public boolean doCheck(AbstractNewServiceFromWSDLWizardPage wizardpage){
-		final String serviceName = wizardpage.getAdminName();
-		final String servicePackage = wizardpage.getServicePackage();
-		Map<String,String> allNSToPackMappings= wizardpage.getNamespaceToPackageMappings();
-		allNSToPackMappings.put(servicePackage.toLowerCase(),servicePackage.toLowerCase());
-		allNSToPackMappings.put(servicePackage.toLowerCase()+".gen",servicePackage.toLowerCase()+".gen");
-		final String adminName = wizardpage.getAdminName();
-		final String serviceInterface = SOAServiceUtil
-				.generateInterfaceClassName(adminName, servicePackage);
-
-		//During creation service Name is hardcoded
-		String fullServiceName = "com.ebay.soa.interface."+serviceName;
-		
-		Set<String> mappedPackages = new HashSet<String>();
-		mappedPackages.addAll(allNSToPackMappings.values());
-		
-		
-		if(!callSplitPackageService(fullServiceName,mappedPackages,false))
-			//Cancel has been Pressed on the dialog box
-			return false;
-		return true;
-	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -181,9 +161,8 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		final String adminName = wizardPage.getAdminName();
 		final String serviceInterface = SOAServiceUtil
 				.generateInterfaceClassName(adminName, servicePackage);
-		if(! doCheck(wizardPage))
-			return false;
-		intfDependenciesPage.finished();		
+		
+	//	intfDependenciesPage.finished();		
 
 		final String implProjectName = adminName
 				+ SOAProjectConstants.IMPL_PROJECT_SUFFIX;
@@ -203,7 +182,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 			uiModel.setTypeNamespace(wizardPage.getTypeNamespace());
 		uiModel.setTypeFolding(wizardPage.getTypeFolding());
 		uiModel.setServiceLayer(wizardPage.getServiceLayer());
-		uiModel.setInterfaceLibs(intfDependenciesPage.getLibraries());
+	//	uiModel.setInterfaceLibs(intfDependenciesPage.getLibraries());
 		//uiModel.setInterfaceProjects(intfDependenciesPage.getProjects());
 		//uiModel.setImplLibs(implDependenciesPage.getLibraries());
 		//uiModel.setImplProjects(implDependenciesPage.getProjects());
@@ -225,7 +204,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		uiModel.setAppName(webProjectPage.getArchetypeUIProperties().getProperty("appName"));
 		uiModel.setWebProjectDesc(webProjectPage.getArchetypeUIProperties().getProperty("webProjectDescription"));
 		uiModel.setWebProjectGroupID(webProjectPage.getArchetypeUIProperties().getProperty("groupId"));
-		uiModel.setWebProjectDomainParentVersion(webProjectPage.getArchetypeUIProperties().getProperty("domainParentVersion"));
+		uiModel.setWebProjectRaptorPlatformVersion(webProjectPage.getArchetypeUIProperties().getProperty("RaptorPlatformVersion"));
 		}
 		else{
 			uiModel.setWebProjectName(webProjectPage.getSelectedDU());
@@ -527,16 +506,18 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		} else if (page == serviceFromExsitingWSDL) {
 			protocolPage.setWizardPage(serviceFromExsitingWSDL);
 			
-			if (serviceFromExsitingWSDL.getTypeFolding()&&serviceFromExsitingWSDL.canFlipTOTL())
-			return intfDependenciesPage;
+		//	if (serviceFromExsitingWSDL.getTypeFolding()&&serviceFromExsitingWSDL.canFlipTOTL())
+		//	return intfDependenciesPage;
 			return protocolPage;
 		} else if (page == addOperationPage) {
 			return addBindingPage;
 		} else if (page == addBindingPage) {
 			return protocolPage;
-		} else if (page == intfDependenciesPage) {
-			return protocolPage;
-		} else if (page == implDependenciesPage) {
+		} 
+//		else if (page == intfDependenciesPage) {
+//			return protocolPage;
+//		} 
+		else if (page == implDependenciesPage) {
 			return protocolPage;
 		}else if (page == protocolPage){
 			return webProjectPage;
@@ -553,7 +534,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		chooseWsdlSource = new ChooseWSDLSourcePage();
 		serviceFromNewWSDL = new ServiceFromNewWSDLPage();
 		serviceFromExsitingWSDL = new ServiceFromExistingWSDLWizardPage();
-		intfDependenciesPage = new DependenciesWizardPage(SOAMessages.SVC_INTF);
+//		intfDependenciesPage = new DependenciesWizardPage(SOAMessages.SVC_INTF);
 		//implDependenciesPage = new DependenciesWizardPage(
 		//		"Service Implementation");
 		addOperationPage = new ServiceFromNewWSDLAddOperationWizardPage();
@@ -567,7 +548,7 @@ public class ServiceFromWSDLWizard extends AbstractSOADomainWizard {
 		pages.add(serviceFromExsitingWSDL);
 		pages.add(addOperationPage);
 		pages.add(addBindingPage);
-		pages.add(intfDependenciesPage);
+	//	pages.add(intfDependenciesPage);
 	//	pages.add(implDependenciesPage);
 		pages.add(protocolPage);
 		pages.add(webProjectPage);

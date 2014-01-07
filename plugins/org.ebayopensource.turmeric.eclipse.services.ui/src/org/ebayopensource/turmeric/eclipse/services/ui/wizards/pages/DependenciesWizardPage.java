@@ -112,54 +112,54 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 	@Override
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
-		if(visible){
-			ServiceFromExistingWSDLWizardPage page = (ServiceFromExistingWSDLWizardPage) this.getWizard().getPage("newSOAServiceProjectFromWSDLWizardPage");
-		resolveAllCandidateLibraries(getTypeLibArtifactsToAdd(page.typeLibNameAndPackage, page.getAdminName()));
-
-
-
-		final String newLine = System.getProperty("line.separator");
-
-		StringBuilder guidlinesText = new StringBuilder();
-		ModelProvider.INSTANCE.clearSplitPackageDetails();
-		for (String typeLibrary: page.typeLibNameAndPackage.keySet()){
-		Set<String> librarySet =packageLibMap.get(page.typeLibNameAndPackage.get(typeLibrary));
-		guidlinesText.append("Type Library: "+typeLibrary);
-		String packageGen = page.typeLibNameAndPackage.get(typeLibrary);
-		guidlinesText.append(newLine);
-		guidlinesText.append("Package: "+packageGen);
-		String action ="";
-		if((librarySet==null)||(librarySet.size()==0)){
-			action=typeLibrary+" is not yet uploaded on nxraptor repo. Please do so, and add this dependency in your interface to avoid regeneration of types in your bundle.";
-			String action2="For more details follow http:\\\\short\\raptorTL";
-			guidlinesText.append(newLine);
-			guidlinesText.append("Action: "+action +action2);
-			ModelProvider.INSTANCE.addSplitPackageDetails(typeLibrary,packageGen,action);
-			ModelProvider.INSTANCE.addSplitPackageDetails("","",action2);
-		}
-		else{
-			action=typeLibrary+ " should be added as a dependency to your interface project.";
-			String action2 = "Please check and follow the steps at http:\\\\short\\addTypeLib. ";
-			String action3= "One of these bundles could contain your type library. " ;
-
-			guidlinesText.append(newLine);
-			guidlinesText.append("Action: "+action+action2+action3);
-			ModelProvider.INSTANCE.addSplitPackageDetails(typeLibrary,packageGen,action);
-			ModelProvider.INSTANCE.addSplitPackageDetails("","",action2);
-			ModelProvider.INSTANCE.addSplitPackageDetails("","",action3);
-			for (String libDetail:librarySet){			
-				ModelProvider.INSTANCE.addSplitPackageDetails("","","     "+libDetail);
-				guidlinesText.append(newLine);
-				guidlinesText.append("       >>"+libDetail);
-
-			}
-		}
-		guidlinesText.append(newLine);
-		ModelProvider.INSTANCE.addSplitPackageDetails("","","");
-		}
-		ModelProvider.INSTANCE.setContentsForClipBoard(guidlinesText.toString());
-		 viewer.setInput(ModelProvider.INSTANCE.getSplitPackageDetailss());
-		}
+//		if(visible){
+//			ServiceFromExistingWSDLWizardPage page = (ServiceFromExistingWSDLWizardPage) this.getWizard().getPage("newSOAServiceProjectFromWSDLWizardPage");
+//		resolveAllCandidateLibraries(getTypeLibArtifactsToAdd(page.typeLibNameAndPackage, page.getAdminName()));
+//
+//
+//
+//		final String newLine = System.getProperty("line.separator");
+//
+//		StringBuilder guidlinesText = new StringBuilder();
+//		ModelProvider.INSTANCE.clearSplitPackageDetails();
+//		for (String typeLibrary: page.typeLibNameAndPackage.keySet()){
+//		Set<String> librarySet =packageLibMap.get(page.typeLibNameAndPackage.get(typeLibrary));
+//		guidlinesText.append("Type Library: "+typeLibrary);
+//		String packageGen = page.typeLibNameAndPackage.get(typeLibrary);
+//		guidlinesText.append(newLine);
+//		guidlinesText.append("Package: "+packageGen);
+//		String action ="";
+//		if((librarySet==null)||(librarySet.size()==0)){
+//			action=typeLibrary+" is not yet uploaded on ebaycentral repo. Please do so, and add this dependency in your interface to avoid regeneration of types in your bundle.";
+//			String action2="For more details follow http:\\\\short\\raptorTL";
+//			guidlinesText.append(newLine);
+//			guidlinesText.append("Action: "+action +action2);
+//			ModelProvider.INSTANCE.addSplitPackageDetails(typeLibrary,packageGen,action);
+//			ModelProvider.INSTANCE.addSplitPackageDetails("","",action2);
+//		}
+//		else{
+//			action=typeLibrary+ " should be added as a dependency to your interface project.";
+//			String action2 = "Please check and follow the steps at http:\\\\short\\addTypeLib. ";
+//			String action3= "One of these bundles could contain your type library. " ;
+//
+//			guidlinesText.append(newLine);
+//			guidlinesText.append("Action: "+action+action2+action3);
+//			ModelProvider.INSTANCE.addSplitPackageDetails(typeLibrary,packageGen,action);
+//			ModelProvider.INSTANCE.addSplitPackageDetails("","",action2);
+//			ModelProvider.INSTANCE.addSplitPackageDetails("","",action3);
+//			for (String libDetail:librarySet){			
+//				ModelProvider.INSTANCE.addSplitPackageDetails("","","     "+libDetail);
+//				guidlinesText.append(newLine);
+//				guidlinesText.append("       >>"+libDetail);
+//
+//			}
+//		}
+//		guidlinesText.append(newLine);
+//		ModelProvider.INSTANCE.addSplitPackageDetails("","","");
+//		}
+//		ModelProvider.INSTANCE.setContentsForClipBoard(guidlinesText.toString());
+//		 viewer.setInput(ModelProvider.INSTANCE.getSplitPackageDetailss());
+//		}
 
 	}
 	private void resolveAllCandidateLibraries(Set<String> candidates){
@@ -171,157 +171,157 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 			}
 		}
 	}
-	private Set<String> getTypeLibArtifactsToAdd(Map<String,String> typeLibNameAndPackage, String adminName){
-		//preparing the inputs to split package service
-		Set<String> allKnownTls=null;
-		try {
-			allKnownTls = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getAllTypeLibrariesNames();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Set<String> packageList = new HashSet<String>();
-		StringBuilder toBeAppended=new StringBuilder();
-		for (String typeLibrary: typeLibNameAndPackage.keySet()){
-			{
-				//unKnown, so need to call split package service on this
-				packageList.add(typeLibNameAndPackage.get(typeLibrary));
-			}
-		}
-		//Project is not yet created so assum bundle name  to be default
-		String bundleName = "com.ebay.soa.interface."+adminName;
-		//If no new packages, then no need to call split package service and find the bundles.
-		JSONObject response = null;
-		try {
-			response = ProjectUtils.callSplitPackageService(bundleName, packageList,true);
-		} catch (HttpException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-
-		if(response!=null)
-		{
-			Iterator k =response.keys();
-
-		while (k.hasNext()){
-			 StringBuilder errorMessage=new StringBuilder();
-			Map<String,String> bundleVersion = new HashMap<String, String>();
-			String ErrorPackageName = (String) k.next();
-			JSONArray bundlesList = null;
-			//Removing same bundle conflicts
-			try {
-				bundlesList = response.getJSONArray(ErrorPackageName);
-				for (int i = 0; i < bundlesList.length(); i++) {
-					JSONObject object = bundlesList.getJSONObject(i);
-					String conflictBundleName = object.getString("bundleName");
-					String conflictingVersion = object.getString("version");
-					if(conflictBundleName.matches(bundleName+"\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$")){							
-						continue;
-						//Ignoring Same Bundles
-					}
-					bundleVersion.put(conflictBundleName, conflictingVersion);
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
-			//If valid conflicts were found for this package
-			if(bundleVersion.size()>0){
-				//display errors if any, for each erroneous bundle
-				errorMessage.append("Split package errors detected for package "+ErrorPackageName
-						+ " with the following bundles:");
-				for(String bundle:bundleVersion.keySet()){
-
-					Set<String> orig = packageLibMap.get(ErrorPackageName);
-					if(orig==null){orig = new HashSet();}
-					Pattern p = Pattern.compile("^(.*)\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$");
-					Matcher m = p.matcher(bundle);
-					String versionLessBundle = bundle;
-					if(m.find()){
-						//Version available, strip it and use the rest as groupid:artifactid
-						versionLessBundle = m.group(1);
-					}
-					int index =versionLessBundle.lastIndexOf(".");
-					if(index!=-1){
-						//WATCHOUT
-						//Invalid group name artifact name other wise, so ignore
-					String groupid =versionLessBundle.substring(0, index);
-					String artifactID = versionLessBundle.substring(index+1);
-					orig.add(groupid+":"+artifactID+":"+bundleVersion.get(bundle));
-					packageLibMap.put(ErrorPackageName, orig);
-					}
-					else{
-						System.out.println("Invalid artifact");
-					}
-				}
-
-			//End of valid conflicts processing
-			}
-		//End of Each PAckage Processing
-		}
-		//End of  Not null response processing
-		}
-		Set<String> toWrite = new HashSet<String>();
-		for (String typeLibrary: typeLibNameAndPackage.keySet()){
-			Set <String> toWriteLet =packageLibMap.get(typeLibNameAndPackage.get(typeLibrary));
-			if(toWriteLet!=null)
-			for (String entry: toWriteLet){
-				if((entry!=null)&&(!entry.isEmpty()))
-				toWrite.add(entry+":"+typeLibrary);
-			}
-
-		}
-		return toWrite;
-	}
-	public void finished(){
-		Set<String> libraries = getLibraries();
-		if(libraries.size()==0)return;
-		Set<String> filteredTypeLibraries = new HashSet<String>();
-		if (!(this.getWizard().getPreviousPage(this) instanceof ServiceFromExistingWSDLWizardPage) ){
-			return;
-		}
-		ServiceFromExistingWSDLWizardPage page = (ServiceFromExistingWSDLWizardPage) this.getWizard().getPreviousPage(this);
-		for (String typeLibrary: page.typeLibNameAndPackage.keySet()){
-			Set <String> toWriteLet =packageLibMap.get(page.typeLibNameAndPackage.get(typeLibrary));
-			if(toWriteLet!=null)
-			for (String entry: toWriteLet){
-				if((entry!=null)&&(!entry.isEmpty())){
-						String [] typeDetails =entry.split(":");
-						for (String selLib:libraries){
-							String [] libDetails = selLib.split(":");
-							if((typeDetails.length!=3)||(libDetails.length!=4))
-							continue;
-							if((typeDetails[1].equalsIgnoreCase(libDetails[1])) //art id
-									&&(typeDetails[0].equalsIgnoreCase(libDetails[0]))//group id
-									&&(typeDetails[2].equalsIgnoreCase(libDetails[3]))) //version
-							{
-								filteredTypeLibraries.add(entry+":"+typeLibrary);
-							}
-						}
-				}
-
-			}
-
-		}
-		//updat raptor file with filtered libraries
-		updateRaptorProperties(filteredTypeLibraries);
-		//Invalidate registry
-		SOAGlobalRegistryAdapter.getInstance().invalidateRegistry();
-		try {
-			SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-
-
-	}
+//	private Set<String> getTypeLibArtifactsToAdd(Map<String,String> typeLibNameAndPackage, String adminName){
+//		//preparing the inputs to split package service
+//		Set<String> allKnownTls=null;
+//		try {
+//			allKnownTls = SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry().getAllTypeLibrariesNames();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		Set<String> packageList = new HashSet<String>();
+//		StringBuilder toBeAppended=new StringBuilder();
+//		for (String typeLibrary: typeLibNameAndPackage.keySet()){
+//			{
+//				//unKnown, so need to call split package service on this
+//				packageList.add(typeLibNameAndPackage.get(typeLibrary));
+//			}
+//		}
+//		//Project is not yet created so assum bundle name  to be default
+//		String bundleName = "com.ebay.soa.interface."+adminName;
+//		//If no new packages, then no need to call split package service and find the bundles.
+//		JSONObject response = null;
+//		try {
+//			response = ProjectUtils.callSplitPackageService(bundleName, packageList,true);
+//		} catch (HttpException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (JSONException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//
+//
+//		if(response!=null)
+//		{
+//			Iterator k =response.keys();
+//
+//		while (k.hasNext()){
+//			 StringBuilder errorMessage=new StringBuilder();
+//			Map<String,String> bundleVersion = new HashMap<String, String>();
+//			String ErrorPackageName = (String) k.next();
+//			JSONArray bundlesList = null;
+//			//Removing same bundle conflicts
+//			try {
+//				bundlesList = response.getJSONArray(ErrorPackageName);
+//				for (int i = 0; i < bundlesList.length(); i++) {
+//					JSONObject object = bundlesList.getJSONObject(i);
+//					String conflictBundleName = object.getString("bundleName");
+//					String conflictingVersion = object.getString("version");
+//					if(conflictBundleName.matches(bundleName+"\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$")){							
+//						continue;
+//						//Ignoring Same Bundles
+//					}
+//					bundleVersion.put(conflictBundleName, conflictingVersion);
+//				}
+//			} catch (JSONException e) {
+//				e.printStackTrace();
+//			}
+//
+//			//If valid conflicts were found for this package
+//			if(bundleVersion.size()>0){
+//				//display errors if any, for each erroneous bundle
+//				errorMessage.append("Split package errors detected for package "+ErrorPackageName
+//						+ " with the following bundles:");
+//				for(String bundle:bundleVersion.keySet()){
+//
+//					Set<String> orig = packageLibMap.get(ErrorPackageName);
+//					if(orig==null){orig = new HashSet();}
+//					Pattern p = Pattern.compile("^(.*)\\-(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$");
+//					Matcher m = p.matcher(bundle);
+//					String versionLessBundle = bundle;
+//					if(m.find()){
+//						//Version available, strip it and use the rest as groupid:artifactid
+//						versionLessBundle = m.group(1);
+//					}
+//					int index =versionLessBundle.lastIndexOf(".");
+//					if(index!=-1){
+//						//WATCHOUT
+//						//Invalid group name artifact name other wise, so ignore
+//					String groupid =versionLessBundle.substring(0, index);
+//					String artifactID = versionLessBundle.substring(index+1);
+//					orig.add(groupid+":"+artifactID+":"+bundleVersion.get(bundle));
+//					packageLibMap.put(ErrorPackageName, orig);
+//					}
+//					else{
+//						System.out.println("Invalid artifact");
+//					}
+//				}
+//
+//			//End of valid conflicts processing
+//			}
+//		//End of Each PAckage Processing
+//		}
+//		//End of  Not null response processing
+//		}
+//		Set<String> toWrite = new HashSet<String>();
+//		for (String typeLibrary: typeLibNameAndPackage.keySet()){
+//			Set <String> toWriteLet =packageLibMap.get(typeLibNameAndPackage.get(typeLibrary));
+//			if(toWriteLet!=null)
+//			for (String entry: toWriteLet){
+//				if((entry!=null)&&(!entry.isEmpty()))
+//				toWrite.add(entry+":"+typeLibrary);
+//			}
+//
+//		}
+//		return toWrite;
+//	}
+//	public void finished(){
+//		Set<String> libraries = getLibraries();
+//		if(libraries.size()==0)return;
+//		Set<String> filteredTypeLibraries = new HashSet<String>();
+//		if (!(this.getWizard().getPreviousPage(this) instanceof ServiceFromExistingWSDLWizardPage) ){
+//			return;
+//		}
+//		ServiceFromExistingWSDLWizardPage page = (ServiceFromExistingWSDLWizardPage) this.getWizard().getPreviousPage(this);
+//		for (String typeLibrary: page.typeLibNameAndPackage.keySet()){
+//			Set <String> toWriteLet =packageLibMap.get(page.typeLibNameAndPackage.get(typeLibrary));
+//			if(toWriteLet!=null)
+//			for (String entry: toWriteLet){
+//				if((entry!=null)&&(!entry.isEmpty())){
+//						String [] typeDetails =entry.split(":");
+//						for (String selLib:libraries){
+//							String [] libDetails = selLib.split(":");
+//							if((typeDetails.length!=3)||(libDetails.length!=4))
+//							continue;
+//							if((typeDetails[1].equalsIgnoreCase(libDetails[1])) //art id
+//									&&(typeDetails[0].equalsIgnoreCase(libDetails[0]))//group id
+//									&&(typeDetails[2].equalsIgnoreCase(libDetails[3]))) //version
+//							{
+//								filteredTypeLibraries.add(entry+":"+typeLibrary);
+//							}
+//						}
+//				}
+//
+//			}
+//
+//		}
+//		//updat raptor file with filtered libraries
+//		updateRaptorProperties(filteredTypeLibraries);
+//		//Invalidate registry
+//		SOAGlobalRegistryAdapter.getInstance().invalidateRegistry();
+//		try {
+//			SOAGlobalRegistryAdapter.getInstance().getGlobalRegistry();
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//		}
+//
+//
+//	}
 	private void updateRaptorProperties(Set<String> toWrite) {
 		String userHomeDirectory = System.getProperty("user.home");
 		String propertiesFileLocation= userHomeDirectory+File.separator+System.getProperty("ide.version").replace(".", "_");
@@ -331,11 +331,11 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 		if(!home.exists()){
 				home.mkdir();
 		}
-		File raptorParentFile = new File(home,"raptorSoa.properties");
-		if(raptorParentFile.exists()){
+		File RaptorPlatformFile = new File(home,"raptorSoa.properties");
+		if(RaptorPlatformFile.exists()){
 			FileInputStream in=null;
 			try {
-				in = new FileInputStream(raptorParentFile);
+				in = new FileInputStream(RaptorPlatformFile);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -363,7 +363,7 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 		properties.setProperty("TypeLibArtifacts", updatedTipLibArtifacts);
 		OutputStream o =null;
 		try {
-			o=new FileOutputStream(raptorParentFile);
+			o=new FileOutputStream(RaptorPlatformFile);
 			properties.store(o, "Properties for soa on RIDE");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

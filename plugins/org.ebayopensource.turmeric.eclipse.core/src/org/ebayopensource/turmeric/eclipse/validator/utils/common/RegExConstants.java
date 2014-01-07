@@ -25,5 +25,4 @@ public interface RegExConstants {
 	public static final String DOMAIN_NAME_EXP = "[A-Za-z]+[A-Za-z _]*";
 	public static final String APP_NAME_EXP = "[A-Za-z]+[A-Za-z0-9]*";
 	public static final String MAVEN_VERSION_EXP ="([0-9]+(\\.[0-9]*)*[-].*)";
-
 }
