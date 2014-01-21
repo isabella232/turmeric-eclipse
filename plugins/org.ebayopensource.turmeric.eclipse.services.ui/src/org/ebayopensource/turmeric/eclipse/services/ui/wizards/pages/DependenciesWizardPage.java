@@ -41,6 +41,7 @@ import org.ebayopensource.turmeric.eclipse.resources.model.ProjectInfo;
 import org.ebayopensource.turmeric.eclipse.resources.util.MarkerUtil;
 import org.ebayopensource.turmeric.eclipse.ui.components.DependencyListEditor;
 import org.ebayopensource.turmeric.eclipse.ui.components.DependencyListEditor.IDependencyLazyLoader;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.ProjectUtils;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.resources.IMarker;
@@ -322,64 +323,63 @@ public class DependenciesWizardPage extends WizardPage implements IWizardPage {
 //
 //
 //	}
-	private void updateRaptorProperties(Set<String> toWrite) {
-		String userHomeDirectory = System.getProperty("user.home");
-		String propertiesFileLocation= userHomeDirectory+File.separator+System.getProperty("ide.version").replace(".", "_");
-		String updatedTipLibArtifacts=null;
-		Properties properties = new Properties();
-		File home = new File(propertiesFileLocation);
-		if(!home.exists()){
-				home.mkdir();
-		}
-		File RaptorPlatformFile = new File(home,"raptorSoa.properties");
-		if(RaptorPlatformFile.exists()){
-			FileInputStream in=null;
-			try {
-				in = new FileInputStream(RaptorPlatformFile);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-			try {if(in!=null)
-				properties.load(in);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}finally{
-				try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			updatedTipLibArtifacts=properties.getProperty("TypeLibArtifacts");
-		}
-		if(updatedTipLibArtifacts==null)updatedTipLibArtifacts="";
-		for(String entry:toWrite){
-			if(!updatedTipLibArtifacts.contains(entry)){
-				//make the netry
-				if( !updatedTipLibArtifacts.isEmpty())updatedTipLibArtifacts+=",";
-				updatedTipLibArtifacts+=entry;
-			}
-		}
-		properties.setProperty("TypeLibArtifacts", updatedTipLibArtifacts);
-		OutputStream o =null;
-		try {
-			o=new FileOutputStream(RaptorPlatformFile);
-			properties.store(o, "Properties for soa on RIDE");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if (o!=null){
-				try {
-					o.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-	}
+//	private void updateRaptorProperties(Set<String> toWrite) {
+//		String propertiesFileLocation= WorkspaceUtil.getRaptorSoaPropertiesLocation();
+//		String updatedTipLibArtifacts=null;
+//		Properties properties = new Properties();
+//		File home = new File(propertiesFileLocation);
+//		if(!home.exists()){
+//				home.mkdir();
+//		}
+//		File RaptorPlatformFile = new File(home,"raptorSoa.properties");
+//		if(RaptorPlatformFile.exists()){
+//			FileInputStream in=null;
+//			try {
+//				in = new FileInputStream(RaptorPlatformFile);
+//			} catch (FileNotFoundException e) {
+//				e.printStackTrace();
+//			}
+//			try {if(in!=null)
+//				properties.load(in);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}finally{
+//				try {
+//					in.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			updatedTipLibArtifacts=properties.getProperty("TypeLibArtifacts");
+//		}
+//		if(updatedTipLibArtifacts==null)updatedTipLibArtifacts="";
+//		for(String entry:toWrite){
+//			if(!updatedTipLibArtifacts.contains(entry)){
+//				//make the netry
+//				if( !updatedTipLibArtifacts.isEmpty())updatedTipLibArtifacts+=",";
+//				updatedTipLibArtifacts+=entry;
+//			}
+//		}
+//		properties.setProperty("TypeLibArtifacts", updatedTipLibArtifacts);
+//		OutputStream o =null;
+//		try {
+//			o=new FileOutputStream(RaptorPlatformFile);
+//			properties.store(o, "Properties for soa on RIDE");
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}finally{
+//			if (o!=null){
+//				try {
+//					o.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//
+//	}
 	/**
 	 * {@inheritDoc}
 	 */

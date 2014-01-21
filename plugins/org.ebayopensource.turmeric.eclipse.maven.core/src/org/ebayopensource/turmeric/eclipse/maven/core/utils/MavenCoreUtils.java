@@ -651,9 +651,7 @@ public class MavenCoreUtils {
 		Set<AssetInfo> allTypeLibraries= getAllLibraries(getMavenOrgProviderInstance()
 				.getProjectGroupId(SupportedProjectType.TYPE_LIBRARY));
 		String userHomeDirectory = System.getProperty("user.home");
-		if((System.getProperty("ide.version")==null)||(System.getProperty("ide.version").equals("")))
-		System.setProperty("ide.version", "2.0.0");
-		String propertiesFileLocation= userHomeDirectory+File.separator+System.getProperty("ide.version").replace(".", "_");
+		String propertiesFileLocation= WorkspaceUtil.getRaptorSoaPropertiesLocation();
 		File home = new File(propertiesFileLocation);
 		if(!home.exists()){
 				home.mkdir();

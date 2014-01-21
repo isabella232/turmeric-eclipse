@@ -9,6 +9,8 @@
 package org.ebayopensource.turmeric.eclipse.utils.plugin;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -109,6 +111,45 @@ public class WorkspaceUtil {
 	 */
 	public static IProject[] getAllProjectsInWorkSpace() {
 		return getWorkspaceRoot().getProjects();
+	}
+
+	
+	public static String getRaptorSoaPropertiesLocation() {
+		String userHomeDirectory = System.getProperty("user.home");
+		//Basic version override for vanilla eclipse
+		
+		if((System.getProperty("ide.version")==null)||(System.getProperty("ide.version").equals(""))){
+			System.setProperty("ide.version","5.0.0");
+		}
+		String propertiesFileLocation= userHomeDirectory+File.separator+System.getProperty("ide.version").replace(".", "_");
+		return propertiesFileLocation;
+	}
+	
+	
+	public static String getRPVersion(){
+		String propertiesFileLocation= WorkspaceUtil.getRaptorSoaPropertiesLocation();
+		Properties properties = new Properties();
+		File RaptorPlatformFile = new File(propertiesFileLocation,"raptorSoa.properties");
+		if(RaptorPlatformFile.exists()){
+			FileInputStream in=null;
+			try {
+				in = new FileInputStream(RaptorPlatformFile);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			try {if(in!=null)
+				properties.load(in);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return properties.getProperty("RaptorPlatform");
 	}
 
 	/**

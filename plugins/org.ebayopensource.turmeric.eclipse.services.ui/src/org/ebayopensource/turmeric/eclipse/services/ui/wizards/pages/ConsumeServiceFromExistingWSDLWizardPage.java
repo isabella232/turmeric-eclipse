@@ -44,6 +44,7 @@ import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.ErrorMessage;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.RegExConstants;
@@ -65,12 +66,15 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 
@@ -100,6 +104,8 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 	private List<String> environments = new ArrayList<String>();
 	private String serviceLayerStr = "";
 	private String domainName = "";
+	private Label platformParentNote;
+	private Label platformParentNote2;
 	
 	private static final String ADV_MODE_TITLE = "This wizard creates a SOA Intf Project from a pre-existing WSDL document and add it to selected consumer.";
 
@@ -227,7 +233,7 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 				addWSDLPackageToNamespace(advancedPanel);
 				addTypeFolding(advancedPanel).setVisible(false);
 				super.setTypeFolding(false);
-				
+				addPlatFormParentExplanation(advancedPanel);
 				if (clientPropEditable == true) {
 					adminText.addModifyListener(new ModifyListener() {
 
@@ -306,6 +312,25 @@ public class ConsumeServiceFromExistingWSDLWizardPage extends
 			logger.error(e);
 			UIUtil.showErrorDialog(e);
 		}
+	}
+	private void addPlatFormParentExplanation(Composite container) {
+		String RPVersion = WorkspaceUtil.getRPVersion();
+		if((RPVersion!=null)||(RPVersion.equalsIgnoreCase("")))
+				{
+					platformParentNote = new Label(container, SWT.LEFT);
+					Color color = new Color(Display.getDefault(), 200,111,50);
+					platformParentNote.setForeground(color);
+					platformParentNote.setText("**Using RaptorPlatform Version :"+ RPVersion);
+					GridData gridData = new GridData();
+					gridData.horizontalSpan = 3;
+					platformParentNote.setLayoutData(gridData);
+					
+					platformParentNote2 = new Label(container, SWT.LEFT);
+					platformParentNote2.setForeground(color);
+					platformParentNote2.setText("**To modify RaptorPlatform, update raptorSoa.properties at "+ WorkspaceUtil.getRaptorSoaPropertiesLocation());
+					platformParentNote2.setLayoutData(gridData);
+				}
+		
 	}
 	
 	/**

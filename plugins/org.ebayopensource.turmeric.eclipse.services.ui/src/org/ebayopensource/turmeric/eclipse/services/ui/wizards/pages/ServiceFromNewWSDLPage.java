@@ -29,11 +29,17 @@ import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.soatools.configtool.ConfigTool;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 
 
 /**
@@ -55,6 +61,10 @@ import org.eclipse.swt.widgets.Control;
 public class ServiceFromNewWSDLPage extends
 		AbstractNewServiceFromWSDLWizardPage {
 private CCombo templateFileCombo;
+
+private Label platformParentNote;
+
+private Label platformParentNote2;
 	
 	private static final SOALogger logger = SOALogger.getLogger();
 
@@ -99,6 +109,7 @@ private CCombo templateFileCombo;
 			addTemplateFileComboBox(container);
 			createServiceImplTypeCombo(container);
 			addTypeFolding(container);
+			addPlatFormParentExplanation(container);
 			modifyListener.modifyText(null);
 		} catch (Exception e) {
 			logger.error(e);
@@ -106,6 +117,25 @@ private CCombo templateFileCombo;
 		}
 	}
 
+	private void addPlatFormParentExplanation(Composite container) {
+		String RPVersion = WorkspaceUtil.getRPVersion();
+		if((RPVersion!=null)||(RPVersion.equalsIgnoreCase("")))
+				{
+					platformParentNote = new Label(container, SWT.LEFT);
+					Color color = new Color(Display.getDefault(), 200,111,50);
+					platformParentNote.setForeground(color);
+					platformParentNote.setText("**Using RaptorPlatform Version :"+ RPVersion);
+					GridData gridData = new GridData();
+					gridData.horizontalSpan = 3;
+					platformParentNote.setLayoutData(gridData);
+					
+					platformParentNote2 = new Label(container, SWT.LEFT);
+					platformParentNote2.setForeground(color);
+					platformParentNote2.setText("**To modify RaptorPlatform, update raptorSoa.properties at "+ WorkspaceUtil.getRaptorSoaPropertiesLocation());
+					platformParentNote2.setLayoutData(gridData);
+				}
+		
+	}
 	/**
 	 * {@inheritDoc}
 	 */

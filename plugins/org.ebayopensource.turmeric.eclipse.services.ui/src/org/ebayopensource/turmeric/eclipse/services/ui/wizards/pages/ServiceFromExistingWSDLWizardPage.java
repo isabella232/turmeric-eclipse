@@ -35,10 +35,16 @@ import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.utils.wsdl.WSDLUtil;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -57,6 +63,8 @@ public class ServiceFromExistingWSDLWizardPage extends
 	private static final SOALogger logger = SOALogger.getLogger();
 	//public Map<String,String> typeLibNameAndPackage;
 	private String versionFromWSDL = null;
+	private Label platformParentNote;
+	private Label platformParentNote2;
 
 	/**
 	 * Instantiates a new service from existing wsdl wizard page.
@@ -106,12 +114,32 @@ public class ServiceFromExistingWSDLWizardPage extends
 			createServiceImplTypeCombo(container);
 			addTypeFolding(container);
 			addWSDLPackageToNamespace(container);
+			addPlatFormParentExplanation(container);
 		} catch (Exception e) {
 			logger.error(e);
 			UIUtil.showErrorDialog(e);
 		}
 	}
 	
+	private void addPlatFormParentExplanation(Composite container) {
+		String RPVersion = WorkspaceUtil.getRPVersion();
+		if((RPVersion!=null)||(RPVersion.equalsIgnoreCase("")))
+				{
+					platformParentNote = new Label(container, SWT.LEFT);
+					Color color = new Color(Display.getDefault(), 200,111,50);
+					platformParentNote.setForeground(color);
+					platformParentNote.setText("**Using RaptorPlatform Version :"+ RPVersion);
+					GridData gridData = new GridData();
+					gridData.horizontalSpan = 3;
+					platformParentNote.setLayoutData(gridData);
+					
+					platformParentNote2 = new Label(container, SWT.LEFT);
+					platformParentNote2.setForeground(color);
+					platformParentNote2.setText("**To modify RaptorPlatform, update raptorSoa.properties at "+ WorkspaceUtil.getRaptorSoaPropertiesLocation());
+					platformParentNote2.setLayoutData(gridData);
+				}
+		
+	}
 	/* (non-Javadoc)
 	 * @see org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage#targetNamespaceModified(java.lang.String)
 	 */

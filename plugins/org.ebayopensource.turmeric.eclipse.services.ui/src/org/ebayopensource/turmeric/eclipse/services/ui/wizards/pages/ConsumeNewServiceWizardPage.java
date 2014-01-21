@@ -54,10 +54,13 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 
@@ -79,6 +82,8 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
     private Text consumerId;
     private String scppVersion;
     private Button retrieveConsumerIDBtn;
+	private Label platformParentNote;
+	private Label platformParentNote2;
     private static final SOALogger logger = SOALogger.getLogger();
     
     private static String SIMPLE_TITLE = "Set up configurations for services.";
@@ -151,6 +156,7 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 				}
 				createConsumerIDText(composite, consumerId);
 				createServiceList(composite);
+				addPlatFormParentExplanation(composite);
 			}
 			setControl(composite);
 			dialogChanged();
@@ -169,6 +175,25 @@ public class ConsumeNewServiceWizardPage extends SOABasePage {
 	 * @param defaultValue the default value
 	 * @return the text
 	 */
+	private void addPlatFormParentExplanation(Composite container) {
+		String RPVersion = WorkspaceUtil.getRPVersion();
+		if((RPVersion!=null)||(RPVersion.equalsIgnoreCase("")))
+				{
+					platformParentNote = new Label(container, SWT.LEFT);
+					Color color = new Color(Display.getDefault(), 200,111,50);
+					platformParentNote.setForeground(color);
+					platformParentNote.setText("**Using RaptorPlatform Version :"+ RPVersion);
+					GridData gridData = new GridData();
+					gridData.horizontalSpan = 3;
+					platformParentNote.setLayoutData(gridData);
+					
+					platformParentNote2 = new Label(container, SWT.LEFT);
+					platformParentNote2.setForeground(color);
+					platformParentNote2.setText("**To modify RaptorPlatform, update raptorSoa.properties at "+ WorkspaceUtil.getRaptorSoaPropertiesLocation());
+					platformParentNote2.setLayoutData(gridData);
+				}
+		
+	}
 	protected Text createClientNameText(Composite parent, String defaultValue) {
 		this.clientName = super.createLabelTextField(parent, "Client &Name:", 
 				defaultValue, modifyListener, 

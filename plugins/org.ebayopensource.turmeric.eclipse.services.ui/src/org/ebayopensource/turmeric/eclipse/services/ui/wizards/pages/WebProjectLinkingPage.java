@@ -1,7 +1,10 @@
 package org.ebayopensource.turmeric.eclipse.services.ui.wizards.pages;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
@@ -10,14 +13,11 @@ import org.ebayopensource.turmeric.eclipse.repositorysystem.core.GlobalRepositor
 import org.ebayopensource.turmeric.eclipse.repositorysystem.core.ISOARepositorySystem;
 import org.ebayopensource.turmeric.eclipse.resources.model.RaptorArchetype;
 import org.ebayopensource.turmeric.eclipse.services.buildsystem.WebProjectCreator;
-import org.ebayopensource.turmeric.eclipse.services.ui.SOAMessages;
 import org.ebayopensource.turmeric.eclipse.services.ui.wizards.ServiceFromWSDLWizard;
 import org.ebayopensource.turmeric.eclipse.ui.SOABasePage;
-import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
-import org.ebayopensource.turmeric.eclipse.validator.core.ErrorMessage;
 import org.ebayopensource.turmeric.eclipse.validator.core.ISOAValidator;
 import org.ebayopensource.turmeric.eclipse.validator.core.InputObject;
 import org.ebayopensource.turmeric.eclipse.validator.utils.common.NameValidator;
@@ -30,24 +30,25 @@ import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 public class WebProjectLinkingPage extends SOABasePage {
-	private static String WITHOUT_CORE_EXPLN = "*Only listing soa web projects from your workspace which do not support core domain dependencies";
-	private static String WITH_CORE_EXPLN = "*Only listing soa web projects from your workspace which support core domain dependencies";
+	private static String WITHOUT_CORE_EXPLN = "*Only listing soa web projects from your workspace";
+	private static String WITH_CORE_EXPLN = "*Only listing soa web projects from your workspace";
+	
 	private Button reuseButton;
 	private Composite container;
 	private Text webProjectName;
@@ -57,9 +58,11 @@ public class WebProjectLinkingPage extends SOABasePage {
 	private SelectionListener reuseListener;
 	private SelectionListener coreDependeneciesListener;
 	private Label availableDUexpln;
+	private Label platformParentNote;
+	private Label platformParentNote2;
 	private Boolean reuse = Boolean.FALSE;
 	private String selectedProject;
-	private boolean core;
+	private boolean core =true;
 	public boolean getPreferredCoreNature() {
 		return core;
 	}
@@ -174,18 +177,18 @@ public class WebProjectLinkingPage extends SOABasePage {
 		//Version should be present and valid
 		
 			//Should not be null
-			String domainVersion =getArchetypeUIProperties().getProperty("RaptorPlatformVersion"); 
-			if((domainVersion==null)||(domainVersion.equals(""))){
-				String errorMsg = "Enter a Platform Parent Version";
-				updateStatus(errorMsg);
-				return false;
+		//	String domainVersion =getArchetypeUIProperties().getProperty("RaptorPlatformVersion"); 
+//			if((domainVersion==null)||(domainVersion.equals(""))){
+//				String errorMsg = "Enter a Platform Parent Version";
+//				updateStatus(errorMsg);
+//				return false;
 			
 //		if(validateName(propertiesGroup.getPropertiesViewer(),domainVersion, 				
 //					RegExConstants.MAVEN_VERSION_EXP,
 //					"Invalid Domain Parent Version") == false){
 //				return false;
 //					}
-		}
+		//}
 		return super.dialogChanged();
 		
 	}
@@ -302,7 +305,7 @@ public class WebProjectLinkingPage extends SOABasePage {
 		// super(pageName,title,description);
 		super(pageName);
 		setTitle( pageName);
-		setDescription("Links the service to a new/existing web project that may/may not support core domain dependencies");
+		setDescription("Links the service to a new/existing services web project");
 
 	}
 
@@ -344,25 +347,39 @@ public class WebProjectLinkingPage extends SOABasePage {
 		 * setting properties here for now
 		 */
 		
-		setArchetypeUIProperties(getDefaultPropertiesForNonCore());
+		setArchetypeUIProperties(getDefaultPropertiesForCore());
 		addPropertiesTable();
 		addCoreDomainOrNotGroup();
+		addPlatFormParentExplanation();
 		setControl(container);
 		setPageComplete(false);
 	}
-	private Properties getDefaultPropertiesForNonCore(){
-		Properties properties = new Properties();
-		properties.put("appName","$");
-		properties.put("groupId","com.ebay.app.raptor");
-		properties.put("webProjectDescription","[description]");
-		return properties;
+	
+	private void addPlatFormParentExplanation() {
+		String RPVersion = WorkspaceUtil.getRPVersion();
+		if((RPVersion!=null)||(RPVersion.equalsIgnoreCase("")))
+				{
+					platformParentNote = new Label(container, SWT.LEFT);
+					Color color = new Color(Display.getDefault(), 200,111,50);
+					platformParentNote.setForeground(color);
+					platformParentNote.setText("**Using RaptorPlatform Version :"+ RPVersion);
+					GridData gridData = new GridData();
+					gridData.horizontalSpan = 3;
+					platformParentNote.setLayoutData(gridData);
+					
+					platformParentNote2 = new Label(container, SWT.LEFT);
+					platformParentNote2.setForeground(color);
+					platformParentNote2.setText("**To modify RaptorPlatform, update raptorSoa.properties at "+ WorkspaceUtil.getRaptorSoaPropertiesLocation());
+					platformParentNote2.setLayoutData(gridData);
+				}
+		
 	}
+	
 	private Properties getDefaultPropertiesForCore(){
 		Properties properties = new Properties();
 		properties.put("appName","$");
 		properties.put("groupId","com.ebay.app.raptor");
 		properties.put("webProjectDescription","[description]");
-		properties.put("RaptorPlatformVersion","");
 		return properties;
 	}
 	@Override
@@ -378,7 +395,7 @@ private void addPropertiesTable(){
 		availableDUexpln.setText(WITH_CORE_EXPLN);
 		//switch properties
 		selectedProject=null;
-		setPreferredCoreNature(true);
+		
 		String[] items = WebProjectCreator.getAllWebProjects(getPreferredCoreNature()).toArray(
 				new String[0]);
 		availableDUCombo.setItems(items);

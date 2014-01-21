@@ -28,15 +28,21 @@ import org.ebayopensource.turmeric.eclipse.typelibrary.utils.importtypes.TypeMod
 import org.ebayopensource.turmeric.eclipse.ui.AbstractSOAProjectWizardPage;
 import org.ebayopensource.turmeric.eclipse.ui.UIActivator;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 
@@ -50,6 +56,8 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 	private Text namespaceText;
 	private Button overrideNamespaceBtn;
 	private List<TypeModel> types;
+	private Label platformParentNote;
+	private Label platformParentNote2;
 
 	/**
 	 * Sets the imported types.
@@ -101,6 +109,7 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 					getAllCategories().toArray(new String[0]),
 					"the category of the new type library");
 			addNamespace(container);
+			addPlatFormParentExplanation(container);
 			setControl(container);
 			dialogChanged();
 		} catch (Exception e) {
@@ -109,6 +118,25 @@ public class NewTypeLibraryWizardPage extends AbstractSOAProjectWizardPage {
 		}
 	}
 
+	private void addPlatFormParentExplanation(Composite container) {
+		String RPVersion = WorkspaceUtil.getRPVersion();
+		if((RPVersion!=null)||(RPVersion.equalsIgnoreCase("")))
+				{
+					platformParentNote = new Label(container, SWT.LEFT);
+					Color color = new Color(Display.getDefault(), 200,111,50);
+					platformParentNote.setForeground(color);
+					platformParentNote.setText("**Using RaptorPlatform Version :"+ RPVersion);
+					GridData gridData = new GridData();
+					gridData.horizontalSpan = 3;
+					platformParentNote.setLayoutData(gridData);
+					
+					platformParentNote2 = new Label(container, SWT.LEFT);
+					platformParentNote2.setForeground(color);
+					platformParentNote2.setText("**To modify RaptorPlatform, update raptorSoa.properties at "+ WorkspaceUtil.getRaptorSoaPropertiesLocation());
+					platformParentNote2.setLayoutData(gridData);
+				}
+		
+	}
 	/**
 	 * Gets the all categories.
 	 *

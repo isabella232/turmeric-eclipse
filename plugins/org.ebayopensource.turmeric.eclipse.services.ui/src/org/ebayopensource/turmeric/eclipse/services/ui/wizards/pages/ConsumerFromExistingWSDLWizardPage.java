@@ -19,6 +19,7 @@ import java.util.Map;
 
 import javax.wsdl.Definition;
 import javax.wsdl.Service;
+
 import org.apache.commons.lang.StringUtils;
 import org.ebayopensource.turmeric.eclipse.core.logging.SOALogger;
 import org.ebayopensource.turmeric.eclipse.core.resources.constants.SOAProjectConstants;
@@ -36,6 +37,7 @@ import org.ebayopensource.turmeric.eclipse.ui.AbstractSOADomainWizard;
 import org.ebayopensource.turmeric.eclipse.ui.wizards.pages.AbstractNewServiceFromWSDLWizardPage;
 import org.ebayopensource.turmeric.eclipse.utils.lang.StringUtil;
 import org.ebayopensource.turmeric.eclipse.utils.plugin.EclipseMessageUtils;
+import org.ebayopensource.turmeric.eclipse.utils.plugin.WorkspaceUtil;
 import org.ebayopensource.turmeric.eclipse.utils.ui.UIUtil;
 import org.ebayopensource.turmeric.eclipse.validator.core.ErrorMessage;
 import org.ebayopensource.turmeric.eclipse.validator.core.InputObject;
@@ -64,12 +66,15 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
@@ -91,6 +96,8 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 	private String versionFromWSDL = null;
 	private boolean simpleMode = false; //simple mode will not need to craete the consumer project
 	private String domainName = "";
+	private Label platformParentNote;
+	private Label platformParentNote2;
 	
 	private static final String SIMPLE_MODE_TITLE = "Simple Mode reads a pre-existing WSDL document, creates a consumerized SOA Intf Project with a ClientConfig.xml.";
 	
@@ -197,12 +204,13 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 				addTargetNamespace(advancedPanel, "", false);
 				addServicePackage(advancedPanel);
 				createConsumerIDText(advancedPanel);
+				
 				createEnvironmentList(advancedPanel, true);
 				addWSDLPackageToNamespace(advancedPanel);
 				
 				addTypeFolding(advancedPanel).setVisible(true);				
 				super.setTypeFolding(true);
-			
+				addPlatFormParentExplanation(advancedPanel);
 			
 			adminText.addModifyListener(new ModifyListener(){
 
@@ -223,7 +231,25 @@ public class ConsumerFromExistingWSDLWizardPage extends AbstractNewServiceFromWS
 		}
 	}
 
-	
+	private void addPlatFormParentExplanation(Composite container) {
+		String RPVersion = WorkspaceUtil.getRPVersion();
+		if((RPVersion!=null)||(RPVersion.equalsIgnoreCase("")))
+				{
+					platformParentNote = new Label(container, SWT.LEFT);
+					Color color = new Color(Display.getDefault(), 200,111,50);
+					platformParentNote.setForeground(color);
+					platformParentNote.setText("**Using RaptorPlatform Version :"+ RPVersion);
+					GridData gridData = new GridData();
+					gridData.horizontalSpan = 3;
+					platformParentNote.setLayoutData(gridData);
+					
+					platformParentNote2 = new Label(container, SWT.LEFT);
+					platformParentNote2.setForeground(color);
+					platformParentNote2.setText("**To modify RaptorPlatform, update raptorSoa.properties at "+ WorkspaceUtil.getRaptorSoaPropertiesLocation());
+					platformParentNote2.setLayoutData(gridData);
+				}
+		
+	}
 	
 	/**
 	 * Creates the consumer id text.

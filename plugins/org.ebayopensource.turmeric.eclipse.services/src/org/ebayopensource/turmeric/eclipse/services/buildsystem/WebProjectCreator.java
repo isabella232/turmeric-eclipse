@@ -185,28 +185,18 @@ public class WebProjectCreator {
 		properties.put("admin_name", soaModel.getServiceName());
 		properties.put("artifactId", soaModel.getWebProjectName());
 		properties.put("version", "1.0.0-SNAPSHOT");
-		String activatorName = soaModel.getServiceName() + "Activator";
-		properties.put("activatorName", activatorName);
-		String registererName= soaModel.getServiceName() + "Registerer";
-		properties.put("serviceRegistry", registererName);
 		
 		if(soaModel.getRaptorPlatformVersion()!=null)
 		properties.put("RaptorPlatformVersion",soaModel.getRaptorPlatformVersion());
 
-		String activatorPackageName = null;
 		String implPackage = null;
 		String implClassName = soaModel.getServiceImpl();
 		if (implClassName != null) {
 			implPackage = implClassName.substring(0,
 					implClassName.lastIndexOf("."));
 		}
-		if (implPackage != null) {
-			activatorPackageName = implPackage + ".gen.*";
-		}
 		// Add the bundle activator
-		properties.put("activatorPackageName", activatorPackageName);
-		properties.put("serviceRegisterersFullClassName", implPackage+".gen."+registererName);
-		properties.put("dummy", activatorPackageName+"."+registererName);
+		
 		IProject projectMine = WorkspaceUtil.getProject(soaModel
 				.getWebProjectName());
 
@@ -227,8 +217,6 @@ public class WebProjectCreator {
 		//Reuse
 		IProject webProject = WorkspaceUtil.getProject(paramModel.getWebProjectName());
 		
-		generateAppTestFile(webProject,paramModel);
-		
 		BuildSystemConfigurer.performRepositorySpecificTasks(webProject,paramModel,monitor);
 	}
 	
@@ -246,8 +234,6 @@ public class WebProjectCreator {
 			activatorPackageName = implPackage + ".gen.*";
 		}
 		// Add the bundle activator
-		contents = contents.replace("${activatorName}",paramModel.getServiceName() + "Activator");
-		contents = contents.replace("${activatorPackageName}", activatorPackageName);	
 		contents = contents.replace("${package}",  implPackage + "." + paramModel.getServiceName()+"."+paramModel.getWebProjectName().toLowerCase());
 		contents=contents.replace("${ln}",System.getProperty("line.separator"));
 		String filePath = ".src.main.java."+ implPackage + "." + paramModel.getServiceName()+"."+paramModel.getWebProjectName().toLowerCase()+".";
