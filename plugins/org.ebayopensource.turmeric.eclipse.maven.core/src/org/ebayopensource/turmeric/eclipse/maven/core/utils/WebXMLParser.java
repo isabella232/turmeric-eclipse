@@ -25,6 +25,7 @@ import org.ebayopensource.turmeric.eclipse.utils.io.IOUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.FreeMarkerUtil;
 import org.ebayopensource.turmeric.eclipse.utils.xml.JDOMUtil;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.jdom.Content;
@@ -68,17 +69,20 @@ public class WebXMLParser {
 	 * @return the source document
 	 * @throws Exception the exception
 	 */
-	public static Document getSourceDocument(String adminName,
-			String namespacePart, int majorVersion) throws Exception {
-
+	public static Document getSourceDocument(String adminName, IProject targetWebProject,
+			 int majorVersion) throws Exception {
+		String appName= RaptorAppParser.getAppNameFromRaptorApp(targetWebProject);
+		
 		final String org = GlobalRepositorySystem.instanceOf()
 				.getActiveRepositorySystem().getActiveOrganizationProvider()
 				.getName();
 
 		String urlPattern = GlobalRepositorySystem.instanceOf()
 				.getActiveRepositorySystem().getActiveOrganizationProvider()
-				.getURLPattern(adminName, namespacePart, majorVersion);
-
+				.getURLPattern(adminName, "", majorVersion);
+		//Fix to add the url pattern to the web.xml
+		if(!appName.equals(""))
+		urlPattern="/"+appName+urlPattern;
 		URL templateURL = SOAConfigExtensionFactory.getXMLTemplate(org,
 				WEB_XML_TEMPLATE_NAME);
 		

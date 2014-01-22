@@ -82,6 +82,32 @@ public class RaptorAppParser {
 		
 		
 	}
+	public static String getAppNameFromRaptorApp(IProject targetWebProject) throws IOException, JDOMException {
+		IFile targetWebFile = targetWebProject.getFile(raptorAppXmlFilePath);
+		InputStream target;
+		try {
+			target = targetWebFile.getContents();
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "";
+		}
+		Document targetDoc = null;
+		String appName= "";
+		try {
+			targetDoc = JDOMUtil.readXML(target);
+			IOUtils.closeQuietly(target);
+
+			
+			Element targetRoot = targetDoc.getRootElement();
+			Element nameElement =targetRoot.getChild("name");
+			appName=nameElement.getText();
+		} finally {
+			IOUtils.closeQuietly(target);
+		}
+		if(appName==null)appName="";
+		return appName;
+	}
 
 	private static Document addWebServiceElements(Document sourceDoc,
 			InputStream target,String description) throws IOException, JDOMException {

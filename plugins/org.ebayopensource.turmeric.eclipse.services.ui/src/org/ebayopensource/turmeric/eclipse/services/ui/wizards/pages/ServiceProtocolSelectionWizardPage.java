@@ -55,7 +55,7 @@ public class ServiceProtocolSelectionWizardPage extends WizardPage implements
 	@Override
 	public void setVisible(boolean visible) {
 		
-		if((visible)&&(!first)){
+		if((visible)){
 		first=true;
 		boolean typeFolding = wizardPage.getTypeFolding();
 		protoBuf.setSelection(typeFolding);

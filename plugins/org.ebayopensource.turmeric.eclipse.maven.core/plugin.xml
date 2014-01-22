@@ -22,7 +22,7 @@
 
    <extension
          point="org.eclipse.ui.popupMenus">
-      <objectContribution
+     <!-- <objectContribution
             adaptable="true"
             id="org.ebayopensource.turmeric.eclipse.maven.core.actions.AddImplProjectToWebProject"
             objectClass="org.eclipse.core.resources.IProject">
@@ -47,6 +47,6 @@
                   name="impl">
             </separator>
          </menu>
-      </objectContribution>
+      </objectContribution>-->
    </extension>
 </plugin>

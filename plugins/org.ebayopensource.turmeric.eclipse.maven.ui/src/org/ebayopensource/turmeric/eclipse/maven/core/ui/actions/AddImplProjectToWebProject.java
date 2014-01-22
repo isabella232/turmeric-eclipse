@@ -363,7 +363,7 @@ public class AddImplProjectToWebProject implements IObjectActionDelegate {
 			String adminName = intfMetadata.getServiceName();
 
 			Document sourceDoc = WebXMLParser.getSourceDocument(adminName,
-					namespacePart, majorVersion);
+					null, majorVersion);
 			ProgressUtil.progressOneStep(monitor);
 
 			IFile targetWebFile = getWebFileFromWebProject(targetWebProject);
