@@ -513,6 +513,9 @@ private void addPropertiesTable(){
 
 	private void disableCreateTextAndTableAndEnableDU() {
 		this.webProjectName.setEnabled(false);
+		String[] items = WebProjectCreator.getAllWebProjects(getPreferredCoreNature()).toArray(
+				new String[0]);
+		availableDUCombo.setItems(items);
 		this.availableDUCombo.setEnabled(true);
 		this.propertiesGroup.getPropertiesViewer().setEnabled(false);
 	}

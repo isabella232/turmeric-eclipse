@@ -42,7 +42,7 @@ import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.osgi.framework.Version;
 
 public class ArchetypeResolver {
-	final static String DEFAULT_REMOTE_REPO_URL = "http://ebaycentral/content/repositories/releases/";
+	final static String DEFAULT_ARCHETYPE_REPO_URL = "http://ebaycentral/content/repositories/plugins/";
 	final static String ARCHETYPE_CATALOG = "archetype-catalog.xml";
 	Collection<Archetype> currentArchetypes;
 	
@@ -55,8 +55,8 @@ public class ArchetypeResolver {
 
 		try{
 			String url = System.getProperty("user.home") + File.separator +".m2" + File.separator + "archetype-catalog.xml";
-			ArchetypeCatalogFactory factory = //new RemoteCatalogFactory(DEFAULT_REMOTE_REPO_URL, "Raptor Remote Catalog", false);
-					new LocalCatalogFactory(url,"Default Local",false);
+			ArchetypeCatalogFactory factory = new RemoteCatalogFactory(DEFAULT_ARCHETYPE_REPO_URL, "Raptor Remote Catalog", false);
+					//new LocalCatalogFactory(url,"Default Local",false);
 			//get the right artifact and send it
 			List<Archetype> archtypeList= factory.getArchetypeCatalog().getArchetypes();
 			List<Archetype> toCompare = new ArrayList<Archetype>();
@@ -70,7 +70,7 @@ public class ArchetypeResolver {
 								//archetype = arctype;
 			}
 			archetype = bringLatest(toCompare);
-			if(archetype==null) throw new RuntimeException("Archetype cannot be resolved : "+ artifactId +" : " + groupId + " : "+ version +" at "+ DEFAULT_REMOTE_REPO_URL);
+			if(archetype==null) throw new RuntimeException("Archetype cannot be resolved : "+ artifactId +" : " + groupId + " : "+ version +" at "+ DEFAULT_ARCHETYPE_REPO_URL);
 	      Set<MavenProjectInfo> projectSet = createMavenProjectsByArchetype(project, location, archetype, properties.getProperty("groupId"), properties.getProperty("artifactId"), properties.getProperty("version"), javaPackage, properties, configuration, monitor);
 
 	      //remove parent project
@@ -231,7 +231,7 @@ public class ArchetypeResolver {
 	
 public static void main(String[] args) throws CoreException {
 	String url = System.getProperty("user.home") + File.separator +".m2" + File.separator + "archetype-catalog.xml";
-	ArchetypeCatalogFactory factory = new RemoteCatalogFactory(DEFAULT_REMOTE_REPO_URL, "Raptor Remote Catalog", false);
+	ArchetypeCatalogFactory factory = new RemoteCatalogFactory(DEFAULT_ARCHETYPE_REPO_URL, "Raptor Remote Catalog", false);
 			//new LocalCatalogFactory(url,"Default Local",false);
 			//new RemoteCatalogFactory("http://nxraptor.qa.ebay.com/content/repositories/snapshots/", "Raptor Remote Catalog", false);
 	//get the right artifact and send it
